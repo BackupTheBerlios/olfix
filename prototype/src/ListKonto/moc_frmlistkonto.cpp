@@ -2,7 +2,7 @@
 ** frmListKonto meta object code from reading C++ file 'frmlistkonto.h'
 **
 ** Created: Thu Mar 20 08:23:14 2003
-**      by: The Qt MOC ($Id: moc_frmlistkonto.cpp,v 1.1 2003/05/08 08:54:54 frazze Exp $)
+**      by: The Qt MOC ($Id: moc_frmlistkonto.cpp,v 1.2 2003/09/28 08:24:46 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
