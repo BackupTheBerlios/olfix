@@ -1,7 +1,8 @@
 /****************************************************************/
 /**		SDOLISW					*/
+/**		Ver 0.2                                                                                    */
 /**		2003-08-21					*/
-/**		Ver 0.1                                                                                   */
+/**		Modified 2004-01-30				*/
 /**   Copyright	Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -266,7 +267,9 @@ void frmSaldolista::slotEndOfProcess()
 	if (csvflag == "J"){
 	    system("kspread /tmp/Saldolista.txt");
 	}else{
-   	 system("kugar -d /tmp/Saldolista.kud -r /usr/local/olfix/data/Saldolista.kut");
+	    // ändrad för kugar 1.2.92 ->
+   	   // system("kugar -d /tmp/Saldolista.kud -r /usr/local/olfix/report/Saldolista.kut");
+	    system("kugar /tmp/Saldolista.kud");
 	}
      errorrad="";
      inrad="";
@@ -297,7 +300,7 @@ void frmSaldolista::slotCreateHeader()
     rad[12]="      kredit CDATA #REQUIRED\n";
     rad[13]="      utgsaldo CDATA #REQUIRED>\n";
     rad[14]="]>\n\n";
-    rad[15]="<KugarData Template=\"Salolista.kut\">\n";	// ange rätt template
+    rad[15]="<KugarData Template=\"/usr/local/olfix/report/Saldolista.kut\">\n";	// ange rätt template, absolut path
 
     rapportrad=rad[1];
     for (i=2;i<16;i++){
