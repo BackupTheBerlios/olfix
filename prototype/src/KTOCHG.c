@@ -1,9 +1,9 @@
 /***************************************************************************
                           KTOCHG.c  -  description
                              -------------------
-    Version		 : 0.2
-    begin                : Fre 31 jan 2003
-    modified		 : Tis  4 nov 2003
+    Version		 : 0.3
+    begin                : Fre  31 jan  2003
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -29,7 +29,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTOCHG.c,v 1.2 2003/11/04 19:59:51 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTOCHG.c,v 1.3 2005/02/24 05:19:39 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -114,7 +114,7 @@ int main(int argc, char *argv[], char *envp[])
 /* ================================================================================ */
 
   if (argv[1] != NULL){
-  	strncpy(arid,argv[1],strlen(argv[1]));
+  	strncpy(arid,argv[1],sizeof(arid));		/* 2005-02-24	*/
   }
   else{
   	fprintf(stderr,"Error: KTOCHG: Ange årtal!\n");
@@ -122,21 +122,21 @@ int main(int argc, char *argv[], char *envp[])
   }
 
   if (argv[2] != NULL){
-  	strncpy(ktonr,argv[2],strlen(argv[2]));
+  	strncpy(ktonr,argv[2],sizeof(ktonr));		/* 2005-02-24	*/
   }
   else{
   	fprintf(stderr,"Error: KTOCHG: Ange kontonr!\n");
 	exit(-1);
   }
 
-  strncpy(benamn,argv[3],strlen(argv[3]));
-  strncpy(manuell,argv[4],strlen(argv[4]));
-  strncpy(momskod,argv[5],strlen(argv[5]));
-  strncpy(srunr,argv[6],strlen(argv[6]));
-  strncpy(kstalle,argv[7],strlen(argv[7]));
-  strncpy(projekt,argv[8],strlen(argv[8]));
-  strncpy(subkto,argv[9],strlen(argv[9]));
-  strncpy(ktoplan,argv[10],strlen(argv[10]));
+  strncpy(benamn,argv[3],sizeof(benamn));		/* 2005-02-24	*/
+  strncpy(manuell,argv[4],sizeof(manuell));		/* 2005-02-24	*/
+  strncpy(momskod,argv[5],sizeof(momskod));		/* 2005-02-24	*/
+  strncpy(srunr,argv[6],sizeof(srunr));			/* 2005-02-24	*/
+  strncpy(kstalle,argv[7],sizeof(kstalle));		/* 2005-02-24	*/
+  strncpy(projekt,argv[8],sizeof(projekt));		/* 2005-02-24	*/
+  strncpy(subkto,argv[9],sizeof(subkto));		/* 2005-02-24	*/
+  strncpy(ktoplan,argv[10],sizeof(ktoplan));		/* 2005-02-24	*/
 
 /* "UPDATE KTOPLAN SET BENAMNING = "benamn",MANUELL = "manuell",MOMSKOD = "momskod",	*/
 /*	SRUNR = "srunr",KSTALLE = "kstalle",PROJEKT = "projekt",SUBKTO = "subkto",	*/

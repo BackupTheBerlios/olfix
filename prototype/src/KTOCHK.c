@@ -1,9 +1,9 @@
 /***************************************************************************
                           KTOCHK.c  -  description
                              -------------------
-			     Ver. 0.3
-    begin                : Lör 1  mars	2003
-    modified		 : Ons 5  nov   2003
+			     Ver. 0.4
+    begin                : Lör   1  mars 2003
+    modified		 : Tors 24 febr  2005
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTOCHK.c,v 1.2 2003/11/05 05:45:22 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTOCHK.c,v 1.3 2005/02/24 05:22:52 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -99,8 +99,8 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-  strncpy(arid,argv[1],strlen(argv[1]));
-  strncpy(ktonr,argv[2],strlen(argv[2]));
+  strncpy(arid,argv[1],sizeof(arid));		/* 2005-02-24	*/
+  strncpy(ktonr,argv[2],sizeof(ktonr));		/* 2005-02-24	*/
 
   strncpy(temp5,temp1,strlen(temp1));
 /* SELECT KTONR FROM KTOPLAN WHERE (ARID = "	*/
@@ -130,7 +130,7 @@ if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 
 	else {
 		res_ptr = mysql_store_result(&my_connection);
 		if (res_ptr){
-/*			fprintf(stderr,"KTOCHKmain:Retrieved %lu rows\n",(unsigned long)mysql_num_rows(res_ptr));		*/
+/*			fprintf(stderr,"KTOCHKmain:Retrieved %lu rows\n",(unsigned long)mysql_num_rows(res_ptr));	*/
 			if((unsigned long)mysql_num_rows(res_ptr) > 0){ /* En rad har hittats */
 				status=0;
 			}else{						/* Ingen rad hittades */
