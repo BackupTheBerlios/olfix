@@ -286,7 +286,7 @@ void frmSaldolista::slotCreateHeader()
 
     slotFileRemove("Saldolista.kud");	// radera gammal fil. Ändra till .kud
 
-    rad[1]="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+    rad[1]="<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
     rad[2]="<!DOCTYPE KugarData [\n";
     rad[3]="   <!ELEMENT KugarData (Row* )>\n";
     rad[4]="   <!ATTLIST KugarData\n";
