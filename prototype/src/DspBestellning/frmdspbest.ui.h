@@ -9,9 +9,9 @@
 /***************************************************************************
                           DSPINKW  -  description
                              -------------------
-		     version 0.1
+		     version 0.2
     begin     	: Sön 21 dec 2003
-    modified	: 
+    modified	: Mån 22 dec 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -372,6 +372,7 @@ void frmDspInk::slotRaderEndOfProcess()
     QString tmp;
     QString radnr;
     QString artikelnr;
+    QString benemning;
     QString bestantal;
     QString inkpris;
     QString levvecka;
@@ -405,7 +406,7 @@ void frmDspInk::slotRaderEndOfProcess()
 	    m=tmp.toInt(&ok,10);
 //	    qDebug("m=%d",m);
 	    for (n=0;n<m;n++){
-		for (p=0;p<11;p++){	// 11 = antal fält i INKRADREG
+		for (p=0;p<12;p++){	// 11 = antal fält i INKRADREG
 		    i=j;
 		    j=j=inrad.find(QRegExp("_:"),i+2);
 		    k=j-i-2;
@@ -424,12 +425,14 @@ void frmDspInk::slotRaderEndOfProcess()
 		    }
 		    if(p==8)
 			levvecka=tmp;
+		    if(p==11)
+			benemning=tmp;
 //		    qDebug("tmp=%s    p=%d",tmp.latin1(),p);
 		}
 		summa=radant*pris;
 		ordersum=ordersum+summa;
 		radsumma=radsumma.setNum(summa,'f',2 );
-		item = new QListViewItem(listViewRader,radnr,artikelnr," ",levvecka,bestantal,inkpris,radsumma);
+		item = new QListViewItem(listViewRader,radnr,artikelnr,benemning,levvecka,bestantal,inkpris,radsumma);
 	    }
 	    ordersumma=ordersumma.setNum(ordersum,'f',2);
 	    lineEditOrderSumma->setText(ordersumma);
