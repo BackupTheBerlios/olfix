@@ -1,9 +1,9 @@
 /***************************************************************************
                           DSPARW  -  description
                              -------------------
-		     version 0.2
-    begin                   : Lör 15 nov 2003
-    modified	: Sön 16 nov 2003
+		     version 0.3
+    begin                   : Lör 15 nov   2003
+    modified	: Tis 29 mars 2005
     copyright	: (C) 2003 by Jan Pihlgren
     email		: jan@pihlgren.se
  ***************************************************************************/
@@ -67,10 +67,11 @@
     QString ikvant2="0.00";
     QString kalkylpris="0.00";
     QString plankpris="0.00";
-    QString frystkpris="0.00";    
+    QString frystkpris="0.00";
     QString bestkvant="0.00";
     QString bestpunkt="0.00";
     QString omkost="0.00";
+    QString reserverat="0.00";
     QString lagerdata;		// Summan av lagerplatsdata
 
 
@@ -85,7 +86,7 @@ void frmDspArtikelGrunddata::lineEditArtikelNr_returnPressed()
     artikelnr=lineEditArtikelNr->text();
     if (artikelnr==""){
 	QMessageBox::warning( this, "", "Ange artikelnummer! \n" );
-	
+
     }
     frmDspArtikelGrunddata::getGrunddata();
     pushButtonOK->setFocus();
@@ -99,7 +100,7 @@ void frmDspArtikelGrunddata::getGrunddata()
 	const char *userp = getenv("USER");
             QString usr(userp);
              inrad="";
-	     
+
 //            qDebug("Anropa ARDSP, artikelnr=%s",artikelnr.latin1());
 	process = new QProcess();
 	process->addArgument( "./STYRMAN");	// OLFIX funktion
@@ -127,7 +128,7 @@ void frmDspArtikelGrunddata::getLagerdata()
 	const char *userp = getenv("USER");
             QString usr(userp);
 	 inrad="";
-	 
+
 	process = new QProcess();
 	process->addArgument( "./STYRMAN");	// OLFIX funktion
 	process->addArgument(usr);
@@ -142,12 +143,12 @@ void frmDspArtikelGrunddata::getLagerdata()
 		// error handling
 		fprintf(stderr,"Problem starta DSPARW!\n");
 		QMessageBox::warning( this, "",
-                            "Kan inte starta ARDSP2! \n" );
+                            "Kan inte starta ARDSPL! \n" );
 	}
 }
 
 void frmDspArtikelGrunddata::slotGetGrDataEndOfProcess()
-{ 
+{
     int i,m;
 
     i = -1;
@@ -161,9 +162,9 @@ void frmDspArtikelGrunddata::slotGetGrDataEndOfProcess()
 	i = -1;
      }
      i = -1;
-    
+
 //    qDebug("inrad=%s",inrad.latin1());
-    
+
     i = inrad.find( QRegExp("Error:"), 0 );
     if (i != -1) {
 	QMessageBox::critical( this, "DSPARW",
@@ -173,7 +174,7 @@ void frmDspArtikelGrunddata::slotGetGrDataEndOfProcess()
 	i = -1;
     }else{
 	i = -1;
-	    
+
 	i = inrad.find( QRegExp("OK:"), 0 );
 	if (i != -1) {
 	    int i1 = inrad.find( QRegExp("01:"), 0 );	//	artikelnr
@@ -233,7 +234,7 @@ void frmDspArtikelGrunddata::slotGetGrDataEndOfProcess()
 	     ledtid=inrad.mid(i6+3,m-5);
 	     lineEditLedtid->setText(ledtid);
 	 }
-	 
+
  	 m=i8-i7;
 	 if (i7 != -1){
 	     prodklass=inrad.mid(i7+3,m-5);
@@ -376,7 +377,8 @@ void frmDspArtikelGrunddata::slotgetLaDataEndOfProcess()
 	    int i15 = inrad.find( QRegExp("15:"), 0 );	//	bestkvant	Beställd kvantitet
 	    int i16 = inrad.find( QRegExp("16:"), 0 );	//	bestpunkt	Beställningspunkt
 	    int i17 = inrad.find( QRegExp("17:"), 0 );	//	omkost		Omkostnader
-	    int i18 =inrad.find( QRegExp("END:"), 0 );// 	Slut på posten
+	    int i18 = inrad.find( QRegExp("18:"), 0 );	//	reserverat	Reserverad kvantitet
+	    int i19 =inrad.find( QRegExp("END:"), 0 );// 	Slut på posten
 	 
 	    m=i2-i1;
 	    if (i1 != -1){
@@ -449,7 +451,7 @@ void frmDspArtikelGrunddata::slotgetLaDataEndOfProcess()
 		kalkylpris=inrad.mid(i12+3,m-5);
 //		lineEditKalkylpris_2->setText(kalkylpris);	// Ska inte visas kär
 	    }
-	    
+
 	    m=i14-i13;
 	    if (i13 != -1){
 		plankpris=inrad.mid(i13+3,m-5);
@@ -479,6 +481,12 @@ void frmDspArtikelGrunddata::slotgetLaDataEndOfProcess()
 	    if (i17 != -1){
 		omkost=inrad.mid(i17+3,m-9);
 //		lineEditOmkost_2->setText(omkost);		// Ska inte visas här
+	    }
+	    
+	    m=i19-i18;
+	    if (i18 != -1){
+		reserverat=inrad.mid(i18+3,m-5);
+		lineEditReserverat->setText(reserverat);
 	    }
 	    
 	inrad="";

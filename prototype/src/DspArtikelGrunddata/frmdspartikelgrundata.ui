@@ -10,7 +10,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>603</width>
+            <width>599</width>
             <height>667</height>
         </rect>
     </property>
@@ -736,16 +736,32 @@
             <string>Upp till 30 alfanumeriska tecken.</string>
         </property>
     </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditTulltaxenr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>515</x>
+                <y>155</y>
+                <width>65</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="alignment">
+            <set>AlignRight</set>
+        </property>
+    </widget>
     <widget class="QGroupBox">
         <property name="name">
             <cstring>groupBox</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>10</x>
+                <x>5</x>
                 <y>335</y>
-                <width>585</width>
-                <height>296</height>
+                <width>535</width>
+                <height>265</height>
             </rect>
         </property>
         <property name="title">
@@ -1064,6 +1080,22 @@
         </widget>
         <widget class="QLineEdit">
             <property name="name">
+                <cstring>lineEditReserverat</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>189</x>
+                    <y>230</y>
+                    <width>106</width>
+                    <height>23</height>
+                </rect>
+            </property>
+            <property name="alignment">
+                <set>AlignRight</set>
+            </property>
+        </widget>
+        <widget class="QLineEdit">
+            <property name="name">
                 <cstring>lineEditBestKvantitet_2</cstring>
             </property>
             <property name="enabled">
@@ -1081,22 +1113,22 @@
                 <set>AlignRight</set>
             </property>
         </widget>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditTulltaxenr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>515</x>
-                <y>155</y>
-                <width>65</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="alignment">
-            <set>AlignRight</set>
-        </property>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel1</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>5</x>
+                    <y>235</y>
+                    <width>176</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>Reserverad kvantitet: ...........</string>
+            </property>
+        </widget>
     </widget>
 </widget>
 <connections>
