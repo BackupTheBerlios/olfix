@@ -2,6 +2,9 @@ Changelog OLFIX 20040205
 
 Ver 0.1.13.A	OBS! Alfa
 20040205
+		Nya program
+		PRTINKW		Utskrift av beställning
+
 		Ändrade program
 		SDOLISW		Ändrad att passa till kugar 1.2.92 ->
 		LSTINKW		Uppdatering (stretching)
@@ -18,7 +21,9 @@ Ver 0.1.13.A	OBS! Alfa
 		INKADD.c	Nya fält i INKREG
 		INKRADD.c	Nya fält i INKRADREG
 
-
+		Ny rapport
+		Bestellning.kut	Utskrift av beställning med hjälp av Kugar
+		
 		Nytt script
 		setup.sh	används av makeself
 
