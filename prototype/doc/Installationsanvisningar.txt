@@ -1,0 +1,177 @@
+Installation för utvecklingsarbete
+Innehåll
+Installation för utvecklingsarbete	1
+Installation:	1
+Alternativ installation med kompilering	2
+Bibliotek.	2
+Installation av MySQL 	3
+MySQL Navigator	4
+
+
+
+Förutsättningen för att kunna installera OLFIX är att MySQL  och Qt finns installerad på datorn.
+OBS! MySQL skall vara startad. Det bästa är att ordna det så att MySQL startas när datorn startas.
+
+Installation:
+Se till att du är ?root?.
+shell> cd /usr/local
+shell> gunzip < /path/to/OLFIX-VERSION.tar.gz | tar xvf -
+shell> chown -R olfix olfix
+shell> chgrp -R olfix olfix
+shell> cd /usr/local/olfix/bin
+shell> chmod 0010 *
+shell> chmod 2111 OLFIXW
+shell> cp /usr/local/olfix/util/.olfixrc $HOME/.olfixrc
+shell> cp /usr/local/olfix/util/start_olfix $HOME/start_olfix
+shell> cd $HOME
+shell> chown DittNamn .olfixrc
+shell> chgrp DittNamn .olfixrc
+shell> chmod 766 .olfixrc
+shell> chown DittNamn start_olfix
+shell> chgrp DittNamn start_olfix
+shell> chmod 766 start_olfix
+
+shell> cd /usr/local/olfix/sql
+
+Att skapa databasen olfix:
+
+1.Editera *.sql-filerna för att passa dig.
+       Framför allt sökvägar som finns i LoadAll.sql, se pkt 8.
+2.Lägg upp user olfix i operativsystemet (annars funkar inte anropen till databasen olfix).
+3.Se till att bli root
+4.Editera filen /usr/local/olfix/sql/add_user_dittnamn.sql
+Leta reda på detta avsnitt;
+	)
+	VALUES
+	(
+	"localhost",
+	"ditt_userid",
+	PASSWORD("ditt_password"),
+	"Y",
+	"Y",
+	"Y",
+Skriv in ditt eget userid, med gemener (små bokstäver), och ditt eget password.
+Password kommer i detta fall att ligga i klartext i databasen.
+Jag förordar att du utelämnar password och går in i databasen och ändrar password
+vilket då kommer att bli krypterat.
+Detta kan göras med följande procedur:
+	shell>mysql -u root
+	shell>use mysql
+	shell>update user set password=PASSWORD('DittPassword') where User=?DittUserid?;
+	shell>FLUSH PRIVILEGES;
+
+5.Shell> cd /usr/local/olfix/data
+6.Editera filen USRdata.txt
+	"OLFIX","Olfix Superuser","IT","Stab"
+	"USERID","Ditt Namn","Avd","Sektion"
+	Byt ut USERID till det userid du använder när du loggar in på datorn.
+	OBS! USERID ska skrivas med versaler (stora bokstäver).
+	Byt ut Ditt Namn till ditt eget fullständiga namn och ändra Avd och Sektion tillhör
+	aktuell benaämning på din avdelnin g och din sektion.
+7.Editera filen MinimumRIGHTSdata.txt
+"userid","ADDRGTW"
+"userid","LSTRGTW"
+"userid","PRGLST"
+"userid","RGTADD"
+
+Byt ut ?userid? mot ditt userid för olfix (USRdata.txt).
+OBS! Userid ska skrivas med versaler (stora bokstäver).
+
+8.Kör  shell> mysql -h  localhost -u root -p < add_user_DittNamn.sql > mysql.out
+9.Kör  shell> mysql -h  localhost -u root -p < add_user_olfix.sql > mysql.out
+10.Kör  shell> mysql -h localhost -u root -p < CreateAll.sql> mysql.out
+11.Kör  shell> mysql -h localhost -u root -p < LoadAll.sql> mysql.out
+12.Kör  shell> mysql -h localhost -u root -p <LoadUSR.sql> mysql.out
+13.Kör  shell> mysql -h localhost -u root -p <LoadMinimumRights.sql> mysql.out
+
+Här kan du fortsätta till pkt 14.
+
+
+Alternativ installation med kompilering
+
+	Bibliotek.
+
+Skapa följande bibliotek:
+	/usr/local/olfix
+	/usr/local/olfix/bin	(Här ska alla binärfiler läggas efter kompilering)
+	/usr/local/olfix/data
+	/usr/local/olfix/doc
+	/usr/local/olfix/doc/image
+	/usr/local/olfix/include
+	/usr/local/olfix/lib
+	/usr/local/olfix/sql
+	/usr/local/olfix/src
+	/usr/local/olfix/util
+
+Följande behörigheter bör du ha:
+bin   se nedan
+data  chmod +rw *
+doc  chmod +rw *
+sql   chmod +rw *
+src   chmod +rwx *
+util  chmod +rwx *
+
+13.Kompilera programmen:
+  Börja med att editera alla  ?make_FUNKTION.txt? filer så att de passar dig.
+  Framförallt se till så att du får rätt path.
+	Med hjälp av alla make_FUNKTION.txt kan programmen kompileras.
+	Det finns också en make_ALL.txt som kompilerar alla programmen.
+	Binärfilerna, de exekverbara programmen ska hamna i biblioteket /usr/local/olfix/bin
+	Man kan naturligtvis kompilera programmen på sitt eget vis.
+	Här gäller det att både  make_FUNKTION.txt och källkodsfilerna finns i samma
+	bibliotek, /usr/local/olfix/src.
+
+Slut på alternativ kompilering.
+
+14.Kopiera filen .olixrc till $HOME och editera den så den passar dig. .olfixrc måste finnas i
+     $HOME hos alla användare som ska köra OLFIX.
+     OBS! VTMP=/tmp/ får inte avslutas med ett returntecken. Måste ligga sist i filen.
+
+15.Kopiera filen start_olfix till varje användares hembibliotek ($HOME). start_olfix är ett script för
+     att starta OLFIXW.
+
+16.Det första man behöver göra är att se till att behörigheterna för användarna till de olika funktionerna
+     sätts.
+Installationen innehåller bara de allra nödvändigaste behörigheterna för användaren olfix.
+
+17.Flytta alla binärfiler till /usr/local/olfix/bin.
+
+18.Behörigheterna på filerna ska göras enligt följande:
+     Sätt uid=olfix och gid=olfix
+chown olfix *
+chgrp olfix *
+Programmet OLFIXW
+chmod 2111 OLFIXW
+---x--s--x 1 olfix olfix 68637 feb 10 15:12 OLFIXW
+
+Övriga program
+chmod 0010 program
+------x--- 1 olfix olfix 58239 jan 29 05:09 program
+
+Installation av MySQL
+
+The basic commands you must execute to install and use a MySQL binary distribution are:
+shell> groupadd mysql
+shell> useradd -g mysql mysql
+shell> cd /usr/local
+shell> gunzip < /path/to/mysql.VERSION-OS.tar.gz  | tar xvf -
+shell> ln -s mysql.VERSION-OS mysql
+shell> cd mysql
+shell> scripts/mysql_install_db
+shell> chown -R root /usr/local/mysql
+shell> chown -R mysql /usr/local/mysql/data
+shell> chgrp -R mysql /usr/local/mysql
+shell> chown -R root /usr/local/mysql/bin
+shell> bin/safe_mysqld ?user=mysql &
+
+Se till att mysqld startas automatiskt vid start av datorn.
+För mera information se MySQLReferenseManual, http://www.mysql.com/documentation/
+
+MySQL Navigator
+Följande 2 filer ska finnas i biblioteket /usr/local/mysqlnavigator-version.binary
+libstdc++libc6.2-2.so.3
+mysqlnavigator-static
+
+MySQL Navigator startas som root med commando;
+shell> /usr/local/mysqlnavigator-static &
+
