@@ -5,6 +5,7 @@
 #**********************************
 
 # Namn: install.sh
+# Version: 0.3b		2004-01-18 Jan Pihlgren.
 # Version: 0.3a		2004-01-14 Jan Pihlgren.
 # Version: 0.3		2004-01-08 Jan Pihlgren.
 # Version: 0.2		2003-09-02 Jan Pihlgren.
@@ -22,7 +23,15 @@ VERSION="OLFIX_0.1.12.A"
 PATH=/bin:/sbin:/usr/bin:/usr/sbin
 
 # Sätt OLFIX variabler
-OLFIX_HOME=`cat $HOME/tmp/olfix_path.txt`
+# ---------------------------------------------------------------
+# install.sh anropas när man står i $OLFIX_HOME/script
+# så för att få variabel OLFIX_HOME korrekt behöver man
+# gå upp en nivå, sätta OLFIX_HOME och sedan gå tillbaka till
+# $OLFIX_HOME/script
+# ---------------------------------------------------------------
+cd ..
+OLFIX_HOME=`pwd`
+cd script
 OLFIX_SOURCE=$OLFIX_HOME/src
 OLFIX_SQL=$OLFIX_HOME/sql
 OLFIX_DATA=$OLFIX_HOME/data
@@ -41,6 +50,7 @@ TEMP=/tmp/.tempfil
 
 BEHOR=N
 OLFIX_EXIST=N
+
 
 dialog --begin 100 50
 dialog --backtitle "OLFIX installation." \
