@@ -1,7 +1,7 @@
-Changelog OLFIX 20041113
+Changelog OLFIX 20041114
 Blivande
 Ver 0.1.16.A
-20041113
+20041114
 
 		Allmänt
 		Flyttat OLFIX-paketet till /opt/olfix
@@ -46,11 +46,52 @@ Ver 0.1.16.A
 		CHGBETVW Mindre justering av main.cpp och *.pro
 		BYTFTGW Mindre justering av main.cpp och *.pro
 		CHGFTGW Mindre justering av main.cpp och *.pro
-
+		CHGKTOW Mindre justering av main.cpp och *.pro
+		CHGKUW Mindre justering av main.cpp och *.pro
+		CHGLEVW Mindre justering av main.cpp och *.pro
+		CHGUSRW Mindre justering av main.cpp och *.pro
+		CHGVALW Mindre justering av main.cpp och *.pro
+		DAGBOKW Mindre justering av main.cpp och *.pro
+		DELRGTW Mindre justering av main.cpp och *.pro
+		DELTXTW Mindre justering av main.cpp och *.pro
 		DELUSRW Mindre justering av main.cpp och AddBestellning.pro
 			Lagt in varningstext (Anv. OLFIX får inte tagas bort)
-
-
+		DELVALW Mindre justering av main.cpp och *.pro
+		DSPAREW Mindre justering av main.cpp och *.pro
+		DSPARW Mindre justering av main.cpp och *.pro
+		DSPINKW Mindre justering av main.cpp och *.pro
+		DSPFTGW Mindre justering av main.cpp och *.pro
+		DSPKTOW Mindre justering av main.cpp och *.pro
+		DSPKSTW Mindre justering av main.cpp och *.pro
+		DSPKUW Mindre justering av main.cpp och *.pro
+		DSPLEVW Mindre justering av main.cpp och *.pro
+		DSPUSRW Mindre justering av main.cpp och *.pro
+		DSPVALW Mindre justering av main.cpp och *.pro
+		OLFIXHLP Mindre justering av main.cpp och *.pro
+		HUVBOKW Mindre justering av main.cpp och *.pro
+		RPTKTOW Mindre justering av main.cpp och *.pro
+		ATTBETW Mindre justering av main.cpp och *.pro
+		LEVFAKTW Mindre justering av main.cpp och *.pro
+		LEVRESKW Mindre justering av main.cpp och *.pro
+		LSTARW Mindre justering av main.cpp och *.pro
+		LSTINKW Mindre justering av main.cpp och *.pro
+		LSTBETVW Mindre justering av main.cpp och *.pro
+		LSTFORW Mindre justering av main.cpp och *.pro
+		LSTFNCW Mindre justering av main.cpp och *.pro
+		LSTKTOW Mindre justering av main.cpp och *.pro
+		LSTKSTW Mindre justering av main.cpp och *.pro
+		LSTKUW Mindre justering av main.cpp och *.pro
+		LSTLEVW Mindre justering av main.cpp och *.pro
+		LSTLEVPW Mindre justering av main.cpp och *.pro
+		LSTLEVSW Mindre justering av main.cpp och *.pro
+		LSTLEVVW Mindre justering av main.cpp och *.pro
+		LSTRGTW Mindre justering av main.cpp och *.pro
+		LSTUSRW Mindre justering av main.cpp och *.pro
+		LSTVALW Mindre justering av main.cpp och *.pro
+		PRTINKW Mindre justering av main.cpp och *.pro
+		RPTGENW Mindre justering av main.cpp och *.pro
+		SDOLISW Mindre justering av main.cpp och *.pro
+		
 		Nya funktioner
 		LEVPLST.c	Lista standardleveransplatser
 		FORADD.c	Ny databas i tabell DATABAS
