@@ -8,8 +8,9 @@
 /***************************************************************************
                           BOKFORSW  -  description	BOKFORS=BokföringStandard
                              -------------------
-		     version 0.41
+		     version 0.42
     begin                : Sön 10 aug 2003
+    modified	: Fre 2 jan 2004
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -34,7 +35,7 @@
 #include <qdir.h>
 
 #define MAXSTRING 15000
-#define VERSION "0.41"
+#define VERSION "0.42"
 
     QProcess* process;
     QString inrad;
@@ -67,6 +68,7 @@ void frmBokfstd::init()
 //    textLabelVersion->setText(version);
     datum=dt.toString("yyyy-MM-dd");
     TextLabelDate->setText(datum);
+    frmBokfstd::formatRegRader();
     LineEditBar->setFocus();
     radnr="0";				// ver. 0.4
 }
@@ -93,14 +95,11 @@ void frmBokfstd::slotLineEditBar_returnPressed()
     }
 }
 
-
 void frmBokfstd::slotLineEditVerText_returnPressed()
 {
     vertext=LineEditVerText->text();
-//    qDebug("0.radnr=%s\n",radnr.latin1());
     frmBokfstd::slotUpdateRadnr();
 }
-
 
 void frmBokfstd::slotLineEditKtonr_textChanged()
 {
@@ -146,38 +145,24 @@ void frmBokfstd::slotLineEditDK_returnPressed()
     LineEditBelopp->setFocus();
 }
 
-/*
-void frmBokfstd::slotLineEditBelopp_lostFocus()
-{
-    belopp=LineEditBelopp->text();
-    if (belopp != "")
-	slotLineEditBelopp_returnPressed();
-}
-*/
-
 void frmBokfstd::slotLineEditBelopp_returnPressed()
 {
     int i = -1;
     belopp=LineEditBelopp->text();
     i = belopp.find( QRegExp(","), 0 );
-//   qDebug("1. belopp = %s  i =%d\n",belopp.latin1(),i );    
     if ( i != -1){
 	 belopp = belopp.replace( i, 1, "." );
     }
     
     i = -1;    
     i = belopp.findRev(".");
-//   qDebug("2. belopp = %s  i =%d\n",belopp.latin1(),i );
     if ( i == -1){
 	belopp = belopp.append(".00");
     }    
     while (belopp.length()<12){
 	belopp.prepend(" ");
     }
-//    qDebug("3. belopp=%s\n",belopp.latin1());
-    
     LineEditBelopp->setText(belopp); 
-//    qDebug("belopp=%s\n",belopp.latin1());
     LineEditKst->setFocus();
 }
 
@@ -228,13 +213,16 @@ void frmBokfstd::slotRadOK()
 //  Här ska verifikationsraden sparas 
 //     i = radnr.toInt();
 // Om det är radnr 1 ska VERHUVUD sparas
+// Annars ska VERRAD spara.    
+// ===========================================================    
 //  qDebug("i = %d\n",i);
+/*    
     if (i == 1){
 	 frmBokfstd::slotSaveVerHuvud();
      }else{
-// Annars ska VERRAD spara.
 	 frmBokfstd::slotSaveVerRad();
      }
+*/     
 //    qDebug("Radnr = %s\n",radnr.latin1()); 
 // ===========================================================    
     LineEditRadnr->clear();
@@ -257,14 +245,11 @@ void frmBokfstd::slotUpdateRadnr()
     int rad=0;
     bool ok;
     rad = radnr.toInt(&ok,10);
-//    qDebug("1.radnummer=%d\n",rad);
     rad = rad + 1;
-//    qDebug("2.radnummer=%d\n",rad);
     radnr = QString::number(rad,10);
     while (radnr.length()<3){
 	radnr.prepend("0");
     }
-//    qDebug("3.radnr=%s\n",radnr.latin1());
     LineEditRadnr->setText((radnr));
     LineEditKtonr->setFocus();
 }
@@ -273,7 +258,6 @@ void frmBokfstd::slotUpdateRadnr()
 void frmBokfstd::slotPickupKtonr( QListViewItem * item)
 {
     char kontonummer[9]="";
-//    qDebug("PickupKtonr\n");
     if(!item){
 	return;
     }
@@ -300,7 +284,7 @@ void frmBokfstd::slotGetKontoLista()
 	process->addArgument(usr);		// userid
 	process->addArgument( "KTOVIEW");	// OLFIX funktion
 	process->addArgument(arid);
-//	fprintf(stderr,"Bokföringsår=%s\n",arid.latin1());
+	
 	frmBokfstd::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotKTOVIEWDataOnStdout() ) );
 	frmBokfstd::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
             frmBokfstd::connect( process, SIGNAL(processExited() ),this, SLOT(slotKTOVIEWEndOfProcess() ) );
@@ -379,7 +363,7 @@ void frmBokfstd::slotCheckBar()
 	process->addArgument(usr);		// userid
 	process->addArgument( "BARCHK");	// OLFIX funktion
 	process->addArgument(arid);
-//	fprintf(stderr,"Bokföringsår=%s\n",arid.latin1());
+	
 	frmBokfstd::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmBokfstd::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
             frmBokfstd::connect( process, SIGNAL(processExited() ),this, SLOT(slotBARCHKEndOfProcess() ) );
@@ -445,7 +429,6 @@ void frmBokfstd::slotBARDSPEndOfProcess()
 			vernr.prepend("0");
 		    }
 //		    qDebug("\n%s\n i=%d  j = %d vernr=%s\n",inrad.latin1(),i,j,vernr.latin1());
-//    		    LineEditVernr->setFocus();
 		    LineEditVernr->setText(vernr);
 		    status = 0;
 		    inrad="";
@@ -543,7 +526,7 @@ void frmBokfstd::slotCheckKstalle()
 	process->addArgument( "KSTCHK");	// OLFIX funktion
 	process->addArgument(arid);
 	process->addArgument(kstalle);
-//	fprintf(stderr,"Bokföringsår=%s\n",arid.latin1());
+	
 	frmBokfstd::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmBokfstd::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
             frmBokfstd::connect( process, SIGNAL(processExited() ),this, SLOT(slotKSTCHKEndOfProcess() ) );
@@ -594,7 +577,7 @@ void frmBokfstd::slotCheckKonto()
 	process->addArgument( "KTOCHK");	// OLFIX funktion
 	process->addArgument(arid);
 	process->addArgument(kontonr);
-//	fprintf(stderr,"Bokföringsår=%s\n",arid.latin1());
+	
 	frmBokfstd::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmBokfstd::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
             frmBokfstd::connect( process, SIGNAL(processExited() ),this, SLOT(slotKTOCHKEndOfProcess() ) );
@@ -635,7 +618,6 @@ void frmBokfstd::slotKTOCHKEndOfProcess()
 	    }
 }
 
-
 void frmBokfstd::slotSaveVerHuvud()
 {
 	const char *userp = getenv("USER");
@@ -663,18 +645,8 @@ void frmBokfstd::slotSaveVerHuvud()
 	process->addArgument(usr);
 	process->addArgument(vertext);
 	
-/*	fprintf(stderr,"Posttyp=%s\n",posttyp.latin1());
-	fprintf(stderr,"Bar=%s\n",arid.latin1());
-	fprintf(stderr,"Vernr=%s\n",vernr.latin1());
-	fprintf(stderr,"Radnr=%s\n",radnr.latin1());
-	fprintf(stderr,"Kontonr=%s\n",kontonr.latin1());
-	fprintf(stderr,"D/K=%s\n",dk.latin1());
-	fprintf(stderr,"Belopp=%s\n",belopp.latin1());
-	fprintf(stderr,"Kställe=%s\n",kstalle.latin1());
-	fprintf(stderr,"Subkonto=%s\n",subkto.latin1());
-	fprintf(stderr,"User=%s\n",usr.latin1());
-	fprintf(stderr,"Vertext=%s\n",vertext.latin1());
-*/	
+//	qDebug("posttyp=%s",posttyp.latin1());
+	
 	frmBokfstd::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmBokfstd::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
             frmBokfstd::connect( process, SIGNAL(processExited() ),this, SLOT(slotWRRECEndOfProcess() ) );
@@ -707,12 +679,11 @@ void frmBokfstd::slotSaveVerRad()
 	
 	if ( !process->start() ) {
 	    // error handling
-	    fprintf(stderr,"Problem starta WRREC!\n");
+//	    fprintf(stderr,"Problem starta WRREC!\n");
 	    QMessageBox::warning( this, "BOKFORSW",
                             "Kan inte starta WRREC! \n" );
 	    }
 }
-
 
 void frmBokfstd::slotWRRECEndOfProcess()
 {
@@ -730,7 +701,6 @@ void frmBokfstd::slotWRRECEndOfProcess()
 	    }
 }
 
-
 void frmBokfstd::slotVerOK()
 {
 // Starta uppdatering av databasen 
@@ -738,16 +708,13 @@ void frmBokfstd::slotVerOK()
             QString usr(userp);
             QString filnamn;
 	    
-//	filnamn.append("/tmp/");
 	filnamn.append(vernr);
-//	filnamn.append(".txt");
 		
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// userid
 	process->addArgument( "VERUPD");	// OLFIX funktion
 	process->addArgument(filnamn);
-//	fprintf(stderr,"filnamn=%s\n",filnamn.latin1());
 	
 	frmBokfstd::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmBokfstd::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
@@ -773,8 +740,6 @@ void frmBokfstd::slotVerRemove()
         qWarning( "Cannot find the \"/tmp\" directory" );
     }
     
-//    filnamn.append("/tmp/");
-//    filnamn.append(vernr);
     filnamn=vernr;
     filnamn.append(".txt");
     
@@ -850,3 +815,91 @@ void frmBokfstd::slotCleanUp()
     differ = 0;  
 }
 
+void frmBokfstd::formatRegRader()			// 2004-01-02
+{
+    ListViewVerrader->setColumnWidth(0,45);	// Radnr
+    ListViewVerrader->setColumnAlignment( 0, Qt::AlignRight );
+    ListViewVerrader->setColumnWidth(1,55);	// Kontonr
+    ListViewVerrader->setColumnAlignment( 1, Qt::AlignRight );
+    ListViewVerrader->setColumnWidth(2,35);	// D/K
+    ListViewVerrader->setColumnAlignment( 2, Qt::AlignCenter );
+    ListViewVerrader->setColumnWidth(3,100);	// Belopp
+    ListViewVerrader->setColumnAlignment( 3, Qt::AlignRight );
+    ListViewVerrader->setColumnWidth(4,65);	// Kställe
+    ListViewVerrader->setColumnAlignment( 4, Qt::AlignRight );
+    ListViewVerrader->setColumnWidth(5,65);	// Subkto
+    ListViewVerrader->setColumnAlignment( 5, Qt::AlignRight );   
+}
+
+void frmBokfstd::SaveVerifikat()			// 2004-01-02
+{
+    int i=0;
+    int rad=0;
+    QListViewItemIterator it( ListViewVerrader);
+    QString rnr;
+    for ( ; it.current(); ++it ){
+       i++;
+       QString temp0=it.current()->text(0);	// radnr
+       QString temp1=it.current()->text(1);	// kontonr
+       QString temp2=it.current()->text(2);	// D/K
+       QString temp3=it.current()->text(3);	// belopp
+       QString temp4=it.current()->text(4);	// Kställe
+       QString temp5=it.current()->text(5);	// Subkto
+       radnr=temp0;
+       kontonr=temp1;
+       dk=temp2;
+       belopp=temp3;
+       kstalle=temp4;
+       subkto=temp5;
+
+       rad = radnr.toInt();
+       if (rad == 1){
+//	   qDebug("radnr=%s kontonr=%s d/k=%s belopp=%s kstalle=%s subkto=%s",radnr.latin1(),kontonr.latin1(),dk.latin1(),belopp.latin1(),kstalle.latin1(),subkto.latin1());
+	   frmBokfstd::slotSaveVerHuvud();	   
+       }else{
+	   frmBokfstd::slotSaveVerRad();
+//	   qDebug("radnr=%s kontonr=%s d/k=%s belopp=%s kstalle=%s subkto=%s",radnr.latin1(),kontonr.latin1(),dk.latin1(),belopp.latin1(),kstalle.latin1(),subkto.latin1());
+       }
+   }
+   ListViewVerrader->clear();
+   frmBokfstd::slotVerOK();
+}
+
+void frmBokfstd::ListViewVerrader_clicked( QListViewItem * )
+{
+    double tmpbelopp;
+    double tmpdiff;
+    QString difference;
+    QListViewItem *item =  ListViewVerrader->currentItem();
+    if ( !item )
+        return;
+    item->setSelected( TRUE );
+    QString temp0=item->text(0);	// radnr
+    QString temp1=item->text(1);	// kontonr
+    QString temp2=item->text(2);	// d/k
+    QString temp3=item->text(3);	// belopp
+    QString temp4=item->text(4);	// kställe
+    QString temp5=item->text(5);	// subkto
+
+    LineEditRadnr->setText(temp0);
+    radnr=temp0;
+    LineEditKtonr->setText(temp1);
+    LineEditDK->setText(temp2);
+    LineEditBelopp->setText(temp3);
+    tmpbelopp=temp3.toDouble();
+    LineEditKst->setText(temp4);
+    LineEditSubKto->setText(temp4);
+    difference=LineEditDiff->text();
+    tmpdiff=difference.toDouble();
+    if (temp2 == "K"){			// D/K
+	tmpdiff = tmpdiff + tmpbelopp;	//  -
+    }
+    else{
+	tmpdiff = tmpdiff - tmpbelopp;	// +
+    }
+    differ=tmpdiff;
+    diff=diff.setNum(tmpdiff,'f',2);
+    LineEditDiff->setText(diff);
+    delete ListViewVerrader->currentItem();
+    LineEditKtonr->setFocus();
+}

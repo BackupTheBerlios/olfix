@@ -18,7 +18,7 @@
         </font>
     </property>
     <property name="caption">
-        <string>BOKFORSW  Registrering av verifikationer. Standardversion. (0.41)</string>
+        <string>BOKFORSW  Registrering av verifikationer. Standardversion. (0.42)</string>
     </property>
     <property name="whatsThis" stdset="0">
         <string>Version: 0.3
@@ -58,22 +58,6 @@
     </widget>
     <widget class="QLabel">
         <property name="name">
-            <cstring>TextLabel1_3</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>15</x>
-                <y>435</y>
-                <width>131</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Godkänn verifikation</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
             <cstring>TextLabel1_2</cstring>
         </property>
         <property name="geometry">
@@ -86,22 +70,6 @@
         </property>
         <property name="text">
             <string>Vernummer:</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel11</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>470</x>
-                <y>80</y>
-                <width>131</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Kontoförteckning</string>
         </property>
     </widget>
     <widget class="QLabel">
@@ -257,25 +225,6 @@
             <string>Programmets versionsnummer.</string>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditBar</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>115</x>
-                <y>100</y>
-                <width>41</width>
-                <height>22</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Ange id för bokföringsår, två bokstäver.</string>
-        </property>
-        <property name="whatsThis" stdset="0">
-            <string></string>
-        </property>
-    </widget>
     <widget class="QPushButton">
         <property name="name">
             <cstring>PushButtonSluta</cstring>
@@ -316,25 +265,6 @@
     </widget>
     <widget class="QPushButton">
         <property name="name">
-            <cstring>PushButtonVerOK</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>15</x>
-                <y>460</y>
-                <width>31</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Ja</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
             <cstring>PushButtonRadNej</cstring>
         </property>
         <property name="geometry">
@@ -368,57 +298,6 @@
             <string>Radnr</string>
         </property>
     </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonRadOK</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>375</x>
-                <y>210</y>
-                <width>30</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Ja</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditKst</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>255</x>
-                <y>210</y>
-                <width>51</width>
-                <height>22</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Kostnadsställe. Ifylles vid behov.</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel3_3</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>55</x>
-                <y>190</y>
-                <width>50</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Kontonr</string>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>TextLabel6</cstring>
@@ -433,22 +312,6 @@
         </property>
         <property name="text">
             <string>KSTÄLLE</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditDK</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>115</x>
-                <y>210</y>
-                <width>31</width>
-                <height>22</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>D eller + för DEBET. K eller - för KREDIT</string>
         </property>
     </widget>
     <widget class="QLabel">
@@ -467,38 +330,6 @@
             <string>SUBKTO</string>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditKtonr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>55</x>
-                <y>210</y>
-                <width>51</width>
-                <height>22</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Kontonummer som ska konteras</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditBelopp</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>155</x>
-                <y>210</y>
-                <width>91</width>
-                <height>22</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Belopp som ska konteras på aktuellt konto.</string>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>TextLabel5</cstring>
@@ -515,38 +346,6 @@
             <string>Belopp</string>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditDiff</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>155</x>
-                <y>245</y>
-                <width>91</width>
-                <height>22</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Belopp som återstår att kontera</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditRadnr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>15</x>
-                <y>210</y>
-                <width>31</width>
-                <height>22</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Verifikationens radnr. Sätts automatiskt.</string>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>TextLabel9</cstring>
@@ -561,38 +360,6 @@
         </property>
         <property name="text">
             <string>Godkänn rad</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel4_3</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>115</x>
-                <y>190</y>
-                <width>30</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>D/K</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditSubKto</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>315</x>
-                <y>210</y>
-                <width>51</width>
-                <height>22</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Underkonto. Ifylles vid behov.</string>
         </property>
     </widget>
     <widget class="QLabel">
@@ -647,6 +414,168 @@
         </property>
         <property name="text">
             <string>Registrerade verifikationsrader</string>
+        </property>
+    </widget>
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Kontonr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Kontotext</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <property name="name">
+            <cstring>ListViewKto</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>465</x>
+                <y>100</y>
+                <width>330</width>
+                <height>380</height>
+            </rect>
+        </property>
+        <property name="showSortIndicator">
+            <bool>true</bool>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Kontoplan för aktuellt bokföringsår. Kan sorteras på Kontotext eller Kontonr (default)</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel1_3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>15</x>
+                <y>442</y>
+                <width>131</width>
+                <height>14</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Godkänn verifikation</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel11</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>470</x>
+                <y>85</y>
+                <width>131</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Kontoförteckning</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditBar</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>115</x>
+                <y>100</y>
+                <width>41</width>
+                <height>22</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Ange id för bokföringsår, två bokstäver.</string>
+        </property>
+        <property name="whatsThis" stdset="0">
+            <string></string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel4_3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>190</y>
+                <width>30</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>D/K</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel3_3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>65</x>
+                <y>190</y>
+                <width>50</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Kontonr</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonRadOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>375</x>
+                <y>210</y>
+                <width>30</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Ja</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonVerOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>15</x>
+                <y>460</y>
+                <width>31</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Ja</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
         </property>
     </widget>
     <widget class="QListView">
@@ -724,52 +653,129 @@
                 <x>15</x>
                 <y>300</y>
                 <width>445</width>
-                <height>104</height>
+                <height>135</height>
             </rect>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <property name="midLineWidth">
+            <number>5</number>
         </property>
         <property name="toolTip" stdset="0">
             <string>Visar redan utförda konteringar.</string>
         </property>
     </widget>
-    <widget class="QListView">
-        <column>
-            <property name="text">
-                <string>Kontonr</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Kontotext</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
+    <widget class="QLineEdit">
         <property name="name">
-            <cstring>ListViewKto</cstring>
+            <cstring>LineEditRadnr</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>465</x>
-                <y>100</y>
-                <width>330</width>
-                <height>380</height>
+                <x>15</x>
+                <y>210</y>
+                <width>45</width>
+                <height>22</height>
             </rect>
         </property>
-        <property name="showSortIndicator">
-            <bool>true</bool>
+        <property name="toolTip" stdset="0">
+            <string>Verifikationens radnr. Sätts automatiskt.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditKtonr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>65</x>
+                <y>210</y>
+                <width>51</width>
+                <height>22</height>
+            </rect>
         </property>
         <property name="toolTip" stdset="0">
-            <string>Kontoplan för aktuellt bokföringsår. Kan sorteras på Kontotext eller Kontonr (default)</string>
+            <string>Kontonummer som ska konteras</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditDK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>210</y>
+                <width>31</width>
+                <height>22</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>D eller + för DEBET. K eller - för KREDIT</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditBelopp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>155</x>
+                <y>210</y>
+                <width>91</width>
+                <height>22</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Belopp som ska konteras på aktuellt konto.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditKst</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>255</x>
+                <y>210</y>
+                <width>51</width>
+                <height>22</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Kostnadsställe. Ifylles vid behov.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditSubKto</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>315</x>
+                <y>210</y>
+                <width>51</width>
+                <height>22</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Underkonto. Ifylles vid behov.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditDiff</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>155</x>
+                <y>245</y>
+                <width>91</width>
+                <height>22</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Belopp som återstår att kontera</string>
         </property>
     </widget>
 </widget>
@@ -826,7 +832,7 @@
         <sender>PushButtonVerOK</sender>
         <signal>clicked()</signal>
         <receiver>frmBokfstd</receiver>
-        <slot>slotVerOK()</slot>
+        <slot>SaveVerifikat()</slot>
     </connection>
     <connection>
         <sender>PushButtonVerNej</sender>
@@ -869,6 +875,12 @@
         <signal>clicked(QListViewItem*)</signal>
         <receiver>frmBokfstd</receiver>
         <slot>slotPickupKtonr(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>ListViewVerrader</sender>
+        <signal>clicked(QListViewItem*)</signal>
+        <receiver>frmBokfstd</receiver>
+        <slot>ListViewVerrader_clicked(QListViewItem*)</slot>
     </connection>
 </connections>
 <tabstops>
@@ -929,6 +941,9 @@
     <slot>slotVerRemove()</slot>
     <slot>slotVERUPDEndOfProcess()</slot>
     <slot>slotCleanUp()</slot>
+    <slot>formatRegRader()</slot>
+    <slot>SaveVerifikat()</slot>
+    <slot>ListViewVerrader_clicked( QListViewItem * )</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
