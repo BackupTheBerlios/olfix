@@ -9,9 +9,9 @@
 /***************************************************************************
                           ADDINKW  -  description
                              -------------------
-		     version 0.5
+		     version 0.6
     begin                : Mån 8 dec 2003
-    modified	: Ons 31 dec 2003
+    modified	: Tor 1 jan 2004
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -84,20 +84,24 @@ void frmAddBest::init()
 {
     int vecka;
     int year;
+    int dag;
+    QString dagnummer;
     QString veckonr;
     QString artal;
     QDateTime dt = QDateTime::currentDateTime();
+    dag= QDate::currentDate().dayOfWeek();
     bestdatum=dt.toString("yyyy-MM-dd");
     bestleveransdatum=bestdatum;
     lineEditBestDatum->setText(bestdatum);
     lineEditLeveransDatum->setText(bestleveransdatum);
     vecka= QDate::currentDate().weekNumber(&year);
     veckonr=QString::number(vecka,10);
+    dagnummer=QString::number(dag,10);
     if (veckonr.length() < 2){
 	veckonr.prepend("0");
     }
     artal=QString::number(year,10);
-    bestleveransvecka=artal.mid(3,1) + veckonr + "1";	// ÅVVD
+    bestleveransvecka=artal.mid(3,1) + veckonr + dagnummer;	// ÅVVD
 //    qDebug("vecka=%d, år=%d, leveransvecka=%s _%s_",vecka,year,bestleveransvecka.latin1(),veckonr.latin1());
     lineEditLeveransvecka->setText(bestleveransvecka);
     frmAddBest::listViewRader_format();
@@ -233,6 +237,10 @@ void frmAddBest::lineEditLeveransvecka_returnPressed()
    
    if((aktuelltveckonr + ledtid) > onskadlevvecka){
      QMessageBox::warning( this, "ADDINKW", "För kortleveranstid! \n Ledtid = "+arledtid );
+     vecka=frmAddBest::VeckoBerekning(arledtid);
+     veckonr=QString::number(vecka,10);
+//     qDebug("veckonr=%s",veckonr.latin1());
+     lineEditLeveransvecka->setText(veckonr);
      lineEditLeveransvecka->setFocus();
    }else{
      lineEditAntal->setFocus();
@@ -932,7 +940,7 @@ void frmAddBest::slotArdataEndOfProcess()
 		arledtid=inrad.mid(i6+3,m-4);
 		frmAddBest::getArtikelEkonomidata();
 	    }
-	    qDebug("Ledtid=%s",arledtid.latin1());
+//	    qDebug("Ledtid=%s",arledtid.latin1());
 	    frmAddBest::getArtikelEkonomidata();
 	}
     }
@@ -1432,4 +1440,72 @@ void frmAddBest::listViewRader_clicked( QListViewItem * )
     lineEditOrderSumma->setText(bestsumma);    
     lineEditArtikelNr->setFocus();
     delete listViewRader->currentItem();
+}
+
+int frmAddBest::VeckoBerekning( QString ledtidsdagar)
+  /**************************************************/
+  /*	Returnerar veckonr = dagens datum + ledtid            */	
+  /**************************************************/
+{
+    int ledtid;
+    int dag;
+    int vecka;
+    int year;
+    int levvecka;
+    bool ok;
+    QString dagnummer;
+    QString veckonr;
+    QString artal;
+    QString datum;
+    
+    QString leveransvecka;
+    /******************************************************/
+    /*	Innevarande vecka					*/
+    /******************************************************/    
+    vecka= QDate::currentDate().weekNumber(&year);
+    dag= QDate::currentDate().dayOfWeek();
+    veckonr=QString::number(vecka,10);
+    if (veckonr.length() < 2){
+	veckonr.prepend("0");
+    }
+    artal=QString::number(year,10);
+    dagnummer=QString::number(dag,10);
+    leveransvecka=artal.mid(3,1) + veckonr + dagnummer;	// ÅVVD
+     
+    /******************************************************/
+    /*	Innevarande datum				*/
+    /******************************************************/    
+    QDateTime dt = QDateTime::currentDateTime();
+    datum=dt.toString("yyyy-MM-dd");
+
+    /******************************************************/ 
+    /*	Ledtid						*/
+    /******************************************************/  
+    ledtid=arledtid.toInt(&ok,10);
+    ledtid=ledtidsdagar.toInt(&ok,10);
+
+   /******************************************************/ 
+    /*	Innevarande datum + ledtid = möjlig leveranstid	*/
+    /******************************************************/  
+    QDate idag = QDate::currentDate();
+    QDate newdate = idag.addDays(ledtid);
+//    QString nydatum=newdate.toString("yyyy-MM-dd");
+//    qDebug("nydatum=%s",nydatum.latin1());
+    
+    /******************************************************/
+    /*	Ny, beräknad  vecka				*/
+    /******************************************************/    
+    vecka=newdate.weekNumber(&year);
+    dag= newdate.dayOfWeek();
+//    qDebug("ny vecka=%d, ny dag=%d",vecka,dag);
+    artal=QString::number(year,10);
+    veckonr=QString::number(vecka,10);
+    if (veckonr.length() < 2){
+	veckonr.prepend("0");
+    }
+    dagnummer=QString::number(dag,10);
+    leveransvecka=artal.mid(3,1) + veckonr + dagnummer;	// ÅVVD
+//    qDebug("ny leveransvecka=%s",leveransvecka.latin1()); 
+    levvecka=leveransvecka.toInt(&ok,10);
+    return levvecka;
 }
