@@ -1,9 +1,9 @@
 /***************************************************************************
                           KUADD.c  -  description
                              -------------------
-    Version		 : 0.2
-    Modified		 : Mån 20 okt 2003
-    begin                : Mån 8 aug 2003
+    Version		 : 0.3
+    begin                : Mån  8 aug 2003
+    Modified		 : Mån  5 nov 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -31,7 +31,7 @@ Fältavskiljare = _:_
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KUADD.c,v 1.2 2003/10/20 06:16:42 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KUADD.c,v 1.3 2003/11/05 11:25:28 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -39,7 +39,9 @@ Fältavskiljare = _:_
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "mysql.h"
+#define ANTARG 2
 
   MYSQL my_connection;
   MYSQL_RES *res_ptr;
@@ -60,64 +62,68 @@ int main(int argc, char *argv[], char *envp[])
   char temp3[]=",";
   char temp4[]=")";
   char temp5[1500]="";
-  char kunddata[2000];
+  char kunddata[2000]="";
 
   char *pos1;
   char *pos2;
   int tmp,lenght,ant,i,j,k,n;
 
-  if (argv[1] != NULL){
-  	strcpy(kunddata,argv[1]);
-  }
-  else{
-  	fprintf(stderr,"Error: KUADD: Ange kundnummer!\n");
-	exit(-1);
-  }
-// ================================================================================
-// 		Val av databas, START
-// ================================================================================
+  /* ================================================================================ */
+/* 		Val av databas, START						    */
+/* ================================================================================ */
+
   status = which_database(envp);
 
   if (status != 0)
 	exit(status);
 
-  strcpy(usr,userp);				// Den inloggades userid
-
- if (argc<3){
+  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+/*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
+  if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
-		strcpy(databas,database);
+		strncpy(databas,database,15);
 	}else{
-  		strcpy(databas,"olfixtst");	// olfixtst = testföretag
+  		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}
   }else{
-	if (strlen(argv[2]) != 0){
-  		if (strncmp(argv[2],"99",2)==0){
-			strcpy(databas,"olfixtst");
+	if (strlen(argv[ANTARG]) != 0){
+  		if (strncmp(argv[ANTARG],"99",2)==0){
+			strncpy(databas,"olfixtst",15);
 		}else{
-  			strcpy(databas,argv[2]);
+  			strncpy(databas,argv[ANTARG],15);
   		}
   	}
   }
-  /* Om usr (userid) börjar på 'test' eller 'prov' använd databas 'olfixtst' */
+/*  fprintf(stderr,"ANTARG=%d,argv[ANTARG]=%s\n",ANTARG,argv[ANTARG]);	*/
+/* Om usr (userid) börjar på 'test' eller 'prov' använd databas 'olfixtst' */
   if (strncmp(usr,"test",4)==0 || strncmp(usr,"prov",4)==0 ) {
-  	strcpy(databas,"olfixtst");
+  	strncpy(databas,"olfixtst",15);
+  } /* fprintf(stderr,"Databas=%s\n",databas);	*/
+
+/* ================================================================================ */
+/* 		Val av databas, END!						    */
+/* ================================================================================ */
+
+  if (argv[1] != NULL){
+  	strncpy(kunddata,argv[1],strlen(argv[1]));
   }
-// ================================================================================
-// 		Val av databas, END!
-// ================================================================================
+  else{
+  	fprintf(stderr,"Error: KUADD: Ange kundnummer!\n");
+	exit(-1);
+  }
 
 
   lenght=strlen(kunddata);
-//  fprintf(stderr,"lenght=%d\n",lenght);
-  strcpy(temp5,temp1a);
-//  fprintf(stderr,"kunddata=%s\n",kunddata);
+/*  fprintf(stderr,"lenght=%d\n",lenght);	*/
+  strncpy(temp5,temp1a,strlen(temp1a));
+/*  fprintf(stderr,"kunddata=%s\n",kunddata);	*/
   pos1=strstr(kunddata,"_:_")+3;
   k=3;
   n=0;
   ant=31;		// antal fält = 32
   for (i=0;i<ant;i++){
   	for (j=k;j<lenght;j++){
-//		fprintf(stderr,"j=%d\n",j);
+/*		fprintf(stderr,"j=%d\n",j);	*/
   		if (kunddata[j]== 95 && kunddata[j+1]== 58 && kunddata[j+2]== 95){
 			j=lenght;
 		}
@@ -128,26 +134,26 @@ int main(int argc, char *argv[], char *envp[])
 	pos2=pos1+3+(n-1);
 
 	tmp=pos2-pos1-3;
-  	strcat(temp5,temp2);
+  	strncat(temp5,temp2,strlen(temp2));
   	strncat(temp5,pos1,tmp);
-  	strcat(temp5,temp2);
+  	strncat(temp5,temp2,strlen(temp2));
 	if (i<(ant-1)){
-  		strcat(temp5,temp3);
+  		strncat(temp5,temp3,strlen(temp3));
 	}
 	pos1=pos2;
-//	fprintf(stderr,"i=%d, k=%d, n=%d, tmp=%d\n",i,k,n,tmp);
+/*	fprintf(stderr,"i=%d, k=%d, n=%d, tmp=%d\n",i,k,n,tmp);	*/
 	n=0;
-//	fprintf(stderr,"temp5 = %s\n",temp5);
+/*	fprintf(stderr,"temp5 = %s\n",temp5);	*/
   }
-  strcat(temp5,temp4);
+  strncat(temp5,temp4,strlen(temp4));
 
-// fprintf(stderr,"\nKUADD: temp5 = %s\n\n",temp5);
-// exit(0);
+/* fprintf(stderr,"\nKUADD: temp5 = %s\n\n",temp5);	*/
+/* exit(0);	*/
 
 
   mysql_init(&my_connection);
   if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
-//  	fprintf(stderr,"KUADD:Connection success\n");
+/*  	fprintf(stderr,"KUADD:Connection success\n");	*/
 
   res = mysql_query(&my_connection,temp5);
 
