@@ -1,0 +1,11 @@
+README.1ST
+
+
+OLFIX.0.1.9.A_20031112.tar.gz
+
+Denna "leverans" innehåller flera "icke" färdiga tabeller. ORDERREG,ORDERRADREG,ARTIKELREG,LAGERSTELLEREG.
+De program som använder dessa register är inte färdiga.
+Huvudorsaken till denna leverans är möjlighet att använda flera databaser (just nu olfix och olfixtst) samt kodstädning.
+
+
+Vi vill gärna ha synpunkter på vad ovanstående register ska innehålla.
