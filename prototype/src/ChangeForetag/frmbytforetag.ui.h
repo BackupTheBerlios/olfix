@@ -9,8 +9,9 @@
 /***************************************************************************
                           BYTFTGW  -  description
                              -------------------
-		     version 0.1
+		     version 0.2
     begin                : Sön 19 okt 2003
+    modified:	: Lör 11 dec 2004
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -61,7 +62,11 @@ void frmBytForetag::lineEditNyttForetag_returnPressed()
     if (newforetag == "01"){
 	newdatabase="olfix";
     }
-    
+    if (newforetag != "99" and newforetag != "01"){
+	newdatabase="olfix";
+	newdatabase.append(newforetag);
+    }
+/*    qDebug("newdatabase= %s        newforetag=%s",newdatabase.latin1(),newforetag.latin1());	*/
     lineEditNyDatabas->setText(newdatabase);
     pushButtonDo->setFocus();
 }
@@ -99,12 +104,15 @@ void frmBytForetag::getDatabase()
 	}
     file.close();
    }
-   qDebug("getDatabase::databas=%s",database.latin1());
+/*   qDebug("getDatabase::databas=%s",database.latin1());	*/
    if (database=="olfix"){
        foretag="01";
    }
    if (database=="olfixtst"){
        foretag="99";
+   }
+   if (database != "olfix" and database != "olfixtst"){
+       foretag = database.right(2);
    }
 }
 
@@ -116,10 +124,10 @@ void frmBytForetag::setDatabase()
     command.append("/DATABASE=");
     command.append(newdatabase);
     command.append("/ $HOME/.olfixrc > $HOME/olfixtst.txt");
-    qDebug("command=%s",command.latin1());
+/*    qDebug("command=%s",command.latin1());			*/
     system(command);
     command="mv $HOME/olfixtst.txt $HOME/.olfixrc";
-    qDebug("command=%s",command.latin1());
+/*    qDebug("command=%s",command.latin1());			*/
     system(command);
 }
 
