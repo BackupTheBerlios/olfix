@@ -1,9 +1,9 @@
 /***************************************************************************
                           PKDADD.c  -  description
                              -------------------
-    Version		 : 0.1
-    begin                : Mån 29 nov 2004
-    modified		 :
+    Version		 : 0.2
+    begin                : Mån  29 nov  2004
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2004 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PKDADD.c,v 1.1 2004/11/29 16:54:30 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PKDADD.c,v 1.2 2005/02/24 08:59:33 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -77,7 +77,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
-		strncpy(databas,database,15);
+		strncpy(databas,database,sizeof(databas));	/* 2005-02-24	*/
 	}else{
   		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}
@@ -100,8 +100,8 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-  strncpy(prodkod,argv[1],strlen(argv[1]));
-  strncpy(beskrivning,argv[2],strlen(argv[2]));
+  strncpy(prodkod,argv[1],sizeof(prodkod));			/* 2005-02-24	*/
+  strncpy(beskrivning,argv[2],sizeof(beskrivning));		/* 2005-02-24	*/
 
 /*  fprintf(stderr,"argv1=%s argv2=%s\n",argv[1],argv[2]);	*/
 
