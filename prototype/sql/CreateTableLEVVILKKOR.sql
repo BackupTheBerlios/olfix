@@ -1,0 +1,7 @@
+use olfix;
+create table LEVVILLKOR(VILLKORSNR VARCHAR(3) not null PRIMARY KEY,VILLKORSTEXT VARCHAR(150)not null );
+use olfixtst;
+create table LEVVILLKOR(VILLKORSNR VARCHAR(3) not null PRIMARY KEY,VILLKORSTEXT VARCHAR(150)not null );
+
+
+
