@@ -1,9 +1,9 @@
 /***************************************************************************
                           FORCHK.c  -  description
                              -------------------
-    begin                : Tis 9 nov	2004
-    Modified		 :
-    copyright            : (C) 2003 by Jan Pihlgren
+    begin                : Tis  9 nov	2004
+    Modified		 : Ons 23 febr  2005
+    copyright            : (C) 2004 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
 
@@ -17,7 +17,7 @@
  ***************************************************************************/
 
 /*
-	INPUT: artikelnr
+	INPUT: databasnr
 
 	Kommando: ./FORCHK dbnr [databas]
 
@@ -27,7 +27,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FORCHK.c,v 1.1 2004/11/10 15:49:56 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FORCHK.c,v 1.2 2005/02/23 14:28:22 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -59,7 +59,7 @@ int main(int argc, char *argv[], char *envp[])
   char usr[15];				/* userid		*/
 
   if (argv[1] != NULL){
-  	strncpy(dbnr,argv[1],strlen(argv[1]));
+  	strncpy(dbnr,argv[1],sizeof(dbnr));	/* 2005-02-23	*/
   }else{
   	fprintf(stderr,"Error: FORCHK: Ange databasnummer!\n");
 	exit(-1);
