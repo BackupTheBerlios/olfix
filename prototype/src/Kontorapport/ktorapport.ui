@@ -115,6 +115,9 @@
                     <property name="frameShadow">
                         <enum>Sunken</enum>
                     </property>
+                    <property name="showSortIndicator">
+                        <bool>false</bool>
+                    </property>
                 </widget>
             </grid>
         </widget>
