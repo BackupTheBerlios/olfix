@@ -308,6 +308,9 @@
                 <height>23</height>
             </rect>
         </property>
+        <property name="toolTip" stdset="0">
+            <string>Datum skrivs ÅÅÅÅ-MM-DD</string>
+        </property>
     </widget>
     <widget class="QLineEdit">
         <property name="name">
@@ -320,6 +323,9 @@
                 <width>81</width>
                 <height>23</height>
             </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Datum skrivs ÅÅÅÅ-MM-DD</string>
         </property>
     </widget>
 </widget>
@@ -400,6 +406,7 @@
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
+    <function>CheckDatum( QString datumet )</function>
 </functions>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

@@ -2,7 +2,7 @@
 /**		SDOLISW					*/
 /**		Ver 0.6                                                                                    */
 /**		Created    2003-08-21				*/
-/**		Modified 2004-03-25				*/
+/**		Modified 2004-03-27				*/
 /**   Copyright	Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -43,6 +43,7 @@
     QString fromdate;
     QString fromvernr;
     QString tomdatum;
+    QString tmpdatum;		/* Anv‰nds i funktionen frmSaldolista::CheckDatum(fromdatum )*/
     QString tomdate;
     QString tomvernr;
     QString period;
@@ -87,8 +88,11 @@ void frmSaldolista::lineEditFromDatum_returnPressed()
     fromdatum=lineEditFromDatum->text();
     if (fromdatum==""){
 	fromdatum=fromdate;
-	lineEditFromDatum->setText(fromdatum);
+//	lineEditFromDatum->setText(fromdatum);
     }
+    frmSaldolista::CheckDatum(fromdatum ); 		// Kontrollera datumformat ≈≈≈≈-MM-DD
+    fromdatum=tmpdatum;
+    lineEditFromDatum->setText(fromdatum);
     lineEditTomDatum->setFocus();
 }
 
@@ -97,9 +101,11 @@ void frmSaldolista::lineEditTomDatum_returnPressed()
     tomdatum=lineEditTomDatum->text();
     if(tomdatum==""){
 	tomdatum=tomdate;
-	lineEditTomDatum->setText(tomdatum);
+//	lineEditTomDatum->setText(tomdatum);
     }
-//    frmSaldolista::GetVernr();
+    frmSaldolista::CheckDatum(tomdatum );  		// Kontrollera datumformat ≈≈≈≈-MM-DD  
+    tomdatum=tmpdatum;
+    lineEditTomDatum->setText(tomdatum);
     period=fromdatum+" -- "+tomdatum;
     pushButtonOK->setFocus();
 }
@@ -694,6 +700,56 @@ void frmSaldolista::slotGetBokfPeriodEndOfProcess()
     fromdate=mindate;
     tomdate=maxdate;
 //	qDebug("period=%s|,m=%d",period.latin1(),m);    
+}
+
+void frmSaldolista::CheckDatum( QString datumet )
+{
+    /*      Kontrollera och formatera datum enligt 20≈≈-MM-DD */
+    int i;
+    int j,k;
+    QString tempdatum;
+    QString millenium;
+    
+    i = datumet.length();
+    k = datumet.find( QRegExp("-"), 0 );
+    j = datumet.find( QRegExp("-"), k+1 );
+    millenium=datum.mid(0,2);
+    
+//    qDebug("millenium=%s, datumet=%s, datumetl‰ngd=%d, datumet 1:a - =%d, datumet 2:a - %d",millenium.latin1(),datumet.latin1(),i,k,j);
+    
+    tempdatum=datumet;
+    if (i < 7 && k < 0 && j < 0){
+	tempdatum = millenium+datumet.mid(0,2)+"-"+datumet.mid(2,2)+"-"+datumet.mid(4,2);
+    }
+    if (i == 7 && k < 0 && j < 0){
+	tempdatum = millenium+datumet.mid(1,2)+"-"+datumet.mid(3,2)+"-"+datumet.mid(5,2);
+    }
+    if (i == 8 && k < 0 && j < 0){
+	tempdatum = millenium+datumet.mid(2,2)+"-"+datumet.mid(4,2)+"-"+datumet.mid(6,2);
+    }
+    if (i == 9 && k < 0 && j < 0){
+	tempdatum = millenium+datumet.mid(3,2)+"-"+datumet.mid(5,2)+"-"+datumet.mid(7,2);
+    }
+    if (i < 10 && k > 0 ){
+	if (k > 0 && k <5){
+	    if ( j < 0){
+		tempdatum =datumet.mid(0,k+1)+datumet.mid(k+1,2)+"-"+datumet.mid(k+3,2); 
+	    }
+	    if (j > 0){
+		tempdatum ="20"+datumet.mid(0,k+1)+datumet.mid(k+1,2)+datumet.mid(j,3); 
+	    }
+	}
+	if (k > 4 && k <7){
+	    if ( j < 0){
+		tempdatum =datumet.mid(0,4)+"-"+datumet.mid(4,2)+"-"+datumet.mid(k+1,2); 
+	    }
+	    if (j > 0){
+		tempdatum =datumet.mid(0,4)+"-"+datumet.mid(4,2)+datumet.mid(j,3); 
+	    }
+	}	
+    }  
+    tmpdatum=tempdatum;
+//    qDebug("tempdatum=%s, tmpdatum=%s",tempdatum.latin1(),tmpdatum.latin1());
 }
 
 void frmSaldolista::GetVernr()
