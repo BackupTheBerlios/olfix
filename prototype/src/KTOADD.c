@@ -1,9 +1,9 @@
 /***************************************************************************
                           KTOADD.c  -  description
                              -------------------
-    Version		 : 0.2
-    begin                : Tors 16 jan 2003
-    modified		 : Tis   4 nov 2003
+    Version		 : 0.3
+    begin                : Tors 16 jan  2003
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -27,7 +27,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTOADD.c,v 1.2 2003/11/04 16:43:41 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTOADD.c,v 1.3 2005/02/24 05:12:53 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -114,21 +114,21 @@ int main(int argc, char *argv[], char *envp[])
 
 
   if (argv[1] != NULL){
-  	strncpy(arid,argv[1],strlen(argv[1]));
+  	strncpy(arid,argv[1],sizeof(arid));	/* 2005-02-24	*/
   }
   else{
   	fprintf(stderr,"Error: KTOADD: Ange årtal!\n");
 	exit(-1);
   }
-  strncpy(ktonr,argv[2],strlen(argv[2]));
-  strncpy(benamn,argv[3],strlen(argv[3]));
-  strncpy(manuell,argv[4],strlen(argv[4]));
-  strncpy(momskod,argv[5],strlen(argv[5]));
-  strncpy(srunr,argv[6],strlen(argv[6]));
-  strncpy(kstalle,argv[7],strlen(argv[7]));
-  strncpy(projekt,argv[8],strlen(argv[8]));
-  strncpy(subkto,argv[9],strlen(argv[9]));
-  strncpy(ktoplan,argv[10],strlen(argv[10]));
+  strncpy(ktonr,argv[2],sizeof(ktonr));		/* 2005-02-24	*/
+  strncpy(benamn,argv[3],sizeof(benamn));	/* 2005-02-24	*/
+  strncpy(manuell,argv[4],sizeof(manuell));	/* 2005-02-24	*/
+  strncpy(momskod,argv[5],sizeof(momskod));	/* 2005-02-24	*/
+  strncpy(srunr,argv[6],sizeof(srunr));		/* 2005-02-24	*/
+  strncpy(kstalle,argv[7],sizeof(kstalle));	/* 2005-02-24	*/
+  strncpy(projekt,argv[8],sizeof(projekt));	/* 2005-02-24	*/
+  strncpy(subkto,argv[9],sizeof(subkto));	/* 2005-02-24	*/
+  strncpy(ktoplan,argv[10],sizeof(ktoplan));	/* 2005-02-24	*/
 
   strncpy(temp5,temp1a,strlen(temp1a));
 /* INSERT INTO KTOPLAN(ARID,KTONR,BENAMNING,MANUELL,MOMSKOD,SRUNR,KSTALLE,PROJEKT,SUBKTO,KTOPLAN,IB,IB) VALUES (   */
