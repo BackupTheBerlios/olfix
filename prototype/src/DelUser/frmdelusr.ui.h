@@ -8,8 +8,9 @@
 /***************************************************************************
                           DELUSRW  -  description
                              -------------------
-		     version 0.01
-    begin                : Sön 2 febr 2003
+		     version 0.2
+    begin     	: Sön 2 febr 2003
+    Modified	: Fre 12 nov 2004
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -48,6 +49,7 @@ void frmDelUsr::slotPushButtonGet_clicked()
     inrad="";
     inrad_u="";
     errorrad="";
+
     frmDelUsr::slotGetRightData();    
 }
 
@@ -61,8 +63,9 @@ void frmDelUsr::slotGetUserData()
             process = new QProcess();
 	process->addArgument("./STYRMAN");
 	process->addArgument(usr.latin1());		// user OLFIX
-	process->addArgument( "USERDSP");	// OLFIX program
+	process->addArgument( "USERDSP");		// OLFIX program
 	process->addArgument( Userid.latin1() );
+	
 	frmDelUsr::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotUsrDataOnStdout() ) );
             frmDelUsr::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfUsrProcess() ) );
             if ( !process->start() ) {
@@ -106,6 +109,18 @@ void frmDelUsr::slotUseridEntered()
     Userid=LineEditUserid->text();
     Userid=Userid.upper();
     LineEditUserid->setText((Userid));
+/****************************************************************/       
+/*	Start 		2004-11-12    				*/
+/****************************************************************/    
+    if (Userid == "OLFIX"){
+	QMessageBox::warning( this, "OLFIX - DELUSRW",
+                            "Om du tar bort användaren OLFIX slutar programmet OLFIX att fungera!\n"
+                            );
+    }
+/****************************************************************/       
+/*	Slut 		2004-11-12    				*/
+/****************************************************************/    
+
     PushButtonGet->setFocus();
 }
 
