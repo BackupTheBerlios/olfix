@@ -12,7 +12,7 @@
                              -------------------
 		     version 0.3
     begin   	: Sö  12 okt   2003
-    Updated	: Fre  4 mars 2005
+    Updated	: Mån  7 mars 2005
     copyright	: (C) 2003 by Jan Pihlgren
     email     	: jan@pihlgren.se
  ***************************************************************************/
@@ -47,6 +47,14 @@
     QString orderkundpostnr;
     QString orderkundpostadr;
     QString orderkundland;
+    
+    QString orderkundref;
+    QString orderkundlevadress;
+    QString orderkundlevpostnr;
+    QString orderkundlevpostadr;
+    QString orderkundlevland;
+    
+    
     QString ordertfnnr;
     QString orderfaxnr;
     QString ordertelexnr;
@@ -60,7 +68,9 @@
     QString orderbgnr;
     QString ordervaluta;
     QString orderbetvillkor;
-   
+    QString orderlevvillkor;
+    QString orderlevplats;
+       
     /*  Orderradrad	 */	
     bool radnrflag=FALSE;
     QString orderradnr="010";    
@@ -155,7 +165,48 @@ void frmAddOrder::slotOrderLand_returnPressed()
     orderkundland=lineEditKundLand->text();
     lineEditValuta->setFocus();
 }
+/*
+   QString orderkundref;
+    QString orderkundlevadress;
+    QString orderkundlevpostnr;
+    QString orderkundlevpostadr;
+    QString orderkundlevland;
+  
+*/
+void frmAddOrder::lineEditKundRef_returPressed()
+{
+    orderkundref=lineEditKundRef->text();
+    lineEditKundRef->setText(orderkundref);
+    lineEditArtikelNr->setFocus();
+}
 
+void frmAddOrder::lineEditKundLevAdress_returnPressed()
+{
+    orderkundlevadress=lineEditKundLevAdress->text();
+    lineEditKundLevAdress->setText(orderkundlevadress);
+    lineEditArtikelNr->setFocus();
+}
+
+void frmAddOrder::lineEditKundLevPostnr_returnPressed()
+{
+    orderkundlevpostnr=lineEditKundLevPostnr->text();
+    lineEditKundLevPostnr->setText(orderkundlevpostnr);
+    lineEditArtikelNr->setFocus();
+}
+
+void frmAddOrder::lineEditKundLevLand_return_pressed()
+{
+    orderkundlevland=lineEditKundLevLand->text();
+    lineEditKundLevLand->setText(orderkundlevland);
+    lineEditArtikelNr->setFocus();
+}
+
+void frmAddOrder::lineEditKundLevPostAdress_returnPressed()
+{
+    orderkundlevpostadr=lineEditKundLevPostAdress->text();
+    lineEditKundLevPostAdress->setText(orderkundlevpostadr);
+    lineEditArtikelNr->setFocus();
+}
 
 void frmAddOrder::slotOrderValuta_returnPressed()
 {
@@ -167,6 +218,19 @@ void frmAddOrder::slotOrderBetvilk_returnPressed()
 {
     orderbetvillkor=lineEditBetvilk->text();
     pushButtonOK->setFocus();
+}
+
+
+void frmAddOrder::lineEditLevvillkor_returnPressed()
+{
+
+}
+
+void frmAddOrder::lineEditLevplats_returnPressed()
+{
+    orderlevplats=lineEditLevplats->text();
+    frmAddOrder::getStdLevplats( orderlevplats );
+    lineEditArtikelNr->setFocus();
 }
 
 /************************************************************************/
@@ -453,32 +517,34 @@ void frmAddOrder::slotEndOfProcess()
     i = errorrad.find( QRegExp("Error:"), 0 );
 //   qDebug("Error:%s",errorrad.latin1());
 //   qDebug("Inrad:%s",inrad.latin1());
-         if (i != -1) {
+     if (i != -1) {
 	QMessageBox::critical( this, "ADDORDW",
 		"ERROR!\n"+errorrad
 	);
 	errorrad="";
 	i = -1;
-     }
-     i = -1;
-     i = inrad.find( QRegExp("OK:"), 0 );
-     if (i != -1) {
-	QMessageBox::information( this, "ADDORDW",
+	return;
+     }else{
+	 i = -1;
+	 i = inrad.find( QRegExp("OK:"), 0 );
+	 if (i != -1) {
+	     QMessageBox::information( this, "ADDORDW",
 		"Uppdatering OK!\n"+errorrad
-	);
-	lineEditOrderNbr->clear();
-	lineEditKundNamn->clear();
-	lineEditKundAdress->clear();
-	lineEditKundPostnr->clear();
-	lineEditKundPostAdress->clear();
-	lineEditKundLand->clear();
-	lineEditOrderKundNr->clear();
-	lineEditOrderNbr->setFocus();
-	ordermomskod="1";
+		);
+	     lineEditOrderNbr->clear();
+	     lineEditKundNamn->clear();
+	     lineEditKundAdress->clear();
+	     lineEditKundPostnr->clear();
+	     lineEditKundPostAdress->clear();
+	     lineEditKundLand->clear();
+	     lineEditOrderKundNr->clear();
+	     lineEditOrderNbr->setFocus();
+	     ordermomskod="1";
 
-	inrad="";
-	i = -1;
-     } 
+	     inrad="";
+	     i = -1;
+	 } 
+     }
 }
 
 void frmAddOrder::getKundLista()
@@ -653,20 +719,20 @@ void frmAddOrder::slotKundDataEndOfProcess()
 	 int i8 = inrad.find( QRegExp("08:"), 0 );
 /*	 int i9 = inrad.find( QRegExp("09:"), 0 );
 	 int i10 = inrad.find( QRegExp("10:"), 0 );
-	 int i11 = inrad.find( QRegExp("11:"), 0 );
+*/	 int i11 = inrad.find( QRegExp("11:"), 0 );
 	 int i12 = inrad.find( QRegExp("12:"), 0 );
-	 int i13 = inrad.find( QRegExp("13:"), 0 );
+/*	 int i13 = inrad.find( QRegExp("13:"), 0 );
 	 int i14 = inrad.find( QRegExp("14:"), 0 );
 	 int i15 = inrad.find( QRegExp("15:"), 0 );	*/
 	 int i16 = inrad.find( QRegExp("16:"), 0 );
 	 int i17 = inrad.find( QRegExp("17:"), 0 );
 	 int i18 = inrad.find( QRegExp("18:"), 0 );
-/*	 int i19 = inrad.find( QRegExp("19:"), 0 );
-	 int i20 = inrad.find( QRegExp("20:"), 0 );
-	 int i21 = inrad.find( QRegExp("21:"), 0 );
-	 int i22 = inrad.find( QRegExp("22:"), 0 );
+	 int i19 = inrad.find( QRegExp("19:"), 0 );
+/*	 int i20 = inrad.find( QRegExp("20:"), 0 );
+	 int i21 = inrad.find( QRegExp("21:"), 0 );	*/
+	 int i22 = inrad.find( QRegExp("22:"), 0 );	
 	 int i23 = inrad.find( QRegExp("23:"), 0 );
-	 int i24 = inrad.find( QRegExp("24:"), 0 );
+/*	 int i24 = inrad.find( QRegExp("24:"), 0 );
 	 int i25 = inrad.find( QRegExp("25:"), 0 );
 	 int i26 = inrad.find( QRegExp("26:"), 0 );
 	 int i27 = inrad.find( QRegExp("27:"), 0 );
@@ -744,13 +810,13 @@ void frmAddOrder::slotKundDataEndOfProcess()
 	     faxnr=inrad.mid(i10+3,m-4);
 	     lineEditKundFaxNr->setText(faxnr);
 	 }
-
+*/
  	 m=i12-i11;
 	 if (i11 != -1){
-	     erref=inrad.mid(i11+3,m-4);
-	     lineEditKundErRef->setText(erref);
+	     orderkundref=inrad.mid(i11+3,m-4);
+	     lineEditKundRef->setText(orderkundref);
 	 }
-
+/*
  	 m=i13-i12;
 	 if (i12 != -1){
 	     erreftfnnr=inrad.mid(i12+3,m-4);
@@ -786,13 +852,13 @@ void frmAddOrder::slotKundDataEndOfProcess()
 	     orderbetvillkor=inrad.mid(i17+3,m-4);
 	     lineEditBetvilk->setText(orderbetvillkor);
 	 }
-/*
+
 	 m=i19-i18;
 	 if (i18 != -1){
-	     levvillkor=inrad.mid(i18+3,m-4);
-	     lineEditKundLevvilk->setText(levvillkor);
+	     orderlevvillkor=inrad.mid(i18+3,m-4);
+	     lineEditLevvillkor->setText(orderlevvillkor);
 	 }
-
+/*
 	 m=i20-i19;
 	 if (i19 != -1){
 	     levsett=inrad.mid(i19+3,m-4);
@@ -810,13 +876,13 @@ void frmAddOrder::slotKundDataEndOfProcess()
 	    kundkat=inrad.mid(i21+3,m-4);
 	    lineEditKundKategori ->setText(kundkat);
 	 }
-
+*/
 	 m=i23-i22;
 	 if (i22 != -1){
-	    levplats=inrad.mid(i22+3,m-4);
-	    lineEditKundStdLevplats ->setText(levplats);
+	    orderlevplats=inrad.mid(i22+3,m-4);
+	    lineEditLevplats ->setText(orderlevplats);
 	 }
-
+/*
 	 m=i24-i23;
 	 if (i23 != -1){
 	     ordererk=inrad.mid(i23+3,m-4);
@@ -937,7 +1003,7 @@ void frmAddOrder::slotKundDataEndOfProcess()
 	inrad="";
 	i = -1;
      }
-
+     frmAddOrder::getStdLevplats( orderlevplats );
 }
 
 void frmAddOrder::getOrdernr()
@@ -1158,3 +1224,85 @@ void frmAddOrder::slotArdataEndOfProcess()
     }
 }
 
+void frmAddOrder::getStdLevplats( QString platsnr )
+{
+    const char *userp = getenv("USER");
+    QString usr(userp);
+    platsnr=platsnr.left(3);
+    inrad="";
+   
+    process = new QProcess();
+    process->addArgument("./STYRMAN");	// OLFIX styrprogram
+    process->addArgument(usr);		// userid
+    process->addArgument( "LEVPDSP");	// OLFIX funktion
+    process->addArgument(orderkundnr);
+    process->addArgument(platsnr);
+// qDebug("kundnr=%s standardlevplats=%s",orderkundnr.latin1(),platsnr.latin1());
+    frmAddOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+    frmAddOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+    frmAddOrder::connect( process, SIGNAL(processExited() ),this, SLOT(slotLevPEndOfProcess() ) );
+
+    if ( !process->start() ) {
+	// error handling
+	QMessageBox::warning( this, "Start av LEVPDSP",
+			      "Kan inte starta STYRMAN/LEVPDSP!\n"
+			      );
+    }
+}
+
+void frmAddOrder::slotLevPEndOfProcess()
+{
+    int i,m;
+
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+// qDebug("Error: %s",errorrad.latin1());
+// qDebug("Inrad=%s",inrad);
+    if (i != -1) {
+	QMessageBox::critical( this, "ADDORDW",
+			       "ERROR!\n"+errorrad
+			       );
+	errorrad="";
+	i = -1;
+	lineEditLevplats->setFocus();
+    }else{
+/*
+   QString orderkundref;
+    QString orderkundlevadress;
+    QString orderkundlevpostnr;
+    QString orderkundlevpostadr;
+    QString orderkundlevland;
+  
+*/
+	i = -1;
+	i = inrad.find( QRegExp("OK:"), 0 );
+	if (i != -1) {
+//	    int i1 = inrad.find( QRegExp("01:"), 0 );	           //	standardleveransplatsnrnr
+//	    int i2 = inrad.find( QRegExp("02:"), 0 );		//	kundnr
+	    int i3 = inrad.find( QRegExp("03:"), 0 );		//	adress
+	    int i4 = inrad.find( QRegExp("04:"), 0 );		//	postnr
+    	    int i5 = inrad.find( QRegExp("05:"), 0 );		//	postadress
+	    int i6 = inrad.find( QRegExp("06:"), 0 );		//	land
+	    m=i4-i3;
+	    if (i3 != -1){
+		orderkundlevadress=inrad.mid(i3+3,m-4);
+		lineEditKundLevAdress->setText(orderkundlevadress);
+	    }
+	    m=i5-i4;
+	    if (i4 != -1){
+		orderkundlevpostnr=inrad.mid(i4+3,m-4);
+		lineEditKundLevPostnr->setText(orderkundlevpostnr);
+	    }
+	    m=i6-i5;
+	    if (i5 != -1){
+		orderkundlevpostadr=inrad.mid(i5+3,m-4);
+		lineEditKundLevPostAdress->setText(orderkundlevpostadr);
+	    }
+	    m=i6-i5;
+	    if (i6 != -1){
+		orderkundlevland=inrad.mid(i6+3,m-4);
+		lineEditKundLevLand->setText(orderkundlevland);
+	    }	    
+	}
+    }
+}
