@@ -21,7 +21,6 @@
     </property>
     <property name="font">
         <font>
-            <family>Helvetica</family>
         </font>
     </property>
     <property name="caption">

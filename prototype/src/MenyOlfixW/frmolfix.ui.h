@@ -8,9 +8,9 @@
 /***************************************************************************
                           OLFIXW  -  description
                              -------------------
-		     version 0.61
+		     version 0.62
     begin                   : Tis 16 maj 2003
-    modified	: Ons 1 dec 2004
+    modified	: Lör 11 dec 2004
     copyright            : (C) 2003 by Jan Pihlgren
     email                  : jan@pihlgren.se
  ***************************************************************************/
@@ -40,7 +40,7 @@
 	QString inrad;
 	QString errorrad;
 	QString program;
-	QString version="0.61";
+	QString version="0.62";
 
 void frmOlfix::init()
 {
