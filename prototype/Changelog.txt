@@ -1,7 +1,7 @@
-Changelog OLFIX 20050117
+Changelog OLFIX 20050121
 Blivande
 Ver 0.1.17.A
-20050117
+20050121
 		Nya funktioner
 		PKDADD.c	Lägga upp ett nytt produktklass/produktgrupp/produktkod
 		PKDLST.c	Lista produktklass/produktgrupp/produktkod
@@ -9,7 +9,7 @@ Ver 0.1.17.A
 		ARLSTL.c	Lista artiklar med lagersaldo
 
 		Ändrade funktioner
-		PRTAPI.c	Buggrättning, hantering av CR (hex 0A) i /tmp/
+		PRTAPI.c	Buggrättning, hantering av LF (hex 0A) i /tmp/
 
 		Nya program
 		LSTPKDW		Lista produktklass/produktgrupp/produktkod
