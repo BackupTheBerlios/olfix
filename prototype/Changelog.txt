@@ -1,11 +1,12 @@
-Changelog OLFIX 20050111
+Changelog OLFIX 20050117
 Blivande
 Ver 0.1.17.A
-20050111
+20050117
 		Nya funktioner
 		PKDADD.c	Lägga upp ett nytt produktklass/produktgrupp/produktkod
 		PKDLST.c	Lista produktklass/produktgrupp/produktkod
-		WKUDSP.c	Visa kunddata för en webbkund		*
+		WKUDSP.c	Visa kunddata för en webbkund			*
+		ARLSTL.c	Lista artiklar med lagersaldo
 
 		Ändrade funktioner
 		PRTAPI.c	Buggrättning, hantering av CR (hex 0A) i /tmp/
@@ -42,7 +43,7 @@ Ver 0.1.17.A
 		Balansrapport.kut	Lagt till totalsumma.
 
 		Dokumentation
-		Teknisk Manual	Uppdaterad (2005-01-01)
+		Teknisk Manual	Uppdaterad (2005-01-16)
 		UserManual	Uppdaterad (2004-12-20)
 		Installationsanvisningar.txt (2004-12-23)
 
