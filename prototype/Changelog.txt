@@ -10,6 +10,8 @@ Ver 0.1.16.A
 		LSTLEVPW	Lista standardleveransplatser
 		ADDLPLW		Nya Lagerplatser
 		ADDORDW		Nya kundorder
+		ADDFORW		Ny databas i tabell DATABAS
+		LSTFORW		Lista databaser i tabell DATABAS
 
 		Ändrade program
 		OLFIXW	Skapande av $HOME/.olfixrc första gången programmet körs.
@@ -21,11 +23,14 @@ Ver 0.1.16.A
 
 
 		Nya funktioner
-			LEVPLST.c	Lista standardleveransplatser
-			FORADD.c	Ny databas i tabell DATABAS
-			FORCHK.c	Kontrollera om databas finns i tabell DATABAS
+		LEVPLST.c	Lista standardleveransplatser
+		FORADD.c	Ny databas i tabell DATABAS
+		FORCHK.c	Kontrollera om databas finns i tabell DATABAS
+		FORLST.c	Lista databaser i tabell DATABAS
 
 		Ändrade funktioner
+		STYRMAN.c	Buggrättning
+
 		Nya sql
 			CreateTable_olfixtstRIGHTS_ADMIN.sql
 			CreateTableDATABAS.sql
@@ -43,6 +48,7 @@ Ver 0.1.16.A
 		Ändrade script
 			.olfixrc har fått tillägget:
 				HELPFILE=/doc/helpfiles/usermanual/UserManual.html
+			../Makefile uppdaterad
 
 		Nya rapporter
 		Ändrade rapporter
