@@ -1,0 +1,71 @@
+Kundregister	Tabell = KUNDREG
+001. Kundnr		Nyckel	VARCHAR(6)
+002. Kundnamn rad 1		VARCHAR(30)
+003. Kundnamn rad 2		VARCHAR(30)
+
+004. Adress rad 1		VARCHAR(30)
+005. Adress rad 2		VARCHAR(30)
+006. Postnr			VARCHAR(10)
+007. Postadress			VARCHAR(30)
+008. Land			VARCHAR(20)
+
+009. Kundens Organisationsnummer VARCHAR(20)
+010. Tfnnr		VARCHAR(15)
+011. e-mailadress	VARCHAR(60)
+012. Säljare		VARCHAR(15)
+013. Distrikt		VARCHAR(3)
+014. Kategori		VARCHAR(3)
+015. Leveransvillkor	VARCHAR(3)
+016. Leveranssätt	VARCHAR(3)
+017. Standardleveransplats	VARCHAR(3)
+018. Ordererkännande 	J/N
+019. Plocklista 	J/N
+020. Följesedel 	J/N
+021. Kravbrev 		J/N
+022. Språkkod		VARCHAR(3)
+
+023. Rabattkod		VARCHAR(3)
+024. Expeditionsavgift 	J/N
+025. Fraktavgift 	J/N
+026. Betalningsvillkor	VARCHAR(3)
+027. Kreditlimit	DECIMAL(10,2)
+029. Kreditdagar	VARCHAR(3)
+030. Kreditkod		VARCHAR(3)
+031. Skattekod		VARCHAR(3)
+032. Exportkod		VARCHAR(3)
+033. Valuta		VARCHAR(3)
+034. Dröjmålsränta	J/N
+035. Dröjsmålsfakturering J/N
+
+036. Samlingsfaktura J/N
+037. Senaste kravdatum	DATE		(ÅÅÅÅMMDD)
+038. Skuld		DECIMAL(10,2)
+
+039. ErReferens 1	VARCHAR(20)
+040. Tfnnr 1		VARCHAR(15)
+041. E-mailadress 1	VARCHAR(60)
+042. ErReferens 2	VARCHAR(20)
+043. Tfnnr 2		VARCHAR(15)
+044. E-mailadress 2	VARCHAR(60)
+--------------------------------
+Kundreskontra ?
+--------------------------------
+045. Senaste fakturreringsperiod	VARCHAR(4) (ÅÅVV)
+046. Fakturerat hittils	DECIMAL(10,2)
+048. Kundreskontra	DECIMAL(10,2)
+049. Inbetalt belopp	DECIMAL(10,2)
+-------------------------------
+Orderreg ?
+-------------------------------
+050. Värde orderstock	DECIMAL(10,2)
+
+Leveransregister Tabell = KUNDLEVADR
+001. Kundnr		Nyckel		VARCHAR(6)
+002. Levadressnr	Nyckel Nr 001=Standardleveransplats	VARCHAR(3)
+003. Namn rad 1		VARCHAR(30)
+004. Namn rad 2		VARCHAR(30)
+005. Gatuadress rad 1	VARCHAR(30)
+006. Gatuadress rad 2	VARCHAR(30)
+007. Postnr		VARCHAR(10)
+008. Ort		VARCHAR(30)
+009. Land		VARCHAR(20)

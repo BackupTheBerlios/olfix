@@ -1,0 +1,4 @@
+Textregister
+TEXTREG
+TEXTNR	VARCHAR(3)	// 001 -999
+TEXT	VARCHAR(500)	// Valfri text

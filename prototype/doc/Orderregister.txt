@@ -1,0 +1,47 @@
+ORDERREG
+
+ORDERNR	VARCHAR(10) not null PRIMARY KEY
+KUNDNR	VARCHAR(10) not null		// Kundnummer, kundid	(KUNDREG)
+ORDERTYP ENUM('N','D','E','F')DEFAULT 'N' // N=Normalorder, D=Direktorder, E=Efterfaktura, F=Förfaktura
+ORDERSTATUS ENUM('A','N','F','B') DEFAULT 'A'	// A=Under arbete,N=Normal status, F= Frisläppt,
+						// B=Slutbehandlad,ska plockas bort
+ORDERDATUM DATE
+LEVDATUM DATE				// Planerad leveranstid. Ev ÅÅVVD
+LEVADRESS VARCHAR(3)DEFAULT '001'	// Leveransplats = 001,002,003,...	(STDLEVPLATS)
+VARREF VARCHAR(20)			// Vår referens
+ERREF VARCHAR(20)			// Kundens referens	(KUNDREG)
+SELJARE VARCHAR(20)			// Vår säljare		(KUNDREG)
+
+GODSMARKE VARCHAR(100)			// Godsmärke, 100 tecken
+BETVILLKOR VARCHAR(3)DEFAULT '001'	// = 001,002,003,....	(KUNDREG)
+BETVILLKTYP ENUM('F','P','K') not null	// Betalningsvillkorstyp,
+					// F=Faktura(Reskontra),P=Postförskott,K=Kontant
+LEVVILLKOR VARCHAR(3)DEFAULT '001'	// = 001,002,003,....	(KUNDREG)
+LEVERANSSETT VARCHAR(3)DEFAULT '001'	// Leveranssätt = 001,002,003,....(KUNDREG)
+SKATTEKOD VARCHAR(3)DEFAULT '001'	// = 001,002,003,....	(KUNDREG)
+FOLJESEDEL ENUM('J','N')DEFAULT 'J'	// J/N 			(KUNDREG)
+PLOCKLISTA ENUM('J','N')DEFAULT 'J'	// J/N 			(KUNDREG)
+FRAKTAVG ENUM('J','N')DEFAULT 'J'	// J/N 			(KUNDREG)
+
+
+VALUTA VARCHAR(3)DEFAULT 'SEK'		// Valutakod, "SEK","USD","EUR" osv (KUNDREG)
+EXPORTKOD VARCHAR(3)DEFAULT '001'	// Exportkod,= 001,002,003,....	(KUNDREG)
+SPRAKKOD VARCHAR(3)DEFAULT 'sv'		// Språkkod, "sv","us","en" osv (KUNDREG)
+
+
+ORDERRADREG
+
+ORDERNR	VARCHAR(10) PRIMARY KEY
+ORDERRAD INT(4)	    PRIMARY KEY		// Radnr
+RADORDERTYP ENUM('N','D')DEFAULT 'N'	// N=Normalorder, D=Direktorder, på denna orderrad
+KUNDNR VARCHAR(10) not null		// Kundnummer
+ARTIKELNR VARCHAR(30)not null		// 		(ARTIKELREG)
+BESTELLT DECIMAL(10,2)not null		// Antal beställt
+LEVERERAT DECIMAL(10,2)			// Antal att leverera /levererat antal
+RESTNOTERAT DECIMAL(10,2)		// Antal restnoterat
+APRIS DECIMAL(10,2)			// ápris försäljning
+RADRABATT DECIMAL(2,1)			// Radrabatt i procent
+KALKPRIS DECIMAL(10,2)			// Kalkylpris
+SKATTEKOD VARCHAR(5)not null		// Moms (MOSM1,MOMS2,MOMS3 MOMS4 MOMS5) (FTGDATA)
+ENHET VARCHAR(4)DEFAULT 'ST'		// Sort/enhet
+LEVDATUM DATE				// ÅÅVVD?
