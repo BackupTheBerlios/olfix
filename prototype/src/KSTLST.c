@@ -1,9 +1,9 @@
 /***************************************************************************
                           KSTLST.c  -  description
                              -------------------
-    Version		 : 0.2
-    begin                : Lör 22 febr 2003
-    modified		 : Tis  4 nov 2003
+    Version		 : 0.3
+    begin                : Lör  22 febr 2003
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -25,7 +25,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KSTLST.c,v 1.2 2003/11/04 04:41:08 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KSTLST.c,v 1.3 2005/02/24 05:05:59 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -77,7 +77,7 @@ int main(int argc, char *argv[], char *envp[])
   		if (strncmp(argv[ANTARG],"99",2)==0){
 			strncpy(databas,"olfixtst",15);
 		}else{
-  			strncpy(databas,argv[ANTARG],15);
+  			strncpy(databas,argv[ANTARG],sizeof(databas));	/*2005-02-24	*/
   		}
   	}
   }
