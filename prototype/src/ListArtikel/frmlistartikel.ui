@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>500</width>
-            <height>277</height>
+            <width>793</width>
+            <height>252</height>
         </rect>
     </property>
     <property name="sizePolicy">
@@ -22,20 +22,14 @@
     </property>
     <property name="minimumSize">
         <size>
-            <width>500</width>
-            <height>250</height>
+            <width>0</width>
+            <height>0</height>
         </size>
     </property>
     <property name="maximumSize">
         <size>
-            <width>500</width>
-            <height>280</height>
-        </size>
-    </property>
-    <property name="baseSize">
-        <size>
-            <width>500</width>
-            <height>270</height>
+            <width>32767</width>
+            <height>32767</height>
         </size>
     </property>
     <property name="caption">
@@ -50,10 +44,10 @@
         </property>
         <property name="geometry">
             <rect>
-                <x>10</x>
-                <y>205</y>
-                <width>71</width>
-                <height>31</height>
+                <x>14</x>
+                <y>189</y>
+                <width>80</width>
+                <height>26</height>
             </rect>
         </property>
         <property name="text">
@@ -66,10 +60,10 @@
         </property>
         <property name="geometry">
             <rect>
-                <x>10</x>
-                <y>240</y>
-                <width>70</width>
-                <height>30</height>
+                <x>14</x>
+                <y>221</y>
+                <width>80</width>
+                <height>26</height>
             </rect>
         </property>
         <property name="text">
@@ -115,17 +109,37 @@
         </property>
         <property name="geometry">
             <rect>
-                <x>90</x>
-                <y>10</y>
-                <width>401</width>
-                <height>261</height>
+                <x>102</x>
+                <y>13</y>
+                <width>681</width>
+                <height>234</height>
             </rect>
+        </property>
+        <property name="sizePolicy">
+            <sizepolicy>
+                <hsizetype>5</hsizetype>
+                <vsizetype>5</vsizetype>
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+            </sizepolicy>
+        </property>
+        <property name="resizePolicy">
+            <enum>AutoOneFit</enum>
+        </property>
+        <property name="dragAutoScroll">
+            <bool>false</bool>
         </property>
         <property name="selectionMode">
             <enum>Single</enum>
         </property>
         <property name="allColumnsShowFocus">
-            <bool>true</bool>
+            <bool>false</bool>
+        </property>
+        <property name="itemMargin">
+            <number>3</number>
+        </property>
+        <property name="resizeMode">
+            <enum>LastColumn</enum>
         </property>
     </widget>
 </widget>
