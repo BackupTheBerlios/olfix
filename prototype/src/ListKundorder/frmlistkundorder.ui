@@ -1,0 +1,181 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>frmListKundorder</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmListKundorder</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>660</width>
+            <height>252</height>
+        </rect>
+    </property>
+    <property name="sizePolicy">
+        <sizepolicy>
+            <hsizetype>5</hsizetype>
+            <vsizetype>5</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+    </property>
+    <property name="minimumSize">
+        <size>
+            <width>660</width>
+            <height>250</height>
+        </size>
+    </property>
+    <property name="maximumSize">
+        <size>
+            <width>800</width>
+            <height>2800</height>
+        </size>
+    </property>
+    <property name="baseSize">
+        <size>
+            <width>500</width>
+            <height>270</height>
+        </size>
+    </property>
+    <property name="caption">
+        <string>OLFIX - LSTORDW - Lista kundorder</string>
+    </property>
+    <property name="iconText">
+        <string>OLFIX</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QListView" row="0" column="1" rowspan="3" colspan="1">
+            <column>
+                <property name="text">
+                    <string>Ordernr</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Kundnr</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Leveransdatum</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Orderstatus</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Ordersumma</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <property name="name">
+                <cstring>ListView1</cstring>
+            </property>
+            <property name="selectionMode">
+                <enum>Single</enum>
+            </property>
+            <property name="showSortIndicator">
+                <bool>true</bool>
+            </property>
+            <property name="resizeMode">
+                <enum>LastColumn</enum>
+            </property>
+        </widget>
+        <spacer row="0" column="0">
+            <property name="name">
+                <cstring>spacer1</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>16</width>
+                    <height>156</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QPushButton" row="1" column="0">
+            <property name="name">
+                <cstring>PushButtonAgain</cstring>
+            </property>
+            <property name="text">
+                <string>Uppdatera</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="2" column="0">
+            <property name="name">
+                <cstring>PushButtonSluta</cstring>
+            </property>
+            <property name="text">
+                <string>Sluta</string>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>PushButtonSluta</sender>
+        <signal>clicked()</signal>
+        <receiver>frmListKundorder</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonAgain</sender>
+        <signal>clicked()</signal>
+        <receiver>frmListKundorder</receiver>
+        <slot>slotReloadLev()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">frmlistkundorder.ui.h</include>
+</includes>
+<slots>
+    <slot>GetKundorder()</slot>
+    <slot>init()</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotEndOfProcess()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>slotReloadLev()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
