@@ -9,8 +9,9 @@
 /***************************************************************************
                           ADDARW  -  description
                              -------------------
-		     version 0.1
+		     version 0.3
     begin                : Tis 28 okt 2003
+    modified	: Mån 24 nov 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -78,9 +79,9 @@
     QString lagerdata;		// Summan av lagerplatsdata
 
     
-    QRegExp rx1( "[A-Za-z0-9ÅÄÖåäö]\\w{1,29}" );
+    QRegExp rx1( "[A-Za-z0-9ÅÄÖåäö-]{1,29}" );
     QRegExp rx2( "[0-9]{0,3}" );
-    QRegExp rx3( "[A-Za-z0-9ÅÄÖåäö ]{0,29}" );
+    QRegExp rx3( "[A-Za-z0-9ÅÄÖåäö/_ - ]{0,29}" );
     QRegExp rx4( "[0-9,.]{1,6}" );
     QRegExp rx5( "\\w{0,5}" );
     QRegExp rx6( "[0-9,.]{0,12}" );
@@ -88,7 +89,7 @@
     QRegExp rx8( "[0-3]{1}" );
     QRegExp rx9( "[BFIT ]{0,1}" );
     QRegExp rx10( "\\d{0,7}" );
-    QRegExp rx11( "[A-Za-z0-9ÅÄÖåäö ]{1,29}" );
+    QRegExp rx11( "[A-Za-z0-9ÅÄÖåäö/_ -]{1,29}" );
 	
     QRegExpValidator validator1( rx1, 0 );
     QRegExpValidator validator2( rx2, 0 );
@@ -652,13 +653,19 @@ void frmAddArtikel::lineEditLagerhylla_2_returnPressed()
 
 void frmAddArtikel::lineEditLagersaldo_2_returnPressed()
 {
+    int i;
     lagersaldo=lineEditLagersaldo_2->text();
     if (lagersaldo==""){
 	lagersaldo="0.00";
 	lineEditLagersaldo_2->setText(lagersaldo);
     }
+    i = -1;
+    i = lagersaldo.find( QRegExp(","), 0 );
+    if (i != -1){
+	 lagersaldo.replace( QChar(','), "." );
+	 lineEditLagersaldo_2->setText(lagersaldo);
+     }    
     lineEditInvGrp_2->setFocus();
-
 }
 
 void frmAddArtikel::lineEditInvGrp_2_returnPressed()
@@ -691,32 +698,54 @@ void frmAddArtikel::lineEditValuta_2_returnPressed()
 
 void frmAddArtikel::lineEditSenInkopsPris_2_returnPressed()
 {
+    int i;
     seninkpris=lineEditSenInkopsPris_2->text();
     if (seninkpris==""){
 	seninkpris="0.00";
 	lineEditSenInkopsPris_2->setText(seninkpris);
     }
+    i = -1;
+    i = seninkpris.find( QRegExp(","), 0 );
+    if (i != -1){
+	 seninkpris.replace( QChar(','), "." );
+	 lineEditSenInkopsPris_2->setText(seninkpris);
+     }
     lineEditSenKalkylPris_2->setFocus();
 }
 
 
 void frmAddArtikel::lineEditSenKalkylPris_2_returnPressed()
 {
+    int i;    
     kalkylpris=lineEditSenKalkylPris_2->text();
     if (kalkylpris==""){
 	kalkylpris="0.00";
 	lineEditSenKalkylPris_2->setText(kalkylpris);
     }
+    i = -1;
+    i = kalkylpris.find( QRegExp(","), 0 );
+    if (i != -1){
+	 kalkylpris.replace( QChar(','), "." );
+	 lineEditSenKalkylPris_2->setText(kalkylpris);
+     }
     lineEditBestPunkt_2->setFocus();
 }
 
 void frmAddArtikel::lineEditBestPunkt_2_returnPressed()
 {
+    int i;
     bestpunkt=lineEditBestPunkt_2->text();
     if (bestpunkt==""){
 	bestpunkt="0";
 	lineEditBestPunkt_2->setText(bestpunkt);
     }
+    i = -1;
+    i = bestpunkt.find( QRegExp(","), 0 );
+    if (i != -1){
+	 bestpunkt.replace( QChar(','), "." );
+	 lineEditBestPunkt_2->setText(bestpunkt);
+     }
+    
     pushButtonOK->setFocus();
 }
 
