@@ -77,3 +77,6 @@
 "077","Administration","Leveransvillkor","Lista leveransvillkor","LSTLEVVW"
 "078","Administration","Leveranssätt","Nya leveranssätt","ADDLEVSW"
 "079","Administration","Leveranssätt","Lista leveranssätt","LSTLEVSW"
+"080","Ekonomi","Rapporter","Balansräkning","BALRPTW"
+"081","Ekonomi","Rapporter","Huvudbok","HUVBOKW"
+"082","Ekonomi","Rapporter","Dagbok","DAGBOKW"
