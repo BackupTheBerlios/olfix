@@ -1,9 +1,11 @@
 /***************************************************************************
                           DBOKRPT.c  -  description
-                             -------------------
-    Version		 : 0.1
+                          -------------------------
+			  Dagboksrapport
+
+    Version		 : 0.2
     begin                : Lör 10 april 2004
-    modified		 :
+    modified		 : Ons 23 febr  2005
     copyright            : (C) 2004 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -35,7 +37,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/DBOKRPT.c,v 1.1 2004/04/13 05:03:54 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/DBOKRPT.c,v 1.2 2005/02/23 12:09:16 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -117,9 +119,9 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-  strncpy(arid,argv[1],strlen(argv[1]));
-  strncpy(fromdatum,argv[2],strlen(argv[2]));
-  strncpy(tomdatum,argv[3],strlen(argv[3]));
+  strncpy(arid,argv[1],sizeof(arid));			/* 2005-02-23*/
+  strncpy(fromdatum,argv[2],sizeof(fromdatum));		/* 2005-02-23*/
+  strncpy(tomdatum,argv[3],sizeof(tomdatum));		/* 2005-02-23*/
 /*  fprintf(stderr,"arid=%s,fromdatum=%s,tomdatum=%s\n",arid,fromdatum,tomdatum);		*/
   strncpy(temp5,temp1a,strlen(temp1a));
   strncat(temp5,temp1b,strlen(temp1b));
