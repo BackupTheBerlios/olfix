@@ -1,11 +1,21 @@
 README.1ST
 
-
-OLFIX.0.1.9.A_20031112.tar.gz
+OLFIX.0.1.10.A_2003111x.tar.gz
 
 Denna "leverans" innehåller flera "icke" färdiga tabeller. ORDERREG,ORDERRADREG,ARTIKELREG,LAGERSTELLEREG.
 De program som använder dessa register är inte färdiga.
 Huvudorsaken till denna leverans är möjlighet att använda flera databaser (just nu olfix och olfixtst) samt kodstädning.
 
+Det finns ingen dokumentation för följande program/funktioner:
+AR2ADD.c
+ARCHG.c
+ARCHGL.c
+ARDSP.c
+ARDSPL.c
+DSPARW		Visa en artikels grunddata. GUI
+DSPAREW		Visa en artikels ekonomidata. GUI
+CHGARW		Ändra en artikels data. GUI
+
+Detta pga att det ännu inte bestämts hur ARTIKELREG/LAGERSTELLEREG ska användas.
 
 Vi vill gärna ha synpunkter på vad ovanstående register ska innehålla.
