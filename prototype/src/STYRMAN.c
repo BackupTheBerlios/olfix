@@ -1,9 +1,9 @@
 /***************************************************************************
                           STYRMAN.c  -  description
                              -------------------
-			     ver 0.10
+			     ver 0.11
     begin                : Mån 30 juni 2003
-    Modified		 : Sön  9 nov  2003
+    Modified		 : Sön 11 nov  2004
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -14,7 +14,7 @@
                   OUTPUT:  errno, error (text)
 ****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.6 2003/11/09 06:00:03 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.7 2004/11/11 11:29:49 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -39,7 +39,7 @@
   char tmpfilepath[FILEPATH];
 
   char database[15]="";
-  char databas[25]="olfix";
+  char databas[15]="olfix";	/* 2004-11-11	*/
 
 void display_row();
 int which_database(char *envp[]);
@@ -55,10 +55,11 @@ int main(int argc, char *argv[], char *envp[])
 {
   int status=-15;
   int i;
-  char anv[9];
-  const char *userp = getenv("USER");	// vem är inloggad?
-//  char databas[25]="olfix";
-  char usr[15];		// userid
+  char anv[9]="";			/* 2004-11-11		*/
+  const char *userp = getenv("USER");	/* vem är inloggad?	*/
+/*  char databas[25]="olfix";	*/
+  char usr[15];		/* userid	*/
+  char transid[9]="";			/* 2004-11-11	*/
 
   status = find_tmp_path(envp);
   if (status != 0)
@@ -93,36 +94,45 @@ int main(int argc, char *argv[], char *envp[])
 /* ================================================================================	*/
 /* 		Val av databas, END!							*/
 /* ================================================================================	*/
-
-
-  status=check_User(argv[1]);		/* Finns användaren(USERID)?		*/
-  if(status != 0){
+  /* Start 		2004-11-11		*/
       strncpy(anv,argv[1],strlen(argv[1]));
-      for (i = 0;i <= 8;i++){
-	anv[i]=toupper(anv[i]);
+/*      fprintf(stderr,"argv[1]=%s\n",argv[1]);	*/
+/*	strncpy(anv,argv[1],strlen(anv));	*/
+/*      for (i = 0;i <= 8;i++){			*/
+	for (i = 0;i <= strlen(argv[1]);i++){	/* 2004-11-11	*/
+		anv[i]=toupper(anv[i]);
       }
+      anv[strlen(argv[1])+1]="\0";
+/*	fprintf(stderr,"anv=%s| anv= %d tecken  argv[1]=%d tecken\n",anv,strlen(anv),strlen(argv[1]));	*/
 
-     fprintf(stderr,"Error: STYRMAN(1). Användare %s finns ej\n",argv[1]);
-     exit(-1);
-  }
+	strncpy(transid,argv[2],strlen(argv[2]));
+/*	fprintf(stderr,"argv[2]=%s\n",argv[2]);		*/
+	for (i = 0;i <= strlen(argv[2]);i++){
+		transid[i]=toupper(transid[i]);
+      }
+/*	fprintf(stderr,"transid=%s| transid= %d tecken  argv[2]=%d	 tecken\n",transid,strlen(transid),strlen(argv[2]));			*/
 
-  status=-15;
-  status=check_Transtyp(argv[2]);	/* Finns transaktionstypen(TRANSID)?	*/
+  /* Slut 		2004-11-11		*/
+
+  status=check_User(anv);		/* Finns användaren(USERID)?		*/
   if(status != 0){
-     fprintf(stderr,"Error: STYRMAN(2). Function %s finns ej\n",argv[2]);
+     fprintf(stderr,"Error: STYRMAN(1). Användare %s finns ej\n",anv);	/* 2004-11-11	*/
      exit(-1);
   }
 
   status=-15;
-  status=check_Rights(argv[1],argv[2]);	/* Har USERID behörighet till TRANSID ?	*/
+  status=check_Transtyp(transid);	/* Finns transaktionstypen(TRANSID)?	*/
+  if(status != 0){
+     fprintf(stderr,"Error: STYRMAN(2). Function %s finns ej\n",transid);
+     exit(-1);
+  }
+
+  status=-15;
+  status=check_Rights(anv,transid);	/* Har USERID behörighet till TRANSID ?	*/
 /*  fprintf(stderr,"STYRMANmain_check_Rights status=%d\n",status);		*/
   if(status != 0){
-      strncpy(anv,argv[1],strlen(argv[1]));
-      for (i = 0;i <= 8;i++){
-	anv[i]=toupper(anv[i]);
-      }
-     strncpy(argv[1],anv,strlen(anv));
-     fprintf(stderr,"Error: STYRMAN(3). User %s har ej behörighet till %s\n",argv[1],argv[2]);
+/*     strncpy(argv[1],anv,strlen(anv));	2004-11-11	*/
+     fprintf(stderr,"Error: STYRMAN(3). User %s har ej behörighet till %s\n",anv,transid);
      exit(-1);
   }
 
@@ -317,11 +327,22 @@ int check_User(char *user)
   static char sql2[] = "\"";
   char sqlcommand[50]="";	/* 50 */
   int status=15;
+/* Start	2004-11-11			*/
+  int i;
+  char anv[9]="";
+  strncpy(anv,user,strlen(user));
+/*  fprintf(stderr,"1.anv=%s\n",anv);		*/
+  for (i = 0;i <= strlen(anv);i++){
+		anv[i]=toupper(anv[i]);
+      }
+/*  fprintf(stderr,"2.anv=%s\n",anv);		*/
+/* Slut		2004-11-11			*/
 
   strncpy(sqlcommand,sql1,strlen(sql1));
-  strncat(sqlcommand,user,strlen(user));
+  strncat(sqlcommand,anv,strlen(anv));
   strncat(sqlcommand,sql2,strlen(sql2));
 
+/*  fprintf(stderr,"sqlkommando=%s\n",sqlcommand);	 2004-11-11	*/
   mysql_init(&my_connection);
 
   if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
