@@ -2,7 +2,7 @@
                           FORADD.c  -  description
                              -------------------
     begin                : Ons 12 nov	2004
-    Modified		 :
+    Modified		 : Ons 23 febr  2005
     copyright            : (C) 2004 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -27,7 +27,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FORADD.c,v 1.2 2004/11/12 06:32:56 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FORADD.c,v 1.3 2005/02/23 14:18:40 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -65,13 +65,13 @@ int main(int argc, char *argv[], char *envp[])
   char usr[15];				/* userid		*/
 
   if (argv[1] != NULL){
-  	strncpy(dbnr,argv[1],strlen(argv[1]));
+  	strncpy(dbnr,argv[1],sizeof(dbnr));	/* 2005-02-23	*/
   }else{
   	fprintf(stderr,"Error: FORADD: Ange databasnummer!\n");
 	exit(-1);
   }
   if (argv[2] != NULL){
-  	strncpy(dbnamn,argv[2],strlen(argv[2]));
+  	strncpy(dbnamn,argv[2],sizeof(dbnamn));	/* 2005-02-23	*/
   }else{
   	fprintf(stderr,"Error: FORADD: Ange databasnamn!\n");
 	exit(-1);
@@ -82,7 +82,7 @@ int main(int argc, char *argv[], char *envp[])
   }
 */
   if((argc > 3) && (argv[3] != NULL)){
-	strncpy(database,argv[3],strlen(argv[3]));
+	strncpy(database,argv[3],sizeof(database));	/* 2005-02-23	*/
   }else{
 	  status = which_database(envp);
   }
