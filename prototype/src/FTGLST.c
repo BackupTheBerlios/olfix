@@ -1,6 +1,7 @@
 /***************************************************************************
                           FTGLST.c  -  description
                              -------------------
+			     Lista posttyper med beskrivning
     Version		 : 0.2
     begin                : Fre 18 april
     modified		 : Mån  3 nov 2003
@@ -25,7 +26,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FTGLST.c,v 1.2 2003/11/03 11:16:55 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FTGLST.c,v 1.3 2005/02/23 15:14:31 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -77,7 +78,7 @@ int main(int argc, char *argv[], char *envp[])
   		if (strncmp(argv[ANTARG],"99",2)==0){
 			strncpy(databas,"olfixtst",15);
 		}else{
-  			strncpy(databas,argv[ANTARG],15);
+  			strncpy(databas,argv[ANTARG],sizeof(databas));	/*2005-02-23	*/
   		}
   	}
   }

@@ -1,9 +1,9 @@
 /***************************************************************************
                           FTGUPD.c  -  description
                              -------------------
-    Version		 : 0.2
+    Version		 : 0.3
     begin                : mån 18 nov	2002
-    modified		 : Mån  3 nov 2003
+    modified		 : Ons 23 febr  2005
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -29,7 +29,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FTGUPD.c,v 1.2 2003/11/03 13:25:02 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FTGUPD.c,v 1.3 2005/02/23 15:17:31 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -107,8 +107,8 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-   strncpy(ptyp,argv[1],strlen(argv[1]));
-   strncpy(txt,argv[2],strlen(argv[2]));
+   strncpy(ptyp,argv[1],sizeof(ptyp));	/* 2005-02-23	*/
+   strncpy(txt,argv[2],sizeof(txt));	/* 2005-02-23	*/
 
 /*    fprintf(stderr,"FTGUPDmain1: argv1 = %s argv2 = %s len text=%d\n",ptyp,txt,strlen(txt));	*/
 /*    fprintf(stderr,"FTGUPDmain: argv2 = %s\n",txt);						*/
