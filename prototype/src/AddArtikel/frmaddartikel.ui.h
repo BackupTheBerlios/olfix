@@ -38,10 +38,12 @@
     QString inrad;
     QString errorrad;
 
+    // Artikelgrunddata
     QString artikelnr;
     QString benamn1;
     QString benamn2;
     QString enhet;
+    QString omrfaktor;
     QString nettovikt;
     QString volym;
     QString fpris;
@@ -58,7 +60,24 @@
     QString urland;
     QString levartnr;
     QString artikeldata;		// Summan av ovanstående.
+    
+    // Lagerplatsdata
+    QString lagerplats="1";    
+    QString lagerhylla;
+    QString lagersaldo="0";
+    QString invgrupp;
+    QString abckod;
+    QString valuta;
+    QString seninkpris="0.00";
+    QString ikvant0="0.00";
+    QString ikvant1="0.00";
+    QString ikvant2="0.00";    
+    QString kalkylpris="0.00";
+    QString bestkvant="0.00";
+    QString bestpunkt="0.00";
+    QString lagerdata;		// Summan av lagerplatsdata
 
+    
     QRegExp rx1( "[A-Za-z0-9ÅÄÖåäö]\\w{1,29}" );
     QRegExp rx2( "[0-9]{0,3}" );
     QRegExp rx3( "[A-Za-z0-9ÅÄÖåäö ]{0,29}" );
@@ -135,8 +154,36 @@ void frmAddArtikel::lineEditEnhet_returnPressed()
 {
     enhet=lineEditEnhet->text();
     if (enhet==""){
-	enhet=" ";
+	enhet="ST";
+	lineEditEnhet->setText(enhet);
     }
+    lineEditOmrFaktor->setFocus();
+}
+
+void frmAddArtikel::lineEditOmrFaktor_returnPressed()
+{
+    omrfaktor=lineEditOmrFaktor->text();
+    if (omrfaktor==""){
+	omrfaktor="1";
+	lineEditOmrFaktor->setText(omrfaktor);
+    }
+    lineEditFpris->setFocus();
+}
+
+void frmAddArtikel::lineEditFpris_returnPressed()
+{
+    int i;
+    fpris=lineEditFpris->text();
+    if (fpris==""){
+	fpris="0.00";	
+    }
+    i = -1;
+    i = fpris.find( QRegExp(","), 0 );
+    if (i != -1){
+	 fpris.replace( QChar(','), "." );
+     }    
+    lineEditFpris->setText(fpris);
+//    qDebug("Fpris=%s",fpris.latin1());
     lineEditNettovikt->setFocus();
 }
 
@@ -171,23 +218,6 @@ void frmAddArtikel::lineEditVolym_returnPressed()
      }    
     lineEditVolym->setText(volym);
 //    qDebug("Volym=%s",volym.latin1());
-    lineEditFpris->setFocus();
-}
-
-void frmAddArtikel::lineEditFpris_returnPressed()
-{
-    int i;
-    fpris=lineEditFpris->text();
-    if (fpris==""){
-	fpris="0.00";	
-    }
-    i = -1;
-    i = fpris.find( QRegExp(","), 0 );
-    if (i != -1){
-	 fpris.replace( QChar(','), "." );
-     }    
-    lineEditFpris->setText(fpris);
-//    qDebug("Fpris=%s",fpris.latin1());
     lineEditLedtid->setFocus();
 }
 
@@ -299,7 +329,8 @@ void frmAddArtikel::lineEditUrArtikelnr_returnPressed()
     if (levartnr==""){
 	levartnr=" ";
     }
-    pushButtonOK->setFocus();
+//    pushButtonOK->setFocus();			//  OBS! OBS!
+    lineEditLagerplats_2->setFocus();
 }
 
 void frmAddArtikel::pushButtonOK_clicked()
@@ -314,6 +345,8 @@ void frmAddArtikel::pushButtonOK_clicked()
     artikeldata.append(benamn2);
     artikeldata.append(skilj);
     artikeldata.append(enhet);
+    artikeldata.append(skilj);
+    artikeldata.append(omrfaktor);
     artikeldata.append(skilj);
     artikeldata.append(nettovikt);
     artikeldata.append(skilj);
@@ -345,7 +378,38 @@ void frmAddArtikel::pushButtonOK_clicked()
     artikeldata.append(skilj);
     artikeldata.append(volym);    
     artikeldata.append(skilj);
+
     qDebug("artikeldata=%s",artikeldata.latin1());
+    lagerdata=skilj;
+    lagerdata.append(lagerplats);
+    lagerdata.append(skilj);
+    lagerdata.append(artikelnr);
+    lagerdata.append(skilj);    
+    lagerdata.append(lagerhylla);
+    lagerdata.append(skilj);    
+    lagerdata.append(lagersaldo);
+    lagerdata.append(skilj);
+    lagerdata.append(invgrupp);
+    lagerdata.append(skilj);
+    lagerdata.append(abckod);
+    lagerdata.append(skilj);
+    lagerdata.append(valuta);
+    lagerdata.append(skilj);
+    lagerdata.append(seninkpris);
+    lagerdata.append(skilj);
+    lagerdata.append(ikvant0);
+    lagerdata.append(skilj);
+    lagerdata.append(ikvant1);
+    lagerdata.append(skilj);
+    lagerdata.append(ikvant2);
+    lagerdata.append(skilj);
+    lagerdata.append(kalkylpris);
+    lagerdata.append(skilj);
+    lagerdata.append(bestkvant);
+    lagerdata.append(skilj);    
+    lagerdata.append(bestpunkt);
+    lagerdata.append(skilj);
+
     updateArtikelReg();
 }
 
@@ -365,7 +429,7 @@ void frmAddArtikel::updateArtikelReg()
 	process->addArgument(artikeldata);
 	frmAddArtikel::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmAddArtikel::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-            frmAddArtikel::connect( process, SIGNAL(processExited() ),this, SLOT(slotUpdateEndOfProcess() ) );
+            frmAddArtikel::connect( process, SIGNAL(processExited() ),this, SLOT(slotARUpdateEndOfProcess() ) );
 
 	if ( !process->start() ) {
 		// error handling
@@ -375,29 +439,30 @@ void frmAddArtikel::updateArtikelReg()
 	}
 }
 
-void frmAddArtikel::slotUpdateEndOfProcess()
+void frmAddArtikel::slotARUpdateEndOfProcess()
 {
     int i;
 //    qDebug("slotUpdateEndOfProcess= %s  %s",errorrad.latin1(),inrad.latin1());
     i = -1;
     i = errorrad.find( QRegExp("Error:"), 0 );
     if (i != -1) {
-	QMessageBox::critical( this, "ADDARW",
-		"ERROR!\n"+errorrad
-	);
+	QMessageBox::critical( this, "ADDARW, Grunddata ","ERROR!\n"+errorrad);
 	errorrad="";
     }
     i = -1;
     i = inrad.find( QRegExp("Error:"), 0 );
     if (i != -1) {
-	QMessageBox::critical( this, "ADDARW","ERROR!\n"+inrad);
+	QMessageBox::critical( this, "ADDARW, Grunddata ","ERROR!\n"+inrad);
     }
-     i = -1;
+ /*
+    i = -1;
      i = inrad.find( QRegExp("OK:"), 0 );
      if (i != -1) {
 	QMessageBox::information( this, "ADDARW",
 		"Uppdatering OK!\n"+errorrad
 	);
+    }
+*/	
 	artikeldata="";
 	lineEditArtikelNr->clear();
 	lineEditBenamning1->clear();
@@ -418,6 +483,72 @@ void frmAddArtikel::slotUpdateEndOfProcess()
 	lineEditUrBenamning->clear();
 	lineEditUrsprungsland->clear();
 	lineEditUrArtikelnr->clear();
+    
+     errorrad="";
+     inrad="";
+     frmAddArtikel::updateLagerstalleReg();
+//     lineEditArtikelNr->setFocus();
+}
+
+void frmAddArtikel::updateLagerstalleReg()
+{
+/************************************************************************/
+/*	Uppdatera databasen med den nya artikeln.				*/
+/************************************************************************/
+	const char *userp = getenv("USER");
+            QString usr(userp);
+
+	process = new QProcess();
+	process->addArgument( "./STYRMAN");	// OLFIX funktion
+	process->addArgument(usr);
+	process->addArgument("AR2ADD");
+	process->addArgument(lagerdata);
+	frmAddArtikel::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+	frmAddArtikel::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+            frmAddArtikel::connect( process, SIGNAL(processExited() ),this, SLOT(slotLSUpdateEndOfProcess() ) );
+
+	if ( !process->start() ) {
+		// error handling
+		fprintf(stderr,"Problem starta ADDARW!\n");
+		QMessageBox::warning( this, "",
+                            "Kan inte starta AR2ADD! \n" );
+	}
+}
+
+void frmAddArtikel::slotLSUpdateEndOfProcess()
+{
+    int i;
+//    qDebug("slotUpdateEndOfProcess= %s  %s",errorrad.latin1(),inrad.latin1());
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+    if (i != -1) {
+	QMessageBox::critical( this, "ADDARW, Lagerplatsdata ","ERROR!\n"+errorrad);
+	errorrad="";
+    }
+    i = -1;
+    i = inrad.find( QRegExp("Error:"), 0 );
+    if (i != -1) {
+	QMessageBox::critical( this, "ADDARW, Lagerplats ","ERROR!\n"+inrad);
+    }
+
+     i = -1;
+     i = inrad.find( QRegExp("OK:"), 0 );
+     if (i != -1) {
+	QMessageBox::information( this, "ADDARW",
+		"Uppdatering OK!\n"+errorrad
+	);
+	lagerdata="";
+	lineEditLagerplats_2->setText("1");
+	lineEditLagerhylla_2->clear();
+	lineEditBenamning2->clear();
+	lineEditLagersaldo_2->setText("0");
+	lineEditInvGrp_2->clear();
+	lineEditABCkod_2->clear();
+	lineEditValuta_2->setText("SEK");
+	lineEditSenInkopsPris_2->setText("0.00");
+	lineEditSenKalkylPris_2->setText("0.00");
+	lineEditBestPunkt_2->setText("0.00");
+	lineEditArtikeltyp->setText("0");
     }
      errorrad="";
      inrad="";
@@ -497,4 +628,95 @@ void frmAddArtikel::slotDataOnStdout()
     }
 }
 
+
+
+
+void frmAddArtikel::lineEditLagerplats_2_returnPressed()
+{
+    lagerplats=lineEditLagerplats_2->text();
+    if (lagerplats==""){
+	lagerplats="1";
+	lineEditLagerplats_2->setText(lagerplats);
+    }
+    lineEditLagerhylla_2->setFocus();
+}
+
+void frmAddArtikel::lineEditLagerhylla_2_returnPressed()
+{
+    lagerhylla=lineEditLagerhylla_2->text();
+    if (lagerhylla==""){
+	lagerhylla=" ";
+    }
+    lineEditLagersaldo_2->setFocus();
+}
+
+void frmAddArtikel::lineEditLagersaldo_2_returnPressed()
+{
+    lagersaldo=lineEditLagersaldo_2->text();
+    if (lagersaldo==""){
+	lagersaldo="0.00";
+	lineEditLagersaldo_2->setText(lagersaldo);
+    }
+    lineEditInvGrp_2->setFocus();
+
+}
+
+void frmAddArtikel::lineEditInvGrp_2_returnPressed()
+{
+    invgrupp=lineEditInvGrp_2->text();
+    if (invgrupp==""){
+	invgrupp=" ";
+    }
+    lineEditABCkod_2->setFocus();
+}
+
+void frmAddArtikel::lineEditABCkod_2_returnPressed()
+{
+    abckod=lineEditABCkod_2->text();
+    if (abckod==""){
+	abckod=" ";
+    }
+    lineEditValuta_2->setFocus();
+}
+
+void frmAddArtikel::lineEditValuta_2_returnPressed()
+{
+    valuta=lineEditValuta_2->text();
+    if (valuta==""){
+	valuta="SEK";
+	lineEditValuta_2->setText(valuta);
+    }
+    lineEditSenInkopsPris_2->setFocus();
+}
+
+void frmAddArtikel::lineEditSenInkopsPris_2_returnPressed()
+{
+    seninkpris=lineEditSenInkopsPris_2->text();
+    if (seninkpris==""){
+	seninkpris="0.00";
+	lineEditSenInkopsPris_2->setText(seninkpris);
+    }
+    lineEditSenKalkylPris_2->setFocus();
+}
+
+
+void frmAddArtikel::lineEditSenKalkylPris_2_returnPressed()
+{
+    kalkylpris=lineEditSenKalkylPris_2->text();
+    if (kalkylpris==""){
+	kalkylpris="0.00";
+	lineEditSenKalkylPris_2->setText(kalkylpris);
+    }
+    lineEditBestPunkt_2->setFocus();
+}
+
+void frmAddArtikel::lineEditBestPunkt_2_returnPressed()
+{
+    bestpunkt=lineEditBestPunkt_2->text();
+    if (bestpunkt==""){
+	bestpunkt="0";
+	lineEditBestPunkt_2->setText(bestpunkt);
+    }
+    pushButtonOK->setFocus();
+}
 
