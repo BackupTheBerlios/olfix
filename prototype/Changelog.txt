@@ -1,4 +1,44 @@
-Changelog OLFIX 20050130
+Changelog OLFIX 20050213
+
+Blivande:
+Ver 0.2.1.B
+20050213
+		Nya funktioner
+		ARLSPK.c	Lista artiklar per angiven produktklass
+
+		Ändrade funktioner
+		Makefile	Ny funktion
+
+		Nya program
+		RPTSIEW	(Påbörjad) Export av bokföring.
+
+		Ändrade program
+		ADDORDW	(Ej klar. 20050209)	Kundorderregistrering.
+		LSTARW	Buggrättning
+
+		Nya tabeller
+		Ändrade tabeller
+		Ny sql
+		Ändrade sql
+		Nya rapporter
+		Ändrade rapporter
+
+		Script
+		Raderat bort obsoleta script
+			start_olfix
+			olfix_install
+			olfix_install_bin
+			olfix_install_copy
+			install.sh
+			setup.sh
+			vallst.sh
+
+		Dokumentation
+			Teknisk Manual	Uppdaterad (2005-??-??)
+			UserManual	Uppdaterad (2005-??-??)
+			Installationsanvisningar.txt (2005-02-09)
+			Installationsanvisningar.sxw (2005-02-09)
+		Korsrelationer.sxw Uppdaterad (2005-02-05)
 
 
 Ver 0.2.B
