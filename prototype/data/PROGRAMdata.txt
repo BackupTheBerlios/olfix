@@ -46,3 +46,5 @@
 "046","Försäljning","Kunddata","Visa kunddata","DSPKUW"
 "047","Försäljning","Kunddata","Ändra kunddata","CHGKUW"
 "048","Försäljning","Kunddata","Lista kunder","LSTKUW"
+"049","Administration","Företagsdata","Byta företag","BYTFTGW"
+"050","Grunddata","Artikeldata","Ny artikel","ADDARW"

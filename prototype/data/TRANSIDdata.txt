@@ -1,4 +1,6 @@
 "ARICHK","Kontrollera om visst bokföringsår finns"
+"ARADD","Lägga upp en ny artikel"
+"ARCHK","Kontrollera om artikelnummer finns"
 "ATTBET","Lista leverantörsfakturor att betala"
 "BARADD","Lägga upp nytt bokföringsår"
 "BARDSP","Hämta data för angivet bokföringsår"
