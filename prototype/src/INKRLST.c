@@ -1,9 +1,9 @@
 /***************************************************************************
                           INKRLST.c  -  description
                              -------------------
-			     Ver: 0.2
+			     Ver: 0.3
     begin                : Sön 21  dec 2003
-    modified		 : Månd 22 dec 2003
+    modified		 : Tis 3 feb 2004
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -30,7 +30,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKRLST.c,v 1.2 2003/12/22 03:05:49 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKRLST.c,v 1.3 2004/02/03 07:51:48 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -62,7 +62,7 @@ int main(int argc, char *argv[], char *envp[])
   char usr[15];				/* userid		*/
   char inkordnr[11]="";			/* inköpsordernummer	*/
 
-  char temp1[]="SELECT INKORDNR, INKORDRADNR,INKRADREG.ARTIKELNR,ENHET,BESTANTAL,LEVERERAT,RESTNOTERAT,INKPRIS,LEVVECKA,TORDNR,OPNR,ARBENEMNING1 from INKRADREG,ARTIKELREG WHERE INKRADREG.ARTIKELNR = ARTIKELREG.ARTIKELNR AND INKRADREG.INKORDNR = ";
+  char temp1[]="SELECT INKORDNR, INKORDRADNR,ARTIKELNR,ENHET,BESTANTAL,LEVERERAT,RESTNOTERAT,INKPRIS,LEVVECKA,TORDNR,OPNR,BENEMNING from INKRADREG WHERE INKORDNR = ";
   char temp1a[]=" ORDER BY INKORDRADNR";
   char temp5[500]="";
 

@@ -1,9 +1,9 @@
 /***************************************************************************
                           INKHDSP.c  -  description
                              -------------------
-			     Ver: 0.1
+			     Ver: 0.2
     begin                : Sön 21  dec 2003
-    modified		 :
+    modified	: Tis 3 febr 2004
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKHDSP.c,v 1.1 2003/12/21 15:30:15 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKHDSP.c,v 1.2 2004/02/03 07:51:29 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -135,31 +135,37 @@ int main(int argc, char *argv[], char *envp[])
 		if(num_rows != 0){
 			sqlrow=mysql_fetch_row(res_ptr);
 			fprintf(stdout,"OK: ");
-			fprintf(stdout,"01:%s  ",sqlrow[0]);
-			fprintf(stdout,"02:%s  ",sqlrow[1]);
-			fprintf(stdout,"03:%s  ",sqlrow[2]);
-			fprintf(stdout,"04:%s  ",sqlrow[3]);
-			fprintf(stdout,"05:%s  ",sqlrow[4]);
-			fprintf(stdout,"06:%s  ",sqlrow[5]);
-			fprintf(stdout,"07:%s  ",sqlrow[6]);
-			fprintf(stdout,"08:%s  ",sqlrow[7]);
-			fprintf(stdout,"09:%s  ",sqlrow[8]);
-			fprintf(stdout,"10:%s  ",sqlrow[9]);
-			fprintf(stdout,"11:%s  ",sqlrow[10]);
-			fprintf(stdout,"12:%s  ",sqlrow[11]);
-			fprintf(stdout,"13:%s  ",sqlrow[12]);
-			fprintf(stdout,"14:%s  ",sqlrow[13]);
-			fprintf(stdout,"15:%s  ",sqlrow[14]);
-			fprintf(stdout,"16:%s  ",sqlrow[15]);
-			fprintf(stdout,"17:%s  ",sqlrow[16]);
-			fprintf(stdout,"18:%s  ",sqlrow[17]);
-			fprintf(stdout,"19:%s  ",sqlrow[18]);
-			fprintf(stdout,"20:%s  ",sqlrow[19]);
-			fprintf(stdout,"21:%s  ",sqlrow[20]);
-			fprintf(stdout,"22:%s  ",sqlrow[21]);
-			fprintf(stdout,"23:%s  ",sqlrow[22]);
-			fprintf(stdout,"24:%s  ",sqlrow[23]);
-			fprintf(stdout,"25:%s  ",sqlrow[24]);
+			fprintf(stdout,"01:%s  ",sqlrow[0]);	/* beställningsordernr */
+			fprintf(stdout,"02:%s  ",sqlrow[1]);	/* bestellningstyp */
+			fprintf(stdout,"03:%s  ",sqlrow[2]);	/* beställningsdatum */
+			fprintf(stdout,"04:%s  ",sqlrow[3]);	/* leverantörsnr */
+			fprintf(stdout,"05:%s  ",sqlrow[4]);	/* levnamn */
+			fprintf(stdout,"06:%s  ",sqlrow[5]);	/* leverantörsadress */
+			fprintf(stdout,"07:%s  ",sqlrow[6]);	/* leverantörspostnr */
+			fprintf(stdout,"08:%s  ",sqlrow[7]);	/* leverantörspostadr */
+			fprintf(stdout,"09:%s  ",sqlrow[8]);	/* leverantörsland */
+			fprintf(stdout,"10:%s  ",sqlrow[9]);	/* valuta */
+			fprintf(stdout,"11:%s  ",sqlrow[10]);	/* betalningsvillkor */
+			fprintf(stdout,"12:%s  ",sqlrow[11]);	/* leveransvillkor */
+			fprintf(stdout,"13:%s  ",sqlrow[12]);	/* leveranssätt */
+			fprintf(stdout,"14:%s  ",sqlrow[13]);	/* godsmärke */
+			fprintf(stdout,"15:%s  ",sqlrow[14]);	/* kommentar */
+			fprintf(stdout,"16:%s  ",sqlrow[15]);	/* beställningseftertext */
+			fprintf(stdout,"17:%s  ",sqlrow[16]);	/* varref */
+			fprintf(stdout,"18:%s  ",sqlrow[17]);	/* varreftfn */
+			fprintf(stdout,"19:%s  ",sqlrow[18]);	/* varreffax */
+			fprintf(stdout,"20:%s  ",sqlrow[19]);	/* erref */
+			fprintf(stdout,"21:%s  ",sqlrow[20]);	/* leveransdatum */
+			fprintf(stdout,"22:%s  ",sqlrow[21]);	/* kundnr */
+			fprintf(stdout,"23:%s  ",sqlrow[22]);	/* ftgnamn */
+			fprintf(stdout,"24:%s  ",sqlrow[23]);	/* ftglevadr */
+			fprintf(stdout,"25:%s  ",sqlrow[24]);	/* ftglevpostnr */
+			fprintf(stdout,"26:%s  ",sqlrow[25]);	/* ftglevpostadr */
+			fprintf(stdout,"27:%s  ",sqlrow[26]);	/* språkkod */
+			fprintf(stdout,"28:%s  ",sqlrow[27]);	/* bekräftelsekod */
+			fprintf(stdout,"29:%s  ",sqlrow[28]);	/* orderstatus */
+			fprintf(stdout,"30:%s  ",sqlrow[29]);	/* utskriftskod */
+			fprintf(stdout,"31:%s  ",sqlrow[30]);	/* ordersumma */
 			fprintf(stdout,"END:");
 			fprintf(stdout,"\n");
 		}
