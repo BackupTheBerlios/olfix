@@ -1,7 +1,7 @@
 /***************************************************************************
                           DSPARW  -  description
                              -------------------
-		     version 0.1
+		     version 0.2
     begin                   : Lör 15 nov 2003
     modified	: Sön 16 nov 2003
     copyright	: (C) 2003 by Jan Pihlgren
@@ -66,6 +66,8 @@
     QString ikvant1="0.00";
     QString ikvant2="0.00";
     QString kalkylpris="0.00";
+    QString plankpris="0.00";
+    QString frystkpris="0.00";    
     QString bestkvant="0.00";
     QString bestpunkt="0.00";
     QString omkost="0.00";
@@ -366,11 +368,13 @@ void frmDspArtikelGrunddata::slotgetLaDataEndOfProcess()
 	    int i9 = inrad.find( QRegExp("09:"), 0 );	//	ikvant0		Senaste inköpskvvantitet
 	    int i10 = inrad.find( QRegExp("10:"), 0 );	//	ikvant1		Näst senaste inköpskvvantitet
 	    int i11 = inrad.find( QRegExp("11:"), 0 );	//	ikvant2		Näst näst senaste inköpskvvantitet
-	    int i12 = inrad.find( QRegExp("12:"), 0 );	//	kalkylpris
-	    int i13 = inrad.find( QRegExp("13:"), 0 );	//	bestkvant	Beställd kvantitet
-	    int i14 = inrad.find( QRegExp("14:"), 0 );	//	bestpunkt	Beställningspunkt
-	    int i15 = inrad.find( QRegExp("15:"), 0 );	//	omkost		Omkostnader
-	    int i16 = inrad.length();
+	    int i12 = inrad.find( QRegExp("12:"), 0 );	//	kalkylpris	Gällande kalkylpris
+	    int i13 = inrad.find( QRegExp("13:"), 0 );	//	plankpris		Planerat kalkylpris
+	    int i14 = inrad.find( QRegExp("14:"), 0 );	//	frystkpris	Fryst kalkylpris
+	    int i15 = inrad.find( QRegExp("15:"), 0 );	//	bestkvant	Beställd kvantitet
+	    int i16 = inrad.find( QRegExp("16:"), 0 );	//	bestpunkt	Beställningspunkt
+	    int i17 = inrad.find( QRegExp("17:"), 0 );	//	omkost		Omkostnader
+	    int i18 = inrad.length();
 	 
 	    m=i2-i1;
 	    if (i1 != -1){
@@ -446,19 +450,32 @@ void frmDspArtikelGrunddata::slotgetLaDataEndOfProcess()
 	    
 	    m=i14-i13;
 	    if (i13 != -1){
-		bestkvant=inrad.mid(i13+3,m-5);
-		lineEditBestKvantitet_2->setText(bestkvant);
+		plankpris=inrad.mid(i13+3,m-5);
+//		lineEditPlanKalkylPris->setText(plankpris);	// Ska inte visas kär
 	    }
-	    
+
 	    m=i15-i14;
 	    if (i14 != -1){
-		bestpunkt=inrad.mid(i14+3,m-5);
-		lineEditBestPunkt_2->setText(bestpunkt);
+		frystkpris=inrad.mid(i14+3,m-5);
+//		lineEditFrystKalkylPris->setText(frystkpris);	// Ska inte visas kär
 	    }
+
 	    
 	    m=i16-i15;
 	    if (i15 != -1){
-		bestpunkt=inrad.mid(i15+3,m-9);
+		bestkvant=inrad.mid(i15+3,m-5);
+		lineEditBestKvantitet_2->setText(bestkvant);
+	    }
+	    
+	    m=i17-i16;
+	    if (i16 != -1){
+		bestpunkt=inrad.mid(i16+3,m-5);
+		lineEditBestPunkt_2->setText(bestpunkt);
+	    }
+	    
+	    m=i18-i17;
+	    if (i17 != -1){
+		omkost=inrad.mid(i17+3,m-9);
 //		lineEditOmkost_2->setText(omkost);		// Ska inte visas här
 	    }
 	    

@@ -524,19 +524,6 @@
             <string>Leverantörens artikelnummer.</string>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditTulltaxenr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>515</x>
-                <y>155</y>
-                <width>65</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
     <widget class="QPushButton">
         <property name="name">
             <cstring>pushButtonOK</cstring>
@@ -860,22 +847,6 @@
                 <set>AlignHCenter</set>
             </property>
         </widget>
-        <widget class="QLineEdit">
-            <property name="name">
-                <cstring>lineEditLagerhylla_2</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>120</x>
-                    <y>55</y>
-                    <width>85</width>
-                    <height>23</height>
-                </rect>
-            </property>
-            <property name="alignment">
-                <set>AlignRight</set>
-            </property>
-        </widget>
         <widget class="QLabel">
             <property name="name">
                 <cstring>textLabel1_2_2_3</cstring>
@@ -890,22 +861,6 @@
             </property>
             <property name="text">
                 <string>Lagersaldo: ......</string>
-            </property>
-        </widget>
-        <widget class="QLineEdit">
-            <property name="name">
-                <cstring>lineEditLagersaldo_2</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>120</x>
-                    <y>80</y>
-                    <width>105</width>
-                    <height>23</height>
-                </rect>
-            </property>
-            <property name="alignment">
-                <set>AlignRight</set>
             </property>
         </widget>
         <widget class="QLineEdit">
@@ -1061,22 +1016,6 @@
         </widget>
         <widget class="QLineEdit">
             <property name="name">
-                <cstring>lineEditBestKvantitet_2</cstring>
-            </property>
-            <property name="enabled">
-                <bool>true</bool>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>190</x>
-                    <y>205</y>
-                    <width>105</width>
-                    <height>23</height>
-                </rect>
-            </property>
-        </widget>
-        <widget class="QLineEdit">
-            <property name="name">
                 <cstring>lineEditBestPunkt_2</cstring>
             </property>
             <property name="geometry">
@@ -1091,6 +1030,73 @@
                 <set>AlignRight</set>
             </property>
         </widget>
+        <widget class="QLineEdit">
+            <property name="name">
+                <cstring>lineEditLagerhylla_2</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>120</x>
+                    <y>55</y>
+                    <width>85</width>
+                    <height>23</height>
+                </rect>
+            </property>
+            <property name="alignment">
+                <set>AlignAuto</set>
+            </property>
+        </widget>
+        <widget class="QLineEdit">
+            <property name="name">
+                <cstring>lineEditLagersaldo_2</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>120</x>
+                    <y>80</y>
+                    <width>105</width>
+                    <height>23</height>
+                </rect>
+            </property>
+            <property name="alignment">
+                <set>AlignRight</set>
+            </property>
+        </widget>
+        <widget class="QLineEdit">
+            <property name="name">
+                <cstring>lineEditBestKvantitet_2</cstring>
+            </property>
+            <property name="enabled">
+                <bool>true</bool>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>190</x>
+                    <y>205</y>
+                    <width>105</width>
+                    <height>23</height>
+                </rect>
+            </property>
+            <property name="alignment">
+                <set>AlignRight</set>
+            </property>
+        </widget>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditTulltaxenr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>515</x>
+                <y>155</y>
+                <width>65</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="alignment">
+            <set>AlignRight</set>
+        </property>
     </widget>
 </widget>
 <connections>
