@@ -1,3 +1,4 @@
-PATH=/home/jan/Utveckling/OLFIX/bin/
-HOST=1:localhost 2:olfix 3:olfix 4:olfix end
+PATH=/usr/local/olfix/bin/
+HOST=localhost
+DATABASE=olfix
 VTMP=/tmp/
