@@ -1,5 +1,24 @@
-Changelog OLFIX 20040210
+Changelog OLFIX 20040314
 
+Ver 0.1.14.A	OBS! Alfa
+20040314
+		Nya program
+		OLFIXHLP	Hjälpfil till OLFIX
+
+		Ändrade program
+		OLFIXW		Tillägg av hjälp, anrop till OLFIXHLP.
+		ADDINKW		Tillägg; Knapp för hopp till utskrift,PRTINKW
+		PRTINKW		main.cpp; Ta emot hopp från ADDINKW med
+				beställningsnummer
+		SDOLISW		Lagt in delsumma per kontoklass
+
+		Ändrade rapporter
+		Bestellning.kut	Bytt fontfamiljer till Nimbus Sans L och Cursor
+
+		Dokumentation
+		Teknisk Manual	Uppdaterad (2004-02-21)
+		Korsreferens	Påbörjad
+________________________________________________________
 Ver 0.1.13.A	OBS! Alfa
 20040210
 		Nya program
