@@ -1,8 +1,8 @@
 /****************************************************************/
 /**		BALRPTW					*/
-/**		Ver 0.2                                                                                    */
+/**		Ver 0.22                                                                                    */
 /**		Created    2004-03-19				*/
-/**		Modified: 2005-01-09				*/
+/**		Modified: 2005-01-10				*/
 /**   Copyright	Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -194,6 +194,15 @@ void frmBalansrapport::slotEndOfProcess()
     double delkredit=0;
     double delusaldo=0;
     
+//	Total
+    QString totaldb;		// Total Debet
+    QString totalkr;		// Total Kredit
+    QString totalutgsaldo;		//  Total Utgående saldo
+    double totaldebet=0;
+    double totalkredit=0;
+    double totalusaldo=0;
+    
+    
     QString fil;
     QString rapportrad;
     QString rubrikrad;
@@ -232,7 +241,7 @@ void frmBalansrapport::slotEndOfProcess()
 		 j = inrad.find(QRegExp("_:"),i+2);
 		 m = j - (i+2);
 		 ktonr = inrad.mid(i+2,m);	
-		 qDebug("ktonr=%s",ktonr.latin1());
+//		 qDebug("ktonr=%s",ktonr.latin1());
 		 i = j;
 		 j = inrad.find(QRegExp("_:"),i+2);
 		 m = j - (i+2);
@@ -250,7 +259,7 @@ void frmBalansrapport::slotEndOfProcess()
 		 m = j - (i+2);
 		 vernr = inrad.mid(i+2,m);
 		 
-		 qDebug("ktonr=%s, ktotemp=%s, rubrik=%s, klassflag=%d, klasstemp=%d",ktonr.latin1(),ktotemp.latin1(),rubrik.latin1(),klassflag,klasstemp); 
+//		 qDebug("ktonr=%s, ktotemp=%s, rubrik=%s, klassflag=%d, klasstemp=%d",ktonr.latin1(),ktotemp.latin1(),rubrik.latin1(),klassflag,klasstemp); 
 //		 qDebug("ktonr.mid(0,1)=%s",ktonr.mid(0,1).latin1());
 		 if ((ktonr.mid(0,1).toInt()<3) &&(ktonr != ktotemp)){
 		     debetsum.setNum(debet,'f',2);
@@ -286,20 +295,20 @@ void frmBalansrapport::slotEndOfProcess()
 			 }
 			 
 // 			 if ((klasstemp < 2000) && (ktonr.mid(0,1).toInt()==2 )){
-			  if ((klasstemp >=1999) && (klasstemp <= 2001 )){
+//			  if ((klasstemp >=1999) && (klasstemp <= 2001 )){
+			 if(ktotemp.mid(0,1).toInt() == 2 && klassflag < 2000){
+			     rubrik="EGET OCH FRÄMMANDE KAPITAL";	     
 			     rapportrad="<Rubrik1 level=\"1\" ";
 			     rapportrad.append("klass1=\"");
 			     rapportrad.append("2");
 			     rapportrad.append("\" klassnamn=\"");
-			     rapportrad.append("EGET OCH FRÄMMANDE KAPITAL");
+			     rapportrad.append(rubrik);
 			     rapportrad.append("\"/>\n");
 			     stream << rapportrad;
-			     klassflag=2000;
-			     rubrik="EGET OCH FRÄMMANDE KAPITAL";			     
+			     klassflag=2000;			     
 			 }
 
-			 if (ktotemp.mid(0,2).toInt()==10){
-//			    frmBalansrapport::Rubrik("10","ANLÄGGNINGSTILLGÅNGAR", 1000);
+			 if (ktotemp.mid(0,2).toInt()==10 && klassflag != 1000){
 			     rubrik="ANLÄGGNINGSTILLGÅNGAR";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
@@ -311,7 +320,7 @@ void frmBalansrapport::slotEndOfProcess()
 			     klassflag=1000;
 			     
 			 }
-			 if (ktotemp.mid(0,2).toInt()==11){
+			 if (ktotemp.mid(0,2).toInt()==11 && klassflag != 1100){
 			     rubrik="BYGGNADER OCH MARK";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
@@ -322,8 +331,7 @@ void frmBalansrapport::slotEndOfProcess()
 			     stream << rapportrad;
 			     klassflag=1100;
 			 }			 
-			 if (ktotemp.mid(0,2).toInt()==12){
-//			     frmBalansrapport::Rubrik("12","AMASKINER OCH INVENTARIER", 1200);
+			 if (ktotemp.mid(0,2).toInt()==12 && klassflag != 1200){
 			     rubrik="MASKINER OCH INVENTARIER";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
@@ -334,7 +342,7 @@ void frmBalansrapport::slotEndOfProcess()
 			     stream << rapportrad;
 			     klassflag=1200;	     
 			 }
-			 if (ktotemp.mid(0,2).toInt()==13){
+			 if (ktotemp.mid(0,2).toInt()==13 && klassflag != 1300){
 			     rubrik="FINANSIELLA ANLÄGGNINGSTILLGÅNGAR";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
@@ -345,7 +353,7 @@ void frmBalansrapport::slotEndOfProcess()
 			     stream << rapportrad;
 			     klassflag=1300;
 			 }
-			 if (ktotemp.mid(0,2).toInt()==14){
+			 if (ktotemp.mid(0,2).toInt()==14 && klassflag != 1400){
 			     rubrik="LAGER OCH PÅGÅENDE ARBETEN";
 			     rubrikrad="<Rubrik2 level=\"2\" ";
 			     rubrikrad.append("klass1=\"");
@@ -356,8 +364,7 @@ void frmBalansrapport::slotEndOfProcess()
 			     stream << rubrikrad;
 			     klassflag=1400;
 			 }
-//			 if (ktonr.mid(0,2).toInt()==15){
- 			 if (ktotemp.mid(0,2).toInt()==15){
+ 			 if (ktotemp.mid(0,2).toInt()==15 && klassflag != 1500){
 			     rubrik="KUNDFORDRINGAR";
 			     rubrikrad="<Rubrik2 level=\"2\" ";
 			     rubrikrad.append("klass1=\"");
@@ -368,7 +375,7 @@ void frmBalansrapport::slotEndOfProcess()
 			     stream << rubrikrad;
 			     klassflag=1500;
 			 }
-			 if (ktotemp.mid(0,2).toInt()==16){
+			 if (ktotemp.mid(0,2).toInt()==16 && klassflag != 1600){
 			     rubrik="ÖVRIGA KORTFRISTIGA FORDRINGAR";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
@@ -379,7 +386,7 @@ void frmBalansrapport::slotEndOfProcess()
 			     stream << rapportrad;
 			     klassflag=1600;
 			 }
-			 if (ktotemp.mid(0,2).toInt()==17){
+			 if (ktotemp.mid(0,2).toInt()==17 && klassflag != 1700){
 			     rubrik="FÖRUTBETALDA KOSTNADER";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
@@ -390,7 +397,7 @@ void frmBalansrapport::slotEndOfProcess()
 			     stream << rapportrad;
 			     klassflag=1700;
 			 }
-			 if (ktotemp.mid(0,2).toInt()==18){
+			 if (ktotemp.mid(0,2).toInt()==18 && klassflag != 1800){
 			     rubrik="KORTFRISTIGA PLACERINGAR";
 			     rubrikrad="<Rubrik2 level=\"2\" ";
 			     rubrikrad.append("klass1=\"");
@@ -401,7 +408,7 @@ void frmBalansrapport::slotEndOfProcess()
 			     stream << rubrikrad;
 			     klassflag=1800;
 			 }
-			 if (ktotemp.mid(0,2).toInt()==19){
+			 if (ktotemp.mid(0,2).toInt()==19 && klassflag != 1900){
 			     rubrik="KASSA OCH BANK";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
@@ -414,7 +421,7 @@ void frmBalansrapport::slotEndOfProcess()
 			 }
 //			 if (ktonr.mid(0,2).toInt()==20 && ktotemp.mid(0,2).toInt()==20){
 //			 if (klassflag >=2000 && klassflag <=2099){
-			 if (ktotemp.mid(0,2).toInt()==20){
+			 if (ktotemp.mid(0,2).toInt()==20 && klassflag == 2000){
 			     rubrik="EGET KAPITAL";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
@@ -425,7 +432,7 @@ void frmBalansrapport::slotEndOfProcess()
 			     stream << rapportrad;
 			     klassflag=2000;
 			 }
-			 if (ktotemp.mid(0,2).toInt()==21){
+			 if (ktotemp.mid(0,2).toInt()==21 && klassflag != 2100){
 			     rubrik="OBESKATTADE RESERVER";
 			     rubrikrad="<Rubrik2 level=\"2\" ";
 			     rubrikrad.append("klass1=\"");
@@ -436,7 +443,7 @@ void frmBalansrapport::slotEndOfProcess()
 			     stream << rubrikrad;
 			     klassflag=2100;
 			 }
-			 if (ktotemp.mid(0,2).toInt()==22){
+			 if (ktotemp.mid(0,2).toInt()==22 && klassflag != 2200){
 			     rubrik="AVSÄTTNINGAR";			     
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
@@ -447,7 +454,7 @@ void frmBalansrapport::slotEndOfProcess()
 			     stream << rapportrad;
 			     klassflag=2200;
 			 }
-			 if (ktotemp.mid(0,2).toInt()==23){
+			 if (ktotemp.mid(0,2).toInt()==23 && klassflag != 2300){
 			     rubrik="LÅNGFRISTIGA SKULDER";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
@@ -458,7 +465,7 @@ void frmBalansrapport::slotEndOfProcess()
 			     stream << rapportrad;
 			     klassflag=2300;
 			 }
-			 if (ktotemp.mid(0,2).toInt()==24){
+			 if (ktotemp.mid(0,2).toInt()==24 && klassflag != 2400){
 			     rubrik="KORTFISTIGA SKULDER, KUNDER, LEVERANTÖRER";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
@@ -469,7 +476,7 @@ void frmBalansrapport::slotEndOfProcess()
 			     stream << rapportrad;
 			     klassflag=2400;
 			 }
-			 if (ktotemp.mid(0,2).toInt()==25){
+			 if (ktotemp.mid(0,2).toInt()==25 && klassflag != 2500){
 			     rubrik="SKATTESKULDER";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
@@ -480,7 +487,7 @@ void frmBalansrapport::slotEndOfProcess()
 			     stream << rapportrad;
 			     klassflag=2500;
 			 }
-			 if (ktotemp.mid(0,2).toInt()==26){
+			 if (ktotemp.mid(0,2).toInt()==26 && klassflag != 2600){
 			     rubrik="MOMS";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
@@ -491,7 +498,7 @@ void frmBalansrapport::slotEndOfProcess()
 			     stream << rapportrad;
 			     klassflag=2600;
 			 }
-			 if (ktotemp.mid(0,2).toInt()==27){
+			 if (ktotemp.mid(0,2).toInt()==27 && klassflag != 2700){
 			     rubrik="PERSONALENS KÄLLSKATT MM";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
@@ -502,7 +509,7 @@ void frmBalansrapport::slotEndOfProcess()
 			     stream << rapportrad;
 			     klassflag=2700;
 			 }
-			 if (ktotemp.mid(0,2).toInt()==28){
+			 if (ktotemp.mid(0,2).toInt()==28 && klassflag != 2800){
 			     rubrik="ÖVRIGA KORTFRISTIGA SKULDER";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
@@ -513,7 +520,7 @@ void frmBalansrapport::slotEndOfProcess()
 			     stream << rapportrad;
 			     klassflag=2800;
 			 }
-			 if (ktotemp.mid(0,2).toInt()==29){
+			 if (ktotemp.mid(0,2).toInt()==29 && klassflag != 2900){
 			     rubrik="UPPLUPNA KOSTNADER MM";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
@@ -537,13 +544,11 @@ void frmBalansrapport::slotEndOfProcess()
 			 rapportrad.append(kreditsum);
 			 rapportrad.append("\" utgsaldo=\"");
 			 rapportrad.append(utgsaldo);
-			  rapportrad.append("\"/>\n");
+			 rapportrad.append("\"/>\n");
 			  
 //			 qDebug("slotEndOfProcess() 3d ::rapportrad=%s klassflag=%d, klasstemp=%d",rapportrad.latin1(),klassflag,klasstemp);
 			 if (ktotemp != ""){			  
-//			  if  (ktotemp < ktonr && ktotemp != ""){
 			     stream << rapportrad;
-			     qDebug("Streaming rapportrad");
 			 }		    
 			 
 //	  	   	 qDebug("ktotemp=%s mid=%s",ktotemp.latin1(),ktotemp.mid(0,1).latin1());
@@ -578,17 +583,51 @@ void frmBalansrapport::slotEndOfProcess()
 		 if (dk == "D"){
 		     debet=debet+belopp.toDouble();
 		     deldebet=deldebet+belopp.toDouble();
+		     totaldebet=totaldebet+belopp.toDouble();
 		 }
 		 if (dk == "K"){
 		     kredit=kredit+belopp.toDouble();
 		     delkredit=delkredit+belopp.toDouble();
+		     totalkredit=totalkredit+belopp.toDouble();
 		 }
 		 usaldo=debet -kredit;
 		 delusaldo=deldebet-delkredit;
+		 totalusaldo=totaldebet-totalkredit;
 	     }
 	     }
-	} 
+	}
+	
 	if (csvflag != "J"){
+/********************************************************/	    
+/*		Här ska totalen läggas in			*/
+/********************************************************/	    
+/*
+      QString totaldb;		// Summa Debet
+    QString totalkrt;			// Summa Kredit
+    QString totalutgsaldo;		// Utgående saldo
+    double totaldebet=0;
+    double totalkredit=0;
+    double totalusaldo=0;
+    
+    delsumdebet.setNum(deldebet,'f',2);
+    delsumkredit.setNum(delkredit,'f',2);
+    delsumutgsaldo.setNum(delusaldo,'f',2);			
+    
+*/
+	    totaldb.setNum(totaldebet,'f',2);
+	    totalkr.setNum(totalkredit,'f',2);
+	    totalutgsaldo.setNum(totalusaldo,'f',2);
+	    
+	    rapportrad="<Total level=\"5\" ";
+	    rapportrad.append(" delsumdebet=\"");
+	    rapportrad.append(totaldb);
+	    rapportrad.append("\" delsumkredit=\"");
+	    rapportrad.append(totalkr);
+	    rapportrad.append("\" delsumutgsaldo=\"");
+	    rapportrad.append(totalutgsaldo);
+	    rapportrad.append("\"/>\n");
+	    stream << rapportrad;
+/********************************************************/	    
 	    rapportrad="</KugarData>";
 	    stream << rapportrad;
 	}
