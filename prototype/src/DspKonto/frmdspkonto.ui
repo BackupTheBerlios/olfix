@@ -1,0 +1,462 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>frmDspKonto</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmDspKonto</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>419</width>
+            <height>456</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>DSPKTOW  Visa ett konto (Ver 0.1)</string>
+    </property>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditUB</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>380</y>
+                <width>111</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditIB</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>350</y>
+                <width>111</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel6</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>320</y>
+                <width>81</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Kontoplan:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditSubkonto</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>290</y>
+                <width>51</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel5</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>290</y>
+                <width>105</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Subkonto:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel4</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>260</y>
+                <width>105</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Projekt:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditProjekt</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>260</y>
+                <width>51</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditKst</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>230</y>
+                <width>51</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>230</y>
+                <width>105</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Kostnadsställe:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>200</y>
+                <width>81</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>SRUnr:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>170</y>
+                <width>81</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Momskod:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelGrupp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>140</y>
+                <width>84</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Manuell (J/N):</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditManuell</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>140</y>
+                <width>30</width>
+                <height>22</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>J</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelAvd</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>110</y>
+                <width>105</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Benämning:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelNamn</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>80</y>
+                <width>82</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Kontonummer:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelUserID</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>45</y>
+                <width>81</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Bokföringsår:
+(arid, 2 teck.)</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel7</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>350</y>
+                <width>105</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>IB:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel8</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>380</y>
+                <width>105</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>UB:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditBenamn</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>110</y>
+                <width>290</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Förklarande text till kontonummer</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditMomskod</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>170</y>
+                <width>41</width>
+                <height>22</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Momskod enligt företagsregistret. 1 - 5.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditSRU</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>200</y>
+                <width>41</width>
+                <height>22</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Enligt skattemyndighetens anvisningar.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditKontoplan</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>320</y>
+                <width>151</width>
+                <height>22</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Namn på kontoplan, t ex EUBAS97</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditKontoNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>80</y>
+                <width>50</width>
+                <height>22</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Kontonr enligt aktuell kontoplan</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>425</y>
+                <width>51</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Sluta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditBar</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>50</y>
+                <width>30</width>
+                <height>22</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Bokföringsår enligt CHGBARW</string>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>LineEditKontoNr</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmDspKonto</receiver>
+        <slot>LineEditKontoNr_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditBar</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmDspKonto</receiver>
+        <slot>LineEditBar_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>frmDspKonto</receiver>
+        <slot>close()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>LineEditBar</tabstop>
+    <tabstop>LineEditKontoNr</tabstop>
+    <tabstop>LineEditBenamn</tabstop>
+    <tabstop>LineEditManuell</tabstop>
+    <tabstop>LineEditMomskod</tabstop>
+    <tabstop>LineEditSRU</tabstop>
+    <tabstop>LineEditKst</tabstop>
+    <tabstop>LineEditProjekt</tabstop>
+    <tabstop>LineEditSubkonto</tabstop>
+    <tabstop>LineEditKontoplan</tabstop>
+    <tabstop>LineEditIB</tabstop>
+    <tabstop>LineEditUB</tabstop>
+    <tabstop>PushButtonOK</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">frmdspkonto.ui.h</include>
+</includes>
+<slots>
+    <slot>LineEditBar_returnPressed()</slot>
+    <slot>LineEditKontoNr_returnPressed()</slot>
+    <slot>slotGetKonto()</slot>
+    <slot>slotGetEndOfProcess()</slot>
+    <slot>slotGetDataOnStdout()</slot>
+    <slot>slotGetDataOnStderr()</slot>
+    <slot>PushButtonGet_clicked()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
