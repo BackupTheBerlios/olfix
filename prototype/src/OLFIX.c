@@ -1,12 +1,12 @@
 /***************************************************************************
                           OLFIX.c  -  description
                              -------------------
-			     version 0.03
-    begin                : Tis 29 april 2003
+			     version 0.04
+    begin                : Tors 29 maj 2003
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
-
+/* fgets har ersatt getrad(s,lim)	20030530 /yann	*/
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -16,31 +16,33 @@
  *                                                                         *
  *********************************************** ****************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/OLFIX.c,v 1.2 2003/05/13 03:51:12 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/OLFIX.c,v 1.3 2003/05/30 07:10:23 janpihlgren Exp $ " ;
 
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
 #include "vt220.h"
-#include "getrad.h"
-#define MAXRAD 30
 #define FILEPATH 100
 
 void meny(void);
 void inloggning(void);
 int find_tmp_path(char *envp[]);
 
-char userid[8];
+char userid[9];
 char tmpfilepath[FILEPATH];
 
-main(int argc, char *argv[], char *envp[])
+int main(int argc, char *argv[], char *envp[])
 {
 	int i,status;
 //	fprintf(stderr,"argc=%d  argv1=%s\n",argc,argv[1]);
-	if (argv[1] == NULL){
+	if (argc<2){
+		//argv[1] == NULL){
 		inloggning();
 	}
 	else{
-		strcpy(userid,argv[1]);
+		strncpy(userid,argv[1], sizeof(userid)-1);
+		userid[sizeof(userid)-1]=0;
 		for (i = 0;i < strlen(userid); i++){
 			userid[i]=toupper(userid[i]);
 		}
@@ -49,6 +51,7 @@ main(int argc, char *argv[], char *envp[])
 	if (status != 0)
 		exit(status);
 	meny();
+	return 0;
 }
 
 void meny(void)
@@ -86,7 +89,7 @@ start:
 	fprintf(stdout,"0. SLUTA");
 	locate(16,25);
 	fprintf(stdout,"Vad v\xE4ljer du? ");
-	getrad(rad,MAXRAD);
+	fgets(rad, sizeof(rad), stdin);
 	svar = rad[0];
 
 //	fprintf(stderr,"svaret är %c",svar);
@@ -126,7 +129,6 @@ start:
 void inloggning(void)
 {
 	int i;
-	char tmp[9];
 
 	cls();
 	locate(1,35);
@@ -134,7 +136,8 @@ void inloggning(void)
 	locate(10,25);
 	fprintf(stdout,"Ange ditt UserID:");
 	locate(10,42);
-	getrad(userid,9);
+	fgets(userid,sizeof(userid),stdin);
+	userid[sizeof(userid)-1]=0;
 	for (i = 0;i < strlen(userid); i++){
 		userid[i]=toupper(userid[i]);
 //		printf("%c\n",userid[i]);
@@ -152,7 +155,7 @@ int find_tmp_path(char *envp[])
 	char tmp[50]="";
 	char temp[10]="";
 	char *tmp_pek;
-	int i,j,status;
+	int i,status;
 
 	for (i = 0;envp[i]!=NULL;i++){
 		if(strstr(envp[i],"HOME=") != NULL){
