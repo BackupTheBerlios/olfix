@@ -1,9 +1,10 @@
 /***************************************************************************
                           LEVVDSP.c  -  description
                              -------------------
-    Version		 : 0.1
-    begin                : Ons 4 jan 2004
-    modified		 :
+			     Visa leveransvillkor
+    Version		 : 0.2
+    begin                : Ons   4 jan  2004
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +29,7 @@
 
  ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVVDSP.c,v 1.1 2004/02/04 13:22:44 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVVDSP.c,v 1.2 2005/02/24 07:45:34 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -58,7 +59,7 @@ int main(int argc, char *argv[], char *envp[])
   char temp1[]="SELECT * FROM LEVVILLKOR WHERE VILLKORSNR = \"";
   char temp2[]="\"";
   char temp5[200]="";
-  char betvilkor[8];
+  char levvillkor[8];
 /*  fprintf(stderr,"argc=%d \n",argc); */
   if (argc <2){
   	fprintf(stderr,"Error: Leveransvillkor saknas.\n");
@@ -101,13 +102,13 @@ int main(int argc, char *argv[], char *envp[])
 
 /*  fprintf(stderr,"betvilk=%d\n",betvilk); */
 
-  strncpy(betvilkor,argv[1],8);
+  strncpy(levvillkor,argv[1],sizeof(levvillkor));
   strncat(temp5,temp1,strlen(temp1));
-/* SELECT * FROM BETVILKOR WHERE BETVILKOR = "  */
-  strncat(temp5,betvilkor,8);/* AC */
-/* SELECT * FROM BETVILKOR WHERE BETVILKOR = "1  */
+/* SELECT * FROM levvillkor WHERE levvillkor = "  */
+  strncat(temp5,levvillkor,8);/* AC */
+/* SELECT * FROM levvillkor WHERE levvillkor = "1  */
   strncat(temp5,temp2,strlen(temp2)); /*  "     */
-/* SELECT * FROM BETVILKOR WHERE BETVILKOR = "1" */
+/* SELECT * FROM levvillkor WHERE levvillkor = "1" */
 /*  fprintf(stderr,"LEVVDSP: temp5 = %s\n",temp5); */
 
   mysql_init(&my_connection);
