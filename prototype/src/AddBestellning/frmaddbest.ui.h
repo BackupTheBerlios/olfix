@@ -9,9 +9,9 @@
 /***************************************************************************
 			  ADDINKW  -  description
 			     -------------------
-		     version 0.8
+		     version 0.81
     begin                	: Mån 8 dec 2003
-    modified	: Mån 16 febr 2004
+    modified	: Mån 14 mars 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -38,6 +38,7 @@ QProcess* process;
 QString inrad;
 QString* rad;
 QString errorrad;
+QString hjelpfil;
 
 QString bestnr;
 QString bestlevnr;
@@ -116,7 +117,6 @@ void frmAddBest::init()
     //    qDebug("vecka=%d, år=%d, leveransvecka=%s _%s_",vecka,year,bestleveransvecka.latin1(),veckonr.latin1());
     lineEditLeveransvecka->setText(bestleveransvecka);
     frmAddBest::listViewRader_format();
-    frmAddBest::getLevLista();
     lineEditBestLevNr->setFocus();
 }
 
@@ -1851,4 +1851,55 @@ void frmAddBest::slotUtskriftEndOfProcess()
     inrad="";
     }
      lineEditBestLevNr->setFocus();
+}
+
+void frmAddBest::pushBtnHelp_clicked()
+{
+	inrad="";
+
+	frmAddBest::readResursFil();		// Hämta path till hjälpfilen
+	hjelpfil=hjelpfil+"#INKOP1";		// Lägg till position
+//	qDebug("hjelpfil=%s",hjelpfil.latin1());
+
+	process = new QProcess();
+	process->addArgument( "OLFIXHLP" );	// OLFIX program
+	process->addArgument(hjelpfil);
+
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
+	}
+	lineEditArtikelNr->setFocus();
+}
+
+void frmAddBest::readResursFil()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			               */
+    /* Plocka fram var hjälpfilen finns			               */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 );
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
 }

@@ -22,22 +22,6 @@
     </property>
     <widget class="QLabel">
         <property name="name">
-            <cstring>textLabel1_2</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>490</x>
-                <y>5</y>
-                <width>84</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>= Obligatoriskt.</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
             <cstring>textLabel11_2</cstring>
         </property>
         <property name="geometry">
@@ -1448,44 +1432,6 @@
             <string>Kompleterande text till inköpsordern. Ange ett värde mellan 001 och 999. Texten finns i Textregistret.</string>
         </property>
     </widget>
-    <widget class="QListView">
-        <column>
-            <property name="text">
-                <string>Leverantörsnr</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>false</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Leverantörsnamn</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <property name="name">
-            <cstring>listViewLev</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>645</x>
-                <y>10</y>
-                <width>226</width>
-                <height>205</height>
-            </rect>
-        </property>
-        <property name="showSortIndicator">
-            <bool>true</bool>
-        </property>
-    </widget>
     <widget class="QPushButton">
         <property name="name">
             <cstring>pushButtonRadJa</cstring>
@@ -1687,6 +1633,76 @@
             </rect>
         </property>
     </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>490</x>
+                <y>5</y>
+                <width>84</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>= Obligatoriskt.</string>
+        </property>
+    </widget>
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Leverantörsnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>false</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Leverantörsnamn</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <property name="name">
+            <cstring>listViewLev</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>645</x>
+                <y>5</y>
+                <width>226</width>
+                <height>210</height>
+            </rect>
+        </property>
+        <property name="showSortIndicator">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushBtnHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>581</x>
+                <y>5</y>
+                <width>55</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
@@ -1869,6 +1885,12 @@
         <receiver>frmAddBest</receiver>
         <slot>TillUtskrift()</slot>
     </connection>
+    <connection>
+        <sender>pushBtnHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmAddBest</receiver>
+        <slot>pushBtnHelp_clicked()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>lineEditBestLevNr</tabstop>
@@ -1982,6 +2004,8 @@
     <slot>slotLevsettEndOfProcess()</slot>
     <slot>TillUtskrift()</slot>
     <slot>slotUtskriftEndOfProcess()</slot>
+    <slot>pushBtnHelp_clicked()</slot>
+    <slot>readResursFil()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
