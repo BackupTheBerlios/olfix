@@ -2,7 +2,7 @@
 ** Form implementation generated from reading ui file 'frmlevfakt.ui'
 **
 ** Created: mån aug 18 06:08:57 2003
-**      by: The User Interface Compiler ($Id: frmlevfakt.cpp,v 1.1 2003/09/28 08:14:58 janpihlgren Exp $)
+**      by: The User Interface Compiler ($Id: frmlevfakt.cpp,v 1.2 2004/02/09 07:18:45 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/

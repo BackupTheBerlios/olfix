@@ -2,7 +2,7 @@
 ** frmLevFakt meta object code from reading C++ file 'frmlevfakt.h'
 **
 ** Created: Mon Aug 18 06:09:32 2003
-**      by: The Qt MOC ($Id: moc_frmlevfakt.cpp,v 1.1 2003/09/28 08:14:58 janpihlgren Exp $)
+**      by: The Qt MOC ($Id: moc_frmlevfakt.cpp,v 1.2 2004/02/09 07:18:45 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
