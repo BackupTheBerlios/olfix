@@ -1,9 +1,9 @@
 /***************************************************************************
                           INKADD.c  -  description
                              -------------------
-    Version		 : 0.1
+    Version		 : 0.2
     begin                : Sön  14 dec 2003
-    Modified		 :
+    Modified		 : Sön 14 dec 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -23,14 +23,14 @@ Caroline Inköpare_:_2003-12-15_:_98765_:_PROGRAM AB_:_Verktygsgatan 11_:_199 97_
 
 Fältavskiljare = _:_
 
-	Function: gör  INSERT INTO INKREG (INKORDNR,BESTTYP,ORDERDATUM,LEVNR,LEVNAMN,LEVADRESS,LEVPOSTNR,LEVPOSTADR,LEVLAND,LEVVALUTA,LEVBETVILLKOR,GODSMERKE,BESTTEXT,VARREF,LEVDATUM,KUNDNR,FTGNAMN,FTGADR,FTGPOSTNR,FTGPOSTADR) VALUES ("6712","N","2003-12-13","Testleverantör AB","Delivery Street 1C","199 99","LEVSTAD","Sverige","SEK","001","Godsmärke",
-"002","Caroline Inköpare","2003-12-15","98765","PROGRAM AB","Verktygsgatan 11","199 97","PROGSTAD") i databasen olfix
+	Function: gör  INSERT INTO INKREG (INKORDNR,BESTTYP,ORDERDATUM,LEVNR,LEVNAMN,LEVADRESS,LEVPOSTNR,LEVPOSTADR,LEVLAND,LEVVALUTA,LEVBETVILLKOR,GODSMERKE,BESTTEXT,VARREF,LEVDATUM,KUNDNR,FTGNAMN,FTGADR,FTGPOSTNR,FTGPOSTADR,ORDERSTATUS) VALUES ("6712","N","2003-12-13","Testleverantör AB","Delivery Street 1C","199 99","LEVSTAD","Sverige","SEK","001","Godsmärke",
+"002","Caroline Inköpare","2003-12-15","98765","PROGRAM AB","Verktygsgatan 11","199 97","PROGSTAD","N") i databasen olfix
 
 	OUTPUT: errornb och error (text)
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKADD.c,v 1.1 2003/12/14 05:23:39 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKADD.c,v 1.2 2003/12/14 14:46:42 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -41,7 +41,7 @@ Fältavskiljare = _:_
 #include <string.h>
 #include "mysql.h"
 #define ANTARG 2
-#define ANTFELT 20
+#define ANTFELT 21
 
   MYSQL my_connection;
   MYSQL_RES *res_ptr;
@@ -57,7 +57,7 @@ int main(int argc, char *argv[], char *envp[])
   const char *userp = getenv("USER");	// vem är inloggad?
   char usr[15];				// userid
 
-  char temp1a[]="INSERT INTO INKREG (INKORDNR,BESTTYP,ORDERDATUM,LEVNR,LEVNAMN,LEVADRESS,LEVPOSTNR,LEVPOSTADR,LEVLAND,LEVVALUTA,LEVBETVILLKOR,GODSMERKE,BESTTEXT,VARREF,LEVDATUM,KUNDNR,FTGNAMN,FTGADR,FTGPOSTNR,FTGPOSTADR) VALUES (";
+  char temp1a[]="INSERT INTO INKREG (INKORDNR,BESTTYP,ORDERDATUM,LEVNR,LEVNAMN,LEVADRESS,LEVPOSTNR,LEVPOSTADR,LEVLAND,LEVVALUTA,LEVBETVILLKOR,GODSMERKE,BESTTEXT,VARREF,LEVDATUM,KUNDNR,FTGNAMN,FTGADR,FTGPOSTNR,FTGPOSTADR,ORDERSTATUS) VALUES (";
   char temp2[]="\"";
   char temp3[]=",";
   char temp4[]=")";
