@@ -29,7 +29,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTODSP.c,v 1.2 2003/11/05 06:09:41 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTODSP.c,v 1.3 2003/11/05 08:38:56 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -133,6 +133,7 @@ int main(int argc, char *argv[], char *envp[])
   	res = mysql_query(&my_connection,temp5);
 /*  	fprintf(stderr,"KTODSP hit res=%d\n",res);	*/
   	if (res){
+		fprintf(stderr,"Error: KTODSP SELECT errno: %d\n",mysql_errno(&my_connection));
 		fprintf(stderr,"Error: KTODSP SELECT error: %s\n",mysql_error(&my_connection));
         }
 	else{
