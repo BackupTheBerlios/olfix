@@ -2,7 +2,7 @@
 ** frmChgValuta meta object code from reading C++ file 'frmchgvaluta.h'
 **
 ** Created: Thu Mar 20 08:08:04 2003
-**      by: The Qt MOC ($Id: moc_frmchgvaluta.cpp,v 1.1 2003/05/08 08:54:38 frazze Exp $)
+**      by: The Qt MOC ($Id: moc_frmchgvaluta.cpp,v 1.2 2003/09/28 06:51:02 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
