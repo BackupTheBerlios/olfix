@@ -74,6 +74,8 @@
     QString ikvant1="0.00";
     QString ikvant2="0.00";    
     QString kalkylpris="0.00";
+    QString plankpris="0.00";
+    QString frystkpris="0.00";
     QString bestkvant="0.00";
     QString bestpunkt="0.00";
     QString omkost="0.00";
@@ -196,7 +198,9 @@ void frmDspArtikelEkonomidata::slotGetGrDataEndOfProcess()
 	    int i19 = inrad.find( QRegExp("19:"), 0 );	//	volym
 	    int i20 = inrad.find( QRegExp("20:"), 0 );	//	omrfaktor 	Omräkningsfaktor
 	    int i21 = inrad.length();
-
+	    
+//	    qDebug("inrad=%s",inrad.latin1());
+	    
 	    m=i2-i1;
 	    if (i1 != -1){
 	     artikelnr=inrad.mid(i1+3,m-5);
@@ -304,20 +308,20 @@ void frmDspArtikelEkonomidata::slotGetGrDataEndOfProcess()
 	     tulltaxenr=inrad.mid(i18+3,m-5);
 //	     lineEditTulltaxenr->setText(tulltaxenr);		// Visas inte i detta program
 	 }
-
+	 
 	 m=i20-i19;
 	 if (i19 != -1){
 	     volym=inrad.mid(i19+3,m-5);
 //	     lineEditVolym->setText(volym);			// Visas inte i detta program
 	 }
-
+	 
 	 m=i21-i20;
 	 if (i20 != -1){
-	     omrfaktor =inrad.mid(i19+3,m-5);
+	     omrfaktor =inrad.mid(i20+3,m-9);
 	     lineEditOmrFaktor->setText(omrfaktor );
 	 }
-
-	inrad="";
+	 
+	 inrad="";
 	errorrad="";
 	inrad="";
 	i = -1;
@@ -369,11 +373,13 @@ void frmDspArtikelEkonomidata::slotgetLaDataEndOfProcess()
 	    int i9 = inrad.find( QRegExp("09:"), 0 );	//	ikvant0		Senaste inköpskvvantitet
 	    int i10 = inrad.find( QRegExp("10:"), 0 );	//	ikvant1		Näst senaste inköpskvvantitet
 	    int i11 = inrad.find( QRegExp("11:"), 0 );	//	ikvant2		Näst näst senaste inköpskvvantitet
-	    int i12 = inrad.find( QRegExp("12:"), 0 );	//	kalkylpris
-	    int i13 = inrad.find( QRegExp("13:"), 0 );	//	bestkvant	Beställd kvantitet
-	    int i14 = inrad.find( QRegExp("14:"), 0 );	//	bestpunkt	Beställningspunkt
-	    int i15 = inrad.find( QRegExp("15:"), 0 );	//	omkost		Omkostnader
-	    int i16 = inrad.length();
+	    int i12 = inrad.find( QRegExp("12:"), 0 );	//	kalkylpris	Gällande kalkylpris
+	    int i13 = inrad.find( QRegExp("13:"), 0 );	//	plankpris		Planerat kalkylpris
+	    int i14 = inrad.find( QRegExp("14:"), 0 );	//	frystkpris	Fryst kalkylpris
+	    int i15 = inrad.find( QRegExp("15:"), 0 );	//	bestkvant	Beställd kvantitet
+	    int i16 = inrad.find( QRegExp("16:"), 0 );	//	bestpunkt	Beställningspunkt
+	    int i17 = inrad.find( QRegExp("17:"), 0 );	//	omkost		Omkostnader
+	    int i18 = inrad.length();
 	 
 	    m=i2-i1;
 	    if (i1 != -1){
@@ -449,19 +455,31 @@ void frmDspArtikelEkonomidata::slotgetLaDataEndOfProcess()
 
 	    m=i14-i13;
 	    if (i13 != -1){
-		bestkvant=inrad.mid(i13+3,m-5);
+		plankpris=inrad.mid(i13+3,m-5);
+		lineEditPlanKalkylPris->setText(plankpris);
+	    }
+	    
+	    m=i15-i14;
+	    if (i14 != -1){
+		frystkpris=inrad.mid(i14+3,m-5);
+		lineEditFrystKalkylPris->setText(frystkpris);
+	    }
+	   	    
+	    m=i16-i15;
+	    if (i15 != -1){
+		bestkvant=inrad.mid(i15+3,m-5);
 		lineEditBestKvantitet_2->setText(bestkvant);
 	    }
 
-	    m=i15-i14;
-	    if (i14 != -1){
-		bestpunkt=inrad.mid(i14+3,m-5);
+	    m=i17-i16;
+	    if (i16 != -1){
+		bestpunkt=inrad.mid(i16+3,m-5);
 		lineEditBestPunkt_2->setText(bestpunkt);
 	    }
 	    
-	    m=i16-i15;
-	    if (i15 != -1){
-		omkost=inrad.mid(i15+3,m-9);
+	    m=i18-i17;
+	    if (i17 != -1){
+		omkost=inrad.mid(i17+3,m-9);
 		lineEditOmkostnader_2->setText(omkost);
 	    }
 
