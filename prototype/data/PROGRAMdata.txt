@@ -86,3 +86,5 @@
 "086","Materialhantering","Artikeladmin.","Ny produktklass/produktgrupp","ADDPKDW"
 "087","Materialhantering","Artikeladmin.","Lista produktklass/produktgrupp","LSTPKDW"
 "088","Ekonomi","Räkenskapsår","Visa bokföringsår","DSPBARW"
+"089","Administration","Företagsdata","Lista företagsdata","LSTFTGW"
+"090","Ekonomi","Rapporter","Resultatrapport","RESRPTW"
