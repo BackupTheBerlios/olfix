@@ -85,3 +85,4 @@
 "085","Administration","Företagsdata","Lista databaser","LSTFORW"
 "086","Materialhantering","Artikeladmin.","Ny produktklass/produktgrupp","ADDPKDW"
 "087","Materialhantering","Artikeladmin.","Lista produktklass/produktgrupp","LSTPKDW"
+"088","Ekonomi","Räkenskapsår","Visa bokföringsår","DSPBARW"
