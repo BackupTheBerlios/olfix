@@ -9,9 +9,9 @@
 /***************************************************************************
                           CHGKUW  -  description
                              -------------------
-		     version 0.3
-    begin    	: Tors    9 okt 2003
-    modified	: Mån 27 okt 2003
+		     version 0.4
+    begin    	: Tors    9 okt  2003
+    modified	: Tors    6 nov 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -95,7 +95,7 @@
     QRegExp rx9( "[A-ZÅÄÖ]{3}" );
     QRegExp rx10( "[A-Za-z0-9ÅÄÖåäö]{1,3}" );
     QRegExp rx11( "[J,N]");
-    QRegExp rx12( "\\d{1,10}" );
+    QRegExp rx12( "[0-9.,]{1,10}" );
     QRegExp rx13( "[A-Za-z0-9ÅÄÖåäö ]{1,99}" );
 
     QRegExpValidator validator1( rx1, 0 );
@@ -375,7 +375,16 @@ void frmChgKund::lineEditKravbrev_returnPressed()
 
 void frmChgKund::lineEditKreditlimit_returnPressed()
 {
+    int i;
     kreditlimit=lineEditKreditlimit->text();
+        
+    i = -1;
+    i = kreditlimit.find( QRegExp(","), 0 );
+    if (i != -1){
+	 kreditlimit.replace( QChar(','), "." );
+     }
+    lineEditKreditlimit->setText(kreditlimit);
+
     lineEditKreditDagar->setFocus();
 }
 
