@@ -1,6 +1,48 @@
-Changelog OLFIX 20050224
+Changelog OLFIX 20050309
 
 Blivande:
+Ver 0.2.2.B
+2005-03-09
+		Nya program
+		LSTBARW		Lista bokföringsår.
+		ADDORDW		Registrera kundorder (ej klar)
+
+		Ändrade program
+		OLFIXHLP	Mera hjälp
+		ADDBARW		Lagt till Hjälp-knapp mm+buggrättning
+		BYTFTGW		Returnera värde(databasnamn) till OLFIXW
+				Lagt till hjälpknapp.
+		OLFIXW		Ta emot värde(databasnamn) från BYTFTGW
+
+		Nya funktioner
+		BARLST.c	Lista bokföringsår
+		LEVPDSP.c	Visa en standardleveransplats data.
+		PKDDSP.c	Visa en produktgrupp/produktklass/produktkod
+
+		Makefile
+
+		Ändrade funktioner
+		PRTAPI.c	Buggrättning
+		BARADD.c	Buggrättning
+		PKDADD.c	Lagt till momskod (t ex MOMS1)
+
+		Ändrade datafiler
+		PROGRAMdata.txt	Nytt program LSTBARW.Lista bokföringsår
+		TRANSIDdata.txt	Nya funktioner
+
+		Ändrade tabeller
+		PRODUKTGRUPP 	Lagt till fältet MOMSKOD VARCHAR(5)
+
+		Dokumentation
+		Usersmanual (Online)	Ändrad font till San Serif mm
+				Mera info.
+		UserManual	Uppdaterad (2005-??-??)
+
+		Teknisk Manual	Uppdaterad (2005-03-09)
+		Installationsanvisningar.txt (2005-??-??)
+		Installationsanvisningar.sxw (2005-??-??)
+		Korsrelationer.sxw Uppdaterad (2005-??-??)
+________________________________________________________
 Ver 0.2.1.B
 20050224
 		Nya funktioner
