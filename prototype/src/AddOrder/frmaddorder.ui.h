@@ -8,11 +8,11 @@
 *****************************************************************************/
 /***************************************************************************
                           ADDORDW  -  description
-	         Registrering av kundorder
+	         Registrering av kundorder med möjlighet att registrera en ny kund.
                              -------------------
 		     version 0.3
     begin   	: Sö      12 okt    2003
-    Updated	: Lör    14 mars 2005
+    Updated	: Tis    22  mars 2005
     copyright	: (C) 2003 by Jan Pihlgren
     email     	: jan@pihlgren.se
  ***************************************************************************/
@@ -103,6 +103,7 @@
     QString fraktbelopp;
     QString fraktmomskr;
     bool nykundflag=FALSE;
+//    QString kunddata="";			/* för nyregistrering av kund */
     
 void frmAddOrder::init()
 {
@@ -276,7 +277,7 @@ void frmAddOrder::lineEditLevplats_returnPressed()
 
 void frmAddOrder::lineEditLevvillkor_returnPressed()
 {
-    orderleveranstid=lineOrderLeveranstid->text();
+    orderlevvillkor=lineEditLevvillkor->text();
     if ( nykundflag==TRUE){
 	lineEditBetvilk->setFocus();
     }else{    
@@ -2097,5 +2098,146 @@ void frmAddOrder::slotgetSKDataOnStderr()
 
 void frmAddOrder::createNyKund()
 {
-    qDebug("createNyKund");
+/*    
+    // Antal fält = 31 stycken
+     format= _:_4376_:_Test AB_:_Provgatan 2_:_199 99_:_LILLEBY_:_Sverige_:_ 09-999990_:_09-999999_:_info@test.se_:_Karl Andersson _:_09-999991_:_     karl.a@test.se_:_
+   Caroline Seljare_:_KalmarSoftware _:_001_:_001_:_001_:_1_:_SEK_:_sv_:_J_:_J_:_J_:_J_:_J_:_J_:_2000_:_J_:_J_:_Fritt textfält_:_
+*/  
+//    qDebug("createNyKund");
+    QString skilj="_:_";
+    QString kunddata="";
+    kunddata=skilj;    
+    kunddata.append(orderkundnr);
+    kunddata.append(skilj);
+    kunddata.append(orderkundnamn);
+    kunddata.append(skilj);    
+    kunddata.append(orderkundadress);
+    kunddata.append(skilj);    
+    kunddata.append(orderkundpostnr);
+    kunddata.append(skilj);    
+    kunddata.append(orderkundpostadr);
+    kunddata.append(skilj);    
+    kunddata.append(orderkundland);
+    kunddata.append(skilj);
+    kunddata.append("");			/* tfnnr */
+    kunddata.append(skilj);    
+    kunddata.append("");			/* tfnnr */
+    kunddata.append(skilj);    
+    kunddata.append("");			/* mailadress */
+    kunddata.append(skilj);    
+    kunddata.append(orderref);		/* erref */
+    kunddata.append(skilj);    
+    kunddata.append("");			/* tfnnr erref */
+    kunddata.append(skilj);    
+    kunddata.append("");			/* mailadress erref*/
+    kunddata.append(skilj);    
+    kunddata.append(seljare);		/* säljare */
+    kunddata.append(skilj);    
+    kunddata.append("");			/* distrikt */
+    kunddata.append(skilj);    
+    kunddata.append("");			/* kundkategori */
+    kunddata.append(skilj);    
+    kunddata.append(orderlevplats);	/*  standardleveransplats*/
+    kunddata.append(skilj);    
+    kunddata.append(orderlevvillkor);	/* leveransvillkor */
+    kunddata.append(skilj);    
+    kunddata.append("001");		/* leveranssätt */
+    kunddata.append(skilj);    
+    kunddata.append(orderbetvillkor);	/* betalningsvillkor */
+    kunddata.append(skilj);    
+    kunddata.append(ordervaluta);		/* valuta */
+    kunddata.append(skilj);    
+    kunddata.append("");			/* språkkod */
+    kunddata.append(skilj);    
+    kunddata.append("J");			/* ordererkännande */
+    kunddata.append(skilj);    
+    kunddata.append("J");			/* plocklista */
+    kunddata.append(skilj);    
+    kunddata.append("J");			/* följesedel */
+    kunddata.append(skilj);    
+    kunddata.append("J");			/* expeditionsavgift */
+    kunddata.append(skilj);    
+    kunddata.append("J");			/* fraktavgift */
+    kunddata.append(skilj);    
+    kunddata.append("J");			/* kravbrev */
+    kunddata.append(skilj);    
+    kunddata.append("1000.00");		/* kreditlimmit*/
+    kunddata.append(skilj);    
+    kunddata.append("J");			/* dröjsmålsränta */
+    kunddata.append(skilj);    
+    kunddata.append("J");			/* dröjsmålsfaktura */
+    kunddata.append(skilj);    
+    kunddata.append("");			/* fri text */
+    kunddata.append(skilj);   
+//       qDebug("kunddata=%s",kunddata.latin1());
+       frmAddOrder::AddKund(kunddata);
+}
+
+void frmAddOrder::AddKund(QString kund)
+{
+    /**********************************************************************/
+    /*	Spara kunddata i KUNDREG					*/
+    /**********************************************************************/
+    const char *userp = getenv("USER");
+    QString usr(userp);
+
+//    qDebug("frmAddOrder::AddKund");
+    inrad2="";
+    errorrad2="";
+    process = new QProcess();
+    process->addArgument("./STYRMAN");	// OLFIX styrprogram
+    process->addArgument(usr);		// userid
+    process->addArgument( "KUADD");	// OLFIX funktion
+    process->addArgument(kund);
+
+    frmAddOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotOrderradDataOnStdout() ) );
+    frmAddOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotOrderadDataOnStderr() ) );
+    frmAddOrder::connect( process, SIGNAL(processExited() ),this, SLOT(slotNyKundEndOfProcess() ) );
+
+    if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::critical( this, "ADDORDW",
+				  "Kan inte starta STYRMAN/KUADD! \n" );
+	}
+}
+
+void frmAddOrder::slotNyKundEndOfProcess()
+{
+    frmAddOrder::UpdateKundNr();
+}
+
+void frmAddOrder::UpdateKundNr()
+{
+/*   Uppdatera kundnummer i FTGDATA, posttyp SKUNR=senast använda kundnr
+      Använd funktion FTGUPD SKUNR "kundnr+1"
+*/
+    const char *userp = getenv("USER");
+    QString usr(userp);
+	
+//	qDebug("ordernr=%s",ordernr.latin1());
+	inrad="";
+	errorrad="";
+	
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "FTGUPD");	// OLFIX funktion		Orderhuvud till ORDERREG
+	process->addArgument("SKUNR");
+	process->addArgument(orderkundnr);
+	
+	frmAddOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+	frmAddOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+            frmAddOrder::connect( process, SIGNAL(processExited() ),this, SLOT(NyttKundNrUpdateEndOfProcess() ) );
+	    
+	if ( !process->start() ) {
+		// error handling
+		QMessageBox::warning( this, "ADDORDW",
+                            "Kan inte starta STYRMAN/FTGUPD/SKUNR. \n" );
+	    }
+}
+
+void frmAddOrder::NyttKundNrUpdateEndOfProcess()
+{
+    QMessageBox::information( this, "ADDORDW",
+                            "Kunden registrerad!. \n" );	
 }

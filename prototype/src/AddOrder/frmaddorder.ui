@@ -12,6 +12,11 @@
             <height>664</height>
         </rect>
     </property>
+    <property name="font">
+        <font>
+            <pointsize>8</pointsize>
+        </font>
+    </property>
     <property name="caption">
         <string>ADDORDW - Registrera kundorder</string>
     </property>
@@ -45,38 +50,6 @@
         </property>
         <property name="text">
             <string>&lt;p align="center"&gt;&lt;font color="#ff0000"&gt;*&lt;/font&gt;&lt;/p&gt;</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel1_6</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>90</x>
-                <y>80</y>
-                <width>255</width>
-                <height>27</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>&lt;font size="+2"&gt;&lt;b&gt;Postadress, Fakturaadress&lt;/b&gt;&lt;/font&gt;</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel1_6_2</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>375</x>
-                <y>80</y>
-                <width>195</width>
-                <height>27</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>&lt;font size="+2"&gt;&lt;b&gt;Leveransaddress&lt;/b&gt;&lt;/font&gt;</string>
         </property>
     </widget>
     <widget class="Line">
@@ -115,7 +88,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -136,7 +108,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -157,7 +128,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -178,7 +148,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -199,7 +168,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -220,7 +188,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -241,7 +208,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -262,7 +228,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -283,7 +248,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -304,7 +268,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -325,7 +288,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -346,7 +308,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -367,7 +328,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -388,7 +348,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
     </widget>
@@ -406,7 +365,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
     </widget>
@@ -424,7 +382,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
     </widget>
@@ -452,7 +409,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="acceptDrops">
@@ -485,7 +441,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -509,7 +464,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -533,7 +487,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -554,7 +507,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -575,7 +527,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -596,7 +547,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -617,7 +567,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -638,7 +587,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -662,7 +610,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -686,7 +633,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -720,7 +666,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -757,7 +702,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -784,7 +728,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -805,7 +748,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -826,7 +768,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -847,7 +788,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -868,7 +808,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -905,7 +844,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -926,7 +864,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -947,7 +884,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -984,7 +920,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="alignment">
@@ -1005,7 +940,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="alignment">
@@ -1026,7 +960,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
     </widget>
@@ -1044,7 +977,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -1065,7 +997,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -1086,6 +1017,7 @@
         </property>
         <property name="font">
             <font>
+                <pointsize>10</pointsize>
             </font>
         </property>
         <property name="text">
@@ -1106,7 +1038,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -1127,7 +1058,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="frameShape">
@@ -1154,7 +1084,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -1175,7 +1104,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="toolTip" stdset="0">
@@ -1196,7 +1124,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="frameShape">
@@ -1233,7 +1160,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -1270,7 +1196,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -1307,7 +1232,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -1341,7 +1265,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="alignment">
@@ -1375,7 +1298,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -1402,7 +1324,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="toolTip" stdset="0">
@@ -1445,7 +1366,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="showSortIndicator">
@@ -1554,7 +1474,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
     </widget>
@@ -1572,7 +1491,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -1593,7 +1511,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -1649,7 +1566,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="toolTip" stdset="0">
@@ -1670,7 +1586,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -1697,7 +1612,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -1721,7 +1635,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
     </widget>
@@ -1739,7 +1652,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
     </widget>
@@ -1757,7 +1669,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
     </widget>
@@ -1775,7 +1686,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
     </widget>
@@ -1793,7 +1703,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
     </widget>
@@ -1811,7 +1720,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
     </widget>
@@ -1829,7 +1737,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
     </widget>
@@ -1847,7 +1754,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="toolTip" stdset="0">
@@ -1868,7 +1774,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -1889,7 +1794,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -1916,7 +1820,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="alignment">
@@ -1940,7 +1843,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="toolTip" stdset="0">
@@ -1961,7 +1863,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -1982,7 +1883,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="alignment">
@@ -2003,7 +1903,6 @@
         </property>
         <property name="font">
             <font>
-                <pointsize>8</pointsize>
             </font>
         </property>
         <property name="text">
@@ -2014,6 +1913,46 @@
         </property>
         <property name="toolTip" stdset="0">
             <string>3 tecken. Se LSTLEVPW. Ifall sätts till 000 kopieras Postadress till Leveransadress.</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_6</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>90</x>
+                <y>80</y>
+                <width>255</width>
+                <height>27</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+            </font>
+        </property>
+        <property name="text">
+            <string>&lt;font size="+2"&gt;&lt;b&gt;Postadress, Fakturaadress&lt;/b&gt;&lt;/font&gt;</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_6_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>375</x>
+                <y>80</y>
+                <width>195</width>
+                <height>27</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+            </font>
+        </property>
+        <property name="text">
+            <string>&lt;font size="+2"&gt;&lt;b&gt;Leveransaddress&lt;/b&gt;&lt;/font&gt;</string>
         </property>
     </widget>
 </widget>
@@ -2338,6 +2277,10 @@
     <slot>slotgetSKDataOnStdout()</slot>
     <slot>slotgetSKDataOnStderr()</slot>
     <slot>createNyKund()</slot>
+    <slot>AddKund( QString kund )</slot>
+    <slot>slotNyKundEndOfProcess()</slot>
+    <slot>UpdateKundNr()</slot>
+    <slot>NyttKundNrUpdateEndOfProcess()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
