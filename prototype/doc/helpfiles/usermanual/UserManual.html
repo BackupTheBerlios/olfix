@@ -1,490 +1,674 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
-<HTML>
-<HEAD>
-	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-15">
-	<TITLE>UserManual</TITLE>
-	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.0.2  (Linux)">
-	<META NAME="CREATED" CONTENT="20021205;10014400">
-	<META NAME="CHANGEDBY" CONTENT="Jan Pihlgren">
-	<META NAME="CHANGED" CONTENT="20041107;16451400">
-	<STYLE>
+<html>
+<head>
+
+  <meta http-equiv="CONTENT-TYPE"
+ content="text/html; charset=iso-8859-15">
+  <title>UserManual</title>
+
+  <meta name="GENERATOR" content="OpenOffice.org 1.0.2  (Linux)">
+
+  <meta name="CREATED" content="20021205;10014400">
+
+  <meta name="CHANGEDBY" content="Jan Pihlgren">
+  <meta name="CHANGED" content="20050312;16451400">
+  <style>
 	<!--
 		@page { margin: 2cm }
 		P { margin-bottom: 0.21cm }
 	-->
-	</STYLE>
-</HEAD>
-<BODY LANG="sv-SE">
-<P STYLE="margin-bottom: 0cm"><A NAME="TOP"></A><IMG SRC="UserManual_html_OLFIX_LOGGA.jpg" NAME="Graphic1" ALIGN=LEFT WIDTH=643 HEIGHT=268 BORDER=0><BR CLEAR=LEFT><BR>
-</P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=6 STYLE="font-size: 22pt"><B>Order/Lager/Fakturering
-f&ouml;r Linuxsystem</B></FONT></P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm; font-weight: medium"><FONT SIZE=6 STYLE="font-size: 22pt">Anv&auml;ndarmanual</FONT></P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm; font-weight: medium"><FONT SIZE=5>Version 0.40</FONT></P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2005-02-27</FONT></P>
-<HR>
-<P STYLE="margin-left: 3cm">This program is free software; you can
-redistribute it and/or modify<BR>it under the terms of the GNU
-General Public License as published by<BR>the Free Software
-Foundation; either version 2 of the License, or<BR>(at your option)
-any later version.</P>
-<P STYLE="margin-bottom: 0.5cm; border-top: none; border-bottom: 1.10pt double #808080; border-left: none; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0cm; padding-right: 0cm">
-<FONT SIZE=1 STYLE="font-size: 6pt">Copyright 2004 Jan Pihlgren.</FONT></P>
-<P ALIGN=CENTER><A NAME="INNEHALL"></A><FONT SIZE=4 STYLE="font-size: 16pt"><B><!---- <P STYLE="margin-top: 0.42cm; page-break-before: always; page-break-after: avoid">
-<!---->Inneh&aring;ll</B></FONT></P>
-<P STYLE="margin-left: 3cm"><FONT FACE="San Serif"><font size="+1"></font>
-<A HREF="#INLEDNING">Inledning</A><BR>
-<A HREF="#INNAN">Innan du b&ouml;rjar.</A><BR>
-<A HREF="#IGANG">Att komma ig&aring;ng</A><BR>
-<A HREF="#GRUNDDATA">Grunddata </A><BR>
-<A HREF="#FLERA">Flera f&ouml;retag.</A><BR>
-<A HREF="#GRUNDATA2">Artiklar.</A><BR>
-<A HREF="#GRUNDATA3">Artikelstruktur.</A><BR>
-<A HREF="#BYTAFORETAG">Byte av f&ouml;retag.</A><BR>
-<A HREF="#BOKFORING">Bokf&ouml;ring.</A><BR>
-<A href="#NYTTBAR">Nytt räkenskapsår</A><br>
-<A HREF="#INKOP">Ink&ouml;p.</A><BR>
-<A HREF="#INKOP1">Registrering av ink&ouml;psorder.</A><BR>
-<A HREF="#BESTEXEMPEL">Exempel p&aring; Best&auml;llning.</A><BR>
-<A HREF="#INKOP2">Best&auml;llningsstock.</A><BR>
-<A HREF="#LEVERANTOR">Leverant&ouml;rsreskontra.</A><BR>
-<A HREF="#LEVERANTOR1">Registrering av leverant&ouml;rsfaktura.</A><BR>
-<A HREF="#KONTO">Kontoadministration.</A><BR>
-<A HREF="#KONTO1">Nya konton.</A><BR>
-<A HREF="#LEVPLATS">Standardleveransplats.</A><BR>
-<A HREF="#LEVPLATS1">Nystandardleveransplats.</A><BR>
-<A HREF="#BEGREPP">Begrepsf&ouml;rklaringar</A></FONT></P>
+	</style>
+</head>
+<body lang="sv-SE">
+<p style="margin-bottom: 0cm;"> <a name="TOP"></a> <img
+ src="UserManual_html_OLFIX_LOGGA.jpg" name="Graphic1" align="middle"
+ width="643" height="268" border="0"> <br clear="left">
+<br>
+</p>
+<p align="center" style="margin-bottom: 0cm;"><font size="6"
+ style="font-size: 22pt;"> <b>Order/Lager/Fakturering för Linuxsystem</b></font></p>
+<p align="center" style="margin-bottom: 0cm;"><font size="6"
+ style="font-size: 22pt;"> Användarmanual</font></p>
+<p align="center" style="margin-bottom: 0cm;"><font size="5"> Version
+0.41</font></p>
+<p align="center" style="margin-bottom: 0cm;"><font size="5"> 2005-03-12</font></p>
+<hr>
+<p style="margin-left: 3cm;">This program is free software; you can
+redistribute it and/or modify<br>
+it under the terms of the GNU General Public License as published by<br>
+the Free Software Foundation; either version 2 of the License, or<br>
+(at your option) any later version.</p>
+<p
+ style="border-style: none none double; border-width: medium medium 1.1pt; border-bottom: 1.1pt double rgb(128, 128, 128); padding: 0cm 0cm 0.05cm; margin-bottom: 0.5cm;"> <font
+ size="1" style="font-size: 6pt;">Copyright 2004 Jan Pihlgren.</font></p>
+<p align="center">
+<a name="INNEHALL"></a><font size="4" style="font-size: 16pt;">
+<b>
+<!---- <P STYLE="margin-top: 0.42cm; page-break-before: always; page-break-after: avoid">
+<!---->Innehåll</b></font></p>
+<p style="margin-left: 3cm;"><font face="San Serif"><font size="+1"></font> <a
+ href="#INLEDNING">Inledning</a><br>
+<a href="#INNAN">Innan du börjar.</a><br>
+<a href="#IGANG">Att komma igång</a><br>
+<a href="#GRUNDDATA">Grunddata </a><br>
+<a href="#FLERA">Flera företag.</a><br>
+<a href="#GRUNDATA2">Artiklar.</a><br>
+<a href="#GRUNDATA3">Artikelstruktur.</a><br>
+<a href="#BYTAFORETAG">Byte av företag.</a><br>
+<a href="#BOKFORING">Bokföring.</a><br>
+<a href="#NYTTBAR">Nytt räkenskapsår</a><br>
+<a href="#FORSALJ">Försäljning</a><br>
+<a href="#FORSALJ1">Registrering av kundorder</a><br>
+<a href="#INKOP">Inköp.</a><br>
+<a href="#INKOP1">Registrering av inköpsorder.</a><br>
+<a href="#BESTEXEMPEL">Exempel på Beställning.</a><br>
+<a href="#INKOP2">Beställningsstock.</a><br>
+<a href="#LEVERANTOR">Leverantörsreskontra.</a><br>
+<a href="#LEVERANTOR1">Registrering av leverantörsfaktura.</a><br>
+<a href="#KONTO">Kontoadministration.</a><br>
+<a href="#KONTO1">Nya konton.</a><br>
+<a href="#LEVPLATS">Standardleveransplats.</a><br>
+<a href="#LEVPLATS1">Nystandardleveransplats.</a><br>
+<a href="#BEGREPP">Begrepsförklaringar</a></font></p>
+<p style="margin-bottom: 0cm;">
+<a href="#TOP">Till början</a>
+</p>
+<hr>
+<p align="center" style="margin-bottom: 0cm;">
+<a name="INLEDNING"></a>
+<b>Inledning</b>
+</p>
+<p align="left">
+Olfix innehåller nedanstående funktionalitet. Det första man
+måste göra är att lägga upp användare som ska nyttja OLFIX. Därefter
+tilldelar man vederbörande behörighet att använda nödvändiga funktioner.</p>
+<p style="margin-left: 2.5cm;">
+<b>ADMINISTRATION</b><br>
+<b>Användaradministration</b><br>
+<b>Ny användare </b><br>
+<b>Visa en användare </b><br>
+<b>Ändra användarinformation</b><br>
+<b>Lista alla användare </b><br>
+<b>Ta bort en användare </b><br>
+<br>
+<b>Behörighetsadministration</b><br>
+<b>Ny behörighet</b><br>
+<b>Visa behörighet </b><br>
+<b>Ändra behörighet</b><br>
+<b>Lista behörigheter</b><br>
+<b>Ta bort behörighet </b><br>
+<br>
+<b>Funktionsadministration</b><br>
+<b>Lista funktioner.</b><br>
+<b>Ny funktion </b><br>
+<br>
+<b>Företagsdata</b><br>
+<a href="#BYTAFORETAG"><b>Byta företag </b></a><br>
+<b>Ny post</b><br>
+<b>Visa företagsdata</b><br>
+<b>Ändra post</b><br>
+<b>Ny text i textregistret</b><br>
+<b>Radera post i textregistret</b><br>
+<br>
+<b>EKONOMI</b><br>
+<b><a href="#BOKFORING">Bokföring.</a></b><br>
+<b>Registrera verifikationer.</b><br>
+<b>Registrera leverantörsfaktura</b><br>
+<br>
+<b>Kontoadministration</b><br>
+<b>Nytt konto</b><br>
+<b>Visa konto</b><br>
+<b>Ändra konto</b><br>
+<b>Lista konton</b><br>
+<b>Ta bort konto</b><br>
+<br>
+<b>Kostnadställeadministration</b><br>
+<b>Nytt kostnadsställe</b><br>
+<b>Visa ett kostnadställe</b><br>
+<b>Ändra kostnadsställe</b><br>
+<b>Lista kostnadsställen</b><br>
+<b>Ta bort kostnadställe</b><br>
+<br>
+<b>Rapporter</b><br>
+<b>Kontorapport</b><br>
+<b>Leverantörsreskontra</b><br>
+<b>Förfallna leverantörsfakturor</b><br>
+<b>Saldolista</b><br>
+<b>Rapportgenerator</b><br>
+<br>
+<b>Räkenskapsår</b><br>
+<b><a href="#NYTTBAR"><b>Nytt bokföringsår.</b></a><b></b><br>
+<b>Ändra bokföringsårsdata</b><br>
+<br>
+<b>Valutaadministration</b><br>
+<b>Ny valuta</b><br>
+<b>Visa valuta</b><br>
+<b>Ändra valuta</b><br>
+<b>Lista valutor</b><br>
+<b>Ta bort valuta<br>
+<br>
+</b> <b><a href="#FORSALJ">FÖRSÄLJNING</a></b><br>
+<b>Kunddata</b><br>
+<b>Ny kund</b><br>
+<b>Visa kunddata</b><br>
+<b>Ändra kunddata</b><br>
+<b>Lista kunder</b><br>
+<b>Ny leveransadress </b><br>
+<br>
+<b>Kundorder</b><br>
+<b><a href="#FORSALJ1">Registrering av kundorder</a></b><br>
+<br>
+<b>MATERIALHANTERING</b><br>
+<b>Artikeldata</b><br>
+<b>Nya artiklar</b><br>
+<b>Nytt lagerställe</b><br>
+<b>Visa artikeldata</b><br>
+<b>Ändra artikeldata</b><br>
+<b>Lista artiklar</b></b></font></font></p>
+<p style="margin-left: 2.5cm;"><font face="San Serif"><b><font
+ face="San Serif"><b>INKÖP</b><br>
+<b>Beställningar</b><br>
+<b><a href="#INKOP1">Registrering av inköpsorder.</a></b><br>
+<b><a href="#BESTEXEMPEL">Visa beställning.</a></b><br>
+<b><a href="#INKOP2">Beställningsstock.</a></b><br>
+<br>
+<b>Leverantörsdata</b><br>
+<b>Ny leveerantör</b><br>
+<b>Visa en leverantör </b><br>
+<b>Ändra leverantörsdata</b><br>
+<b>Lista leverantörer</b><br>
+</font></b></font></p>
+<p style="margin-bottom: 0cm;"><font face="San Serif"><b><font
+ face="San Serif"><font face="San Serif"> <a href="#TOP">Till början</a> </font></font></b></font></p>
+<hr>
+<p align="center"><font face="San Serif"><b><font face="San Serif"><a
+ name="INNAN"></a><font face="San Serif"><font size="4"
+ style="font-size: 16pt;"> <b>Innan du börjar.</b></font></font></font></b></font></p>
+<p></p>
+<p align="left"><font face="San Serif"><font face="San Serif"><font
+ face="San Serif">Förutsättningen för att kunna använda OLFIX är att
+databasmotorn MySQL är installerad samt att databasdämonen är startad.
+Detta sköter din databasadministratör om. Det bästa är om databasdämonen
+alltid startas så fort datorn startar. Om du arbetar i ett närverk så
+är det administratörens ansvar att se till att allt fungerar.<br>
+Innan du försöker använda OLFIX ska du kontrollera att du har filen
+.olfixrc i ditt hemmabibliotek.<br>
+Observera att det är en punkt framför filnamnet, punkten är en del av
+filnamnet.<br>
+Innehållet i filen ska se ut ungefär så här:</font></font></font></p>
+<p align="left"><font face="San Serif"><font face="San Serif"><font
+ face="San Serif"> PATH=/usr/share/olfix/bin/<br>
+HOST=localhost<br>
+DATABASE=olfixtst<br>
+HELPFILE=/doc/helpfiles/usermanual/UserManual.html<br>
+REPORT=/usr/share/olfix/report/<br>
+VTMP=/tmp/<br>
+<br>
+Värdet för <font face="Courier, monospace">DATABASE </font>kan
+skifta. Om det står <font face="Courier, monospace">olfixtst</font> så
+innebär det att du arbetar med testföretaget.<br>
+Om värdet är <font face="Courier, monospace">olfix</font> så anger det
+att du arbetar med det &#8221;skarpa&#8221;, ordinarie företaget.<br>
+Detta är inte något du ska ändra själv. Använd programmet <a
+ href="#BYTAFORETAG">BYTFTGW</a> för att byta mellan olika företag.</p>
+<p style="margin-bottom: 0cm;">
+<a href="#TOP">Till början</a>
+</p>
+<hr>
+<p align="center">
+<a name="IGANG"></a>
+<b>Att komma igång</b></p>
+<p>Med hjälp av en filhanterare letar du upp filen
+/usr/local/olfix/bin/OLFIXW. Dra den filen till skrivbordet och släpp.
+På frågan om kopiera mm väljer du länka. Därefter kan du klicka på
+ikonen OLFIXW på skrivbordet.</p>
+<p>Du ska få upp följande bild:</p>
+<p align="center">
+<img src="UserManual_html_OLFIX_MENU.png" name="Graphic4" align="bottom"
+ width="408" height="411" border="0"><br>
+Bild 1</p>
+<p>Här kan du välja vilka program/funktioner du önskar använda.<br>
+Genom att klicka på enfunktion så startar detta program.<br>
+I bild 1 finns det +tecken och -tecken. Dessa expanderar respektive
+krymper listan med funktioner.<br>
+<br>
+Ifall du får upp nedanstående bild så är databasen inte igång/öppen.</p>
+<p align="center">
+<img src="UserManual_html_OLFIXW_Error1.png" name="Graphic6" align="bottom"
+ width="643" height="132" border="0"><br>
+Bild 2</p>
+<p>Om du får upp en bild som liknar Bild 3:</p>
+<p align="center">
+<img src="UserManual_html_Behorighet.png" name="Graphic5" align="bottom"
+ width="373" height="115" border="0"><br>
+Bild 3</p>
+<p>får du vända dig till den person som administrerar ditt
+system så får denne ordna så du får rätt att använda programmet,
+behörighet till programmet.</p>
+<p style="margin-bottom: 0cm;">
+<a href="#TOP">Till början</a></p>
+<hr>
+<p align="center">
+<a name="GRUNDDATA"></a>
+<b>GRUNDDATA</b></p>
 
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till
-b&ouml;rjan</A> </FONT>
-</P>
-<HR>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><font size="+1"></font>
-<A NAME="INLEDNING"></A>
-<FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Inledning</B></FONT></FONT></P>
-<P ALIGN=LEFT><FONT FACE="San Serif"><FONT SIZE=3>Olfix
-inneh&aring;ller nedanst&aring;ende funktionalitet. Det f&ouml;rsta
-man m&aring;ste g&ouml;ra &auml;r att l&auml;gga upp anv&auml;ndare
-som ska nyttja OLFIX. D&auml;refter tilldelar man vederb&ouml;rande
-beh&ouml;righet att anv&auml;nda n&ouml;dv&auml;ndiga funktioner.</FONT></FONT></P>
-<P STYLE="margin-left: 2.5cm"><FONT FACE="San Serif"><B>ADMINISTRATION</B><BR>
-<B>Anv&auml;ndaradministration</B><BR>
-<B>Ny anv&auml;ndare </B><BR>
-<B>Visa en anv&auml;ndare </B><BR>
-<B>&Auml;ndra anv&auml;ndarinformation</B><BR>
-<B>Lista alla anv&auml;ndare </B><BR><B>Ta bort en anv&auml;ndare </B><BR><BR>
-<B>Beh&ouml;righetsadministration</B><BR><B>Ny beh&ouml;righet</B><BR>
-<B>Visa beh&ouml;righet </B><BR>
-<B>&Auml;ndra beh&ouml;righet</B><BR>
-<B>Lista beh&ouml;righeter</B><BR><B>Ta bort beh&ouml;righet </B><BR><BR>
-<B>Funktionsadministration</B><BR>
-<B>Lista funktioner.</B><BR>
-<B>Ny funktion </B><BR><BR>
-<B>F&ouml;retagsdata</B><BR>
-<A HREF="#BYTAFORETAG"><B>Byta f&ouml;retag </B></A><BR>
-<B>Ny post</B><BR>
-<B>Visa f&ouml;retagsdata</B><BR>
-<B>&Auml;ndra post</B><BR>
-<B>Ny text i textregistret</B><BR>
-<B>Radera post i textregistret</B></FONT></P>
-<P STYLE="margin-left: 2.5cm"><FONT FACE="San Serif"><B>EKONOMI</B><BR>
-<B><A HREF="#BOKFORING">Bokf&ouml;ring.</A></B><BR>
-<B>Registrera verifikationer.</B><BR>
-<B>Registrera leverant&ouml;rsfaktura</B><BR><BR>
-<B>Kontoadministration</B><BR>
-<B>Nytt konto</B><BR>
-<B>Visa konto</B><BR>
-<B>&Auml;ndra konto</B><BR>
-<B>Lista konton</B><BR>
-<B>Ta bort konto</B><BR><BR>
-<B>Kostnadst&auml;lleadministration</B><BR>
-<B>Nytt kostnadsst&auml;lle</B><BR>
-<B>Visa ett kostnadst&auml;lle</B><BR>
-<B>&Auml;ndra kostnadsst&auml;lle</B><BR>
-<B>Lista kostnadsst&auml;llen</B><BR>
-<B>Ta bort kostnadst&auml;lle</B><BR><BR>
-<B>Rapporter</B><BR>
-<B>Kontorapport</B><BR>
-<B>Leverant&ouml;rsreskontra</B><BR>
-<B>F&ouml;rfallna leverant&ouml;rsfakturor</B><BR>
-<B>Saldolista</B><BR>
-<B>Rapportgenerator</B><BR><BR>
-<B>R&auml;kenskaps&aring;r</B><BR>
-<B><A HREF="#NYTTBAR"><B>Nytt bokf&ouml;rings&aring;r.</A></B><BR>
-<B>&Auml;ndra bokf&ouml;rings&aring;rsdata</B><BR><BR>
-<B>Valutaadministration</B><BR>
-<B>Ny valuta</B><BR>
-<B>Visa valuta</B><BR>
-<B>&Auml;ndra valuta</B><BR>
-<B>Lista valutor</B><BR>
-<B>Ta bort valuta</B></FONT></P>
-
-<P STYLE="margin-left: 2.5cm"><FONT FACE="San Serif"><B>F&Ouml;RS&Auml;LJNING</B><BR><B>Kunddata</B><BR><B>Ny
-kund</B><BR><B>Visa kunddata</B><BR><B>&Auml;ndra kunddata</B><BR><B>Lista
-kunder</B><BR><B>Ny leveransadress </B></FONT>
-</P>
-<P STYLE="margin-left: 2.5cm"><FONT FACE="San Serif"><B>MATERIALHANTERING</B><BR><B>Artikeldata</B><BR><B>Nya
-artiklar</B><BR><B>Nytt lagerst&auml;lle</B><BR><B>Visa
-artikeldata</B><BR><B>&Auml;ndra artikeldata</B><BR><B>Lista artiklar</B></FONT></P>
-<P STYLE="margin-left: 2.5cm"><FONT FACE="San Serif"><B>INK&Ouml;P</B><BR><B>Best&auml;llningar</B><BR>
-<B><A HREF="#INKOP1">Registrering av ink&ouml;psorder.</A></B><BR>
-<B><A HREF="#BESTEXEMPEL">Visa best&auml;llning.</A></B><BR>
-<B><A HREF="#INKOP2">Best&auml;llningsstock.</A></B><BR><BR>
-<B>Leverant&ouml;rsdata</B><BR>
-<B>Ny leveerant&ouml;r</B><BR>
-<B>Visa en leverant&ouml;r </B><BR>
-<B>&Auml;ndra leverant&ouml;rsdata</B><BR>
-<B>Lista leverant&ouml;rer</B></FONT></P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till
-b&ouml;rjan</A> </FONT>
-</P>
-<HR>
-<P ALIGN=CENTER><A NAME="INNAN"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Innan
-du b&ouml;rjar.</B></FONT></FONT></P>
-<P><P ALIGN=LEFT><FONT FACE="San Serif">F&ouml;ruts&auml;ttningen f&ouml;r
-att kunna anv&auml;nda OLFIX &auml;r att databasmotorn MySQL &auml;r
-installerad samt att databasd&auml;monen &auml;r startad. Detta
-sk&ouml;ter din databasadministrat&ouml;r om. Det b&auml;sta &auml;r
-om databasd&auml;monen alltid startas s&aring; fort datorn startar.
-Om du arbetar i ett n&auml;rverk s&aring; &auml;r det
-administrat&ouml;rens ansvar att se till att allt fungerar.<BR>Innan
-du f&ouml;rs&ouml;ker anv&auml;nda OLFIX ska du kontrollera att du
-har filen .<B>olfixrc</B> i ditt hemmabibliotek.<BR>Observera att det
-&auml;r en punkt framf&ouml;r filnamnet, punkten &auml;r en del av
-filnamnet.<BR>Inneh&aring;llet i filen ska se ut ungef&auml;r s&aring;
-h&auml;r:</FONT></P>
-<P><P ALIGN=LEFT><FONT FACE="San Serif">
-PATH=/usr/share/olfix/bin/<BR>
-HOST=localhost<BR>
-DATABASE=olfixtst<BR>
-HELPFILE=/doc/helpfiles/usermanual/UserManual.html<BR>
-REPORT=/usr/share/olfix/report/<BR>VTMP=/tmp/<BR><BR>
-V&auml;rdet f&ouml;r <FONT FACE="Courier, monospace">DATABASE </FONT>kan skifta.
-Om det st&aring;r <FONT FACE="Courier, monospace">olfixtst</FONT> s&aring;
-innebär det att du arbetar med testf&ouml;retaget.<BR>Om v&auml;rdet &auml;r
-<FONT FACE="Courier, monospace">olfix</FONT> s&aring; anger det att
-du arbetar med det &rdquo;skarpa&rdquo;, ordinarie f&ouml;retaget.<BR>Detta
-&auml;r inte n&aring;got du ska &auml;ndra sj&auml;lv. Anv&auml;nd
-programmet <A HREF="#BYTAFORETAG">BYTFTGW</A> f&ouml;r att byta mellan olika f&ouml;retag.</FONT></P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till b&ouml;rjan</A> </FONT>
-</P>
-<HR>
-<P ALIGN=CENTER><A NAME="IGANG"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Att
-komma ig&aring;ng</B></FONT></FONT></P>
-<P><FONT FACE="San Serif"><FONT SIZE=3>Med hj&auml;lp av en
-filhanterare letar du upp filen <B>/usr/local/olfix/bin/OLFIXW</B>.
-Dra den filen till skrivbordet och sl&auml;pp. P&aring; fr&aring;gan
-om kopiera mm v&auml;ljer du l&auml;nka. D&auml;refter kan du klicka
-p&aring; ikonen OLFIXW p&aring; skrivbordet.</FONT></FONT></P>
-<P><FONT FACE="San Serif"><FONT SIZE=3>Du ska f&aring; upp
-f&ouml;ljande bild:</FONT></FONT></P>
-<P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=3><IMG SRC="UserManual_html_OLFIX_MENU.png" NAME="Graphic4" ALIGN=BOTTOM WIDTH=408 HEIGHT=411 BORDER=0><BR><FONT FACE="San Serif">Bild
-1</FONT></FONT></FONT></P>
-<P><FONT FACE="San Serif"><FONT SIZE=3>H&auml;r kan du v&auml;lja
-vilka program/funktioner du &ouml;nskar anv&auml;nda.<BR>Genom att
-klicka p&aring; enfunktion s&aring; startar detta program.<BR>I bild
-1 finns det +tecken och -tecken. Dessa expanderar respektive krymper
-listan med funktioner.<BR><BR>Ifall du f&aring;r upp nedanst&aring;ende
-bild s&aring; &auml;r databasen inte ig&aring;ng/&ouml;ppen.</FONT></FONT></P>
-<P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=3><IMG SRC="UserManual_html_OLFIXW_Error1.png" NAME="Graphic6" ALIGN=BOTTOM WIDTH=643 HEIGHT=132 BORDER=0><BR><FONT FACE="San Serif">Bild
-2</FONT></FONT></FONT></P>
-<P><FONT FACE="San Serif"><FONT SIZE=3>Om du f&aring;r upp
-en bild som liknar Bild 3:</FONT></FONT></P>
-<P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=3><IMG SRC="UserManual_html_Behorighet.png" NAME="Graphic5" ALIGN=BOTTOM WIDTH=373 HEIGHT=115 BORDER=0><BR><FONT FACE="San Serif">Bild
-3</FONT></FONT></FONT></P>
-<P><FONT FACE="San Serif"><FONT SIZE=3>f&aring;r du v&auml;nda
-dig till den person som administrerar ditt system s&aring; f&aring;r
-denne ordna s&aring; du f&aring;r r&auml;tt att anv&auml;nda
-programmet, beh&ouml;righet till programmet.</FONT></FONT></P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till
-b&ouml;rjan</A> </FONT>
-</P>
-<HR>
-<P ALIGN=CENTER><A NAME="GRUNDDATA"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Grunddata</B></FONT></FONT></P>
-<P><P ALIGN=LEFT><FONT FACE="San Serif"><FONT SIZE=3>Det f&ouml;rsta som
-m&aring;ste g&ouml;ras innan man kan anv&auml;nda OLFIX &auml;r att
-mata in grunddata.<BR>Grunddata &auml;r t ex f&ouml;retagsuppgifter,
-anv&auml;ndare, beh&ouml;righeter, kontoplan och r&auml;kenskaps&aring;r.
-Ett nytt r&auml;kenskaps&aring;r l&auml;ggs upp med ADDBARW,
-anv&auml;ndare l&auml;ggs upp med ADDUSRW, beh&ouml;righeter med
-ADDRGTW och kontoplan l&auml;ggs upp med ADDKTOW.</FONT></FONT></P>
-<P><A NAME="FLERA"></A><FONT FACE="San Serif"><FONT SIZE=3><B>Flera
-f&ouml;retag.</B></FONT></FONT></P>
-<P><A NAME="GRUNDATA2"></A><P ALIGN=LEFT><FONT FACE="San Serif"><FONT SIZE=3>OLFIX
-medger hantering av upp till 99 olika f&ouml;retag. F&ouml;retag nr
-99 &auml;r reserverat f&ouml;r testf&ouml;retaget.<BR>OLFIX levereras
-med ett &rdquo;skarpt&rdquo; (ordinarie) f&ouml;retag (01) och ett
-testf&ouml;retag (99).</FONT></FONT></P>
-<P><FONT FACE="San Serif"><FONT SIZE=3><B>Artiklar</B></FONT></FONT></P>
-<P><A NAME="GRUNDATA3"></A><P ALIGN=LEFT><FONT FACE="San Serif"><FONT SIZE=3>Artikeltyp
-0 = Tillverkningsartikel som tillverkas mot lager.<BR>Artikeltyp 1 =
-Tillverkningsartikel som ej tillveraks mot lager.<BR>Artikeltyp 2 =
-K&ouml;partikel som k&ouml;ps mot lager.<BR>Artikeltyp 3 = K&ouml;partikel
-som ej k&ouml;ps mot lager.<BR>Grundv&auml;rde = 0</FONT></FONT></P>
-<P><FONT FACE="San Serif"><FONT SIZE=3><B>Artikelstruktur</B></FONT></FONT></P>
-<P STYLE="margin-bottom: 0cm"><P ALIGN=LEFT><FONT FACE="San Serif">Blank =
-ing&aring;r ej i struktur.<BR>B = Bottenartikel.<BR>I = Ing&aring;r
-&quot;mitt&quot; i artikel.<BR>T = Toppartikel.<BR>F = Fantom, ing&aring;r
-&quot;mitt&quot; i artikel, ej fysisk artikel.<BR>Grundv&auml;rde =
-blank.<BR><BR><A HREF="#TOP">Till b&ouml;rjan</A> </FONT>
-</P>
-<HR>
-<P ALIGN=CENTER><A NAME="BYTAFORETAG"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Byte
-av f&ouml;retag.</B></FONT></FONT></P>
-<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><FONT SIZE=3></FONT></FONT>
-OLFIX medger enkel hantering av 99 olika företag.<br>
-Varje företag har sin egen databas, vilken måste läggas upp av en behörig person.<br>
-OLFIX levereras med två företag, <i>olfix</i>, nr 01 och <i>olfixtst</i>, nr 99.<br>
-</P>
-<P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=3><IMG SRC="UserManual_html_BYTFTGW.png" NAME="Graphic9" ALIGN=BOTTOM WIDTH=608 HEIGHT=218 BORDER=0></FONT></FONT></P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till
-b&ouml;rjan</A> </FONT>
-</P>
-<HR>
-<P ALIGN=CENTER><A NAME="BOKFORING"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Bokf&ouml;ring</B></FONT></FONT></P>
-<P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=3><IMG SRC="UserManual_html_BOKFORSW.png" NAME="Graphic3" ALIGN=BOTTOM WIDTH=643 HEIGHT=411 BORDER=0></FONT></FONT></P>
-<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><FONT SIZE=3>
-Efter inmatning av <B><A HREF="#BEGREPP">bokf&ouml;rings&aring;r</A></B> g&ouml;rs kontroll att
-bokf&ouml;rings&aring;ret &auml;r upplagt. s&auml;tts automatiskt.
-<B>Verifikationstext</B> skrivs in av anv&auml;ndaren.<B>Radnr</B>
-s&auml;tts automatiskt. Inmatning av <B>Kontonr</B> kan g&ouml;ras p&aring;
-tv&aring; s&auml;tt; klicka p&aring; &ouml;nskat kontonr i
-<B>Kontof&ouml;rteckningen</B> eller skriva in kontonr manuellt.
-Efter inmatning av <B>Kontonr</B> g&ouml;rs kontroll att kontonr
-finns f&ouml;r aktuellt bokf&ouml;rings&aring;r. <B>D/K</B> skrivs av
-anv&auml;ndaren. D f&ouml;r en debetkontering och K f&ouml;r en
-kreditkontering. <B>Belopp</B> registreras av anv&auml;ndaren. P&aring;
-rad 001 ska verifikatets totalbelopp skrivas.<BR>Om <B>KST&Auml;LLE</B>
-fylls i g&ouml;rs kontroll att kostnadst&auml;llet finns registrerat
-p&aring; aktuellt kontonr och aktuellt bokf&ouml;rings&aring;r.
-F&auml;ltet f&aring;r l&auml;mnas tomt. Om <B>SUBKONTO</B> fylls i
-ska kontroll g&ouml;ras att subkonto finns registrerat p&aring;
-aktuellt kontonr. F&auml;ltet f&aring;r l&auml;mnas tomt. (Ej
-implementerat)<BR>N&auml;r man godk&auml;nnt verifikationsrad s&aring;
-uppdateras <B>Diff. </B>N&auml;r rad 001 registreras s&aring; f&ouml;rs
-samma belopp in i Diff. F&ouml;r varje p&aring;f&ouml;ljande rad som
-registreras s&aring; minskas v&auml;rdet i Diff med aktuell rads
-belopp.<BR>F&ouml;rst n&auml;r Diff &auml;r 0:- kan verifikationen
-godk&auml;nnas.<BR>Ifall man vill &auml;ndra n&aring;got p&aring; det
-man skrivit in s&aring; markera &ouml;nskat radnr i rutan
-&rdquo;Registrerade verifikationsrader&rdquo;. Raden flyttas d&aring;
-upp till f&auml;lten f&ouml;r inmatning och &auml;ndring/redigering
-kan ske.</FONT></FONT></P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till
-b&ouml;rjan</A> </FONT>
-</P>
-<HR>
-<P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Räkenskapsår</B></FONT></FONT></P>
-<P><A NAME="NYTTBAR"></A><FONT FACE="San Serif"><FONT SIZE=3>
-<B>Nytt räkenskapsår.</B></FONT></FONT></P>
+<p align="left">Det första som måste göras innan man
+kan använda OLFIX är att mata in grunddata.<br>
+Grunddata är t ex företagsuppgifter, användare, behörigheter, kontoplan
+och räkenskapsår. Ett nytt räkenskapsår läggs upp med ADDBARW, användare
+läggs upp med ADDUSRW, behörigheter med ADDRGTW och kontoplan läggs upp
+med ADDKTOW.</p>
+<p>
+<a name="FLERA"></a>
+<b>Flera företag.</b></p>
+<p>
+<a name="GRUNDATA2"></a></font></b></font></p>
+<p align="left">
+OLFIX medger hantering av upp till 99
+olika företag. Företag nr 99 är reserverat för testföretaget.<br>
+OLFIX levereras med ett &#8221;skarpt&#8221; (ordinarie) företag (01) och ett
+testföretag (99).</p>
+<p>
+<b>Artiklar</b></p>
+<p>
+<a name="GRUNDATA3"></a></p>
+<p align="left">
+Artikeltyp 0 = Tillverkningsartikel som tillverkas mot lager.<br>
+Artikeltyp 1 = Tillverkningsartikel som ej tillveraks mot lager.<br>
+Artikeltyp 2 = Köpartikel som köps mot lager.<br>
+Artikeltyp 3 = Köpartikel som ej köps mot lager.<br>
+Grundvärde = 0</p>
+<p>
+<b>Artikelstruktur</b></p>
+<p style="margin-bottom: 0cm;"></p>
+<p align="left">
+Blank = ingår ej i struktur.<br>
+B = Bottenartikel.<br>
+I = Ingår "mitt" i artikel.<br>
+T = Toppartikel.<br>
+F = Fantom, ingår "mitt" i artikel, ej fysisk artikel.<br>
+Grundvärde = blank.<br>
+<br>
+<a href="#TOP">Till början</a></p>
+<hr>
+<p align="center">
+<a name="BYTAFORETAG"></a>
+<b>Byte av företag.</b></p>
+<p align="left" style="margin-bottom: 0cm;">
+ OLFIX medger enkel hantering av 99 olika företag.<br>
+Varje företag har sin egen databas, vilken måste läggas upp av en
+behörig person.<br>
+OLFIX levereras med två företag, <i>olfix</i>, nr 01 och <i>olfixtst</i>,
+nr 99.<br>
+</p>
+<p align="center">
+<img src="UserManual_html_BYTFTGW.png"
+ name="Graphic9" align="bottom" width="608" height="218" border="0"></p>
+<b>OBS!</b> Tänk på att man behöver behörighet för BYTFTGW i det
+nya företaget för att komma där ifrån.
+<p style="margin-bottom: 0cm;">
+<a href="#TOP">Till början</a></p>
+<hr>
+<p align="center">
+<b>BOKFÖRING</b></p>
+<p align="center">
+<img src="UserManual_html_BOKFORSW.png"
+ name="Graphic3" align="bottom" width="643" height="411" border="0"></p>
+<p align="left" style="margin-bottom: 0cm;">
+ Efter inmatning av <a href="#BEGREPP">bokföringsår</a> görs kontroll att bokföringsåret
+är upplagt. sätts automatiskt. Verifikationstext skrivs in av
+användaren.Radnr sätts automatiskt. Inmatning av Kontonr kan göras på
+två sätt; klicka på önskat kontonr i Kontoförteckningen eller skriva in
+kontonr manuellt. Efter inmatning av Kontonr görs kontroll att kontonr
+finns för aktuellt bokföringsår. D/K skrivs av användaren. D för en
+debetkontering och K för en kreditkontering. Belopp registreras av
+användaren. På rad 001 ska verifikatets totalbelopp skrivas.<br>
+Om KSTÄLLE fylls i görs kontroll att kostnadstället finns registrerat
+på aktuellt kontonr och aktuellt bokföringsår. Fältet får lämnas tomt.
+Om SUBKONTO fylls i ska kontroll göras att subkonto finns registrerat
+på aktuellt kontonr. Fältet får lämnas tomt. (Ej implementerat)<br>
+När man godkännt verifikationsrad så uppdateras Diff. När rad 001
+registreras så förs samma belopp in i Diff. För varje påföljande rad som
+registreras så minskas värdet i Diff med aktuell rads belopp.<br>
+Först när Diff är 0:- kan verifikationen godkännas.<br>
+Ifall man vill ändra något på det man skrivit in så markera önskat
+radnr i rutan &#8221;Registrerade verifikationsrader&#8221;. Raden flyttas då upp
+till fälten för inmatning och ändring/redigering kan ske.</p>
+<p style="margin-bottom: 0cm;">
+<a href="#TOP">Till början</a></p>
+<hr>
+<p align="center">
+<b>RÄKENSKAPSÅR</b></p>
+<p>
+<b>Nytt räkenskapsår.</b></p>
 Hur man lägger upp ett nytt räkenskapsår/bokföringsår.
-<P ALIGN=CENTER STYLE="font-weight: medium"><FONT FACE="San Serif"><FONT SIZE=3><IMG SRC="UserManual_html_ADDBARW.png" NAME="Graphic10" ALIGN=BOTTOM WIDTH=450 HEIGHT=270 BORDER=0></FONT></FONT></P>
-<P ALIGN=LEFT STYLE="font-weight: medium">
-Ange <b><A HREF="#BEGREPP">bokf&ouml;rings&aring;r</A></b> med två tecken.
-<b>Benämningen</b> anges med räkenskapetsårets omfattning, t ex 2001-01-01 -- 2001-12-31.<br>
-Fyll i <b>Startdatum</b> med räkenskapsårets början, t ex 2001-01-01.<br>
-Fyll i <b>Slutdatum</b> med datumet för räkenskapsårets sista dag, t ex 2001-12-31.<br>
-Som <b>Beskattningsår</b> anges det årtal för vilket räkenskaperna ska beskattas, t ex 2001. <br>
-Som <b>Senaste ver.datum</b> anges normalt räkenskapsårets första dag, t ex 2001-01-01.<br>
-Såsom <b>Nästa ver.nummer</b> anges vilket verifikationsnummer nästa bokföringsverifikation skall åsättas, normalt anges <b>1</b>. Fältet uppdateras sedan i samband bedbokföringen.<br>
-I fältet <b>Kontoplan</b> anger man efter vilken kontoplan som räkenskaperna/konteringarna är upprättad.<br><br>
-Efter detta är det dags att regstrera alla konton.</P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till b&ouml;rjan</A> </FONT></P>
-<HR>
-<P ALIGN=CENTER><A NAME="INKOP"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Ink&ouml;p</B></FONT></FONT></P>
-<P><A NAME="INKOP1"></A><FONT FACE="San Serif"><FONT SIZE=3><B>Registrering
-av ink&ouml;psorder.</B></FONT></FONT></P>
-<P ALIGN=CENTER STYLE="font-weight: medium"><FONT FACE="San Serif"><FONT SIZE=3><IMG SRC="UserManual_html_ADDINKW.png" NAME="Graphic10" ALIGN=BOTTOM WIDTH=635 HEIGHT=430 BORDER=0></FONT></FONT></P>
-<P STYLE="font-weight: medium"><FONT FACE="San Serif"><FONT SIZE=3><B>OBS!</B>
-I alla f&auml;lt du g&ouml;r en f&ouml;r&auml;ndring i m&aring;ste du
-avsluta med att trycka <B>Enter</B> f&ouml;r att informationen ska
-f&ouml;lja med till databasen.<BR>B&ouml;rja med att markera
-leverant&ouml;rsnummer f&ouml;r &ouml;nskad leverant&ouml;r i
-leverant&ouml;rslistan till h&ouml;ger. Leverant&ouml;rsnr skrivs in
-i f&auml;ltet <B>Leverant&ouml;rsnr. </B>N&auml;r du trycker p&aring;
-Enter s&aring; h&auml;mtas leverant&ouml;rsdata och skrivs in i
-respektive f&auml;lt. Dessutom h&auml;mtas ditt eget f&ouml;retags
-godsmottagningsuppgifter i respektivef&auml;lt. I fall du &ouml;nskar
-kan du &auml;ndra dessa uppgifter manuellt. Mark&ouml;ren st&auml;ller
-sig sedan i f&auml;ltet <B>Godsm&auml;rke. </B>Fyll i &ouml;nskad
-info eller l&auml;mna f&auml;ltet blankt. Det samma g&auml;ller
-f&auml;lten <B>V&aring;r referent, Er referens, Direkttfn, Direktfax,
-Best.typ (</B>best&auml;llningstyp<B>), Leveransdatum,
-Leveransvillkor, Leveranss&auml;tt, Betalningsvillkor, Kommentar</B>
-och <B>Eftertext. </B><BR>Det finns fyra olika <B>Besttyp</B>:
-N=Normalbest&auml;llning, D=Direktbest&auml;llning, I=Inleveransbest,
-L=Legobest, A=Avrop. I f&auml;lten <B>Leveransvillkor, Leveranss&auml;tt,
-Bertalningsvillkor</B> och <B>Eftertext</B> anges ett nummer som
-refererar till respektive register. Sedan kommer
-texten(beskrivningen) att skrivas ut n&auml;r best&auml;llningen
-skrivs ut (se nedanst&aring;ende exempel). Mark&ouml;ren st&auml;ller
-sig i f&auml;ltet f&ouml;r <B>Artikelnr</B>. N&auml;r du fyllt i
-&ouml;nskat artikelnummer h&auml;mtas be&auml;mning 1 och senaste
-ink&ouml;pspris fr&aring;n artikelregistret och skrivs in i f&auml;ltet
-<B>Ben&auml;mning</B> respektive f&auml;ltet <B>Pris/st</B>. Mark&ouml;ren
-flyttar sig till f&auml;ltet <B>Lev.vecka</B>. Formatet f&ouml;r
-leveransvecka &auml;r &Aring;VVD. Lev.vecka betyder att man &ouml;nskar
-leverans av orderraden angiven vecka. Initialt anges inevarande
-vecka.<BR>Ifall &ouml;nskad leveranstid &auml;r kortare &auml;n
-dagens datum + artikelns ledtid s&aring; erh&aring;lls en varning. I
-fall veckonr &auml;ndras s&aring; &auml;r det det nya veckonumret som
-kommer att st&aring; i f&auml;ltet tills man &auml;ndrar p&aring;
-nytt. Efter detta s&aring; st&auml;ller sig mark&ouml;ren i f&auml;ltet
-<B>Antal</B>. Fyll i &ouml;nskat antal, tryck Enter och mark&ouml;ren
-flyttar sig till f&auml;ltet <B>Pris/st</B>. Acceptera angivet v&auml;rde
-genom att trycka Enter eller &auml;ndra till &ouml;nskat v&auml;rde
-samt avsluta med att trycka Enter. Summa v&auml;rde f&ouml;r
-orderraden skrivs ut i f&auml;ltet <B>Summa</B>. Dessutom adderas
-radsumman till ordersumman i f&auml;ltet <B>Best&auml;llning totalt</B>.
-Knappen Godk&auml;nna rad <B>Ja</B> markeras och genom att trycka
-Enter eller klicka p&aring; knappen s&aring; &auml;r raden
-registrerad och flyttas ner till det stora bl&aring; f&auml;ltet.
-Registreringsraden blankas ut, f&auml;ltet <B>Radnr</B> &ouml;kas med
-10 och mark&ouml;ren st&auml;ller sig i f&auml;ltet <B>Artikelnr</B>.
-Sedan &auml;r det bara att registrera flera orderrader p&aring; samma
-s&auml;tt. N&auml;r man &auml;r klar med orderregistreringen s&aring;
-godk&auml;nner man ordern genom att klicka p&aring; knappen Godk&auml;nna
-best&auml;llning <B>OK</B>. Ifall man &ouml;nskar redigera (&auml;ndra)
-en tidigare orderrad markerar man &ouml;nskad orderrad, kolumn Radnr,
-i det stora bl&aring; f&auml;ltet s&aring; flyttas orderraden
-tillbaka f&ouml;r registrering av orderrad. Efter redigering s&aring;
-trycker man Enter s&aring; flyttas raden &aring;nya ner i det stora
-bl&aring;a f&auml;ltet.</FONT></FONT></P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till b&ouml;rjan</A> </FONT></P>
-<HR>
-<P><A NAME="BESTEXEMPEL"></A><FONT FACE="San Serif"><FONT SIZE=3><B>Exempel
-p&aring; best&auml;llning.</B></FONT></FONT></P>
-<P ALIGN=CENTER STYLE="font-weight: medium"><FONT FACE="San Serif"><FONT SIZE=3><IMG SRC="UserManual_html_BESTELLNING.png" NAME="Graphic12" ALIGN=BOTTOM WIDTH=595 HEIGHT=675 BORDER=0></FONT></FONT></P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till
-b&ouml;rjan</A> </FONT>
-</P>
-<HR>
-<P><A NAME="INKOP2"></A><FONT FACE="San Serif"><FONT SIZE=3><B>Best&auml;llningsstock.</B></FONT></FONT></P>
-<P ALIGN=CENTER STYLE="font-weight: medium"><FONT FACE="San Serif"><FONT SIZE=3><IMG SRC="UserManual_html_LSTINKW.png" NAME="Graphic11" ALIGN=BOTTOM WIDTH=616 HEIGHT=390 BORDER=0></FONT></FONT></P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif">Genom
-att anroppa LSTINKW erh&aring;lls en lista p&aring; alla
-ink&ouml;psorderrader som ej &auml;r f&auml;rdiglevererade. Listan
-inneh&aring;ller summa per rad samt totalt utest&aring;ende
-best&auml;llningsv&auml;rde.<BR><BR><A HREF="#TOP">Till b&ouml;rjan</A>
-</FONT>
-</P>
-<HR>
-<P ALIGN=CENTER><A NAME="LEVERANTOR"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Leverant&ouml;rsreskontra</B></FONT></FONT></P>
-<P ALIGN=LEFT><A NAME="LEVERANTOR1"></A><FONT FACE="San Serif"><FONT SIZE=3><B>Registrering
-av leverant&ouml;rsfaktura.</B></FONT></FONT></P>
-<P ALIGN=CENTER STYLE="font-weight: medium"><FONT FACE="San Serif"><FONT SIZE=3><IMG SRC="UserManual_html_LEVFAKTW.png" NAME="Graphic7" ALIGN=BOTTOM WIDTH=643 HEIGHT=452 BORDER=0></FONT></FONT></P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif">Efter
-det att man fyllt i ett f&auml;lt och tryckt Enter s&aring; flyttar
-sig mark&ouml;ren (cursor) till n&auml;sta f&auml;lt som ska fyllas i
-eller d&auml;r inskrivet v&auml;rde ska accepteras eller &auml;ndras.
-Skriv in l<B>everant&ouml;rsnummer</B>.<BR>Programmet h&auml;mtar
-leverant&ouml;rsdata och fyller i f&auml;lten <B>Leverant&ouml;rens
-organisationsnummer</B>, <B>Leverant&ouml;rsnamn</B>, <B>Adress</B>,
-<B>Postnr</B>, <B>Postadress</B> och <B>Land. </B>Dessa f&auml;lt g&aring;r
-inte att &auml;ndra. Dessutom fylls f&auml;lten f&ouml;r <B>Kundnummer,
-Registreringsdatum, Betalningsvillkor, Momskod, Valuta, Valutakurs
-</B>och <B>Kontonr</B> i.<BR><BR>Acceptera angivet <B>Kundnummer</B>
-eller &auml;ndra v&auml;rdet.Acceptera eller &auml;ndra
-<B>Registreringsdatum</B>.<BR>F&auml;ltet <B>Fakturadatum</B> &auml;r
-fr&aring;n b&ouml;rjan blankt. Ifall man d&aring; trycker Enter i
-detta l&auml;ge s&aring; fylls datum i. Datum blir d&aring; lika med
-registreringsdatum. &Auml;ven f&auml;ltet <B>F&ouml;rfallodatum</B>
-fylls i med automatik. F&ouml;rfallodatum r&auml;knas fram genom att
-addera till antalet dagar i betalningsvillkor till fakturadatum.<BR>Fyll
-i B<B>etalningsvillkor</B> eller acceptera angivet v&auml;rde. I fall
-v&auml;rdet &auml;ndras s&aring; &auml;ndras &auml;ven f&ouml;rfallodatum.
-&Auml;ndra angivet <B>F&ouml;rfallodatum </B>eller acceptera genom
-att trycka Enter. Fyll i <B>OCRnummer</B>. OCRnumret anv&auml;nds av
-bankerna i samband med betalning.<BR><B>Fakturatext</B> en &auml;r en
-kort beskrivning &ouml;ver vad fakturan g&auml;ller. Fakturatexten
-kan vara maximalt 100 tecken.<B>Bokf&ouml;rings&aring;r</B> ska anges
-med tv&aring; bokst&auml;ver enligt g&auml;llande kontoplan. Nu fylls
-f&auml;ltet <B>Verifikationsnr</B> i. F&auml;ltet kan inte &auml;ndras.
-Mark&ouml;ren flyttar sig till f&auml;ltet <B>Momskod</B>. N&auml;r
-man trycker Enter fylls f&auml;ltet <B>Moms %</B>. Inte heller f&auml;ltet
-<B>Moms%</B> kan &auml;ndras. <B>Momskod </B>kan anges med sifrorna 1
-&ndash; 5. Acceptera eller &auml;ndra <B>Valuta</B>. I fall valutan
-p&aring; fakturan inte &ouml;verensst&auml;mmer med angivet v&auml;rde
-s&aring; &auml;ndra valutan enligt fakturan. Valutakursen uppdateras
-automatiskt. &Auml;ven <B>valutakurs</B>en kan &auml;ndras till
-&ouml;nskat v&auml;rde. V&auml;rdet ska anges med 1-3 heltalssiffror
-och 2 decimaler.<BR><BR>I f&auml;ltet <B>Fakturabelopp</B> anges det
-belopp som st&aring;r p&aring; fakturan. OBS! I fakturans valuta.
-Beloppet ska anges med 1- 10 heltalssiffror och 2 decimalsiffror.
-Avsluta inmatningen genom att trycka Enter. Programmet kommer att
-r&auml;kna ut beloppen f&ouml;r bokf&ouml;ring och fylla i f&auml;ltet
-<B>Bokf&ouml;rt belopp.</B> <BR><B>Bokf&ouml;rt belopp</B> ber&auml;knas
-som F<B>akturabelopp</B> * <B>Valutakurs</B>.<BR>Angivet <B>kontonr</B>
-&auml;r ett f&ouml;r leverant&ouml;ren f&ouml;reslaget kontonr.
-Kontonumret kan &auml;ndras till &ouml;nskat kontonummer. Mark&ouml;ren
-flyttar sig till f&auml;ltet <B>Bokf&ouml;rt belopp</B>. Genom att
-trycka Enter accepteras v&auml;rdet och f&auml;lten <B>Momsbelopp</B>
-och <B>Kreditbelopp </B>fylls i med utr&auml;knade v&auml;rden.<BR><B>Momsbelopp</B>
-ber&auml;knas som <B>Bokf&ouml;rt belopp </B>* <B>Moms %</B> /
-100.<BR><B>Kreditbelopp</B> ber&auml;knas som <B>Bokf&ouml;rt belopp
-</B>&ndash; <B>Momsbelopp</B>.<BR>Skriv in &ouml;nskat <B>Momskontonr.</B>
-Acceptera eller &auml;ndra f&auml;ltet <B>Momsbelopp</B>. Skriv in
-&ouml;nskat kontonr i f&auml;ltet <B>Kontonr</B>. Acceptera eller
-&auml;ndra f&auml;ltet <B>Kreditbelopp</B>.<BR><BR>Knappen <B>OK </B>blir
-aktiv och genom att klicka p&aring; knappen <B>OK </B>accepteras
-faktura. Leverant&ouml;rsreskontran uppdateras och fakturan bokf&ouml;rs
-till huvudboken. Ett meddelande kommer upp p&aring; sk&auml;rmen som
-talar om att uppdateringen g&aring;tt bra. Alla f&auml;lten blankas
-ut och n&auml;sta leverant&ouml;rsfaktura kan registreras.<BR>Genom
-att klicka p&aring; knappen <B>Avsluta</B> avbryts transaktionen,
-ingen uppdatering sker och programmet avslutas.<BR><BR><A HREF="#TOP">Till
-b&ouml;rjan</A> </FONT>
-</P>
-<HR>
-<P ALIGN=CENTER><A NAME="KONTO"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Kontoadministration</B></FONT></FONT></P>
-<P ALIGN=LEFT STYLE="font-weight: medium"><A NAME="KONTO1"></A><FONT FACE="San Serif"><FONT SIZE=3><B>Nya
-konton.</B><BR>Innan nya konton kan l&auml;ggas upp m&aring;ste f&ouml;rst
-kontrolleras att &ouml;nskat bokf&ouml;rings&aring;r finns upplagt. I
-fall &ouml;nskat bokf&ouml;rings&aring;r icke finns m&aring;ste detta
-l&auml;ggas upp f&ouml;rst. </FONT></FONT>
-</P>
-<P ALIGN=CENTER STYLE="font-weight: medium"><FONT FACE="San Serif"><FONT SIZE=3><IMG SRC="UserManual_html_ADDKTOW.png" NAME="Graphic2" ALIGN=BOTTOM WIDTH=427 HEIGHT=463 BORDER=0></FONT></FONT></P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till
-b&ouml;rjan</A> </FONT>
-</P>
-<HR>
-<P ALIGN=CENTER><A NAME="LEVPLATS"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Standardleveransplats</B></FONT></FONT></P>
-<P ALIGN=LEFT STYLE="font-weight: medium"><FONT FACE="San Serif"><FONT SIZE=3>Standardleveransplats
-&auml;r f&ouml;rberedda leveransadresser till kunder. Normalt s&aring;
-&auml;r standardleveransplats 001 kundens postadress och 002 &auml;r
-kundens leveransadress, mottagningsadress, adressen ditt varor ska
-skickas. Det finns m&ouml;jlighet att registrera 999 leveransadresser
-f&ouml;r varje kund.</FONT></FONT></P>
-<P ALIGN=LEFT><A NAME="LEVPLATS1"></A><FONT FACE="San Serif"><FONT SIZE=3><B>Ny
-standardleveransplats.</B></FONT></FONT></P>
-<P ALIGN=CENTER STYLE="font-weight: medium"><FONT FACE="San Serif"><FONT SIZE=3><IMG SRC="UserManual_html_ADDLEVPW.png" NAME="Graphic8" ALIGN=BOTTOM WIDTH=454 HEIGHT=267 BORDER=0></FONT></FONT></P>
-<P ALIGN=LEFT STYLE="font-weight: medium"><FONT FACE="San Serif"><FONT SIZE=3>F&ouml;r
-varje leveransadress registreras KundID, Platsnummer, Leveransadress,
-Postnummer, Postadress samt Land. Ifall land utel&auml;mnas
-registreras ett &ndash; (minustecken).</FONT></FONT></P>
-<P STYLE="font-weight: medium"><FONT FACE="San Serif"><FONT SIZE=3>I
-samband med registrering av en ny kund l&auml;ggs
-standardleveransplats 001 och 002 upp.<BR>Leveransplats 001 &auml;r
-lika med ordinarie postadress.<BR>KundID kan inneh&aring;lla upp till
-10 bokst&auml;ver och/eller siffror.<BR>Platsnummer kan inneh&aring;lla
-3 siffror.<BR>Leveransadress, Postadress och land kan inneh&aring;lla
-upp till 30 bokst&auml;ver,siffror samt _. &Auml;ven mellanslag
-accepteras.<BR>Postnummer kan inneh&aring;lla 5 siffror. Programmet
-kommer att dela upp postnumret i tv&aring; delar, 3 siffror,
-mellanslag och 2 siffror. Vid inmatning skall siffrorna skrivas i
-enf&ouml;ljd.<BR>F&auml;lt som &auml;r markerade med <FONT COLOR="#ff0000">*
-</FONT><FONT COLOR="#000000">&auml;r obligatoriska.</FONT></FONT></FONT></P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><BR><BR><A HREF="#TOP">Till
-b&ouml;rjan</A> </FONT>
-</P>
-<HR>
-<P ALIGN=CENTER><A NAME="BEGREPP"></A>
-<FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>BEGREPPSF&Ouml;RKLARINGAR</B></FONT></FONT></P>
-<P ALIGN=LEFT><FONT FACE="San Serif"><b>Bokf&ouml;rings&aring;r:</b> Tv&aring;st&auml;llig bokstavskombination som anger vilket bokf&ouml;rings&aring;r som avses.</FONT></P>
-<P ALIGN=LEFT><BR><BR>
-</P>
-<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till
-b&ouml;rjan</A> </FONT>
-</P>
-</BODY>
-</HTML>
+<p align="center">
+<img src="UserManual_html_ADDBARW.png" name="Graphic10" align="bottom"
+ width="450" height="270" border="0"></p>
+<p align="left">Ange
+<a href="#BEGREPP">bokföringsår</a> med två tecken. Benämningen anges med
+räkenskapetsårets omfattning, t ex 2001-01-01 -- 2001-12-31.<br>
+Fyll i Startdatum med räkenskapsårets början, t ex 2001-01-01.<br>
+Fyll i Slutdatum med datumet för räkenskapsårets sista dag, t ex
+2001-12-31.<br>
+Som Beskattningsår anges det årtal för vilket räkenskaperna ska
+beskattas, t ex 2001. <br>
+Som Senaste ver.datum anges normalt räkenskapsårets första dag, t ex
+2001-01-01.<br>
+Såsom Nästa ver.nummer anges vilket verifikationsnummer nästa
+bokföringsverifikation skall åsättas, normalt anges 1. Fältet uppdateras
+sedan i samband bedbokföringen.<br>
+I fältet Kontoplan anger man efter vilken kontoplan som
+räkenskaperna/konteringarna är upprättad.<br>
+<br>
+Efter detta är det dags att regstrera alla konton.</p>
+<p style="margin-bottom: 0cm;">
+<a href="#TOP">Till början</a></p>
+<hr>
+
+<a name="FORSALJ"></a>
+<p align="center">
+<b>FÖRSÄLJNING</b></p>
+
+<a name="FORSALJ1"></a>
+<p align="left">
+<b>Registrering av kundorder.</b>
+</p>
+
+<p align="center">
+<img src="UserManual_html_ADDORDW.png" name="Graphic10" align="bottom"
+ width="693" height="473" border="0">
+ </p>
+<p align="left" style="margin-bottom: 0cm;">
+ <b>OBS!</b> I alla fält du gör en förändring i
+måste du avsluta med att trycka Enter för att informationen ska följa
+med till databasen.<br>
+
+När programmet startar
+hämtas en lista med kunder upp så att man lätt kan hitta en kunds
+kundnummer. Även fältet <b>Önskad leveranstid </b><span style="">fylls
+i med</span><b> </b><span style="">dagens datum. Också fältet
+Leveransvecka fylls i med inevarande veckas sista dag enlig utseendet <b>ÅVVD.</b> </span> </p>
+<p align="left" style="margin-bottom: 0cm;"><span style="">Genom</span>
+att klicka på önskad rad av kunder så matas kundnumret in i fältet <b>Kundnr</b>.</p>
+<p align="left" style="margin-bottom: 0cm;">Det går också att skriva in
+kundnumret direkt ifall man kan det i huvudet. När man tryckt på
+&#8221;Enter&#8221; så hämtas kundens data och fylls i fälten. I fall det inte
+finns någon särskild leveransadress angiven för kunden så kopieras
+postadressen till fälten för leveransadress. Samtidigt anges i detta
+fall 000 in i fältet <b>Leveransplats</b><span style=""> för att markera
+att det inte finns någon särskild leveransplats registrerad på kunden.
+Först kommer det dock upp en varning och meddelar att leveransplats
+saknas. I detta fall klicka bara på knappen märkt OK.</span></p>
+<p align="left" style="margin-bottom: 0cm;">När detta är klart ställer
+sig markören i fältet <b>Artikelnr</b>. Fyll i artikelnummer och tryck
+&#8221;Enter&#8221; varvid <b>Benämning</b> fylls i. Acceptera benämningen genom
+att trycka på &#8221;Enter&#8221; eller ändra värdet  och avsluta med &#8221;Enter&#8221;. <b>Leveransvecka</b>
+har fyllts i och kan accepteras eller ändras. Sedan är det dags att ange
+vilket <b>Antal</b> som ska levereras. Värdet i fältet <b>Pris/st</b>
+är ifyllt. När det accepterats eller ändrats och avslutats med &#8221;Enter&#8221;
+så beräknas <b>Summa</b> och <b>Moms.</b></p>
+<p align="left" style="margin-bottom: 0cm;">Momsen beräknas utifrån den
+momssats som åsats den produktklass artikeln tillhör. Markören ställer
+sig på knappen <b>Godkänn rad Ja</b>. När man klickar på knappen så
+flyttas radens värden ner i det underliggande fältet och alla fält,
+Radnr, Artikelnr, Benämning, Antal, Pris/st, Summa och Moms, blankas ut
+och markören ställer sig ånyo i fältet Artikelnr. Fältet Leveransvecka
+blankas inte ut.</p>
+<p align="left" style="margin-bottom: 0cm;">I fall man upptäcker att en
+tidigare orderrad är felaktig kan den ändras genom att klicka på den i
+det stora fältet varpå den flyttas upp på raden för radregistrering.
+När ändringen är klar och godkänd flyttas den tillbaka till det stora
+fältet.</p>
+<p align="left" style="margin-bottom: 0cm;">När man är färdig med
+radregistreringen får man själv flytta markören till fältet <b>Frakt</b>.
+Man fyller i beloppet och trycker &#8221;Enter&#8221; varpå fältet låses. Fältet <b>Fraktmoms</b>
+beräknas efter den moms som finns angiven i fältet <b>Moms</b> (under
+fältet <b>Valuta</b>). Fältet <b>Summa moms</b> är summan av momsen
+för varje rad och Fraktmoms. Fältet <b>Order Total</b> anger orderns
+totalbelopp inklusive moms.</p>
+<p align="left" style="margin-bottom: 0cm;">OBS! I och med att <b>Frakt</b>
+accepteras kan ordern inte ändras. Valet står mellan att acceptera
+ordern, <b>Order klar!</b> eller <b>Avbryt. </b> </p>
+<p style="margin-bottom: 0cm;">
+<a href="#TOP">Till början</a>
+</p>
+<hr>
+
+<p align="center">
+<b><a name="INKOP"></a></b>
+<b>INKÖP</b></p><br>
+
+<a name="INKOP1"></a><br>
+<p align="left">
+<b>Registrering av inköpsorder.</b></p><br>
+<p align="center">
+ <img src="UserManual_html_ADDINKW.png" name="Graphic10" align="bottom" width="693" height="473" border="0"><br>
+</p>
+<p align="left">
+I alla fält du gör en förändring i måste du avsluta med att trycka <b>Enter</b>
+för att informationen ska följa med till databasen.<br>
+Börja med att markera leverantörsnummer för önskad leverantör i <span
+ style="font-weight: bold;">leverantörslistan</span> till höger.
+Leverantörsnr skrivs in i fältet <span style="font-weight: bold;">Leverantörsnr</span>.
+När du trycker på Enter så hämtas leverantörsdata och skrivs in i
+respektive fält. Dessutom hämtas ditt eget företags
+godsmottagningsuppgifter i respektivefält. I fall du önskar kan du ändra
+dessa uppgifter manuellt. Markören ställer sig sedan i fältet <span
+ style="font-weight: bold;">Godsmärke</span>. Fyll i önskad info eller
+lämna fältet blankt. Det samma gäller fälten <span
+ style="font-weight: bold;">Vår referent, Er referens, Direkttfn,
+Direktfax, Best.typ (beställningstyp), Leveransdatum, Leveransvillkor,
+Leveranssätt, Betalningsvillkor, Kommentar och Eftertext. </span><br
+ style="font-weight: bold;">
+Det finns fyra olika Besttyp:<br><span style="font-weight: bold;">
+N=Normalbeställning, D=Direktbeställning, I=Inleveransbest, L=Legobest,
+A=Avrop</span>. I fälten<span style="font-weight: bold;">
+Leveransvillkor, Leveranssätt, Bertalningsvillkor och Eftertext</span>
+anges ett nummer som refererar till respektive register. Sedan kommer
+texten(beskrivningen) att skrivas ut när beställningen skrivs ut (se
+nedanstående exempel). Markören ställer sig i fältet för <span
+ style="font-weight: bold;">Artikelnr</span>. När du fyllt i önskat
+artikelnummer hämtas <span style="font-weight: bold;">Beämning 1</span>
+och senaste inköpspris från artikelregistret och skrivs in i fältet <span
+ style="font-weight: bold;">Benämning</span> respektive fältet <span
+ style="font-weight: bold;">Pris/st</span>. Markören flyttar sig till
+fältet <span style="font-weight: bold;">Lev.vecka</span>. Formatet för
+leveransvecka är <span style="font-weight: bold;">ÅVVD</span>.
+Lev.vecka betyder att man önskar leverans av orderraden angiven vecka.
+Initialt anges innevarande vecka.<br>
+Ifall önskad leveranstid är kortare än dagens datum + artikelns ledtid
+så erhålls en varning. I fall veckonr ändras så är det det nya
+veckonumret som kommer att stå i fältet tills man ändrar på nytt. Efter
+detta så ställer sig markören i fältet <span style="font-weight: bold;">Antal</span>.
+Fyll i önskat antal, tryck Enter och markören flyttar sig till fältet <span
+ style="font-weight: bold;">Pris/st</span>. Acceptera angivet värde
+genom att trycka Enter eller ändra till önskat värde samt avsluta med
+att trycka Enter. Summa värde för orderraden skrivs ut i fältet <span
+ style="font-weight: bold;">Summa</span>. Dessutom adderas radsumman
+till ordersumman i fältet <span style="font-weight: bold;">Beställning
+totalt</span>. Knappen <span style="font-weight: bold;">Godkänna rad Ja</span>
+markeras och genom att trycka Enter eller klicka på knappen så är raden
+registrerad och flyttas ner till det stora blå fältet.
+Registreringsraden blankas ut, fältet <span style="font-weight: bold;">Radnr</span>
+ökas med 10 och markören ställer sig i fältet <span
+ style="font-weight: bold;">Artikelnr</span>. Sedan är det bara att
+registrera flera orderrader på samma sätt. När man är klar med
+orderregistreringen så godkänner man ordern genom att klicka på knappen <span
+ style="font-weight: bold;">Godkänna beställning OK</span>. Ifall man
+önskar redigera (ändra) en tidigare orderrad markerar man önskad
+orderrad, kolumn Radnr, i det stora blå fältet så flyttas orderraden
+tillbaka för registrering av orderrad. Efter redigering så trycker man
+Enter så flyttas raden ånyo ner i det stora blåa fältet.
+</p>
+
+<p style="margin-bottom: 0cm;"><a href="#TOP">Till början</a></p>
+<hr>
+<p><a name="BESTEXEMPEL"></a>
+<p align="left">
+<b>Exempel på beställning.</b></p>
+<p align="center" style="">
+<img src="UserManual_html_BESTELLNING.png" name="Graphic12" align="bottom"
+ width="595" height="675" border="0"></p>
+<p align="center">
+ <a href="#TOP">Till början</a></p>
+<hr>
+
+<p><b>Beställningsstock.</b></p>
+<p align="center" style="">
+<img src="UserManual_html_LSTINKW.png" name="Graphic11" align="bottom" width="616" height="390" border="0"></p>
+<p style="margin-bottom: 0cm;">
+Genom att anroppa LSTINKW erhålls en lista på alla
+inköpsorderrader som ej är färdiglevererade. Listan innehåller summa per
+rad samt totalt utestående beställningsvärde.<br>
+<br>
+<a href="#TOP">Till början</a></p>
+<hr>
+<a name="LEVERANTOR"></a>
+
+<p align="center">
+<b>Leverantörsreskontra</b>
+</p>
+<p align="left">
+<a name="LEVERANTOR1"></a>
+<b>Registrering av leverantörsfaktura.</b></p>
+<p align="center">
+<img src="UserManual_html_LEVFAKTW.png"
+ name="Graphic7" align="bottom" width="643" height="452" border="0"></p>
+<p style="margin-bottom: 0cm;">
+Efter det att man fyllt i ett fält och tryckt Enter
+så flyttar sig markören (cursor) till nästa fält som ska fyllas i eller
+där inskrivet värde ska accepteras eller ändras. Skriv in
+leverantörsnummer.<br>
+Programmet hämtar leverantörsdata och fyller i fälten <span
+ style="font-weight: bold;">Leverantörens organisationsnummer,
+Leverantörsnamn, Adress, Postnr, Postadress och Land</span>. Dessa fält
+går inte att ändra. Dessutom fylls fälten för <span
+ style="font-weight: bold;">Kundnummer, Registreringsdatum,
+Betalningsvillkor, Momskod, Valuta, Valutakurs och Kontonr </span>i.<br>
+Acceptera angivet <span style="font-weight: bold;">Kundnummer</span> eller ändra
+värdet.Acceptera eller ändra <span style="font-weight: bold;">Registreringsdatum.</span><br>
+Fältet <span style="font-weight: bold;">Fakturadatum</span> är från
+början blankt. Ifall man då trycker Enter i detta läge så fylls datum i.
+Datum blir då lika med registreringsdatum. Även fältet <span
+ style="font-weight: bold;">Förfallodatum</span> fylls i med automatik.
+Förfallodatum räknas fram genom att addera till antalet dagar i
+betalningsvillkor till fakturadatum.<br>
+Fyll i <span style="font-weight: bold;">Betalningsvillkor</span> eller
+acceptera angivet värde. I fall värdet ändras så ändras även
+förfallodatum. Ändra angivet <span style="font-weight: bold;">Förfallodatum</span>
+eller acceptera genom att trycka Enter. Fyll i <span
+ style="font-weight: bold;">OCRnummer</span>. OCRnumret används av
+bankerna i samband med betalning.<br>
+<span style="font-weight: bold;">Fakturatext</span> en är en kort
+beskrivning över vad fakturan gäller. Fakturatexten kan vara maximalt
+100 tecken.<span style="font-weight: bold;">Bokföringsår</span> ska anges
+med två bokstäver enligt gällande kontoplan. Nu fylls fältet <span
+ style="font-weight: bold;">Verifikationsnr</span> i. Fältet kan inte
+ändras. Markören flyttar sig till fältet <span
+ style="font-weight: bold;">Momskod</span>. När man trycker Enter fylls
+fältet <span style="font-weight: bold;">Moms %</span>. Inte heller
+fältet Moms% kan ändras. Momskod kan anges med sifrorna 1 &#8211; 5. Acceptera
+eller ändra <span style="font-weight: bold;">Valuta</span>. I fall
+valutan på fakturan inte överensstämmer med angivet värde så ändra
+valutan enligt fakturan. Valutakursen uppdateras automatiskt. Även
+valutakursen kan ändras till önskat värde. Värdet ska anges med 1-3
+heltalssiffror och 2 decimaler.<br>
+<br>
+I fältet <span style="font-weight: bold;">Fakturabelopp</span> anges
+det belopp som står på fakturan.<span style="font-weight: bold;"> OBS!</span>
+I fakturans valuta. Beloppet ska anges med 1- 10 heltalssiffror och 2
+decimalsiffror. Avsluta inmatningen genom att trycka Enter. Programmet
+kommer att räkna ut beloppen för bokföring och fylla i fältet <span
+ style="font-weight: bold;">Bokfört belopp</span>. <br>
+Bokfört belopp beräknas som Fakturabelopp * Valutakurs.<br>
+Angivet <span style="font-weight: bold;">kontonr</span> är ett för
+leverantören föreslaget kontonr. Kontonumret kan ändras till önskat
+kontonummer. Markören flyttar sig till fältet <span
+ style="font-weight: bold;">Bokfört belopp</span>. Genom att trycka
+Enter accepteras värdet och fälten <span style="font-weight: bold;">Momsbelopp</span>
+och <span style="font-weight: bold;">Kreditbelopp</span> fylls i med
+uträknade värden.<br>
+Momsbelopp beräknas som Bokfört belopp * Moms % / 100.<br>
+Kreditbelopp beräknas som Bokfört belopp &#8211; Momsbelopp.<br>
+Skriv in önskat <span style="font-weight: bold;">Momskontonr</span>.
+Acceptera eller ändra fältet <span style="font-weight: bold;">Momsbelopp</span>.
+Skriv in önskat kontonr i fältet <span style="font-weight: bold;">Kontonr</span>.
+Acceptera eller ändra fältet <span style="font-weight: bold;">Kreditbelopp</span>.<br>
+<br>
+<span style="font-weight: bold;">Knappen OK</span> blir aktiv och genom
+att klicka på knappen OK accepteras faktura. Leverantörsreskontran
+uppdateras och fakturan bokförs till huvudboken. Ett meddelande kommer
+upp på skärmen som talar om att uppdateringen gått bra. Alla fälten
+blankas ut och nästa leverantörsfaktura kan registreras.<br>
+Genom att klicka på knappen Avsluta avbryts transaktionen, ingen
+uppdatering sker och programmet avslutas.<br>
+<br>
+<a href="#TOP">Till början</a>
+</p>
+<hr>
+<a name="KONTO"></a>
+<p align="center">
+<b>Kontoadministration</b>
+</p>
+<p align="left">
+<b>Nya konton.</b><br>
+Innan nya konton kan läggas upp måste först kontrolleras att önskat
+bokföringsår finns upplagt. I fall önskat bokföringsår icke finns måste
+detta läggas upp först.
+</p>
+<p align="center">
+<img src="UserManual_html_ADDKTOW.png"
+ name="Graphic2" align="bottom" width="427" height="463" border="0"></p>
+
+<p style="margin-bottom: 0cm;">
+<a href="#TOP">Till början</a> </p>
+<hr>
+<a name="LEVPLATS"></a>
+
+<p align="center">
+<b>Standardleveransplats</b>
+</p>
+Standardleveransplats är förberedda leveransadresser till kunder. Normalt så är standardleveransplats 001
+kundens postadress och 002 är kundens leveransadress,
+mottagningsadress, adressen ditt varor ska skickas. Det finns möjlighet
+att registrera 999 leveransadresser för varje kund.</p>
+<p align="left">
+<a name="LEVPLATS1"></a><b>
+Ny standardleveransplats.</b></p>
+<p align="center">
+<img src="UserManual_html_ADDLEVPW.png"
+ name="Graphic8" align="bottom" width="454" height="267" border="0"></p>
+<p align="left">
+För varje leveransadress registreras
+KundID, Platsnummer, Leveransadress, Postnummer, Postadress samt Land.
+Ifall land utelämnas registreras ett &#8211; (minustecken).</p>
+I samband med registrering av en ny kund läggs standardleveransplats 001
+och 002 upp.<br>
+Leveransplats 001 är lika med ordinarie postadress.<br>
+KundID kan innehålla upp till 10 bokstäver och/eller siffror.<br>
+Platsnummer kan innehålla 3 siffror.<br>
+Leveransadress, Postadress och land kan innehålla upp till 30
+bokstäver,siffror samt _. Även mellanslag accepteras.<br>
+Postnummer kan innehålla 5 siffror. Programmet kommer att dela upp
+postnumret i två delar, 3 siffror, mellanslag och 2 siffror. Vid
+inmatning skall siffrorna skrivas i enföljd.<br>
+Fält som är markerade med <font color="#ff0000">* </font><font
+ color="#000000"></font>är obligatoriska.</p>
+<p style="margin-bottom: 0cm;">
+<br>
+<a href="#TOP">Till början</a>
+</p>
+<hr>
+<p align="center">
+<a name="BEGREPP"></a> <b>BEGREPPSFÖRKLARINGAR</b></p>
+<p align="left">
+<b>Bokföringsår:</b> Tvåställig bokstavskombination som anger vilket
+bokföringsår som avses.</p>
+<br>
+</font></font></font></b></font></font></font></b></font></p>
+<p align="left" style="margin-bottom: 0cm;">
+<a href="#TOP">Till början</a>
+</p>
+</body>
+</html>
