@@ -1,8 +1,9 @@
 /***************************************************************************
                           VALLST.c  -  description
                              -------------------
-    begin                : Sön 1 juni
-    Version		 : 0.02
+    Version		 : 0.3
+    begin                : Sön  1 juni 2003
+    modified		 : Tis 11 okt 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -18,13 +19,13 @@
 
 /*
 	INPUT:
-	Function: gör  SELECT * FROM VALUTA i databasen olfix
+	Function: gör  SELECT * FROM VALUTA i data_basen olfix
 
 	OUTPUT: errornb och error (text)
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/VALLST.c,v 1.2 2003/09/28 04:53:45 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/VALLST.c,v 1.3 2003/11/11 07:18:25 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -32,40 +33,71 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-//#include <unistd.h>
-//#include <string.h>
-//#include <ctype.h>
+#include <string.h>
 #include "mysql.h"
 #define HOST 100
+#define ANTARG 1
 
   MYSQL my_connection;
   MYSQL_RES *res_ptr;
   MYSQL_ROW sqlrow;
 
-	char tmphost[HOST];
-	char host[15];
-	char databas[15];
-	char databasuser[15];
-	char losenord[15];
-
-int find_host(char *envp[]);
+int which_database(char *envp[]);
 void display_row();
+
+char database[15]="";
 
 int main(int argc, char *argv[], char *envp[])
 {
-  int res,i,status;
+  int i;
+  int res;
+  int status;
+  const char *userp = getenv("USER");	/* vem är inloggad?	*/
+  char databas[25]="olfix";
+  char usr[15];				/* userid		*/
 
-  status = find_host(envp);
+/* ================================================================================ */
+/* 		Val av databas, START						    */
+/* ================================================================================ */
+
+  status = which_database(envp);
+
   if (status != 0)
 	exit(status);
-//  fprintf(stderr,"host=%s\n",host);
-//  fprintf(stderr,"VALLST\n");
-  mysql_init(&my_connection);
+
+  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+/*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
+  if (argc < ANTARG+1){
+    	if (strlen(database)!= 0){
+		strncpy(databas,database,15);
+	}else{
+  		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
+	}
+  }else{
+	if (strlen(argv[ANTARG]) != 0){
+  		if (strncmp(argv[ANTARG],"99",2)==0){
+			strncpy(databas,"olfixtst",15);
+		}else{
+  			strncpy(databas,argv[ANTARG],15);
+  		}
+  	}
+  }
+/*  fprintf(stderr,"ANTARG=%d,argv[ANTARG]=%s\n",ANTARG,argv[ANTARG]);	*/
+/* Om usr (userid) börjar på 'test' eller 'prov' använd databas 'olfixtst' */
+  if (strncmp(usr,"test",4)==0 || strncmp(usr,"prov",4)==0 ) {
+  	strncpy(databas,"olfixtst",15);
+  }
+/* fprintf(stderr,"Databas=%s\n",databas);	*/
+/* ================================================================================ */
+/* 		Val av databas, END!						    */
+/* ================================================================================ */
+
+ mysql_init(&my_connection);
 
 
-//  if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", "olfix", 0, NULL, 0)){
-  if (mysql_real_connect(&my_connection, host,  databas, databasuser, losenord, 0, NULL, 0)){
-//  fprintf(stderr,"VALLST:Connection success\n");
+  if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
+/*  if (mysql_real_connect(&my_connection, host,  data_bas, data_basuser, losenord, 0, NULL, 0)){	*/
+/*  fprintf(stderr,"VALLST:Connection success\n");	*/
 
   res = mysql_query(&my_connection,"SELECT * FROM VALUTA ORDER BY VALUTAID");
 
@@ -75,11 +107,11 @@ int main(int argc, char *argv[], char *envp[])
 	res_ptr=mysql_store_result(&my_connection);
 	if (res_ptr){
 		i=1;
-//		fprintf(stderr,"VALLST:Retrieved %lu rows\n",(unsigned long)mysql_num_rows(res_ptr));
+/*		fprintf(stderr,"VALLST:Retrieved %lu rows\n",(unsigned long)mysql_num_rows(res_ptr));		*/
 		fprintf(stdout,"NR_%lu_:",(unsigned long)mysql_num_rows(res_ptr));
 		while ((sqlrow=mysql_fetch_row(res_ptr)))  {
-		 	//fprintf(stderr,"VALLST:Fetched data....}");
-//			fprintf(stdout,"%d ",i);
+/*			fprintf(stderr,"VALLST:Fetched data....}");	*/
+/*			fprintf(stdout,"%d ",i);			*/
 			display_row();
 			i++;
 		}
@@ -94,7 +126,7 @@ int main(int argc, char *argv[], char *envp[])
   	} else {
     	fprintf(stderr,"Error: VALLST Connection failed\n");
     	if (mysql_errno(&my_connection))   {
-    		fprintf(stderr,"Error: VALLST_Connection error %d:  %s\n",
+    		fprintf(stderr,"Error: VALLST Connection error %d:  %s\n",
 			mysql_errno(&my_connection), mysql_error(&my_connection));
 	}
     }
@@ -111,10 +143,10 @@ void display_row()
 		fprintf(stdout,"%s_:",sqlrow[field_count]);
 		field_count++;
 	}
-//	fprintf(stdout,"\n");
+/*	fprintf(stdout,"\n");	*/
 }
 
-int find_host(char *envp[])
+int which_database(char *envp[])
 {
 	FILE *fil_pek;
 
@@ -122,57 +154,56 @@ int find_host(char *envp[])
 	char *home_pek;
 	char resource[]="/.olfixrc";
 	char filename[50]="";
-	char tmp[50]="";
+	char tmp[20]="";
 	char temp[10]="";
 	char *tmp_pek;
-	char *tmp_pek2;
 	int i,status;
 
 	for (i = 0;envp[i]!=NULL;i++){
 		if(strstr(envp[i],"HOME=") != NULL){
 			strncpy(temp,envp[i],4);
+/*			fprintf(stderr,"temp=%s\n",temp); */
 			status=strcmp(temp,"HOME");
+/*			fprintf(stderr,"status=%d\n",status); */
 			if (status == 0){
 				home_pek=(strstr(envp[i],"HOME="));
 				home_pek=home_pek+5;
 				strcpy(home,home_pek);
 			}
+/*			fprintf(stderr,"home_pek=%d %s\n",home_pek,home_pek);	*/
 		}
 	}
-	strcpy(filename,home);
-	strcat(filename,resource);
+/*	fprintf(stderr,"home=%s\n",home);	*/
+	strncpy(filename,home,strlen(home));
+	strncat(filename,resource,strlen(resource));
 
+/*	fprintf(stderr,"filename=%s\n",filename);	*/
 	status=-1;
 
 	if ((fil_pek = fopen(filename,"r")) != NULL){
-		while (fgets(tmp,50,fil_pek) != NULL){
-			if(strstr(tmp,"HOST=")){
-			//	tmp_pek=(strstr(tmp,"HOST="))+5;
-			//	fprintf(stderr,"tmp_pek=%d\n",tmp_pek);
-			//	strcpy(tmphost,tmp_pek);
-			//	fprintf(stderr,"tmphost=%s\n",tmphost);
-				tmp_pek=(strstr(tmp,"1:"))+2;
-				tmp_pek2=strstr(tmp,"2:");
-				strncpy(host,tmp_pek,(tmp_pek2-tmp_pek)-1);
-			//	fprintf(stderr,"host=%s\n",host);
-				tmp_pek=(strstr(tmp,"2:"))+2;										tmp_pek2=strstr(tmp,"3:");
-				strncpy(databas,tmp_pek,(tmp_pek2-tmp_pek)-1);
-			//	fprintf(stderr,"databas=%s längd=%d\n",databas,strlen(databas));
-				tmp_pek=(strstr(tmp,"3:"))+2;
-				tmp_pek2=strstr(tmp,"4:");
-				strncpy(databasuser,tmp_pek,(tmp_pek2-tmp_pek)-1);
-			//	fprintf(stderr,"user=%s längd=%d\n",databasuser,strlen(databasuser));
-				tmp_pek=(strstr(tmp,"4:"))+2;
-				tmp_pek2=strstr(tmp,"end");
-				strncpy(losenord,tmp_pek,(tmp_pek2-tmp_pek)-1);
-			//	fprintf(stderr,"losen=%s längd=%d\n",losenord,strlen(losenord));
+		while (fgets(tmp,150,fil_pek) != NULL){
+/*			fprintf(stderr,"tmp=%s\n",tmp); */
+			if(strstr(tmp,"DATABASE=")){
+				tmp_pek=(strstr(tmp,"DATABASE="))+9;
+				strncpy(database,tmp_pek,strlen(tmp_pek));
 				status=0;
 			}
 		}
+/*		fprintf(stderr,"database=%s_len=%d\n",database,strlen(database)); */
 		fclose(fil_pek);
 	}
 	else{
+/*		fprintf(stderr,"database=%s_len=%d\n",database,strlen(database)); */
 	 	fprintf(stderr,"Error: Filen .olfixrc kan inte öppnas\n");
 	}
+	for (i=0;i < strlen(database);i++){
+		tmp[i]=database[i];
+	}
+	tmp[i-1]=0;
+/*	fprintf(stderr,"tmp=%s, i=%d len(tmp)=%d\n",tmp,i,strlen(tmp));	*/
+	strncpy(database,tmp,strlen(tmp));
+	database[strlen(tmp)]=0;
+/*	fprintf(stderr,"databas=%s\n",database);	*/
+
 	return status;
 }
