@@ -1,9 +1,9 @@
 /***************************************************************************
                           PRTAPI.c  -  description
                              -------------------
-			     version 0.2
+			     version 0.3
     begin                : Lör 3 april 2004
-    modified		 : Sön 12 dec 2004
+    modified		 : Ons 19 jan 2005
     copyright            : (C) 2004 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -26,7 +26,7 @@
 	OUTPUT:
  *****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PRTAPI.c,v 1.2 2004/12/12 05:15:44 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PRTAPI.c,v 1.3 2005/01/19 12:15:45 janpihlgren Exp $ " ;
 
 #include <string.h>
 #include <stdlib.h>
@@ -42,7 +42,7 @@ char kugarversion[10]="";
 
 int main (int argc, char *argv[], char *envp[])
 {
-/*	int i;					*/
+/*	int i;		*/
 	int status=0;
 	char csvflag[2]="";
 	char printfil[50]="";
@@ -54,8 +54,8 @@ int main (int argc, char *argv[], char *envp[])
 	char command_e[]=" -r ";
 
 /*	fprintf(stderr,"argc=%d\n",argc);				*/
-/*
-	for (i=0;i<argc;i++){
+
+/*	for (i=0;i<argc;i++){
 		fprintf(stderr,"argv[%d]=%s\n",i,argv[i]);
 	}
 */
@@ -78,7 +78,7 @@ int main (int argc, char *argv[], char *envp[])
 	}
 	strncpy(temp,tmpfilepath,strlen(tmpfilepath));
 	strncat(temp,printfil,strlen(printfil));
-/*	fprintf(stderr,"cvs=%s, printfil=%s, prttemplate=%s,temp=%s\n",csvflag,printfil,prttemplate,temp); */
+/*	fprintf(stderr,"cvs=%s, printfil=%s, prttemplate=%s,temp=%s\n",csvflag,printfil,prttemplate,temp);	*/
 	status=KugarVersion();
 	if (status != 0)
 		exit(status);
@@ -88,11 +88,12 @@ int main (int argc, char *argv[], char *envp[])
 		strncpy(command,command_c,strlen(command_c));
 		strncat(command,tmpfilepath,strlen(tmpfilepath));
 		strncat(command,printfil,strlen(printfil));
+/*	fprintf(stderr,"printfil=%s tmpfilepath=%s command=%s\n",printfil,tmpfilepath,command);	*/
 	}else{
 /*		fprintf(stderr,"kugarversion=%s, len=%d\n",kugarversion,strlen(kugarversion));		*/
 		if (strcmp(kugarversion,"1.2.92")<0){
 			strncpy(command,command_d,strlen(command_d));
-			strncat(command,tmpfilepath,strlen(tmpfilepath)-1);
+			strncat(command,tmpfilepath,strlen(tmpfilepath));
 			strncat(command,printfil,strlen(printfil));
 			strncat(command,command_e,strlen(command_e));
 			strncat(command,reportpath,strlen(reportpath));
@@ -104,7 +105,7 @@ int main (int argc, char *argv[], char *envp[])
 			strncat(command,printfil,strlen(printfil));
 		}
 	}
-	fprintf(stderr,"command_3=%s\n",command);
+/*	fprintf(stderr,"command_3=%s\n",command);	*/
 	system(command);
 	return status;
 }
@@ -113,15 +114,15 @@ int find_tmp_path(char *envp[])
 {
 	FILE *fil_pek;
 
-/*	char home[]="$HOME";				*/
 	char home[50]="";
 	char *home_pek;
 	char resource[]="/.olfixrc";
 	char filename[50]="";
 	char tmp[50]="";
+	char tmp2[50]="";
 	char temp[10]="";
 	char *tmp_pek;
-	int i,status;
+	int i,j,status;
 
 	for (i = 0;envp[i]!=NULL;i++){
 		if(strstr(envp[i],"HOME=") != NULL){
@@ -134,7 +135,6 @@ int find_tmp_path(char *envp[])
 				home_pek=home_pek+5;
 				strcpy(home,home_pek);
 			}
-/*			fprintf(stderr,"home_pek=%d %s\n",home_pek,home_pek);		*/
 /*			fprintf(stderr,"home_pek=%d %s\n",home_pek,home_pek);		*/
 		}
 	}
@@ -160,6 +160,14 @@ int find_tmp_path(char *envp[])
 	else{
 	 	fprintf(stderr,"Error: Filen .olfixrc kan inte öppnas\n");
 	}
+	j=strlen(tmpfilepath);
+/*	fprintf(stderr,"tmpfilepath=%s j=%d\n",tmpfilepath,j);	*/
+	if (strchr(tmpfilepath,10)){
+		strncpy(tmp2,tmpfilepath,j-1);
+		strcpy(tmpfilepath,tmp2);
+/*		j=strlen(tmpfilepath);					*/
+/*		fprintf(stderr,"tmpfilepath=%s j=%d\n",tmpfilepath,j);	*/
+	}
 	return status;
 }
 
@@ -175,16 +183,16 @@ int KugarVersion()
 	FILE *fil_pek;
 
 	strncpy(command,command_a,strlen(command_a));
-	strncat(command,tmpfilepath,strlen(tmpfilepath)-1);
+	strncat(command,tmpfilepath,strlen(tmpfilepath));
 	strncat(command,command_b,strlen(command_b));
-	fprintf(stderr,"command_1=%s\n",command);
+/*	fprintf(stderr,"command_1=%s\n",command);		*/
 	system(command);
 
-	strncpy(filnamn,tmpfilepath,strlen(tmpfilepath)-1);
+	strncpy(filnamn,tmpfilepath,strlen(tmpfilepath));
 	strncat(filnamn,command_b,strlen(command_b));
 
 /*	Ex: kugar -v /tmp/kugarverssion.txt	*/
-	fprintf(stderr,"command_2=%s\n",command);
+/*	fprintf(stderr,"command_2=%s\n",command);	*/
 
 	if ((fil_pek = fopen(filnamn,"r")) != NULL){
 		while (fgets(tmp,50,fil_pek) != NULL){
@@ -229,7 +237,6 @@ int ReportPath(char *envp[])
 				home_pek=home_pek+5;
 				strcpy(home,home_pek);
 			}
-/*			fprintf(stderr,"home_pek=%d %s\n",home_pek,home_pek);		*/
 /*			fprintf(stderr,"home_pek=%d %s\n",home_pek,home_pek);		*/
 		}
 	}
