@@ -94,19 +94,6 @@
     </widget>
     <widget class="QLineEdit">
         <property name="name">
-            <cstring>lineEditArtikelNr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>55</x>
-                <y>250</y>
-                <width>101</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
             <cstring>lineEditBenamn</cstring>
         </property>
         <property name="geometry">
@@ -388,22 +375,6 @@
         </property>
         <property name="text">
             <string>Postnummer: ..........</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel3_2_2</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>355</x>
-                <y>185</y>
-                <width>125</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Momkod: ...................</string>
         </property>
     </widget>
     <widget class="QLabel">
@@ -797,19 +768,6 @@
     </widget>
     <widget class="QLineEdit">
         <property name="name">
-            <cstring>lineEditOrderNbr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>140</x>
-                <y>30</y>
-                <width>110</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
             <cstring>lineEditKundNamn</cstring>
         </property>
         <property name="geometry">
@@ -830,19 +788,6 @@
                 <x>140</x>
                 <y>105</y>
                 <width>201</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditOrderKundNr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>140</x>
-                <y>5</y>
-                <width>110</width>
                 <height>23</height>
             </rect>
         </property>
@@ -880,6 +825,61 @@
         </property>
         <property name="alignment">
             <set>AlignHCenter</set>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditOrderKundNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>5</y>
+                <width>110</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditOrderNbr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>30</y>
+                <width>110</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditArtikelNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>55</x>
+                <y>250</y>
+                <width>101</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel3_2_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>355</x>
+                <y>185</y>
+                <width>125</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Moms: ...................</string>
         </property>
     </widget>
     <widget class="QLineEdit">
@@ -978,6 +978,10 @@
     <slot>slotKundListaEndOfProcess()</slot>
     <slot>getKundData()</slot>
     <slot>slotKundDataEndOfProcess()</slot>
+    <slot>getOrdernr()</slot>
+    <slot>slotgetOrdernrEndOfProcess()</slot>
+    <slot>getMoms()</slot>
+    <slot>slotgetMomsEndOfProcess()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>

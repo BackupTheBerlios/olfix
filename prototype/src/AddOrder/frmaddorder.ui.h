@@ -9,8 +9,9 @@
 /***************************************************************************
                           ADDORDW  -  description
                              -------------------
-		     version 0.1
+		     version 0.2
     begin                : Sö 12 okt 2003
+    Updated	: Ons 9 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -51,6 +52,7 @@
     QString orderref;
     QString orderreftfnnr;
     QString ordermomskod;
+    QString ordermoms;
     QString orderkontonr;
     QString orderpgnr;
     QString orderbgnr;
@@ -60,15 +62,15 @@
     
 void frmAddOrder::init()
 {
-//   lineEditOrderNbr->setFocus();
     frmAddOrder::getKundLista();
+    lineEditOrderKundNr->setFocus();
 }
 
 void frmAddOrder::slotKundNr_returnPressed()
 {
     orderkundnr=lineEditOrderKundNr->text();
     frmAddOrder::getKundData();
-    lineEditKundNamn->setFocus();
+    lineEditArtikelNr->setFocus();
 }
 
 void frmAddOrder::slotPickupKundnr( QListViewItem * item)
@@ -303,6 +305,8 @@ void frmAddOrder::slotKundListaEndOfProcess()
 		"Kundregistret innehåller inga poster!\n"
 	);
 	i = -1;
+	
+
      }
 
     QString listrad;
@@ -370,6 +374,7 @@ void frmAddOrder::slotKundListaEndOfProcess()
 //	 rensa listrad 
 	listrad.remove(0,80);
     }
+    	frmAddOrder::getOrdernr();
 }
 
 
@@ -661,7 +666,7 @@ void frmAddOrder::slotKundDataEndOfProcess()
  	 m=i35-i34;
 	 if (i34 != -1){
 	    ordermomskod=inrad.mid(i34+3,m-4);		// = Skattekod
-	    lineEditMomskod->setText(ordermomskod);
+//	    lineEditMomskod->setText(ordermomskod);
 	 }
 /*
  	 m=i36-i35;
@@ -712,4 +717,122 @@ void frmAddOrder::slotKundDataEndOfProcess()
 	i = -1;
      }
 
+}
+
+void frmAddOrder::getOrdernr()
+{
+	const char *userp = getenv("USER");
+            QString usr(userp);
+
+
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "FTGDSP");	// OLFIX funktion
+	process->addArgument("KORNR");	// Senas använda kundordernummer
+
+	frmAddOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+	frmAddOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+	frmAddOrder::connect( process, SIGNAL(processExited() ),this, SLOT(slotgetOrdernrEndOfProcess() ) );
+
+	if ( !process->start() ) {
+                // error handling
+	    QMessageBox::warning( this, "Start av FTGDSP ",
+                            "Kan inte starta STYRMAN/FTGDSP!\n"
+                            );
+        }
+}
+
+void frmAddOrder::slotgetOrdernrEndOfProcess()
+{
+    int i,m;
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+         if (i != -1) {
+	QMessageBox::critical( this, "ADDORDW",
+		"ERROR!\n"+errorrad
+	);
+	errorrad="";
+	i = -1;
+     }
+     i = -1;
+     i = inrad.find( QRegExp("OK:"), 0 );
+     if (i != -1) {
+	 int i1 = inrad.find( QRegExp("1:"), 0 );
+	 int i2 = inrad.find( QRegExp("2:"), 0 );	
+	 int i3 = inrad.length();
+	 m=i2-i1;
+	 m=i3-i2;
+	 if (i2 != -1){
+	     ordernr=inrad.mid(i2+2,m-4);
+//	     qDebug("m=%d  ordernr=%s  i3=%d",m,ordernr.latin1(), i3);
+	 }
+	 bool ok;
+	 int ornr = ordernr.toInt( &ok, 10 ); 
+	 ornr++;
+	 ordernr = QString::number( ornr, 10 );
+	 lineEditOrderNbr->setText(ordernr);
+	inrad="";
+	errorrad="";
+	inrad="";
+	i = -1;
+    }
+   frmAddOrder::getMoms();
+}
+
+void frmAddOrder::getMoms()
+{
+	const char *userp = getenv("USER");
+            QString usr(userp);
+
+
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "FTGDSP");	// OLFIX funktion
+	process->addArgument("MOMS1");	// Senas använda kundordernummer
+
+	frmAddOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+	frmAddOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+	frmAddOrder::connect( process, SIGNAL(processExited() ),this, SLOT(slotgetMomsEndOfProcess() ) );
+
+	if ( !process->start() ) {
+                // error handling
+	    QMessageBox::warning( this, "Start av FTGDSP ",
+                            "Kan inte starta STYRMAN/FTGDSP!\n"
+                            );
+        }
+
+}
+
+void frmAddOrder::slotgetMomsEndOfProcess()
+{
+    int i,m;
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+         if (i != -1) {
+	QMessageBox::critical( this, "ADDORDW",
+		"ERROR!\n"+errorrad
+	);
+	errorrad="";
+	i = -1;
+     }
+     i = -1;
+     i = inrad.find( QRegExp("OK:"), 0 );
+     if (i != -1) {
+	 int i1 = inrad.find( QRegExp("1:MOMS1"), 0 );
+	 int i2 = inrad.find( QRegExp("2:"), 0 );	
+	 int i3 = inrad.length();
+	 m=i2-i1;
+	 m=i3-i2;
+	 if (i2 != -1){
+	     ordermoms=inrad.mid(i2+2,m-4);
+//	     qDebug("m=%d  moms=%s  i3=%d",m,ordermoms.latin1(), i3);
+	 }
+	 lineEditMomskod->setText(ordermoms+"%");
+	inrad="";
+	errorrad="";
+	inrad="";
+	i = -1;
+    }
 }
