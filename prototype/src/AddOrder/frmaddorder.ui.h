@@ -67,6 +67,7 @@
     QString orderpgnr;
     QString orderbgnr;
     QString seljare;
+    QString orderleveranstid;
     QString ordervaluta;
     QString orderbetvillkor;
     QString orderlevvillkor;
@@ -80,6 +81,7 @@
     QString orderartikelnr;
     QString prodklass;
     QString orderbenamn;
+    QString radleveransvecka;
     QString orderantal;
     QString orderradpris;
     QString radbelopp;
@@ -94,8 +96,8 @@
     
 void frmAddOrder::init()
 {
-//    int vecka;
-//    int year;
+    int vecka;
+    int year;
     int dag;
     QString dagnummer;
     QString veckonr;
@@ -103,8 +105,22 @@ void frmAddOrder::init()
     QDateTime dt = QDateTime::currentDateTime();
     dag= QDate::currentDate().dayOfWeek();
     orderdatum=dt.toString("yyyy-MM-dd");
+    textLabelOrderdatum->setText(orderdatum);    
+    orderleveranstid=orderdatum;
+    lineOrderLeveranstid->setText(orderleveranstid);
+    /****  Beräkning av leveransvecka , Start ****/
+    vecka= QDate::currentDate().weekNumber(&year);
+    veckonr=QString::number(vecka,10);
+    dagnummer=QString::number(dag,10);
+    if (veckonr.length() < 2){
+	veckonr.prepend("0");
+    }
+    artal=QString::number(year,10);
+    radleveransvecka=artal.mid(3,1) + veckonr + dagnummer;	// ÅVVD
+//    qDebug("vecka=%d, år=%d, radleveransvecka=%s _%s_",vecka,year,radleveransvecka.latin1(),veckonr.latin1());
+    lineEditLeveransvecka->setText(radleveransvecka);
+    /****  Beräkning av leveransvecka , Slut ****/
     
-    textLabelOrderdatum->setText(orderdatum);
     frmAddOrder::listViewRader_format();
     frmAddOrder::getKundLista();
     lineEditOrderKundNr->setFocus();
@@ -171,14 +187,7 @@ void frmAddOrder::slotOrderLand_returnPressed()
     orderkundland=lineEditKundLand->text();
     lineEditValuta->setFocus();
 }
-/*
-   QString orderkundref;
-    QString orderkundlevadress;
-    QString orderkundlevpostnr;
-    QString orderkundlevpostadr;
-    QString orderkundlevland;
-  
-*/
+
 void frmAddOrder::lineEditKundRef_returPressed()
 {
     orderkundref=lineEditKundRef->text();
@@ -226,10 +235,10 @@ void frmAddOrder::slotOrderBetvilk_returnPressed()
     pushButtonOK->setFocus();
 }
 
-
 void frmAddOrder::lineEditLevvillkor_returnPressed()
 {
-
+    orderleveranstid=lineOrderLeveranstid->text();
+    lineEditArtikelNr->setFocus();
 }
 
 void frmAddOrder::lineEditLevplats_returnPressed()
@@ -239,10 +248,15 @@ void frmAddOrder::lineEditLevplats_returnPressed()
     lineEditArtikelNr->setFocus();
 }
 
-
 void frmAddOrder::lineEditSeljare_returnPressed()
 {
     seljare=lineEditSeljare->text();
+    lineEditArtikelNr->setFocus();
+}
+
+void frmAddOrder::lineOrderLeveranstid_returnPressed()
+{
+    orderleveranstid=lineOrderLeveranstid->text();
     lineEditArtikelNr->setFocus();
 }
 
@@ -266,6 +280,12 @@ void frmAddOrder::lineEditArtikelNr_returnPressed()
 void frmAddOrder::lineEditBenamn_returnPressed()
 {
     orderbenamn=lineEditBenamn->text();
+    lineEditLeveransvecka->setFocus();
+}
+
+void frmAddOrder::lineEditLeveransvecka_returnPressed()
+{
+    radleveransvecka=lineEditLeveransvecka->text();
     lineEditAntal->setFocus();
 }
 
@@ -324,7 +344,7 @@ void frmAddOrder::pushBtnOKRad_clicked()
     QListViewItem * item;
     int i;
     radmomsbelopp=lineEditRadMoms->text();    
-    item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,orderantal,orderradpris,radbelopp,radmomsbelopp);
+    item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,radleveransvecka,orderantal,orderradpris,radbelopp,radmomsbelopp);
 //    item->setText(8,orderbenamn);
     if (radnrflag == FALSE){
 	i = orderradnr.toInt();
@@ -392,10 +412,11 @@ void frmAddOrder::listViewRader_clicked( QListViewItem * )
     QString temp0=item->text(0);	// radnr
     QString temp1=item->text(1);	// artikelnr
     QString temp2=item->text(2);	// artikelbenämning
-    QString temp3=item->text(3);	// antal
-    QString temp4=item->text(4);	// pris/st
-    QString temp6=item->text(5);	// radsumma
-    QString temp5=item->text(6);	// moms för raden
+    QString temp3=item->text(3);	// leveransvecka
+    QString temp4=item->text(4);	// antal
+    QString temp5=item->text(5);	// pris/st
+    QString temp6=item->text(6);	// radsumma
+    QString temp7=item->text(7);	// moms för raden
     //    qDebug("temp=%s, %s, %s, %s, %s, %s",temp0.latin1(),temp1.latin1(),temp2.latin1(),temp3.latin1(),temp4.latin1(),temp5.latin1());
     // --------------------------------------------------------------
     lineEditRadnr->setText(temp0);
@@ -423,20 +444,24 @@ void frmAddOrder::listViewRader_clicked( QListViewItem * )
 
 void frmAddOrder::lineEditOrderFrakt_returnPressed()
 {
-    double summa ,totalsumma,fraktsumma,radmomssumma,fraktmoms,moms,momsbelopp;
+    double summa ,totalsumma,fraktsumma,radmomssumma,fraktmoms,moms,momsbelopp,tmp;
     totalsumma=0;
     QString radmomstotal;
+    QString tmpfrakt;
     radmomstotal = lineEditOrderMomsKr->text();
     radmomssumma = radmomstotal.toDouble();
     
        /*	Fraktkostnad	   */
     summa = ordersumma.toDouble();
     fraktbelopp = lineEditOrderFrakt->text();
+    tmp=fraktbelopp.toDouble();
+    fraktbelopp=fraktbelopp.setNum(tmp,'f',2);	/*  Editering till heltal och 2 decimaler */
     lineEditOrderFrakt->setText(fraktbelopp);
     fraktsumma = fraktbelopp.toDouble(); 
     
     lineEditOrderFrakt->setDisabled(TRUE);
-	    
+    lineEditOrderFrakt->setPaletteForegroundColor(black);
+    
        /*  Beräkna fraktmomsen	*/      
     moms = ordermoms.toDouble(); 			/* Från lineEditMomskod, procentsats */ 
     moms = moms/100;				/*  i flyttal, t ex 0.06 */
@@ -1177,12 +1202,13 @@ void frmAddOrder::slotgetMomsEndOfProcess()
 void frmAddOrder::listViewRader_format()
 {
     listViewRader->setColumnWidth(0,44);		// Radnr
-    listViewRader->setColumnWidth(1,236);		// Artikelnr
-    listViewRader->setColumnWidth(2,292);		// Benämning
-    listViewRader->setColumnWidth(3,86);		// Antal
-    listViewRader->setColumnWidth(4,71);		// Pris
-    listViewRader->setColumnWidth(5,86);		// Summa
-    listViewRader->setColumnWidth(6,86);		// Moms
+    listViewRader->setColumnWidth(1,180);		// Artikelnr
+    listViewRader->setColumnWidth(2,295);		// Benämning
+    listViewRader->setColumnWidth(3,86);		// Leveransvecka
+    listViewRader->setColumnWidth(4,65);		// Antal
+    listViewRader->setColumnWidth(5,66);		// Pris
+    listViewRader->setColumnWidth(6,86);		// Summa
+    listViewRader->setColumnWidth(7,86);		// Moms
 }
 
 void frmAddOrder::getArtikeldata()
@@ -1375,7 +1401,18 @@ void frmAddOrder::slotLevPEndOfProcess()
 			       );
 	errorrad="";
 	i = -1;
+	/*  När önskad standardleveransplats saknas kopiera ordinarie adress till leveransadress */
+	orderkundlevadress=orderkundadress;
+	lineEditKundLevAdress->setText(orderkundlevadress);
+	orderkundlevpostnr=orderkundpostnr;
+	lineEditKundLevPostnr->setText(orderkundlevpostnr);
+	orderkundlevpostadr=orderkundpostadr;
+	lineEditKundLevPostAdress->setText(orderkundlevpostadr);
+	orderkundlevland=orderkundland;
+	lineEditKundLevLand->setText(orderkundlevland);
+	lineEditLevplats->setText("000");
 	lineEditLevplats->setFocus();
+	
     }else{
 	i = -1;
 	i = inrad.find( QRegExp("OK:"), 0 );
@@ -1401,7 +1438,7 @@ void frmAddOrder::slotLevPEndOfProcess()
 		orderkundlevpostadr=inrad.mid(i5+3,m-4);
 		lineEditKundLevPostAdress->setText(orderkundlevpostadr);
 	    }
-	    m=i6-i5;
+	    m=inrad.length()-i6;
 	    if (i6 != -1){
 		orderkundlevland=inrad.mid(i6+3,m-4);
 		lineEditKundLevLand->setText(orderkundlevland);
@@ -1422,12 +1459,13 @@ void frmAddOrder::CalculateMoms()
 	QString temp0=it.current()->text(0);	// radnr
 	QString temp1=it.current()->text(1);	// artikelnr
 	QString temp2=it.current()->text(2);	// artikelbenämning
-	QString temp3=it.current()->text(3);	// antal
-	QString temp4=it.current()->text(4);	// pris/st
-	QString temp5=it.current()->text(5);	// radsumma
-	QString temp6=it.current()->text(6);	// radmoms (antal * pris/st * moms)
+	QString temp3=it.current()->text(3);	// leveransvecka för orderrad
+	QString temp4=it.current()->text(4);	// antal
+	QString temp5=it.current()->text(5);	// pris/st
+	QString temp6=it.current()->text(6);	// radsumma
+	QString temp7=it.current()->text(7);	// radmoms (antal * pris/st * moms)
 
-	momssumma=momssumma+temp6.toDouble();
+	momssumma=momssumma+temp7.toDouble();
     }
 	momstotal=momstotal.setNum(momssumma,'f',2);
 	lineEditOrderMomsKr->setText(momstotal);
@@ -1466,6 +1504,8 @@ void frmAddOrder::CreateOrderHuvud()
     orderhuvuddata.append(skilj);
     orderhuvuddata.append(seljare);
     orderhuvuddata.append(skilj);    
+    orderhuvuddata.append(orderleveranstid);
+    orderhuvuddata.append(skilj);
     orderhuvuddata.append(ordermoms);
     orderhuvuddata.append(skilj);
     orderhuvuddata.append(ordervaluta);
@@ -1476,7 +1516,17 @@ void frmAddOrder::CreateOrderHuvud()
     orderhuvuddata.append(skilj);
     orderhuvuddata.append(orderlevplats);
     orderhuvuddata.append(skilj);
+    orderhuvuddata.append(lineEditOrderSumma->text());	/* Summa exkl moms */
+    orderhuvuddata.append(skilj);
+    orderhuvuddata.append(fraktbelopp);
+    orderhuvuddata.append(skilj);
+    orderhuvuddata.append(fraktmomskr);
+    orderhuvuddata.append(skilj);        
+    orderhuvuddata.append(momssumma);
+    orderhuvuddata.append(skilj);
+    orderhuvuddata.append(lineEditOrderTotal->text());	/* Summa inkl moms */
+    orderhuvuddata.append(skilj);
+
     orderhuvuddata.append("END");
     qDebug("orderhuvuddata=%s",orderhuvuddata.latin1());
 }
-
