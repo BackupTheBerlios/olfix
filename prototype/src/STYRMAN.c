@@ -1,8 +1,9 @@
 /***************************************************************************
                           STYRMAN.c  -  description
                              -------------------
-			     ver 0.08
+			     ver 0.09
     begin                : Mån 30 juni 2003
+    Modified		 : Tis 21 okt  2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -13,7 +14,7 @@
                   OUTPUT:  errno, error (text)
 ****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.4 2003/09/28 04:50:34 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.5 2003/10/21 06:31:01 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -33,9 +34,14 @@
   MYSQL_RES *res_ptr;
   MYSQL_ROW sqlrow;
 
-	char *felpek;
-	char datastr[MAXSTRING]="";
-	char tmpfilepath[FILEPATH];
+  char *felpek;
+  char datastr[MAXSTRING]="";
+  char tmpfilepath[FILEPATH];
+
+  void display_row();
+  int which_database(char *envp[]);
+  char database[15]="";
+  char databas[25]="olfix";
 
 int check_Transtyp(char *trnstyp);
 int check_User(char *user);
@@ -50,6 +56,9 @@ int main(int argc, char *argv[], char *envp[])
   int status=-15;
   int i;
   char anv[9];
+  const char *userp = getenv("USER");	// vem är inloggad?
+//  char databas[25]="olfix";
+  char usr[15];		// userid
 
   status = find_tmp_path(envp);
   if (status != 0)
@@ -58,6 +67,32 @@ int main(int argc, char *argv[], char *envp[])
 //  for (i=0; i<= argc;i++){
 //	fprintf(stderr,"styrman arg = %d %s\n",i,argv[i]);
 //	 }
+// ================================================================================
+// 		Val av databas, START
+// ================================================================================
+
+  status = which_database(envp);
+
+  if (status != 0)
+	exit(status);
+
+  strcpy(usr,userp);			// Den inloggades userid
+
+  if (strlen(database)!= 0){
+	strcpy(databas,database);
+  }else{
+  	strcpy(databas,"olfixtst");	// olfixtst = testföretag
+  }
+  /* Om usr (userid) börjar på 'test' eller 'prov' använd databas 'olfixtst' */
+  if (strncmp(usr,"test",4)==0 || strncmp(usr,"prov",4)==0 ) {
+  	strcpy(databas,"olfixtst");
+  }
+//  fprintf(stderr,"KUDSP database = %s databas=%s\n",database,databas);
+
+// ================================================================================
+// 		Val av databas, END!
+// ================================================================================
+
 
   status=check_User(argv[1]);		/* Finns användaren(USERID)?		*/
   if(status != 0){
@@ -251,7 +286,7 @@ int check_Transtyp(char *trnstyp)
 
   mysql_init(&my_connection);
 
-  if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", "olfix", 0, NULL, 0)){
+  if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
   //printf("Connection success\n");
 
   res = mysql_query(&my_connection,sqlcommand);
@@ -298,7 +333,7 @@ int check_User(char *user)
 
   mysql_init(&my_connection);
 
-  if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", "olfix", 0, NULL, 0)){
+  if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
   //printf("Connection success\n");
 
   	res = mysql_query(&my_connection,sqlcommand);
@@ -362,7 +397,7 @@ int check_Rights(char *usr, char *tr)
 
   mysql_init(&my_connection);
 
-  if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", "olfix", 0, NULL, 0)){
+  if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
   	//printf("Connection success\n");
   	res = mysql_query(&my_connection,sqlcommand);
   	if (res){
@@ -440,3 +475,64 @@ int find_tmp_path(char *envp[])
 	return status;
 }
 
+int which_database(char *envp[])
+{
+	FILE *fil_pek;
+
+//	char home[]="$HOME";
+	char home[50];
+	char *home_pek;
+	char resource[]="/.olfixrc";
+	char filename[50]="";
+	char tmp[20]="";
+	char temp[10]="";
+	char *tmp_pek;
+	int i,status;
+
+	for (i = 0;envp[i]!=NULL;i++){
+		if(strstr(envp[i],"HOME=") != NULL){
+			strncpy(temp,envp[i],4);
+//			fprintf(stderr,"temp=%s\n",temp);
+			status=strcmp(temp,"HOME");
+//			fprintf(stderr,"status=%d\n",status);
+			if (status == 0){
+				home_pek=(strstr(envp[i],"HOME="));
+				home_pek=home_pek+5;
+				strcpy(home,home_pek);
+			}
+//			fprintf(stderr,"home_pek=%d %s\n",home_pek,home_pek);
+//			fprintf(stderr,"home_pek=%d %s\n",home_pek,home_pek);
+		}
+	}
+//	fprintf(stderr,"home=%s\n",home);
+	strcpy(filename,home);
+	strcat(filename,resource);
+
+//	fprintf(stderr,"filename=%s\n",filename);
+	status=-1;
+
+	if ((fil_pek = fopen(filename,"r")) != NULL){
+		while (fgets(tmp,150,fil_pek) != NULL){
+//			fprintf(stderr,"tmp=%s\n",tmp);
+			if(strstr(tmp,"DATABASE=")){
+				tmp_pek=(strstr(tmp,"DATABASE="))+9;
+				strncpy(database,tmp_pek,strlen(tmp_pek));
+				status=0;
+			}
+		}
+//		fprintf(stderr,"database=%s_len=%d\n",database,strlen(database));
+		fclose(fil_pek);
+	}
+	else{
+	 	fprintf(stderr,"Error: Filen .olfixrc kan inte öppnas\n");
+	}
+	for (i=0;i < strlen(database);i++){
+		tmp[i]=database[i];
+	}
+	tmp[i-1]=0;
+//	fprintf(stderr,"tmp=%s, i=%d len tmp=%d\n",tmp,i,strlen(tmp));
+	strncpy(database,tmp,strlen(tmp));
+	database[strlen(tmp)]=0;
+
+	return status;
+}
