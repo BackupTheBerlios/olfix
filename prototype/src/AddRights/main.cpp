@@ -1,6 +1,6 @@
 /****************************************************************/
 /**		main.cpp		ADDRGTW			*/
-/**		20003-01-09					*/
+/**		2003-01-09					*/
 /**		Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -12,26 +12,28 @@
  *                                                                         				 *
  *********************************************** *****************/
 
+
+#include "frmaddright.h"
+
+#include <qmessagebox.h>
+#include <qdir.h>
+#include <qfile.h>
+#include <qstring.h>
 #include <qapplication.h>
 #include <qpushbutton.h>
 #include <qfont.h>
-#include "frmaddright.h"
-
-#include <qprocess.h>
-#include <qmessagebox.h>
-#include <qlistbox.h>
-#include <qlabel.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qfile.h>
-#include <qdir.h>
 #include <qregexp.h>
+
+//#include <qprocess.h>
+// #include <qlistbox.h>
+// #include <qlabel.h>
+// #include <qstringlist.h>
 
 int main( int argc, char* argv[] )
 {
   QApplication myapp( argc, argv );
 
-  frmAddRight* mywidget = new frmAddRight();
+//  frmAddRight* mywidget = new frmAddRight();
 
   QString rcfil;
   QString bibl;
@@ -55,13 +57,16 @@ int main( int argc, char* argv[] )
         }
 	file.close();
     }else{
-	QMessageBox::warning( mywidget, "OLFIX - ADDRGTW",
- 	"Kan inte hitta filen $HOME/.olfixrc.\n ADDRGTW kommer inte att fungera!\n");
+//	QMessageBox::warning( AddRight, "OLFIX - ADDRGTW",
+// 	"Kan inte hitta filen $HOME/.olfixrc.\n ADDRGTW kommer inte att fungera!\n");
 	qWarning( "Cannot find the $HOME/.olfixrc file" );
+	fprintf(stderr,"%s\n", rcfil.latin1() );
     }
    QDir::setCurrent ( bibl );
 
-  myapp.setMainWidget( mywidget );
-  mywidget->show();
-  return myapp.exec();
+  frmAddRight AddRight;
+  
+  myapp.setMainWidget( &AddRight);
+  AddRight.show();
+  myapp.exec();
 }
