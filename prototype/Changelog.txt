@@ -1,12 +1,28 @@
-Changelog OLFIX 20050316
+Changelog OLFIX 20050324
 
-Blivande:
+Blivande
+Ver 0.2.3.B
+2005-03-24
+		Nya program
+		Ändrade program
+		Nya funktioner
+		Ändrade funktioner
+		Dokumentation
+		Usersmanual (Online)Uppdaterad (2005-??-??)
+		UserManual	Uppdaterad (2005-??-??)
+
+		Teknisk Manual	Uppdaterad (2005-??-??)
+		Installationsanvisningar.txt (2005-??-??)
+		Installationsanvisningar.sxw (2005-??-??)
+		Korsrelationer.sxw Uppdaterad (2005-??-??)
+________________________________________________________
 Ver 0.2.2.B
-2005-03-16
+2005-03-24
 		Nya program
 		LSTBARW		Lista bokföringsår.
-		ADDORDW		Registrera kundorder
+		ADDORDW		Registrera kundorder med möjlighet att nyregistrera en kund.
 		LSTORDW		Lista kundorder.
+		SRCHKUW		Söka kunder på namn, postnr,tfnnr eller postadr
 
 		Ändrade program
 		OLFIXHLP	Mera hjälp
@@ -24,6 +40,7 @@ Ver 0.2.2.B
 		ORDRADD.c	Kundorderradadd, orderrader.
 		ORDLST.c	Komplett listning ur ORDERREG
 		ORDLST2.c	Listning ur ORDERREG, begränsat antal fält.
+		KUSRCH.c	Söka kunder på namn, postnr,tfnnr eller postadr
 
 		Makefile
 
@@ -34,6 +51,8 @@ Ver 0.2.2.B
 
 		Ändrade datafiler
 		PROGRAMdata.txt	Nytt program LSTBARW.Lista bokföringsår
+				Nytt program SRCHKUW. Söka kunder
+				Nytt program LSTORDW. Lista kundorder
 		TRANSIDdata.txt	Nya funktioner
 
 		Ändrade tabeller
