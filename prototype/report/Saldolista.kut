@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 
 <!DOCTYPE KugarTemplate SYSTEM "kugartemplate.dtd">
 
@@ -18,34 +18,40 @@
 		   FontItalic="0" FontSize="12" FontWeight="75"
 		   ForegroundColor="0,0,0" HAlignment="1" Height="25"
 		   Text="Konto" VAlignment="1" Width="50"
-		   WordWrap="0" X="0" Y="15" />
+		   WordWrap="0" X="0" Y="0" />
 		<Label BackgroundColor="255,255,0" BorderColor="0,0,0"
 		   BorderStyle="1" BorderWidth="1" FontFamily="Helvetica"
 		   FontItalic="0" FontSize="12" FontWeight="75"
 		   ForegroundColor="0,0,0" HAlignment="1" Height="25"
 		   Text="Kontonamn" VAlignment="1" Width="200"
-		   WordWrap="0" X="50" Y="15" />
+		   WordWrap="0" X="50" Y="0" />
 		<Label BackgroundColor="255,255,0" BorderColor="0,0,0"
 		   BorderStyle="1" BorderWidth="1" FontFamily="Helvetica"
 		   FontItalic="0" FontSize="12" FontWeight="75"
 		   ForegroundColor="0,0,0" HAlignment="1" Height="25"
 		   Text="Debet" VAlignment="1" Width="100"
-		   WordWrap="0" X="250" Y="15" />
+		   WordWrap="0" X="250" Y="0" />
 		<Label BackgroundColor="255,255,0" BorderColor="0,0,0"
 		   BorderStyle="1" BorderWidth="1" FontFamily="Helvetica"
 		   FontItalic="0" FontSize="12" FontWeight="75"
 		   ForegroundColor="0,0,0" HAlignment="1" Height="25"
 		   Text="Kredit" VAlignment="1" Width="100"
-		   WordWrap="0" X="350" Y="15" />
+		   WordWrap="0" X="350" Y="0" />
 		<Label BackgroundColor="255,255,0" BorderColor="0,0,0"
 		   BorderStyle="1" BorderWidth="1" FontFamily="Helvetica"
 		   FontItalic="0" FontSize="12" FontWeight="75"
 		   ForegroundColor="0,0,0" HAlignment="1" Height="25"
 		   Text="Utg Saldo" VAlignment="1" Width="100"
-		   WordWrap="0" X="450" Y="15" />
+		   WordWrap="0" X="450" Y="0" />
 	</PageHeader>
 
 	<Detail Height="30" Level="0">
+		<Label BackgroundColor="0,255,255" BorderColor="0,0,0"
+		   BorderStyle="0" BorderWidth="0" FontFamily="Helvetica"
+		   FontItalic="0" FontSize="10" FontWeight="25"
+		   ForegroundColor="0,0,0" HAlignment="0" Height="20"
+		   Text="För perioden" VAlignment="1" Width="80"
+		   WordWrap="0" X="230" Y="-50" />
 		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
 		   BorderStyle="0" BorderWidth="0" CommaSeparator="0"
 		   Currency="36" DataType="0" DateFormat="0"
@@ -55,6 +61,15 @@
 		   Precision="0" Text="[ftgnamn]" Type="0"
 		   VAlignment="1" Width="342" WordWrap="0"
 		   X="1" Y="-93" />
+		<Field BackgroundColor="0,255,255" BorderColor="0,0,0"
+		   BorderStyle="0" BorderWidth="0" CommaSeparator="0"
+		   Currency="36" DataType="0" DateFormat="0"
+		   Field="startdatum" FontFamily="Helvetica" FontItalic="0"
+		   FontSize="10" FontWeight="25" ForegroundColor="0,0,0"
+		   HAlignment="0" Height="20" NegValueColor="255,0,0"
+		   Precision="0" Text="[startdatum]" Type="0"
+		   VAlignment="1" Width="150" WordWrap="0"
+		   X="312" Y="-50" />
 		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
 		   BorderStyle="0" BorderWidth="0" CommaSeparator="0"
 		   Currency="36" DataType="0" DateFormat="0"
@@ -62,8 +77,9 @@
 		   FontSize="10" FontWeight="25" ForegroundColor="0,0,0"
 		   HAlignment="0" Height="20" NegValueColor="255,0,0"
 		   Precision="0" Text="[datum]" Type="0"
-		   VAlignment="1" Width="90" WordWrap="0"
-		   X="347" Y="-93" />
+		   VAlignment="1" Width="80" WordWrap="0"
+		   X="400" Y="-93" />
+
 	</Detail>
 
 	<Detail Height="20" Level="1">
@@ -104,11 +120,11 @@
 		   Width="100" WordWrap="0" X="350"
 		   Y="0" />
 		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
-		   BorderStyle="1" BorderWidth="1" CommaSeparator="44"
-		   Currency="32" DataType="2" DateFormat="11"
+		   BorderStyle="1" BorderWidth="1" CommaSeparator="0"
+		   Currency="36" DataType="2" DateFormat="11"
 		   Field="utgsaldo" FontFamily="Helvetica" FontItalic="0"
 		   FontSize="10" FontWeight="25" ForegroundColor="0,0,0"
-		   HAlignment="2" Height="20" NegValueColor="0,0,0"
+		   HAlignment="2" Height="20" NegValueColor="255,0,0"
 		   Precision="2" Text="[utgsaldo]" VAlignment="1"
 		   Width="100" WordWrap="0" X="450"
 		   Y="0" />
@@ -118,9 +134,9 @@
 		<Label BackgroundColor="255,255,255" BorderColor="0,0,0"
 		   BorderStyle="0" BorderWidth="1" FontFamily="Helvetica"
 		   FontItalic="0" FontSize="10" FontWeight="75"
-		   ForegroundColor="0,0,0" HAlignment="0" Height="20"
+		   ForegroundColor="0,0,0" HAlignment="0" Height="18"
 		   Text="KLASSTOTAL" VAlignment="1" Width="100"
-		   WordWrap="0" X="0" Y="0" />
+		   WordWrap="0" X="0" Y="2" />
 
 		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
 		   BorderStyle="0" BorderWidth="0" CommaSeparator="0"
@@ -130,7 +146,7 @@
 		   HAlignment="2" Height="20" NegValueColor="255,0,0"
 		   Precision="2" Text="[delsumdebet]" VAlignment="1"
 		   Width="100" WordWrap="0" X="250"
-		   Y="0" />
+		   Y="2" />
 		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
 		   BorderStyle="0" BorderWidth="0" CommaSeparator="0"
 		   Currency="36" DataType="2" DateFormat="0"
@@ -138,20 +154,39 @@
 		   FontSize="10" FontWeight="75" ForegroundColor="0,0,0"
 		   HAlignment="2" Height="20" NegValueColor="255,0,0"
 		   Precision="2" Text="[delsumkredit]" VAlignment="1"
-		   Width="100" WordWrap="0" X="350"
-		   Y="0" />
+		   Width="100" WordWrap="2" X="350"
+		   Y="2" />
 		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
 		   BorderStyle="0" BorderWidth="0" CommaSeparator="0"
-		   Currency="36" DataType="2" DateFormat="0"
+		   Currency="36" DataType="2" DateFormat="11"
 		   Field="delsumutgsaldo" FontFamily="Helvetica" FontItalic="0"
 		   FontSize="10" FontWeight="75" ForegroundColor="0,0,0"
 		   HAlignment="2" Height="20" NegValueColor="255,0,0"
 		   Precision="2" Text="[delsumutgsaldo]" VAlignment="1"
 		   Width="100" WordWrap="0" X="450"
-		   Y="0" />
+		   Y="2" />
 	</Detail>
 
 	<Detail Height="20" Level="3">
+		<Label BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="0" BorderWidth="1" FontFamily="Helvetica"
+		   FontItalic="0" FontSize="10" FontWeight="75"
+		   ForegroundColor="0,0,0" HAlignment="0" Height="20"
+		   Text="" VAlignment="1" Width="100"
+		   WordWrap="0" X="0" Y="0" />
+
+		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="0" BorderWidth="0" CommaSeparator="0"
+		   Currency="36" DataType="0" DateFormat="0"
+		   Field="blank" FontFamily="Helvetica" FontItalic="0"
+		   FontSize="10" FontWeight="75" ForegroundColor="0,0,0"
+		   HAlignment="2" Height="20" NegValueColor="255,0,0"
+		   Precision="2" Text="[blank]" VAlignment="1"
+		   Width="100" WordWrap="0" X="250"
+		   Y="0" />
+	</Detail>
+
+	<Detail Height="20" Level="4">
 		<Label BackgroundColor="255,255,255" BorderColor="0,0,0"
 		   BorderStyle="0" BorderWidth="1" FontFamily="Helvetica"
 		   FontItalic="0" FontSize="10" FontWeight="75"

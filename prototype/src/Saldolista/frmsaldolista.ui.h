@@ -1,8 +1,8 @@
 /****************************************************************/
 /**		SDOLISW					*/
-/**		Ver 0.5                                                                                    */
+/**		Ver 0.6                                                                                    */
 /**		Created    2003-08-21				*/
-/**		Modified 2004-03-20				*/
+/**		Modified 2004-03-23				*/
 /**   Copyright	Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -39,6 +39,7 @@
     QString bar;		// Bokföringsår
     QString csvflag;
     QString datum;
+    QString startdatum;
     QString ftgnamn;
 
     QString reportpath;
@@ -69,7 +70,8 @@ void frmSaldolista::slotlineEditBar_returnPressed()
 	QMessageBox::warning( this, "SDOLISW",
                       "Bokföringsår måste fyllas i! \n" );
 	lineEditBar->setFocus();
-    }else{  
+    }else{
+	frmSaldolista::GetBokfPeriod();
 	pushButtonOK->setFocus();
     }
 }
@@ -92,7 +94,7 @@ void frmSaldolista::slotpushButtonOK_clicked()
     }else{
 	slotFileRemove("Saldolista.txt");		// tag bort gammal datafil	
     }
-    slotGetData();
+    frmSaldolista::slotGetData();
     pushButtonAvbryt->setFocus();
 }
 
@@ -307,9 +309,17 @@ void frmSaldolista::slotEndOfProcess()
 //			     qDebug("%s, %s, %s",delsumdebet.latin1(),delsumkredit.latin1(),delsumutgsaldo.latin1());
 			     rapportrad.append("\"/>\n");
 			     stream << rapportrad;
+			     // Blankrad
+			     rapportrad="<Blankrad level=\"3\" ";
+			     rapportrad.append("blank=\"");
+			     rapportrad.append(" ");
+			     rapportrad.append("\"/>\n");
+			     stream << rapportrad;
+			     
 			     deldebet=0;
 			     delkredit=0;
 			     delusaldo=0;
+			     
 			 }
 		      }
      		     ktotemp=ktonr;
@@ -338,7 +348,7 @@ void frmSaldolista::slotEndOfProcess()
 	     totalkredit.setNum(kredittotal,'f',2);
 	     totalutgsaldo.setNum(usaldototal,'f',2);			
 	    
-  	     rapportrad="<Totalsumma level=\"3\" ";
+  	     rapportrad="<Totalsumma level=\"4\" ";
 	     rapportrad.append(" totaldebet=\"");
 	     rapportrad.append(totaldebet);
 	     rapportrad.append("\" totalkredit=\"");
@@ -380,7 +390,7 @@ void frmSaldolista::slotEndOfProcess()
 void frmSaldolista::slotCreateHeader()
 {
     int i;
-    int antrad=46;
+    int antrad=55;
     QString rad[antrad];
     QString rapportrad;
 
@@ -398,44 +408,53 @@ void frmSaldolista::slotCreateHeader()
     rad[7]="   <!ATTLIST Rowhead\n";
     rad[8]="      level CDATA #REQUIRED\n";
     rad[9]="      ftgnamn CDATA #REQUIRED\n";
-    rad[10]="      datum CDATA #REQUIRED\n";
-    rad[11]=">\n";
-    rad[12]="   <!ELEMENT KugarData (Row* )>\n";
-    rad[13]="   <!ATTLIST KugarData\n";
-    rad[14]="      Template CDATA #REQUIRED>\n\n";
-    rad[15]="   <!ELEMENT Row EMPTY>\n";
-    rad[16]="   <!ATTLIST Row\n";
-    rad[17]="      level CDATA #REQUIRED\n";
-    rad[18]="      kontonr CDATA #REQUIRED\n";
-    rad[19]="      kontonamn CDATA #REQUIRED\n";
-    rad[20]="      debet CDATA #REQUIRED\n";
-    rad[21]="      kredit CDATA #REQUIRED\n";
-    rad[22]="      utgsaldo CDATA #REQUIRED";
-    rad[23]=">\n";
-    rad[24]="   <!ELEMENT KugarData (Delsumma* )>\n";
-    rad[25]="   <!ATTLIST KugarData\n";
-    rad[26]="      Template CDATA #REQUIRED>\n\n";
-    rad[27]="   <!ELEMENT Delsumma EMPTY>\n";
-    rad[28]="   <!ATTLIST Delsumma\n";
-    rad[29]="      level CDATA #REQUIRED\n";
-    rad[30]="      delsumdebet CDATA #REQUIRED\n";
-    rad[31]="      delsumkredit CDATA #REQUIRED\n";
-    rad[32]="      delsumutgsaldo CDATA #REQUIRED\n";    
-    rad[33]=">\n";       
-    rad[34]="   <!ELEMENT KugarData (Totalsumma* )>\n";
-    rad[35]="   <!ATTLIST KugarData\n";
-    rad[36]="      Template CDATA #REQUIRED>\n\n";
-    rad[37]="   <!ELEMENT Totalsumma EMPTY>\n";
-    rad[38]="   <!ATTLIST Totalsumma\n";
-    rad[39]="      level CDATA #REQUIRED\n";
-    rad[40]="      totaldebet CDATA #REQUIRED\n";
-    rad[41]="      totalkredit CDATA #REQUIRED\n";
-    rad[42]="      totalutgsaldo CDATA #REQUIRED\n";    
-    rad[43]=">\n";            
-    rad[44]="]>\n\n";
-    rad[45]="<KugarData Template=\"";
-    rad[45].append(reportpath);
-    rad[45].append("Saldolista.kut\">\n");	// ange rätt template, absolut path
+    rad[10]="      startdatum CDATA #REQUIRED\n";
+    rad[11]="      datum CDATA #REQUIRED\n";
+    rad[12]=">\n";
+    rad[13]="   <!ELEMENT KugarData (Row* )>\n";
+    rad[14]="   <!ATTLIST KugarData\n";
+    rad[15]="      Template CDATA #REQUIRED>\n\n";
+    rad[16]="   <!ELEMENT Row EMPTY>\n";
+    rad[17]="   <!ATTLIST Row\n";
+    rad[18]="      level CDATA #REQUIRED\n";
+    rad[19]="      kontonr CDATA #REQUIRED\n";
+    rad[20]="      kontonamn CDATA #REQUIRED\n";
+    rad[21]="      debet CDATA #REQUIRED\n";
+    rad[22]="      kredit CDATA #REQUIRED\n";
+    rad[23]="      utgsaldo CDATA #REQUIRED\n";
+    rad[24]=">\n";
+    rad[25]="   <!ELEMENT KugarData (Delsumma* )>\n";
+    rad[26]="   <!ATTLIST KugarData\n";
+    rad[27]="      Template CDATA #REQUIRED>\n\n";
+    rad[28]="   <!ELEMENT Delsumma EMPTY>\n";
+    rad[29]="   <!ATTLIST Delsumma\n";
+    rad[30]="      level CDATA #REQUIRED\n";
+    rad[31]="      delsumdebet CDATA #REQUIRED\n";
+    rad[32]="      delsumkredit CDATA #REQUIRED\n";
+    rad[33]="      delsumutgsaldo CDATA #REQUIRED\n"; 
+    rad[34]=">\n"; 
+    rad[35]="   <!ELEMENT KugarData (Blankrad* )>\n";
+    rad[36]="   <!ATTLIST KugarData\n";
+    rad[37]="      Template CDATA #REQUIRED>\n\n";
+    rad[38]="   <!ELEMENT Blankrad EMPTY>\n";
+    rad[39]="   <!ATTLIST Blankrad\n";
+    rad[40]="      level CDATA #REQUIRED\n";
+    rad[41]="      blank CDATA #REQUIRED\n";
+    rad[42]=">\n";           
+    rad[43]="   <!ELEMENT KugarData (Totalsumma* )>\n";
+    rad[44]="   <!ATTLIST KugarData\n";
+    rad[45]="      Template CDATA #REQUIRED>\n\n";
+    rad[46]="   <!ELEMENT Totalsumma EMPTY>\n";
+    rad[47]="   <!ATTLIST Totalsumma\n";
+    rad[48]="      level CDATA #REQUIRED\n";
+    rad[49]="      totaldebet CDATA #REQUIRED\n";
+    rad[50]="      totalkredit CDATA #REQUIRED\n";
+    rad[51]="      totalutgsaldo CDATA #REQUIRED\n";    
+    rad[52]=">\n";            
+    rad[53]="]>\n\n";
+    rad[54]="<KugarData Template=\"";
+    rad[54].append(reportpath);
+    rad[54].append("Saldolista.kut\">\n");	// ange rätt template, absolut path
 ;
 //    qDebug("slotCreateHeader::rapportrad = \n%s",rapportrad.latin1());
     rapportrad=rad[1];
@@ -446,7 +465,9 @@ void frmSaldolista::slotCreateHeader()
 //    qDebug("i=%d,antrad=%d",i,antrad);
     rapportrad.append("<Rowhead level=\"0");
     rapportrad.append("\" ftgnamn=\"");
-    rapportrad.append(ftgnamn);    
+    rapportrad.append(ftgnamn); 
+    rapportrad.append("\" startdatum=\"");
+    rapportrad.append(startdatum);    
     rapportrad.append("\" datum=\"");
     rapportrad.append(datum);
     rapportrad.append("\"/>\n");    
@@ -577,4 +598,57 @@ void frmSaldolista::slotFtgnamnEndOfProcess()
     }
 //	qDebug("inrad=%s j=%d m=%d length=%d",inrad.latin1(),j,m,inrad.length());
 //	qDebug("ftgnamn=%s|,m=%d",ftgnamn.latin1(),m);
+}
+
+
+void frmSaldolista::GetBokfPeriod()
+{
+	const char *userp = getenv("USER");
+            QString usr(userp);
+	errorrad="";
+	inrad="";
+	
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "VERHDSP");	// OLFIX funktion
+	process->addArgument(bar);		// Bokföringsår
+
+	frmSaldolista::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+	frmSaldolista::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+            frmSaldolista::connect( process, SIGNAL(processExited() ),this, SLOT(slotGetBokfPeriodEndOfProcess() ) );
+
+
+	if ( !process->start() ) {
+		QMessageBox::warning( this, "SDOLISW",
+                            "Kan inte starta STYRMAN/VERHDSP! \n" );
+	}
+}
+
+void frmSaldolista::slotGetBokfPeriodEndOfProcess()
+{
+    QString mindate;
+    QString maxdate;
+    int i,j,m;
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+    if (i == 0) {
+	QMessageBox::critical( this, "OLFIX - SDOLISW",
+		"ERROR!\n"+errorrad
+		);
+	errorrad="";
+    }else{	
+	i = -1;
+	i = inrad.find( QRegExp("OK:"), 0 );
+	if (i != -1) {
+	    j =  inrad.find( QRegExp("01:"), 0 );
+	    m=10;
+	    mindate = inrad.mid(j+3,m);
+	    j =  inrad.find( QRegExp("02:"), 0 );
+	    m=10;
+	    maxdate = inrad.mid(j+3,m);	    	    
+	}
+	startdatum=mindate+" -- "+maxdate;
+    }
+//	qDebug("startdatum=%s|,m=%d",startdatum.latin1(),m);    
 }

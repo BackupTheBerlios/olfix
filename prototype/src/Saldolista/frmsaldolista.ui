@@ -321,6 +321,8 @@
     <slot>CallKugar()</slot>
     <slot>getFortetagsnamn()</slot>
     <slot>slotFtgnamnEndOfProcess()</slot>
+    <slot>GetBokfPeriod()</slot>
+    <slot>slotGetBokfPeriodEndOfProcess()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
