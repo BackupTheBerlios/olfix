@@ -9,8 +9,9 @@
 /***************************************************************************
                           DSPKUW  -  description
                              -------------------
-		     version 0.1
+		     version 0.2
     begin                : Tors 2 okt 2003
+    Modified	: Mån 20 okt 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -107,7 +108,7 @@ void frmDspKund::GetKund()
             QString usr(userp);
 
 	process = new QProcess();
-	process->addArgument( "STYRMAN");	// OLFIX funktion
+	process->addArgument( "./STYRMAN");	// OLFIX funktion
 	process->addArgument(usr);
 	process->addArgument("KUDSP");
 	process->addArgument( kundid);
