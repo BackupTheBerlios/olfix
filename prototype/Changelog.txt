@@ -1,7 +1,92 @@
-Changelog OLFIX 20031226
+Changelog OLFIX 20040205
 
+Ver 0.1.13.A	OBS! Alfa
+20040205
+		Ändrade program
+		SDOLISW		Ändrad att passa till kugar 1.2.92 ->
+		LSTINKW		Uppdatering (stretching)
+		DSPINKW		Ändrade/nya fält
+
+		Nya funktioner
+		LEVVDSP.c	Visa ett leveransvillkor
+		LEVSETT.c	Visa ett leveranssätt
+
+		Ändrade funktioner
+		INKHDSP.c	Nya fält i INKREG
+		INKRLST.c	Nya fält i INKRADREG
+		BETDSP.c	Liten anpassning till ADDINKW
+		INKADD.c	Nya fält i INKREG
+		INKRADD.c	Nya fält i INKRADREG
+
+
+		Nytt script
+		setup.sh	används av makeself
+
+		Ändrade script
+		install.sh	Arbetar med "dialog" och anropas från setup.sh
+		create_dist	Skapa självextraherande distribution.
+		.olfixrc	Lagt till REPORT=/usr/local/olfix/report/
+
+		Nya tabeller
+		LEVVILLKOR	Leveransvillkor (VILLKORSNR,VILLKORSTEXT)
+		LEVSETT		Leveranssätt (LEVSETTNR,LEVSETTTEXT)
+
+		Ändrade tabeller
+		INKRADREG	Tillägg av BENEMNING,LEVARTIKELNR,LEVBENEMNING
+
+		Nya SQL-satser
+		CreateTableLEVVILLKOR.sql
+		CreateTableLEVSETT.sql
+
+		Ändrade SQL-satser
+		CreateAll.sql		Nya tabeller mm
+		CreateAllOlfixtst.sql	Nya tebeller mm
+		CreateTableINKRADREG.sql	(BENEMNING,LEVARTIKELNR,LEVBENEMNING)
+		CreateTableINKREG.sql	(LEVVILLKOR,LEVSETT,ERREF,VARREFTFN,VARREFFAX,KOMMENTAR)
+			-"-		Ändrade fält (LEVBETVILLKOR,BESTTEXT)
+
+		Ändrade data
+		TRANSIDdata.txt	Nya funktioner, LEVVDSP,LEVSDSP
+
+		Bibliotek/Directory
+		Nytt bibliotek	/report	Avsett för kugar-template
+
+		Dokumentation
+		Teknisk Manual	Uppdaterad samt levereras som .pdf
+________________________________________________________
 Ver 0.1.12.A	OBS! Alfa
-20031226
+20040111
+		Nya program
+		INKLST.c	Lista alla inköpsorderrader i INRADREG
+		LSTINKW		Lista alla inköpsorderrader. GUI. Beställningsstock
+
+		Ändrade program
+		BOKFORSW	Möjlighet att redigera redan inskrivna(ej sparade)
+				verifikationsrader.
+		ADDINKW		Förbättrad beräkning av levvecka
+		WRREC.c		Buggrättning
+		VERUPD.c	Buggrättning
+
+		Ändrade script
+		install.sh	Arbetar med "dialog" (ej klart)
+
+		Ändrade SQL-satser
+		CreateTableINKREG.sql	BESTTYP utökad med A=Avrop
+		CreateAll.sql		-"-
+		CreateAllOlfixtst.sql	-"-
+		AlterTableINKREG.sql	-"-
+		CreateTableARTIKELREG	ARTULLTAX utökad till 10 tecken
+		AlterTableARTIKELREG	-"-
+		CreateAll.sql		-"-
+		CreateAllOlfixtst.sql	-"-
+
+		Data, ändrat
+		PROGRAMdata.txt	Nya program
+		TRANSIDdata.txt	Nya funktioner
+
+		Dokumentation
+		Teknisk Manual	Uppdaterad
+		User Manual	Uppdaterad
 ________________________________________________________
 Ver 0.1.11.A	OBS! Alfa
 20031225
