@@ -1,0 +1,42 @@
+use mysql;
+INSERT INTO user
+(
+Host, 
+User, 
+Password, 
+Select_priv, 
+Insert_priv, 
+Update_priv, 
+Delete_priv, 
+Create_priv, 
+Drop_priv, 
+Reload_priv,
+Shutdown_priv, 
+Process_priv, 
+File_priv, 
+Grant_priv, 
+References_priv, 
+Index_priv, 
+Alter_priv
+)
+VALUES
+(
+"localhost",
+"olfix",
+PASSWORD("olfix"),
+"Y",
+"Y",
+"Y", 
+"Y", 
+"Y", 
+"Y", 
+"Y", 
+"Y", 
+"Y", 
+"Y", 
+"Y", 
+"Y", 
+"Y", 
+"Y"
+);
+FLUSCH PRIVILEGES;
