@@ -28,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BARFND.c,v 1.1 2003/11/02 06:26:37 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BARFND.c,v 1.2 2003/11/02 06:50:10 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -122,7 +122,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stdout,"BARCHKmain:Connection success\n");	*/
   	res = mysql_query(&my_connection,temp5);
   	if (res){
-		printf("Error: BARFND SELECT error: %s\n",mysql_error(&my_connection));
+		fprintf(stderr,"Error: BARFND SELECT error: %s\n",mysql_error(&my_connection));
   	}
   	else{
 		res_ptr=mysql_store_result(&my_connection);
