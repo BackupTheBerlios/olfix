@@ -1,9 +1,9 @@
 /***************************************************************************
                           TXTDEL.c  -  description
                              -------------------
-    Version		 : 0.1
-    begin                : Fre 12 dec	2003
-    modified		 :
+    Version		 : 0.2
+    begin                : Fre  12 dec	2003
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/TXTDEL.c,v 1.1 2003/12/12 08:39:33 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/TXTDEL.c,v 1.2 2005/02/24 11:52:55 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -75,7 +75,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
-		strncpy(databas,database,15);
+		strncpy(databas,database,sizeof(databas));		/* 2005-02-24	*/
 	}else{
   		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}
@@ -98,7 +98,7 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-  strncpy(textnr,argv[1],strlen(argv[1]));
+  strncpy(textnr,argv[1],sizeof(textnr));		/* 2005-02-24	*/
 
   strncat(temp5,temp1,strlen(temp1));
 /* DELETE FROM TEXTREG WHERE TEXTNR = "  */

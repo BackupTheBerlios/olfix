@@ -1,9 +1,9 @@
 /***************************************************************************
                           TXTADD.c  -  description
                              -------------------
-    Version		 : 0.1
-    begin                : Tors 11 dec 2003
-    modified		 :
+    Version		 : 0.2
+    begin                : Tors 11 dec  2003
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -24,7 +24,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/TXTADD.c,v 1.1 2003/12/11 12:30:44 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/TXTADD.c,v 1.2 2005/02/24 11:48:03 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -63,7 +63,7 @@ int main(int argc, char *argv[], char *envp[])
   for (i=0;i<argc;i++){
   	fprintf(stderr,"argc=%d, argv[%d]=%s\n",argc,i,argv[i]);
 	}
-*/	
+*/
 /* ================================================================================ */
 /* 		Val av databas, START						    */
 /* ================================================================================ */
@@ -77,7 +77,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
-		strncpy(databas,database,15);
+		strncpy(databas,database,sizeof(databas));	/* 2005-02-24	*/
 	}else{
   		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}
@@ -100,8 +100,8 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-  strncpy(textnr,argv[1],strlen(argv[1]));
-  strncpy(txt,argv[2],strlen(argv[2]));
+  strncpy(textnr,argv[1],sizeof(textnr));			/* 2005-02-24	*/
+  strncpy(txt,argv[2],sizeof(txt));				/* 2005-02-24	*/
 
 /*  fprintf(stderr,"argv1=%s argv2=%s\n",argv[1],argv[2]);	*/
 
