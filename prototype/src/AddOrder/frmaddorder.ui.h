@@ -12,7 +12,7 @@
                              -------------------
 		     version 0.3
     begin   	: Sö      12 okt    2003
-    Updated	: Mån  14 mars 2005
+    Updated	: Lör    14 mars 2005
     copyright	: (C) 2003 by Jan Pihlgren
     email     	: jan@pihlgren.se
  ***************************************************************************/
@@ -37,9 +37,13 @@
     QProcess* process;
     QString inrad;
     QString inrad2;
+    QString inrad3;    
+    QString inrad4;     
     QString* rad;
     QString errorrad;
     QString errorrad2;
+    QString errorrad3;
+    QString errorrad4;    
     QString hjelpfil;    
 
     QString orderdatum;
@@ -98,6 +102,7 @@
     QString momssumma;		/*  Total moms på ordern */
     QString fraktbelopp;
     QString fraktmomskr;
+    bool nykundflag=FALSE;
     
 void frmAddOrder::init()
 {
@@ -133,9 +138,19 @@ void frmAddOrder::init()
 
 void frmAddOrder::slotKundNr_returnPressed()
 {
+    long kunr;
+    bool ok;
     orderkundnr=lineEditOrderKundNr->text();
-    frmAddOrder::getKundData();
-    lineEditArtikelNr->setFocus();
+    kunr=orderkundnr.toLong(&ok,10);
+    if (kunr==0){		/* eller blank, =0 */
+	/* Hämta ett kundnr,FTGDATA-SKUNR(Senast använda kundnr 	*/
+	/* getSenasteKundnr()					*/
+	/* Fyll i kundnr 						*/
+	frmAddOrder::NyKund();
+    }else{
+	frmAddOrder::getKundData();
+	lineEditArtikelNr->setFocus();
+    }
 }
 
 void frmAddOrder::slotPickupKundnr( QListViewItem * item)
@@ -169,88 +184,153 @@ void frmAddOrder::slotKundNamn_returnPressed()
 }
 
 
-void frmAddOrder::slotOrderAdress_returnPressed()
+void frmAddOrder::lineEditKundAdress_returnPressed()
 {
     orderkundadress=lineEditKundAdress->text();
     lineEditKundPostnr->setFocus();
 }
 
-void frmAddOrder::slotOrderPostNr_returnPressed()
+void frmAddOrder::lineEditKundPostnr_returnPressed()
 {
     orderkundpostnr=lineEditKundPostnr->text();
     lineEditKundPostAdress->setFocus();
 }
 
-void frmAddOrder::slotOrderPostAdress_returnPressed()
+void frmAddOrder::lineEditKundPostAdress_returnPressed()
 {
     orderkundpostadr=lineEditKundPostAdress->text();
     lineEditKundLand->setFocus();
 }
 
-void frmAddOrder::slotOrderLand_returnPressed()
+void frmAddOrder::lineEditKundLand_returnPressed()
 {
     orderkundland=lineEditKundLand->text();
-    lineEditValuta->setFocus();
+    lineEditKundRef->setFocus();
 }
 
 void frmAddOrder::lineEditKundRef_returPressed()
 {
     orderkundref=lineEditKundRef->text();
     lineEditKundRef->setText(orderkundref);
-    lineEditArtikelNr->setFocus();
+    if ( nykundflag==TRUE){
+	lineEditKundLevAdress->setFocus();
+    }else{
+	lineEditArtikelNr->setFocus();
+    }
 }
 
 void frmAddOrder::lineEditKundLevAdress_returnPressed()
 {
     orderkundlevadress=lineEditKundLevAdress->text();
     lineEditKundLevAdress->setText(orderkundlevadress);
-    lineEditArtikelNr->setFocus();
+    if ( nykundflag==TRUE){
+	lineEditKundLevPostnr->setFocus();
+    }else{    
+	lineEditArtikelNr->setFocus();
+    }
 }
 
 void frmAddOrder::lineEditKundLevPostnr_returnPressed()
 {
     orderkundlevpostnr=lineEditKundLevPostnr->text();
     lineEditKundLevPostnr->setText(orderkundlevpostnr);
-    lineEditArtikelNr->setFocus();
-}
-
-void frmAddOrder::lineEditKundLevLand_return_pressed()
-{
-    orderkundlevland=lineEditKundLevLand->text();
-    lineEditKundLevLand->setText(orderkundlevland);
-    lineEditArtikelNr->setFocus();
+    if ( nykundflag==TRUE){
+	lineEditKundLevPostAdress->setFocus();
+    }else{    
+	lineEditArtikelNr->setFocus();
+    }
 }
 
 void frmAddOrder::lineEditKundLevPostAdress_returnPressed()
 {
     orderkundlevpostadr=lineEditKundLevPostAdress->text();
     lineEditKundLevPostAdress->setText(orderkundlevpostadr);
-    lineEditArtikelNr->setFocus();
+    if ( nykundflag==TRUE){
+	lineEditKundLevLand->setFocus();
+    }else{    
+	lineEditArtikelNr->setFocus();
+    }
 }
 
-void frmAddOrder::slotOrderValuta_returnPressed()
+void frmAddOrder::lineEditKundLevLand_return_pressed()
 {
-    ordervaluta=lineEditValuta->text();
-    lineEditBetvilk->setFocus();
-}	
-
-void frmAddOrder::slotOrderBetvilk_returnPressed()
-{
-    orderbetvillkor=lineEditBetvilk->text();
-    pushButtonOK->setFocus();
-}
-
-void frmAddOrder::lineEditLevvillkor_returnPressed()
-{
-    orderleveranstid=lineOrderLeveranstid->text();
-    lineEditArtikelNr->setFocus();
+    orderkundlevland=lineEditKundLevLand->text();
+    lineEditKundLevLand->setText(orderkundlevland);
+    if ( nykundflag==TRUE){
+	lineEditLevplats->setFocus();
+    }else{    
+	lineEditArtikelNr->setFocus();
+    }
 }
 
 void frmAddOrder::lineEditLevplats_returnPressed()
 {
     orderlevplats=lineEditLevplats->text();
     frmAddOrder::getStdLevplats( orderlevplats );
-    lineEditArtikelNr->setFocus();
+    if ( nykundflag==TRUE){
+	lineEditLevvillkor->setFocus();
+    }else{    
+	lineEditArtikelNr->setFocus();
+    }
+}
+
+void frmAddOrder::lineEditLevvillkor_returnPressed()
+{
+    orderleveranstid=lineOrderLeveranstid->text();
+    if ( nykundflag==TRUE){
+	lineEditBetvilk->setFocus();
+    }else{    
+	lineEditArtikelNr->setFocus();
+    }
+
+}
+
+void frmAddOrder::lineEditBetvilk_returnPressed()
+{
+    orderbetvillkor=lineEditBetvilk->text();
+    if ( nykundflag==TRUE){
+	lineEditValuta->setFocus();
+    }else{    
+	lineEditArtikelNr->setFocus();
+    }    
+}
+
+void frmAddOrder::lineEditValuta_returnPressed()
+{
+    ordervaluta=lineEditValuta->text();
+    if ( nykundflag==TRUE){
+	lineEditMomskod->setFocus();
+    }else{    
+	lineEditArtikelNr->setFocus();
+    }
+}	
+
+void frmAddOrder::lineEditMomskod_returnPressed()
+{
+    ordermoms=lineEditMomskod->text();
+    if ( nykundflag==TRUE){
+	QMessageBox mb( "ADDORDW",
+			"Vill du spara kunden som en ny kund?",
+			QMessageBox::NoIcon,
+			QMessageBox::Yes | QMessageBox::Default,
+			QMessageBox::No,0,0);
+	
+	mb.setButtonText( QMessageBox::Yes, "Ja" );
+	mb.setButtonText( QMessageBox::No, "Nej" );
+
+	if ( mb.exec() == QMessageBox::No ){
+//	    qDebug("Nej-svar");
+	    nykundflag=FALSE;
+	}
+	if ( mb.exec() == QMessageBox::Yes ){
+//	    qDebug("Ja-svar");
+	    createNyKund();
+	}
+	lineEditSeljare->setFocus();
+	
+    }else{    
+	lineEditArtikelNr->setFocus();
+    }    
 }
 
 void frmAddOrder::lineEditSeljare_returnPressed()
@@ -268,6 +348,11 @@ void frmAddOrder::lineOrderLeveranstid_returnPressed()
 void frmAddOrder::lineEditGodsmarke_returnPressed()
 {
     godsmarke=lineEditGodsmarke->text();
+    if ( nykundflag==TRUE){
+	/*  Visa godkännandeknapp/Avbryt-knapp */
+	/* funktion för att spara kunddata samt uppdatera kundnr, FTGDATA-SKUNR */
+	
+    }
     lineEditArtikelNr->setFocus();
 }
 
@@ -802,9 +887,9 @@ void frmAddOrder::slotKundDataEndOfProcess()
 	 int i10 = inrad.find( QRegExp("10:"), 0 );
 */	 int i11 = inrad.find( QRegExp("11:"), 0 );
 	 int i12 = inrad.find( QRegExp("12:"), 0 );
-/*	 int i13 = inrad.find( QRegExp("13:"), 0 );	*/
+/*	 int i13 = inrad.find( QRegExp("13:"), 0 );	
 	 int i14 = inrad.find( QRegExp("14:"), 0 );
-	 int i15 = inrad.find( QRegExp("15:"), 0 );	
+	 int i15 = inrad.find( QRegExp("15:"), 0 );	*/
 	 int i16 = inrad.find( QRegExp("16:"), 0 );
 	 int i17 = inrad.find( QRegExp("17:"), 0 );
 	 int i18 = inrad.find( QRegExp("18:"), 0 );
@@ -909,13 +994,13 @@ void frmAddOrder::slotKundDataEndOfProcess()
 	     errefemail=inrad.mid(i13+3,m-4);
 	     lineEditKundErRefEmail->setText(errefemail);
 	 }
-*/
+
  	 m=i15-i14;
 	 if (i14 != -1){
-	     seljare=inrad.mid(i14+3,m-4);
+	     seljare=inrad.mid(i14+3,m-4);							Säljare
 	     lineEditSeljare->setText(seljare);
 	 }
-/*
+
 	 m=i16-i15;
 	 if (i15 != -1){
 	    fritext=inrad.mid(i15+3,m-4);
@@ -1171,7 +1256,6 @@ void frmAddOrder::getMoms(QString momskod,QString typ)
                             "Kan inte starta STYRMAN/FTGDSP!\n"
                             );
         }
-
 }
 
 void frmAddOrder::slotgetMomsEndOfProcess()
@@ -1198,7 +1282,7 @@ void frmAddOrder::slotgetMomsEndOfProcess()
 	     if (orderdel == "H"){
 		 ordermoms=inrad.mid(i2+2,m-4);
 //		     qDebug("m=%d  moms=%s  i3=%d",m,ordermoms.latin1(), i3);
-		 lineEditMomskod->setText(ordermoms+"%");
+		 lineEditMomskod->setText(ordermoms);
 	     }else{
 		 radmoms = inrad.mid(i2+2,m-4);
 //		 qDebug("slotgetMomsEndOfProcess::radmoms=%s",radmoms.latin1());
@@ -1209,6 +1293,83 @@ void frmAddOrder::slotgetMomsEndOfProcess()
 	inrad="";
 	i = -1;
     }
+     frmAddOrder::getSeljare();
+}
+
+void frmAddOrder::getSeljare()
+{
+//    qDebug("getSeljare");
+    	const char *userp = getenv("USER");
+            QString usr(userp);
+	 inrad4="";   
+
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "USERDSP");	// OLFIX funktion
+	process->addArgument(usr);	// Senas använda kundordernummer
+
+	frmAddOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotgetUDataOnStdout() ) );
+	frmAddOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotgetUDataOnStderr() ) );
+	frmAddOrder::connect( process, SIGNAL(processExited() ),this, SLOT(slotgetUserEndOfProcess() ) );
+
+	if ( !process->start() ) {
+                // error handling
+	    QMessageBox::warning( this, "Start av USERDSP ",
+                            "Kan inte starta STYRMAN/USERDSP!\n"
+                            );
+        }
+}
+
+void frmAddOrder::slotgetUserEndOfProcess()
+{
+//    qDebug("slotgetUserEndOfProcess::Start");
+    int i,m;
+    i = -1;
+    i = errorrad4.find( QRegExp("Error:"), 0 );
+         if (i != -1) {
+	QMessageBox::critical( this, "ADDORDW",
+		"ERROR!\n"+errorrad4
+	);
+	errorrad4="";
+	i = -1;
+     }
+     i = -1;
+//     i = inrad4.find( QRegExp("OK:"), 0 );
+  //   if (i != -1) {
+	 int i1 = inrad4.find( QRegExp("1:"), 0 );
+	 int i2 = inrad4.find( QRegExp("2:"), 0 );	
+	 int i3 = inrad4.find( QRegExp("3:"), 0 );
+	 m=i2-i1;
+	 m=i3-i2;
+	 if (i2 != -1){
+	     seljare=inrad4.mid(i2+2,m-4);
+//	   qDebug("seljare=%s",seljare.latin1());
+		 lineEditSeljare->setText(seljare);
+	     }
+//     }
+     inrad4="";
+     errorrad4="";
+     i = -1;
+//     qDebug("slotgetUserEndOfProcess::Slut");
+}
+
+void frmAddOrder::slotgetUDataOnStdout()
+{
+     while (process->canReadLineStdout() ) {
+	QString line = process->readStdout();
+	inrad4.append(line);
+	inrad4.append("\n");
+    }   
+}
+
+void frmAddOrder::slotgetUDataOnStderr()
+{
+      while (process->canReadLineStderr() ) {
+	QString line = process->readStderr();
+	errorrad4.append(line);
+	errorrad4.append("\n");
+    }  
 }
 
 void frmAddOrder::listViewRader_format()
@@ -1641,7 +1802,7 @@ void frmAddOrder::createOrderrad(QString tmp0,QString tmp1,QString tmp2,QString 
     orderraddata.append(skilj);    
     orderraddata.append("END");	
 
-    qDebug("orderraddat=%s",orderraddata.latin1());
+//    qDebug("orderraddat=%s",orderraddata.latin1());
     frmAddOrder::AddOrderRad();
 }
 
@@ -1720,7 +1881,7 @@ void frmAddOrder::pushBtnHelp_clicked()
 	frmAddOrder::readResursFil();		// Hämta path till hjälpfilen
 	
 	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
-	int i2 = hjelpfil.length();
+//	int i2 = hjelpfil.length();
 	hjelpfil=hjelpfil.left(i1);
 	hjelpfil=hjelpfil+"_KUNDORDER.html";
 	hjelpfil=hjelpfil+"#FORSALJ1";		// Lägg till position
@@ -1767,4 +1928,174 @@ void frmAddOrder::readResursFil()
         }
     }
     f1.close();
+}
+
+/*============================================================*/
+/***				Ny kund    					***/
+/*============================================================*/
+
+void frmAddOrder::NyKund()
+{
+    /*---------------------------------------------------------------------------------------------------------*/
+    /*  Test om det ska registreras en ny kund, villkorstest: om blank, om 0
+	   förslag till funktionsnamn = createNyKund() , funktion KUADD kunddata
+          hoppa över getKundData 
+     */	  
+    /*---------------------------------------------------------------------------------------------------------*/
+
+    nykundflag=TRUE;
+    /* Radera fält och lineEdit från ev gamla data */
+    frmAddOrder::clearKundInfo();
+    /* hämta "nästa" kundnummer, acceptera data från fälten och registrera en ny kund*/
+    frmAddOrder::getSenasteKundnr();		/* samt addera ett till kundnr */
+    lineEditKundNamn->setFocus();
+//	frmAddOrder::getOrdernr();		/* hämta ordernr, när getSenasteKundnr() processen är klar */
+}
+
+void frmAddOrder::clearKundInfo()
+{
+     	     lineEditOrderKundNr->clear();
+//	     lineEditOrderNbr->clear();
+	     lineEditKundNamn->clear();
+	     lineEditKundAdress->clear();
+	     lineEditKundPostnr->clear();
+	     lineEditKundPostAdress->clear();
+	     lineEditKundLand->clear();
+/*	      ----------------				*/	     
+	     lineEditKundRef->clear();
+	     lineEditKundLevAdress->clear();
+	     lineEditKundLevPostnr->clear();
+	     lineEditKundLevPostAdress->clear();
+	     lineEditKundLevLand->clear();
+	     lineEditLevplats->clear();
+	     lineEditLevvillkor->clear();
+	     lineEditBetvilk->clear();
+	     lineEditValuta->clear();
+	     lineEditMomskod->clear();
+/*	    -----------------				*/	     
+	     lineEditOrderSumma->clear();
+	     lineEditOrderFrakt->setEnabled("TRUE");
+	     lineEditOrderFrakt->clear();
+	     lineEditOrderMomsKr->clear();
+	     lineEditOrderTotal->clear();
+/*	    -----------------				*/	     
+	     ordernr="0";
+	     orderkundnr="";
+	     orderkundnamn="";
+	     orderkundadress="";
+	     orderkundpostnr="";
+	     orderkundpostadr="";
+	     orderkundland="";
+ 
+	     orderkundref="";
+	     orderkundlevadress="";
+	     orderkundlevpostnr="";
+	     orderkundlevpostadr="";
+	     orderkundlevland="";
+    
+	     ordertfnnr="";
+	     orderfaxnr="";
+	    ordertelexnr="";
+	    orderemail="";
+	    orderref="";
+	    orderreftfnnr="";
+	    ordermomskod="";
+	    ordermoms="25";
+	    orderkontonr="";
+	    orderpgnr="";
+	    orderbgnr="";
+	    seljare="";
+	    godsmarke="";
+	    orderleveranstid="";
+	    ordervaluta="SEK";
+	    orderbetvillkor="001";
+	    orderlevvillkor="001";
+	    orderlevplats="000";
+	    orderhuvuddata="";       
+}
+
+void frmAddOrder::getSenasteKundnr()
+{
+	const char *userp = getenv("USER");
+            QString usr(userp);
+	inrad3="";   
+
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "FTGDSP");	// OLFIX funktion
+	process->addArgument("SKUNR");		// Senast använda kundordernummer
+
+	frmAddOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotgetSKDataOnStdout() ) );
+	frmAddOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotgetSKDataOnStderr() ) );
+	frmAddOrder::connect( process, SIGNAL(processExited() ),this, SLOT(getSenasteKundnrEndOfProcess() ) );
+
+	if ( !process->start() ) {
+                // error handling
+	    QMessageBox::warning( this, "Start av FTGDSP ",
+                            "Kan inte starta STYRMAN/FTGDSP!\n"
+                            );
+        }
+}
+
+void frmAddOrder::getSenasteKundnrEndOfProcess()
+{
+//    qDebug("getSenasteKundnrEndOfProcess::Start");
+    long kunr;
+    int i,m;
+    i = -1;
+//    qDebug("getSenasteKundnrEndOfProcess::inrad3=%s  errorrad3=%s",inrad3.latin1(),errorrad3.latin1());
+    i = errorrad3.find( QRegExp("Error:"), 0 );
+         if (i != -1) {
+	QMessageBox::critical( this, "ADDORDW",
+		"ERROR!\n"+errorrad3
+	);
+	errorrad3="";
+	i = -1;
+     }
+     i = -1;
+     i = inrad3.find( QRegExp("OK:"), 0 );
+     if (i != -1) {
+	 int i1 = inrad3.find( QRegExp("1:SKUNR"), 0 );
+	 int i2 = inrad3.find( QRegExp("2:"), 0 );	
+	 int i3 = inrad3.length();
+	 m=i2-i1;
+	 m=i3-i2;
+	 if (i2 != -1){
+	     orderkundnr=inrad3.mid(i2+2,m-4);
+//	     qDebug("orderkundnr=%s",orderkundnr.latin1());
+	     kunr=orderkundnr.toLong();
+	     kunr=kunr+1;
+	     orderkundnr=orderkundnr.setNum(kunr);
+//	     qDebug("orderkundnr=%s",orderkundnr.latin1());
+	     lineEditOrderKundNr->setText(orderkundnr);
+	 }
+	inrad3="";
+	errorrad3="";
+    }
+//     qDebug("getSenasteKundnrEndOfProcess::Slut");
+     frmAddOrder::getOrdernr();
+}
+
+void frmAddOrder::slotgetSKDataOnStdout()
+{
+     while (process->canReadLineStdout() ) {
+	QString line = process->readStdout();
+	inrad3.append(line);
+	inrad3.append("\n");
+    }   
+}
+
+void frmAddOrder::slotgetSKDataOnStderr()
+{
+      while (process->canReadLineStderr() ) {
+	QString line = process->readStderr();
+	errorrad3.append(line);
+	errorrad3.append("\n");
+    }  
+}
+
+void frmAddOrder::createNyKund()
+{
+    qDebug("createNyKund");
 }
