@@ -1,8 +1,8 @@
 /****************************************************************/
 /**		RESRPTW					*/
-/**		Ver 0.1                                                                                    */
-/**		Created    2005-01-11				*/
-/**		Modified: 					*/
+/**		Ver 0.1.1                                                                                  */
+/**		Created:    2005-01-11				*/
+/**		Modified: 2005-01-27				*/
 /**   Copyright	Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -60,6 +60,8 @@ void frmResultatrapport::init()
                                     /*  J = Gör en Kspreadrapport  				*/
     delsumflag="1";	/* På vilken nivå ska delsummor göras. Default = nivå 1  	*/
     
+    buttonGroup2->hide();
+    textLabel1_2->hide();
     QDateTime dt = QDateTime::currentDateTime();
     datum=dt.toString("yyyy-MM-dd");
     textLabelDatum->setText(datum);
@@ -67,6 +69,7 @@ void frmResultatrapport::init()
     frmResultatrapport::GetReportDir();
     frmResultatrapport::GetTmpDir();
     frmResultatrapport::getFortetagsnamn();
+    frmResultatrapport::lineEditBar->setFocus();
 }
 
 void frmResultatrapport::slotlineEditBar_returnPressed()
@@ -236,7 +239,7 @@ void frmResultatrapport::slotEndOfProcess()
 	    ant=antal.toInt();		/* Antal verifikationsrader	*/
 //	    qDebug("slotEndOfProcess() 2 ::antal=%s ant=%d",antal.latin1(),ant);	    
 	    ktotemp="";	 
-	    for (n=0;n<=ant+1;n++){
+	    for (n=1;n<=ant+1;n++){
 		i = j;
 		 j = inrad.find(QRegExp("_:"),i+2);
 		 m = j - (i+2);
@@ -258,10 +261,11 @@ void frmResultatrapport::slotEndOfProcess()
 		 j = inrad.find(QRegExp("_:"),i+2);
 		 m = j - (i+2);
 		 vernr = inrad.mid(i+2,m);
-		 
-//		 qDebug("ktonr=%s, ktotemp=%s, rubrik=%s, klassflag=%d, klasstemp=%d",ktonr.latin1(),ktotemp.latin1(),rubrik.latin1(),klassflag,klasstemp); 
+//		 qDebug("n=%d ktonr=%s",n,ktonr.latin1());
+//	qDebug("Debug nr 1: ktonr=%s, ktotemp=%s, rubrik=%s, klassflag=%d, klasstemp=%d",ktonr.latin1(),ktotemp.latin1(),rubrik.latin1(),klassflag,klasstemp); 
 //		 qDebug("ktonr.mid(0,1)=%s",ktonr.mid(0,1).latin1());
-		 if ((ktonr.mid(0,1).toInt()>2) &&(ktonr != ktotemp)){
+		 if ((ktonr.mid(0,1).toInt()>2) && (ktonr != ktotemp) || (ktonr.find(QRegExp("END"),0) != -1)) {
+//		     qDebug("kontonr=%s",ktonr.latin1());
 		     debetsum.setNum(debet,'f',2);
 		     kreditsum.setNum(kredit,'f',2);
 		     utgsaldo.setNum(usaldo,'f',2);
@@ -282,7 +286,7 @@ void frmResultatrapport::slotEndOfProcess()
 			     stream << rapportrad;
 			 }
 		     }else{		 		// Skapa rapportrad för Kugar
-			 qDebug("ktonr=%s, ktotemp=%s, klassflag=%d, klasstemp=%d",ktonr.latin1(),ktotemp.latin1(),klassflag,klasstemp);
+//			 qDebug("ktonr=%s, ktotemp=%s, klassflag=%d, klasstemp=%d",ktonr.latin1(),ktotemp.latin1(),klassflag,klasstemp);
 			 if (ktotemp==""){
 			     rapportrad="<Rubrik1 level=\"1\" ";
 			     rapportrad.append("klass1=\"");
@@ -366,7 +370,14 @@ void frmResultatrapport::slotEndOfProcess()
 			     klassflag=7800;
 			 }
 			 
-			 if (ktotemp.mid(0,1).toInt() < 8  && ktotemp.mid(0,1).toInt() == 8 && klassflag != 8000){
+//qDebug("Debug nr 2: ktotemp=%s, ktonr=%s, rubrik=%s, klassflag=%d, klasstemp=%d n=%d",ktotemp.latin1(),ktonr.latin1(),rubrik.latin1(),klassflag,klasstemp,n); 		
+//			 if ((ktonr.mid(0,1).toInt() > 6) || (ktonr=="END")){
+/*                                     if (ktonr.find(QRegExp("END"),0)>=0) {
+			     qDebug("ktotemp=%s, ktonr=%s, klasstemp=%d, ant=%d, n=%d",ktotemp.latin1(),ktonr.latin1(),klasstemp,ant,n);
+			 }
+*/			 
+			 if ((ktotemp.mid(0,2).toInt() >= 80 && klassflag != 8000) || ktonr == "END" ) {
+//			     qDebug("Finansiella inkomster och utgifter. n=%d",n);
 			     rubrik="Finansiella inkomster och utgifter";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");

@@ -133,122 +133,6 @@
             <bool>true</bool>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditBar</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>95</x>
-                <y>50</y>
-                <width>45</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Ange bokföringsår med 2 bokstäver</string>
-        </property>
-    </widget>
-    <widget class="QButtonGroup">
-        <property name="name">
-            <cstring>buttonGroup2</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>240</x>
-                <y>45</y>
-                <width>106</width>
-                <height>90</height>
-            </rect>
-        </property>
-        <property name="title">
-            <string></string>
-        </property>
-        <widget class="QRadioButton">
-            <property name="name">
-                <cstring>radioButtonKto1</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>10</x>
-                    <y>10</y>
-                    <width>80</width>
-                    <height>15</height>
-                </rect>
-            </property>
-            <property name="text">
-                <string>Kto 1xxx</string>
-            </property>
-            <property name="checked">
-                <bool>true</bool>
-            </property>
-        </widget>
-        <widget class="QRadioButton">
-            <property name="name">
-                <cstring>radioButtonKto2</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>10</x>
-                    <y>30</y>
-                    <width>80</width>
-                    <height>15</height>
-                </rect>
-            </property>
-            <property name="text">
-                <string>Kto 12xx</string>
-            </property>
-        </widget>
-        <widget class="QRadioButton">
-            <property name="name">
-                <cstring>radioButtonKto3</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>10</x>
-                    <y>50</y>
-                    <width>80</width>
-                    <height>15</height>
-                </rect>
-            </property>
-            <property name="text">
-                <string>Kto 123x</string>
-            </property>
-        </widget>
-        <widget class="QRadioButton">
-            <property name="name">
-                <cstring>radioButtonKto4</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>10</x>
-                    <y>70</y>
-                    <width>80</width>
-                    <height>15</height>
-                </rect>
-            </property>
-            <property name="text">
-                <string>Kto 1234</string>
-            </property>
-        </widget>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel1_2</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>239</x>
-                <y>10</y>
-                <width>105</width>
-                <height>33</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Delsummering
-på nivå..</string>
-        </property>
-    </widget>
     <widget class="QButtonGroup">
         <property name="name">
             <cstring>buttonGroup1</cstring>
@@ -363,6 +247,128 @@ på nivå..</string>
         <property name="text">
             <string>Resultatrapport</string>
         </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditBar</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>95</x>
+                <y>50</y>
+                <width>45</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Ange bokföringsår med 2 bokstäver</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_2</cstring>
+        </property>
+        <property name="enabled">
+            <bool>true</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>239</x>
+                <y>10</y>
+                <width>105</width>
+                <height>33</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Delsummering
+på nivå..</string>
+        </property>
+    </widget>
+    <widget class="QButtonGroup">
+        <property name="name">
+            <cstring>buttonGroup2</cstring>
+        </property>
+        <property name="enabled">
+            <bool>true</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>240</x>
+                <y>45</y>
+                <width>106</width>
+                <height>90</height>
+            </rect>
+        </property>
+        <property name="title">
+            <string></string>
+        </property>
+        <widget class="QRadioButton">
+            <property name="name">
+                <cstring>radioButtonKto1</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>10</x>
+                    <y>10</y>
+                    <width>80</width>
+                    <height>15</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>Kto 1xxx</string>
+            </property>
+            <property name="checked">
+                <bool>true</bool>
+            </property>
+        </widget>
+        <widget class="QRadioButton">
+            <property name="name">
+                <cstring>radioButtonKto4</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>10</x>
+                    <y>70</y>
+                    <width>80</width>
+                    <height>15</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>Kto 1234</string>
+            </property>
+        </widget>
+        <widget class="QRadioButton">
+            <property name="name">
+                <cstring>radioButtonKto2</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>10</x>
+                    <y>30</y>
+                    <width>80</width>
+                    <height>15</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>Kto 12xx</string>
+            </property>
+        </widget>
+        <widget class="QRadioButton">
+            <property name="name">
+                <cstring>radioButtonKto3</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>10</x>
+                    <y>50</y>
+                    <width>80</width>
+                    <height>15</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>Kto 123x</string>
+            </property>
+        </widget>
     </widget>
 </widget>
 <connections>
