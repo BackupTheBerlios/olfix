@@ -1,13 +1,13 @@
 /***************************************************************************
                           OLFIX.c  -  description
                              -------------------
-    Version		 : 0.5
-    begin                : Tors 29 maj 2003
-    modified		 : Fre   7 nov 2003
+    Version		 : 0.6
+    begin                : Tors 29 maj  2003
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
-/* fgets har ersatt getrad(s,lim)	20030530 /yann	*/
+/* fgets har ersatt getrad(s,lim)	20030530 /yann			   */
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -17,7 +17,7 @@
  *                                                                         *
  *********************************************** ****************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/OLFIX.c,v 1.4 2003/11/07 06:54:36 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/OLFIX.c,v 1.5 2005/02/24 08:53:04 janpihlgren Exp $ " ;
 
 #include <stdio.h>
 #include <string.h>
@@ -57,7 +57,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
-		strncpy(databas,database,15);
+		strncpy(databas,database,sizeof(databas));	/* 2005-02-24	*/
 	}else{
   		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}
