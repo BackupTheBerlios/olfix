@@ -9,3 +9,4 @@ INCLUDEPATH += .
 HEADERS += frmaddbest.ui.h
 INTERFACES += frmaddbest.ui
 SOURCES += main.cpp
+TARGET   = $(OLFIXBIN)/ADDINKW
