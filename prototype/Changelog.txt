@@ -1,13 +1,13 @@
-Changelog OLFIX 20050213
+Changelog OLFIX 20050224
 
 Blivande:
 Ver 0.2.1.B
-20050213
+20050224
 		Nya funktioner
 		ARLSPK.c	Lista artiklar per angiven produktklass
 
 		Ändrade funktioner
-		Makefile	Ny funktion
+		Makefile	Ny funktion (ARLSPK.c)
 
 		Nya program
 		RPTSIEW	(Påbörjad) Export av bokföring.
@@ -15,11 +15,117 @@ Ver 0.2.1.B
 		Ändrade program
 		ADDORDW	(Ej klar. 20050209)	Kundorderregistrering.
 		LSTARW	Buggrättning
-
+		ARADD.c		Buggrättning
+		ARCHG.c		Buggrättning
+		ARCHK.c		Buggrättning
+		ARDSP.c		Buggrättning
+		ARLSPK.c	Buggrättning
+		ARCHGL.c	Buggrättning
+		ARLST.c		Buggrättning
+		ARLSTL.c	Buggrättning
+		ATTBET.c	Buggrättning
+		BARADD.c	Buggrättning
+		BARDSP.c	Buggrättning
+		BARCHK.c	Buggrättning
+		BARCHG.c	Buggrättning
+		BARFND.c	Buggrättning
+		BETADD.c	Buggrättning
+		BETCHG.c	Buggrättning
+		BETDSP.c	Buggrättning
+		BETLST.c	Buggrättning
+		DBOKRPT.c	Buggrättning
+		FORADD.c	Buggrättning
+		FORCHK.c	Buggrättning
+		FORLST.c	Buggrättning
+		FTGADD.c	Buggrättning
+		FTGADM.c	Buggrättning
+		FTGDSP.c	Buggrättning
+		FTGLIS.c	Buggrättning
+		FTGLST.c	Buggrättning
+		FTGUPD.c	Buggrättning
+		HBOKRPT.c	Buggrättning
+		INKADD.c	Buggrättning
+		INKHDSP.c	Buggrättning
+		INKLST.c	Buggrättning
+		INKRADD.c	Buggrättning
+		INKRLST.c	Buggrättning
+		KSTADD.c	Buggrättning
+		KSTCHK.c	Buggrättning
+		KSTDSP.c	Buggrättning
+		KSTLST.c	Buggrättning
+		KTOADD.c	Buggrättning
+		KTOCHG.c	Buggrättning
+		KTOCHK.c	Buggrättning
+		KTODSP.c	Buggrättning
+		KTOLST.c	Buggrättning
+		KTORPT.c	Buggrättning
+		KTOVIEW.c	Buggrättning
+		KTOUPD		Obsolet,  (binär borttagen)
+		KUADD.c		Buggrättning
+		KUCHG.c		Buggrättning
+		KUCHK.c		Buggrättning
+		KUDSP.c		Buggrättning
+		KULST.c		Buggrättning
+		LEVADD.c	Buggrättning
+		LEVCHG.c	Buggrättning
+		LEVDSP.c	Buggrättning
+		LEVLST.c	Buggrättning
+		LEVPLST.c	Buggrättning
+		LEVSADD.c	Buggrättning
+		LEVSDSP.c	Buggrättning
+		LEVSLST.c	Buggrättning
+		LEVVADD.c	Buggrättning
+		LEVVDSP.c	Buggrättning
+		LEVVLST.c	Buggrättning
+		LRESADD.c	Buggrättning
+		LRESRPT.c	Buggrättning
+		OLFIX.c		Buggrättning
+		PKDADD.c	Buggrättning
+		PKDLST.c	Buggrättning
+		PRGLST.c	Buggrättning
+		PRTAPI.c	Buggrättning
+		RGTADD.c	Buggrättning
+		RGTCHK.c	Buggrättning
+		RGTDEL.c	Buggrättning
+		RGTDSP.c	Buggrättning
+		RGTLST.c	Buggrättning
+		RPTCRE.c	Buggrättning
+		SIEEXP.c	Buggrättning
+		SLPADD.c	Buggrättning
+		STYRMAN.c	Buggrättning
+		TRHDADD.c	Buggrättning
+		TRNSADD.c	Buggrättning
+		TRNSLST.c	Buggrättning
+		TXTADD.c	Buggrättning
+		TXTDEL.c	Buggrättning
+		TXTDSP.c	Buggrättning
+		USERADD.c	Buggrättning
+		USERCHG.c	Buggrättning
+		USERDEL.c	Buggrättning
+		USERDSP.c	Buggrättning
+		USERLST.c	Buggrättning
+		VALADD.c	Buggrättning
+		VALCHG.c	Buggrättning
+		VALDEL.c	Buggrättning
+		VALDSP.c	Buggrättning
+		VALLST.c	Buggrättning
+		VERHDSP.c	Buggrättning
+		VERHLST.c	Buggrättning
+		VERUPD.c	Buggrättning
+		WKUDSP.c	Buggrättning
+		WRREC.c		Buggrättning
 		Nya tabeller
+
 		Ändrade tabeller
+		ARTIKELREG
+			ARBENEMNING1, ARBENEMNING2,ARURBENEMNING utökat till VARCHAR(60)
+
 		Ny sql
+
 		Ändrade sql
+		CreateTableARTIKELREG.sql
+			ARBENEMNING1, ARBENEMNING2,ARURBENEMNING utökat till VARCHAR(60)
+
 		Nya rapporter
 		Ändrade rapporter
 
@@ -34,7 +140,7 @@ Ver 0.2.1.B
 			vallst.sh
 
 		Dokumentation
-			Teknisk Manual	Uppdaterad (2005-??-??)
+			Teknisk Manual	Uppdaterad (2005-02-14)
 			UserManual	Uppdaterad (2005-??-??)
 			Installationsanvisningar.txt (2005-02-09)
 			Installationsanvisningar.sxw (2005-02-09)
