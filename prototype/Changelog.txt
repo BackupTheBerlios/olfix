@@ -1,12 +1,14 @@
-Changelog OLFIX 20041106
+Changelog OLFIX 20041108
 Blivande
 Ver 0.1.16.A
-20041106
+20041108
 
 		Allmänt
 		Flyttat OLFIX-paketet till /opt/olfix
 
 		Nya program
+		LSTLEVPW	Lista standardleveransplatser
+
 		Ändrade program
 		OLFIXW	Skapande av $HOME/.olfixrc första gången programmet körs.
 			Använder sig av /opt/olfix/script/.olfixrc
@@ -14,7 +16,12 @@ Ver 0.1.16.A
 			Ny sökväg till hjälpfilen
 
 		Nya funktioner
+			LEVPLST.c	Lista standardleveransplatser
+
 		Ändrade funktioner
+		Nya sql
+			CreateTable_olfixtstRIGHTS_ADMIN.sql
+
 		Nya rapporter
 		Ändrade rapporter
 		Ändrade data
