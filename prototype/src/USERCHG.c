@@ -1,9 +1,9 @@
 /***************************************************************************
                           USERCHG.c  -  description
                              -------------------
-    Version		 : 0.3
-    begin                : tis 21 jan  2003
-    modified		 : Mån 10 nov 2003
+    Version		 : 0.4
+    begin                : tis  21 jan  2003
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/USERCHG.c,v 1.2 2003/11/10 05:18:16 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/USERCHG.c,v 1.3 2005/02/24 12:04:21 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -82,7 +82,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
-		strncpy(databas,database,15);
+		strncpy(databas,database,sizeof(databas));		/* 2005-02-24	*/
 	}else{
   		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}
@@ -105,10 +105,10 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-  strncpy(userid,argv[1],strlen(argv[1]));
-  strncpy(namn,argv[2],strlen(argv[2]));
-  strncpy(avd,argv[3],strlen(argv[3]));
-  strncpy(grupp,argv[4],strlen(argv[4]));
+  strncpy(userid,argv[1],sizeof(userid));			/* 2005-02-24	*/
+  strncpy(namn,argv[2],sizeof(namn));				/* 2005-02-24	*/
+  strncpy(avd,argv[3],sizeof(avd));				/* 2005-02-24	*/
+  strncpy(grupp,argv[4],sizeof(grupp));				/* 2005-02-24	*/
 
   strncpy(temp5,temp1a,strlen(temp1a));
 /* UPDATE USR SET NAMN =   */
