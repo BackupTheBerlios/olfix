@@ -62,7 +62,7 @@
 "062","Inköp","Beställningar","Beställningsstock","LSTINKW"
 "063","Inköp","Beställningar","Skriv ut beställning","PRTINKW"
 "064","Inköp","Beställningar","(Avprickning följesedel)","UPDINKW"
-"065","Försäljning","Kundorder","(Registrera kundorder)","ADDORDW"
+"065","Försäljning","Kundorder","Registrera kundorder","ADDORDW"
 "066","Försäljning","Kundorder","(Ändra kundorder)","CHGORDW"
 "067","Försäljning","Kundorder","(Makulera kundorder)","DELORDW"
 "068","Försäljning","Kundorder","(Visa kundorder)","DSPORDW"
