@@ -1,9 +1,9 @@
 /***************************************************************************
                           LEVADD.c  -  description
                              -------------------
-    Version		 : 0.3
-    begin                : Mån 30 juni 2003
-    modified		 : Tors 6 nov 2003
+    Version		 : 0.4
+    begin                : Mån  30 juni 2003
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -26,7 +26,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVADD.c,v 1.2 2003/11/06 06:33:40 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVADD.c,v 1.3 2005/02/24 06:47:01 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -125,32 +125,32 @@ int main(int argc, char *argv[], char *envp[])
 
 
   if (argv[1] != NULL){
-  	strncpy(levnr,argv[1],strlen(argv[1]));
+  	strncpy(levnr,argv[1],sizeof(levnr));			/* 2005-02-24	*/
   }
   else{
   	fprintf(stderr,"Error: LEVADD: Ange kundnummer!\n");
 	exit(-1);
   }
 
-  strncpy(levorgnr,argv[2],strlen(argv[2]));
-  strncpy(levnamn,argv[3],strlen(argv[3]));
-  strncpy(levadr,argv[4],strlen(argv[4]));
-  strncpy(levpostnr,argv[5],strlen(argv[5]));
-  strncpy(levpostadr,argv[6],strlen(argv[6]));
-  strncpy(levland,argv[7],strlen(argv[7]));
-  strncpy(levtfnnr,argv[8],strlen(argv[8]));
-  strncpy(levfaxnr,argv[9],strlen(argv[9]));
-  strncpy(levtelex,argv[10],strlen(argv[10]));
-  strncpy(levemail,argv[11],strlen(argv[11]));
-  strncpy(levpostgironr,argv[12],strlen(argv[12]));
-  strncpy(levbankgironr,argv[13],strlen(argv[13]));
-  strncpy(levref,argv[14],strlen(argv[14]));
-  strncpy(levreftfn,argv[15],strlen(argv[15]));
-  strncpy(levmomskod,argv[16],strlen(argv[16]));
-  strncpy(levkonto,argv[17],strlen(argv[17]));
-  strncpy(levkundnr,argv[18],strlen(argv[18]));
-  strncpy(levvaluta,argv[19],strlen(argv[19]));
-  strncpy(betalvilkor,argv[20],strlen(argv[20]));
+  strncpy(levorgnr,argv[2],sizeof(levorgnr));			/* 2005-02-24	*/
+  strncpy(levnamn,argv[3],sizeof(levnamn));			/* 2005-02-24	*/
+  strncpy(levadr,argv[4],sizeof(levadr));			/* 2005-02-24	*/
+  strncpy(levpostnr,argv[5],sizeof(levpostnr));			/* 2005-02-24	*/
+  strncpy(levpostadr,argv[6],sizeof(levpostadr));		/* 2005-02-24	*/
+  strncpy(levland,argv[7],sizeof(levland));			/* 2005-02-24	*/
+  strncpy(levtfnnr,argv[8],sizeof(levtfnnr));			/* 2005-02-24	*/
+  strncpy(levfaxnr,argv[9],sizeof(levfaxnr));			/* 2005-02-24	*/
+  strncpy(levtelex,argv[10],sizeof(levtelex));			/* 2005-02-24	*/
+  strncpy(levemail,argv[11],sizeof(levemail));			/* 2005-02-24	*/
+  strncpy(levpostgironr,argv[12],sizeof(levpostgironr));	/* 2005-02-24	*/
+  strncpy(levbankgironr,argv[13],sizeof(levbankgironr));	/* 2005-02-24	*/
+  strncpy(levref,argv[14],sizeof(levref));			/* 2005-02-24	*/
+  strncpy(levreftfn,argv[15],sizeof(levreftfn));		/* 2005-02-24	*/
+  strncpy(levmomskod,argv[16],sizeof(levmomskod));		/* 2005-02-24	*/
+  strncpy(levkonto,argv[17],sizeof(levkonto));			/* 2005-02-24	*/
+  strncpy(levkundnr,argv[18],sizeof(levkundnr));		/* 2005-02-24	*/
+  strncpy(levvaluta,argv[19],sizeof(levvaluta));		/* 2005-02-24	*/
+  strncpy(betalvilkor,argv[20],sizeof(betalvilkor));		/* 2005-02-24	*/
   strncpy(temp5,temp1a,strlen(temp1a));
   strncat(temp5,temp2,strlen(temp2));
   strncat(temp5,levnr,strlen(levnr));
