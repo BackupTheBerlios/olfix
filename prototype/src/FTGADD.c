@@ -1,9 +1,9 @@
 /***************************************************************************
                           FTGADD.c  -  description
                              -------------------
-    Version		 : 0.2
-    begin                : Ons 16 april
-    modified		 : Sön 2 nov 2003
+    Version		 : 0.3
+    begin                : Ons 16 april 2003
+    modified		 : Ons 23 febr  2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -29,7 +29,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FTGADD.c,v 1.2 2003/11/02 13:47:30 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FTGADD.c,v 1.3 2005/02/23 14:54:40 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -109,9 +109,9 @@ int main(int argc, char *argv[], char *envp[])
 /* ================================================================================ */
    status=-15;
 
-   strncpy(ptyp,argv[1],strlen(argv[1]));
-   strncpy(beskr,argv[2],strlen(argv[2]));
-   strncpy(txt,argv[3],strlen(argv[3]));
+   strncpy(ptyp,argv[1],sizeof(ptyp));		/* 2005-02-23	*/
+   strncpy(beskr,argv[2],sizeof(beskr));	/* 2005-02-23	*/
+   strncpy(txt,argv[3],sizeof(txt));		/* 2005-02-23	*/
 
 /*    fprintf(stderr,"FTGADD: argv1 = %s argv3 = %s len text=%d\n",ptyp,txt,strlen(txt));	*/
 /*    fprintf(stderr,"FTGADD: argv2 = %s\n",beskr);	*/
