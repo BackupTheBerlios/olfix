@@ -1,5 +1,4 @@
 PATH=/opt/olfix/bin/
-#PATH=/home/jan/Utveckling/OLFIX/bin/
 HOST=localhost
 DATABASE=olfixtst
 HELPFILE=/doc/helpfiles/usermanual/UserManual.html
