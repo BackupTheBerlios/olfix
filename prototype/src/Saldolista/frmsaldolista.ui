@@ -56,22 +56,6 @@
     </widget>
     <widget class="QLabel">
         <property name="name">
-            <cstring>textLabelDatum</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>60</x>
-                <y>30</y>
-                <width>80</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>2003-08-01</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
             <cstring>textLabel4</cstring>
         </property>
         <property name="geometry">
@@ -189,28 +173,6 @@
         </widget>
         <widget class="QRadioButton">
             <property name="name">
-                <cstring>radioButtonCSV</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>110</x>
-                    <y>10</y>
-                    <width>16</width>
-                    <height>16</height>
-                </rect>
-            </property>
-            <property name="text">
-                <string>radioButtonCSV</string>
-            </property>
-            <property name="checked">
-                <bool>true</bool>
-            </property>
-            <property name="toolTip" stdset="0">
-                <string>Skapar en rapport i kommaseparerat format och startar Kspread</string>
-            </property>
-        </widget>
-        <widget class="QRadioButton">
-            <property name="name">
                 <cstring>radioButtonPrint</cstring>
             </property>
             <property name="geometry">
@@ -225,10 +187,32 @@
                 <string>radioButtonPrint</string>
             </property>
             <property name="checked">
-                <bool>false</bool>
+                <bool>true</bool>
             </property>
             <property name="toolTip" stdset="0">
                 <string>Skapar en rapport för Kugar</string>
+            </property>
+        </widget>
+        <widget class="QRadioButton">
+            <property name="name">
+                <cstring>radioButtonCSV</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>110</x>
+                    <y>10</y>
+                    <width>16</width>
+                    <height>16</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>radioButtonCSV</string>
+            </property>
+            <property name="checked">
+                <bool>false</bool>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Skapar en rapport i kommaseparerat format och startar Kspread</string>
             </property>
         </widget>
     </widget>
@@ -262,6 +246,22 @@
         </property>
         <property name="text">
             <string>Skapar en rapport  med Kugar färdig att skriva ut.</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabelDatum</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>60</x>
+                <y>30</y>
+                <width>80</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>2003-08-01</string>
         </property>
     </widget>
 </widget>
@@ -316,6 +316,11 @@
     <slot>slotEndOfProcess()</slot>
     <slot>slotCreateHeader()</slot>
     <slot>slotFileRemove( QString filnamn )</slot>
+    <slot>KugarVersion()</slot>
+    <slot>GetReportDir()</slot>
+    <slot>CallKugar()</slot>
+    <slot>getFortetagsnamn()</slot>
+    <slot>slotFtgnamnEndOfProcess()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>

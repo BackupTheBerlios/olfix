@@ -1,8 +1,8 @@
 /****************************************************************/
 /**		SDOLISW					*/
-/**		Ver 0.3                                                                                    */
-/**		2003-08-21					*/
-/**		Modified 2004-02-08				*/
+/**		Ver 0.4                                                                                    */
+/**		Created    2003-08-21				*/
+/**		Modified 2004-03-14				*/
 /**   Copyright	Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -29,6 +29,7 @@
 #include <qstring.h>
 #include <qfile.h>
 #include <qregexp.h>
+#include <qdatetime.h>
 #define VERSION "0.1"
 #define MAXSTRING 5000
 
@@ -37,6 +38,8 @@
     QString errorrad;
     QString bar;		// Bokföringsår
     QString csvflag;
+    QString datum;
+    QString ftgnamn;
 
     QString reportpath;
     QString kugarversion;
@@ -44,9 +47,17 @@
     
 void frmSaldolista::init()
 {
-    csvflag="J";
+    csvflag="N";		/*  Ska det vara en kommaseparerad rapport för Kspread. N=Nej 	*/
+			/*  N = Gör en Kugarrapport 					*/
+                                    /*  J = Gör en Kspreadrapport  				*/
+    
+    QDateTime dt = QDateTime::currentDateTime();
+//    dag= QDate::currentDate().dayOfWeek();
+    datum=dt.toString("yyyy-MM-dd");
+    textLabelDatum->setText(datum);
     frmSaldolista::KugarVersion();
     frmSaldolista::GetReportDir();
+    frmSaldolista::getFortetagsnamn();
 }
 
 void frmSaldolista::slotlineEditBar_returnPressed()
@@ -149,16 +160,25 @@ void frmSaldolista::slotEndOfProcess()
     QString ktotemp;
     QString ktonamntemp;
 
+//	Summa per konto    
     QString debetsum;		// Summa Debet
     QString kreditsum;		// Summa Kredit
     QString utgsaldo;		// Utgående saldo
-    QString fil;
-    QString rapportrad;
-    
     double debet=0;
     double kredit=0;
     double usaldo=0;
     
+//	Summa per kontoklass    
+    QString delsumdebet;
+    QString delsumkredit;
+    QString delsumutgsaldo;
+    double deldebet=0;
+    double delkredit=0;
+    double delusaldo=0;
+    
+    QString fil;
+    QString rapportrad;
+        
     if (csvflag == "J"){
 	fil="/tmp/Saldolista.txt";
 //	slotFileRemove("Saldolista.txt");		// tag bort gammal datafil
@@ -208,12 +228,11 @@ void frmSaldolista::slotEndOfProcess()
 		 belopp = inrad.mid(i+2,m);
 		 
 		 if (ktonr != ktotemp){
-//			 qDebug("slotEndOfProcess()  3 ::ktonr=%s ktonamn=%s dk=%s belopp=%s\n",ktonr.latin1(),ktonamn.latin1(),dk.latin1(),belopp.latin1());
 		     debetsum.setNum(debet,'f',2);
 		     kreditsum.setNum(kredit,'f',2);
 		     utgsaldo.setNum(usaldo,'f',2);
 //		     qDebug("slotEndOfProcess()  3b ::cvsflag=%s",csvflag.latin1());
-		     if (csvflag =="J"){
+		     if (csvflag =="J"){			// Skapa rapportrad för Kspread
 			 rapportrad=(ktotemp);
 			 rapportrad.append(",");
 			 rapportrad.append(ktonamntemp);
@@ -228,9 +247,27 @@ void frmSaldolista::slotEndOfProcess()
 			 if (ktotemp != ""){
 			     stream << rapportrad;
 			 }
-		     }else{		 
-//		     qDebug("slotEndOfProcess()  3c ::cvsflag=%s",csvflag.latin1());			 
-			 rapportrad="<Row level=\"0\" ";
+ 			 if (ktonr.mid(0,1) != ktotemp.mid(0,1) && ktotemp !=""){
+     			     delsumdebet.setNum(deldebet,'f',2);
+			     delsumkredit.setNum(delkredit,'f',2);
+			     delsumutgsaldo.setNum(delusaldo,'f',2);			
+			     rapportrad="Delsumma";
+			     rapportrad.append(",");
+			     rapportrad.append("");		// Blankt kontonamnsfält
+			     rapportrad.append(",");
+			     rapportrad.append(delsumdebet);
+			     rapportrad.append(",");
+			     rapportrad.append(delsumkredit);
+			     rapportrad.append(",");
+			     rapportrad.append(delsumutgsaldo);
+			     rapportrad.append("\n");
+			     stream << rapportrad;
+			     deldebet=0;
+			     delkredit=0;
+			     delusaldo=0;
+			 }
+		     }else{		 		// Skapa raportrad för Kugar
+			 rapportrad="<Row level=\"1\" ";
 			 rapportrad.append(" kontonr=\"");
 			 rapportrad.append(ktotemp);
 			 rapportrad.append("\" kontonamn=\"");
@@ -245,8 +282,28 @@ void frmSaldolista::slotEndOfProcess()
 //			 qDebug("slotEndOfProcess() 3d ::rapportrad=%s",rapportrad.latin1());
 			 if (ktotemp != ""){
 			     stream << rapportrad;
+			 }		    
+//	  	   	 qDebug("ktotemp=%s mid=%s",ktotemp.latin1(),ktotemp.mid(0,1).latin1());
+			 if (ktonr.mid(0,1) != ktotemp.mid(0,1) && ktotemp !=""){
+			     delsumdebet.setNum(deldebet,'f',2);
+			     delsumkredit.setNum(delkredit,'f',2);
+			     delsumutgsaldo.setNum(delusaldo,'f',2);			
+			 
+			     rapportrad="<Delsumma level=\"2\" ";
+			     rapportrad.append(" delsumdebet=\"");
+			     rapportrad.append(delsumdebet);
+			     rapportrad.append("\" delsumkredit=\"");
+			     rapportrad.append(delsumkredit);
+			     rapportrad.append("\" delsumutgsaldo=\"");
+			     rapportrad.append(delsumutgsaldo);
+//			     qDebug("%s, %s, %s",delsumdebet.latin1(),delsumkredit.latin1(),delsumutgsaldo.latin1());
+			     rapportrad.append("\"/>\n");
+			     stream << rapportrad;
+			     deldebet=0;
+			     delkredit=0;
+			     delusaldo=0;
 			 }
-		     }
+		      }
      		     ktotemp=ktonr;
 		     ktonamntemp=ktonamn;
 		     debet=0;
@@ -255,29 +312,28 @@ void frmSaldolista::slotEndOfProcess()
 		 }
 		 if (dk == "D"){
 		     debet=debet+belopp.toDouble();
+		     deldebet=deldebet+belopp.toDouble();
 		 }
 		 if (dk == "K"){
 		     kredit=kredit+belopp.toDouble();
+		     delkredit=delkredit+belopp.toDouble();
 		 }
-//		 qDebug("slotEndOfProcess()  4 ::ktonr=%s belopp=%s debet=%f kredit=%f\n",ktonr.latin1(),belopp.latin1(),debet,kredit);
-		 usaldo=debet -kredit;		 
-	     }		 
+		 usaldo=debet -kredit;
+		 delusaldo=deldebet-delkredit;
+	     }
 	} 
-	    if (csvflag != "J"){
-		rapportrad="</KugarData>";
-		stream << rapportrad;
-	    }
+	if (csvflag != "J"){
+	    rapportrad="</KugarData>";
+	    stream << rapportrad;
 	}
-	filnamn.close();
-	QMessageBox::information( this, "ATTBETW","Rapport skapad!\n");
-	if (csvflag == "J"){
-	    system("kspread /tmp/Saldolista.txt");
-	}else{
-	    // ändrad för kugar 1.2.92 ->
-   	   // system("kugar -d /tmp/Saldolista.kud -r /usr/local/olfix/report/Saldolista.kut");
-	    //system("kugar /tmp/Saldolista.kud");
-	    frmSaldolista::CallKugar();
-	}
+    }
+    filnamn.close();
+    QMessageBox::information( this, "ATTBETW","Rapport skapad!\n");
+    if (csvflag == "J"){
+	system("kspread /tmp/Saldolista.txt");
+    }else{
+	frmSaldolista::CallKugar();
+    }
      errorrad="";
      inrad="";
 }
@@ -285,7 +341,8 @@ void frmSaldolista::slotEndOfProcess()
 void frmSaldolista::slotCreateHeader()
 {
     int i;
-    QString rad[16];
+    int antrad=36;
+    QString rad[antrad];
     QString rapportrad;
 
     QFile filnamn("/tmp/Saldolista.kud");
@@ -295,27 +352,55 @@ void frmSaldolista::slotCreateHeader()
 
     rad[1]="<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
     rad[2]="<!DOCTYPE KugarData [\n";
-    rad[3]="   <!ELEMENT KugarData (Row* )>\n";
+    rad[3]="   <!ELEMENT KugarData (Rowhead* )>\n";
     rad[4]="   <!ATTLIST KugarData\n";
     rad[5]="      Template CDATA #REQUIRED>\n\n";
-    rad[6]="   <!ELEMENT Row EMPTY>\n";
-    rad[7]="   <!ATTLIST Row\n";
+    rad[6]="   <!ELEMENT Rowhead EMPTY>\n";
+    rad[7]="   <!ATTLIST Rowhead\n";
     rad[8]="      level CDATA #REQUIRED\n";
-    rad[9]="      kontonr CDATA #REQUIRED\n";
-    rad[10]="      kontonamn CDATA #REQUIRED\n";
-    rad[11]="      debet CDATA #REQUIRED\n";
-    rad[12]="      kredit CDATA #REQUIRED\n";
-    rad[13]="      utgsaldo CDATA #REQUIRED>\n";
-    rad[14]="]>\n\n";
-    rad[15]="<KugarData Template=\"";
-    rad[15].append(reportpath);
-    rad[15].append("Saldolista.kut\">\n");	// ange rätt template, absolut path
+    rad[9]="      ftgnamn CDATA #REQUIRED\n";
+    rad[10]="      datum CDATA #REQUIRED\n";
+    rad[11]=">\n";
+    rad[12]="   <!ELEMENT KugarData (Row* )>\n";
+    rad[13]="   <!ATTLIST KugarData\n";
+    rad[14]="      Template CDATA #REQUIRED>\n\n";
+    rad[15]="   <!ELEMENT Row EMPTY>\n";
+    rad[16]="   <!ATTLIST Row\n";
+    rad[17]="      level CDATA #REQUIRED\n";
+    rad[18]="      kontonr CDATA #REQUIRED\n";
+    rad[19]="      kontonamn CDATA #REQUIRED\n";
+    rad[20]="      debet CDATA #REQUIRED\n";
+    rad[21]="      kredit CDATA #REQUIRED\n";
+    rad[22]="      utgsaldo CDATA #REQUIRED";
+    rad[23]=">\n";
+    rad[24]="   <!ELEMENT KugarData (Delsumma* )>\n";
+    rad[25]="   <!ATTLIST KugarData\n";
+    rad[26]="      Template CDATA #REQUIRED>\n\n";
+    rad[27]="   <!ELEMENT Delsumma EMPTY>\n";
+    rad[28]="   <!ATTLIST Delsumma\n";
+    rad[29]="      level CDATA #REQUIRED\n";
+    rad[30]="      delsumdebet CDATA #REQUIRED\n";
+    rad[31]="      delsumkredit CDATA #REQUIRED\n";
+    rad[32]="      delsumutgsaldo CDATA #REQUIRED\n";    
+    rad[33]=">\n";       
+    rad[34]="]>\n\n";
+    rad[35]="<KugarData Template=\"";
+    rad[35].append(reportpath);
+    rad[35].append("Saldolista.kut\">\n");	// ange rätt template, absolut path
 ;
-
+//    qDebug("slotCreateHeader::rapportrad = \n%s",rapportrad.latin1());
     rapportrad=rad[1];
-    for (i=2;i<16;i++){
+    for (i=2;i<(antrad);i++){
 	rapportrad.append(rad[i]);
     }
+    
+//    qDebug("i=%d,antrad=%d",i,antrad);
+    rapportrad.append("<Rowhead level=\"0");
+    rapportrad.append("\" ftgnamn=\"");
+    rapportrad.append(ftgnamn);    
+    rapportrad.append("\" datum=\"");
+    rapportrad.append(datum);
+    rapportrad.append("\"/>\n");    
 
 //    qDebug("slotCreateHeader::rapportrad = \n%s",rapportrad.latin1());
     
@@ -332,9 +417,6 @@ void frmSaldolista::slotFileRemove(QString filnamn)
         qWarning( "Cannot find the \"/tmp\" directory" );
     }
     status=d.remove(filnamn,FALSE);
-//    qDebug("slotFileRemove()::TRUE=%d FALSE=%d",TRUE,FALSE);
-//    qDebug("slotFileRemove()::filnamn=%s",filnamn.latin1());
-//    qDebug("slotFileRemove()::status=%d",status);
 }
 
 void frmSaldolista::KugarVersion()
@@ -399,5 +481,51 @@ void frmSaldolista::CallKugar()
     }else{
 	system("kugar  /tmp/Saldolista.kud");
     }
+}
 
+void frmSaldolista::getFortetagsnamn()
+{
+	const char *userp = getenv("USER");
+            QString usr(userp);
+	errorrad="";
+	inrad="";
+	
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "FTGDSP");	// OLFIX funktion
+	process->addArgument("FNAMN");	// Företagsnamn
+
+	frmSaldolista::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+	frmSaldolista::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+            frmSaldolista::connect( process, SIGNAL(processExited() ),this, SLOT(slotFtgnamnEndOfProcess() ) );
+
+
+	if ( !process->start() ) {
+		QMessageBox::warning( this, "SDOLISW",
+                            "Kan inte starta STYRMAN/FTGDSP! \n" );
+	}
+}
+
+void frmSaldolista::slotFtgnamnEndOfProcess()
+{
+    int i,j,m;
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+    if (i == 0) {
+	QMessageBox::critical( this, "OLFIX - SDOLISW",
+		"ERROR!\n"+errorrad
+		);
+	errorrad="";
+    }else{	
+	i = -1;
+	i = inrad.find( QRegExp("OK:"), 0 );
+	if (i != -1) {
+	    j =  inrad.find( QRegExp("2:"), 0 );
+	    m=inrad.length()-j;
+	    ftgnamn = inrad.mid(j+2,m-4);
+	}
+    }
+//	qDebug("inrad=%s j=%d m=%d length=%d",inrad.latin1(),j,m,inrad.length());
+//	qDebug("ftgnamn=%s|,m=%d",ftgnamn.latin1(),m);
 }
