@@ -92,8 +92,8 @@
 		   BorderStyle="0" BorderWidth="1" CommaSeparator="44"
 		   Currency="36" DataType="0" DateFormat="11"
 		   Field="kontonr" FontFamily="Helvetica" FontItalic="0"
-		   FontSize="12" FontWeight="75" ForegroundColor="0,0,0"
-		   HAlignment="0" Height="20" NegValueColor="0,0,0"
+		   FontSize="10" FontWeight="75" ForegroundColor="0,0,0"
+		   HAlignment="0" Height="15" NegValueColor="0,0,0"
 		   Precision="2" Text="[kontonr]" VAlignment="1"
 		   Width="50" WordWrap="0" X="0"
 		   Y="0" />
@@ -102,7 +102,7 @@
 		   Currency="36" DataType="0" DateFormat="0"
 		   Field="ktonamn" FontFamily="Helvetica" FontItalic="0"
 		   FontSize="10" FontWeight="75" ForegroundColor="0,0,0"
-		   HAlignment="0" Height="20" NegValueColor="255,0,0"
+		   HAlignment="0" Height="15" NegValueColor="255,0,0"
 		   Precision="0" Text="[ktonamn]" VAlignment="1"
 		   Width="200" WordWrap="0" X="70"
 		   Y="0" />
@@ -113,8 +113,8 @@
 		   BorderStyle="0" BorderWidth="1" CommaSeparator="44"
 		   Currency="36" DataType="0" DateFormat="11"
 		   Field="verdatum" FontFamily="Helvetica" FontItalic="0"
-		   FontSize="12" FontWeight="50" ForegroundColor="0,0,0"
-		   HAlignment="0" Height="20" NegValueColor="0,0,0"
+		   FontSize="10" FontWeight="50" ForegroundColor="0,0,0"
+		   HAlignment="0" Height="11" NegValueColor="0,0,0"
 		   Precision="2" Text="[verdatum]" VAlignment="1"
 		   Width="80" WordWrap="0" X="0"
 		   Y="0" />
@@ -123,7 +123,7 @@
 		   Currency="36" DataType="0" DateFormat="0"
 		   Field="vernr" FontFamily="Helvetica" FontItalic="0"
 		   FontSize="10" FontWeight="25" ForegroundColor="0,0,0"
-		   HAlignment="2" Height="20" NegValueColor="255,0,0"
+		   HAlignment="2" Height="11" NegValueColor="255,0,0"
 		   Precision="0" Text="[vernr]" VAlignment="1"
 		   Width="60" WordWrap="0" X="80"
 		   Y="0" />
@@ -132,7 +132,7 @@
 		   Currency="36" DataType="0" DateFormat="0"
 		   Field="vertext" FontFamily="Helvetica" FontItalic="0"
 		   FontSize="10" FontWeight="25" ForegroundColor="0,0,0"
-		   HAlignment="0" Height="20" NegValueColor="255,0,0"
+		   HAlignment="0" Height="11" NegValueColor="255,0,0"
 		   Precision="0" Text="[vertext]" VAlignment="1"
 		   Width="340" WordWrap="0" X="140"
 		   Y="0" />
@@ -141,7 +141,7 @@
 		   Currency="36" DataType="2" DateFormat="0"
 		   Field="debet" FontFamily="Helvetica" FontItalic="0"
 		   FontSize="10" FontWeight="25" ForegroundColor="0,0,0"
-		   HAlignment="2" Height="20" NegValueColor="255,0,0"
+		   HAlignment="2" Height="11" NegValueColor="255,0,0"
 		   Precision="2" Text="[debet]" VAlignment="1"
 		   Width="100" WordWrap="0" X="480"
 		   Y="0" />
@@ -150,7 +150,7 @@
 		   Currency="36" DataType="2" DateFormat="0"
 		   Field="kredit" FontFamily="Helvetica" FontItalic="0"
 		   FontSize="10" FontWeight="25" ForegroundColor="0,0,0"
-		   HAlignment="2" Height="20" NegValueColor="255,0,0"
+		   HAlignment="2" Height="11" NegValueColor="255,0,0"
 		   Precision="2" Text="[kredit]" VAlignment="1"
 		   Width="100" WordWrap="0" X="580"
 		   Y="0" />
@@ -159,7 +159,7 @@
 		   Currency="36" DataType="2" DateFormat="11"
 		   Field="ack" FontFamily="Helvetica" FontItalic="0"
 		   FontSize="10" FontWeight="25" ForegroundColor="0,0,0"
-		   HAlignment="2" Height="20" NegValueColor="255,0,0"
+		   HAlignment="2" Height="11" NegValueColor="255,0,0"
 		   Precision="2" Text="[ack]" VAlignment="1"
 		   Width="100" WordWrap="0" X="680"
 		   Y="0" />
