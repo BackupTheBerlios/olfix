@@ -1,17 +1,36 @@
-Changelog OLFIX 20050324
+Changelog OLFIX 20050402
 
 Blivande
 Ver 0.2.3.B
-2005-03-24
+2005-04-02
 		Nya program
+		DSPORDW		Visa en kundorder
+		PLORDW		Skapa och skriva ut plocklista för kundorder
+
 		Ändrade program
+		ADDORDW    	Uppdatera LAGERSTELLEREG:RESERVERAT
+		DSPARW		Lagt till fältet "Reserverad kvantitet"
+
 		Nya funktioner
+		ORDDSP		Visa kundorderns huvudpost (ORDERREG)
+		ORDRDSP		Visa kundorderns radposter (ORDERRADREG)
+		AR2UPD		Uppdatera LAGERSTELLEREG
+
 		Ändrade funktioner
+		ARDSPL.c	Lagt till fältet RESERVERAT
+		FTGDSP.c	Lagt till markören \0:
+
+		Nya sqlfiler
+		AlterTableLAGERSTELLEREG_2.sql Lägger till fältet RESERVERAT
+
+		Ändrade sqlfiler
+		CreateTableLAGERSTELLEREG.sql Lagt till fältet RESERVERAT
+		
 		Dokumentation
 		Usersmanual (Online)Uppdaterad (2005-??-??)
 		UserManual	Uppdaterad (2005-??-??)
 
-		Teknisk Manual	Uppdaterad (2005-??-??)
+		Teknisk Manual	Uppdaterad (2005-03-30) Version 0.53
 		Installationsanvisningar.txt (2005-??-??)
 		Installationsanvisningar.sxw (2005-??-??)
 		Korsrelationer.sxw Uppdaterad (2005-??-??)
