@@ -1,0 +1,5 @@
+"123","559999-9999","Leverantör AB","Postgatan 33","199 99","DATABY","SVERIGE","09-999999","09-999998","99999","kundtj@leverantor.se","4559999-9","5999-9999","Per Josefsson","09-999997","1",0.00,"2440","12345678","SEK","2"
+"124","559988-9999","Distributör AB","Brevgatan 1A","199 99","DATABY","SVERIGE","09-999199","09-999198","19999","kundtj@distributor.se","4559988-9","5988-9999","Lena Bertils","09-999997","1",0.00,"2440","12345678","EUR","1"
+"125","559955-5599","Försäljning AB","Säljgatan 3","199 11","BY","Sverige","09-119910","09-119919","11119","info@forsaljning.se","454511-1","4545-1111","Karl Säljare","09-119915","1",0.00,"2110","98765","SEK","1"
+"126","550101-5555","Dataspecialisten AB","Storgatan 1","199 11","STORSTAD","Sverige","09-112250","09-112259","22229","info@dataspecialisten.se","4512323-3","4512-5566","Ola Norman","09-112255","1",0.00,"2110","567891","SEK","1"
+
