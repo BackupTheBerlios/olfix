@@ -1,0 +1,194 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>frmAddForetag</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmAddForetag</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>462</width>
+            <height>148</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>ADDFORW  Lägga upp nytt företag</string>
+    </property>
+    <property name="toolTip" stdset="0">
+        <string>Uppdatera tabellen DATABAS med hänvisning till ny databas. Databasen måste existera.</string>
+    </property>
+    <property name="whatsThis" stdset="0">
+        <string>Version: 0.1
+2003-06-03</string>
+    </property>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonQuit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>70</x>
+                <y>120</y>
+                <width>61</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avsluta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>30</y>
+                <width>81</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="frameShape">
+            <enum>NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+            <enum>Plain</enum>
+        </property>
+        <property name="text">
+            <string>Databasnr:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel1_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>60</y>
+                <width>70</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Databas:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditdbnr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>91</x>
+                <y>30</y>
+                <width>30</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>120</y>
+                <width>51</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>OK</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditdbnamn</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>90</x>
+                <y>60</y>
+                <width>80</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>PushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>LineEditdbnamn</receiver>
+        <slot>clear()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>LineEditdbnr</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>LineEditdbnr</receiver>
+        <slot>clear()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>frmAddForetag</receiver>
+        <slot>slotAddForetag()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditdbnr</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmAddForetag</receiver>
+        <slot>slotdbnrEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditdbnamn</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmAddForetag</receiver>
+        <slot>slotdbnamnEntered()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonQuit</sender>
+        <signal>clicked()</signal>
+        <receiver>frmAddForetag</receiver>
+        <slot>close()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>LineEditdbnr</tabstop>
+    <tabstop>LineEditdbnamn</tabstop>
+    <tabstop>PushButtonOK</tabstop>
+    <tabstop>PushButtonQuit</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">frmaddforetag.ui.h</include>
+</includes>
+<slots>
+    <slot access="protected">init()</slot>
+    <slot>slotdbnrEntered()</slot>
+    <slot>slotdbnamnEntered()</slot>
+    <slot>slotAddForetag()</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>slotEndOfProcess()</slot>
+    <slot>slottInformation()</slot>
+    <slot>slotCheckIfExist()</slot>
+    <slot>slotCheckEndOfProcess()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

@@ -16,6 +16,8 @@
 "BETLST","Lista betalningsvillkor"
 "BOKF","Bokföringsprogram"
 "DBOKRPT","Dagboksrapport"
+"FORADD","Ny databas i tabellen DATABAS"
+"FORCHK","Kontr. om databas finns i tabell DATABAS"
 "FTGADD","Lägga upp en ny företagspost"
 "FTGDSP","Visa företagsdata"
 "FTGLST","Lista posttyper för företagsdata"
