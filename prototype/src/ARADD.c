@@ -18,17 +18,17 @@
 
 /*
 	INPUT: artikeldata [databas]
-		artikeldataformat=_:_2345_:_Testartikel_:_Provprodukt_:_ST_:_2,5_:_200,00_:_20_:_
+		artikeldataformat=_:_2345_:_Testartikel_:_Provprodukt_:_ST_:_1_:_2,5_:_200,00_:_20_:_
 		12345_:_67890_:_2_:_ _:_1234567_:_DA123_:_ _:_ _:_
 		Mesurment Part_:_England_:_MP23Z_:_2,500_:_
 
 	Fältavskiljare = _:_
 
 	Function: gör  INSERT INTO ARTIKELREG
-			(ARTIKELNR,ARBENEMNING1,ARBENEMNING2,ARENHET,ARFPRIS,ARLEDTID,
+			(ARTIKELNR,ARBENEMNING1,ARBENEMNING2,ARENHET,OMRFAKTOR,ARFPRIS,ARLEDTID,
 	ARPRODKLASS,ARPRODKTO,ARLEVNr1,ARLEVNR2,ARLEVNR3,ARNETTOVIKT,ARARTTTYP,
 	ARSTRUKT,ARURBENEMNING,ARURLAND,ARURARTNR,ARTULLTAX,ARVOLYM) VALUES (
-	"2345","Testartikel","Provprodukt","ST","2,5","200,00","20","12345","67890",
+	"2345","Testartikel","Provprodukt","ST","1","2,5","200,00","20","12345","67890",
 	"2"," ","1234567","DA123"," "," ",
 	"Mesurment Part","England","MP023Z", "2,500")i databasen olfix
 
@@ -36,7 +36,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARADD.c,v 1.1 2003/10/29 13:49:06 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARADD.c,v 1.2 2003/11/13 11:02:18 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -46,7 +46,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "mysql.h"
-#define ANTFELT 19		/*	Antal datafält i ARTIKELREG	*/
+#define ANTFELT 20		/*	Antal datafält i ARTIKELREG	*/
 
   MYSQL my_connection;
   MYSQL_RES *res_ptr;
@@ -62,7 +62,7 @@ int main(int argc, char *argv[], char *envp[])
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
   char usr[15];				/* userid		*/
 
-  char temp1a[]="INSERT INTO ARTIKELREG (ARTIKELNR,ARBENEMNING1,ARBENEMNING2,ARENHET,ARNETTOVIKT,ARFPRIS,ARLEDTID,ARPRODKLASS,ARPRODKTO,ARARTTYP,ARSTRUKT,ARTULLTAX,ARLEVNr1,ARLEVNR2,ARLEVNR3,ARURBENEMNING,ARURLAND,ARURARTNR,ARVOLYM) VALUES (";
+  char temp1a[]="INSERT INTO ARTIKELREG (ARTIKELNR,ARBENEMNING1,ARBENEMNING2,ARENHET,AROMRFAKTOR,ARNETTOVIKT,ARFPRIS,ARLEDTID,ARPRODKLASS,ARPRODKTO,ARARTTYP,ARSTRUKT,ARTULLTAX,ARLEVNr1,ARLEVNR2,ARLEVNR3,ARURBENEMNING,ARURLAND,ARURARTNR,ARVOLYM) VALUES (";
   char temp2[]="\"";
   char temp3[]=",";
   char temp4[]=")";
