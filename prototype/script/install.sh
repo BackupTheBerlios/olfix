@@ -5,6 +5,7 @@
 #**********************************
 
 # Namn: install.sh
+# Version: 0.3a		2004-01-14 Jan Pihlgren.
 # Version: 0.3		2004-01-08 Jan Pihlgren.
 # Version: 0.2		2003-09-02 Jan Pihlgren.
 # Version: 0.1d		2003-08-31 Jan Pihlgren.
@@ -12,36 +13,21 @@
 # Version: 0.1b		2003-05-06 Jan Pihlgren. Rättat OLFIX_SOURCE
 # Version: 0.1
 # Beskrivning: Installations/Uppdaterings script för OLFIX version X.X
-# Två olika loggar skapas, en vid installation ($HOME/tmp/InstallOlfix.log)
+# Två olika loggar skapas,
+# en vid installation ($HOME/tmp/InstallOlfix.log)
 # och en vid uppgradering ($HOME/tmp/UpdateOlfix.log)
 
-OLFIX_BANNER="\n------------------------------------------------------------\n
--- OLFIX version X --\n\n
-Det här scriptet hjälper dig att installera OLFIX,\n
-efter ett antal frågor kommer OLFIX installeras på \n\n
-
-Varje fråga har ett standandard svar,\n
-om du tycker att det är ok så tryck bara på [Enter].\n
-Standardsvaret är markerat med []\n
-
-Om du vill avbryta installation eller uppgradering\n
-innan arbetet påbörjas så tryck Ctrl-C.\n
- ------------------------------------------------------------\n"
 VERSION="OLFIX_0.1.12.A"
 # Sätt PATH
 PATH=/bin:/sbin:/usr/bin:/usr/sbin
+
 # Sätt OLFIX variabler
-OLFIX_HOME=/usr/local/olfix
-OLFIX_SOURCE=/usr/local/olfix/src
-OLFIX_SQL=/usr/local/olfix/sql
-OLFIX_DATA=/usr/local/olfix/data
+OLFIX_HOME=`cat $HOME/tmp/olfix_path.txt`
+OLFIX_SOURCE=$OLFIX_HOME/src
+OLFIX_SQL=$OLFIX_HOME/sql
+OLFIX_DATA=$OLFIX_HOME/data
 
 #QT variabler
-#QT=/usr/lib/qt3
-#QT_BIN=/usr/lib/qt3/bin
-#QT_INC=/usr/lib/qt3/include
-#QT_LIB=/usr/lib/qt3/lib
-
 QT=`whereis $QTDIR|awk '{print $2}'`
 QT_BIN=$QT/bin
 QT_INC=$QT/include
@@ -52,9 +38,9 @@ MYSQLD=`whereis mysqld|awk '{print $2}'`
 
 # TEMP används för att lagra svar från dialog.
 TEMP=/tmp/.tempfil
+
 BEHOR=N
 OLFIX_EXIST=N
-
 
 dialog --begin 100 50
 dialog --backtitle "OLFIX installation." \
@@ -88,20 +74,18 @@ else
 	exit
 fi
 
-#är inte säker om den här testen är så optimal, inte klar!!!!
-#MYSQL_EXEC=`mysql -u guest < quit``
-
 #+++++++++++++++++++++++++++++++++++++++++++++++++++#
 # -- Leta upp olfix och dess mappar om dem finns -- #
 #+++++++++++++++++++++++++++++++++++++++++++++++++++#
 if [[ -d $OLFIX_HOME ]];then
 	OLFIX_EXIST=J
-	dialog --backtitle "OLFIX installation." \
-	--msgbox "** Hittade OLFIX på $OLFIX_HOME, en installation finns redan. **" 5 75
+#	dialog --backtitle "OLFIX installation." \
+#	--msgbox "** Hittade OLFIX på $OLFIX_HOME, en installation finns redan. **" 5 75
 else
 	OLFIX_EXIST=N
 	dialog --backtitle "OLFIX installation." \
 	--msgbox "** Kunde inte hitta OLFIX! **" 5 60
+	exit
 fi
 
 #++++++++++++++++++++++++++++++++++++++++++++++++?+++#
@@ -135,17 +119,19 @@ then
 	exit
 fi
 
-if test $UPGRADE == "I" && test $OLFIX_EXIST == "J";then
-	dialog --backtitle "OLFIX installation." \
- 	--msgbox "** En redan befintlig installation kommer att skrivas över! **" 5 70
-fi
+#if test $UPGRADE == "I" && test $OLFIX_EXIST == "J";then
+#	OLDPATH=$OLFIX_HOME"_new"
+#	dialog --backtitle "OLFIX installation." \
+#	--msgbox "** Flyttar gammal installation från "$OLFIX_HOME" till **\n** "$OLDPATH 10 70
+#	mv $OLFIX_HOME $OLDPATH
+#fi
 
 if test $UPGRADE == "I" ;then
 		dialog --backtitle "OLFIX installation." \
 	 	--msgbox "** Du har valt att göra en INSTALLATION av OLFIX **" 5 60
 
-#		echo "** Installation av OLFIX">>$HOME/tmp/InstallOlfix.log
-#		date >>$HOME/tmp/InstallOlfix.log
+		echo "** Installation av OLFIX">>$HOME/tmp/InstallOlfix.log
+		date >>$HOME/tmp/InstallOlfix.log
 #		**********************************************************
 #		**********************************************************
 #		*************         INSTALLATION           *************
@@ -191,17 +177,15 @@ if test $UPGRADE == "I" ;then
   		fi
 
 #		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#		Sätt userid till versaler
+#		Hämta USER och sätt userid till versaler
 #		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 		uppername=`echo $USER | tr a-z A-Z`
 		USER_ID=$uppername
 
 #       	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#		En användare
-#		så ska vedrebörande ha behörighet
-#		till alla program och funktioner som finns i
-#		$OLFIX_SQL/RIGHTSdata.sql
+#		Ifall det är EN användare så ska vedrebörande ha behörighet
+#		till alla program och funktioner som finns i $OLFIX_SQL/RIGHTSdata.sql
 #		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		if test $BEHOR == "E";then
 			exitcode=0
@@ -218,12 +202,13 @@ if test $UPGRADE == "I" ;then
 				dialog --backtitle "OLFIX installation." \
 				--msgbox "** Installationen avbröts! **" 5 35
 				clear
+				rm -f $TEMP
 				exit
   			fi
   			rm -f $TEMP
 
 #			+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#			Sätt userid till versaler
+#			Sätt USER_ID till versaler
 #			+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 			uppername=`echo $USER_ID | tr a-z A-Z`
 			USER_ID=$uppername
@@ -255,6 +240,7 @@ if test $UPGRADE == "I" ;then
 			dialog --backtitle "OLFIX installation." \
 			--msgbox "** Installationen avbröts! **" 5 35
 			clear
+			rm -f $TEMP
 			exit
 		fi
 		rm -f $TEMP
@@ -272,6 +258,7 @@ if test $UPGRADE == "I" ;then
 			dialog --backtitle "OLFIX installation." \
 			--msgbox "** Installationen avbröts! **" 5 35
 			clear
+			rm -f $TEMP
 			exit
 		fi
 		rm -f $TEMP
@@ -293,6 +280,7 @@ if test $UPGRADE == "I" ;then
 			dialog --backtitle "OLFIX installation." \
 			--msgbox "** Installationen avbröts! **" 5 35
 			clear
+			rm -f $TEMP
 			exit
 		fi
 		rm -f $TEMP
@@ -310,6 +298,7 @@ if test $UPGRADE == "I" ;then
 			dialog --backtitle "OLFIX installation." \
 			--msgbox "** Installationen avbröts! **" 5 35
 			clear
+			rm -f $TEMP
 			exit
 
 		fi
@@ -360,13 +349,17 @@ if test $UPGRADE == "I" ;then
 			dialog --backtitle "OLFIX installation." \
 			--msgbox "** Installationen avbröts! **" 5 35
 			clear
+			rm -f $TEMP
 			exit
 		fi
+		exit
 		rm -f $TEMP
 
 		COMMAND="sed -e s/DittPassword/$LOSENORD/ $HOME/tmp/mysqldata2.sql > $HOME/tmp/mysqldata.sql"
 		eval $COMMAND
+		# Spara orginalfilen
 		cp $OLFIX_SQL/add_user_DittNamn.sql $OLFIX_SQL/add_user_DittNamn.org.sql
+		# Flytta den nya filen
 		cp $HOME/tmp/mysqldata.sql $OLFIX_SQL/add_user_DittNamn.sql
 		rm $HOME/tmp/mysqldata2.sql
 		rm $HOME/tmp/mysqldata.sql
@@ -390,6 +383,7 @@ if test $UPGRADE == "I" ;then
 			dialog --backtitle "OLFIX installation." \
 			--msgbox "** Installationen avbröts! **" 5 35
 			clear
+			rm -f $TEMP
 			exit
   		fi
   		rm -f $TEMP
@@ -398,90 +392,180 @@ if test $UPGRADE == "I" ;then
 			exitcode=0
 			dialog --backtitle "OLFIX installation." \
 			--msgbox "** Installationen avbryts! **" 5 35
+			# Återställ orginalfilen
 			cp $OLFIX_SQL/add_user_DittNamn.org.sql $OLFIX_SQL/add_user_DittNamn.sql
 			echo -e "** Installationen avbryts!">>$HOME/tmp/InstallOlfix.log
 			date>>$HOME/tmp/InstallOlfix.log
 			clear
+			rm -f $TEMP
 			exit
 		fi
+#		exitcode=0
+#		dialog --backtitle "OLFIX installation." \
+#		--msgbox "** Nu startar installationen! **" 5 35
+
+#		*******************************************************************
+#		***			HÄR BÖRJAR INSTALLATIONEN		***
+#		*******************************************************************
+
+#		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#		Ifall det är en ominstallation ska inte user 'olfix'
+#		och user 'dig' ändras i databasen mysql
+#		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		OLFIX_USER_EXIST="N"
+		DIG_USER_EXIST="N"
+
 		exitcode=0
 		dialog --backtitle "OLFIX installation." \
-		--msgbox "** Nu startar installationen! **" 5 35
+		--title "OLFIX INSTALLATION" \
+		--passwordbox "Ange rootpassword för root som user i MySQL!" 10 70  2>$TEMP
+		exitcode=$?
 
-		exit
+		if [ $exitcode -eq 0 ]
+		then
+			choice=`cat $TEMP`
+			LOSENORD=$choice
+		else
+			dialog --backtitle "OLFIX installation." \
+			--msgbox "** Installationen avbröts! **" 5 35
+			clear
+			rm -f $TEMP
+			exit
+		fi
+		rm -f $TEMP
+		if test ${USERNAME-$USER} != 'root'
+		then
+			dialog --backtitle "OLFIX installation." \
+			--msgbox "** Installationen avbröts! **\n** Inte root som kör installationen! **" 10 45
+			clear
+			exit
+		fi
+
+		mysqldump mysql user -u$USERNAME $LOSENORD > $HOME/tmp/user.txt
+		grep $USER $HOME/tmp/user.txt -c >$TEMP
+		choice=`cat $TEMP`
+		case $choice in
+		0) DIG_USER_EXIST="N";;
+		1) DIG_USER_EXIST="J";;
+		esac
+		rm -f $TEMP
+		grep olfix $HOME/tmp/user.txt -c >$TEMP
+		choice=`cat $TEMP`
+		case $choice in
+		0) OLFIX_USER_EXIST="N";;
+		1) OLFIX_USER_EXIST="J";;
+		esac
+		rm -f $TEMP
+		rm -f $HOME/tmp/user.txt
+
+		if OLFIX_USER_EXIST=="N"
+		then
+#			+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#			Lägg till user olfix i databasen mysql
+#			+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			echo -e "** Lägger till user olfix!">>$HOME/tmp/InstallOlfix.log
+			COMMAND="mysql -h localhost -p <$OLFIX_SQL/add_user_olfix.sql>$HOME/tmp/InstallOlfix.log"
+			eval $COMMAND
+			echo $COMMAND>>$HOME/tmp/InstallOlfix.log
+		fi
+		if OLFIX_USER_EXIST=="N"
+		then
+#			+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#			Lägg till user 'dig' som user i databasen mysql, med adminbehörigheter
+#			+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#			echo -e "** Lägger upp dig som user i mysql!">>$HOME/tmp/InstallOlfix.log
+#			COMMAND="mysql -h localhost -p <$OLFIX_SQL/add_user_DittNamn.sql>$HOME/tmp/InstallOlfix.log"
+			eval $COMMAND
+#			echo $COMMAND>>$HOME/tmp/InstallOlfix.log
+			# Återställer orginalfilen
+			rm $OLFIX_SQL/add_user_DittNamn.sql
+			cp $OLFIX_SQL/mall_add_user_DittNamn.sql $OLFIX_SQL/add_user_DittNamn.sql
+		fi
 #		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #		Skapa databasen olfix.
 #		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		echo -e "** Skapar databasen olfix!"
 		echo -e "** Skapar databasen olfix!">>$HOME/tmp/InstallOlfix.log
 		COMMAND="mysql -h localhost -p <$OLFIX_SQL/CreateDatabaseOlfix.sql>$HOME/tmp/InstallOlfix.log"
-		echo $COMMAND
+		eval $COMMAND
 		echo $COMMAND>>$HOME/tmp/InstallOlfix.log
-
-#		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#		Lägg till user olfix.
-#		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		echo -e "** Lägger till user olfix!"
-		echo -e "** Lägger till user olfix!">>$HOME/tmp/InstallOlfix.log
-		COMMAND="mysql -h localhost -p <$OLFIX_SQL/add_user_olfix.sql>$HOME/tmp/InstallOlfix.log"
-		echo $COMMAND
-		echo $COMMAND>>$HOME/tmp/InstallOlfix.log
-
-#		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#		Lägg till user admin, dig som user i mysql
-#		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#		echo -e "** Lägger upp dig som user i mysql!"
-#		echo -e "** Lägger upp dig som user i mysql!">>$HOME/tmp/InstallOlfix.log
-#		COMMAND="mysql -h localhost -p <$OLFIX_SQL/add_user_DittNamn.sql>$HOME/tmp/InstallOlfix.log"
-#		echo $COMMAND
-#		echo $COMMAND>>$HOME/tmp/InstallOlfix.log
-#		rm $OLFIX_SQL/add_user_DittNamn.sql
-#		cp mall_add_user_DittNamn.sql add_user_DittNamn.sql
 
 #		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #		Skapa tabller.
 #		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		echo -e "** Skapar tabeller till OLFIX!"
 		echo -e "** Skapar tabeller till OLFIX!">>$HOME/tmp/InstallOlfix.log
 		COMMAND="mysql -h localhost -p <$OLFIX_SQL/CreateAll.sql>$HOME/tmp/InstallOlfix.log"
-		echo $COMMAND
+		eval $COMMAND
 		echo $COMMAND>>$HOME/tmp/InstallOlfix.log
 
 #		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #		Ladda tabeller (FTGDATA, KTOPLAN, TRANSID, VALUTA, PROGRAM)
 #		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		echo -e "** Laddar tabellerna i OLFIX!"
 		echo -e "** Laddar tabellerna i OLFIX!">>$HOME/tmp/InstallOlfix.log
 		COMMAND="mysql -h localhost -p <$OLFIX_SQL/LoadAll.sql>$HOME/tmp/InstallOlfix.log"
-		echo $COMMAND
+		eval $COMMAND
 		echo $COMMAND>>$HOME/tmp/InstallOlfix.log
 
 #		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #		Uppdatera tabellen RIGHTS.
 #		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		echo -e "** Uppdaterar behörigheter till OLFIX!"
 		echo -e "** Uppdaterar behörigheter till OLFIX!">>$HOME/tmp/InstallOlfix.log
 		if test $BEHOR == "E";then
 			COMMAND="mysql -h localhost -p <$OLFIX_SQL/LoadStandaloneRIGHTSdata.sql>$HOME/tmp/InstallOlfix.log"
-#			rm $OLFIX_DATA/temprightdata.txt
+			rm $OLFIX_DATA/temprightdata.txt
 		else
 			COMMAND="mysql -h localhost -p <$OLFIX_SQL/LoadRIGHTSdata.sql>$HOME/tmp/InstallOlfix.log"
 		fi
-		echo $COMMAND
+		eval $COMMAND
 		echo $COMMAND>>$HOME/tmp/InstallOlfix.log
 
 #		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #		Uppdatera tabellen USR.
 #		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		echo -e "** Uppdaterar tabell USR till OLFIX!"
 		echo -e "** Uppdaterar tabell USR till OLFIX!">>$HOME/tmp/InstallOlfix.log
 		COMMAND="mysql -h localhost -p <$OLFIX_SQL/LoadRIGHTSdata.sql>$HOME/tmp/InstallOlfix.log"
-		echo $COMMAND
+		eval $COMMAND
 		echo $COMMAND>>$HOME/tmp/InstallOlfix.log
 
 #		rm $OLFIX_DATA/LoadUSRdata.txt
+#		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#		Installation av databasen olfix är klar
+#		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
- 		echo -e  "\n** Installation klar!\n"
+#		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#		Installera testdatabasen olfixtst
+#		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		echo -e "** Skapar testdatabasen olfixtst!">>$HOME/tmp/InstallOlfix.log
+		COMMAND="mysql -h localhost -p <$OLFIX_SQL/CreateAllOlfixtst.sql>$HOME/tmp/InstallOlfix.log"
+		eval $COMMAND
+		echo $COMMAND>>$HOME/tmp/InstallOlfix.log
+
+#		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#		Ladda testdatabasen olfixtst
+#		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		echo -e "** Laddar testdatabasen olfixtst!">>$HOME/tmp/InstallOlfix.log
+		COMMAND="mysql -h localhost -p <$OLFIX_SQL/LoadAll_olfixtst.sql>$HOME/tmp/InstallOlfix.log"
+		eval $COMMAND
+		echo $COMMAND>>$HOME/tmp/InstallOlfix.log
+
+#		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#		Kopiera filen .olficrc till $HOME
+#		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		COMMAND="sed -e s,/usr/local/olfix,$OLFIX_HOME, $OLFIX_HOME/script/.olfixrc >  $OLFIX_HOME/script/.olfixrc.tmp"
+		eval $COMMAND
+		rm -f $OLFIX_HOME/script/.olfixrc
+		mv $OLFIX_HOME/script/.olfixrc.tmp $OLFIX_HOME/script/.olfixrc
+		rm -f $OLFIX_HOME/script/.olfixrc.tmp
+		cp $OLFIX_HOME/script/.olfixrc $HOME/.olfixrc
+		cp $OLFIX_HOME/script/.olfixrc /home/$USER/.olfixrc
+
+#		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#		Installation klar!
+#		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		date>>$HOME/tmp/InstallOlfix.log
+		echo -e "\n** Uppgradering klar!\n">>$HOME/tmp/UpdateOlfix.log
+		dialog --backtitle "OLFIX installation." \
+		--msgbox "** Installation klar! **" \ 5 40
+
 		exit
 
 else
@@ -603,11 +687,11 @@ else
 
 		echo "** Nu startar uppgradering">>$HOME/tmp/UpdateOlfix.log
 		date >>$HOME/tmp/UpdateOlfix.log
-		mkdir /usr/local/olfix/src/$VERSION
-		COMMAND="chown $USER /usr/local/olfix/src/$VERSION"
+		mkdir $OLFIX_DATA/$VERSION
+		COMMAND="chown $USER $OLFIX_DATA/$VERSION"
 		echo $COMMAND>>$HOME/tmp/UpdateOlfix.log
 		eval $COMMAND
-		COMMAND="chgrp $USER /usr/local/olfix/src/$VERSION"
+		COMMAND="chgrp $USER $OLFIX_DATA/$VERSION"
 		echo $COMMAND>>$HOME/tmp/UpdateOlfix.log
 		eval $COMMAND
 #		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
