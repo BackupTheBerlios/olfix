@@ -9,9 +9,9 @@
 /***************************************************************************
                           ADDINKW  -  description
                              -------------------
-		     version 0.3
+		     version 0.4
     begin                : Mån 8 dec 2003
-    modified	: Lör 20 dec 2003
+    modified	: Ons 24 dec 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -1360,6 +1360,7 @@ void frmAddBest::slotOrderadEndOfProcess()
 
 void frmAddBest::listViewRader_clicked( QListViewItem * )
 {
+    double radsumma ,ordersumma;
     radnrflag=TRUE;
     oldradnr=bestradnr;
     QListViewItem *item =  listViewRader->currentItem();
@@ -1383,6 +1384,11 @@ void frmAddBest::listViewRader_clicked( QListViewItem * )
     lineEditAntal->setText(temp4);
     lineEditAPris->setText(temp5);
     lineEditRadSumma->setText(temp6);
+    radsumma=temp6.toDouble();
+    ordersumma=bestsumma.toDouble();
+    ordersumma=ordersumma-radsumma;
+    bestsumma=bestsumma.setNum(ordersumma,'f',2);
+    lineEditOrderSumma->setText(bestsumma);    
     lineEditArtikelNr->setFocus();
     delete listViewRader->currentItem();
 }
