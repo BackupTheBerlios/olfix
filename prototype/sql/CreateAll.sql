@@ -80,3 +80,5 @@ create table VERRAD(VERNR INT not null ,RADNR SMALLINT not null,ARID VARCHAR(2) 
 alter table VERRAD ADD PRIMARY KEY (VERNR,RADNR,ARID);
 use olfix;
 create table PROGRAM(PRGNR VARCHAR(3) not null primary key,MENYAVD VARCHAR(20),MENYGRP VARCHAR(30), MENYTXT VARCHAR(30),PROGRAM VARCHAR(8));
+use olfix;
+create table TEXTREG(TEXTNR VARCHAR(3) not null primary key,TXT TEXT);
