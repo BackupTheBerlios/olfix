@@ -8,9 +8,9 @@
 /***************************************************************************
                           OLFIXW  -  description
                              -------------------
-		     version 0.4
+		     version 0.41
     begin                   : Tis 16 maj 2003
-    modified	: Tis 11 nov 2003
+    modified	: Tors 27 nov 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                  : jan@pihlgren.se
  ***************************************************************************/
