@@ -7,11 +7,11 @@
 ** place of a destructor.
 *****************************************************************************/
 /***************************************************************************
-                          ADDAREW  -  description
+                          DSPAREW  -  description
                              -------------------
-		     version 0.2
-    begin                	: Lör 14 nov 2003
-    modified	: Lör  6 dec 2003
+		     version 0.3
+    begin                	: Lör  14 nov   2003
+    modified	: Ons 30 mars 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -61,9 +61,9 @@
     QString urland;
     QString levartnr;
     QString artikeldata;		// Summan av ovanstående.
-    
+
     // Lagerplatsdata
-    QString lagerplats="1";    
+    QString lagerplats="1";
     QString lagerhylla;
     QString lagersaldo="0";
     QString invgrupp;
@@ -72,17 +72,18 @@
     QString seninkpris="0.00";
     QString ikvant0="0.00";
     QString ikvant1="0.00";
-    QString ikvant2="0.00";    
+    QString ikvant2="0.00";
     QString kalkylpris="0.00";
     QString plankpris="0.00";
     QString frystkpris="0.00";
     QString bestkvant="0.00";
     QString bestpunkt="0.00";
     QString omkost="0.00";
+    QString reserverat="0.00";
     QString lagerdata;		// Summan av lagerplatsdata
-   
+
 void frmDspArtikelEkonomidata::init()
-{    
+{
     lineEditArtikelNr->setFocus();
 }
 
@@ -380,7 +381,8 @@ void frmDspArtikelEkonomidata::slotgetLaDataEndOfProcess()
 	    int i15 = inrad.find( QRegExp("15:"), 0 );	//	bestkvant	Beställd kvantitet
 	    int i16 = inrad.find( QRegExp("16:"), 0 );	//	bestpunkt	Beställningspunkt
 	    int i17 = inrad.find( QRegExp("17:"), 0 );	//	omkost		Omkostnader
-	    int i18 = inrad.find(QRegExp("END:"),0);//	Slut på posten
+	    int i18 = inrad.find( QRegExp("18:"), 0 );//	reserverat	Reserverad kvantitet
+	    int i19 = inrad.find(QRegExp("END:"),0);//	Slut på posten
 	 
 	    m=i2-i1;
 	    if (i1 != -1){
@@ -480,10 +482,16 @@ void frmDspArtikelEkonomidata::slotgetLaDataEndOfProcess()
 	    
 	    m=i18-i17;
 	    if (i17 != -1){
-		omkost=inrad.mid(i17+3,m-9);
+		omkost=inrad.mid(i17+3,m-5);
 		lineEditOmkostnader_2->setText(omkost);
 	    }
-
+	    
+	    m=i19-i18;
+	    if (i18 != -1){
+		reserverat=inrad.mid(i18+3,m-5);
+		lineEditReserverat->setText(reserverat);
+	    }
+	    
 	inrad="";
 	errorrad="";
 	inrad="";

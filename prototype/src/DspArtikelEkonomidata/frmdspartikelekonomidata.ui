@@ -519,28 +519,12 @@
                 <x>10</x>
                 <y>335</y>
                 <width>585</width>
-                <height>296</height>
+                <height>265</height>
             </rect>
         </property>
         <property name="title">
             <string>Ekonomidata</string>
         </property>
-        <widget class="QLabel">
-            <property name="name">
-                <cstring>textLabel9_2</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>5</x>
-                    <y>210</y>
-                    <width>181</width>
-                    <height>21</height>
-                </rect>
-            </property>
-            <property name="text">
-                <string>Beställd kvantitet: ................</string>
-            </property>
-        </widget>
         <widget class="QLineEdit">
             <property name="name">
                 <cstring>lineEditLagerplats_2</cstring>
@@ -983,6 +967,54 @@
                     <y>155</y>
                     <width>105</width>
                     <height>23</height>
+                </rect>
+            </property>
+            <property name="alignment">
+                <set>AlignRight</set>
+            </property>
+        </widget>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel9_2</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>5</x>
+                    <y>210</y>
+                    <width>181</width>
+                    <height>21</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>Beställd kvantitet: ................</string>
+            </property>
+        </widget>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel9_2_2</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>5</x>
+                    <y>235</y>
+                    <width>180</width>
+                    <height>25</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>Reserverad kvantitet: ..........</string>
+            </property>
+        </widget>
+        <widget class="QLineEdit">
+            <property name="name">
+                <cstring>lineEditReserverat</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>190</x>
+                    <y>230</y>
+                    <width>105</width>
+                    <height>26</height>
                 </rect>
             </property>
             <property name="alignment">
