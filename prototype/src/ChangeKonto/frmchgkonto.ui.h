@@ -8,8 +8,8 @@
 /***************************************************************************
                           CHGKTOW  -  description
                              -------------------
-		     version 0.01
-    begin                : Fre 31 jan 2003
+		     version 0.02
+    begin                : Lör 7 juni 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/

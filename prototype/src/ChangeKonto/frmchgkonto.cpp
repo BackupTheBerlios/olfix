@@ -1,11 +1,12 @@
 /****************************************************************************
 ** Form implementation generated from reading ui file 'frmchgkonto.ui'
 **
-** Created: tor mar 20 08:03:17 2003
-**      by:  The User Interface Compiler (uic)
+** Created: lör jun 7 05:46:53 2003
+**      by: The User Interface Compiler ($Id: frmchgkonto.cpp,v 1.2 2003/09/28 06:41:43 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 ****************************************************************************/
+
 #include "frmchgkonto.h"
 
 #include <qvariant.h>
@@ -18,141 +19,120 @@
 #include "frmchgkonto.ui.h"
 
 /* 
- *  Constructs a frmChgKonto which is a child of 'parent', with the 
+ *  Constructs a frmChgKonto as a child of 'parent', with the 
  *  name 'name' and widget flags set to 'f'.
  */
-frmChgKonto::frmChgKonto( QWidget* parent,  const char* name, WFlags fl )
+frmChgKonto::frmChgKonto( QWidget* parent, const char* name, WFlags fl )
     : QWidget( parent, name, fl )
 {
     if ( !name )
 	setName( "frmChgKonto" );
-    resize( 419, 436 ); 
-    setCaption( trUtf8( "CHGKTOW  Ändra konto" ) );
 
     TextLabelUserID = new QLabel( this, "TextLabelUserID" );
-    TextLabelUserID->setGeometry( QRect( 10, 21, 81, 30 ) ); 
-    TextLabelUserID->setText( trUtf8( "Bokföringsår:\n"
-"(arid, 2 teck.)" ) );
+    TextLabelUserID->setGeometry( QRect( 10, 21, 81, 30 ) );
 
     TextLabelNamn = new QLabel( this, "TextLabelNamn" );
-    TextLabelNamn->setGeometry( QRect( 10, 60, 82, 21 ) ); 
-    TextLabelNamn->setText( trUtf8( "Kontonummer:" ) );
+    TextLabelNamn->setGeometry( QRect( 10, 60, 82, 21 ) );
 
     TextLabelGrupp = new QLabel( this, "TextLabelGrupp" );
-    TextLabelGrupp->setGeometry( QRect( 10, 120, 84, 21 ) ); 
-    TextLabelGrupp->setText( trUtf8( "Manuell (J/N):" ) );
+    TextLabelGrupp->setGeometry( QRect( 10, 120, 84, 21 ) );
 
     TextLabel1 = new QLabel( this, "TextLabel1" );
-    TextLabel1->setGeometry( QRect( 10, 150, 81, 21 ) ); 
-    TextLabel1->setText( trUtf8( "Momskod:" ) );
+    TextLabel1->setGeometry( QRect( 10, 150, 81, 21 ) );
 
     TextLabel2 = new QLabel( this, "TextLabel2" );
-    TextLabel2->setGeometry( QRect( 10, 180, 81, 21 ) ); 
-    TextLabel2->setText( trUtf8( "SRUnr:" ) );
+    TextLabel2->setGeometry( QRect( 10, 180, 81, 21 ) );
 
     TextLabelAvd = new QLabel( this, "TextLabelAvd" );
-    TextLabelAvd->setGeometry( QRect( 10, 90, 90, 21 ) ); 
-    TextLabelAvd->setText( trUtf8( "Benämning:" ) );
+    TextLabelAvd->setGeometry( QRect( 10, 90, 90, 21 ) );
 
     TextLabel3 = new QLabel( this, "TextLabel3" );
-    TextLabel3->setGeometry( QRect( 10, 210, 91, 21 ) ); 
-    TextLabel3->setText( trUtf8( "Kostnadsställe:" ) );
-
-    TextLabel4 = new QLabel( this, "TextLabel4" );
-    TextLabel4->setGeometry( QRect( 10, 240, 91, 21 ) ); 
-    TextLabel4->setText( trUtf8( "Projekt:" ) );
+    TextLabel3->setGeometry( QRect( 10, 210, 91, 21 ) );
 
     TextLabel5 = new QLabel( this, "TextLabel5" );
-    TextLabel5->setGeometry( QRect( 10, 270, 81, 21 ) ); 
-    TextLabel5->setText( trUtf8( "Subkonto:" ) );
+    TextLabel5->setGeometry( QRect( 10, 270, 81, 21 ) );
 
     TextLabel6 = new QLabel( this, "TextLabel6" );
-    TextLabel6->setGeometry( QRect( 10, 300, 81, 21 ) ); 
-    TextLabel6->setText( trUtf8( "Kontoplan:" ) );
+    TextLabel6->setGeometry( QRect( 10, 300, 81, 21 ) );
 
     TextLabel9 = new QLabel( this, "TextLabel9" );
-    TextLabel9->setGeometry( QRect( 170, 20, 71, 21 ) ); 
-    TextLabel9->setText( trUtf8( "Obligatoriskt." ) );
+    TextLabel9->setGeometry( QRect( 170, 20, 71, 21 ) );
 
     TextLabel9_2 = new QLabel( this, "TextLabel9_2" );
-    TextLabel9_2->setGeometry( QRect( 170, 60, 71, 21 ) ); 
-    TextLabel9_2->setText( trUtf8( "Obligatoriskt." ) );
+    TextLabel9_2->setGeometry( QRect( 170, 60, 71, 21 ) );
 
     TextLabel9_3 = new QLabel( this, "TextLabel9_3" );
-    TextLabel9_3->setGeometry( QRect( 170, 120, 71, 21 ) ); 
-    TextLabel9_3->setText( trUtf8( "Obligatoriskt." ) );
+    TextLabel9_3->setGeometry( QRect( 170, 120, 71, 21 ) );
 
     TextLabel9_4 = new QLabel( this, "TextLabel9_4" );
-    TextLabel9_4->setGeometry( QRect( 170, 150, 71, 21 ) ); 
-    TextLabel9_4->setText( trUtf8( "Obligatoriskt." ) );
+    TextLabel9_4->setGeometry( QRect( 170, 150, 71, 21 ) );
 
     TextLabel9_5 = new QLabel( this, "TextLabel9_5" );
-    TextLabel9_5->setGeometry( QRect( 170, 180, 71, 21 ) ); 
-    TextLabel9_5->setText( trUtf8( "Obligatoriskt." ) );
+    TextLabel9_5->setGeometry( QRect( 170, 180, 71, 21 ) );
 
     TextLabel9_6 = new QLabel( this, "TextLabel9_6" );
-    TextLabel9_6->setGeometry( QRect( 260, 300, 71, 21 ) ); 
-    TextLabel9_6->setText( trUtf8( "Obligatoriskt." ) );
+    TextLabel9_6->setGeometry( QRect( 260, 300, 71, 21 ) );
 
     LineEditUB = new QLineEdit( this, "LineEditUB" );
     LineEditUB->setEnabled( FALSE );
-    LineEditUB->setGeometry( QRect( 100, 360, 111, 22 ) ); 
-
-    PushButtonQuit = new QPushButton( this, "PushButtonQuit" );
-    PushButtonQuit->setGeometry( QRect( 80, 400, 61, 21 ) ); 
-    PushButtonQuit->setText( trUtf8( "Avsluta" ) );
-
-    TextLabel8 = new QLabel( this, "TextLabel8" );
-    TextLabel8->setGeometry( QRect( 10, 360, 90, 21 ) ); 
-    TextLabel8->setText( trUtf8( "UB:" ) );
+    LineEditUB->setGeometry( QRect( 100, 360, 111, 22 ) );
 
     TextLabel7 = new QLabel( this, "TextLabel7" );
-    TextLabel7->setGeometry( QRect( 10, 330, 81, 21 ) ); 
-    TextLabel7->setText( trUtf8( "IB:" ) );
+    TextLabel7->setGeometry( QRect( 10, 330, 81, 21 ) );
 
     LineEditBar = new QLineEdit( this, "LineEditBar" );
-    LineEditBar->setGeometry( QRect( 100, 20, 30, 22 ) ); 
+    LineEditBar->setGeometry( QRect( 100, 20, 30, 22 ) );
 
     LineEditMomskod = new QLineEdit( this, "LineEditMomskod" );
-    LineEditMomskod->setGeometry( QRect( 100, 150, 41, 22 ) ); 
+    LineEditMomskod->setGeometry( QRect( 100, 150, 41, 22 ) );
 
     LineEditSRU = new QLineEdit( this, "LineEditSRU" );
-    LineEditSRU->setGeometry( QRect( 100, 180, 41, 22 ) ); 
+    LineEditSRU->setGeometry( QRect( 100, 180, 41, 22 ) );
 
     LineEditKst = new QLineEdit( this, "LineEditKst" );
-    LineEditKst->setGeometry( QRect( 100, 210, 51, 22 ) ); 
+    LineEditKst->setGeometry( QRect( 100, 210, 51, 22 ) );
 
     LineEditProjekt = new QLineEdit( this, "LineEditProjekt" );
-    LineEditProjekt->setGeometry( QRect( 100, 239, 51, 22 ) ); 
+    LineEditProjekt->setGeometry( QRect( 100, 239, 51, 22 ) );
 
     LineEditSubkonto = new QLineEdit( this, "LineEditSubkonto" );
-    LineEditSubkonto->setGeometry( QRect( 100, 270, 51, 22 ) ); 
+    LineEditSubkonto->setGeometry( QRect( 100, 270, 51, 22 ) );
 
     LineEditKontoplan = new QLineEdit( this, "LineEditKontoplan" );
-    LineEditKontoplan->setGeometry( QRect( 100, 300, 151, 22 ) ); 
+    LineEditKontoplan->setGeometry( QRect( 100, 300, 151, 22 ) );
 
     LineEditIB = new QLineEdit( this, "LineEditIB" );
     LineEditIB->setEnabled( FALSE );
-    LineEditIB->setGeometry( QRect( 100, 330, 111, 22 ) ); 
+    LineEditIB->setGeometry( QRect( 100, 330, 111, 22 ) );
 
     LineEditManuell = new QLineEdit( this, "LineEditManuell" );
-    LineEditManuell->setGeometry( QRect( 100, 120, 30, 22 ) ); 
-    LineEditManuell->setText( trUtf8( "" ) );
+    LineEditManuell->setGeometry( QRect( 100, 120, 30, 22 ) );
 
     LineEditBenamn = new QLineEdit( this, "LineEditBenamn" );
-    LineEditBenamn->setGeometry( QRect( 100, 90, 310, 22 ) ); 
-
-    PushButtonGet = new QPushButton( this, "PushButtonGet" );
-    PushButtonGet->setGeometry( QRect( 250, 60, 61, 21 ) ); 
-    PushButtonGet->setText( trUtf8( "Hämta" ) );
+    LineEditBenamn->setGeometry( QRect( 100, 90, 310, 22 ) );
 
     LineEditKontoNr = new QLineEdit( this, "LineEditKontoNr" );
-    LineEditKontoNr->setGeometry( QRect( 100, 60, 50, 22 ) ); 
+    LineEditKontoNr->setGeometry( QRect( 100, 60, 50, 22 ) );
 
     PushButtonOK = new QPushButton( this, "PushButtonOK" );
-    PushButtonOK->setGeometry( QRect( 10, 400, 51, 21 ) ); 
-    PushButtonOK->setText( trUtf8( "OK" ) );
+    PushButtonOK->setGeometry( QRect( 10, 400, 51, 21 ) );
     PushButtonOK->setDefault( TRUE );
+
+    PushButtonQuit = new QPushButton( this, "PushButtonQuit" );
+    PushButtonQuit->setGeometry( QRect( 80, 400, 61, 21 ) );
+    PushButtonQuit->setDefault( TRUE );
+
+    PushButtonGet = new QPushButton( this, "PushButtonGet" );
+    PushButtonGet->setGeometry( QRect( 250, 60, 61, 21 ) );
+    PushButtonGet->setDefault( TRUE );
+
+    TextLabel4 = new QLabel( this, "TextLabel4" );
+    TextLabel4->setGeometry( QRect( 10, 240, 85, 21 ) );
+
+    TextLabel8 = new QLabel( this, "TextLabel8" );
+    TextLabel8->setGeometry( QRect( 10, 360, 85, 21 ) );
+    languageChange();
+    resize( QSize(419, 436).expandedTo(minimumSizeHint()) );
 
     // signals and slots connections
     connect( PushButtonQuit, SIGNAL( clicked() ), this, SLOT( close() ) );
@@ -179,6 +159,16 @@ frmChgKonto::frmChgKonto( QWidget* parent,  const char* name, WFlags fl )
     connect( LineEditKontoplan, SIGNAL( returnPressed() ), this, SLOT( LineEditKontoplan_returnPressed() ) );
     connect( PushButtonOK, SIGNAL( clicked() ), this, SLOT( PushButtonOK_clicked() ) );
     connect( PushButtonGet, SIGNAL( clicked() ), this, SLOT( PushButtonGet_clicked() ) );
+    connect( LineEditBar, SIGNAL( lostFocus() ), this, SLOT( LineEditBar_returnPressed() ) );
+    connect( LineEditKontoNr, SIGNAL( lostFocus() ), this, SLOT( LineEditKontoNr_returnPressed() ) );
+    connect( LineEditBenamn, SIGNAL( lostFocus() ), this, SLOT( LineEditBenamn_returnPressed() ) );
+    connect( LineEditManuell, SIGNAL( lostFocus() ), this, SLOT( LineEditManuell_returnPressed() ) );
+    connect( LineEditMomskod, SIGNAL( lostFocus() ), this, SLOT( LineEditMomskod_returnPressed() ) );
+    connect( LineEditSRU, SIGNAL( lostFocus() ), this, SLOT( LineEditSRU_returnPressed() ) );
+    connect( LineEditKst, SIGNAL( lostFocus() ), this, SLOT( LineEditKst_returnPressed() ) );
+    connect( LineEditProjekt, SIGNAL( lostFocus() ), this, SLOT( LineEditProjekt_returnPressed() ) );
+    connect( LineEditSubkonto, SIGNAL( lostFocus() ), this, SLOT( LineEditSubkonto_returnPressed() ) );
+    connect( LineEditKontoplan, SIGNAL( lostFocus() ), this, SLOT( LineEditKontoplan_returnPressed() ) );
 
     // tab order
     setTabOrder( LineEditBar, LineEditKontoNr );
@@ -196,11 +186,43 @@ frmChgKonto::frmChgKonto( QWidget* parent,  const char* name, WFlags fl )
     setTabOrder( PushButtonOK, PushButtonQuit );
 }
 
-/*  
+/*
  *  Destroys the object and frees any allocated resources
  */
 frmChgKonto::~frmChgKonto()
 {
     // no need to delete child widgets, Qt does it all for us
+}
+
+/*
+ *  Sets the strings of the subwidgets using the current
+ *  language.
+ */
+void frmChgKonto::languageChange()
+{
+    setCaption( trUtf8( "CHGKTOW  Ändra konto" ) );
+    TextLabelUserID->setText( trUtf8( "Bokföringsår:\n"
+"(arid, 2 teck.)" ) );
+    TextLabelNamn->setText( tr( "Kontonummer:" ) );
+    TextLabelGrupp->setText( tr( "Manuell (J/N):" ) );
+    TextLabel1->setText( tr( "Momskod:" ) );
+    TextLabel2->setText( tr( "SRUnr:" ) );
+    TextLabelAvd->setText( trUtf8( "Benämning:" ) );
+    TextLabel3->setText( trUtf8( "Kostnadsställe:" ) );
+    TextLabel5->setText( tr( "Subkonto:" ) );
+    TextLabel6->setText( tr( "Kontoplan:" ) );
+    TextLabel9->setText( tr( "Obligatoriskt." ) );
+    TextLabel9_2->setText( tr( "Obligatoriskt." ) );
+    TextLabel9_3->setText( tr( "Obligatoriskt." ) );
+    TextLabel9_4->setText( tr( "Obligatoriskt." ) );
+    TextLabel9_5->setText( tr( "Obligatoriskt." ) );
+    TextLabel9_6->setText( tr( "Obligatoriskt." ) );
+    TextLabel7->setText( tr( "IB:" ) );
+    LineEditManuell->setText( QString::null );
+    PushButtonOK->setText( tr( "OK" ) );
+    PushButtonQuit->setText( tr( "Avsluta" ) );
+    PushButtonGet->setText( trUtf8( "Hämta" ) );
+    TextLabel4->setText( tr( "Projekt:" ) );
+    TextLabel8->setText( tr( "UB:" ) );
 }
 

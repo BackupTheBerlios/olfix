@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
 <class>frmChgKonto</class>
 <widget class="QWidget">
     <property name="name">
@@ -126,22 +126,6 @@
         </property>
         <property name="text">
             <string>Kostnadsställe:</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel4</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>240</y>
-                <width>91</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Projekt:</string>
         </property>
     </widget>
     <widget class="QLabel">
@@ -286,38 +270,6 @@
                 <width>111</width>
                 <height>22</height>
             </rect>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonQuit</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>80</x>
-                <y>400</y>
-                <width>61</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Avsluta</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel8</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>360</y>
-                <width>90</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>UB:</string>
         </property>
     </widget>
     <widget class="QLabel">
@@ -472,22 +424,6 @@
             </rect>
         </property>
     </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonGet</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>250</x>
-                <y>60</y>
-                <width>61</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Hämta</string>
-        </property>
-    </widget>
     <widget class="QLineEdit">
         <property name="name">
             <cstring>LineEditKontoNr</cstring>
@@ -518,6 +454,76 @@
         </property>
         <property name="default">
             <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonQuit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>80</x>
+                <y>400</y>
+                <width>61</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avsluta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonGet</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>250</x>
+                <y>60</y>
+                <width>61</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hämta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel4</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>240</y>
+                <width>85</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Projekt:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel8</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>360</y>
+                <width>85</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>UB:</string>
         </property>
     </widget>
 </widget>
@@ -665,6 +671,66 @@
         <signal>clicked()</signal>
         <receiver>frmChgKonto</receiver>
         <slot>PushButtonGet_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditBar</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmChgKonto</receiver>
+        <slot>LineEditBar_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditKontoNr</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmChgKonto</receiver>
+        <slot>LineEditKontoNr_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditBenamn</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmChgKonto</receiver>
+        <slot>LineEditBenamn_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditManuell</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmChgKonto</receiver>
+        <slot>LineEditManuell_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditMomskod</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmChgKonto</receiver>
+        <slot>LineEditMomskod_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditSRU</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmChgKonto</receiver>
+        <slot>LineEditSRU_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditKst</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmChgKonto</receiver>
+        <slot>LineEditKst_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditProjekt</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmChgKonto</receiver>
+        <slot>LineEditProjekt_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditSubkonto</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmChgKonto</receiver>
+        <slot>LineEditSubkonto_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditKontoplan</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmChgKonto</receiver>
+        <slot>LineEditKontoplan_returnPressed()</slot>
     </connection>
 </connections>
 <tabstops>

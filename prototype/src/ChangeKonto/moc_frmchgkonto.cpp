@@ -1,8 +1,8 @@
 /****************************************************************************
 ** frmChgKonto meta object code from reading C++ file 'frmchgkonto.h'
 **
-** Created: Thu Mar 20 08:03:39 2003
-**      by: The Qt MOC ($Id: moc_frmchgkonto.cpp,v 1.1 2003/05/08 08:54:34 frazze Exp $)
+** Created: Sat Jun 7 05:47:12 2003
+**      by: The Qt MOC ($Id: moc_frmchgkonto.cpp,v 1.2 2003/09/28 06:41:43 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -13,8 +13,8 @@
 #include <qapplication.h>
 
 #include <private/qucomextra_p.h>
-#if !defined(Q_MOC_OUTPUT_REVISION) || (Q_MOC_OUTPUT_REVISION != 19)
-#error "This file was generated using the moc from 3.0.5. It"
+#if !defined(Q_MOC_OUTPUT_REVISION) || (Q_MOC_OUTPUT_REVISION != 26)
+#error "This file was generated using the moc from 3.1.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -25,7 +25,7 @@ const char *frmChgKonto::className() const
 }
 
 QMetaObject *frmChgKonto::metaObj = 0;
-static QMetaObjectCleanUp cleanUp_frmChgKonto;
+static QMetaObjectCleanUp cleanUp_frmChgKonto( "frmChgKonto", &frmChgKonto::staticMetaObject );
 
 #ifndef QT_NO_TRANSLATION
 QString frmChgKonto::tr( const char *s, const char *c )
@@ -73,6 +73,7 @@ QMetaObject* frmChgKonto::staticMetaObject()
     static const QUMethod slot_18 = {"slotGetKonto", 0, 0 };
     static const QUMethod slot_19 = {"PushButtonGet_clicked", 0, 0 };
     static const QUMethod slot_20 = {"PushButtonGet_returnPressed", 0, 0 };
+    static const QUMethod slot_21 = {"languageChange", 0, 0 };
     static const QMetaData slot_tbl[] = {
 	{ "slotChgKonto()", &slot_0, QMetaData::Public },
 	{ "LineEditBar_returnPressed()", &slot_1, QMetaData::Public },
@@ -94,11 +95,12 @@ QMetaObject* frmChgKonto::staticMetaObject()
 	{ "slotGetDataOnStderr()", &slot_17, QMetaData::Public },
 	{ "slotGetKonto()", &slot_18, QMetaData::Public },
 	{ "PushButtonGet_clicked()", &slot_19, QMetaData::Public },
-	{ "PushButtonGet_returnPressed()", &slot_20, QMetaData::Public }
+	{ "PushButtonGet_returnPressed()", &slot_20, QMetaData::Public },
+	{ "languageChange()", &slot_21, QMetaData::Protected }
     };
     metaObj = QMetaObject::new_metaobject(
 	"frmChgKonto", parentObject,
-	slot_tbl, 21,
+	slot_tbl, 22,
 	0, 0,
 #ifndef QT_NO_PROPERTIES
 	0, 0,
@@ -111,7 +113,8 @@ QMetaObject* frmChgKonto::staticMetaObject()
 
 void* frmChgKonto::qt_cast( const char* clname )
 {
-    if ( !qstrcmp( clname, "frmChgKonto" ) ) return (frmChgKonto*)this;
+    if ( !qstrcmp( clname, "frmChgKonto" ) )
+	return this;
     return QWidget::qt_cast( clname );
 }
 
@@ -139,6 +142,7 @@ bool frmChgKonto::qt_invoke( int _id, QUObject* _o )
     case 18: slotGetKonto(); break;
     case 19: PushButtonGet_clicked(); break;
     case 20: PushButtonGet_returnPressed(); break;
+    case 21: languageChange(); break;
     default:
 	return QWidget::qt_invoke( _id, _o );
     }
@@ -151,8 +155,10 @@ bool frmChgKonto::qt_emit( int _id, QUObject* _o )
 }
 #ifndef QT_NO_PROPERTIES
 
-bool frmChgKonto::qt_property( int _id, int _f, QVariant* _v)
+bool frmChgKonto::qt_property( int id, int f, QVariant* v)
 {
-    return QWidget::qt_property( _id, _f, _v);
+    return QWidget::qt_property( id, f, v);
 }
+
+bool frmChgKonto::qt_static_property( QObject* , int , int , QVariant* ){ return FALSE; }
 #endif // QT_NO_PROPERTIES
