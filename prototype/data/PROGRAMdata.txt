@@ -47,4 +47,6 @@
 "047","Försäljning","Kunddata","Ändra kunddata","CHGKUW"
 "048","Försäljning","Kunddata","Lista kunder","LSTKUW"
 "049","Administration","Företagsdata","Byta företag","BYTFTGW"
-"050","Grunddata","Artikeldata","Ny artikel","ADDARW"
+"050","Materialhantering","Artikeldata","Ny artikel","ADDARW"
+"051","Materialhantering","Artikeldata","Visa grunddata för en artikel","DSPARW"
+"052","Materialhantering","Artikeldata","Visa en artikels ekonomidata","DSPAREW"
