@@ -2,10 +2,10 @@
                           LEVPDSP.c  -  description
                              -------------------
 			     Visa data om en standarleveransplats
-    Version		 : 0.1
+    Version		 : 0.2
     begin                : Tis  8 mars	2005
-    Modified		 :
-    copyright            : (C) 2003 by Jan Pihlgren
+    Modified		 : Lör 12 mars  2005
+    copyright            : (C) 2005 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
 
@@ -30,7 +30,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVPDSP.c,v 1.1 2005/03/08 08:35:48 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVPDSP.c,v 1.2 2005/03/12 17:38:31 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -102,12 +102,12 @@ int main(int argc, char *argv[], char *envp[])
   	fprintf(stderr,"Error: Nr för standardleveransplats eller kundnr saknas.\n");
 	exit(-1);
   }
-  
+/*
 int i;
   for (i=0;i<argc;i++){
   	fprintf(stderr,"argc=%d argv[%d]=%s\n",argc,i,argv[i]);
   }
-
+*/
   char temp1a[]="SELECT * FROM STDLEVPLATS WHERE (KUNDNR = \"";
   char temp1b[]=" AND STDLEVPLATS = \"";
   char temp2[]="\"";
@@ -124,17 +124,17 @@ int i;
   strncpy(temp5,temp1a,strlen(temp1a));
 /* SELECT * FROM STDLEVPLATS WHERE (KUNDNR = "	*/
   strncat(temp5,kundnr,strlen(kundnr));/* 12334 */
-/* SELECT * FROM ARTIKELREG WHERE (kundnrnr = "12334	*/
+/* SELECT * FROM STDLEVPLATS WHERE (kundnrnr = "12334	*/
   strncat(temp5,temp2,strlen(temp2)); /*  "     */
-/* SELECT * FROM ARTIKELREG WHERE (kundnr = "12334"	*/
+/* SELECT * FROM STDLEVPLATS WHERE (kundnr = "12334"	*/
   strncat(temp5,temp1b,strlen(temp1b));
-/* SELECT * FROM ARTIKELREG WHERE (kundnr = "12334" AND STDLEVPLATS = "	*/
+/* SELECT * FROM STDLEVPLATS WHERE (kundnr = "12334" AND STDLEVPLATS = "	*/
   strncat(temp5,levplatsnr,strlen(levplatsnr));
-/* SELECT * FROM ARTIKELREG WHERE (kundnr = "12334" AND STDLEVPLATS = "002	*/
+/* SELECT * FROM STDLEVPLATS WHERE (kundnr = "12334" AND STDLEVPLATS = "002	*/
   strncat(temp5,temp2,strlen(temp2)); /*  "     */
-/* SELECT * FROM ARTIKELREG WHERE (kundnr = "12334" AND STDLEVPLATS = "002"	*/
+/* SELECT * FROM STDLEVPLATS WHERE (kundnr = "12334" AND STDLEVPLATS = "002"	*/
   strncat(temp5,temp4,strlen(temp4)); /*  )     */
-/* SELECT * FROM ARTIKELREG WHERE (kundnr = "12334" AND STDLEVPLATS = "002")	*/
+/* SELECT * FROM STDLEVPLATS WHERE (kundnr = "12334" AND STDLEVPLATS = "002")	*/
 /*  fprintf(stderr,"LEVPDSP temp5 = %s\n",temp5);	*/
 
   mysql_init(&my_connection);
@@ -159,8 +159,7 @@ int i;
 			fprintf(stdout,"04:%s  ",sqlrow[3]);
 			fprintf(stdout,"05:%s  ",sqlrow[4]);
 			fprintf(stdout,"06:%s  ",sqlrow[5]);
-
-			fprintf(stdout,"\n");
+			fprintf(stdout,":END\n");
 		}
 		else{
 			fprintf(stderr,"Error: LEVPDSP Data saknas:  %s\n", mysql_error(&my_connection));
