@@ -1,3 +1,4 @@
+2004-11-07
 Installation för utvecklingsarbete
 Innehåll
 Installation för utvecklingsarbete	1
@@ -14,15 +15,14 @@ OBS! MySQL skall vara startad. Det bästa är att ordna det så att MySQL startas n
 
 Installation:
 Se till att du är ?root?.
-shell> cd /usr/local
+shell> cd /opt
 shell> gunzip < /path/to/OLFIX-VERSION.tar.gz | tar xvf -
 shell> chown -R olfix olfix
 shell> chgrp -R olfix olfix
-shell> cd /usr/local/olfix/bin
+shell> cd /opt/olfix/bin
 shell> chmod 0010 *
 shell> chmod 2111 OLFIXW
-shell> cp /usr/local/olfix/util/.olfixrc $HOME/.olfixrc
-shell> cp /usr/local/olfix/util/start_olfix $HOME/start_olfix
+shell> cp /opt/olfix/util/.olfixrc $HOME/.olfixrc
 shell> cd $HOME
 shell> chown DittNamn .olfixrc
 shell> chgrp DittNamn .olfixrc
@@ -31,7 +31,7 @@ shell> chown DittNamn start_olfix
 shell> chgrp DittNamn start_olfix
 shell> chmod 766 start_olfix
 
-shell> cd /usr/local/olfix/sql
+shell> cd /opt/olfix/sql
 
 Att skapa databasen olfix:
 
@@ -39,7 +39,7 @@ Att skapa databasen olfix:
        Framför allt sökvägar som finns i LoadAll.sql, se pkt 8.
 2.Lägg upp user olfix i operativsystemet (annars funkar inte anropen till databasen olfix).
 3.Se till att bli root
-4.Editera filen /usr/local/olfix/sql/add_user_dittnamn.sql
+4.Editera filen /opt/olfix/sql/add_user_dittnamn.sql
 Leta reda på detta avsnitt;
 	)
 	VALUES
@@ -60,7 +60,7 @@ Detta kan göras med följande procedur:
 	shell>update user set password=PASSWORD('DittPassword') where User=?DittUserid?;
 	shell>FLUSH PRIVILEGES;
 
-5.Shell> cd /usr/local/olfix/data
+5.Shell> cd /opt/olfix/data
 6.Editera filen USRdata.txt
 	"OLFIX","Olfix Superuser","IT","Stab"
 	"USERID","Ditt Namn","Avd","Sektion"
@@ -92,16 +92,16 @@ Alternativ installation med kompilering
 	Bibliotek.
 
 Skapa följande bibliotek:
-	/usr/local/olfix
-	/usr/local/olfix/bin	(Här ska alla binärfiler läggas efter kompilering)
-	/usr/local/olfix/data
-	/usr/local/olfix/doc
-	/usr/local/olfix/doc/image
-	/usr/local/olfix/include
-	/usr/local/olfix/lib
-	/usr/local/olfix/sql
-	/usr/local/olfix/src
-	/usr/local/olfix/util
+	/opt/olfix
+	/opt/olfix/bin	(Här ska alla binärfiler läggas efter kompilering)
+	/opt/olfix/data
+	/opt/olfix/doc
+	/opt/olfix/doc/image
+	/opt/olfix/include
+	/opt/olfix/lib
+	/opt/olfix/sql
+	/opt/olfix/src
+	/opt/olfix/util
 
 Följande behörigheter bör du ha:
 bin   se nedan
@@ -116,10 +116,10 @@ util  chmod +rwx *
   Framförallt se till så att du får rätt path.
 	Med hjälp av alla make_FUNKTION.txt kan programmen kompileras.
 	Det finns också en make_ALL.txt som kompilerar alla programmen.
-	Binärfilerna, de exekverbara programmen ska hamna i biblioteket /usr/local/olfix/bin
+	Binärfilerna, de exekverbara programmen ska hamna i biblioteket /opt/olfix/bin
 	Man kan naturligtvis kompilera programmen på sitt eget vis.
 	Här gäller det att både  make_FUNKTION.txt och källkodsfilerna finns i samma
-	bibliotek, /usr/local/olfix/src.
+	bibliotek, /opt/olfix/src.
 
 Slut på alternativ kompilering.
 
@@ -127,15 +127,14 @@ Slut på alternativ kompilering.
      $HOME hos alla användare som ska köra OLFIX.
      OBS! VTMP=/tmp/ får inte avslutas med ett returntecken. Måste ligga sist i filen.
 
-15.Kopiera filen start_olfix till varje användares hembibliotek ($HOME). start_olfix är ett script för
-     att starta OLFIXW.
-
 16.Det första man behöver göra är att se till att behörigheterna för användarna till de olika funktionerna
      sätts.
 Installationen innehåller bara de allra nödvändigaste behörigheterna för användaren olfix.
 
-17.Flytta alla binärfiler till /usr/local/olfix/bin.
+17.Flytta alla binärfiler till /opt/olfix/bin.
 
+Punkt 18 är inte nödvändig.
+---------------------------
 18.Behörigheterna på filerna ska göras enligt följande:
      Sätt uid=olfix och gid=olfix
 chown olfix *
@@ -148,7 +147,7 @@ chmod 2111 OLFIXW
 chmod 0010 program
 ------x--- 1 olfix olfix 58239 jan 29 05:09 program
 
-Installation av MySQL
+19. Installation av MySQL
 
 The basic commands you must execute to install and use a MySQL binary distribution are:
 shell> groupadd mysql
@@ -170,11 +169,13 @@ För mera information se MySQLReferenseManual, http://www.mysql.com/documentation
 För att kunna kompilera C-programmen måste även biblioteket
 /usr/include/mysql finnas
 
+20.Installation av MySQLCC
+
 MySQLCC = grafiskt gränssnitt till MySQL
 MySQLCC kan hämtas från:
 http://www.mysql.com/downloads/mysqlcc.html
 Inkluderrat i leveransen finns
-/usr/local/olfix/mysqlcc-0.9.4-linux-glibc23.tar.gz
+/opt/olfix/mysqlcc-0.9.4-linux-glibc23.tar.gz
 ==============================================================================
 
 Linux Binary Installation
@@ -203,17 +204,7 @@ After everything has been unpacked and installed, you should now be able to exec
 
 You can start MySQL Control Center with the following command:
 
-    shell> /usr/local/mysqlcc/mysqlcc 
+    shell> /usr/local/mysqlcc/mysqlcc
 
 NOTE: MySQL Control Center is a Graphical GUI Client. This means you will need to be running in an X environment before starting MySQL Control Center with the above command.
 ==============================================================================
-
-
-MySQL Navigator
-Följande 2 filer ska finnas i biblioteket /usr/local/mysqlnavigator-version.binary
-libstdc++libc6.2-2.so.3
-mysqlnavigator-static
-
-MySQL Navigator startas som root med commando;
-shell> /usr/local/mysqlnavigator-static &
-
