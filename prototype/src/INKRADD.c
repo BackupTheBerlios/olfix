@@ -18,19 +18,17 @@
 
 /*
 	INPUT: inkorderraddata databas
-		format=_:_6712_:_N_:_2003-12-13_:_9999_:_Testleverantör AB_:_Delivery Street 1C_:_ 199 99_:_LEVSTAD_:_Sverige_:_SEK_:_001_:_Godsmäre_:_002_:_
-Caroline Inköpare_:_2003-12-15_:_98765_:_PROGRAM AB_:_Verktygsgatan 11_:_199 97_:_PROGSTAD_:_N_:_1450.50_:_
+		format="_:_6712_:_010_:_1173-1445_:_ST_:_25.00_:_0_:_0_:_95.00_:_351_:_0_:_0_:_"
 
 Fältavskiljare = _:_
 
-	Function: gör  INSERT INTO INKRADREG (INKORDNR,BESTTYP,ORDERDATUM,LEVNR,LEVNAMN,LEVADRESS,LEVPOSTNR,LEVPOSTADR,LEVLAND,LEVVALUTA,LEVBETVILLKOR,GODSMERKE,BESTTEXT,VARREF,LEVDATUM,KUNDNR,FTGNAMN,FTGADR,FTGPOSTNR,FTGPOSTADR,ORDERSTATUS,ORDERSUMMA) VALUES ("6712","N","2003-12-13","Testleverantör AB","Delivery Street 1C","199 99","LEVSTAD","Sverige","SEK","001","Godsmärke",
-"002","Caroline Inköpare","2003-12-15","98765","PROGRAM AB","Verktygsgatan 11","199 97","PROGSTAD","N","1450.50") i databasen olfix
+	Function: gör  INSERT INTO INKRADREG (INKORDNR,INKORDRADNR,ARTIKELNR,ENHET,BESTANTAL,LEVERERAT,RESTNOTERAT,INKPRIS,LEVVECKA,TORDNR,OPNR) VALUES ("6712","010","1173-1445","ST","25.00","0","0","95.00","351","0","0") i databasen olfix
 
 	OUTPUT: errornb och error (text)
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKRADD.c,v 1.1 2003/12/18 04:53:14 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKRADD.c,v 1.2 2003/12/18 05:32:24 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -41,7 +39,7 @@ Fältavskiljare = _:_
 #include <string.h>
 #include "mysql.h"
 #define ANTARG 2
-#define ANTFELT 22
+#define ANTFELT 11
 
   MYSQL my_connection;
   MYSQL_RES *res_ptr;
@@ -57,7 +55,7 @@ int main(int argc, char *argv[], char *envp[])
   const char *userp = getenv("USER");	// vem är inloggad?
   char usr[15];				// userid
 
-  char temp1a[]="INSERT INTO INKREG (INKORDNR,BESTTYP,ORDERDATUM,LEVNR,LEVNAMN,LEVADRESS,LEVPOSTNR,LEVPOSTADR,LEVLAND,LEVVALUTA,LEVBETVILLKOR,GODSMERKE,BESTTEXT,VARREF,LEVDATUM,KUNDNR,FTGNAMN,FTGADR,FTGPOSTNR,FTGPOSTADR,ORDERSTATUS,ORDERSUMMA) VALUES (";
+  char temp1a[]="INSERT INTO INKRADREG (INKORDNR,INKORDRADNR,ARTIKELNR,ENHET,BESTANTAL,LEVERERAT,RESTNOTERAT,INKPRIS,LEVVECKA,TORDNR,OPNR) VALUES (";
   char temp2[]="\"";
   char temp3[]=",";
   char temp4[]=")";
@@ -108,7 +106,7 @@ int main(int argc, char *argv[], char *envp[])
   	strncpy(inkorderdata,argv[1],strlen(argv[1]));
   }
   else{
-  	fprintf(stderr,"Error: INKADD: Ange inköpsordernummer!\n");
+  	fprintf(stderr,"Error: INKRADD: Ange inköpsordernummer!\n");
 	exit(-1);
   }
 
@@ -147,28 +145,28 @@ int main(int argc, char *argv[], char *envp[])
   }
   strncat(temp5,temp4,strlen(temp4));
 
-/* fprintf(stderr,"\nKUADD: temp5 = %s\n\n",temp5);	*/
+/* fprintf(stderr,"\nINKRADD: temp5 = %s\n\n",temp5);	*/
 /* exit(0);	*/
 
 
   mysql_init(&my_connection);
   if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
-/*  	fprintf(stderr,"KUADD:Connection success\n");	*/
+/*  	fprintf(stderr,"INKRADD:Connection success\n");	*/
 
   res = mysql_query(&my_connection,temp5);
 
   if (!res){
- 	fprintf(stdout,"OK: INKADD Inserted %lu rows\n",
+ 	fprintf(stdout,"OK: INKRADD Inserted %lu rows\n",
 		(unsigned long)mysql_affected_rows(&my_connection));
         }else{
-	fprintf(stderr,"Error: INKADD INSERT error: %d  %s\n", mysql_errno(&my_connection),
+	fprintf(stderr,"Error: INKRADD INSERT error: %d  %s\n", mysql_errno(&my_connection),
 					mysql_error(&my_connection));
 	}
 	mysql_close(&my_connection);
  }else {
-	fprintf(stderr,"Error: INKADD Connection failed\n");
+	fprintf(stderr,"Error: INKRADD Connection failed\n");
  	if (mysql_errno(&my_connection))   {
- 		fprintf(stderr,"Error: INKADD Connection error %d:  %s\n",
+ 		fprintf(stderr,"Error: INKRADD Connection error %d:  %s\n",
 			mysql_errno(&my_connection), mysql_error(&my_connection));
 	}
   }
