@@ -401,27 +401,27 @@ void frmPrtPlKundOrder::OrderHuvudEndOfProcess()
 /*************************************************************************/	    
 	    m=i8-i7;
 	    if (i7 != -1){
-//		kundnamn=inrad.mid(i7+3,m-4);		// kundnamn
+		kundnamn=inrad.mid(i7+3,m-4);		// kundnamn
 	    }
 
 	    m=i9-i8;
 	    if (i8 != -1){
-//		kundadr=inrad.mid(i8+3,m-4);		// kundadress
+		kundadr=inrad.mid(i8+3,m-4);		// kundadress
 	    }
 
 	    m=i10-i9;
 	    if (i9 != -1){
-//		kundpostnr=inrad.mid(i9+3,m-4);		// kundpostnr
+		kundpostnr=inrad.mid(i9+3,m-4);		// kundpostnr
 	    }
 
 	    m=i11-i10;
 	    if (i10 != -1){
-//		kundpostadr=inrad.mid(i10+3,m-4);		// kundpostadress
+		kundpostadr=inrad.mid(i10+3,m-4);	// kundpostadress
 	    }
 
 	    m=i12-i11;
 	    if (i11 != -1){
-//		kundland=inrad.mid(i11+3,m-4);		// kundland
+		kundland=inrad.mid(i11+3,m-4);		// kundland
 	    }
 
 	    m=i13-i12;
