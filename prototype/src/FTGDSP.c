@@ -2,9 +2,9 @@
                           FTGDSP.c  -  description
                              -------------------
 			     Visa posttyp
-    Version		: 0.4
+    Version		: 0.5
     begin               : Tis 19 nov  2002
-    modified		: Ons 23 febr 2005
+    modified		: Ons 31 mars 2005
     copyright           : (C) 2002 by Jan Pihlgren
     email               : jan@pihlgren.se
  ***************************************************************************/
@@ -30,7 +30,7 @@
 */
 
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FTGDSP.c,v 1.4 2005/02/23 15:05:19 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FTGDSP.c,v 1.5 2005/04/02 07:33:56 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -135,7 +135,7 @@ int main(int argc, char *argv[], char *envp[])
 		if(num_rows != 0){
 			sqlrow=mysql_fetch_row(res_ptr);
 /*	 		fprintf(stdout,"Fetched data....}");	*/
-			fprintf(stdout,"OK: 1:%s  2:%s",sqlrow[0],sqlrow[1]);
+			fprintf(stdout,"OK: 1:%s  2:%s\0",sqlrow[0],sqlrow[1]);
 /*			fprintf(stdout,"\n");			*/
 		}
 		else{
