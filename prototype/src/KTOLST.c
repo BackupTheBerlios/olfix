@@ -1,9 +1,9 @@
 /***************************************************************************
                           KTOLST.c  -  description
                              -------------------
-    Version		 : 0.3
-    begin                : tis 29 okt 2002
-    modified		 : Ons  5 nov 2003
+    Version		 : 0.4
+    begin                : tis  29 okt  2002
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -26,7 +26,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTOLST.c,v 1.2 2003/11/05 06:37:36 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTOLST.c,v 1.3 2005/02/24 05:32:35 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -77,9 +77,9 @@ int main(int argc, char *argv[], char *envp[])
   }else{
 	if (strlen(argv[ANTARG]) != 0){
   		if (strncmp(argv[ANTARG],"99",2)==0){
-			strncpy(databas,"olfixtst",15);
+			strncpy(databas,"olfixtst",sizeof(databas));	/*2005-02-24	*/
 		}else{
-  			strncpy(databas,argv[ANTARG],15);
+  			strncpy(databas,argv[ANTARG],sizeof(databas));	/*2005-02-24	*/
   		}
   	}
   }
