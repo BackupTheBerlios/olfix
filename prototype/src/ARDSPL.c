@@ -23,14 +23,14 @@
 
 	Function: Visa grunddata för en artikel
 
-	OUTPUT:	14 st fält,
+	OUTPUT:	15 st fält,
 		ARLAGST, ARTIKELNR, ARLAGHYLLA, ARLAGSALDO, ARINVGRP, ARABC, VALUTA, ARIPRIS, ARIKVANT0, ARIKVANT1,
-		ARIKVANT2, ARKALKPRIS, ARBESTKVANT, ARBESTPUNKT
+		ARIKVANT2, ARKALKPRIS, ARBESTKVANT, ARBESTPUNKT, AROMKOST
 		samt errornb och error (text)
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARDSPL.c,v 1.1 2003/11/15 10:09:35 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARDSPL.c,v 1.2 2003/11/16 07:44:31 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -167,8 +167,8 @@ int main(int argc, char *argv[], char *envp[])
 			fprintf(stdout,"12:%s  ",sqlrow[11]);
 			fprintf(stdout,"13:%s  ",sqlrow[12]);
 			fprintf(stdout,"14:%s  ",sqlrow[13]);
-/*
 			fprintf(stdout,"15:%s  ",sqlrow[14]);
+/*
 			fprintf(stdout,"16:%s  ",sqlrow[15]);
 			fprintf(stdout,"17:%s  ",sqlrow[16]);
 			fprintf(stdout,"18:%s  ",sqlrow[17]);
