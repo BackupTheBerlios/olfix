@@ -327,25 +327,6 @@
             <bool>true</bool>
         </property>
     </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonQuit</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>80</x>
-                <y>290</y>
-                <width>61</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Avsluta</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
     <widget class="QLineEdit">
         <property name="name">
             <cstring>LineEditBar</cstring>
@@ -396,32 +377,48 @@
             <string>Om ADDBARW</string>
         </property>
     </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButton9</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>295</x>
+                <y>5</y>
+                <width>50</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+                <pointsize>8</pointsize>
+            </font>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonQuit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>80</x>
+                <y>290</y>
+                <width>61</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avsluta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
 </widget>
 <connections>
-    <connection>
-        <sender>PushButtonQuit</sender>
-        <signal>clicked()</signal>
-        <receiver>frmAddBar</receiver>
-        <slot>close()</slot>
-    </connection>
-    <connection>
-        <sender>LineEditSlutdatum</sender>
-        <signal>returnPressed()</signal>
-        <receiver>LineEditBeskattAr</receiver>
-        <slot>setFocus()</slot>
-    </connection>
-    <connection>
-        <sender>PushButtonOK</sender>
-        <signal>clicked()</signal>
-        <receiver>LineEditBar</receiver>
-        <slot>setFocus()</slot>
-    </connection>
-    <connection>
-        <sender>LineEditBenamn</sender>
-        <signal>returnPressed()</signal>
-        <receiver>LineEditStartdatum</receiver>
-        <slot>setFocus()</slot>
-    </connection>
     <connection>
         <sender>LineEditBeskattAr</sender>
         <signal>returnPressed()</signal>
@@ -495,52 +492,22 @@
         <slot>LineEditSlutdatum_returnPressed()</slot>
     </connection>
     <connection>
-        <sender>LineEditBar</sender>
-        <signal>lostFocus()</signal>
+        <sender>PushButtonQuit</sender>
+        <signal>clicked()</signal>
         <receiver>frmAddBar</receiver>
-        <slot>LineEditBar_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>LineEditBenamn</sender>
-        <signal>lostFocus()</signal>
-        <receiver>frmAddBar</receiver>
-        <slot>LineEditBenamn_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>LineEditStartdatum</sender>
-        <signal>lostFocus()</signal>
-        <receiver>frmAddBar</receiver>
-        <slot>LineEditStartdatum_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>LineEditSlutdatum</sender>
-        <signal>lostFocus()</signal>
-        <receiver>frmAddBar</receiver>
-        <slot>LineEditSlutdatum_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>LineEditBeskattAr</sender>
-        <signal>lostFocus()</signal>
-        <receiver>frmAddBar</receiver>
-        <slot>LineEditBeskattAr_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>LineEditNestaVerNr</sender>
-        <signal>lostFocus()</signal>
-        <receiver>frmAddBar</receiver>
-        <slot>LineEditNestaVerNr_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>LineEditKontoplan</sender>
-        <signal>lostFocus()</signal>
-        <receiver>frmAddBar</receiver>
-        <slot>LineEditKontoplan_returnPressed()</slot>
+        <slot>close()</slot>
     </connection>
     <connection>
         <sender>pushButton3</sender>
         <signal>clicked()</signal>
         <receiver>frmAddBar</receiver>
         <slot>slotAbout()</slot>
+    </connection>
+    <connection>
+        <sender>pushButton9</sender>
+        <signal>clicked()</signal>
+        <receiver>frmAddBar</receiver>
+        <slot>slotHelp()</slot>
     </connection>
 </connections>
 <tabstops>
@@ -571,7 +538,12 @@
     <slot>slotDataOnStderr()</slot>
     <slot>slotDataOnStdout()</slot>
     <slot>slotEndOfProcess()</slot>
+    <slot>slotHelp()</slot>
     <slot>slotAbout()</slot>
+    <slot>readResursFil()</slot>
 </slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

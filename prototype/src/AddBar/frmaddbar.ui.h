@@ -1,7 +1,8 @@
 /****************************************************************/
 /**		ADDBARW					*/
 /**		2003-05-28					*/
-/**		Ver 0.2                                                                                    */
+/**		Ver 0.3                                                                                    */
+/**    Modified:	2005-02-28					*/
 /**   Copyright	Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -26,11 +27,12 @@
 #include <qstring.h>		
 #include <qfile.h>
 #include <qregexp.h> 
-#define VERSION "0.2"
+#define VERSION "0.3\n  2005-02-28"
 #define MAXSTRING 5000
 
     QProcess* process;
     QString inrad;
+    QString errorrad;	// 2005-02-28
     QString arid;
     QString benamn;
     QString arstart;
@@ -41,15 +43,54 @@
     QString vernr;		// Nästa verifikationsnummer, default 1
     QString ktoplan;
 
+    QString hjelpfil;	// 2005-02-28
+    
+void frmAddBar::init()	// 2005-02-28
+{
+    LineEditBar->setFocus();
+}   
+
 void frmAddBar::slotAddBar()
 {
+/************************************************************************/
+/*	Kontrollera att alla fälten är ifyllda					*/
+/************************************************************************/
+       if (arid==""){
+	QMessageBox::warning( this, "ADDBARW",
+                      "Bokföringsår måste fyllas i! \n" );
+	LineEditBar->setFocus();
+	    }
+    if (arstart == ""){
+	QMessageBox::warning( this, "ADDBARW",
+                      "Startdatum måste fyllas i! \n" );
+	LineEditStartdatum->setFocus();
+     }
+    if (arslut==""){
+	QMessageBox::warning( this, "ADDBARW",
+                      "Slutdatum måste fyllas i! \n" );
+	LineEditSlutdatum->setFocus();
+	    }
+   if (beskattar==""){
+	QMessageBox::warning( this, "ADDBARW",
+                      "Beskattningsår måste fyllas i! \n" );
+	LineEditBeskattAr->setFocus();
+	    }
+   if (ktoplan==""){
+	QMessageBox::warning( this, "ADDBARW",
+                      "Kontoplan måste fyllas i! \n" );
+	LineEditKontoplan->setFocus();
+	    }
+
+    
+    
+    
 /************************************************************************/
 /*	Uppdatera databasen						*/
 /************************************************************************/
 	const char *userp = getenv("USER");
             QString usr(userp);
 	 arlast.append("N");
-	 
+	
 //	 qDebug("Utgående data\n %s\n %s\n %s\n %s\n %s\n %s\n %s\n %s\n %s\n",arid.latin1(),benamn.latin1(),arstart.latin1(),arslut.latin1(),arlast.latin1(),beskattar.latin1(),senverdat.latin1(),vernr.latin1(),ktoplan.latin1());
 		    
 	process = new QProcess();
@@ -95,11 +136,11 @@ void frmAddBar::LineEditBar_returnPressed()
     arid=LineEditBar->text();
     arid=arid.upper();
     LineEditBar->setText((arid));
-    if (arid==""){
+/*    if (arid==""){
 	QMessageBox::warning( this, "ADDKTOW",
                       "Bokföringsår måste fyllas i! \n" );
 	LineEditBar->setFocus();
-	    }
+	    } */
     LineEditBenamn->setFocus();
 }
 
@@ -112,33 +153,33 @@ void frmAddBar::LineEditBenamn_returnPressed()
 void frmAddBar::LineEditStartdatum_returnPressed()
 {
     arstart=LineEditStartdatum->text();
-    if (arstart == ""){
+/*    if (arstart == ""){
 	QMessageBox::warning( this, "ADDBARW",
                       "Startdatum måste fyllas i! \n" );
 	LineEditStartdatum->setFocus();
-     }
+     } */
     LineEditSlutdatum->setFocus();
 }
 
 void frmAddBar::LineEditSlutdatum_returnPressed()
 {
     arslut=LineEditSlutdatum->text();
-    if (arslut==""){
+/*    if (arslut==""){
 	QMessageBox::warning( this, "ADDBARW",
                       "Slutdatum måste fyllas i! \n" );
 	LineEditSlutdatum->setFocus();
-	    }
+	    } */
     LineEditBeskattAr->setFocus();
 }
 
 void frmAddBar::LineEditBeskattAr_returnPressed()
 {
     beskattar=LineEditBeskattAr->text();
-    if (beskattar==""){
+/*    if (beskattar==""){
 	QMessageBox::warning( this, "ADDBARW",
                       "Beskattningsår måste fyllas i! \n" );
 	LineEditBeskattAr->setFocus();
-	    }
+	    } */
     LineEditNestaVerNr->setFocus();
 }
 
@@ -155,11 +196,11 @@ void frmAddBar::LineEditNestaVerNr_returnPressed()
 void frmAddBar::LineEditKontoplan_returnPressed()
 {
     ktoplan=LineEditKontoplan->text();
-   if (ktoplan==""){
+/*   if (ktoplan==""){
 	QMessageBox::warning( this, "ADDBARW",
                       "Kontoplan måste fyllas i! \n" );
 	LineEditKontoplan->setFocus();
-	    }
+	    } */
    PushButtonOK->setFocus();
 }
 
@@ -174,8 +215,8 @@ void frmAddBar::slotDataOnStderr()
 {
     while (process->canReadLineStderr() ) {
 	QString line = process->readStderr();
-	inrad.append(line);
-	inrad.append("\n");
+	errorrad.append(line);
+	errorrad.append("\n");
     }
 }
 
@@ -196,30 +237,26 @@ void frmAddBar::slotEndOfProcess()
     
 //    qDebug("inrad=%s",inrad.latin1());
             i = -1;
-            i = inrad.find( QRegExp("Error:"), 0 );
+            i = errorrad.find( QRegExp("Error:"), 0 );
 //	qDebug("frmAddBar-inrad=%s i=%d\n",inrad.latin1(),i);
             if (i == 0) {
 		QMessageBox::critical( this, "OLFIX - BARADD",
-			"ERROR!\n"+inrad 
+			"ERROR!\n"+errorrad
 		);
-	            inrad="";
+	            errorrad="";
 		i = -1;
 	    }
 	j = -1;
-	j = inrad.find( QRegExp("BARADD:INSERT error:"), 0 );
-            if(j == 0){
-		QMessageBox::information( this, "BARADD - Error!",
-			"Felaktigt  bokföringsår \n" 
+	j = inrad.find( QRegExp("OK:"), 0 );
+//	qDebug("frmAddBar-inrad=%s j=%d\n",inrad.latin1(),j);
+            if ( j != -1 ){
+		QMessageBox::information( this, "BARADD - OK!",
+			"Databasen updaterad!\n" 
 		);
 		inrad="";
 		j = -1;
 	    }
-            i = -1;
-            i = inrad.find( QRegExp("BARADD:Inserted"), 0 );  
-            if(i == 0){
-		QMessageBox::information( this, "BARADD",
-			"Uppdatering OK!\n" 
-		);
+	    
 	    LineEditBar->clear();
 	    LineEditBenamn->clear();
 	    LineEditStartdatum->clear();
@@ -230,17 +267,68 @@ void frmAddBar::slotEndOfProcess()
 	    arlast=("");
 	    inrad="";
 	    i = -1;
-    	    }
+	    PushButtonQuit->setFocus();
 }
 
+void frmAddBar::slotHelp()
+{
+	inrad="";
+//	errorrad="";
+
+	frmAddBar::readResursFil();		// Hämta path till hjälpfilen
+	hjelpfil=hjelpfil+"#NYTTBAR";		// Lägg till position
+//	qDebug("hjelpfil=%s",hjelpfil.latin1());
+	
+	process = new QProcess();
+	process->addArgument( "OLFIXHLP" );	// OLFIX program
+	process->addArgument(hjelpfil);
+
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
+	}
+	LineEditBar->setFocus();
+}
 
 void frmAddBar::slotAbout()
 {
     QString meddelande;
-    meddelande="OLFIX - BARADDW\n Version: ";
+    meddelande="OLFIX - ADDBARW\n Version: ";
     meddelande.append(VERSION);
 	QMessageBox::information( this, "Om BARADD",
 				  meddelande
 		);
+    LineEditBar->setFocus();
+}
 
+void frmAddBar::readResursFil()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			               */
+    /* Plocka fram var hjälpfilen finns			               */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+ 
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 ); 
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
 }
