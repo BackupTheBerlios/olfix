@@ -2,7 +2,7 @@
 ** frmDspUsr meta object code from reading C++ file 'frmdspusr.h'
 **
 ** Created: Thu Mar 20 08:15:03 2003
-**      by: The Qt MOC ($Id: moc_frmdspusr.cpp,v 1.1 2003/05/08 08:54:49 frazze Exp $)
+**      by: The Qt MOC ($Id: moc_frmdspusr.cpp,v 1.2 2003/09/28 07:58:13 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
