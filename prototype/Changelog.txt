@@ -1,37 +1,58 @@
-Changelog OLFIX 20041108
+Changelog OLFIX 20041110
 Blivande
 Ver 0.1.16.A
-20041108
+20041110
 
 		Allmänt
 		Flyttat OLFIX-paketet till /opt/olfix
 
 		Nya program
 		LSTLEVPW	Lista standardleveransplatser
+		ADDLPLW		Nya Lagerplatser
+		ADDORDW		Nya kundorder
 
 		Ändrade program
 		OLFIXW	Skapande av $HOME/.olfixrc första gången programmet körs.
 			Använder sig av /opt/olfix/script/.olfixrc
 		OLFIXHLP
 			Ny sökväg till hjälpfilen
+		LSTKUW	Mindre justering av main.cpp
+		ADDINKW Mindre justering av main.cpp och AddBestellning.pro
+
 
 		Nya funktioner
 			LEVPLST.c	Lista standardleveransplatser
+			FORADD.c	Ny databas i tabell DATABAS
+			FORCHK.c	Kontrollera om databas finns i tabell DATABAS
 
 		Ändrade funktioner
 		Nya sql
 			CreateTable_olfixtstRIGHTS_ADMIN.sql
+			CreateTableDATABAS.sql
+			LoadTableDATABAS.sql
+
+		Ändrade sql
+
+		Nya data
+			TableDATABASdata.txt  Data till Tabellen DATABAS
+
+		Ändrade data
+			PROGRAMdata.txt. Lagt till LSTLEVPW
+			TRANSIDdata.txt. Nya funktioner.
+
+		Ändrade script
+			.olfixrc har fått tillägget:
+				HELPFILE=/doc/helpfiles/usermanual/UserManual.html
 
 		Nya rapporter
 		Ändrade rapporter
-		Ändrade data
-		Ändrade script
-			.olfixrc har fått tillägget:
-				 HELPFILE=/doc/helpfiles/usermanual/UserManual.html
+
+		Nya tabeller
+			DATABAS, lagra olika databas namn för OLFIX
 
 		Dokumentation
 		Online Användarmanual finn på CVS
-		Teknisk Manual	Uppdaterad (2004-11-06)
+		Teknisk Manual	Uppdaterad (2004-11-08)
 			Kompleterat "Filosofin bakom konstruktionen"
 			Kompleterat med "GNU Free Documentation License"
 		Användarmanual, Uppdaterad (2004-11-06)
