@@ -525,32 +525,6 @@
             <string>&lt;font size="+2"&gt;&lt;b&gt;Leveransaddress&lt;/b&gt;&lt;/font&gt;</string>
         </property>
     </widget>
-    <widget class="Line">
-        <property name="name">
-            <cstring>line1</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>305</y>
-                <width>975</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="font">
-            <font>
-            </font>
-        </property>
-        <property name="frameShape">
-            <enum>HLine</enum>
-        </property>
-        <property name="frameShadow">
-            <enum>Sunken</enum>
-        </property>
-        <property name="orientation">
-            <enum>Horizontal</enum>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>textLabel1</cstring>
@@ -1385,14 +1359,72 @@
         <property name="geometry">
             <rect>
                 <x>10</x>
-                <y>326</y>
+                <y>351</y>
                 <width>905</width>
-                <height>250</height>
+                <height>225</height>
             </rect>
         </property>
         <property name="font">
             <font>
             </font>
+        </property>
+    </widget>
+    <widget class="Line">
+        <property name="name">
+            <cstring>line1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>330</y>
+                <width>975</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+            </font>
+        </property>
+        <property name="frameShape">
+            <enum>HLine</enum>
+        </property>
+        <property name="frameShadow">
+            <enum>Sunken</enum>
+        </property>
+        <property name="orientation">
+            <enum>Horizontal</enum>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>11</x>
+                <y>305</y>
+                <width>120</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Orderstatus: ..........</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditOrderStatus</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>305</y>
+                <width>21</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>A=Under arbete,N=Normal status, F= Frisläppt, B=Slutbehandlad,ska plockas bort</string>
         </property>
     </widget>
 </widget>

@@ -11,7 +11,7 @@
 	         Visa kundorder
                              -------------------
 		     version 0.1
-    begin   	: Tors     24 mars    2005
+    begin   	: Sön     27 mars    2005
     Updated	: 
     copyright	: (C) 2005 by Jan Pihlgren
     email     	: jan@pihlgren.se
@@ -80,6 +80,7 @@
     QString orderbetvillkor;
     QString orderlevvillkor;
     QString orderlevplats;
+    QString orderstatus;
     QString orderhuvuddata;       
     
     
@@ -101,7 +102,7 @@ void frmDspOrder::init()
     QString dagnummer;
     QString veckonr;
     QString artal;
-    QDateTime dt = QDateTime::currentDateTime();
+//    QDateTime dt = QDateTime::currentDateTime();
     dag= QDate::currentDate().dayOfWeek();
 //    orderdatum=dt.toString("yyyy-MM-dd");
 //    textLabelOrderdatum->setText(orderdatum);    
@@ -354,7 +355,7 @@ void frmDspOrder::slotOrderhuvudEndOfProcess()
 //	 int i1 = inrad.find( QRegExp("01:"), 0 );
 	 int i2 = inrad.find( QRegExp("02:"), 0 );	
 	 int i3 = inrad.find( QRegExp("03:"), 0 );
-//	 int i4 = inrad.find( QRegExp("04:"), 0 );
+	 int i4 = inrad.find( QRegExp("04:"), 0 );
 	 int i5 = inrad.find( QRegExp("05:"), 0 );
 	 int i6 = inrad.find( QRegExp("06:"), 0 );
 	 int i7 = inrad.find( QRegExp("07:"), 0 );
@@ -411,13 +412,13 @@ void frmDspOrder::slotOrderhuvudEndOfProcess()
 	     orderkundnamn=inrad.mid(i3+3,m-4);
 	     lineEditKundNamn->setText(orderkundnamn);
 	 }
-
+*/
 	 m=i5-i4;					// Orderstatus
 	 if (i4 != -1){
-	     orderkundadress=inrad.mid(i4+3,m-4);
-	     lineEditKundAdress->setText(orderkundadress);
+	     orderstatus=inrad.mid(i4+3,m-4);
+	     lineEditOrderStatus->setText(orderstatus);
 	 }
-*/
+
  	 m=i6-i5;
 	 if (i5 != -1){					// Orderdatum
 	     orderdatum=inrad.mid(i5+3,m-4);
