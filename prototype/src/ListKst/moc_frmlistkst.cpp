@@ -2,7 +2,7 @@
 ** frmListKst meta object code from reading C++ file 'frmlistkst.h'
 **
 ** Created: Wed Mar 19 09:56:19 2003
-**      by: The Qt MOC ($Id: moc_frmlistkst.cpp,v 1.1 2003/05/08 08:54:56 frazze Exp $)
+**      by: The Qt MOC ($Id: moc_frmlistkst.cpp,v 1.2 2003/09/28 08:25:41 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
