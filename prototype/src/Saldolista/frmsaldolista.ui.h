@@ -1,8 +1,8 @@
 /****************************************************************/
 /**		SDOLISW					*/
-/**		Ver 0.7                                                                                    */
+/**		Ver 0.71                                                                                   */
 /**		Created    2003-08-21				*/
-/**		Modified 2004-04-05				*/
+/**		Modified 2004-11-08				*/
 /**   Copyright	Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -416,7 +416,7 @@ void frmSaldolista::slotEndOfProcess()
 	 }
     }
     filnamn.close();
-    QMessageBox::information( this, "ATTBETW","Rapport skapad!\n");
+    QMessageBox::information( this, "SDOLISW","Saldolista skapad!\n");
     if (csvflag == "J"){
 	frmSaldolista::slotRunPrinting("Saldolista.txt","" );
     }else{
