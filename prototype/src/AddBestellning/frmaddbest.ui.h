@@ -9,9 +9,9 @@
 /***************************************************************************
                           ADDINKW  -  description
                              -------------------
-		     version 0.4
+		     version 0.5
     begin                : Mån 8 dec 2003
-    modified	: Ons 24 dec 2003
+    modified	: Ons 31 dec 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -49,7 +49,7 @@
     QString bestvaluta;
     QString bestbetvillkor;
     
-    QString bestgodsmerke;	// 2003-12-08
+    QString bestgodsmerke;	
     QString besttextnr;
     QString besttext;
     QString bestvarref;
@@ -61,6 +61,7 @@
     QString bestartikelnr;
     QString bestbenamn;
     QString bestenhet=" ";		// För framtida behov
+    QString arledtid;
     QString bestinkopspris;
     QString bestantal;
     QString radbelopp;
@@ -92,9 +93,12 @@ void frmAddBest::init()
     lineEditLeveransDatum->setText(bestleveransdatum);
     vecka= QDate::currentDate().weekNumber(&year);
     veckonr=QString::number(vecka,10);
+    if (veckonr.length() < 2){
+	veckonr.prepend("0");
+    }
     artal=QString::number(year,10);
-    bestleveransvecka=artal.mid(3,1) + veckonr;
-//    qDebug("veckonr=%d, år=%d, leveransvecka=%s",vecka,year,bestleveransvecka.latin1());
+    bestleveransvecka=artal.mid(3,1) + veckonr + "1";	// ÅVVD
+//    qDebug("vecka=%d, år=%d, leveransvecka=%s _%s_",vecka,year,bestleveransvecka.latin1(),veckonr.latin1());
     lineEditLeveransvecka->setText(bestleveransvecka);
     frmAddBest::listViewRader_format();
     frmAddBest::getLevLista();
@@ -202,9 +206,37 @@ void frmAddBest::lineEditBenamn_returnPressed()
 
 void frmAddBest::lineEditLeveransvecka_returnPressed()
 {
-    
-    bestleveransvecka=lineEditLeveransvecka->text();
-    lineEditAntal->setFocus();
+    int aktuelltveckonr;
+    int onskadlevvecka;
+    int ledtid;
+    int vecka;
+    int year;
+    bool ok;
+    QString veckonr;
+    QString artal;
+    QString leveransvecka;
+    vecka= QDate::currentDate().weekNumber(&year);
+    veckonr=QString::number(vecka,10);
+    if (veckonr.length() < 2){
+	veckonr.prepend("0");
+    }
+    artal=QString::number(year,10);
+    leveransvecka=artal.mid(3,1) + veckonr + "1";	// ÅVVD
+    aktuelltveckonr=leveransvecka.toInt(&ok,10);
+    ledtid=arledtid.toInt(&ok,10);
+//   qDebug("vecka=%d, år=%d, leveransvecka=%s _%s_,%d",vecka,year,bestleveransvecka.latin1(),veckonr.latin1(),levtid);
+   
+   bestleveransvecka=lineEditLeveransvecka->text();
+   onskadlevvecka=bestleveransvecka.toInt(&ok,10);
+   
+//   qDebug("aktuelltveckonr=%d, ledtid=%d, onskadlevvecka=%d",aktuelltveckonr,ledtid,onskadlevvecka);
+   
+   if((aktuelltveckonr + ledtid) > onskadlevvecka){
+     QMessageBox::warning( this, "ADDINKW", "För kortleveranstid! \n Ledtid = "+arledtid );
+     lineEditLeveransvecka->setFocus();
+   }else{
+     lineEditAntal->setFocus();
+   }
 }
 
 void frmAddBest::lineEditAntal_returnPressed()
@@ -887,12 +919,21 @@ void frmAddBest::slotArdataEndOfProcess()
 	    int i2 = inrad.find( QRegExp("02:"), 0 );	//	benämning 1
 	    int i3 = inrad.find( QRegExp("03:"), 0 );	//	benämning 2
 //	    int i4 = inrad.find( QRegExp("04:"), 0 );	//	enhet
+	    int i6 = inrad.find( QRegExp("06:"), 0 );	//	ledtid
+	    int i7 = inrad.find( QRegExp("07:"), 0 );	//	prodklass
 	    m=i3-i2;
 	    if (i2 != -1){
 		bestbenamn=inrad.mid(i2+3,m-4);
 		lineEditBenamn->setText(bestbenamn);
+
+	    }
+	    m=i7-i6;
+	    if (i6 != -1){
+		arledtid=inrad.mid(i6+3,m-4);
 		frmAddBest::getArtikelEkonomidata();
 	    }
+	    qDebug("Ledtid=%s",arledtid.latin1());
+	    frmAddBest::getArtikelEkonomidata();
 	}
     }
 }

@@ -305,28 +305,6 @@
             <string>Leveransdatum: .....</string>
         </property>
     </widget>
-    <widget class="Line">
-        <property name="name">
-            <cstring>line1</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>240</y>
-                <width>625</width>
-                <height>10</height>
-            </rect>
-        </property>
-        <property name="frameShape">
-            <enum>HLine</enum>
-        </property>
-        <property name="frameShadow">
-            <enum>Sunken</enum>
-        </property>
-        <property name="orientation">
-            <enum>Horizontal</enum>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>textLabel4_4</cstring>
@@ -587,19 +565,6 @@
         </property>
         <property name="toolTip" stdset="0">
             <string>Max 30 tecken</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditLeveransvecka</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>415</x>
-                <y>290</y>
-                <width>50</width>
-                <height>19</height>
-            </rect>
         </property>
     </widget>
     <widget class="QLineEdit">
@@ -975,32 +940,6 @@
     </widget>
     <widget class="QLineEdit">
         <property name="name">
-            <cstring>lineEditValuta</cstring>
-        </property>
-        <property name="enabled">
-            <bool>false</bool>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>355</x>
-                <y>155</y>
-                <width>40</width>
-                <height>19</height>
-            </rect>
-        </property>
-        <property name="paletteForegroundColor">
-            <color>
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-            </color>
-        </property>
-        <property name="alignment">
-            <set>AlignHCenter</set>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
             <cstring>lineEditBetvilk</cstring>
         </property>
         <property name="enabled">
@@ -1091,25 +1030,6 @@
                 <green>0</green>
                 <blue>0</blue>
             </color>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditBesttyp</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>235</x>
-                <y>215</y>
-                <width>20</width>
-                <height>19</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>N</string>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>N=Normalbeställning. D=Direktbeställning. I=Inleveransbeställning. L=Legobeställning </string>
         </property>
     </widget>
     <widget class="QLineEdit">
@@ -1458,6 +1378,89 @@
         </property>
         <property name="alignment">
             <set>AlignRight</set>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditBesttyp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>235</x>
+                <y>215</y>
+                <width>20</width>
+                <height>19</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>N</string>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>N=Normalbeställning. D=Direktbeställning. I=Inleveransbeställning. L=Legobeställning, A=Avrop</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditValuta</cstring>
+        </property>
+        <property name="enabled">
+            <bool>true</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>355</x>
+                <y>155</y>
+                <width>40</width>
+                <height>19</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="alignment">
+            <set>AlignHCenter</set>
+        </property>
+    </widget>
+    <widget class="Line">
+        <property name="name">
+            <cstring>line1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>240</y>
+                <width>625</width>
+                <height>10</height>
+            </rect>
+        </property>
+        <property name="frameShape">
+            <enum>HLine</enum>
+        </property>
+        <property name="frameShadow">
+            <enum>Sunken</enum>
+        </property>
+        <property name="orientation">
+            <enum>Horizontal</enum>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditLeveransvecka</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>415</x>
+                <y>290</y>
+                <width>50</width>
+                <height>19</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Format = ÅVVD</string>
         </property>
     </widget>
 </widget>
