@@ -2,7 +2,7 @@
 ** frmDspValuta meta object code from reading C++ file 'frmdspvaluta.h'
 **
 ** Created: Thu Mar 20 08:19:16 2003
-**      by: The Qt MOC ($Id: moc_frmdspvaluta.cpp,v 1.1 2003/05/08 08:54:50 frazze Exp $)
+**      by: The Qt MOC ($Id: moc_frmdspvaluta.cpp,v 1.2 2003/09/28 07:59:12 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
