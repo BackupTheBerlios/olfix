@@ -1,0 +1,304 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>frmRapportGen</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>frmRapportGen</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>600</width>
+            <height>480</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>RPTGENW - Rapportgenerator</string>
+    </property>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>5</y>
+                <width>120</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Skriv en SQL-fråga</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>445</y>
+                <width>101</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Skapa rapport</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonQuit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>445</y>
+                <width>66</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avbryt</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>170</y>
+                <width>148</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hämta sparad sqlfråga.</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>170</x>
+                <y>170</y>
+                <width>95</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Spara sqlfråga</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>235</y>
+                <width>55</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Exempel</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabelExempel</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>255</y>
+                <width>428</width>
+                <height>84</height>
+            </rect>
+        </property>
+        <property name="paletteBackgroundColor">
+            <color>
+                <red>255</red>
+                <green>255</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="text">
+            <string>SELECT EXPIREDATUM,LEVNR,FAKTURANR,FAKTBELOPP,VALUTA 
+FROM LEVRESK 
+where EXPIREDATUM &lt; '2003-09-09' and BETALD = 'N'
+order by LEVNR,EXPIREDATUM,FAKTURANR
+</string>
+        </property>
+    </widget>
+    <widget class="QTextEdit">
+        <property name="name">
+            <cstring>textEditSQL</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>6</x>
+                <y>25</y>
+                <width>585</width>
+                <height>136</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Skriv en SQL-fråga</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonGetFile</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>190</y>
+                <width>150</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hämta fil</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonSaveFile</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>165</x>
+                <y>190</y>
+                <width>100</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Spara fil</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>520</x>
+                <y>190</y>
+                <width>66</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonClear</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>270</x>
+                <y>190</y>
+                <width>96</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Rensa text</string>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>pushButtonQuit</sender>
+        <signal>clicked()</signal>
+        <receiver>frmRapportGen</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>textEditSQL</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmRapportGen</receiver>
+        <slot>slottextEditSQL_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>frmRapportGen</receiver>
+        <slot>slotpushButtonOK_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonQuit</sender>
+        <signal>pressed()</signal>
+        <receiver>frmRapportGen</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonGetFile</sender>
+        <signal>clicked()</signal>
+        <receiver>frmRapportGen</receiver>
+        <slot>GetFileDialog()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonSaveFile</sender>
+        <signal>clicked()</signal>
+        <receiver>frmRapportGen</receiver>
+        <slot>SaveFileDialog()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonClear</sender>
+        <signal>clicked()</signal>
+        <receiver>frmRapportGen</receiver>
+        <slot>slotClearSqlQuery()</slot>
+    </connection>
+    <connection>
+        <sender>textEditSQL</sender>
+        <signal>textChanged()</signal>
+        <receiver>frmRapportGen</receiver>
+        <slot>slottextEditSQL_TextChanged()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmRapportGen</receiver>
+        <slot>slotHelp()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">frmrapportgen.ui.h</include>
+</includes>
+<slots>
+    <slot>init()</slot>
+    <slot>slottextEditSQL_returnPressed()</slot>
+    <slot>slottextEditSQL_TextChanged()</slot>
+    <slot>slotpushButtonOK_clicked()</slot>
+    <slot>slotCreateTmpFile()</slot>
+    <slot>slotEndOfProcess()</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>slotFileRemove( QString filnamn )</slot>
+    <slot>GetFileDialog()</slot>
+    <slot>slotGetQueryFile()</slot>
+    <slot>SaveFileDialog()</slot>
+    <slot>slotClearSqlQuery()</slot>
+    <slot>slotHelp()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
