@@ -1,9 +1,9 @@
 /***************************************************************************
                           PRTAPI.c  -  description
                              -------------------
-			     version 0.4
-    begin                : Lör   3 april 2004
-    modified		 : Tors 24 febr  2005
+			     version 0.5
+    begin                : Lör  3 april 2004
+    modified		 : Lör 26 febr  2005
     copyright            : (C) 2004 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -26,7 +26,7 @@
 	OUTPUT:
  *****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PRTAPI.c,v 1.4 2005/02/24 09:13:28 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PRTAPI.c,v 1.5 2005/02/26 11:49:34 janpihlgren Exp $ " ;
 
 #include <string.h>
 #include <stdlib.h>
@@ -42,8 +42,9 @@ char kugarversion[10]="";
 
 int main (int argc, char *argv[], char *envp[])
 {
-/*	int i;		*/
+	int i;
 	int status=0;
+	char x[1]="/";
 	char csvflag[2]="";
 	char printfil[50]="";
 	char prttemplate[50]="";
@@ -101,11 +102,16 @@ int main (int argc, char *argv[], char *envp[])
 			/* EX: kugar -d /tmp/Saldolista.txt -r /opt/olfix/report/Saldolista.kut		*/
 		}else{
 			strcpy(command,"kugar ");
-			strncat(command,tmpfilepath,strlen(tmpfilepath)-1);
+			i=strlen(tmpfilepath);
+			if(tmpfilepath[i-1] == x[0]){
+				strncat(command,tmpfilepath,strlen(tmpfilepath));
+			}else{
+				strncat(command,tmpfilepath,strlen(tmpfilepath)-1);
+			}
 			strncat(command,printfil,strlen(printfil));
 		}
 	}
-/*	fprintf(stderr,"command_3=%s\n",command);	*/
+	fprintf(stderr,"command_3=%s\n",command);
 	system(command);
 	return status;
 }
