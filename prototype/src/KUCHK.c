@@ -1,9 +1,9 @@
 /***************************************************************************
                           KUCHK.c  -  description
                              -------------------
-    Version		 : 0.3
-    begin                : Tis 9 sept	2003
-    Modified		 : Tors 6 nov   2003
+    Version		 : 0.4
+    begin                : Tis   9 sept	2003
+    Modified		 : Tors 24 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KUCHK.c,v 1.3 2003/11/06 04:15:11 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KUCHK.c,v 1.4 2005/02/24 06:10:46 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -99,7 +99,7 @@ int main(int argc, char *argv[], char *envp[])
 /* ================================================================================ */
 
   if (argv[1] != NULL){
-  	strncpy(kundnr,argv[1],strlen(argv[1]));
+  	strncpy(kundnr,argv[1],sizeof(kundnr));			/* 2005-02-24	*/
   }else{
   	fprintf(stderr,"Error: KUCHK: Ange kundnummer!\n");
 	exit(-1);

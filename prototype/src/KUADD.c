@@ -1,9 +1,9 @@
 /***************************************************************************
                           KUADD.c  -  description
                              -------------------
-    Version		 : 0.3
-    begin                : Mån  8 aug 2003
-    Modified		 : Mån  5 nov 2003
+    Version		 : 0.4
+    begin                : Mån   8 aug  2003
+    Modified		 : Tors 23 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -31,7 +31,7 @@ Fältavskiljare = _:_
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KUADD.c,v 1.3 2003/11/05 11:25:28 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KUADD.c,v 1.4 2005/02/24 06:04:54 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -105,7 +105,7 @@ int main(int argc, char *argv[], char *envp[])
 /* ================================================================================ */
 
   if (argv[1] != NULL){
-  	strncpy(kunddata,argv[1],strlen(argv[1]));
+  	strncpy(kunddata,argv[1],sizeof(kunddata));	/* 2005-02-24	*/
   }
   else{
   	fprintf(stderr,"Error: KUADD: Ange kundnummer!\n");
