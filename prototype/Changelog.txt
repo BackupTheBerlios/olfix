@@ -1,7 +1,61 @@
-Changelog OLFIX 2003123
+Changelog OLFIX 20031226
 
+Ver 0.1.12.A	OBS! Alfa
+20031226
+________________________________________________________
+Ver 0.1.11.A	OBS! Alfa
+20031225
+		Nya program
+		LSTLEVW		Lista leverantörer
+		TXTDSP.c	Visa en post ur TEXTREG
+		TXTADD.c	Lägga upp en ny post i TEXTREG
+		ADDTXTW		Lägga upp en ny post i TEXTREG. GUI
+		TXTDEL.c	Radera post i TEXTREG
+		DELTXTW		Radera post i TEXTREG. GUI
+		INKADD.c	Lägga upp en ny post i INKREG (inköpsregister)
+		INKRADD.c	Lägga upp en ny post i INKRADREG
+		ADDINKW		Registrera en inköpsorder. GUI
+		INKRLST.c	Lista alla orderrader för angiven inköpsorder.
+		INKHDSP.c	Visa orderhuvud för angiven inköpsorder.
+		DSPINKW		Visa en inköpsorder. GUI
+
+		Ny tabell
+		TEXTREG		För att lagra diverse texter.
+		INKREG		Inköpsorderregister
+		INKRADREG	Inköpsorderradregister
+
+		Nya SQL-satser
+		CreateTableTEXTREG.sql	Skapa tabellen TEXTREG
+		CreateTableINKREG.sql	Skapa tabellen INKREG
+		CreateTableINKRADREG.sql Skapa tabellen INKRADREG
+
+		Ändrade program
+		OLFIXW		Buggrättning
+		ARDSP.c		Buggrättning
+		ARDSPL.c	Buggrättning
+		DSPAREW		Buggrättning
+		DSPARW		Buggrättning
+		CHGARW		Buggrättning
+		LSTARW		Kopiera artikelnummer
+
+		Ändrade SQL-satser
+		CreateAll.sql	Ny tabell TEXTREG,INKREG,INKRADREG
+		CreateAllOlfixtst.sql	Ny tabell TEXTREG,INKREG,INKRADREG
+		add_user_DittNamn.sql	Stavfel
+		add_user_olfix.sql	Stavfel
+		LoadAll.sql		Inkluderat databasen olfixtst
+
+		Data, ändrat
+		PROGRAMdata.txt	Nya program
+		FTGDATAdata.txt	Nytt fält, INKNR, Senaste inköpsordernr
+		TRANSIDdata.txt	Nya funktioner
+
+		Dokumentation
+		Teknisk Manual	Uppdaterad (2003-12-25)
+		User Manual	Uppdaterad (2003-12-20)
+________________________________________________________
 Ver 0.1.10.A	OBS! Alfa
-2003123
+20031229
 		Nya program
 		DSPARW		Visa data på artikel, ej ekonomiska, GUI
 		DSPAREW		Visa ekonomidata på en artikel, GUI
@@ -15,422 +69,44 @@ Ver 0.1.10.A	OBS! Alfa
 		LSTBETVW	Lista betalningsvillkor, GUI
 		BETADD.c	Lägga upp nya betalningsvillkor
 		ADDBETVW	Lägga upp nya betalningsvillkor, GUI
+		BETCHG.c	Ändra data för betalningsvillkor
+		CHGBETVW	Ändra data för betalningsvillkor, GUI
 
 		Ändrade program
 		ARADD.c		Tillägg av fältet AROMRFAKTOR
 		ADDARW		Lagt till lagerställe mm. Preliminär
 		DSPLEVW		Buggrättning
+		ARLST.c		Buggrättning
+		OLFIXW		Lagt in streching av widget.
 
-		SQL, ändrat
+		SQL, Ändrat
 		CreateTableARTIKELREG.sql	Tillägg av fältet AROMRFAKTOR
 		CreateTableLAGERSTELLEREG.sql	Tillägg av fältet AROMKOST,ARPLANKPRIS,ARFRYSTKPRIS
+		CreateAllOlfixtst.sql
+		LoadAll_olfixtst.sql
+		LoadKUNDREG_olfixtst.sql
 
-		Ändrad tabeller
+		Ändrade tabeller
 		ARTIKELREG	Tillägg av fältet AROMRFAKTOR (omräkningsfaktor)
 		LAGERSTELLEREG	Tillägg av fältet AROMKOST (omkostnader),ARPLANKPRIS,ARFRYSTKPRIS
 
-		Data
+		Data, Nytt
+		ARTIKELREGdata_olfixtst.txt	Data för testföretaget
+		BETVILKORdata_olfixtst.txt	Data för testföretaget
+		FTGDATAdat_olfixtst.txt		Data för testföretaget
+		KUNDREGdat_olfixtst.txt		Data för testföretaget
+		LAGERSTELLEREGdata_olfixtst.txt	Data för testföretaget
+		LEVREGdata_olfixtst.txt		Data för testföretaget
+
+		Data, ändrat
 		PROGRAMdata,txt			Nya program, + ändrad indelning
 		TRANSIDdata.txt			Nya funktioner
 
 		Dokumentation
 		Teknisk Manual	Uppdaterad (2003-11-23)
 ________________________________________________________
-Changelog OLFIX 2003111
+Changelog OLFIX 20031111
 
 Ver 0.1.9.A	OBS! Alfa
-2003111
-		Ny funktionallitet.
-		Skapat en ny databas för testföretag, olfixtst
-		Påbörjat lägga in validering av data.
-
-		Nya program
-		DSPKUW		Visa kunddata,GUI
-		KUDSP.c		Visa kunddata
-		CHGKUW		Ändra kunddata,GUI
-		KUCHG.c		Ändra kunddata
-		LSTKUW		Lista kunder, GUI
-		KULST.c		Lista kunder (Kundnr och namn)
-		BYTFTGW		Byta företag/databas mellan ordinarie (01) och test (99)
-		ARCHK.c		Kontrollera om artikelnummer finns eller ej
-		ARADD.c		Lägga upp en ny artikel i ARTIKELREG
-		ADDARW		Lägga upp en ny artikel i ARTIKELREG, GUI. Preliminär
-
-		Ändrade program
-		ADDKUW		Lagt till validering av indata.
-		ADDLEVPW	Rättning av bugg (main.cpp) samt lagt till validering av indata
-		OLFIXW		Visa vilken databas som används.
-		ATTBET.c	Ta emot en parameter för val av företag samt kodstädning
-		ARICHK.c	Ta emot en parameter för val av företag samt kodstädning
-		BARADD.c	Ta emot en parameter för val av företag samt kodstädning
-		BARCHG.c	Ta emot en parameter för val av företag samt kodstädning
-		BARCHK.c	Ta emot en parameter för val av företag samt kodstädning
-		BARDSP.c	Ta emot en parameter för val av företag samt kodstädning
-		BARFND.c	Ta emot en parameter för val av företag samt kodstädning
-		FTGADD.c	Ta emot en parameter för val av företag samt kodstädning
-		FTGADM.c	Ta emot en parameter för val av företag samt kodstädning.Pgm obsolete
-		FTGDSP.c	Ta emot en parameter för val av företag samt kodstädning.Buggrättning
-		FTGLIS.c	Ta emot en parameter för val av företag samt kodstädning
-		FTGUPD.c	Ta emot en parameter för val av företag samt kodstädning
-		KSTADD.c	Ta emot en parameter för val av företag samt kodstädning
-		KSTCHK.c	Ta emot en parameter för val av företag samt kodstädning
-		KSTDSP.c	Ta emot en parameter för val av företag samt kodstädning
-		KSTLST.c	Ta emot en parameter för val av företag samt kodstädning
-		KTOADD.c	Ta emot en parameter för val av företag samt kodstädning
-		KTOCHG.c	Ta emot en parameter för val av företag samt kodstädning
-		KTOCHK.c	Ta emot en parameter för val av företag samt kodstädning
-		KTODSP.c	Ta emot en parameter för val av företag samt kodstädning
-		KTOLST.c	Ta emot en parameter för val av företag samt kodstädning
-		KTORPT.c	Ta emot en parameter för val av företag samt kodstädning
-		KTOVIEW.c	Ta emot en parameter för val av företag samt kodstädning
-		KUADD.c		Ta emot en parameter för val av företag samt kodstädning
-		KUCHG.c		Ta emot en parameter för val av företag samt kodstädning
-		KUCHK.c		Ta emot en parameter för val av företag samt kodstädning
-		KUDSP.c		Ta emot en parameter för val av företag samt kodstädning
-		KULST.c		Ta emot en parameter för val av företag samt kodstädning
-		LEVADD.c	Ta emot en parameter för val av företag samt kodstädning
-		LEVCHG.c	Ta emot en parameter för val av företag samt kodstädning + buggrättning
-		LEVDSP.c	Ta emot en parameter för val av företag samt kodstädning
-		LEVLST.c	Ta emot en parameter för val av företag samt kodstädning
-		LRESADD.c	Ta emot en parameter för val av företag samt kodstädning
-		LRESRPT.c	Ta emot en parameter för val av företag samt kodstädning
-		OLFIX.c		Ta emot en parameter för val av företag samt kodstädning
-		PRGLST.c	Ta emot en parameter för val av företag samt kodstädning
-		RGTADD.c	Ta emot en parameter för val av företag samt kodstädning
-		RGTCHK.c	Ta emot en parameter för val av företag samt kodstädning
-		RGTDEL.c	Ta emot en parameter för val av företag samt kodstädning + buggrättning
-		RGTDSP.c	Ta emot en parameter för val av företag samt kodstädning
-		RGTLST.c	Ta emot en parameter för val av företag samt kodstädning
-		RPTCRE.c	Ta emot en parameter för val av företag samt kodstädning
-		SLPADD.c	Ta emot en parameter för val av företag samt kodstädning
-		STYRMAN.c	Ta emot en parameter för val av företag samt kodstädning
-		TRHDADD.c	Ta emot en parameter för val av företag samt kodstädning
-		TRNSADD.c	Ta emot en parameter för val av företag samt kodstädning
-		TRNSLST.c	Ta emot en parameter för val av företag samt kodstädning
-		USERADD.c	Ta emot en parameter för val av företag samt kodstädning
-		USERCHG.c	Ta emot en parameter för val av företag samt kodstädning
-		USERDEL.c	Ta emot en parameter för val av företag samt kodstädning
-		USERDSP.c	Ta emot en parameter för val av företag samt kodstädning
-		USERLST.c	Ta emot en parameter för val av företag samt kodstädning + buggrättning
-		VALADD.c	Ta emot en parameter för val av företag samt kodstädning
-		VALCHG.c	Ta emot en parameter för val av företag samt kodstädning
-		VALDEL.c	Ta emot en parameter för val av företag samt kodstädning
-		VALDSP.c	Ta emot en parameter för val av företag samt kodstädning
-		VALLST.c	Ta emot en parameter för val av företag samt kodstädning
-		VERUPD.c	Ta emot en parameter för val av företag samt kodstädning
-		WRREC.c		Ta emot en parameter för val av företag samt kodstädning
-
-		Nya tabeller
-		ORDERREG	Orderregister,preliminär
-		ORDERRADREG	Orderradsregister, preliminär
-		ARTIKELREG	Artikelregister, preliminär
-		LAGERSTELLEREG	Lagerställeregister,kompleterande artikeldata,preliminär
-
-		Ändrad tabeller
-
-		SQL, nytt
-		CreateTableORDERREG.sql		Skapa ORDERREG
-		CreateTableORDERRADREG.sql	Skapa ORDERRADREG
-		CreateDatabaseOlfixtst.sql	Skapa databasen olfixtst
-		CreateAllOlfixtst.sql		Skapa alla tabeller till olfixtst
-		CreateTableARTIKELREG.sql	Skapa ARTIKELREG, preliminär
-		CreateTableLAGERSTELLEREG.sql	Skapa LAGERSTELLEREG, preliminär
-
-		SQL, ändrat
-		CreateTableFTGDATA.sql
-		CreateTableBETVILKOR.sql	Lagt till olfixtst
-		CreateTableBOKFAR.sql		Lagt till olfixtst
-		CreateTableKSTALLE.sql		Lagt till olfixtst
-		CreateTableKTOPLAN.sql		Lagt till olfixtst
-		CreateTableKUNDREG.sql		Lagt till olfixtst
-		CreateTableLEVREG.sql		Lagt till olfixtst
-		CreateTableLEVRESK.sql		Lagt till olfixtst
-		CreateTableORDERRADREG.sql	Lagt till olfixtst
-		CreateTableORDERREG.sql		Lagt till olfixtst
-		CreateTablePROGRAM.sql		Lagt till olfixtst
-		CreateTableRIGHTS.sql		Lagt till olfixtst
-		LoadStandaloneRIGHTSdata.sql	Lagt till olfixtst
-		LoadRIGHTS.sql			Lagt till olfixtst
-		CreateTableSTDLEVPLATS.sql	Lagt till olfixtst
-		CreateTableTRHD.sql		Lagt till olfixtst
-		CreateTableTRANSID.sql		Lagt till olfixtst
-		LoadTRANSID.sql			Lagt till olfixtst
-		CreateTableUSR.sql		Lagt till olfixtst
-		CreateTableVALUTA.sql		Lagt till olfixtst
-		CreateTableVERHUVUD.sql		Lagt till olfixtst
-		CreateTableVERRAD.sql		Lagt till olfixtst
-
-		Data
-		TRANSIDdata.txt			Lagt till nya funktioner
-		PROGRAMdata,txt			Nya program
-		StandaloneRIGHTSdata.txt	Nya funktioner
-		FTGDATAdata.txt			Lagt till KORNR (Senast använda kundordernr)
-
-		Dokumentation
-		Teknisk Manual	Uppdaterad (2003-11-11)
-		User Manual	Uppdaterad (2003-10-24)
-________________________________________________________
-Ver 0.1.8.B	Nytt
-20030928	RPTCRE.c	Rapportgenerator för valfri SQLfråga
-		RPTGENW		Rapportgenerator, Skapa SQLfråga
-		ADDLEVPW	Standardleveransplats.
-		ADDKUW		Nya kunder
-		SLPADD.c	Ny standardleveransplats.
-		KUADD.c		Lägga upp nya kunder. (Ny teknik för att lägga upp många fält)
-		KUCHK.c		Kontrollera om kundnr finns.
-		/script		Ett nytt bibliotek, /usr/local/olfix/script
-
-		Tabell
-		STDLEVPLATS	Standardleveransplats.Leveransadresser till kunder.
-		KUNDREG		Kundregister, preliminär
-
-		Ändrat.
-		SDOLISW		Felrättning.
-		install.sh	Utveckling
-		Makefile	olfix/src/Makefile, kompletterad
-
-		Data
-		TRANSIDdata.txt	Lagt till nya funktioner
-		PROGRAMdata,txt	Nya program
-
-		Rapporter
-		Kugar		Saldolista.kut (template). Saldolista (första försök)
-
-		Dokumentation
-		Teknisk Manual	Uppdaterad
-________________________________________________________
-Ver 0.1.7.B	Nytt
-20030824	ADDFTGW		Lägga upp företagsdata
-		DSPKTOW		"Visa ett kontonr"
-		ATTBETW		Skapa en rapport från LEVRES på fakturor
-					som ska betalas senast ÄÄÅÅ-MM-DD. Preliminär
-		SDOLISW		Saldolista, primitiv
-		BARFND.c	Hitta bokföringsår för angivet datum
-		BETDSP.c	Betalningsvillkor, Visa ett
-		LEVLST.c	Lista leverantörer, LEVNR,LEVNAMN
-		FTGLIS.c	Lista företagsdata
-		ATTBET.c	Lista poster i LEVRES som ska betalas senast ÄÄÅÅ-MM-DD
-
-		Rapporter
-		Kugar		AttBet.kut (template) Förfallna leverantörsfakturor
-
-		Ändrat.
-		BOKFORSW	Felrättning (radnr,decimalkomma mm) samt ändrad layout mm
-		ADDKTOW		Skönhetsmodifiering (* istället för "Obligatorisk")
-		LEVFAKTW	Rättat ekonomiska regler mm och utökade funktioner
-		ADDLEVW		Liten layoutändring
-		DSPLEVW		Liten layoutändring
-		CHGLEVVW	Liten layoutändring
-		DSPFTGW		Liten layoutändring
-		CHGFTGW		Tillägg
-		WRREC.c		Skönhetsjustering
-		LRESADD.c	Ändrade variabelnamn
-
-		Tabell
-		LEVRESK		Ändrade kolumn(fält)namn
-		BETVILKOR	Ny tabell för betalningsvillkor.
-
-		SQL
-		CreateAll.sql	Rättat stavning för fält i BOKFAR mm
-		CreateTableLEVRESK.sql	Ändrade fältnamn
-		CreateTableBETVILKOR.sql	Ny
-		BETVILKORdata.txt		Ny
-		PROGRAMdata.txt	Uppdaterad med DSPKTOW, ADDFTGW
-		FTGDATAdata.txt	Uppdaterad med MOMSI,MOMSU (ingående och utgående moms) och
-				AUTOK (automatkontering J/N)
-		TRANSIDdata.txt	Lagt till FTGLIS
-
-		Dokumentation
-		Teknisk Manual	Uppdaterad
-________________________________________________________
-Ver 0.1.6.B	Nytt
-20030726	LRESRPT.c 	Lista alla obetalda poster i tabellen LEVRESK. API
-		LEVRESKW	Lista alla obetalda poster i tabellen LEVRESK. GUI
-
-		Ändrat
-		LEVADD.c	Tillägg valuta och betalningsvillkor
-		ADDLEVW		Tillägg valuta och betalningsvillkor
-		LEVCHG.c	Tillägg valuta och betalningsvillkor
-		CHGLEVW		Tillägg valuta och betalningsvillkor
-		LEVDSP.c	Tillägg valuta och betalningsvillkor
-		DSPLEVW		Tillägg valuta och betalningsvillkor
-		LRESADD.c	Tillägg valuta, valutakurs och valutabelopp
-		STYRMAN.c	Accepterar upp till 23 argument
-
-		Databas
-		LEVREG		Tillägg av LEVVALUTA och BETALVILKOR
-		LEVRESK		Tillägg av VALUTA, VALUTAKURS, VALUTABELOPP, OCRNR (OCRnummer)
-				och VERNR
-
-		SQL
-		CreateAll.sql	Ändring för LEVREG och LEVRESK
-		CreateTableLEVREG.sql
-		CreateTableLEVRESK.sql
-
-		Data
-		FTGDATAdata.txt	Tillägg av betalningsvillkor
-		PROGRAMdata.txt
-		TRANSIDdata.txt
-
-		Uppdaterat
-		CHGFTGW		Tillägg av betalningsvillkor
-
-		Dokumentation
-		Teknisk Manual	Uppdaterad
-		User Manual	Uppdaterad, leverantörsreskontra.
-________________________________________________________
-Ver 0.1.5.B	ADDRGTW, Felrättning (20030525) *
-20030628
-		OLFIX.c	 	Kodjustering. *
-		ADMIN.c  	Kodjustering. *
-		STYRMAN.c 	Utökat antalet argument till 17 st
-		VALLST.c	Hämta inloggningsdata från .olfixrc
-
-		Utökad funktionalitet i GUI,Tab mm (Qt3.1.1)
-		ADDBARW
-		ADDFNCW
-		ADDRGTW
-		ADDUSRW
-		ADDVALW
-		CHGBARW
-		CHGFTGW
-		CHGKTOW
-		LSTUSRW
-		OLFIXW
-		BOKFORSW	Tooltips,WhatsThis=versionsnummer.För utvärdering.
-
-		Databas
-		LEVREG		Ny tabell. Leverantörsregister.Kan komma att ändras.
-		LEVRESK		Ny tabell. Leverantörsreskontra. Kan komma att ändras.
-
-		SQL
-		CreateAll.sql	Tillägg av LEVREG,LEVRESK
-
-		Nytt
-		Makefile	Försök med en riktig Makefile
-		ADDLEVW		Upplägg av leverantörsregister
-		DSPLEVW		Visa leverantör
-		CHGLEVW		Ändra leverantörsdata
-		LEVFAKTW	Registrera leverantörsfaktura
-		LEVADD.c	Nyregistrering av leverantörer
-		LEVDSP.c	Hämta data för en leverantör
-		LEVCHG.c	Ändra leverantörsdata
-		LRESADD.c	Ny leverantörsreskontrapost
-
-		Dokumentation
-		Teknisk Manual
-
-		Binärfilerna kompilerade med Qt 3.1.1
-
-		Borttag
-		ADMIN 	GUI biblioteket.
-		tempfil.h	Behövs inte mer.
-________________________________________________________
-Ver 0.1.4.B	BOKFORSW	Felrättning + funktionstillägg (20030520)
-20030525	MakefileALL.txt	Felrättning (20030524)
-		Databas:
-		CreateAll.sql.	Felrättning.
-		add_user_DittNamn.sql	Felrättning (20030525)
-		add_user_olfix.sql	Felrättning (20030525)
-		Dokumentation:
-		TekniskManual.sxw	Uppdaterad (20030521)
-		Instalationsanvisningar.txt är uppdaterad.
-________________________________________________________
-Ver 0.1.3.B	CHGFTGW, Ändrat funktionen (20030519) *
-20030519	DSPFTGW, Kompleterat samt ändrat funktionen (Visar momsen)
-		ADDRGTW, Ändrad layout, utökad funktionalitet. *
-		Buggrättning:
-		ADDKTOW		Felrättning. (20030511)
-		STYRMAN.c 	Felhantering.(20030429) *
-		VERUPD.c	Felhantering.(20030429) *
-		WRREC.c		Felhantering.(20030429) *
-		OLFIX.c		Felhantering.(20030429) *
-		ADMIN.c 	Felhantering.(20030429) *
-		RGTCHK.c	Felrättning. (20030509) *
-		KTORPT.c	Felrättning,Uppdatering. (20030515) *
-		RPTKTOW		Felrättning,Uppdatering. (20030518) *
-		BOKFORSW	Layoutjustering (20030509) *
-		Databas:
-		Lagt till posttyp FNAMN i FTGDATA (FTGDATAdata.txt)
-		Lagt till testföretagsdata till FTGDATA (UpdateFTGDATA.sql)
-		Dokumentation:
-		TekniskManual.sxw	Uppdaterad
-________________________________________________________
-Ver 0.1.2.B	TRANSIDdata.txt	Lagt till nya data
-20030426	KTOPLANdata.txt Lagt till nya data
-		PROGRAMdata.txt Lagt till nya data
-		RIGHTSdata.txt  Lagt till nya data
-		ADDFNCW, ny funktion (lägga till ny funktion i tabellen TRNSID)
-		CHGBARW, ny funktion (Ändra data för bokföringsår)
-		DSPFTGW, ny funktion (Visa företagsdata)
-		CHGFTGW, ny funktion (Ändra företagsdata)
-		BARCHG.c, ny funktion
-		FTGADD.c, ny funktion
-		FTGLST.c, ny funktion
-		PRGLST.c, ändrad sortering
-		FORDSP.c bytt namn till FTGDSP
-		FORADM.c bytt namn till FTGADM.c
-		make_ALL.txt, uppdaterad.
-		TekniskManual.sxw
-		UserManual.sxw
-________________________________________________________
-Ver 0.1.1.B
-20030330	Uppdaterat all .c-filer med
-			 /*@unused@*/ static char RCS_id[] =
-			    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/Changelog.txt,v 1.3 2003/11/23 05:59:16 janpihlgren Exp $ " ;
-		OLFIXW.    Lagt till "stretch"-möjlighet.
-		.olfixrc   Utökad med VTMP=/tmp/
-		WRREC.c.   Hämtar sökvägen till vernr.txt från filen $HOME/.olfixrc
-		BOKFORSW,  överför bara verifikationsnummret till VERUPD
-		VERUPD.c,  läser $HOME/.olfixrc för att hitta sökvägen till vernr.txt
-		KTOLST.c,  ändrad, ny funktionalitet.
-		CHGUSRW,   felhantering uppdaterad, buggrättning
-		USERCHG.c, Felhantering, buggrättning
-		ADDRGTW,   buggrättning
-		RGTADD.c,  buggrättning
-		ADMIN.c,   rättat till absolut path
-		OLFIX.c,   modifierad + rättad till absolut path
-		STYRMAN.c, rättat till absolut path
-
-		Makefile_ALL.txt uppdaterad
-		add_user_olfix.sql, 	 buggrättning
-		add_userDittNamn.sql, 	 buggrättning
-		CreateDatabaseOlfix.sql, buggrättning
-		Uppdatering av TekniskManual.sxw
-		Uppdatering av UserManual.sxw
-		Dokumentet Interface.sxw inkluderat i TekniskManual.sxw
-
-		Borttaget:
-		KTOUPD.c borttagen. Ska få ny funktionallitet.
-		SCREEN.c	obsolet
-		KTOCPY.c	obsolet
-		BOKF_2.c	obsolet
-		BOKF.c		obsolet
-		REDOV.c		obsolet
-		Dokumentet Interface.sxw borttaget
-________________________________________________________
-Ver 0.1B
-20030321	Rättning av sökväg för include i alla C-filer, FUNKTION.c,
-		och i alla make_FUNKTION.txt-filer
-		Uppdatering av UserManual.sxw
-		Uppdatering av UtvecklingsManual.sxw
-		Uppdatering av TekniskManual.sxw
-		Ändrat namn på knapp i LSTRGTW, LSTVALW, LSTUSRW, LSTKSTW, LSTKTOW, LSTFNCW
-		från Igen till Uppdatera
-		USERADD.c	Felhantering uppdaterad
-		ADDUSRW		Felhantering uppdaterad
-		De flesta programmen uppdaterade så att knappar reagerar på "Enter"
-________________________________________________________
-Ver 0.1B
-20030319	Ny Installationsanvisningar.sxw
-		Nytt: Installationsanvisningar.txt
-		Ny SQLfil /usr/local/olfix/sql/LoadMinimumRIGHTSdata.sql
-		Ny datafil /usr/local/olfix/data/MinimumRIGHTSdata.txt
-		Rättat sökvägar i SQLscripten i /usr/local/olfix/sql
-		Rättat sökvägar i make_All.txt
-		Ändrat sökvägar och biblioteksstruktur i UtvecklingsManual,sxw
-		Ändrat sökvägar och biblioteksstruktur i TekniskManual,sxw
-_________________________________________________________
-Ver 0.1B
-20030318	Nytt defaultbibliotek. /usr/local/olfix
-		Ändringar av sökvägar i script
+20031111
+....
