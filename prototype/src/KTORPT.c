@@ -1,7 +1,9 @@
 /***************************************************************************
-                          KTORPT.c  -  description
+                          KTORPT2.c  -  description
                              -------------------
     begin                : Lör 8 mars
+    update		 : Tors 15 maj
+    ver			 : 0.2
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -17,13 +19,16 @@
 
 /*
 	INPUT: arid	(Bokföringsår)
-	Function: gör  SELECT KTONR,DK,BELOPP FROM VERRAD WHERE ARID = "AC" ORDER BY KTONR;
+	Function: gör  	SELECT VERRAD.KTONR,KTOPLAN.BENAMNING,VERRAD.DK,VERRAD.BELOPP FROM VERRAD
+			LEFT JOIN KTOPLAN ON KTOPLAN.KTONR = VERRAD.KTONR AND VERRAD.ARID = KTOPLAN.ARID
+			WHERE VERRAD.ARID = "AC"
+			ORDER BY KTONR
 
 	OUTPUT: errornb och error (text)
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTORPT.c,v 1.1 2003/05/08 08:54:08 frazze Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTORPT.c,v 1.2 2003/05/18 06:03:47 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -43,8 +48,10 @@ void display_row();
 int main(int argc, char *argv[])
 {
   int res,i;
-  char temp1[]="SELECT KTONR,DK,BELOPP FROM VERRAD WHERE ARID = \"";
-  char temp1b[]=" ORDER BY KTONR";
+  char temp1[]="SELECT VERRAD.KTONR,KTOPLAN.BENAMNING,VERRAD.DK,VERRAD.BELOPP FROM VERRAD ";
+  char temp1b[]="LEFT JOIN KTOPLAN ON KTOPLAN.KTONR = VERRAD.KTONR AND VERRAD.ARID = KTOPLAN.ARID ";
+  char temp1c[]="WHERE VERRAD.ARID = ";
+  char temp1d[]=" ORDER BY KTONR";
   char temp2[]="\"";
   char temp3[]=",";
   char temp4[]=")";
@@ -56,10 +63,13 @@ int main(int argc, char *argv[])
 
   strcpy(temp5,temp1);
 /* SELECT KTONR,DK,BELOPP FROM VERRAD WHERE ARID = "	*/
+  strcat(temp5,temp1b);
+  strcat(temp5,temp1c);
+  strcat(temp5,temp2);
   strcat(temp5,arid);
 /* SELECT KTONR,DK,BELOPP FROM VERRAD WHERE ARID = "AC	*/
   strcat(temp5,temp2);
-  strcat(temp5,temp1b);
+  strcat(temp5,temp1d);
 /* SELECT KTONR,DK,BELOPP FROM VERRAD WHERE ARID = "AC" ORDER BY KTONR	*/
 
   mysql_init(&my_connection);
