@@ -43,8 +43,9 @@
 	QString newforetag;
 	QString database;
 	QString newdatabase;
+	QString hjelpfil;	
 	
-	void which_database();
+void which_database();
 	
 void frmBytForetag::init()
 {
@@ -78,6 +79,12 @@ void frmBytForetag::pushButtonDo_clicked()
     setDatabase();
     init();
     pushButtonOK->setFocus();
+}
+
+void frmBytForetag::slotButtonHelp_clicked()
+{
+    frmBytForetag::slotHelp();
+    lineEditNyttForetag->setFocus();
 }
 
 void frmBytForetag::getDatabase()
@@ -132,3 +139,54 @@ void frmBytForetag::setDatabase()
     fprintf(stdout,"Databas=%s\n",newdatabase.latin1());	/* 2005-03-03	*/
 }
 
+void frmBytForetag::slotHelp()
+{
+	inrad="";
+//	errorrad="";
+
+	frmBytForetag::readResursFil();		// Hämta path till hjälpfilen
+	hjelpfil=hjelpfil+"#BYTAFORETAG";		// Lägg till position
+//	qDebug("hjelpfil=%s",hjelpfil.latin1());
+
+	process = new QProcess();
+	process->addArgument( "OLFIXHLP" );	// OLFIX program
+	process->addArgument(hjelpfil);
+
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
+	}
+	lineEditNyttForetag->setFocus();
+}
+
+void frmBytForetag::readResursFil()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			               */
+    /* Plocka fram var hjälpfilen finns			               */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+ 
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 ); 
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
+}
