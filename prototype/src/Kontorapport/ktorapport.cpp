@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Form implementation generated from reading ui file 'ktorapport.ui'
 **
-** Created: tor mar 20 08:20:43 2003
+** Created: fre maj 16 08:47:24 2003
 **      by:  The User Interface Compiler (uic)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -54,6 +54,7 @@ frmKtoRapport::frmKtoRapport( QWidget* parent,  const char* name, WFlags fl )
     ListView1->addColumn( trUtf8( "Summa" ) );
     ListView1->setFrameShape( QListView::StyledPanel );
     ListView1->setFrameShadow( QListView::Sunken );
+    ListView1->setShowSortIndicator( FALSE );
 
     GroupBox1Layout->addWidget( ListView1, 0, 0 );
 

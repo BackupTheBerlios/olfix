@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Form interface generated from reading ui file 'ktorapport.ui'
 **
-** Created: tor mar 20 08:20:43 2003
+** Created: fre maj 16 08:47:24 2003
 **      by:  The User Interface Compiler (uic)
 **
 ** WARNING! All changes made in this file will be lost!

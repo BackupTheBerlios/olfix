@@ -196,6 +196,7 @@ void frmKtoRapport::slotKTORPTEndOfProcess()
   double summa=0;
   double total=0;
    
+//  ListView1->setSorting(-1);
     i = -1;
     i = errorrad.find( QRegExp("Error:"), 0 );
     if (i != -1) {
@@ -205,7 +206,7 @@ void frmKtoRapport::slotKTORPTEndOfProcess()
 	 arid="";
 	 LineEditBar->setFocus();
      }
-//    qDebug("inrad=%s",inrad.latin1());
+    qDebug("inrad=%s",inrad.latin1());
     i = inrad.find(QRegExp("NR_"),0);
     j = inrad.find(QRegExp("_:"),0);
     m = j - i;
