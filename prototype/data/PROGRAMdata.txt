@@ -43,3 +43,5 @@
 "043","Ekonomi","Rapporter","Leverantörsreskontra","LEVRESKW"
 "044","Ekonomi","Rapporter","Förfallna levfakturor","ATTBETW"
 "045","Ekonomi","Rapporter","Saldolista","SDOLISW"
+"046","Försäljning","Kunddata","Visa kunddata","DSPKUW"
+"047","Försäljning","Kunddata",Ändra kunddata","CHGKUW"
