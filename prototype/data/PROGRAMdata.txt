@@ -80,3 +80,4 @@
 "080","Ekonomi","Rapporter","Balansräkning","BALRPTW"
 "081","Ekonomi","Rapporter","Huvudbok","HUVBOKW"
 "082","Ekonomi","Rapporter","Dagbok","DAGBOKW"
+"083","Försäljning","Kunddata","Lista kunders leveransplatser","LSTLEVPW"
