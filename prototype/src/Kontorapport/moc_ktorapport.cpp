@@ -2,7 +2,7 @@
 ** frmKtoRapport meta object code from reading C++ file 'ktorapport.h'
 **
 ** Created: Fri May 16 08:47:42 2003
-**      by: The Qt MOC ($Id: moc_ktorapport.cpp,v 1.2 2003/09/28 05:33:45 janpihlgren Exp $)
+**      by: The Qt MOC ($Id: moc_ktorapport.cpp,v 1.3 2003/09/28 08:00:35 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
