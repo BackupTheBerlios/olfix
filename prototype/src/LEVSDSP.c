@@ -2,7 +2,7 @@
                           LEVSDSP.c  -  description
                              -------------------
     Version		 : 0.1
-    begin                : Ons 4 jan 2004
+    begin                : Ons 4 febr 2004
     modified		 :
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
@@ -28,7 +28,7 @@
 
  ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVSDSP.c,v 1.1 2004/02/04 13:23:08 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVSDSP.c,v 1.2 2004/02/07 08:13:46 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -61,7 +61,7 @@ int main(int argc, char *argv[], char *envp[])
   char betvilkor[8];
 /*  fprintf(stderr,"argc=%d \n",argc); */
   if (argc <2){
-  	fprintf(stderr,"Error: Leveranss?tt saknas saknas.\n");
+  	fprintf(stderr,"Error: Leveranss?tt saknas.\n");
 	exit(-1);
   }
 /* ================================================================================ */
