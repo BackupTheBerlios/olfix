@@ -1,9 +1,9 @@
 /***************************************************************************
                           ARDSPL.c  -  description
                              -------------------
-    Version		 : 0.2
+    Version		 : 0.3
     begin                : Mån 17  nov	2003
-    Modified		 :
+    Modified		 : Tis 29  mars 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -17,20 +17,20 @@
  *                                                                         *
  ***************************************************************************/
 /*
-	INPUT: 1 st arg.
+	INPUT: 2 st arg.
 
-	Kommando: ./ARDSPL artikelnr
+	Kommando: ./ARDSPL lagerställe artikelnr
 
 	Function: Visa grunddata för en artikel
 
-	OUTPUT:	17 st fält,
+	OUTPUT:	18 st fält,
 		ARLAGST, ARTIKELNR, ARLAGHYLLA, ARLAGSALDO, ARINVGRP, ARABC, VALUTA, ARIPRIS, ARIKVANT0, ARIKVANT1,
-		ARIKVANT2, ARKALKPRIS, ARPLANKPRIS,ARFRYSTKPRIS,ARBESTKVANT, ARBESTPUNKT, AROMKOST
+		ARIKVANT2, ARKALKPRIS, ARPLANKPRIS,ARFRYSTKPRIS,ARBESTKVANT, ARBESTPUNKT, AROMKOST, RESERVERAT
 		samt errornb och error (text)
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARDSPL.c,v 1.4 2003/12/07 04:10:17 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARDSPL.c,v 1.5 2005/03/29 16:19:29 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -170,6 +170,7 @@ int main(int argc, char *argv[], char *envp[])
 			fprintf(stdout,"15:%s  ",sqlrow[14]);
 			fprintf(stdout,"16:%s  ",sqlrow[15]);
 			fprintf(stdout,"17:%s  ",sqlrow[16]);
+			fprintf(stdout,"18:%s  ",sqlrow[17]);
 			fprintf(stdout,"END:");
 /*
 			fprintf(stdout,"18:%s  ",sqlrow[17]);
