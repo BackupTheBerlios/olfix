@@ -1,8 +1,8 @@
 /***************************************************************************
                           ARCHGLL.c  -  description
                              -------------------
-    Version		 : 0.1
-    Modified		 :
+    Version		 : 0.2
+    Modified		 : Ons 23 febr 2005
     begin                : Tis 18 nov 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
@@ -34,7 +34,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARCHGL.c,v 1.1 2003/11/19 09:15:44 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARCHGL.c,v 1.2 2005/02/23 09:16:39 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -97,7 +97,7 @@ int main(int argc, char *argv[], char *envp[])
   char *pos2;
   int tmp,lenght,ant,i,j,k,n;
   if (argv[1] != NULL){
-  	strncpy(artikeldata,argv[1],strlen(argv[1]));
+  	strncpy(artikeldata,argv[1],sizeof(artikeldata));	/* 2005-02-23	*/
   }
   else{
   	fprintf(stderr,"Error: ARCHGL: Data saknas!\n");
