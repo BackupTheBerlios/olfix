@@ -1,8 +1,8 @@
 /****************************************************************************
 ** frmListUser meta object code from reading C++ file 'frmlistuser.h'
 **
-** Created: Tue Mar 25 05:33:32 2003
-**      by: The Qt MOC ($Id: moc_frmlistuser.cpp,v 1.1 2003/05/08 08:54:58 frazze Exp $)
+** Created: Tue May 27 06:52:15 2003
+**      by: The Qt MOC ($Id: moc_frmlistuser.cpp,v 1.2 2003/09/28 08:27:53 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -13,8 +13,8 @@
 #include <qapplication.h>
 
 #include <private/qucomextra_p.h>
-#if !defined(Q_MOC_OUTPUT_REVISION) || (Q_MOC_OUTPUT_REVISION != 19)
-#error "This file was generated using the moc from 3.0.5. It"
+#if !defined(Q_MOC_OUTPUT_REVISION) || (Q_MOC_OUTPUT_REVISION != 26)
+#error "This file was generated using the moc from 3.1.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -25,7 +25,7 @@ const char *frmListUser::className() const
 }
 
 QMetaObject *frmListUser::metaObj = 0;
-static QMetaObjectCleanUp cleanUp_frmListUser;
+static QMetaObjectCleanUp cleanUp_frmListUser( "frmListUser", &frmListUser::staticMetaObject );
 
 #ifndef QT_NO_TRANSLATION
 QString frmListUser::tr( const char *s, const char *c )
@@ -58,17 +58,19 @@ QMetaObject* frmListUser::staticMetaObject()
     static const QUMethod slot_3 = {"slotEndOfProcess", 0, 0 };
     static const QUMethod slot_4 = {"slotDataOnStderr", 0, 0 };
     static const QUMethod slot_5 = {"slotReloadUser", 0, 0 };
+    static const QUMethod slot_6 = {"languageChange", 0, 0 };
     static const QMetaData slot_tbl[] = {
 	{ "GetUser()", &slot_0, QMetaData::Public },
 	{ "init()", &slot_1, QMetaData::Public },
 	{ "slotDataOnStdout()", &slot_2, QMetaData::Public },
 	{ "slotEndOfProcess()", &slot_3, QMetaData::Public },
 	{ "slotDataOnStderr()", &slot_4, QMetaData::Public },
-	{ "slotReloadUser()", &slot_5, QMetaData::Public }
+	{ "slotReloadUser()", &slot_5, QMetaData::Public },
+	{ "languageChange()", &slot_6, QMetaData::Protected }
     };
     metaObj = QMetaObject::new_metaobject(
 	"frmListUser", parentObject,
-	slot_tbl, 6,
+	slot_tbl, 7,
 	0, 0,
 #ifndef QT_NO_PROPERTIES
 	0, 0,
@@ -81,7 +83,8 @@ QMetaObject* frmListUser::staticMetaObject()
 
 void* frmListUser::qt_cast( const char* clname )
 {
-    if ( !qstrcmp( clname, "frmListUser" ) ) return (frmListUser*)this;
+    if ( !qstrcmp( clname, "frmListUser" ) )
+	return this;
     return QWidget::qt_cast( clname );
 }
 
@@ -94,6 +97,7 @@ bool frmListUser::qt_invoke( int _id, QUObject* _o )
     case 3: slotEndOfProcess(); break;
     case 4: slotDataOnStderr(); break;
     case 5: slotReloadUser(); break;
+    case 6: languageChange(); break;
     default:
 	return QWidget::qt_invoke( _id, _o );
     }
@@ -106,8 +110,10 @@ bool frmListUser::qt_emit( int _id, QUObject* _o )
 }
 #ifndef QT_NO_PROPERTIES
 
-bool frmListUser::qt_property( int _id, int _f, QVariant* _v)
+bool frmListUser::qt_property( int id, int f, QVariant* v)
 {
-    return QWidget::qt_property( _id, _f, _v);
+    return QWidget::qt_property( id, f, v);
 }
+
+bool frmListUser::qt_static_property( QObject* , int , int , QVariant* ){ return FALSE; }
 #endif // QT_NO_PROPERTIES

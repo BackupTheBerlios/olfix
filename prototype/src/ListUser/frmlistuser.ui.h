@@ -8,8 +8,8 @@
 /***************************************************************************
                           LSTUSRW  -  description
                              -------------------
-		     version 0.03
-    begin                : Sön 23 febr 2003
+		     version 0.04
+    begin                : Tis 27 maj 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -22,7 +22,7 @@
  *                                                                         				 *
  *********************************************** *****************/
 /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ListUser/frmlistuser.ui.h,v 1.1 2003/05/08 08:54:58 frazze Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ListUser/frmlistuser.ui.h,v 1.2 2003/09/28 08:27:53 janpihlgren Exp $ " ;
 
 #include <qmessagebox.h>
 #include <qprocess.h>
@@ -43,9 +43,10 @@
 void frmListUser::GetUser()	
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
+              QString usr(userp);
 	QString bibl;
-
+	inrad="";
+	errorrad="";
 	bibl.append("./STYRMAN");		// OLFIX huvudprogram
 	
 	process = new QProcess();

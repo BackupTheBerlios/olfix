@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
 <class>frmListUser</class>
 <widget class="QWidget">
     <property name="name">
@@ -38,67 +38,35 @@
             <height>270</height>
         </size>
     </property>
+    <property name="font">
+        <font>
+            <family>Helvetica</family>
+            <pointsize>10</pointsize>
+        </font>
+    </property>
     <property name="caption">
         <string>LSTUSRW Lista användare</string>
     </property>
     <property name="iconText">
         <string>OLFIX</string>
     </property>
-    <widget class="QListView">
-        <column>
-            <property name="text">
-                <string>Userid</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizeable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Namn</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizeable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Avd</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizeable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Grupp</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizeable">
-                <bool>true</bool>
-            </property>
-        </column>
+    <widget class="QPushButton">
         <property name="name">
-            <cstring>ListView1</cstring>
+            <cstring>PushButtonSluta</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>90</x>
-                <y>10</y>
-                <width>401</width>
-                <height>261</height>
+                <x>10</x>
+                <y>240</y>
+                <width>70</width>
+                <height>30</height>
             </rect>
+        </property>
+        <property name="text">
+            <string>Sluta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
         </property>
     </widget>
     <widget class="QPushButton">
@@ -120,23 +88,61 @@
             <bool>true</bool>
         </property>
     </widget>
-    <widget class="QPushButton">
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Userid</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Namn</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Avd</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Grupp</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
         <property name="name">
-            <cstring>PushButtonSluta</cstring>
+            <cstring>ListView1</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>10</x>
-                <y>240</y>
-                <width>70</width>
-                <height>30</height>
+                <x>90</x>
+                <y>10</y>
+                <width>401</width>
+                <height>261</height>
             </rect>
-        </property>
-        <property name="text">
-            <string>Sluta</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
         </property>
     </widget>
 </widget>
@@ -154,6 +160,11 @@
         <slot>slotReloadUser()</slot>
     </connection>
 </connections>
+<tabstops>
+    <tabstop>PushButtonAgain</tabstop>
+    <tabstop>PushButtonSluta</tabstop>
+    <tabstop>ListView1</tabstop>
+</tabstops>
 <includes>
     <include location="local" impldecl="in implementation">frmlistuser.ui.h</include>
 </includes>
