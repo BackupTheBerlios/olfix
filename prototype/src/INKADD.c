@@ -30,7 +30,7 @@ Fältavskiljare = _:_
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKADD.c,v 1.3 2003/12/18 04:54:20 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKADD.c,v 1.4 2004/02/04 14:53:05 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -41,7 +41,7 @@ Fältavskiljare = _:_
 #include <string.h>
 #include "mysql.h"
 #define ANTARG 2
-#define ANTFELT 22
+#define ANTFELT 28
 
   MYSQL my_connection;
   MYSQL_RES *res_ptr;
@@ -57,7 +57,7 @@ int main(int argc, char *argv[], char *envp[])
   const char *userp = getenv("USER");	// vem är inloggad?
   char usr[15];				// userid
 
-  char temp1a[]="INSERT INTO INKREG (INKORDNR,BESTTYP,ORDERDATUM,LEVNR,LEVNAMN,LEVADRESS,LEVPOSTNR,LEVPOSTADR,LEVLAND,LEVVALUTA,LEVBETVILLKOR,GODSMERKE,BESTTEXT,VARREF,LEVDATUM,KUNDNR,FTGNAMN,FTGADR,FTGPOSTNR,FTGPOSTADR,ORDERSTATUS,ORDERSUMMA) VALUES (";
+  char temp1a[]="INSERT INTO INKREG (INKORDNR,BESTTYP,ORDERDATUM,LEVNR,LEVNAMN,LEVADRESS,LEVPOSTNR,LEVPOSTADR,LEVLAND,LEVVALUTA,LEVBETVILLKOR,LEVVILLKOR,LEVSETT,GODSMERKE,KOMMENTAR,BESTTEXT,VARREF,VARREFTFN,VARREFFAX,ERREF,LEVDATUM,KUNDNR,FTGNAMN,FTGADR,FTGPOSTNR,FTGPOSTADR,ORDERSTATUS,ORDERSUMMA) VALUES (";
   char temp2[]="\"";
   char temp3[]=",";
   char temp4[]=")";
