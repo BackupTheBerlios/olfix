@@ -1,8 +1,8 @@
 /****************************************************************/
 /**		SDOLISW					*/
-/**		Ver 0.2                                                                                    */
+/**		Ver 0.3                                                                                    */
 /**		2003-08-21					*/
-/**		Modified 2004-01-30				*/
+/**		Modified 2004-02-08				*/
 /**   Copyright	Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -38,9 +38,15 @@
     QString bar;		// Bokföringsår
     QString csvflag;
 
+    QString reportpath;
+    QString kugarversion;
+    QString kommando;
+    
 void frmSaldolista::init()
 {
     csvflag="J";
+    frmSaldolista::KugarVersion();
+    frmSaldolista::GetReportDir();
 }
 
 void frmSaldolista::slotlineEditBar_returnPressed()
@@ -269,7 +275,8 @@ void frmSaldolista::slotEndOfProcess()
 	}else{
 	    // ändrad för kugar 1.2.92 ->
    	   // system("kugar -d /tmp/Saldolista.kud -r /usr/local/olfix/report/Saldolista.kut");
-	    system("kugar /tmp/Saldolista.kud");
+	    //system("kugar /tmp/Saldolista.kud");
+	    frmSaldolista::CallKugar();
 	}
      errorrad="";
      inrad="";
@@ -300,7 +307,10 @@ void frmSaldolista::slotCreateHeader()
     rad[12]="      kredit CDATA #REQUIRED\n";
     rad[13]="      utgsaldo CDATA #REQUIRED>\n";
     rad[14]="]>\n\n";
-    rad[15]="<KugarData Template=\"/usr/local/olfix/report/Saldolista.kut\">\n";	// ange rätt template, absolut path
+    rad[15]="<KugarData Template=\"";
+    rad[15].append(reportpath);
+    rad[15].append("Saldolista.kut\">\n");	// ange rätt template, absolut path
+;
 
     rapportrad=rad[1];
     for (i=2;i<16;i++){
@@ -325,4 +335,69 @@ void frmSaldolista::slotFileRemove(QString filnamn)
 //    qDebug("slotFileRemove()::TRUE=%d FALSE=%d",TRUE,FALSE);
 //    qDebug("slotFileRemove()::filnamn=%s",filnamn.latin1());
 //    qDebug("slotFileRemove()::status=%d",status);
+}
+
+void frmSaldolista::KugarVersion()
+{
+//  Hämta aktuell version av kugar
+//  Anrop av kugar skiljer sig mellan version 1.2.1 och version 1.2.92 ->
+    bool status;
+    int i = -1;
+
+    QString filename;
+
+    system("kugar -v >/tmp/kugarversion.txt");
+    filename="/tmp/kugarversion.txt";
+    QFile file(filename);
+    status=file.open(IO_ReadOnly);
+    QTextStream stream( &file );
+    while ( !stream.eof() ) {
+	inrad = stream.readLine();
+	i = inrad.find( QRegExp("Kugar:"), 0 );
+	if(i == 0){
+	    kugarversion=inrad.mid(7,inrad.length()-7);
+	    i= -1;
+	}
+    }
+    file.close ();
+//   qDebug("kugarversion=%s",kugarversion.latin1());
+   frmSaldolista::slotFileRemove("kugarversion.txt");
+}
+
+void frmSaldolista::GetReportDir()
+{
+    QString hemkatalog;
+    QString olfixrcfile;	// filen $HOME/.olfixrc
+
+    bool status;
+    int i = -1;
+    //	Hämta sökvägen till kugar template. Default /usr/local/olfix/report
+    //	Hämtas från .olfixrc
+    hemkatalog=QDir::homeDirPath ();
+    olfixrcfile=hemkatalog+"/.olfixrc";
+    QFile file(olfixrcfile);
+    status=file.open(IO_ReadOnly);
+    QTextStream stream( &file );
+    while ( !stream.eof() ) {
+	inrad = stream.readLine();
+	i = inrad.find( QRegExp("REPORT="), 0 );
+	if(i == 0){
+	    reportpath=inrad.mid(7,inrad.length()-7);
+	    i= -1;
+	}
+    }
+    file.close ();
+//    qDebug("reportpath=  %s",reportpath.latin1());
+}
+
+void frmSaldolista::CallKugar()
+{
+    if (kugarversion<"1.2.92"){
+	kommando="kugar -d /tmp/Saldolista.kud -r "+reportpath+"Saldolista.kut";
+//	qDebug("kommando=%s",kommando.latin1());
+	system(kommando);
+    }else{
+	system("kugar  /tmp/Saldolista.kud");
+    }
+
 }
