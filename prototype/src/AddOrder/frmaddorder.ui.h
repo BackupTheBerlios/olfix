@@ -11,8 +11,8 @@
 	         Registrering av kundorder
                              -------------------
 		     version 0.3
-    begin   	: Sö  12 okt   2003
-    Updated	: Ons  9 mars 2005
+    begin   	: Sö      12 okt    2003
+    Updated	: Mån  14 mars 2005
     copyright	: (C) 2003 by Jan Pihlgren
     email     	: jan@pihlgren.se
  ***************************************************************************/
@@ -36,8 +36,11 @@
 
     QProcess* process;
     QString inrad;
+    QString inrad2;
     QString* rad;
     QString errorrad;
+    QString errorrad2;
+    QString hjelpfil;    
 
     QString orderdatum;
     QString ordernr;
@@ -67,6 +70,7 @@
     QString orderpgnr;
     QString orderbgnr;
     QString seljare;
+    QString godsmarke;
     QString orderleveranstid;
     QString ordervaluta;
     QString orderbetvillkor;
@@ -86,7 +90,8 @@
     QString orderradpris;
     QString radbelopp;
     QString radmoms;		/*  Moms på radbelopp */
-	    
+    QString orderraddata;	    
+    
     /* Order 	*/
     QString orderdel;		/*  Del av ordern, H=orderhuvud, R=orderrad */
     QString ordersumma;
@@ -257,6 +262,12 @@ void frmAddOrder::lineEditSeljare_returnPressed()
 void frmAddOrder::lineOrderLeveranstid_returnPressed()
 {
     orderleveranstid=lineOrderLeveranstid->text();
+    lineEditArtikelNr->setFocus();
+}
+
+void frmAddOrder::lineEditGodsmarke_returnPressed()
+{
+    godsmarke=lineEditGodsmarke->text();
     lineEditArtikelNr->setFocus();
 }
 
@@ -489,7 +500,7 @@ void frmAddOrder::pushBtnOrderKlar_clicked()
 void frmAddOrder::slotBtnOK_clicked()
 {
     frmAddOrder::CreateOrderHuvud();
-//    slotAddOrder();
+// Och lägg upp orderhuvud i ORDERREG
 }
 
 
@@ -514,21 +525,21 @@ void frmAddOrder::slotAddOrder()
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// userid
-	process->addArgument( "ORDHADD");	// OLFIX funktion		Orderhuvud till ORDERREG
+	process->addArgument( "ORDADD");	// OLFIX funktion		Orderhuvud till ORDERREG
 	process->addArgument(orderhuvuddata);
 	
 	frmAddOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmAddOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
             frmAddOrder::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
 	    
-	if (ordernr == "" || orderkundnr ==""){
+	if (orderhuvuddata == "" ){
     	    QMessageBox::warning( this, "ADDORDW",
-                      "Ordernummer och/eller kundnummer saknas \n" );
+                      "Data saknas till orderhuvud! \n" );
 	}else {
 	    if ( !process->start() ) {
 		// error handling
 		QMessageBox::warning( this, "ADDORDW",
-                            "Kan inte starta STYRMAN/ORDHADD! \n" );
+                            "Kan inte starta STYRMAN/ORDADD! \n" );
 	    }
 	}
 }
@@ -569,9 +580,9 @@ void frmAddOrder::slotEndOfProcess()
 	 i = -1;
 	 i = inrad.find( QRegExp("OK:"), 0 );
 	 if (i != -1) {
-	     QMessageBox::information( this, "ADDORDW",
-		"Uppdatering OK!\n"+errorrad
-		);
+//	     QMessageBox::information( this, "ADDORDW",
+//		"Uppdatering OK!\n"+errorrad
+//		);
      	     lineEditOrderKundNr->clear();
 	     lineEditOrderNbr->clear();
 	     lineEditKundNamn->clear();
@@ -599,7 +610,7 @@ void frmAddOrder::slotEndOfProcess()
 	     lineEditRadMoms->clear();
 	     lineEditRadSumma->clear();
 /*	      ----------------				*/
-	     listViewRader->clear();
+//	     listViewRader->clear();
 /*	      ----------------				*/	     
 	     lineEditOrderSumma->clear();
 	     lineEditOrderFrakt->setEnabled("TRUE");
@@ -612,6 +623,7 @@ void frmAddOrder::slotEndOfProcess()
 
 	     inrad="";
 	     i = -1;
+	     frmAddOrder::UpdateKundOrderNr();	/* Uppdatera ordernummer i FTGDATA, posttyp KORNR=senast använda kundordernr*/
 	 } 
      }
 }
@@ -1423,6 +1435,7 @@ void frmAddOrder::slotLevPEndOfProcess()
 	    int i4 = inrad.find( QRegExp("04:"), 0 );		//	postnr
     	    int i5 = inrad.find( QRegExp("05:"), 0 );		//	postadress
 	    int i6 = inrad.find( QRegExp("06:"), 0 );		//	land
+	    int i7 = inrad.find( QRegExp(":END"), 0 );	//	Slutmarkering på inrad
 	    m=i4-i3;
 	    if (i3 != -1){
 		orderkundlevadress=inrad.mid(i3+3,m-4);
@@ -1438,7 +1451,7 @@ void frmAddOrder::slotLevPEndOfProcess()
 		orderkundlevpostadr=inrad.mid(i5+3,m-4);
 		lineEditKundLevPostAdress->setText(orderkundlevpostadr);
 	    }
-	    m=inrad.length()-i6;
+	    m=i7-i6;
 	    if (i6 != -1){
 		orderkundlevland=inrad.mid(i6+3,m-4);
 		lineEditKundLevLand->setText(orderkundlevland);
@@ -1516,6 +1529,8 @@ void frmAddOrder::CreateOrderHuvud()
     orderhuvuddata.append(skilj);
     orderhuvuddata.append(orderlevplats);
     orderhuvuddata.append(skilj);
+    orderhuvuddata.append(godsmarke);
+    orderhuvuddata.append(skilj);
     orderhuvuddata.append(lineEditOrderSumma->text());	/* Summa exkl moms */
     orderhuvuddata.append(skilj);
     orderhuvuddata.append(fraktbelopp);
@@ -1528,5 +1543,222 @@ void frmAddOrder::CreateOrderHuvud()
     orderhuvuddata.append(skilj);
 
     orderhuvuddata.append("END");
-    qDebug("orderhuvuddata=%s",orderhuvuddata.latin1());
+//    qDebug("orderhuvuddata=%s",orderhuvuddata.latin1());
+    slotAddOrder();					/* Spara orderhuvud */
+}
+
+void frmAddOrder::UpdateKundOrderNr()
+{
+/*   Uppdatera ordernummer i FTGDATA, posttyp KORNR=senast använda kundordernr
+      Använd funktion FTGUPD KORNR "ordernr+1"
+*/
+    const char *userp = getenv("USER");
+    QString usr(userp);
+	
+//	qDebug("ordernr=%s",ordernr.latin1());
+	inrad="";
+	errorrad="";
+	
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "FTGUPD");	// OLFIX funktion		Orderhuvud till ORDERREG
+	process->addArgument("KORNR");
+	process->addArgument(ordernr);
+	
+	frmAddOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+	frmAddOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+            frmAddOrder::connect( process, SIGNAL(processExited() ),this, SLOT(slotUpdateOrdernrEndOfProcess() ) );
+	    
+	if (ordernr == ""){
+    	    QMessageBox::warning( this, "ADDORDW",
+                      "Ordernummer saknas \n" );
+	}else {
+	    if ( !process->start() ) {
+		// error handling
+		QMessageBox::warning( this, "ADDORDW",
+                            "Kan inte starta STYRMAN/FTGUPD \n" );
+	    }
+	}
+}
+
+void frmAddOrder::slotUpdateOrdernrEndOfProcess()
+{
+    frmAddOrder::SaveOrderRader();
+}
+
+void frmAddOrder::SaveOrderRader()
+{
+    // listViewRader
+    int i=0;    
+    QListViewItemIterator it( listViewRader);
+    QString rnr;
+    listViewRader->firstChild ();
+    for ( ; it.current(); ++it ){
+	i++;
+	QString temp0=it.current()->text(0);	// radnr
+	QString temp1=it.current()->text(1);	// artikelnr
+	QString temp2=it.current()->text(2);	// artikelbenämning
+	QString temp3=it.current()->text(3);	// leveransvecka
+	QString temp4=it.current()->text(4);	// antal
+	QString temp5=it.current()->text(5);	// pris/st
+	QString temp6=it.current()->text(6);	// radsumma
+	QString temp7=it.current()->text(7);	// radmoms
+//	QString temp8=it.current()->text(8);	// leverantöreens artbenämning
+//            qDebug("i=%d  temp=%s, %s, %s, %s, %s, %s, %s, %s",i,temp0.latin1(),temp1.latin1(),temp2.latin1(),temp3.latin1(),temp4.latin1(),temp5.latin1(),temp6.latin1(),temp7.latin1());
+	frmAddOrder::createOrderrad(temp0,temp1,temp2,temp3, temp4,temp5,temp6,temp7);
+    }
+    listViewRader->clear();
+//    frmAddOrder::getOrdernr();
+//    lineEditOrderKundNr->setFocus();
+}
+
+void frmAddOrder::createOrderrad(QString tmp0,QString tmp1,QString tmp2,QString tmp3, QString tmp4,QString tmp5,QString tmp6,QString tmp7)
+{
+    orderraddata="";
+    QString skilj;
+    skilj="_:_";
+    orderraddata=skilj;
+    orderraddata.append(ordernr);	// ordernr
+    orderraddata.append(skilj);
+    orderraddata.append(tmp0);	// radnr
+    orderraddata.append(skilj);
+    orderraddata.append(tmp1);	//artikelnr
+    orderraddata.append(skilj);
+    orderraddata.append(tmp2);	//benämning
+    orderraddata.append(skilj);
+    orderraddata.append(tmp3);	// leveransvecka
+    orderraddata.append(skilj);    
+    orderraddata.append(tmp4);	// antal
+    orderraddata.append(skilj);
+    orderraddata.append(tmp5);	// a'-pris
+    orderraddata.append(skilj);
+    orderraddata.append(tmp6);	// summa exkl moms.
+    orderraddata.append(skilj);    
+    orderraddata.append(tmp7);	// momskr.
+    orderraddata.append(skilj);    
+    orderraddata.append("END");	// momskr.
+
+    qDebug("orderraddat=%s",orderraddata.latin1());
+    frmAddOrder::AddOrderRad();
+}
+
+void frmAddOrder::AddOrderRad()
+{
+    /************************************************************************/
+    /*	Uppdatera orderrad,ORDERRADREG					*/
+    /************************************************************************/
+    const char *userp = getenv("USER");
+    QString usr(userp);
+
+//    qDebug("frmAddOrder::AddOrderRad");
+    inrad2="";
+    errorrad2="";
+    process = new QProcess();
+    process->addArgument("./STYRMAN");	// OLFIX styrprogram
+    process->addArgument(usr);		// userid
+    process->addArgument( "ORDRADD");	// OLFIX funktion
+    process->addArgument(orderraddata);
+
+    frmAddOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotOrderradDataOnStdout() ) );
+    frmAddOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotOrderadDataOnStderr() ) );
+    frmAddOrder::connect( process, SIGNAL(processExited() ),this, SLOT(slotOrderadEndOfProcess() ) );
+
+    if (orderraddata == ""){
+	QMessageBox::warning( this, "ADDORDW",
+			      "Orderrad saknas \n" );
+    }else{
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::critical( this, "ADDORDW",
+				  "Kan inte starta STYRMAN/ORDRADD! \n" );
+	}
+    }
+}
+
+void frmAddOrder::slotOrderadEndOfProcess()
+{
+    int i;
+    i = -1;
+    i = errorrad2.find( QRegExp("Error:"), 0 );
+    if (i != -1) {
+	QMessageBox::critical( this, "ADDORDW",
+			       "ERROR!\n"+errorrad2
+			       );
+	errorrad2="";    
+    }else{
+//	    qDebug("slotOrderadEndOfProcess::inrad2=%s",inrad2.latin1());
+// 	   qDebug("slotOrderadEndOfProcess::errorrad2=%s",errorrad2.latin1());
+	frmAddOrder::getOrdernr();
+	lineEditOrderKundNr->setFocus();
+    }
+}
+
+void frmAddOrder::slotOrderadDataOnStderr()
+{
+      while (process->canReadLineStderr() ) {
+	QString line = process->readStderr();
+	errorrad2.append(line);
+	errorrad2.append("\n");
+    }
+}
+
+void frmAddOrder::slotOrderradDataOnStdout()
+{
+    while (process->canReadLineStdout() ) {
+	QString line = process->readStdout();
+	inrad2.append(line);
+	inrad2.append("\n");
+    }   
+}
+
+void frmAddOrder::pushBtnHelp_clicked()
+{
+	inrad="";
+
+	frmAddOrder::readResursFil();		// Hämta path till hjälpfilen
+	hjelpfil=hjelpfil+"#FORSALJ1";		// Lägg till position
+//	qDebug("hjelpfil=%s",hjelpfil.latin1());
+
+	process = new QProcess();
+	process->addArgument( "OLFIXHLP" );	// OLFIX program
+	process->addArgument(hjelpfil);
+
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
+	}
+	lineEditArtikelNr->setFocus();
+}
+
+void frmAddOrder::readResursFil()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			               */
+    /* Plocka fram var hjälpfilen finns			               */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 );
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
 }
