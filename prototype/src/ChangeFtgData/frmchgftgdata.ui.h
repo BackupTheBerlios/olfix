@@ -1,7 +1,7 @@
 /****************************************************************/
 /**		CHGFTGW					*/
-/**		Version: 0.2                                                                            */
-/**		20003-05-06					*/
+/**		Version: 0.3                                                                            */
+/**		20003-06-30					*/
 /**		Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -69,6 +69,12 @@
     QLineEdit* LineEditMoms4;
     QLineEdit* LineEditMoms5;   
     
+    QLineEdit* LineEditBetvilk1;
+    QLineEdit* LineEditBetvilk2;
+    QLineEdit* LineEditBetvilk3;
+    
+    QLineEdit* LineEditAutokonto;
+
 void frmChgFtgData::init()
 {
     frmChgFtgData::slotGetPosttyper();
@@ -252,6 +258,27 @@ void frmChgFtgData::slotEndOfProcess()
     if (i != -1){
 	slotGetMOMS3();
     }
+    i = -1;
+    i = posttyp.find( QRegExp("BVLK1"), 0 );	// Betalningsvillkor 1
+    if (i != -1){
+	slotGetBVLK1();
+    }
+
+    i = -1;
+    i = posttyp.find( QRegExp("BVLK2"), 0 );	// Betalningsvillkor 2
+    if (i != -1){
+	slotGetBVLK2();
+    }
+    i = -1;
+    i = posttyp.find( QRegExp("BVLK3"), 0 );	// Betalningsvillkor 3
+    if (i != -1){
+	slotGetBVLK3();
+    }   
+    i = -1;
+    i = posttyp.find( QRegExp("AUTOK"), 0 );	// Automatisk kontering J/N
+    if (i != -1){
+	slotGetAUTOK();
+    }   
 }
 
 void frmChgFtgData::slotGetADR1()
@@ -883,6 +910,120 @@ void frmChgFtgData::slotLineEditMoms3_returnPressed()
     PushButtonUpdate->setFocus();
 }
 
+void frmChgFtgData::slotGetBVLK1()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString betvilk1;
+   QLabel* TextLabelBetvilk1;
+//   QLineEdit* LineEditMoms1;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    betvilk1 = inrad.mid(k+2,m-2);
+    
+//    qDebug("slotGetBVLK1! BETV 1=%s",inrad.latin1());
+    TextLabelBetvilk1 = new QLabel( this, "TextLabelBetvilk1" );
+    // geometri = x , y , w , h
+    TextLabelBetvilk1->setGeometry( QRect( 10, 50, 100, 26 ) );
+    TextLabelBetvilk1->setText( trUtf8( "BETV 1:" ) );
+    
+    TextLabelBetvilk1->show();
+    LineEditBetvilk1 = new QLineEdit( this, "LineEditBetvilk1" );
+    LineEditBetvilk1->setGeometry( QRect( 110, 50, 300, 26 ) );
+    connect( LineEditBetvilk1, SIGNAL(  returnPressed()), this, SLOT( slotLineEditBetvilk1_returnPressed() ) );
+    LineEditBetvilk1->show();
+    LineEditBetvilk1->setText(betvilk1);
+    LineEditBetvilk1->setFocus();
+}
+
+void frmChgFtgData::slotLineEditBetvilk1_returnPressed()
+{
+    fdata=LineEditBetvilk1->text();
+    PushButtonUpdate->setFocus();
+}
+
+void frmChgFtgData::slotGetBVLK2()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString betvilk2;
+   QLabel* TextLabelBetvilk2;
+//   QLineEdit* LineEditMoms1;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    betvilk2 = inrad.mid(k+2,m-2);
+    
+//    qDebug("slotGetBVLK1! BETV 1=%s",inrad.latin1());
+    TextLabelBetvilk2 = new QLabel( this, "TextLabelBetvilk2" );
+    // geometri = x , y , w , h
+    TextLabelBetvilk2->setGeometry( QRect( 10, 50, 100, 26 ) );
+    TextLabelBetvilk2->setText( trUtf8( "BETV 2:" ) );
+    
+    TextLabelBetvilk2->show();
+    LineEditBetvilk2 = new QLineEdit( this, "LineEditBetvilk2" );
+    LineEditBetvilk2->setGeometry( QRect( 110, 50, 300, 26 ) );
+    connect( LineEditBetvilk2, SIGNAL(  returnPressed()), this, SLOT( slotLineEditBetvilk2_returnPressed() ) );
+    LineEditBetvilk2->show();
+    LineEditBetvilk2->setText(betvilk2);
+    LineEditBetvilk2->setFocus();
+}
+
+void frmChgFtgData::slotLineEditBetvilk2_returnPressed()
+{
+    fdata=LineEditBetvilk2->text();
+    PushButtonUpdate->setFocus();
+}
+
+void frmChgFtgData::slotGetBVLK3()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString betvilk3;
+   QLabel* TextLabelBetvilk3;
+//   QLineEdit* LineEditMoms1;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    betvilk3 = inrad.mid(k+2,m-2);
+    
+//    qDebug("slotGetBVLK1! BETV 1=%s",inrad.latin1());
+    TextLabelBetvilk3 = new QLabel( this, "TextLabelBetvilk3" );
+    // geometri = x , y , w , h
+    TextLabelBetvilk3->setGeometry( QRect( 10, 50, 100, 26 ) );
+    TextLabelBetvilk3->setText( trUtf8( "BETV 3:" ) );
+    
+    TextLabelBetvilk3->show();
+    LineEditBetvilk3 = new QLineEdit( this, "LineEditBetvilk3" );
+    LineEditBetvilk3->setGeometry( QRect( 110, 50, 300, 26 ) );
+    connect( LineEditBetvilk3, SIGNAL(  returnPressed()), this, SLOT( slotLineEditBetvilk3_returnPressed() ) );
+    LineEditBetvilk3->show();
+    LineEditBetvilk3->setText(betvilk3);
+    LineEditBetvilk3->setFocus();
+}
+
+void frmChgFtgData::slotLineEditBetvilk3_returnPressed()
+{
+    fdata=LineEditBetvilk3->text();
+    PushButtonUpdate->setFocus();
+}
+
 void frmChgFtgData::slotGetPosttyper()
 {
 	const char *userp = getenv("USER");
@@ -1093,3 +1234,42 @@ void frmChgFtgData::PushButtonUpdate_clicked()
     slotUpdFtgData( ptyp, fdata );
 }
 
+
+
+void frmChgFtgData::slotGetAUTOK()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString autok;
+   QLabel* TextLabelAutokonto;
+//   QLineEdit* LineEditMoms1;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    autok = inrad.mid(k+2,m-2);
+    
+    //    qDebug("slotGetAUTOK::autok=%s",autok.latin1());
+    TextLabelAutokonto = new QLabel( this, "TextLabelAutokonto" );
+    // geometri = x , y , w , h
+    TextLabelAutokonto->setGeometry( QRect( 10, 50, 100, 26 ) );
+    TextLabelAutokonto->setText( trUtf8( "AUTOK:" ) );
+    
+    TextLabelAutokonto->show();
+    LineEditAutokonto = new QLineEdit( this, "LineEditAutokonto" );
+    LineEditAutokonto->setGeometry( QRect( 110, 50, 300, 26 ) );
+    connect( LineEditAutokonto, SIGNAL(  returnPressed()), this, SLOT( slotLineEditAutokonto_returnPressed() ) );
+    LineEditAutokonto->show();
+    LineEditAutokonto->setText(autok);
+    LineEditAutokonto->setFocus();
+}
+
+void frmChgFtgData::slotLineEditAutokonto_returnPressed()
+{
+    fdata=LineEditAutokonto->text();
+    PushButtonUpdate->setFocus();
+}
