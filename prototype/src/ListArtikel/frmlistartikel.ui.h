@@ -184,5 +184,6 @@ void frmListArtikel::slotDataOnStderr()
 void frmListArtikel::slotReloadArtikel()
 {
     ListView1->clear();
+    inrad="";
     frmListArtikel::GetArtikel();
 }

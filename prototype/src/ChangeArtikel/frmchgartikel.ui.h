@@ -9,9 +9,9 @@
 /***************************************************************************
                           CHGARW  -  description
                              -------------------
-    Version 	: 0.1
+    Version 	: 0.2
     begin                	: Sצn 16 nov 2003
-    modified	:
+    modified	:Mוn 24 nov 2003
     copyright             : (C) 2003 by Jan Pihlgren
     email    	: jan@pihlgren.se
  ***************************************************************************/
@@ -84,9 +84,9 @@
     int changeflag=-1;
     int changeflagG=-1;
     
-    QRegExp rx1( "[A-Za-z0-9ִֵײוהצ]\\w{1,29}" );
+    QRegExp rx1( "[A-Za-z0-9ִֵײוהצ-]{1,29}" );
     QRegExp rx2( "[0-9]{0,3}" );
-    QRegExp rx3( "[A-Za-z0-9ִֵײוהצ ]{0,29}" );
+    QRegExp rx3( "[A-Za-z0-9ִֵײוהצ/_ -]{0,29}" );
     QRegExp rx4( "[0-9,.]{1,6}" );
     QRegExp rx5( "\\w{0,5}" );
     QRegExp rx6( "[0-9,.]{0,12}" );
@@ -94,7 +94,7 @@
     QRegExp rx8( "[0-3]{1}" );
     QRegExp rx9( "[BFIT ]{0,1}" );
     QRegExp rx10( "\\d{0,7}" );
-    QRegExp rx11( "[A-Za-z0-9ִֵײוהצ ]{1,29}" );
+    QRegExp rx11( "[A-Za-z0-9ִֵײוהצ/_ -]{1,29}" );
 	
     QRegExpValidator validator1( rx1, 0 );
     QRegExpValidator validator2( rx2, 0 );
