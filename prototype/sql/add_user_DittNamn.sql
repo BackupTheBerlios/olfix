@@ -39,4 +39,4 @@ PASSWORD("DittPassword"),
 "Y",
 "Y"
 );
-FLUSCH PRIVILEGES;
+FLUSH PRIVILEGES;
