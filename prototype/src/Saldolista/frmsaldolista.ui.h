@@ -1,8 +1,8 @@
 /****************************************************************/
 /**		SDOLISW					*/
-/**		Ver 0.4                                                                                    */
+/**		Ver 0.5                                                                                    */
 /**		Created    2003-08-21				*/
-/**		Modified 2004-03-14				*/
+/**		Modified 2004-03-20				*/
 /**   Copyright	Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -176,6 +176,14 @@ void frmSaldolista::slotEndOfProcess()
     double delkredit=0;
     double delusaldo=0;
     
+//	Saldototal
+    QString totaldebet;
+    QString totalkredit;
+    QString totalutgsaldo;
+    double debettotal=0;
+    double kredittotal=0;
+    double usaldototal=0;
+    
     QString fil;
     QString rapportrad;
         
@@ -251,7 +259,7 @@ void frmSaldolista::slotEndOfProcess()
      			     delsumdebet.setNum(deldebet,'f',2);
 			     delsumkredit.setNum(delkredit,'f',2);
 			     delsumutgsaldo.setNum(delusaldo,'f',2);			
-			     rapportrad="Delsumma";
+			     rapportrad="KLASSTOTAL";
 			     rapportrad.append(",");
 			     rapportrad.append("");		// Blankt kontonamnsfält
 			     rapportrad.append(",");
@@ -313,19 +321,50 @@ void frmSaldolista::slotEndOfProcess()
 		 if (dk == "D"){
 		     debet=debet+belopp.toDouble();
 		     deldebet=deldebet+belopp.toDouble();
+		     debettotal=debettotal+belopp.toDouble();
 		 }
 		 if (dk == "K"){
 		     kredit=kredit+belopp.toDouble();
 		     delkredit=delkredit+belopp.toDouble();
+		     kredittotal=kredittotal+belopp.toDouble();
 		 }
 		 usaldo=debet -kredit;
 		 delusaldo=deldebet-delkredit;
+		 usaldototal=debettotal-kredittotal;
 	     }
 	} 
 	if (csvflag != "J"){
-	    rapportrad="</KugarData>";
-	    stream << rapportrad;
-	}
+	     totaldebet.setNum(debettotal,'f',2);
+	     totalkredit.setNum(kredittotal,'f',2);
+	     totalutgsaldo.setNum(usaldototal,'f',2);			
+	    
+  	     rapportrad="<Totalsumma level=\"3\" ";
+	     rapportrad.append(" totaldebet=\"");
+	     rapportrad.append(totaldebet);
+	     rapportrad.append("\" totalkredit=\"");
+	     rapportrad.append(totalkredit);
+	     rapportrad.append("\" totalutgsaldo=\"");
+	     rapportrad.append(totalutgsaldo);
+	     rapportrad.append("\"/>\n");
+	     stream << rapportrad;
+	     rapportrad="</KugarData>";
+	     stream << rapportrad;
+	 }else{
+	     totaldebet.setNum(debettotal,'f',2);
+	     totalkredit.setNum(kredittotal,'f',2);
+	     totalutgsaldo.setNum(usaldototal,'f',2);			
+	     rapportrad="SALDOTOTALER";
+	     rapportrad.append(",");
+	     rapportrad.append("");		// Blankt kontonamnsfält
+	     rapportrad.append(",");
+	     rapportrad.append(totaldebet);
+	     rapportrad.append(",");
+	     rapportrad.append(totalkredit);
+	     rapportrad.append(",");
+	     rapportrad.append(totalutgsaldo);
+	     rapportrad.append("\n");
+	     stream << rapportrad;	     
+	 }
     }
     filnamn.close();
     QMessageBox::information( this, "ATTBETW","Rapport skapad!\n");
@@ -341,7 +380,7 @@ void frmSaldolista::slotEndOfProcess()
 void frmSaldolista::slotCreateHeader()
 {
     int i;
-    int antrad=36;
+    int antrad=46;
     QString rad[antrad];
     QString rapportrad;
 
@@ -383,10 +422,20 @@ void frmSaldolista::slotCreateHeader()
     rad[31]="      delsumkredit CDATA #REQUIRED\n";
     rad[32]="      delsumutgsaldo CDATA #REQUIRED\n";    
     rad[33]=">\n";       
-    rad[34]="]>\n\n";
-    rad[35]="<KugarData Template=\"";
-    rad[35].append(reportpath);
-    rad[35].append("Saldolista.kut\">\n");	// ange rätt template, absolut path
+    rad[34]="   <!ELEMENT KugarData (Totalsumma* )>\n";
+    rad[35]="   <!ATTLIST KugarData\n";
+    rad[36]="      Template CDATA #REQUIRED>\n\n";
+    rad[37]="   <!ELEMENT Totalsumma EMPTY>\n";
+    rad[38]="   <!ATTLIST Totalsumma\n";
+    rad[39]="      level CDATA #REQUIRED\n";
+    rad[40]="      totaldebet CDATA #REQUIRED\n";
+    rad[41]="      totalkredit CDATA #REQUIRED\n";
+    rad[42]="      totalutgsaldo CDATA #REQUIRED\n";    
+    rad[43]=">\n";            
+    rad[44]="]>\n\n";
+    rad[45]="<KugarData Template=\"";
+    rad[45].append(reportpath);
+    rad[45].append("Saldolista.kut\">\n");	// ange rätt template, absolut path
 ;
 //    qDebug("slotCreateHeader::rapportrad = \n%s",rapportrad.latin1());
     rapportrad=rad[1];
