@@ -31,7 +31,7 @@
 #include <qregexp.h>
 //#include <qfont.h>
 #include <qlistview.h>
-#define MAXSTRING 5000
+#define MAXSTRING 10000
 #define PRGNAMN 40
 
 	QProcess* process;
