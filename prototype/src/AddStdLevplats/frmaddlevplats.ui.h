@@ -9,9 +9,9 @@
 /***************************************************************************
                           ADDLEVPW  -  description
                              -------------------
-		     version 0.2
+		     version 0.3
     begin                : Sön 7 aug 2003
-    Modified         : Mån 20 okt 2003
+    Modified         : Tis 20 okt 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -31,6 +31,7 @@
 #include <qstring.h>
 #include <qfile.h>
 #include <qregexp.h>
+#include <qvalidator.h> 		// 2003-10-21
 #define MAXSTRING 5000
 
 
@@ -46,72 +47,69 @@
     QString postadr;
     QString land;
 
+    QRegExp rx1( "[A-Za-z0-9ÅÄÖåäö]\\w{1,9}" );        
+    QRegExp rx2( "[0-9]\\d{2}" );
+    QRegExp rx3( "[A-Za-z0-9ÅÄÖåäö ]{1,29}" );    
+    QRegExp rx4( "[1-9]\\d{4}" );
+    
+    QRegExpValidator validator1( rx1, 0 );
+    QRegExpValidator validator2( rx2, 0 );
+    QRegExpValidator validator3( rx3, 0 );    
+    QRegExpValidator validator4( rx4, 0 );
+    
 
 void frmAddLevplats::init()
 {
+    lineEditKundID->setValidator(&validator1);
+    lineEditLevPlatsNr->setValidator(&validator2);
+    lineEditLevAdress->setValidator(&validator3);
+    lineEditPostnr->setValidator(&validator4);
+    lineEditPostAdress->setValidator(&validator3);
+    lineEditLand->setValidator(&validator3);
+
+    
     lineEditKundID->setFocus();
     if (kundid==NULL){
 	lineEditLevPlatsNr->setText("");
-//	lineEditLevPlatsNr->clear();
     }
 //     qDebug("lineEditKundID::kundid=%s",kundid.latin1());    
-//    lineEditLevPlatsNr->setFocus();
 }
 
 void frmAddLevplats::lineEditKundID_returnPressed()
 {
     kundid=lineEditKundID->text();
-    if (kundid == "" ){
-	QMessageBox::warning( this, "ADDLEVPW","KundID måste fyllas i! \n" );
-	lineEditKundID->setFocus();
-   }else{
-//       qDebug("lineEditKundID::kundid=%s",kundid.latin1());
-       lineEditLevPlatsNr->setFocus();
-   }        
+    lineEditLevPlatsNr->setFocus();
 }
 
 void frmAddLevplats::lineEditLevPlatsNr_returnPressed()
 {
     levplatsnr=lineEditLevPlatsNr->text();
-    if (levplatsnr == "" ){
-    	    QMessageBox::warning( this, "ADDLEVPW", "Platsnummer måste fyllas i! \n" );
-	    lineEditLevPlatsNr->setFocus();
-	}else{
-	    lineEditLevAdress->setFocus();
-	}                
+    lineEditLevAdress->setFocus();
 }
 
 void frmAddLevplats::lineEditLevAdress_returnPressed()
 {
     levadress=lineEditLevAdress->text();
-    if (levadress == "" ){
-    	    QMessageBox::warning( this, "ADDLEVPW", "Leveransadress måste fyllas i! \n" );
-	    lineEditLevAdress->setFocus();
-	}else{
-	    lineEditPostnr->setFocus();
-	}
+    lineEditPostnr->setFocus();
 }
 
 void frmAddLevplats::lineEditPostnr_returnPressed()
 {
+    QString temp;
     postnr=lineEditPostnr->text();
-    if (postnr == "" ){
-    	    QMessageBox::warning( this, "ADDLEVPW", "Postnummer måste fyllas i! \n" );
-	    lineEditPostnr->setFocus();
-	}else{
-	    lineEditPostAdress->setFocus();
-	}    
+    lineEditPostAdress->setFocus();
+    temp=postnr.mid(0,3);
+    temp.append(" ");
+    temp.append(postnr.mid(3,2));
+    postnr=temp;
+//	qDebug("postnr=%s\n",postnr.latin1());
+    lineEditPostnr->setText(postnr);
 }
 
 void frmAddLevplats::lineEditPostAdress_returnPressed()
 {
     postadr=lineEditPostAdress->text();
-    if (postadr == "" ){
-    	    QMessageBox::warning( this, "ADDLEVPW", "Postadressen måste fyllas i! \n" );
-	    lineEditPostAdress->setFocus();
-	}else{
-	    lineEditLand->setFocus();
-	}
+    lineEditLand->setFocus();
 }
 
 void frmAddLevplats::lineEditLand_returnPressed()
@@ -126,8 +124,36 @@ void frmAddLevplats::lineEditLand_returnPressed()
 
 void frmAddLevplats::pushButtonOK_clicked()
 {
+    int status=0;
+    if (kundid == "" ){
+	QMessageBox::warning( this, "ADDLEVPW","KundID måste fyllas i! \n" );
+	status=-1;
+	lineEditKundID->setFocus();
+    }
+    if (levplatsnr == "" ){
+    	    QMessageBox::warning( this, "ADDLEVPW", "Platsnummer måste fyllas i! \n" );
+	    status=-1;
+	    lineEditLevPlatsNr->setFocus();
+   }
+   if (levadress == "" ){
+    	    QMessageBox::warning( this, "ADDLEVPW", "Leveransadress måste fyllas i! \n" );
+	    status=-1;
+	    lineEditLevAdress->setFocus();
+   }
+   if (postnr == "" ){
+    	    QMessageBox::warning( this, "ADDLEVPW", "Postnummer måste fyllas i! \n" );
+	    status=-1;
+	    lineEditPostnr->setFocus();
+  }    
+  if (postadr == "" ){
+    	    QMessageBox::warning( this, "ADDLEVPW", "Postadressen måste fyllas i! \n" );
+	    status=-1;
+	    lineEditPostAdress->setFocus();
+  }    
+  if (status==0){
 //    qDebug("pushButtonOK_clicked::kundid=%s",kundid.latin1());
-    AddStandardLevPlats();
+      AddStandardLevPlats();
+  }
 }
 
 void frmAddLevplats::AddStandardLevPlats()
@@ -137,9 +163,13 @@ void frmAddLevplats::AddStandardLevPlats()
 /************************************************************************/
 	const char *userp = getenv("USER");
             QString usr(userp);
-
+	 
+	if (land==""){
+	    land="-";
+	}    
+	    
 	process = new QProcess();
-	process->addArgument( "STYRMAN");	// OLFIX funktion
+	process->addArgument( "./STYRMAN");	// OLFIX funktion
 	process->addArgument(usr);
 	process->addArgument("SLPADD");	
 	process->addArgument(kundid);
