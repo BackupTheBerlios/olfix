@@ -1,9 +1,9 @@
 /***************************************************************************
                           ARDSP.c  -  description
                              -------------------
-    Version		 : 0.2
+    Version		 : 0.3
     begin                : Lör 15 nov	2003
-    Modified		 : Lör  6 dec	2003
+    Modified		 : Ons 23 febr	2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -31,7 +31,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARDSP.c,v 1.2 2003/12/07 04:10:34 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARDSP.c,v 1.3 2005/02/23 09:26:59 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -114,7 +114,7 @@ int main(int argc, char *argv[], char *envp[])
   char temp5[200]="";
   char artikelnr[31]="";
 
-  strncpy(artikelnr,argv[1],strlen(argv[1]));
+  strncpy(artikelnr,argv[1],sizeof(artikelnr));		/*2005-02-23	*/
   fprintf(stderr,"ARDSP artikelnr = %s\n",artikelnr);
   strncpy(temp5,temp1,strlen(temp1));
 /* SELECT * FROM ARTIKELREG WHERE (artikelnr = "	*/

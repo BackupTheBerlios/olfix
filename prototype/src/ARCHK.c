@@ -1,8 +1,9 @@
 /***************************************************************************
                           ARCHK.c  -  description
                              -------------------
+			     version 0.2
     begin                : Ons 28 okt	2003
-    Modified		 :
+    Modified		 : Ons 23 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -27,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARCHK.c,v 1.1 2003/10/29 13:49:36 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARCHK.c,v 1.2 2005/02/23 09:23:23 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -59,7 +60,7 @@ int main(int argc, char *argv[], char *envp[])
   char usr[15];		// userid
 
   if (argv[1] != NULL){
-  	strncpy(artikelnr,argv[1],strlen(argv[1]));
+  	strncpy(artikelnr,argv[1],sizeof(artikelnr));
   }else{
   	fprintf(stderr,"Error: ARCHK: Ange artikelnummer!\n");
 	exit(-1);
@@ -110,7 +111,7 @@ int main(int argc, char *argv[], char *envp[])
 //  fprintf(stdout,"KUCHKmain:Connection success\n");
   	res = mysql_query(&my_connection,temp5);
   	if (res){
-		printf("Error: ARCHK SELECT error: %s\n",mysql_error(&my_connection));
+		fprintf(stderr,"Error: ARCHK SELECT error: %s\n",mysql_error(&my_connection));
   	}
   	else{
 		res_ptr=mysql_store_result(&my_connection);
