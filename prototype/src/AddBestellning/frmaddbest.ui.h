@@ -1293,9 +1293,9 @@ void frmAddBest::createOrderrad(QString tmp0,QString tmp1,QString tmp3, QString 
     orderraddata.append(skilj);
     orderraddata.append(tmp4);	// antal
     orderraddata.append(skilj);
-    orderraddata.append("0");		// Levererat antal
+    orderraddata.append("0");		// Levererat antal = 0 vid nyreg.
     orderraddata.append(skilj);
-    orderraddata.append("0");		// Restnoterat antal
+    orderraddata.append(tmp4);	// Restnoterat antal = antal vid nyreg.
     orderraddata.append(skilj);
     orderraddata.append(tmp5);	// inköpspris/st
     orderraddata.append(skilj);
