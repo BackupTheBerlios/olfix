@@ -316,39 +316,13 @@ void frmDagbok::slotGetDataEndOfProcess()
 		     rapportrad.append("\n");
 		     stream << rapportrad;
 		 }else{		 		// Skapa raportrad för Kugar
-/*		     if (ktonr != ktotemp && ktotemp !=""){
-			 ktosumdebet.setNum(ktodelsumdebet,'f',2);
-			 ktosumkredit.setNum(ktodelsumkredit,'f',2);
-			 ktosumackumulerat.setNum(ktodelsumackumulerat,'f',2);						 
-			 rapportrad="<Delsumma level=\"3\" ";
-			 rapportrad.append(" ktosumdebet=\"");
-			 rapportrad.append(ktosumdebet);
-			 rapportrad.append("\" ktosumkredit=\"");
-			 rapportrad.append(ktosumkredit);
-			 rapportrad.append("\" ktosumackumulerat=\"");
-			 rapportrad.append(ktosumackumulerat);
-			 rapportrad.append("\"/>\n");
-			 stream << rapportrad;
-			 // Blankrad
-			 rapportrad="<Blankrad level=\"4\" ";
-			 rapportrad.append("blank=\"");
-			 rapportrad.append(" ");
-			 rapportrad.append("\"/>\n");
-			 stream << rapportrad;
-			     
-			 ktodelsumdebet=0;
-			 ktodelsumkredit=0;
-			 ktodelsumackumulerat=0;			     
-		     }			 */
 		     if (vernr != vernrtemp){
 			 rapportrad="<Verifikation level=\"1\" ";
 			 rapportrad.append(" vernr=\"");
-//			 vernr=vernr+" ";
 			 rapportrad.append(vernr);
 			 rapportrad.append("\" verdatum=\"");
 			 rapportrad.append(verdatum);
 			 rapportrad.append("\" vertext=\"");
-//			 vertext=" "+vertext;
 			 rapportrad.append(vertext);			 
 			 rapportrad.append("\"/>\n");
 			 stream << rapportrad;
@@ -371,8 +345,6 @@ void frmDagbok::slotGetDataEndOfProcess()
 		 ktonamntemp=ktonamn;
 		 verdatumtemp=verdatum;
 		 vernrtemp=vernr;
-//		 vertexttemp=vertext;
-//		 vernr=vernrtemp;
 		 debet=0;
 		 kredit=0;
 		 acksaldo=0;	         
@@ -393,28 +365,6 @@ void frmDagbok::slotGetDataEndOfProcess()
 	     }
 	} 
 	if (csvflag != "J"){
-/*	    // ========================================
-	    // Totaler för sista kontot
-	    ktosumdebet.setNum(ktodelsumdebet,'f',2);
-	    ktosumkredit.setNum(ktodelsumkredit,'f',2);
-	    ktosumackumulerat.setNum(ktodelsumackumulerat,'f',2);		
-	    rapportrad="<Delsumma level=\"3\" ";
-	    rapportrad.append(" ktosumdebet=\"");
-	    rapportrad.append(ktosumdebet);
-	    rapportrad.append("\" ktosumkredit=\"");
-	    rapportrad.append(ktosumkredit);
-	    rapportrad.append("\" ktosumackumulerat=\"");
-	    rapportrad.append(ktosumackumulerat);
-	    rapportrad.append("\"/>\n");
-	    stream << rapportrad;
-	    // Blankrad
-	    rapportrad="<Blankrad level=\"4\" ";
-	    rapportrad.append("blank=\"");
-	    rapportrad.append(" ");
-	    rapportrad.append("\"/>\n");
-	    stream << rapportrad;
-	    // ===========================================
-*/	    
 	     totaldebet.setNum(debettotal,'f',2);
 	     totalkredit.setNum(kredittotal,'f',2);
 	     totalackumulerat.setNum(acksaldototal,'f',2);			
