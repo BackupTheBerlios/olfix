@@ -1,9 +1,10 @@
 /***************************************************************************
                           BETDSP.c  -  description
+			  Visa betalningsvillkor
                              -------------------
+    	Version : 0.4
     begin                : Sön  8  aug	2003
-    Version		 : 0.3
-    modified		 : Ons 4 jan 2004
+    modified		 : Ons 23  febr 2005
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +29,7 @@
 
  ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BETDSP.c,v 1.2 2004/02/04 08:53:08 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BETDSP.c,v 1.3 2005/02/23 11:59:57 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -101,7 +102,7 @@ int main(int argc, char *argv[], char *envp[])
 
 /*  fprintf(stderr,"betvilk=%d\n",betvilk); */
 
-  strncpy(betvilkor,argv[1],8);
+  strncpy(betvilkor,argv[1],sizeof(betvilkor));		/* 2005-02-23	*/
   strncat(temp5,temp1,strlen(temp1));
 /* SELECT * FROM BETVILKOR WHERE BETVILKOR = "  */
   strncat(temp5,betvilkor,8);/* AC */

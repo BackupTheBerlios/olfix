@@ -1,9 +1,9 @@
 /***************************************************************************
                           BETADD.c  -  description
                              -------------------
-    Version		 : 0.1
+    Version		 : 0.2
     begin                : Lör 22 nov	2003
-    modified		 :
+    modified		 : Ons 23 febr  2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BETADD.c,v 1.1 2003/11/22 15:23:29 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BETADD.c,v 1.2 2005/02/23 11:50:43 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -106,9 +106,9 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-  strncpy(betvilkor,argv[1],strlen(argv[1]));
-  strncpy(dagar,argv[2],strlen(argv[2]));
-  strncpy(beskrivning,argv[3],strlen(argv[3]));
+  strncpy(betvilkor,argv[1],sizeof(betvilkor));		/* 2005-02-23	*/
+  strncpy(dagar,argv[2],sizeof(dagar));			/* 2005-02-23	*/
+  strncpy(beskrivning,argv[3],sizeof(beskrivning));	/* 2005-02-23	*/
 
   strncpy(temp5,temp1,strlen(temp1));
 /* INSERT INTO BETVILKOR(BETVILKOR,DAGAR,BESKRIVNING) VALUES ("  */

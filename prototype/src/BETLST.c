@@ -1,9 +1,10 @@
 /***************************************************************************
                           BETLST.c  -  description
+			  Lista betalningsvillkor
                              -------------------
     Version		 : 0.1
-    begin                : L?r 22 nov 2003
-    modified		 :
+    begin                : Lör 22 nov  2003
+    modified		 : Ons 23 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -31,7 +32,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BETLST.c,v 1.1 2003/11/22 07:22:59 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BETLST.c,v 1.2 2005/02/23 12:03:58 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
