@@ -1303,6 +1303,22 @@
             </rect>
         </property>
     </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonKundlista</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>275</x>
+                <y>35</y>
+                <width>66</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Kundlista</string>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
@@ -1539,6 +1555,12 @@
         <receiver>frmChgKund</receiver>
         <slot>close()</slot>
     </connection>
+    <connection>
+        <sender>pushButtonKundlista</sender>
+        <signal>clicked()</signal>
+        <receiver>frmChgKund</receiver>
+        <slot>KundLista_clicked()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>lineEditKundNr</tabstop>
@@ -1635,6 +1657,8 @@
     <slot>slotDataOnStdout()</slot>
     <slot>createStandardLevPlats()</slot>
     <slot>slotPlatsEndOfProcess()</slot>
+    <slot>KundLista_clicked()</slot>
+    <slot>slotKundlistaEndOfProcess()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

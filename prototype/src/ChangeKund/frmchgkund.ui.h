@@ -9,8 +9,8 @@
 /***************************************************************************
                           CHGKUW  -  description
                              -------------------
-		     version 0.1
-    begin                : Fre 3 okt 2003
+		     version 0.2
+    begin                : Tors 9 okt 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -902,5 +902,40 @@ void frmChgKund::slotPlatsEndOfProcess()
      lineEditKundLevvilk->setFocus();
 }
 
+void frmChgKund::KundLista_clicked()
+{
+/************************************************************************/
+/*	Starta programmet LSTKUW, Lista kunder				*/
+/************************************************************************/
+	const char *userp = getenv("USER");
+            QString usr(userp);
 
+	process = new QProcess();
+	process->addArgument( "LSTKUW");	// OLFIX program
+	frmChgKund::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+	frmChgKund::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+            frmChgKund::connect( process, SIGNAL(processExited() ),this, SLOT(slotKundlistaEndOfProcess() ) );
 
+	if ( !process->start() ) {
+		// error handling
+		fprintf(stderr,"Problem starta LSTKUW!\n");
+		QMessageBox::warning( this, "",
+                            "Kan inte starta LSTKUW! \n" );
+	}
+}
+
+void frmChgKund::slotKundlistaEndOfProcess()
+{
+    int i;
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+         if (i != -1) {
+	QMessageBox::critical( this, "CHGKUW",
+		"ERROR!\n"+errorrad
+	);
+	errorrad="";
+    }
+     lineEditKundNr->setFocus();
+     errorrad="";
+     inrad="";
+}
