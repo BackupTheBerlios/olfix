@@ -3,6 +3,7 @@
 "ARCHK","Kontrollera om artikelnummer finns"
 "ARDSP","Visa grunddata för en artikel"
 "ARDSPL","Visa lagerdata för en artikel"
+"ARLST","Lista artiklar(artikelnr,benämn1,benämn2)"
 "ATTBET","Lista leverantörsfakturor att betala"
 "BARADD","Lägga upp nytt bokföringsår"
 "BARDSP","Hämta data för angivet bokföringsår"

@@ -53,3 +53,4 @@
 "053","Materialhantering","Artikeldata","Ändra artikeldata","CHGARW"
 "054","Administration","Betalningsvillkor","Lista betalningsvillkor","LSTBETVW"
 "055","Administration","Betalningsvillkor","Nya betalningsvillkor","ADDBETVW"
+"056","Materialhantering","Artikeldata","Lista artiklar","LSTARW"
