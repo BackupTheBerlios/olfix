@@ -1,8 +1,34 @@
-Changelog OLFIX 20040504
+Changelog OLFIX 20041106
+Blivande
 Ver 0.1.16.A
-20040504
+20041106
 
+		Allmänt
+		Flyttat OLFIX-paketet till /opt/olfix
 
+		Nya program
+		Ändrade program
+		OLFIXW	Skapande av $HOME/.olfixrc första gången programmet körs.
+			Använder sig av /opt/olfix/script/.olfixrc
+		OLFIXHLP
+			Ny sökväg till hjälpfilen
+
+		Nya funktioner
+		Ändrade funktioner
+		Nya rapporter
+		Ändrade rapporter
+		Ändrade data
+		Ändrade script
+			.olfixrc har fått tillägget:
+				 HELPFILE=/doc/helpfiles/usermanual/UserManual.html
+
+		Dokumentation
+		Online Användarmanual finn på CVS
+		Teknisk Manual	Uppdaterad (2004-11-06)
+			Kompleterat "Filosofin bakom konstruktionen"
+			Kompleterat med "GNU Free Documentation License"
+		Användarmanual, Uppdaterad (2004-11-06)
+			GNU Free Documentation License
 ________________________________________________________
 Ver 0.1.15.A
 20040503
