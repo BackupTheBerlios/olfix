@@ -8,11 +8,11 @@
 *****************************************************************************/
 /***************************************************************************
                           ADDORDW  -  description
-	         Kundorder
+	         Registrering av kundorder
                              -------------------
 		     version 0.3
     begin   	: Sö  12 okt   2003
-    Updated	: Mån  7 mars 2005
+    Updated	: Ons  9 mars 2005
     copyright	: (C) 2003 by Jan Pihlgren
     email     	: jan@pihlgren.se
  ***************************************************************************/
@@ -76,14 +76,17 @@
     QString orderradnr="010";    
     QString oldradnr;
     QString orderartikelnr;
+    QString prodklass;
     QString orderbenamn;
     QString orderantal;
     QString orderradpris;
     QString radbelopp;
+    QString radmoms;		/*  Moms på radbelopp */
 	    
     /* Order 	*/
+    QString orderdel;		/*  Del av ordern, H=orderhuvud, R=orderrad */
     QString ordersumma;
-    QString momssumma;
+    QString momssumma;		/*  Total moms på ordern */
     QString fraktbelopp;
     
 void frmAddOrder::init()
@@ -281,7 +284,8 @@ void frmAddOrder::lineEditAntal_returnPressed()
 void frmAddOrder::lineEditAPris_returnPressed()
 {
     int i;
-    double pris,antal,summa;
+    double pris,antal,moms,summa;
+    QString radmomsbelopp;
     orderradpris=lineEditAPris->text();
     i = -1;
     i =orderradpris.find( QRegExp(","), 0 );
@@ -291,7 +295,12 @@ void frmAddOrder::lineEditAPris_returnPressed()
     }
     pris=orderradpris.toDouble();
     antal=orderantal.toDouble();
+    moms=radmoms.toDouble();
     summa=pris*antal;
+    moms=summa*moms/100;
+    radmomsbelopp=radmomsbelopp.setNum(moms,'f',2);
+    lineEditRadMoms->setText(radmomsbelopp);
+    summa=summa+moms;
     radbelopp=radbelopp.setNum(summa,'f',2);
     lineEditRadSumma->setText(radbelopp);
     pushBtnOKRad->setFocus();
@@ -299,11 +308,14 @@ void frmAddOrder::lineEditAPris_returnPressed()
 
 void frmAddOrder::pushBtnOKRad_clicked()
 {
-    double summa ,belopp, moms, momsbelopp;
+    double summa ,belopp;
+//   , moms, momsbelopp;
+    QString radmomsbelopp;
     QListViewItem * item;
     int i;
-    item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,orderantal,orderradpris,radbelopp);
-    item->setText(8,orderbenamn);
+    radmomsbelopp=lineEditRadMoms->text();    
+    item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,orderantal,orderradpris,radmomsbelopp,radbelopp);
+//    item->setText(8,orderbenamn);
     if (radnrflag == FALSE){
 	i = orderradnr.toInt();
 	i = i+10;
@@ -315,24 +327,24 @@ void frmAddOrder::pushBtnOKRad_clicked()
 	orderradnr=oldradnr;
 	radnrflag=FALSE;
     }
+    
     /* Beräkna ordersumma	*/
     summa=ordersumma.toDouble();
     belopp=radbelopp.toDouble();
     summa=summa+belopp;
     ordersumma=ordersumma.setNum(summa,'f',2);
     lineEditOrderSumma->setText(ordersumma);
-    /*  Beräkna momsen	*/  
-    moms=ordermoms.toDouble();
-    moms=moms/100;
-    momsbelopp=summa*moms;
-    momssumma=momssumma.setNum(momsbelopp,'f',2);
-    lineEditOrderMomsKr->setText(momssumma);
+    
+    /*  Beräkna momsen hittills för ordern	*/  
+    frmAddOrder::CalculateMoms();
+    
     /* Nästa orderrad 	*/
     lineEditRadnr->setText(orderradnr);
     lineEditArtikelNr->clear();
     lineEditBenamn->clear();
     lineEditAntal->clear();
     lineEditAPris->clear();
+    lineEditRadMoms->clear();
     lineEditRadSumma->clear();
     orderartikelnr="";
     orderbenamn="";
@@ -372,7 +384,8 @@ void frmAddOrder::listViewRader_clicked( QListViewItem * )
     QString temp2=item->text(2);	// artikelbenämning
     QString temp3=item->text(3);	// antal
     QString temp4=item->text(4);	// pris/st
-    QString temp5=item->text(5);	// radsumma
+    QString temp5=item->text(5);	// moms för raden
+    QString temp6=item->text(6);	// radsumma
     //    qDebug("temp=%s, %s, %s, %s, %s, %s",temp0.latin1(),temp1.latin1(),temp2.latin1(),temp3.latin1(),temp4.latin1(),temp5.latin1());
     // --------------------------------------------------------------
     lineEditRadnr->setText(temp0);
@@ -381,7 +394,8 @@ void frmAddOrder::listViewRader_clicked( QListViewItem * )
     lineEditBenamn->setText(temp2);
     lineEditAntal->setText(temp3);
     lineEditAPris->setText(temp4);
-    lineEditRadSumma->setText(temp5);
+    lineEditRadMoms->setText(temp5);
+    lineEditRadSumma->setText(temp6);
     radsumma=temp5.toDouble();
     tmpordersumma=ordersumma.toDouble();
     tmpordersumma=tmpordersumma-radsumma;
@@ -399,19 +413,26 @@ void frmAddOrder::listViewRader_clicked( QListViewItem * )
 
 void frmAddOrder::lineEditOrderFrakt_returnPressed()
 {
-    double summa ,totalsumma,fraktsumma,moms,momsbelopp;
+    double summa ,totalsumma,fraktsumma,radmomssumma,fraktmoms,moms,momsbelopp;
     totalsumma=0;
+    QString radmomstotal;
+    radmomstotal = lineEditOrderMomsKr->text();
+    radmomssumma = radmomstotal.toDouble();
+    
        /*	Fraktkostnad	   */
-    summa=ordersumma.toDouble();
-    fraktbelopp=lineEditOrderFrakt->text();
-    fraktsumma=fraktbelopp.toDouble(); 
+    summa = ordersumma.toDouble();
+    fraktbelopp = lineEditOrderFrakt->text();
+    fraktsumma = fraktbelopp.toDouble(); 
     lineEditOrderFrakt->setText(fraktbelopp);
 	    
        /*  Beräkna momsen	*/  
-    moms=ordermoms.toDouble();
-    moms=moms/100;
-    momsbelopp=(summa+fraktsumma)*moms;
-    momssumma=momssumma.setNum(momsbelopp,'f',2);
+//    ordermoms = lineEditOrderMomsKr->text();
+    qDebug("ordermomskod=%s  ordermoms=%s",ordermomskod.latin1(),ordermoms.latin1());
+    moms = ordermoms.toDouble(); 			/* Från lineEditMomskod, procentsats */ 
+    moms = moms/100;				/*  i flyttal, t ex 0.06 */
+    fraktmoms = fraktsumma * moms;
+    momsbelopp = fraktmoms + radmomssumma;
+    momssumma = momssumma.setNum(momsbelopp,'f',2);
     lineEditOrderMomsKr->setText(momssumma);
     
        /* Order total 	*/
@@ -551,7 +572,7 @@ void frmAddOrder::getKundLista()
 {
 	const char *userp = getenv("USER");
             QString usr(userp);
-
+	 inrad="";
 
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
@@ -1064,20 +1085,21 @@ void frmAddOrder::slotgetOrdernrEndOfProcess()
 	inrad="";
 	i = -1;
     }
-   frmAddOrder::getMoms();
+   frmAddOrder::getMoms("MOMS1","H");		/* H = Orderhuvud */
 }
 
-void frmAddOrder::getMoms()
+void frmAddOrder::getMoms(QString momskod,QString typ)
 {
 	const char *userp = getenv("USER");
             QString usr(userp);
-
+	 inrad="";   
+	orderdel=typ;
 
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// userid
 	process->addArgument( "FTGDSP");	// OLFIX funktion
-	process->addArgument("MOMS1");	// Senas använda kundordernummer
+	process->addArgument(momskod);	// Senas använda kundordernummer
 
 	frmAddOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmAddOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
@@ -1107,16 +1129,21 @@ void frmAddOrder::slotgetMomsEndOfProcess()
      i = -1;
      i = inrad.find( QRegExp("OK:"), 0 );
      if (i != -1) {
-	 int i1 = inrad.find( QRegExp("1:MOMS1"), 0 );
+	 int i1 = inrad.find( QRegExp("1:MOMS"), 0 );
 	 int i2 = inrad.find( QRegExp("2:"), 0 );	
 	 int i3 = inrad.length();
 	 m=i2-i1;
 	 m=i3-i2;
 	 if (i2 != -1){
-	     ordermoms=inrad.mid(i2+2,m-4);
-//	     qDebug("m=%d  moms=%s  i3=%d",m,ordermoms.latin1(), i3);
+	     if (orderdel == "H"){
+		 ordermoms=inrad.mid(i2+2,m-4);
+//		     qDebug("m=%d  moms=%s  i3=%d",m,ordermoms.latin1(), i3);
+		 lineEditMomskod->setText(ordermoms+"%");
+	     }else{
+		 radmoms = inrad.mid(i2+2,m-4);
+//		 qDebug("slotgetMomsEndOfProcess::radmoms=%s",radmoms.latin1());
+	     }
 	 }
-	 lineEditMomskod->setText(ordermoms+"%");
 	inrad="";
 	errorrad="";
 	inrad="";
@@ -1129,10 +1156,10 @@ void frmAddOrder::listViewRader_format()
     listViewRader->setColumnWidth(0,44);		// Radnr
     listViewRader->setColumnWidth(1,236);		// Artikelnr
     listViewRader->setColumnWidth(2,292);		// Benämning
-//    listViewRader->setColumnWidth(3,55);		// Lev.vecka
     listViewRader->setColumnWidth(3,86);		// Antal
     listViewRader->setColumnWidth(4,71);		// Pris
-    listViewRader->setColumnWidth(5,86);		// Summa
+    listViewRader->setColumnWidth(5,86);		// Moms
+    listViewRader->setColumnWidth(6,86);		// Summa
 }
 
 void frmAddOrder::getArtikeldata()
@@ -1186,7 +1213,8 @@ void frmAddOrder::slotArdataEndOfProcess()
 	    //	    int i4 = inrad.find( QRegExp("04:"), 0 );	//	enhet
     	    int i5 = inrad.find( QRegExp("05:"), 0 );		//	försäljningspris
 	    int i6 = inrad.find( QRegExp("06:"), 0 );		//	ledtid
-//	    int i7 = inrad.find( QRegExp("07:"), 0 );		//	prodklass
+	    int i7 = inrad.find( QRegExp("07:"), 0 );		//	produktklass
+    	    int i8 = inrad.find( QRegExp("08:"), 0 );		//	prodtkonto
 //	    int i15= inrad.find(QRegExp("15:"),0);		//	leverantörens artbenämning
 //	    int i16= inrad.find(QRegExp("16:"),0);
 //	    int i17= inrad.find(QRegExp("17:"),0);		//	leverantörens artnr
@@ -1201,13 +1229,17 @@ void frmAddOrder::slotArdataEndOfProcess()
 		orderradpris=inrad.mid(i5+3,m-4);
 		lineEditAPris->setText(orderradpris);
 	    }	    
- 
 /*	    
 	    m=i7-i6;
 	    if (i6 != -1){
 		arledtid=inrad.mid(i6+3,m-4);
 	    }
 */
+	    m=i8-i7;
+	    if (i7 != -1){
+		prodklass=inrad.mid(i7+3,m-4);
+	    }
+	    
 /*	    
 	    m=i16-i15;
 	    if (i15 != -1){
@@ -1219,8 +1251,64 @@ void frmAddOrder::slotArdataEndOfProcess()
 		orderartikelnr=inrad.mid(i17+3,m-4);
 	    }
 */	    
-//	    frmAddBest::getArtikelEkonomidata();
+	    frmAddOrder::getRadMoms();
 	}
+    }
+}
+
+void frmAddOrder::getRadMoms()
+{
+    /* Radmomsen hämtas från PRODUKTGRUPP, momskod, och FTGDATA, MOMSx = momssats */
+    const char *userp = getenv("USER");
+    QString usr(userp);
+    prodklass=prodklass.left(5);
+    inrad="";
+    
+    process = new QProcess();
+    process->addArgument("./STYRMAN");	// OLFIX styrprogram
+    process->addArgument(usr);		// userid
+    process->addArgument( "PKDDSP");	// OLFIX funktion
+    process->addArgument(prodklass);
+        
+    frmAddOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+    frmAddOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+    frmAddOrder::connect( process, SIGNAL(processExited() ),this, SLOT(slotProdkodEndOfProcess() ) );
+
+    if ( !process->start() ) {
+	// error handling
+	QMessageBox::warning( this, "Start av PKDDSP",
+			      "Kan inte starta STYRMAN/PKDDSP!\n"
+			      );
+    }   
+}
+
+void frmAddOrder::slotProdkodEndOfProcess()
+{
+   int i,m;
+   QString momskod;
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+    if (i != -1) {
+	QMessageBox::critical( this, "ADDORDW, PKDDSP",
+			       "ERROR!\n"+errorrad
+			       );
+	errorrad="";
+	i = -1;
+	lineEditArtikelNr->setFocus();
+    }else{
+	i = -1;
+	i = inrad.find( QRegExp("OK:"), 0 );
+	if (i != -1) {
+//	    int i1 = inrad.find( QRegExp("01:"), 0 );	                //	produktklass
+//	    int i2 = inrad.find( QRegExp("02:"), 0 );		//	beskrivning
+	    int i3 = inrad.find( QRegExp("03:"), 0 );		//	momskod (för produktklassen)
+	    m=5;
+	    if (i3 != -1){
+		momskod=inrad.mid(i3+3,m);
+//		qDebug("slotProdkodEndOfProcess::momskod=%s",momskod.latin1());
+	    }
+	}
+	frmAddOrder::getMoms(momskod,"R");		 /* R = Orderrad */
     }
 }
 
@@ -1266,14 +1354,6 @@ void frmAddOrder::slotLevPEndOfProcess()
 	i = -1;
 	lineEditLevplats->setFocus();
     }else{
-/*
-   QString orderkundref;
-    QString orderkundlevadress;
-    QString orderkundlevpostnr;
-    QString orderkundlevpostadr;
-    QString orderkundlevland;
-  
-*/
 	i = -1;
 	i = inrad.find( QRegExp("OK:"), 0 );
 	if (i != -1) {
@@ -1304,5 +1384,27 @@ void frmAddOrder::slotLevPEndOfProcess()
 		lineEditKundLevLand->setText(orderkundlevland);
 	    }	    
 	}
+    }
+}
+
+void frmAddOrder::CalculateMoms()
+{
+    int i=0;
+    double momssumma=0;
+    QListViewItemIterator it( listViewRader);
+//    QString rnr;
+    QString momstotal="";
+    for ( ; it.current(); ++it ){
+	i++;
+	QString temp0=it.current()->text(0);	// radnr
+	QString temp1=it.current()->text(1);	// artikelnr
+	QString temp2=it.current()->text(2);	// artikelbenämning
+	QString temp3=it.current()->text(3);	// antal
+	QString temp4=it.current()->text(4);	// pris/st
+	QString temp5=it.current()->text(5);	// radmoms (antal * pris/st * moms)
+	QString temp6=it.current()->text(6);	// radsumma
+	momssumma=momssumma+temp5.toDouble();
+	momstotal=momstotal.setNum(momssumma,'f',2);
+	lineEditOrderMomsKr->setText(momstotal);
     }
 }
