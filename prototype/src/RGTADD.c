@@ -1,9 +1,9 @@
 /***************************************************************************
                           RGTADD.c  -  description
                              -------------------
-    Version		 : 0.3
-    begin                : fre 24 jan 2003
-    modified		 : Lör  8 nov 2003
+    Version		 : 0.4
+    begin                : fre  24 jan  2003
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/RGTADD.c,v 1.2 2003/11/08 05:38:23 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/RGTADD.c,v 1.3 2005/02/24 09:45:31 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -76,7 +76,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
-		strncpy(databas,database,15);
+		strncpy(databas,database,sizeof(databas));	/* 2005-02-24	*/
 	}else{
   		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}
@@ -99,8 +99,8 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-  strncpy(userid,argv[1],strlen(argv[1]));
-  strncpy(trnsid,argv[2],strlen(argv[2]));
+  strncpy(userid,argv[1],sizeof(userid));	/* 2005-02-24	*/
+  strncpy(trnsid,argv[2],sizeof(trnsid));	/* 2005-02-24	*/
 
 /*  fprintf(stderr,"argv1=%s argv2=%s\n",argv[1],argv[2]);	*/
 
