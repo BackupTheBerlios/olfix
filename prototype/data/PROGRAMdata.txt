@@ -88,3 +88,4 @@
 "088","Ekonomi","Räkenskapsår","Visa bokföringsår","DSPBARW"
 "089","Administration","Företagsdata","Lista företagsdata","LSTFTGW"
 "090","Ekonomi","Rapporter","Resultatrapport","RESRPTW"
+"091","Ekonomi","Räkenskapsår","Lista alla räkenskapsår","LSTBARW"
