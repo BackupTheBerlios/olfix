@@ -1,9 +1,9 @@
 /***************************************************************************
                           KTORPT.c  -  description
                              -------------------
-    Version		 : 0.41
-    begin                : Lör 8 mars 2003
-    modified		 : Tors 27 jan 2005
+    Version		 : 0.5
+    begin                : Lör   8 mars 2003
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -31,7 +31,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTORPT.c,v 1.5 2005/01/27 06:33:57 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTORPT.c,v 1.6 2005/02/24 05:39:33 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -113,9 +113,10 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-  strncpy(arid,argv[1],strlen(argv[1]));
-  strncpy(fromdatum,argv[2],strlen(argv[2]));
-  strncpy(tomdatum,argv[3],strlen(argv[3]));
+  strncpy(arid,argv[1],sizeof(arid));			/* 2005-02-24	*/
+  strncpy(fromdatum,argv[2],sizeof(fromdatum));		/* 2005-02-24	*/
+  strncpy(tomdatum,argv[3],sizeof(tomdatum));		/* 2005-02-24	*/
+
   fprintf(stderr,"arid=%s,fromdatum=%s,tomdatum=%s\n",arid,fromdatum,tomdatum);
   strncpy(temp5,temp1a,strlen(temp1a));
 /* SELECT VERRAD.KTONR,KTOPLAN.BENAMNING,VERRAD.DK,VERRAD.BELOPP,VERRAD.VERNR FROM VERRAD 	*/
