@@ -8,9 +8,9 @@
 /***************************************************************************
                           OLFIXW  -  description
                              -------------------
-		     version 0.5
+		     version 0.6
     begin                   : Tis 16 maj 2003
-    modified	: Fre 20 febr 2004
+    modified	: Tors 11 nov 2004
     copyright            : (C) 2003 by Jan Pihlgren
     email                  : jan@pihlgren.se
  ***************************************************************************/
@@ -51,13 +51,10 @@ void frmOlfix::slotGetProgram()
 {
 	const char *userp = getenv("USER");
             QString usr(userp);
-//	QString bibl;
 	inrad="";
 	errorrad="";
-//	bibl.append("./STYRMAN");		// OLFIX huvudprogram
 
 	process = new QProcess();
-//	process->addArgument(bibl);
 	process->addArgument("./STYRMAN");	// OLFIX huvudprogram
 	process->addArgument(usr);		// userid
 	process->addArgument( "PRGLST");	// OLFIX funktion
@@ -344,15 +341,15 @@ void frmOlfix::CheckBehor(QString prog)
 	inrad="";
 	errorrad="";
 	program=prog;
-	bibl.append("./STYRMAN");		// OLFIX huvudprogram
 		
 	process = new QProcess();
-	process->addArgument(bibl);
+	process->addArgument("./STYRMAN");	// OLFIX huvudprogram	2004-11-11
 	process->addArgument("OLFIX");		// user OLFIX
 	process->addArgument( "RGTCHK");	// OLFIX program
 	process->addArgument( usr.latin1() );
 	process->addArgument( prog.latin1() );
-//	qWarning("slotCheckBehor:  %s %s %s\n",bibl.latin1(),usr.latin1(),prog.latin1()); 
+//	qWarning("slotCheckBehor:  %s %s\n",usr.latin1(),prog.latin1()); 
+	
 	frmOlfix::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnCheckStdout() ) );
 	frmOlfix::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnCheckStderr() ) );
 	frmOlfix::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfCheckProcess() ) );
@@ -370,7 +367,7 @@ void frmOlfix::slotEndOfCheckProcess()
     int i;
      i = -1;
      i = inrad.find( QRegExp("OK:"), 0 );
-//     qWarning("slotEndOfCheckProcess(): errorrad=%s inrad=%s i=%d\n",errorrad.latin1(),inrad.latin1(),i);
+     qWarning("slotEndOfCheckProcess(): errorrad=%s inrad=%s i=%d\n",errorrad.latin1(),inrad.latin1(),i);
 
      if(i != -1){
 	 frmOlfix::slotRunProgram( program );
