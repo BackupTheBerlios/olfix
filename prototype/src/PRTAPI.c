@@ -1,9 +1,9 @@
 /***************************************************************************
                           PRTAPI.c  -  description
                              -------------------
-			     version 0.3
-    begin                : Lör 3 april 2004
-    modified		 : Ons 19 jan 2005
+			     version 0.4
+    begin                : Lör   3 april 2004
+    modified		 : Tors 24 febr  2005
     copyright            : (C) 2004 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -26,7 +26,7 @@
 	OUTPUT:
  *****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PRTAPI.c,v 1.3 2005/01/19 12:15:45 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PRTAPI.c,v 1.4 2005/02/24 09:13:28 janpihlgren Exp $ " ;
 
 #include <string.h>
 #include <stdlib.h>
@@ -71,10 +71,10 @@ int main (int argc, char *argv[], char *envp[])
 	if (status != 0)
 		exit(status);
 
-	strncpy(csvflag,argv[1],strlen(argv[1]));
-	strncpy(printfil,argv[2],strlen(argv[2]));
+	strncpy(csvflag,argv[1],sizeof(csvflag));			/* 2005-02-24	*/
+	strncpy(printfil,argv[2],sizeof(printfil));			/* 2005-02-24	*/
 	if (argc>3){
-		strncpy(prttemplate,argv[3],strlen(argv[3]));
+		strncpy(prttemplate,argv[3],sizeof(prttemplate));	/* 2005-02-24	*/
 	}
 	strncpy(temp,tmpfilepath,strlen(tmpfilepath));
 	strncat(temp,printfil,strlen(printfil));
