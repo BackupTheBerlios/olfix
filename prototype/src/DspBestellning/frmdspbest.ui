@@ -188,54 +188,6 @@
     </widget>
     <widget class="QLabel">
         <property name="name">
-            <cstring>textLabel3_4</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>200</y>
-                <width>95</width>
-                <height>12</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Text: ......................</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel5_3</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>155</x>
-                <y>200</y>
-                <width>75</width>
-                <height>12</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Vår referent: ...</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel7_3</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>465</x>
-                <y>200</y>
-                <width>72</width>
-                <height>12</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Vårt kundnr: ...</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
             <cstring>textLabel8_2</cstring>
         </property>
         <property name="geometry">
@@ -248,44 +200,6 @@
         </property>
         <property name="text">
             <string>Leveransdatum: .....</string>
-        </property>
-    </widget>
-    <widget class="Line">
-        <property name="name">
-            <cstring>line1</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>240</y>
-                <width>625</width>
-                <height>10</height>
-            </rect>
-        </property>
-        <property name="frameShape">
-            <enum>HLine</enum>
-        </property>
-        <property name="frameShadow">
-            <enum>Sunken</enum>
-        </property>
-        <property name="orientation">
-            <enum>Horizontal</enum>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel4_4</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>250</x>
-                <y>255</y>
-                <width>81</width>
-                <height>17</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>&lt;h3&gt;&lt;b&gt;Detaljrader&lt;/b&gt;&lt;/h3&gt;</string>
         </property>
     </widget>
     <widget class="QLabel">
@@ -302,22 +216,6 @@
         </property>
         <property name="text">
             <string>Valuta:</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel4_3</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>405</x>
-                <y>160</y>
-                <width>85</width>
-                <height>12</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Betalningsvillkor:</string>
         </property>
     </widget>
     <widget class="QLabel">
@@ -715,35 +613,6 @@
     </widget>
     <widget class="QLineEdit">
         <property name="name">
-            <cstring>lineEditBetvilk</cstring>
-        </property>
-        <property name="enabled">
-            <bool>false</bool>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>490</x>
-                <y>155</y>
-                <width>40</width>
-                <height>19</height>
-            </rect>
-        </property>
-        <property name="paletteForegroundColor">
-            <color>
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-            </color>
-        </property>
-        <property name="text">
-            <string></string>
-        </property>
-        <property name="alignment">
-            <set>AlignHCenter</set>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
             <cstring>lineEditGodsmarke</cstring>
         </property>
         <property name="enabled">
@@ -754,78 +623,6 @@
                 <x>110</x>
                 <y>175</y>
                 <width>525</width>
-                <height>19</height>
-            </rect>
-        </property>
-        <property name="paletteForegroundColor">
-            <color>
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-            </color>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditText</cstring>
-        </property>
-        <property name="enabled">
-            <bool>false</bool>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>110</x>
-                <y>195</y>
-                <width>35</width>
-                <height>19</height>
-            </rect>
-        </property>
-        <property name="paletteForegroundColor">
-            <color>
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-            </color>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Kompleterande text till inköpsordern. Ange ett värde mellan 001 och 999. Texten finns i Textregistret.</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditVarRef</cstring>
-        </property>
-        <property name="enabled">
-            <bool>false</bool>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>235</x>
-                <y>195</y>
-                <width>216</width>
-                <height>19</height>
-            </rect>
-        </property>
-        <property name="paletteForegroundColor">
-            <color>
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-            </color>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundnr</cstring>
-        </property>
-        <property name="enabled">
-            <bool>false</bool>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>545</x>
-                <y>195</y>
-                <width>90</width>
                 <height>19</height>
             </rect>
         </property>
@@ -1057,6 +854,239 @@
             <set>AlignHCenter</set>
         </property>
     </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditBesttyp</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>235</x>
+                <y>215</y>
+                <width>20</width>
+                <height>19</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>N=Normalbeställning. D=Direktbeställning. I=Inleveransbeställning. L=Legobeställning </string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditStatus</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>175</x>
+                <y>510</y>
+                <width>26</width>
+                <height>19</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>N=Normal status, F=Fakturaavprickad best., B=Slutbehandlad, ska plockas bort,M=Makulerad</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel5_3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>200</y>
+                <width>95</width>
+                <height>12</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Vår referent: ...</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel7_3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>270</x>
+                <y>220</y>
+                <width>72</width>
+                <height>12</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Vårt kundnr: ...</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundnr</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>350</x>
+                <y>215</y>
+                <width>90</width>
+                <height>19</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_5</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>315</x>
+                <y>200</y>
+                <width>70</width>
+                <height>12</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Er referens: ..</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel3_4</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>640</x>
+                <y>180</y>
+                <width>46</width>
+                <height>12</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Eftertext.</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel4_3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>640</x>
+                <y>60</y>
+                <width>85</width>
+                <height>12</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Betalningsvillkor.</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2_4</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>640</x>
+                <y>100</y>
+                <width>90</width>
+                <height>12</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Leveransvillkor.</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel3_5</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>640</x>
+                <y>140</y>
+                <width>86</width>
+                <height>12</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Leveranssätt.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditLevvillkor</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>640</x>
+                <y>115</y>
+                <width>236</width>
+                <height>19</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditLevsett</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>640</x>
+                <y>155</y>
+                <width>236</width>
+                <height>19</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+    </widget>
     <widget class="QListView">
         <column>
             <property name="text">
@@ -1166,9 +1196,9 @@
         <property name="geometry">
             <rect>
                 <x>5</x>
-                <y>276</y>
+                <y>296</y>
                 <width>870</width>
-                <height>205</height>
+                <height>185</height>
             </rect>
         </property>
         <property name="sizePolicy">
@@ -1214,44 +1244,72 @@
             <number>2</number>
         </property>
     </widget>
-    <widget class="QLineEdit">
+    <widget class="QLabel">
         <property name="name">
-            <cstring>lineEditBesttyp</cstring>
-        </property>
-        <property name="enabled">
-            <bool>false</bool>
+            <cstring>textLabel4_4</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>235</x>
-                <y>215</y>
-                <width>20</width>
-                <height>19</height>
+                <x>250</x>
+                <y>275</y>
+                <width>81</width>
+                <height>17</height>
             </rect>
         </property>
-        <property name="paletteForegroundColor">
-            <color>
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-            </color>
+        <property name="text">
+            <string>&lt;h3&gt;&lt;b&gt;Detaljrader&lt;/b&gt;&lt;/h3&gt;</string>
         </property>
-        <property name="toolTip" stdset="0">
-            <string>N=Normalbeställning. D=Direktbeställning. I=Inleveransbeställning. L=Legobeställning </string>
+    </widget>
+    <widget class="Line">
+        <property name="name">
+            <cstring>line1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>265</y>
+                <width>625</width>
+                <height>10</height>
+            </rect>
+        </property>
+        <property name="frameShape">
+            <enum>HLine</enum>
+        </property>
+        <property name="frameShadow">
+            <enum>Sunken</enum>
+        </property>
+        <property name="orientation">
+            <enum>Horizontal</enum>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel4_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>240</y>
+                <width>100</width>
+                <height>12</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Kommentar: ...........</string>
         </property>
     </widget>
     <widget class="QLineEdit">
         <property name="name">
-            <cstring>lineEditStatus</cstring>
+            <cstring>lineEditKommentar</cstring>
         </property>
         <property name="enabled">
             <bool>false</bool>
         </property>
         <property name="geometry">
             <rect>
-                <x>175</x>
-                <y>510</y>
-                <width>26</width>
+                <x>110</x>
+                <y>235</y>
+                <width>330</width>
                 <height>19</height>
             </rect>
         </property>
@@ -1262,8 +1320,109 @@
                 <blue>0</blue>
             </color>
         </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditVarRef</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>110</x>
+                <y>195</y>
+                <width>200</width>
+                <height>19</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditErref</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>385</x>
+                <y>195</y>
+                <width>250</width>
+                <height>19</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditBetvilk</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>640</x>
+                <y>75</y>
+                <width>235</width>
+                <height>19</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="text">
+            <string></string>
+        </property>
+        <property name="alignment">
+            <set>AlignLeft</set>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditText</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>640</x>
+                <y>195</y>
+                <width>235</width>
+                <height>75</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="alignment">
+            <set>AlignLeft</set>
+        </property>
         <property name="toolTip" stdset="0">
-            <string>N=Normal status, F=Fakturaavprickad best., B=Slutbehandlad, ska plockas bort,M=Makulerad</string>
+            <string>Kompleterande text till inköpsordern. Ange ett värde mellan 001 och 999. Texten finns i Textregistret.</string>
         </property>
     </widget>
 </widget>
@@ -1288,16 +1447,29 @@
     <tabstop>lineEditLevNamn</tabstop>
     <tabstop>lineEditLevAdress</tabstop>
     <tabstop>lineEditLevPostnr</tabstop>
-    <tabstop>lineEditBetvilk</tabstop>
     <tabstop>lineEditLevPostAdress</tabstop>
-    <tabstop>lineEditValuta</tabstop>
     <tabstop>lineEditLevLand</tabstop>
-    <tabstop>lineEditGodsmarke</tabstop>
+    <tabstop>lineEditFtgNamn</tabstop>
+    <tabstop>lineEditFtgAdress</tabstop>
+    <tabstop>lineEditFtgPostnr</tabstop>
+    <tabstop>lineEditFtgPostAdress</tabstop>
+    <tabstop>lineEditValuta</tabstop>
+    <tabstop>lineEditBetvilk</tabstop>
+    <tabstop>lineEditLevvillkor</tabstop>
+    <tabstop>lineEditLevsett</tabstop>
     <tabstop>lineEditText</tabstop>
+    <tabstop>lineEditGodsmarke</tabstop>
     <tabstop>lineEditVarRef</tabstop>
-    <tabstop>lineEditKundnr</tabstop>
+    <tabstop>lineEditErref</tabstop>
     <tabstop>lineEditLeveransDatum</tabstop>
+    <tabstop>lineEditBesttyp</tabstop>
+    <tabstop>lineEditKundnr</tabstop>
+    <tabstop>listViewRader</tabstop>
+    <tabstop>lineEditStatus</tabstop>
+    <tabstop>lineEditBekreft</tabstop>
+    <tabstop>lineEditTotal</tabstop>
     <tabstop>lineEditOrderSumma</tabstop>
+    <tabstop>pushButtonClose</tabstop>
 </tabstops>
 <includes>
     <include location="local" impldecl="in implementation">frmdspbest.ui.h</include>

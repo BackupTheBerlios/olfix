@@ -9,9 +9,9 @@
 /***************************************************************************
                           DSPINKW  -  description
                              -------------------
-		     version 0.3
+		     version 0.4
     begin     	: Sön 21 dec 2003
-    modified	: Tors 25 dec 2003
+    modified	: Tis 3 dec 2004
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -54,16 +54,8 @@ void frmDspInk::lineEditInkOrderNbr_returnPressed()
     frmDspInk::cleanOrderHuvud();
     listViewRader->clear();
     frmDspInk::DspOrder();
-//    pushButtonOK->setFocus();
 }
-/*
-void frmDspInk::pushButtonOK_clicked()
-{
-//    qDebug("pushButtonOK");
-    frmDspInk::DspOrder();
-    lineEditInkOrderNbr->setFocus();
-}
-*/
+
 void frmDspInk::DspOrder()
 {
 /************************************************************************/
@@ -123,21 +115,27 @@ void frmDspInk::slotOrderHuvudEndOfProcess()
 	    int i9 = inrad.find( QRegExp("09:"), 0 );		// lev. land
 	    int i10 = inrad.find( QRegExp("10:"), 0 );		// lev. valuta
 	    int i11 = inrad.find( QRegExp("11:"), 0 );		// betalningsvillkor
-	    int i12 = inrad.find( QRegExp("12:"), 0 );		// godsmärke
-	    int i13 = inrad.find( QRegExp("13:"), 0 );		// Text
-	    int i14 = inrad.find( QRegExp("14:"), 0 );		// Vår referens
-	    int i15 = inrad.find( QRegExp("15:"), 0 );		// Leveransdatum
-	    int i16 = inrad.find( QRegExp("16:"), 0 );		// kundnr
-	    int i17 = inrad.find( QRegExp("17:"), 0 );		// Företagsnamn
-	    int i18 = inrad.find( QRegExp("18:"), 0 );
-	    int i19 = inrad.find( QRegExp("19:"), 0 );
-	    int i20 = inrad.find( QRegExp("20:"), 0 );
-	    int i21 = inrad.find( QRegExp("21:"), 0 );
-	    int i22 = inrad.find( QRegExp("22:"), 0 );
-	    int i23 = inrad.find( QRegExp("23:"), 0 );
-	    int i24 = inrad.find( QRegExp("24:"), 0 );
-	    int i25 = inrad.find( QRegExp("25:"), 0 );		// ordertotal
-	    int i26 = inrad.find( QRegExp("END:"), 0 );
+	    int i12 = inrad.find( QRegExp("12:"), 0 );		// leveransvillkor
+	    int i13 = inrad.find( QRegExp("13:"), 0 );		// leveranssätt
+	    int i14 = inrad.find( QRegExp("14:"), 0 );		// godsmärke
+	    int i15 = inrad.find( QRegExp("15:"), 0 );		// kommentar
+	    int i16 = inrad.find( QRegExp("16:"), 0 );		// text
+	    int i17 = inrad.find( QRegExp("17:"), 0 );		// varref
+	    int i18 = inrad.find( QRegExp("18:"), 0 );		// varreftfn
+	    int i19 = inrad.find( QRegExp("19:"), 0 );		// varreffax
+	    int i20 = inrad.find( QRegExp("20:"), 0 );		// erref
+	    int i21 = inrad.find( QRegExp("21:"), 0 );		// leveransdatum
+	    int i22 = inrad.find( QRegExp("22:"), 0 );		// kundnr
+	    int i23 = inrad.find( QRegExp("23:"), 0 );		// ftgnamn
+	    int i24 = inrad.find( QRegExp("24:"), 0 );		// ftgadr
+	    int i25 = inrad.find( QRegExp("25:"), 0 );		// ftgpostnr
+	    int i26 = inrad.find( QRegExp("26:"), 0 );		// ftgpostadr
+	    int i27 = inrad.find( QRegExp("27:"), 0 );		// sprakkod
+	    int i28 = inrad.find( QRegExp("28:"), 0 );		// bekreftkod
+	    int i29 = inrad.find( QRegExp("29:"), 0 );		// orderstatus
+	    int i30 = inrad.find( QRegExp("30:"), 0 );		// utskriftskod
+	    int i31 = inrad.find( QRegExp("31:"), 0 );		// ordersumma
+	    int i32 = inrad.find( QRegExp("END:"), 0 );
 /*	
 	    m=i2-i1;
 	    if (i1 != -1){
@@ -207,87 +205,122 @@ void frmDspInk::slotOrderHuvudEndOfProcess()
 
 	    m=i13-i12;
 	    if (i12 != -1){
-		QString godsmerke=inrad.mid(i12+3,m-4);
-		lineEditGodsmarke->setText(godsmerke);
+		QString levvillkor=inrad.mid(i12+3,m-4);
+		lineEditLevvillkor->setText(levvillkor);
 	    }
 
 	    m=i14-i13;
 	    if (i13 != -1){
-		QString besttext=inrad.mid(i13+3,m-4);
-		lineEditText->setText(besttext);
+		QString levsett=inrad.mid(i13+3,m-4);
+		lineEditLevsett->setText(levsett);
 	    }
 
 	    m=i15-i14;
 	    if (i14 != -1){
-		QString varref=inrad.mid(i14+3,m-4);
-		lineEditVarRef->setText(varref);
+		QString godsmerke=inrad.mid(i14+3,m-4);
+		lineEditGodsmarke->setText(godsmerke);
 	    }
 
 	    m=i16-i15;
 	    if (i15 != -1){
-		QString levdatum=inrad.mid(i15+3,m-4);
-		lineEditLeveransDatum->setText(levdatum);
+		QString kommentar=inrad.mid(i15+3,m-4);
+		lineEditKommentar->setText(kommentar);
 	    }
 
 	    m=i17-i16;
 	    if (i16 != -1){
-		QString kundnr=inrad.mid(i16+3,m-4);
-		lineEditKundnr->setText(kundnr);
+		QString besttext=inrad.mid(i16+3,m-4);
+		lineEditText->setText(besttext);
 	    }
 
 	    m=i18-i17;
 	    if (i17 != -1){
-		QString ftgnamn=inrad.mid(i17+3,m-4);
-		lineEditFtgNamn->setText(ftgnamn);
+		QString varref=inrad.mid(i17+3,m-4);
+		lineEditVarRef->setText(varref);
 	    }
 
 	    m=i19-i18;
 	    if (i18 != -1){
-		QString ftgadr=inrad.mid(i18+3,m-4);
-		lineEditFtgAdress->setText(ftgadr);
+		QString varreftfn=inrad.mid(i18+3,m-4);
+		lineEditFtgAdress->setText(varreftfn);
 	    }
 
 	    m=i20-i19;
 	    if (i19 != -1){
-		QString ftgpostnr=inrad.mid(i19+3,m-4);
-		lineEditFtgPostnr->setText(ftgpostnr);
+		QString varreffax=inrad.mid(i19+3,m-4);
+		lineEditFtgPostnr->setText(varreffax);
 	    }
 
 	    m=i21-i20;
 	    if (i20 != -1){
-		QString ftgpostadr=inrad.mid(i20+3,m-4);
-		lineEditFtgPostAdress->setText(ftgpostadr);
+		QString erref=inrad.mid(i20+3,m-4);
+		lineEditErref->setText(erref);
 	    }
-/*
+
 	    m=i22-i21;
 	    if (i21 != -1){
-		kundkat=inrad.mid(i21+3,m-4);
-		lineEditKundKategori ->setText(kundkat);
+		QString levdatum=inrad.mid(i21+3,m-4);
+		lineEditLeveransDatum ->setText(levdatum);
 	    }
-*/
+
 	    m=i23-i22;
 	    if (i22 != -1){
-		QString bekreftad=inrad.mid(i22+3,m-4);
-		lineEditBekreft->setText(bekreftad);
+		QString kundnr=inrad.mid(i22+3,m-4);
+		lineEditKundnr->setText(kundnr);
 	    }
 	    
 	    m=i24-i23;
 	    if (i23 != -1){
-		QString orderstatus=inrad.mid(i23+3,m-4);
-		lineEditStatus ->setText(orderstatus);
+		QString ftgnamn=inrad.mid(i23+3,m-4);
+		lineEditFtgNamn ->setText(ftgnamn);
 	    }
 
-/*
 	    m=i25-i24;
 	    if (i24 != -1){
-		QString bekreftad=inrad.mid(i24+3,m-4);
-		lineEditBekreft->setText(bekreftad);
+		QString ftglevadr=inrad.mid(i24+3,m-4);
+		lineEditFtgAdress->setText(ftglevadr);
 	    }
-*/	    
+	    
 	    m=i26-i25;
 	    if (i25 != -1){
-		QString total=inrad.mid(i25+3,m-4);
-		lineEditTotal ->setText(total);
+		QString ftglevpostnr=inrad.mid(i25+3,m-4);
+		lineEditFtgPostnr ->setText(ftglevpostnr);
+	    }
+	    
+	    m=i27-i26;
+	    if (i26 != -1){
+		QString ftglevpostadr=inrad.mid(i26+3,m-4);
+		lineEditFtgPostAdress ->setText(ftglevpostadr);
+	    }
+	    
+	    m=i28-i27;
+	    if (i27 != -1){
+		QString sprakkod=inrad.mid(i27+3,m-4);
+//		lineEditx ->setText(sprakkod);
+	    }
+	    
+	    m=i29-i28;
+	    if (i28 != -1){
+		QString bekreftkod=inrad.mid(i28+3,m-4);
+		lineEditBekreft ->setText(bekreftkod);
+	    }
+	    
+	    m=i30-i29;
+	    if (i29 != -1){
+		QString orderstatus=inrad.mid(i29+3,m-4);
+		lineEditStatus ->setText(orderstatus);
+	    }
+	    
+	    m=i31-i30;
+	    if (i30 != -1){
+		QString utskriftskod=inrad.mid(i30+3,m-4);
+//		lineEdity ->setText(utskriftskod);
+	    }
+	    
+	    m=i32-i31;
+	    if (i31 != -1){
+		QString ordersumma=inrad.mid(i31+3,m-4);
+		lineEditTotal ->setText(ordersumma);
 	    }
 	    
 	    inrad="";
@@ -453,8 +486,6 @@ void frmDspInk::slotRaderEndOfProcess()
 //		    qDebug("tmp=%s    p=%d",tmp.latin1(),p);
 		}
 //		summa=bestelltant*pris;
-//		restant=bestelltant-levant;			//Tillfällig lösning
-//		rest=rest.setNum(restant,'f',2);		// Tillfällig lösning
 		summa=(bestelltant-levant)*pris;
 		ordersum=ordersum+summa;
 		radsumma=radsumma.setNum(summa,'f',2 );
