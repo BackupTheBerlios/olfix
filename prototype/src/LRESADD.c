@@ -1,9 +1,9 @@
 /***************************************************************************
                           LRESADD.c  -  description
                              -------------------
-    Version		 : 0.4
-    begin                : Sön 10 aug 2003
-    modified		 : Fre  7 nov 2003
+    Version		 : 0.5
+    begin                : Sön  10 aug  2003
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -26,7 +26,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LRESADD.c,v 1.2 2003/11/07 06:23:42 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LRESADD.c,v 1.3 2005/02/24 08:44:22 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -99,7 +99,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
-		strncpy(databas,database,15);
+		strncpy(databas,database,sizeof(databas));	/* 2005-02-24	*/
 	}else{
   		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}
@@ -123,7 +123,7 @@ int main(int argc, char *argv[], char *envp[])
 /* ================================================================================ */
 
   if (argv[1] != NULL){
-  	strncpy(levnr,argv[1],strlen(argv[1]));
+  	strncpy(levnr,argv[1],sizeof(levnr));		/* 2005-02-24	*/
   }
   else{
   	fprintf(stderr,"Error: LRESADD: Ange leverantörsnummer!\n");
@@ -131,31 +131,31 @@ int main(int argc, char *argv[], char *envp[])
   }
 
   if (argv[2] != NULL){
-  	strncpy(fakturanr,argv[2],strlen(argv[2]));
+  	strncpy(fakturanr,argv[2],sizeof(fakturanr));	/* 2005-02-24	*/
   }
   else{
   	fprintf(stderr,"Error: LRESADD: Ange fakturanummer!\n");
 	exit(-1);
   }
 
-  strncpy(regdatum,argv[3],strlen(argv[3]));
-  strncpy(faktdatum,argv[4],strlen(argv[4]));
-  strncpy(expiredatum,argv[5],strlen(argv[5]));
-  strncpy(fakttext,argv[6],strlen(argv[6]));
-  strncpy(bar,argv[7],strlen(argv[7]));
-  strncpy(momsprocent,argv[8],strlen(argv[8]));
-  strncpy(levkontonr,argv[9],strlen(argv[9]));
-  strncpy(faktbelopp,argv[10],strlen(argv[10]));
-  strncpy(momsktonr,argv[11],strlen(argv[11]));
-  strncpy(momsbelopp,argv[12],strlen(argv[12]));
-  strncpy(debetktonr,argv[13],strlen(argv[13]));
-  strncpy(debetbelopp,argv[14],strlen(argv[14]));
-  strncpy(userid,argv[15],strlen(argv[15]));
-  strncpy(valuta,argv[16],strlen(argv[16]));
-  strncpy(valutakurs,argv[17],strlen(argv[17]));
-  strncpy(valutabelopp,argv[18],strlen(argv[18]));
-  strncpy(ocrnr,argv[19],strlen(argv[19]));
-  strncpy(vernr,argv[20],strlen(argv[20]));
+  strncpy(regdatum,argv[3],sizeof(regdatum));		/* 2005-02-24	*/
+  strncpy(faktdatum,argv[4],sizeof(faktdatum));		/* 2005-02-24	*/
+  strncpy(expiredatum,argv[5],sizeof(expiredatum));	/* 2005-02-24	*/
+  strncpy(fakttext,argv[6],sizeof(fakttext));		/* 2005-02-24	*/
+  strncpy(bar,argv[7],sizeof(bar));			/* 2005-02-24	*/
+  strncpy(momsprocent,argv[8],sizeof(momsprocent));	/* 2005-02-24	*/
+  strncpy(levkontonr,argv[9],sizeof(levkontonr));	/* 2005-02-24	*/
+  strncpy(faktbelopp,argv[10],sizeof(faktbelopp));	/* 2005-02-24	*/
+  strncpy(momsktonr,argv[11],sizeof(momsktonr));	/* 2005-02-24	*/
+  strncpy(momsbelopp,argv[12],sizeof(momsbelopp));	/* 2005-02-24	*/
+  strncpy(debetktonr,argv[13],sizeof(debetktonr));	/* 2005-02-24	*/
+  strncpy(debetbelopp,argv[14],sizeof(debetbelopp));	/* 2005-02-24	*/
+  strncpy(userid,argv[15],sizeof(userid));		/* 2005-02-24	*/
+  strncpy(valuta,argv[16],sizeof(valuta));		/* 2005-02-24	*/
+  strncpy(valutakurs,argv[17],sizeof(valutakurs));	/* 2005-02-24	*/
+  strncpy(valutabelopp,argv[18],sizeof(valutabelopp));	/* 2005-02-24	*/
+  strncpy(ocrnr,argv[19],sizeof(ocrnr));		/* 2005-02-24	*/
+  strncpy(vernr,argv[20],sizeof(vernr));		/* 2005-02-24	*/
 
   strncpy(temp5,temp1a,strlen(temp1a));
   strncat(temp5,temp2,strlen(temp2));
