@@ -525,111 +525,6 @@
             <string>&lt;font size="+2"&gt;&lt;b&gt;Leveransaddress&lt;/b&gt;&lt;/font&gt;</string>
         </property>
     </widget>
-    <widget class="QListView">
-        <column>
-            <property name="text">
-                <string>Radnr</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Artikelnr</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Benämning</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Leveransvecka</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Antal</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Pris/st</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Summa</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Moms</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <property name="name">
-            <cstring>listViewRader</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>326</y>
-                <width>905</width>
-                <height>250</height>
-            </rect>
-        </property>
-        <property name="font">
-            <font>
-            </font>
-        </property>
-    </widget>
     <widget class="Line">
         <property name="name">
             <cstring>line1</cstring>
@@ -1395,6 +1290,111 @@
             <string>Max 10 tecken.</string>
         </property>
     </widget>
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Radnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Artikelnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Benämning</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Leveransvecka</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Antal</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Pris/st</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Summa</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Moms</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <property name="name">
+            <cstring>listViewRader</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>326</y>
+                <width>905</width>
+                <height>250</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+            </font>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
@@ -1414,12 +1414,6 @@
         <signal>clicked(QListViewItem*)</signal>
         <receiver>frmDspOrder</receiver>
         <slot>slotPickupOrdernr(QListViewItem*)</slot>
-    </connection>
-    <connection>
-        <sender>listViewRader</sender>
-        <signal>clicked(QListViewItem*)</signal>
-        <receiver>frmDspOrder</receiver>
-        <slot>listViewRader_clicked(QListViewItem*)</slot>
     </connection>
 </connections>
 <tabstops>
@@ -1459,11 +1453,6 @@
 <slots>
     <slot>slotPickupOrdernr( QListViewItem * item )</slot>
     <slot>lineEditOrderNbr_returnPressed()</slot>
-    <slot>listViewRader_clicked( QListViewItem * )</slot>
-    <slot>slotAddOrder()</slot>
-    <slot>slotDataOnStdout()</slot>
-    <slot>slotDataOnStderr()</slot>
-    <slot>slotEndOfProcess()</slot>
     <slot>getOrderLista()</slot>
     <slot>slotOrderListaEndOfProcess()</slot>
     <slot>getOrderhuvud()</slot>
@@ -1472,6 +1461,12 @@
     <slot>pushBtnHelp_clicked()</slot>
     <slot>readResursFil()</slot>
     <slot>clearKundInfo()</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>getOrderrader()</slot>
+    <slot>slotOrderRaderEndOfProcess()</slot>
+    <slot>slotOrderRadDataOnStdout()</slot>
+    <slot>slotOrderRadDataOnStderr()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>

@@ -82,19 +82,6 @@
     QString orderlevplats;
     QString orderhuvuddata;       
     
-    /*  Orderradrad	 */	
-    bool radnrflag=FALSE;
-    QString orderradnr="010";    
-    QString oldradnr;
-    QString orderartikelnr;
-    QString prodklass;
-    QString orderbenamn;
-    QString radleveransvecka;
-    QString orderantal;
-    QString orderradpris;
-    QString radbelopp;
-    QString radmoms;		/*  Moms på radbelopp */
-    QString orderraddata;	    
     
     /* Order 	*/
     QString orderdel;		/*  Del av ordern, H=orderhuvud, R=orderrad */
@@ -116,11 +103,10 @@ void frmDspOrder::init()
     QString artal;
     QDateTime dt = QDateTime::currentDateTime();
     dag= QDate::currentDate().dayOfWeek();
-    orderdatum=dt.toString("yyyy-MM-dd");
-    textLabelOrderdatum->setText(orderdatum);    
-    orderleveranstid=orderdatum;
-///    lineOrderLeveranstid->setText(orderleveranstid);
-    /****  Beräkning av leveransvecka , Start ****/
+//    orderdatum=dt.toString("yyyy-MM-dd");
+//    textLabelOrderdatum->setText(orderdatum);    
+//    orderleveranstid=orderdatum;
+    
     vecka= QDate::currentDate().weekNumber(&year);
     veckonr=QString::number(vecka,10);
     dagnummer=QString::number(dag,10);
@@ -128,10 +114,6 @@ void frmDspOrder::init()
 	veckonr.prepend("0");
     }
     artal=QString::number(year,10);
-//    radleveransvecka=artal.mid(3,1) + veckonr + dagnummer;	// ÅVVD
-//    qDebug("vecka=%d, år=%d, radleveransvecka=%s _%s_",vecka,year,radleveransvecka.latin1(),veckonr.latin1());
-//    lineEditLeveransvecka->setText(radleveransvecka);
-    /****  Beräkning av leveransvecka , Slut ****/
     
     frmDspOrder::listViewRader_format();
     frmDspOrder::getOrderLista();
@@ -157,102 +139,12 @@ void frmDspOrder::slotPickupOrdernr( QListViewItem * item)
      lineEditOrderNbr->setFocus();
 }
 
-
 void frmDspOrder::lineEditOrderNbr_returnPressed()
 {
+    
+    ordernr=lineEditOrderNbr->text();
+    listViewRader->clear();
     frmDspOrder::getOrderhuvud();
-}
-
-/************************************************************************/
-/*		Orderradrad	Start					*/
-/************************************************************************/
-
-
-void frmDspOrder::listViewRader_clicked( QListViewItem * )
-{
-    double radsumma ,tmpordersumma;
-    radnrflag=TRUE;
-    oldradnr=orderradnr;
-    QListViewItem *item =  listViewRader->currentItem();
-    if ( !item )
-	return;
-    item->setSelected( TRUE );
-    QString temp0=item->text(0);	// radnr
-    QString temp1=item->text(1);	// artikelnr
-    QString temp2=item->text(2);	// artikelbenämning
-    QString temp3=item->text(3);	// leveransvecka
-    QString temp4=item->text(4);	// antal
-    QString temp5=item->text(5);	// pris/st
-    QString temp6=item->text(6);	// radsumma
-    QString temp7=item->text(7);	// moms för raden
-    //    qDebug("temp=%s, %s, %s, %s, %s, %s",temp0.latin1(),temp1.latin1(),temp2.latin1(),temp3.latin1(),temp4.latin1(),temp5.latin1());
-    // --------------------------------------------------------------
-}
-
-
-
-
-void frmDspOrder::slotAddOrder()
-{
-/************************************************************************/
-/*	Uppdatera databasen						*/
-/************************************************************************/
-	const char *userp = getenv("USER");
-            QString usr(userp);
-	    
-	if (ordermomskod == ""){
-	    ordermomskod = "1";
-	 }
-	if (orderbetvillkor == ""){
-	    orderbetvillkor ="1";
-	}
-	
-//	qDebug("ordernr=%s",ordernr.latin1());
-//	qDebug("ordernamn=%s",ordernamn.latin1());
-	    
-	process = new QProcess();
-	process->addArgument("./STYRMAN");	// OLFIX styrprogram
-	process->addArgument(usr);		// userid
-	process->addArgument( "ORDADD");	// OLFIX funktion		Orderhuvud till ORDERREG
-	process->addArgument(orderhuvuddata);
-	
-	frmDspOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-	frmDspOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-            frmDspOrder::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
-	    
-	if (orderhuvuddata == "" ){
-    	    QMessageBox::warning( this, "DSPORDW",
-                      "Data saknas till orderhuvud! \n" );
-	}else {
-	    if ( !process->start() ) {
-		// error handling
-		QMessageBox::warning( this, "DSPORDW",
-                            "Kan inte starta STYRMAN/ORDADD! \n" );
-	    }
-	}
-}
-
-void frmDspOrder::slotDataOnStdout()
-{
-     while (process->canReadLineStdout() ) {
-	QString line = process->readStdout();
-	inrad.append(line);
-	inrad.append("\n");
-    }   
-}
-
-void frmDspOrder::slotDataOnStderr()
-{
-      while (process->canReadLineStderr() ) {
-	QString line = process->readStderr();
-	errorrad.append(line);
-	errorrad.append("\n");
-    }  
-}
-
-void frmDspOrder::slotEndOfProcess()
-{
-
 }
 
 void frmDspOrder::getOrderLista()
@@ -413,14 +305,13 @@ void frmDspOrder::slotOrderListaEndOfProcess()
 //	 rensa listrad 
 	listrad.remove(0,80);
     }
- //   	frmDspOrder::getOrdernr();
 }
 
 void frmDspOrder::getOrderhuvud()
 {
 	const char *userp = getenv("USER");
             QString usr(userp);
-
+	    inrad="";
 
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
@@ -755,7 +646,7 @@ void frmDspOrder::slotOrderhuvudEndOfProcess()
 	i = -1;
      }
      pushButtonAvbryt->setFocus();
-//     frmDspOrder::getStdLevplats( orderlevplats );
+     frmDspOrder::getOrderrader();
 }
 
 void frmDspOrder::listViewRader_format()
@@ -885,4 +776,181 @@ void frmDspOrder::clearKundInfo()
 	    orderlevvillkor="001";
 	    orderlevplats="000";
 	    orderhuvuddata="";       
+}
+
+void frmDspOrder::slotDataOnStdout()
+{
+     while (process->canReadLineStdout() ) {
+	QString line = process->readStdout();
+	inrad.append(line);
+	inrad.append("\n");
+    }   
+}
+
+void frmDspOrder::slotDataOnStderr()
+{
+      while (process->canReadLineStderr() ) {
+	QString line = process->readStderr();
+	errorrad.append(line);
+	errorrad.append("\n");
+    }  
+}
+
+void frmDspOrder::getOrderrader()
+{
+	const char *userp = getenv("USER");
+            QString usr(userp);
+	 inrad4="";
+
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "ORDRDSP");	// OLFIX funktion
+	process->addArgument(ordernr );	
+
+	frmDspOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotOrderRadDataOnStdout() ) );
+	frmDspOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotOrderRadDataOnStderr() ) );
+	frmDspOrder::connect( process, SIGNAL(processExited() ),this, SLOT(slotOrderRaderEndOfProcess() ) );
+
+	if ( !process->start() ) {
+                // error handling
+	    QMessageBox::warning( this, "Start av ORDRDSP ",
+                            "Kan inte starta STYRMAN/ORDRDSP!\n"
+                            );
+        }
+}
+
+void frmDspOrder::slotOrderRaderEndOfProcess()
+{
+    /*  Orderradrad	 */	
+ //   bool radnrflag=FALSE;
+    QString orderradnr="010";    
+    QString oldradnr;
+    QString orderartikelnr;
+    QString prodklass;
+    QString orderbenamn;
+    QString radleveransvecka;
+    QString orderantal;
+    QString orderradpris;
+    QString radbelopp;
+    QString radmoms;		/*  Moms på radbelopp */
+//    QString orderraddata;	    
+    
+//    qDebug("inrad4=%s",inrad4.latin1());
+    int i,m,n;
+    QString tmp;
+    QListViewItem * item;
+
+    i = -1;
+    i = errorrad4.find( QRegExp("Error:"), 0 );
+         if (i != -1) {
+	QMessageBox::critical( this, "DSPORDW",
+		"ERROR!\n"+errorrad4
+	);
+	errorrad4="";
+	i = -1;
+     }
+     i = -1;
+
+     i = inrad4.find( QRegExp("OK:"), 0 );
+     if (i != -1) {
+	 int p1 = inrad4.find( QRegExp("OK:"), 0 );
+	 int p2 = inrad4.find( QRegExp("_:_"), 0 );
+	 int n1=(p2)-(p1+3);
+	 tmp=inrad4.mid(p1+3,n1);
+	 int n2=tmp.toInt();
+	 int m1=0;
+//	 qDebug("p1=%d p2=%d n1=%d tmp=%s n2=%d",p1,p2,n1,tmp.latin1(),n2);
+	 for (n=1;n<=n2;n++){
+	     int i2 = inrad4.find( QRegExp("02_:"), m1 );		// radnr
+	     int i3 = inrad4.find( QRegExp("03_:"), m1 );		// kundnr
+	     int i4 = inrad4.find( QRegExp("04_:"), m1 );		// radtyp
+	     int i5 = inrad4.find( QRegExp("05_:"), m1 );		// artikelnr
+	     int i6 = inrad4.find( QRegExp("06_:"), m1 );		// benämning
+	     int i7 = inrad4.find( QRegExp("07_:"), m1 );		// leveransvecka
+	     int i8 = inrad4.find( QRegExp("08_:"), m1 );		// antal
+	     int i9 = inrad4.find( QRegExp("09_:"), m1 );		// apris
+	     int i10 = inrad4.find( QRegExp("_:_10_:_"), m1 );		// summa rad, belopp exklusive moms
+//	     qDebug("i10=%d",i10);
+	     int i11 = inrad4.find( QRegExp("_:_11_:_"), m1 );
+	     int i12 = inrad4.find( QRegExp("12_:"), m1 );
+	     int i13 = inrad4.find( QRegExp("13_:"), m1 );	
+	     int i14 = inrad4.find( QRegExp("14_:"), m1 );
+	     int i15 = inrad4.find( QRegExp("_:_15_:_"), m1 );	
+	     int i16 = inrad4.find( QRegExp("_:_16_:_"), m1 );
+	     int i17 = inrad4.find( QRegExp("_:_17_:_"), m1 );
+	     int i18 = inrad4.find( QRegExp("_:_NEXT_:_"), m1 );
+//	     int i19 = inrad4.find( QRegExp("END"), 0 );    
+	     m1=m1+i18+10;
+	     m=(i3-3)-(i2+5);
+	     orderradnr=inrad4.mid(i2+5,m);
+//	     qDebug("i2=%d I3=%d m=%d  m1=%d",i2,i3,m,m1);
+//	     qDebug("orderradnr=%s ",orderradnr.latin1());	     
+	     m=(i4-3)-(i3+5);
+	     tmp=inrad4.mid(i3+5,m);
+//	     qDebug("kundnr=%s ",tmp.latin1());
+	     m=(i5-3)-(i4+5);
+	     tmp=inrad4.mid(i4+5,m);
+//	     qDebug("radordertyp=%s ",tmp.latin1());
+	     m=(i6-3)-(i5+5);
+	     orderartikelnr=inrad4.mid(i5+5,m);
+//	     qDebug("orderartikelnr=%s ",orderartikelnr.latin1());
+	     m=(i7-3)-(i6+5);
+	     orderbenamn=inrad4.mid(i6+5,m);
+//	     qDebug("benämning=%s",orderbenamn.latin1());
+	     m=(i8-3)-(i7+5);
+	     radleveransvecka=inrad4.mid(i7+5,m);
+//	     qDebug("radleveransvecka=%s",radleveransvecka.latin1());
+	     m=(i9-3)-(i8+5);
+	     orderantal=inrad4.mid(i8+5,m);				// antal
+//	     qDebug("orderantal=%s",orderantal.latin1());
+	     m=(i10)-(i9+5);
+	     orderradpris=inrad4.mid(i9+5,m);			// apris
+//	     qDebug("orderradpris=%s",orderradpris.latin1());
+	     m=(i11)-(i10 + 8);
+	     radbelopp=inrad4.mid(i10 + 8,m);			// summa exklusive moms
+//	     qDebug("radbelopp=%s",radbelopp.latin1());
+	     m=(i12 - 3)-(i11 + 8);
+	     radmoms=inrad4.mid(i11 + 8,m);			// moms i kronor
+//	     qDebug("radmoms=%s",radmoms.latin1());
+	     m=(i13 - 3)-(i12 + 5);
+	     tmp=inrad4.mid(i12 + 5,m);				// levererat antal
+//	     qDebug("levererat antal=%s",tmp.latin1());
+	     m=(i14 - 3)-(i13 + 5);					// restnoterat
+	     tmp=inrad4.mid(i13 + 5,m);				
+//	     qDebug("restnoterat antal=%s",tmp.latin1());		
+	     m=(i15 )-(i14 + 5);					// radrabatt
+	     tmp=inrad4.mid(i14 + 5,m);
+//	     qDebug("radrabatt=%s",tmp.latin1());		
+	     m=(i16)-(i15 + 8);					// kalkylpris
+	     tmp=inrad4.mid(i15 + 8,m);
+//	     qDebug("kalkylpris=%s",tmp.latin1());
+	     m=(i17)-(i16 + 8);					// leveransdatum för orderrad
+	     tmp=inrad4.mid(i16 + 8,m);
+//	     qDebug("leveransdatum=%s",tmp.latin1());		
+	     m=(i18 - 3)-(i17 +8);					// enhet
+	     tmp=inrad4.mid(i17 + 8,m);
+//	     qDebug("enhet=%s",tmp.latin1());
+	     item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,radleveransvecka,orderantal,orderradpris,radbelopp,radmoms);
+	 } 
+      }
+     pushButtonAvbryt->setFocus();
+}
+
+void frmDspOrder::slotOrderRadDataOnStdout()
+{
+     while (process->canReadLineStdout() ) {
+	QString line = process->readStdout();
+	inrad4.append(line);
+	inrad4.append("\n");
+    }   
+}
+
+void frmDspOrder::slotOrderRadDataOnStderr()
+{
+      while (process->canReadLineStderr() ) {
+	QString line = process->readStderr();
+	errorrad4.append(line);
+	errorrad4.append("\n");
+    }  
 }
