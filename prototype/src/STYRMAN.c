@@ -1,9 +1,9 @@
 /***************************************************************************
                           STYRMAN.c  -  description
                              -------------------
-			     ver 0.11
-    begin                : Mån 30 juni 2003
-    Modified		 : Sön 11 nov  2004
+			     ver 0.12
+    begin                : Mån  30 juni  2003
+    Modified		 : Tors 24 febr  2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -14,7 +14,7 @@
                   OUTPUT:  errno, error (text)
 ****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.7 2004/11/11 11:29:49 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.8 2005/02/24 10:41:58 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -81,7 +81,7 @@ int main(int argc, char *argv[], char *envp[])
   strncpy(usr,userp,15);			/* Den inloggades userid	*/
 
   if (strlen(database)!= 0){
-	strncpy(databas,database,15);
+	strncpy(databas,database,sizeof(databas));	/* 2005-02-24	*/
   }else{
   	strncpy(databas,"olfixtst",15);		/* olfixtst = testföretag	*/
   }
@@ -95,7 +95,7 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!							*/
 /* ================================================================================	*/
   /* Start 		2004-11-11		*/
-      strncpy(anv,argv[1],strlen(argv[1]));
+      strncpy(anv,argv[1],sizeof(anv));			/* 2005-02-24	*/
 /*      fprintf(stderr,"argv[1]=%s\n",argv[1]);	*/
 /*	strncpy(anv,argv[1],strlen(anv));	*/
 /*      for (i = 0;i <= 8;i++){			*/
@@ -105,7 +105,7 @@ int main(int argc, char *argv[], char *envp[])
       anv[strlen(argv[1])+1]="\0";
 /*	fprintf(stderr,"anv=%s| anv= %d tecken  argv[1]=%d tecken\n",anv,strlen(anv),strlen(argv[1]));	*/
 
-	strncpy(transid,argv[2],strlen(argv[2]));
+	strncpy(transid,argv[2],sizeof(transid));	/* 2005-02-24	*/
 /*	fprintf(stderr,"argv[2]=%s\n",argv[2]);		*/
 	for (i = 0;i <= strlen(argv[2]);i++){
 		transid[i]=toupper(transid[i]);
