@@ -1,15 +1,17 @@
-Changelog OLFIX 20050309
+Changelog OLFIX 20050316
 
 Blivande:
 Ver 0.2.2.B
-2005-03-09
+2005-03-16
 		Nya program
 		LSTBARW		Lista bokföringsår.
-		ADDORDW		Registrera kundorder (ej klar)
+		ADDORDW		Registrera kundorder
+		LSTORDW		Lista kundorder.
 
 		Ändrade program
 		OLFIXHLP	Mera hjälp
 		ADDBARW		Lagt till Hjälp-knapp mm+buggrättning
+		ADDINKW		Lagt till Hjälp
 		BYTFTGW		Returnera värde(databasnamn) till OLFIXW
 				Lagt till hjälpknapp.
 		OLFIXW		Ta emot värde(databasnamn) från BYTFTGW
@@ -18,6 +20,10 @@ Ver 0.2.2.B
 		BARLST.c	Lista bokföringsår
 		LEVPDSP.c	Visa en standardleveransplats data.
 		PKDDSP.c	Visa en produktgrupp/produktklass/produktkod
+		ORDADD.c	Kundorderadd, orderhuvud.
+		ORDRADD.c	Kundorderradadd, orderrader.
+		ORDLST.c	Komplett listning ur ORDERREG
+		ORDLST2.c	Listning ur ORDERREG, begränsat antal fält.
 
 		Makefile
 
@@ -32,13 +38,20 @@ Ver 0.2.2.B
 
 		Ändrade tabeller
 		PRODUKTGRUPP 	Lagt till fältet MOMSKOD VARCHAR(5)
+		ORDERREG	Helt ny. Kundorderns huvudpost.
+		ORDERRADREG	Helt ny. Kundorderns radposter.
+
+		Ändrade sqlfiler.
+		CreateTableORDERREG.sql
+		CreateTableORDERRADREG.sql
 
 		Dokumentation
 		Usersmanual (Online)	Ändrad font till San Serif mm
-				Mera info.
+				Mera info
+				Indelad i kapitel (2005-03-16)
 		UserManual	Uppdaterad (2005-??-??)
 
-		Teknisk Manual	Uppdaterad (2005-03-09)
+		Teknisk Manual	Uppdaterad (2005-03-15)
 		Installationsanvisningar.txt (2005-??-??)
 		Installationsanvisningar.sxw (2005-??-??)
 		Korsrelationer.sxw Uppdaterad (2005-??-??)
