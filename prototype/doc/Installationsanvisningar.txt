@@ -74,7 +74,7 @@ Detta kan göras med följande procedur:
 "userid","PRGLST"
 "userid","RGTADD"
 
-Byt ut ?userid? mot ditt userid för olfix (USRdata.txt).
+Byt ut ordet userid mot ditt userid för olfix (USRdata.txt).
 OBS! Userid ska skrivas med versaler (stora bokstäver).
 
 8.Kör  shell> mysql -h  localhost -u root -p < add_user_DittNamn.sql > mysql.out
@@ -166,6 +166,48 @@ shell> bin/safe_mysqld ?user=mysql &
 
 Se till att mysqld startas automatiskt vid start av datorn.
 För mera information se MySQLReferenseManual, http://www.mysql.com/documentation/
+
+För att kunna kompilera C-programmen måste även biblioteket
+/usr/include/mysql finnas
+
+MySQLCC = grafiskt gränssnitt till MySQL
+MySQLCC kan hämtas från:
+http://www.mysql.com/downloads/mysqlcc.html
+Inkluderrat i leveransen finns
+/usr/local/olfix/mysqlcc-0.9.4-linux-glibc23.tar.gz
+==============================================================================
+
+Linux Binary Installation
+To install a binary distribution, follow the steps below:
+
+   1. Obtain a distribution file from one of the sites listed in *Note Getting MySQL: Getting MySQL.
+
+      MySQL Control Center binary distributions are provided as compressed `tar' archives and have names like `mysqlcc-VERSION-OS.tar.gz', where `VERSION' is a number (for example, `0.8.6'), and `OS' indicates the type of operating system for which the distribution is intended (for example, `linux').
+
+   2. Pick the directory under which you want to unpack the distribution, and move into it. In the example below, we unpack the distribution under `/usr/local' and create a directory `/usr/local/mysqlcc' into which MySQL Control Center is installed. (The following instructions therefore assume you have permission to create files in `/usr/local'. If that directory is protected, you will need to perform the installation as `root'.)
+
+   3. Change into the intended installation directory:
+
+          shell> cd /usr/local
+
+   4. Unpack the distribution and create the installation directory:
+
+          shell> tar xvzf /path/to/mysqlcc-VERSION-OS.tar.gz
+          shell> ln -s mysqlcc-VERSION-OS mysqlcc
+
+      The first command creates a directory named `mysqlcc-VERSION-OS'. The second command makes a symbolic link to that directory. This lets you refer more easily to the installation directory as `/usr/local/mysqlcc'.
+
+   5. Change into the installation directory: shell> cd mysqlcc
+
+After everything has been unpacked and installed, you should now be able to execute MySQL Control Center and test your distribution.
+
+You can start MySQL Control Center with the following command:
+
+    shell> /usr/local/mysqlcc/mysqlcc 
+
+NOTE: MySQL Control Center is a Graphical GUI Client. This means you will need to be running in an X environment before starting MySQL Control Center with the above command.
+==============================================================================
+
 
 MySQL Navigator
 Följande 2 filer ska finnas i biblioteket /usr/local/mysqlnavigator-version.binary

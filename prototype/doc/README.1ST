@@ -1,6 +1,6 @@
 README.1ST
 
-OLFIX.0.1.10.A_2003111x.tar.gz
+OLFIX.0.1.10.A_2003111x.tar.gz och senare
 
 Denna "leverans" innehåller flera "icke" färdiga tabeller. ORDERREG,ORDERRADREG,ARTIKELREG,LAGERSTELLEREG.
 De program som använder dessa register är inte färdiga.
