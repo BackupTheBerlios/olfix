@@ -159,7 +159,7 @@ void frmChgKund::lineEditKundNr_returnPressed()
 {
     kundid=lineEditKundNr->text();
     if (kundid == "" ){
-    	    QMessageBox::warning( this, "ADDKUW",
+    	    QMessageBox::warning( this, "CHGKUW",
                       "KundID måste fyllas i! \n" );
 	    lineEditKundNr->setFocus();
     }else{
@@ -172,7 +172,7 @@ void frmChgKund::lineEditKundNamn_returnPressed()
 {
     kundnamn=lineEditKundNamn->text();
     if (kundnamn == "" ){
-    	    QMessageBox::warning( this, "ADDKUW",
+    	    QMessageBox::warning( this, "CHGKUW",
                       "Kundnamn måste fyllas i! \n" );
 	    lineEditKundNamn->setFocus();
 	}else{
@@ -581,7 +581,7 @@ void frmChgKund::GetKund()
             QString usr(userp);
 
 	process = new QProcess();
-	process->addArgument( "STYRMAN");	// OLFIX funktion
+	process->addArgument( "./STYRMAN");	// OLFIX funktion
 	process->addArgument(usr);
 	process->addArgument("KUDSP");
 	process->addArgument( kundid);
@@ -600,7 +600,7 @@ void frmChgKund::GetKund()
 
 void frmChgKund::slotGetEndOfProcess()
 {
-    int i,m;
+    int i,m,n;
     int offset=5;
 
     i = -1;
@@ -849,24 +849,42 @@ void frmChgKund::slotGetEndOfProcess()
 	 m=i33-i32;
 	 if (i32 != -1){
 	     kreditkod=inrad.mid(i32+3,m-offset);
+//	     qDebug("kreditkod=%s",kreditkod.latin1());
+	     n = kreditkod.find( QRegExp(NULL), 0 );
+	     if (n == 0){
+		 kreditkod="";
+	     }
 	    lineEditKreditKod->setText(kreditkod);
+//  	    qDebug("kreditkod=%s n=%d",kreditkod.latin1(),n);
 	 }
 	 
 	 m=i34-i33;
 	 if (i33 != -1){
 	     exportkod=inrad.mid(i33+3,m-offset);
+	     n = exportkod.find( QRegExp(NULL), 0 );
+	     if (n == 0){
+		 exportkod="";
+	     }
 	    lineEditExportkod->setText(exportkod);
 	 }
 	 
  	 m=i35-i34;
 	 if (i34 != -1){
 	    skattekod=inrad.mid(i34+3,m-offset);
+	     n = skattekod.find( QRegExp(NULL), 0 );
+	     if (n == 0){
+		 skattekod="";
+	     }	    
 	    lineEditSkattekod->setText(skattekod);
 	 }
 
  	 m=i36-i35;
 	 if (i35 != -1){
 	    rabattkod=inrad.mid(i35+3,m-offset);
+	     n = rabattkod.find( QRegExp(NULL), 0 );
+	     if (n == 0){
+		 rabattkod="";
+	     }	    
 	    lineEditRabattKod->setText(rabattkod);
 	 }
 
@@ -942,7 +960,7 @@ void frmChgKund::createStandardLevPlats()
             QString usr(userp);
 
 	process = new QProcess();
-	process->addArgument( "ADDLEVPW");	// OLFIX program
+	process->addArgument( "./ADDLEVPW");	// OLFIX program
 	process->addArgument(kundid);
 	process->addArgument(levplats);
 	frmChgKund::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
@@ -987,7 +1005,7 @@ void frmChgKund::KundLista_clicked()
             QString usr(userp);
 
 	process = new QProcess();
-	process->addArgument( "LSTKUW");	// OLFIX program
+	process->addArgument( "./LSTKUW");	// OLFIX program
 	frmChgKund::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmChgKund::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
             frmChgKund::connect( process, SIGNAL(processExited() ),this, SLOT(slotKundlistaEndOfProcess() ) );
