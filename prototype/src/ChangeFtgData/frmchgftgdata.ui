@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>678</width>
-            <height>296</height>
+            <width>682</width>
+            <height>300</height>
         </rect>
     </property>
     <property name="caption">
@@ -33,25 +33,6 @@
     </widget>
     <widget class="QPushButton">
         <property name="name">
-            <cstring>PushButtonGet</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>125</x>
-                <y>10</y>
-                <width>51</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Hämta</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
             <cstring>PushButtonOK</cstring>
         </property>
         <property name="geometry">
@@ -64,6 +45,25 @@
         </property>
         <property name="text">
             <string>OK</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonUpdate</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>80</x>
+                <y>265</y>
+                <width>71</width>
+                <height>26</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Uppdatera</string>
         </property>
         <property name="default">
             <bool>true</bool>
@@ -106,18 +106,18 @@
     </widget>
     <widget class="QPushButton">
         <property name="name">
-            <cstring>PushButtonUpdate</cstring>
+            <cstring>PushButtonGet</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>80</x>
-                <y>265</y>
-                <width>71</width>
-                <height>26</height>
+                <x>130</x>
+                <y>10</y>
+                <width>51</width>
+                <height>21</height>
             </rect>
         </property>
         <property name="text">
-            <string>Uppdatera</string>
+            <string>Hämta</string>
         </property>
         <property name="default">
             <bool>true</bool>
@@ -129,9 +129,9 @@
         </property>
         <property name="geometry">
             <rect>
-                <x>65</x>
+                <x>61</x>
                 <y>10</y>
-                <width>51</width>
+                <width>60</width>
                 <height>22</height>
             </rect>
         </property>
@@ -169,6 +169,13 @@
         <slot>PushButtonUpdate_clicked()</slot>
     </connection>
 </connections>
+<tabstops>
+    <tabstop>LineEditPosttyp</tabstop>
+    <tabstop>PushButtonGet</tabstop>
+    <tabstop>PushButtonOK</tabstop>
+    <tabstop>PushButtonUpdate</tabstop>
+    <tabstop>ListView1</tabstop>
+</tabstops>
 <includes>
     <include location="local" impldecl="in implementation">frmchgftgdata.ui.h</include>
 </includes>
@@ -181,15 +188,36 @@
     <slot>slotDataOnStderr()</slot>
     <slot>slotEndOfProcess()</slot>
     <slot>slotGetADR1()</slot>
-    <slot>slotGetADR2()</slot>
-    <slot>slotGetADR3()</slot>
+    <slot>slotLineEditAdr1_FtgNamn_returnPressed()</slot>
+    <slot>slotLineEditAdr1_PostAdr_returnPressed()</slot>
+    <slot>slotLineEditAdr1_PostNr_returnPressed()</slot>
+    <slot>slotLineEditAdr1_Ort_returnPressed()</slot>
+    <slot>slotGetADR4()</slot>
+    <slot>slotLineEditAdr2_BesokAdr_returnPressed()</slot>
+    <slot>slotLineEditAdr2_PostNr_returnPressed()</slot>
+    <slot>slotLineEditAdr2_Ort_returnPressed()</slot>
+    <slot>slotGetADR7()</slot>
+    <slot>slotLineEditAdr3_GodsAdr_returnPressed()</slot>
+    <slot>slotLineEditAdr3_PostNr_returnPressed()</slot>
+    <slot>slotLineEditAdr3_Ort_returnPressed()</slot>
+    <slot>slotGetFNAMN()</slot>
+    <slot>slotLineEditFnamn_returnPressed()</slot>
     <slot>slotGetFTGNR()</slot>
+    <slot>slotLineEditFtgnr_returnPressed()</slot>
     <slot>slotGetTFN1()</slot>
+    <slot>slotLineEditTfnnr1_returnPressed()</slot>
     <slot>slotGetTFN2()</slot>
+    <slot>slotLineEditTfnnr2_returnPressed()</slot>
     <slot>slotGetTFAX()</slot>
+    <slot>slotLineEditTelefax_returnPressed()</slot>
     <slot>slotGetEML1()</slot>
+    <slot>slotLineEditEmail_returnPressed()</slot>
     <slot>slotGetMOMS1()</slot>
     <slot>slotLineEditMoms1_returnPressed()</slot>
+    <slot>slotGetMOMS2()</slot>
+    <slot>slotLineEditMoms2_returnPressed()</slot>
+    <slot>slotGetMOMS3()</slot>
+    <slot>slotLineEditMoms3_returnPressed()</slot>
     <slot>slotGetPosttyper()</slot>
     <slot>slotGetPostEndOfProcess()</slot>
     <slot>ListView1_clicked( QListViewItem * item )</slot>
