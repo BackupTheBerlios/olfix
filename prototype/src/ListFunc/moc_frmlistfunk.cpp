@@ -2,7 +2,7 @@
 ** frmListFunk meta object code from reading C++ file 'frmlistfunk.h'
 **
 ** Created: Wed Mar 19 09:59:21 2003
-**      by: The Qt MOC ($Id: moc_frmlistfunk.cpp,v 1.1 2003/05/08 08:54:53 frazze Exp $)
+**      by: The Qt MOC ($Id: moc_frmlistfunk.cpp,v 1.2 2003/09/28 08:23:23 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
