@@ -3,7 +3,7 @@
                              -------------------
 		     version 0.1
     begin                   : Lör 15 nov 2003
-    modified	: 
+    modified	: Sön 16 nov 2003
     copyright	: (C) 2003 by Jan Pihlgren
     email		: jan@pihlgren.se
  ***************************************************************************/
@@ -68,6 +68,7 @@
     QString kalkylpris="0.00";
     QString bestkvant="0.00";
     QString bestpunkt="0.00";
+    QString omkost="0.00";
     QString lagerdata;		// Summan av lagerplatsdata
 
 
@@ -368,7 +369,8 @@ void frmDspArtikelGrunddata::slotgetLaDataEndOfProcess()
 	    int i12 = inrad.find( QRegExp("12:"), 0 );	//	kalkylpris
 	    int i13 = inrad.find( QRegExp("13:"), 0 );	//	bestkvant	Beställd kvantitet
 	    int i14 = inrad.find( QRegExp("14:"), 0 );	//	bestpunkt	Beställningspunkt
-	    int i15 = inrad.length();
+	    int i15 = inrad.find( QRegExp("15:"), 0 );	//	omkost		Omkostnader
+	    int i16 = inrad.length();
 	 
 	    m=i2-i1;
 	    if (i1 != -1){
@@ -453,7 +455,13 @@ void frmDspArtikelGrunddata::slotgetLaDataEndOfProcess()
 		bestpunkt=inrad.mid(i14+3,m-5);
 		lineEditBestPunkt_2->setText(bestpunkt);
 	    }
-	 
+	    
+	    m=i16-i15;
+	    if (i15 != -1){
+		bestpunkt=inrad.mid(i15+3,m-9);
+//		lineEditOmkost_2->setText(omkost);		// Ska inte visas här
+	    }
+	    
 	inrad="";
 	errorrad="";
 	inrad="";
