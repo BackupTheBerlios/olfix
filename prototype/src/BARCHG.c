@@ -1,9 +1,10 @@
 /***************************************************************************
                           BARCHG.c  -  description
+			  Ändra bokföringsårsdata
                              -------------------
-    Version		 : 0.2
-    begin                : Ons 2 april 	2003
-    modified		 : Lör 1 nov	2003
+    Version		 : 0.3
+    begin                : Ons  2 april 2003
+    modified		 : Ons 23 febr	2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -29,7 +30,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BARCHG.c,v 1.3 2004/02/09 07:18:45 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BARCHG.c,v 1.4 2005/02/23 11:12:21 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -128,14 +129,14 @@ int main(int argc, char *argv[], char *envp[])
   	fprintf(stderr,"Error: BARCHG: Ange bokföringsår!\n");
 	exit(-1);
   }
-  strncpy(benamn,argv[2],strlen(argv[2]));
-  strncpy(arstart,argv[3],strlen(argv[3]));
-  strncpy(arslut,argv[4],strlen(argv[4]));
-  strncpy(arlast,argv[5],strlen(argv[5]));
-  strncpy(beskattar,argv[6],strlen(argv[6]));
-  strncpy(senverdat,argv[7],strlen(argv[7]));
-  strncpy(vernr,argv[8],strlen(argv[8]));
-  strncpy(ktoplan,argv[9],strlen(argv[9]));
+  strncpy(benamn,argv[2],sizeof(benamn));		/* 2005-02-23	*/
+  strncpy(arstart,argv[3],sizeof(arstart));		/* 2005-02-23	*/
+  strncpy(arslut,argv[4],sizeof(arslut));		/* 2005-02-23	*/
+  strncpy(arlast,argv[5],sizeof(arlast));		/* 2005-02-23	*/
+  strncpy(beskattar,argv[6],sizeof(beskattar));		/* 2005-02-23	*/
+  strncpy(senverdat,argv[7],sizeof(senverdat));		/* 2005-02-23	*/
+  strncpy(vernr,argv[8],sizeof(vernr));			/* 2005-02-23	*/
+  strncpy(ktoplan,argv[9],sizeof(ktoplan));		/* 2005-02-23	*/
 
   strncpy(temp5,temp1a,strlen(temp1a));
 /* UPDATE BOKFAR SET BENAMNING = */
