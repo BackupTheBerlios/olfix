@@ -102,10 +102,11 @@ void frmPrtPlKundOrder::lineEditOrderNr_returnPressed()
     kundordernr=lineEditOrderNr->text();
     if (kundordernr == ""){
         QMessageBox::warning( this, "PLORDW",
-                     "Inköpsordernr saknas! \n" );
+                     "Kundorder saknas! \n" );
 	lineEditOrderNr->setFocus();
     }
-    pushButtonOK->setFocus();
+    frmPrtPlKundOrder::checkStatus();
+//    pushButtonOK->setFocus();
 }
 
 void frmPrtPlKundOrder::pushButtonOK_clicked()
@@ -382,6 +383,7 @@ void frmPrtPlKundOrder::OrderHuvudEndOfProcess()
 	    m=i5-i4;
 	    if (i4 != -1){
 		orderstatus=inrad.mid(i4+3,m-4);		// orderstatus
+		lineEditOrderstatus->setText(orderstatus);
 	    }
 
 	    m=i6-i5;
@@ -836,6 +838,7 @@ void frmPrtPlKundOrder::CallKugar()
     }else{
 	system("kugar  /tmp/KuOrderPlocklista.kud");
     }
+    pushButtonSluta->setFocus();
 }
 
 void frmPrtPlKundOrder::getForetagsdata(QString posttyp)
@@ -905,4 +908,75 @@ void frmPrtPlKundOrder::ForetagsdataEndOfProcess()
     }
 //    qDebug("posttyp=%s",posttyp.latin1());
 //    qDebug("ftgnamn=%s",ftgnamn.latin1());
+}
+
+void frmPrtPlKundOrder::checkStatus()
+{
+/************************************************************************/
+/*	Kontrollera vilken staus en order har	 				*/
+/************************************************************************/
+	const char *userp = getenv("USER");
+            QString usr(userp);
+
+	inrad="";
+	errorrad="";
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "ORDCHK");	// OLFIX funktion
+	process->addArgument("2");		// check orderstatus
+	process->addArgument(kundordernr);
+
+	frmPrtPlKundOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(DataOnStdout() ) );
+	frmPrtPlKundOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(DataOnStderr() ) );
+            frmPrtPlKundOrder::connect( process, SIGNAL(processExited() ),this, SLOT(CheckOrderEndOfProcess() ) );
+	    
+	if (kundordernr == ""){
+    	    QMessageBox::warning( this, "PLORDW",
+                      "Kundordernummer saknas! \n" );
+	    lineEditOrderNr->setFocus();
+	}
+	else {
+	    if ( !process->start() ) {
+		// error handling
+		fprintf(stderr,"Problem starta STYRMAN/ORDDSP!\n");
+		QMessageBox::warning( this, "PLORDW",
+                            "Kan inte starta STYRMAN/ORDDSP! \n" );
+	    }
+	}
+}
+
+void frmPrtPlKundOrder::CheckOrderEndOfProcess()
+{
+    int i,m;
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+ //   qDebug("Error:",errorrad);
+    if (i != -1) {
+	QMessageBox::critical( this, "PLORDW",
+		"ERROR!\n"+errorrad
+	);
+    }else{
+	i = -1;
+	i = inrad.find( QRegExp("OK:"), 0 );
+	if (i != -1) {
+	    int i1 = inrad.find( QRegExp("_:_1_:_"), 0 );		
+	    int i2 = inrad.find( QRegExp("_:_"), 13 );			 
+	    m=i2-(i1+7);
+	    if (i1 != -1){
+		orderstatus=inrad.mid(i1+7,m);			// orderstatus
+		lineEditOrderstatus->setText(orderstatus);
+//		qDebug("i1=%d i2=%d m=%d",i1,i2,m);
+	    }
+	}
+    }
+    if (orderstatus=="B"){
+	    	    QMessageBox::warning( this, "PLORDW",
+                      "Ordern är avslutad! \n" );
+	    lineEditOrderNr->setSelection(0,kundordernr.length());
+	    lineEditOrderNr->setFocus();
+    }else{
+	    pushButtonOK->setFocus();
+    }
+//    qDebug("orderstatus=%s",orderstatus.latin1());
 }

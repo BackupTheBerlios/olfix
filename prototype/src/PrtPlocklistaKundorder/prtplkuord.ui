@@ -15,20 +15,78 @@
     <property name="caption">
         <string>PLORDW - Skapa plocklista för kundorder</string>
     </property>
-    <widget class="QPushButton">
+    <widget class="QLineEdit">
         <property name="name">
-            <cstring>pushButton5</cstring>
+            <cstring>lineEditOrderNr</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>100</x>
-                <y>235</y>
-                <width>65</width>
+                <x>25</x>
+                <y>30</y>
+                <width>90</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>25</x>
+                <y>10</y>
+                <width>87</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Ordernr</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>6</y>
+                <width>75</width>
                 <height>20</height>
             </rect>
         </property>
         <property name="text">
-            <string>Sluta</string>
+            <string>Orderstatus</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditOrderstatus</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>30</y>
+                <width>76</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="text">
+            <string>status</string>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>A=Under arbete,N= Normal,F=Frisläppt,B=Slutbehandlad</string>
         </property>
     </widget>
     <widget class="QPushButton">
@@ -50,33 +108,23 @@
             <bool>true</bool>
         </property>
     </widget>
-    <widget class="QLabel">
+    <widget class="QPushButton">
         <property name="name">
-            <cstring>textLabel1</cstring>
+            <cstring>pushButtonSluta</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>25</x>
-                <y>10</y>
-                <width>87</width>
-                <height>16</height>
+                <x>100</x>
+                <y>235</y>
+                <width>65</width>
+                <height>20</height>
             </rect>
         </property>
         <property name="text">
-            <string>Ordernr</string>
+            <string>Sluta</string>
         </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditOrderNr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>25</x>
-                <y>30</y>
-                <width>90</width>
-                <height>23</height>
-            </rect>
+        <property name="default">
+            <bool>true</bool>
         </property>
     </widget>
 </widget>
@@ -88,7 +136,7 @@
         <slot>pushButtonOK_clicked()</slot>
     </connection>
     <connection>
-        <sender>pushButton5</sender>
+        <sender>pushButtonSluta</sender>
         <signal>clicked()</signal>
         <receiver>frmPrtPlKundOrder</receiver>
         <slot>close()</slot>
@@ -100,6 +148,12 @@
         <slot>lineEditOrderNr_returnPressed()</slot>
     </connection>
 </connections>
+<tabstops>
+    <tabstop>lineEditOrderNr</tabstop>
+    <tabstop>pushButtonOK</tabstop>
+    <tabstop>pushButtonSluta</tabstop>
+    <tabstop>lineEditOrderstatus</tabstop>
+</tabstops>
 <includes>
     <include location="local" impldecl="in implementation">prtplkuord.ui.h</include>
 </includes>
@@ -121,6 +175,8 @@
     <slot>CallKugar()</slot>
     <slot>getForetagsdata( QString posttyp )</slot>
     <slot>ForetagsdataEndOfProcess()</slot>
+    <slot>checkStatus()</slot>
+    <slot>CheckOrderEndOfProcess()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
