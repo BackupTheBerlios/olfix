@@ -1,0 +1,126 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>frmPrtPlKundOrder</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmPrtPlKundOrder</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>498</width>
+            <height>265</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>PLORDW - Skapa plocklista för kundorder</string>
+    </property>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButton5</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>235</y>
+                <width>65</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Sluta</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>30</x>
+                <y>235</y>
+                <width>60</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>OK</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>25</x>
+                <y>10</y>
+                <width>87</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Ordernr</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditOrderNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>25</x>
+                <y>30</y>
+                <width>90</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>pushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>frmPrtPlKundOrder</receiver>
+        <slot>pushButtonOK_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>pushButton5</sender>
+        <signal>clicked()</signal>
+        <receiver>frmPrtPlKundOrder</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditOrderNr</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmPrtPlKundOrder</receiver>
+        <slot>lineEditOrderNr_returnPressed()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">prtplkuord.ui.h</include>
+</includes>
+<slots>
+    <slot>init()</slot>
+    <slot>lineEditOrderNr_returnPressed()</slot>
+    <slot>pushButtonOK_clicked()</slot>
+    <slot>CreateReportHeader()</slot>
+    <slot>GetOrderHeader()</slot>
+    <slot>GetOrderRow()</slot>
+    <slot>OrderHuvudEndOfProcess()</slot>
+    <slot>RaderEndOfProcess()</slot>
+    <slot>CreateReportFot()</slot>
+    <slot>DataOnStdout()</slot>
+    <slot>DataOnStderr()</slot>
+    <slot>GetReportDir()</slot>
+    <slot>FileRemove( QString filnamn )</slot>
+    <slot>KugarVersion()</slot>
+    <slot>CallKugar()</slot>
+    <slot>getForetagsdata( QString posttyp )</slot>
+    <slot>ForetagsdataEndOfProcess()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
