@@ -1,8 +1,8 @@
 /***************************************************************************
                           OLFIX.c  -  description
                              -------------------
-			     version 0.02
-    begin                : Fre 28 mars 2003
+			     version 0.03
+    begin                : Tis 29 april 2003
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -16,7 +16,7 @@
  *                                                                         *
  *********************************************** ****************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/OLFIX.c,v 1.1 2003/05/08 08:54:09 frazze Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/OLFIX.c,v 1.2 2003/05/13 03:51:12 janpihlgren Exp $ " ;
 
 #include <stdio.h>
 #include <string.h>
@@ -46,6 +46,8 @@ main(int argc, char *argv[], char *envp[])
 		}
 	}
 	status = find_tmp_path(envp);
+	if (status != 0)
+		exit(status);
 	meny();
 }
 
@@ -168,15 +170,20 @@ int find_tmp_path(char *envp[])
 
 	status=-1;
 
-	fil_pek = fopen(filename,"r");
-	while (fgets(tmp,50,fil_pek) != NULL){
-		if(strstr(tmp,"PATH=")){
-			tmp_pek=(strstr(tmp,"PATH="))+5;
-			strcpy(tmpfilepath,tmp_pek);
-			status=0;
+	if ((fil_pek = fopen(filename,"r")) != NULL){
+		while (fgets(tmp,50,fil_pek) != NULL){
+			if(strstr(tmp,"PATH=")){
+				tmp_pek=(strstr(tmp,"PATH="))+5;
+				strcpy(tmpfilepath,tmp_pek);
+				status=0;
+			}
 		}
+		fclose(fil_pek);
 	}
-	fclose(fil_pek);
+	else{
+	 	fprintf(stderr,"Error: Filen .olfixrc kan inte öppnas\n");
+	}
+//	fclose(fil_pek);
 	return status;
 }
 

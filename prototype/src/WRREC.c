@@ -1,8 +1,8 @@
 /***************************************************************************
                           WRREC.c  -  description
                              -------------------
-			     version 0.02
-    begin                : Tis 25 mars 2003
+			     version 0.03
+    begin                : Tis 29 april 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -27,7 +27,7 @@
 	OUTPUT: filen /tmp/vernr.txt
  *****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/WRREC.c,v 1.1 2003/05/08 08:54:14 frazze Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/WRREC.c,v 1.2 2003/05/13 03:50:54 janpihlgren Exp $ " ;
 
 #include <string.h>
 #include <stdio.h>
@@ -69,6 +69,8 @@ int main (int argc, char *argv[], char *envp[])
 	status = find_tmp_path(envp);
 //	fprintf(stderr,"status=%d tmp path=%s\n",status,tmpfilepath);
 //	exit(0);
+	if (status != 0)
+		exit(status);
 
 	if (argc < 10){
 		fprintf(stderr,"Error: För få argument till WRREC!\n");
@@ -235,16 +237,20 @@ int find_tmp_path(char *envp[])
 //	fprintf(stderr,"filename=%s\n",filename);
 	status=-1;
 
-	fil_pek = fopen(filename,"r");
-	while (fgets(tmp,50,fil_pek) != NULL){
-//		fprintf(stderr,"tmp=%s\n",tmp);
-		if(strstr(tmp,"VTMP=")){
-			tmp_pek=(strstr(tmp,"VTMP="))+5;
-			strcpy(tmpfilepath,tmp_pek);
-			status=0;
+	if ((fil_pek = fopen(filename,"r")) != NULL){
+		while (fgets(tmp,50,fil_pek) != NULL){
+//			fprintf(stderr,"tmp=%s\n",tmp);
+			if(strstr(tmp,"VTMP=")){
+				tmp_pek=(strstr(tmp,"VTMP="))+5;
+				strcpy(tmpfilepath,tmp_pek);
+				status=0;
+			}
 		}
+//		fprintf(stderr,"tmpfilepath=%s\n",tmpfilepath);
+		fclose(fil_pek);
 	}
-//	fprintf(stderr,"tmpfilepath=%s\n",tmpfilepath);
-	fclose(fil_pek);
+	else{
+	 	fprintf(stderr,"Error: Filen .olfixrc kan inte öppnas\n");
+	}
 	return status;
 }

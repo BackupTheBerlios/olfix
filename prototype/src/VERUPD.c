@@ -1,8 +1,8 @@
 /***************************************************************************
                           VERUPD.c  -  description
                              -------------------
-			     Ver 0.05
-    begin                : Ons 26 mars 2003
+			     Ver 0.06
+    begin                : Tis 29 april 2003
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -27,7 +27,7 @@
 	OUTPUT: errornb och error (text)
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/VERUPD.c,v 1.1 2003/05/08 08:54:14 frazze Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/VERUPD.c,v 1.2 2003/05/13 03:50:30 janpihlgren Exp $ " ;
 
 
 #ifdef HAVE_CONFIG_H
@@ -69,6 +69,11 @@ int main(int argc, char *argv[], char *envp[])
 	char kommando[MAXSIZE]="";
 	char ext[]=".txt";
 	int status=-15;
+	
+	status = find_tmp_path(envp);
+//	fprintf(stderr,"status=%d\n",status);
+	if (status != 0)
+		exit(status);
 
 	FILE *verfil;
 
@@ -76,9 +81,6 @@ int main(int argc, char *argv[], char *envp[])
 		fprintf(stderr,"Error: VERUPD. Argumentet med vernummer saknas!\n");
 		return -1;
 	}
-	status = find_tmp_path(envp);
-//	fprintf(stderr,"status=%d\n",status);
-
 //	fprintf(stdout,"VERUPDmain: argv[1] = %s\n",argv[1]);
 	strcpy(vrnrfil,tmpfilepath);
 	strcat(vrnrfil,argv[1]);
@@ -539,17 +541,21 @@ int find_tmp_path(char *envp[])
 //	fprintf(stderr,"filename=%s\n",filename);
 	status=-1;
 
-	fil_pek = fopen(filename,"r");
-	while (fgets(tmp,50,fil_pek) != NULL){
-//		fprintf(stderr,"tmp=%s\n",tmp);
-		if(strstr(tmp,"VTMP=")){
-			tmp_pek=(strstr(tmp,"VTMP="))+5;
-			strcpy(tmpfilepath,tmp_pek);
-			status=0;
+	if ((fil_pek = fopen(filename,"r")) != NULL){
+		while (fgets(tmp,50,fil_pek) != NULL){
+//			fprintf(stderr,"tmp=%s\n",tmp);
+			if(strstr(tmp,"VTMP=")){
+				tmp_pek=(strstr(tmp,"VTMP="))+5;
+				strcpy(tmpfilepath,tmp_pek);
+				status=0;
+			}
 		}
+		fclose(fil_pek);
+	}
+	else{
+	 	fprintf(stderr,"Error: Filen .olfixrc kan inte öppnas\n");
 	}
 //	fprintf(stderr,"tmpfilepath=%s\n",tmpfilepath);
-	fclose(fil_pek);
 	return status;
 }
 

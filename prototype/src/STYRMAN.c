@@ -1,8 +1,8 @@
 /***************************************************************************
                           STYRMAN.c  -  description
                              -------------------
-			     ver 0.05
-    begin                : Fre 28  mars 2003
+			     ver 0.06
+    begin                : Tis 29  april 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -13,7 +13,7 @@
                   OUTPUT:  errno, error (text)
 ****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.1 2003/05/08 08:54:11 frazze Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.2 2003/05/13 03:48:37 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -52,10 +52,13 @@ int main(int argc, char *argv[], char *envp[])
   char anv[9];
 
   status = find_tmp_path(envp);
+  if (status != 0)
+	exit(status);
+
 
 //  for (i=0; i<= argc;i++){
 //	fprintf(stderr,"styrman arg = %d %s\n",i,argv[i]);
-//  }
+// }
 
   status=check_User(argv[1]);		/* Finns användaren(USERID)?		*/
   if(status != 0){
@@ -388,15 +391,19 @@ int find_tmp_path(char *envp[])
 
 	status=-1;
 
-	fil_pek = fopen(filename,"r");
-	while (fgets(tmp,50,fil_pek) != NULL){
-		if(strstr(tmp,"PATH=")){
-			tmp_pek=(strstr(tmp,"PATH="))+5;
-			strcpy(tmpfilepath,tmp_pek);
-			status=0;
+	if ((fil_pek = fopen(filename,"r")) != NULL){
+		while (fgets(tmp,50,fil_pek) != NULL){
+			if(strstr(tmp,"PATH=")){
+				tmp_pek=(strstr(tmp,"PATH="))+5;
+				strcpy(tmpfilepath,tmp_pek);
+				status=0;
+			}
 		}
+		fclose(fil_pek);
 	}
-	fclose(fil_pek);
+	else{
+	 	fprintf(stderr,"Error: Filen .olfixrc kan inte öppnas\n");
+	}
 	return status;
 }
 

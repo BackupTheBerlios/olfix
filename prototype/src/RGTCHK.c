@@ -2,6 +2,8 @@
                           RGTCHK.c  -  description
                              -------------------
     begin                : Ons 6  nov	2002
+    version		 : 0.2
+    			 : Fre 9 april 2003
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -26,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/RGTCHK.c,v 1.1 2003/05/08 08:54:10 frazze Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/RGTCHK.c,v 1.2 2003/05/13 03:51:51 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -52,8 +54,8 @@ int main(int argc, char *argv[])
   char temp4[]=")";
   char temp5[200]="";
   char temp6[14]=" AND TRNSID =\"";
-  char userid[8];
-  char trnsid[8];
+  char userid[9];		// 2003-05-09 japi
+  char trnsid[9];		// 2003-05-09 japi
   int status;
 
 //  fprintf(stderr,"RGTCHKmain: argv1 = %s, argv2 = %s\n",argv[1],argv[2]);
@@ -109,10 +111,10 @@ else{
 	}
 }
 if(status == 0){
-	fprintf(stdout,"OK: RGTCHK_Status = %d\n",status);
+	fprintf(stdout,"OK: RGTCHK Status = %d\n",status);
 }
 if(status != 0){
-	fprintf(stderr,"Error: RGTCHK_%s har inte behörighet till %s\n",userid,trnsid);
+	fprintf(stderr,"Error: RGTCHK %s har inte behörighet till %s\n",userid,trnsid); //2003-05-09 japi
 }
   return status;
 }
