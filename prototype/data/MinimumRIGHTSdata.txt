@@ -1,0 +1,4 @@
+"userid","ADDRGTW"
+"userid","LSTRGTW"
+"userid","PRGLST"
+"userid","RGTADD"

@@ -1,0 +1,14 @@
+CHF Schweziska france
+EUR Euro
+GBP Engleska pund
+JPY Japanska yen
+USD Amerikanska dollar
+AUD Australiska dollar
+CAD Canadensiska dollar
+DKK Danska kronor
+NOK Norska kronor
+NYZ Nya Zeeland dollar
+SAR Sadudiarabiska riyal
+HKD Honkong dollar
+MYR Malaysiska ringgit
+SGD Singapore dollar

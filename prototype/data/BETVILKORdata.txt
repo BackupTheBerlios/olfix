@@ -1,0 +1,5 @@
+"1","30","30 dagar netto"
+"2","20","20 dagar netto"
+"3","10","10 dagar netto"
+"4","0","Kontantköp"
+"5","15","Postförskott"
