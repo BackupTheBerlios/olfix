@@ -9,9 +9,9 @@
 /***************************************************************************
                           BYTFTGW  -  description
                              -------------------
-		     version 0.2
-    begin                : Sön 19 okt 2003
-    modified:	: Lör 11 dec 2004
+		     version 0.3
+    begin                   : Sön  19 okt    2003
+    modified:	: Tors  3 mars  2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -129,5 +129,6 @@ void frmBytForetag::setDatabase()
     command="mv $HOME/olfixtst.txt $HOME/.olfixrc";
 /*    qDebug("command=%s",command.latin1());			*/
     system(command);
+    fprintf(stdout,"Databas=%s\n",newdatabase.latin1());	/* 2005-03-03	*/
 }
 
