@@ -1,0 +1,264 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>frmBytForetag</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmBytForetag</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>600</width>
+            <height>192</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>OLFIX - BYTFTGW Byt företag/databas</string>
+    </property>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>80</x>
+                <y>15</y>
+                <width>420</width>
+                <height>50</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Denna funktion används för att skifta mellan olika företag (databaser).
+Företag 01 (databas olfix) är det ordinarie, "skarpa" företaget.
+Företag 99 (databas olfixtst) är ett testföretag.</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>20</x>
+                <y>95</y>
+                <width>118</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Nuvarande företag:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel4</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>20</x>
+                <y>120</y>
+                <width>120</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Önskat företag:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>190</x>
+                <y>95</y>
+                <width>60</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Databas:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel3_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>190</x>
+                <y>120</y>
+                <width>60</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Databas:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditNyttForetag</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>150</x>
+                <y>115</y>
+                <width>30</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>99</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditNyDatabas</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>255</x>
+                <y>115</y>
+                <width>96</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="text">
+            <string>olfixtst</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonDo</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>20</x>
+                <y>165</y>
+                <width>71</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Byt</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>105</x>
+                <y>165</y>
+                <width>71</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Klar</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditForetag</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>150</x>
+                <y>90</y>
+                <width>30</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="text">
+            <string>01</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditDatabas</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>255</x>
+                <y>90</y>
+                <width>96</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="text">
+            <string>olfix</string>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>lineEditNyttForetag</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmBytForetag</receiver>
+        <slot>lineEditNyttForetag_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>frmBytForetag</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonDo</sender>
+        <signal>clicked()</signal>
+        <receiver>frmBytForetag</receiver>
+        <slot>pushButtonDo_clicked()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">frmbytforetag.ui.h</include>
+</includes>
+<slots>
+    <slot>init()</slot>
+    <slot>lineEditNyttForetag_returnPressed()</slot>
+    <slot>pushButtonDo_clicked()</slot>
+    <slot>getDatabase()</slot>
+    <slot>setDatabase()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
