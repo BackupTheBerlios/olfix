@@ -230,7 +230,8 @@ void frmDspInk::slotOrderHuvudEndOfProcess()
 	    m=i17-i16;
 	    if (i16 != -1){
 		QString besttext=inrad.mid(i16+3,m-4);
-		lineEditText->setText(besttext);
+//		lineEditText->setText(besttext);
+		textEditBestText->setText(besttext);
 	    }
 
 	    m=i18-i17;
@@ -514,7 +515,7 @@ void frmDspInk::cleanOrderHuvud()
     lineEditValuta->clear();
     lineEditBetvilk->clear();
     lineEditGodsmarke->clear();
-    lineEditText->clear();
+    textEditBestText->clear();
     lineEditVarRef->clear();
     lineEditKundnr->clear();
     lineEditLeveransDatum->clear();
