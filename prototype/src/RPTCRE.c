@@ -1,9 +1,9 @@
 /***************************************************************************
                           RPTCRE.c  -  description
                              -------------------
-    Version		 : 0.2
-    begin                : Mån 25 aug  2003
-    modified		 : Sön  9 nov 2003
+    Version		 : 0.3
+    begin                : Mån  25 aug  2003
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -24,7 +24,7 @@
 */
 
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/RPTCRE.c,v 1.2 2003/11/09 04:24:06 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/RPTCRE.c,v 1.3 2005/02/24 10:22:06 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -57,7 +57,7 @@ int main(int argc, char *argv[], char *envp[])
   char usr[15];				/* userid		*/
 //  char sqlquery[1000]="SELECT * FROM VERRAD";
   char sqlquery[1000]="";
-  
+
 /* ================================================================================ */
 /* 		Val av databas, START						    */
 /* ================================================================================ */
@@ -71,7 +71,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
-		strncpy(databas,database,15);
+		strncpy(databas,database,sizeof(databas));	/* 2005-02-24	*/
 	}else{
   		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}
@@ -94,7 +94,7 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-  strncpy(sqlquery,argv[1],strlen(argv[1]));
+  strncpy(sqlquery,argv[1],sizeof(sqlquery));		/* 2005-02-24	*/
 
   fp = fopen ("/tmp/rptcre.txt","a");		/* skapa och öppna resultatfilen	*/
   mysql_init(&my_connection);
