@@ -1,8 +1,8 @@
 /****************************************************************************
 ** frmAddBar meta object code from reading C++ file 'frmaddbar.h'
 **
-** Created: Thu Mar 20 07:50:00 2003
-**      by: The Qt MOC ($Id: moc_frmaddbar.cpp,v 1.1 2003/05/08 08:54:16 frazze Exp $)
+** Created: Wed May 28 05:28:45 2003
+**      by: The Qt MOC ($Id: moc_frmaddbar.cpp,v 1.2 2003/09/28 05:45:57 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -13,8 +13,8 @@
 #include <qapplication.h>
 
 #include <private/qucomextra_p.h>
-#if !defined(Q_MOC_OUTPUT_REVISION) || (Q_MOC_OUTPUT_REVISION != 19)
-#error "This file was generated using the moc from 3.0.5. It"
+#if !defined(Q_MOC_OUTPUT_REVISION) || (Q_MOC_OUTPUT_REVISION != 26)
+#error "This file was generated using the moc from 3.1.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -25,7 +25,7 @@ const char *frmAddBar::className() const
 }
 
 QMetaObject *frmAddBar::metaObj = 0;
-static QMetaObjectCleanUp cleanUp_frmAddBar;
+static QMetaObjectCleanUp cleanUp_frmAddBar( "frmAddBar", &frmAddBar::staticMetaObject );
 
 #ifndef QT_NO_TRANSLATION
 QString frmAddBar::tr( const char *s, const char *c )
@@ -64,6 +64,8 @@ QMetaObject* frmAddBar::staticMetaObject()
     static const QUMethod slot_9 = {"slotDataOnStderr", 0, 0 };
     static const QUMethod slot_10 = {"slotDataOnStdout", 0, 0 };
     static const QUMethod slot_11 = {"slotEndOfProcess", 0, 0 };
+    static const QUMethod slot_12 = {"slotAbout", 0, 0 };
+    static const QUMethod slot_13 = {"languageChange", 0, 0 };
     static const QMetaData slot_tbl[] = {
 	{ "slotAddBar()", &slot_0, QMetaData::Public },
 	{ "LineEditBar_returnPressed()", &slot_1, QMetaData::Public },
@@ -76,11 +78,13 @@ QMetaObject* frmAddBar::staticMetaObject()
 	{ "PushButtonOK_clicked()", &slot_8, QMetaData::Public },
 	{ "slotDataOnStderr()", &slot_9, QMetaData::Public },
 	{ "slotDataOnStdout()", &slot_10, QMetaData::Public },
-	{ "slotEndOfProcess()", &slot_11, QMetaData::Public }
+	{ "slotEndOfProcess()", &slot_11, QMetaData::Public },
+	{ "slotAbout()", &slot_12, QMetaData::Public },
+	{ "languageChange()", &slot_13, QMetaData::Protected }
     };
     metaObj = QMetaObject::new_metaobject(
 	"frmAddBar", parentObject,
-	slot_tbl, 12,
+	slot_tbl, 14,
 	0, 0,
 #ifndef QT_NO_PROPERTIES
 	0, 0,
@@ -93,7 +97,8 @@ QMetaObject* frmAddBar::staticMetaObject()
 
 void* frmAddBar::qt_cast( const char* clname )
 {
-    if ( !qstrcmp( clname, "frmAddBar" ) ) return (frmAddBar*)this;
+    if ( !qstrcmp( clname, "frmAddBar" ) )
+	return this;
     return QWidget::qt_cast( clname );
 }
 
@@ -112,6 +117,8 @@ bool frmAddBar::qt_invoke( int _id, QUObject* _o )
     case 9: slotDataOnStderr(); break;
     case 10: slotDataOnStdout(); break;
     case 11: slotEndOfProcess(); break;
+    case 12: slotAbout(); break;
+    case 13: languageChange(); break;
     default:
 	return QWidget::qt_invoke( _id, _o );
     }
@@ -124,8 +131,10 @@ bool frmAddBar::qt_emit( int _id, QUObject* _o )
 }
 #ifndef QT_NO_PROPERTIES
 
-bool frmAddBar::qt_property( int _id, int _f, QVariant* _v)
+bool frmAddBar::qt_property( int id, int f, QVariant* v)
 {
-    return QWidget::qt_property( _id, _f, _v);
+    return QWidget::qt_property( id, f, v);
 }
+
+bool frmAddBar::qt_static_property( QObject* , int , int , QVariant* ){ return FALSE; }
 #endif // QT_NO_PROPERTIES

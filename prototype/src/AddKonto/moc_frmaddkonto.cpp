@@ -1,8 +1,8 @@
 /****************************************************************************
 ** frmAddKonto meta object code from reading C++ file 'frmaddkonto.h'
 **
-** Created: Thu Mar 20 07:51:55 2003
-**      by: The Qt MOC ($Id: moc_frmaddkonto.cpp,v 1.1 2003/05/08 08:54:19 frazze Exp $)
+** Created: Wed Aug 6 06:11:39 2003
+**      by: The Qt MOC ($Id: moc_frmaddkonto.cpp,v 1.2 2003/09/28 05:50:08 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -13,8 +13,8 @@
 #include <qapplication.h>
 
 #include <private/qucomextra_p.h>
-#if !defined(Q_MOC_OUTPUT_REVISION) || (Q_MOC_OUTPUT_REVISION != 19)
-#error "This file was generated using the moc from 3.0.5. It"
+#if !defined(Q_MOC_OUTPUT_REVISION) || (Q_MOC_OUTPUT_REVISION != 26)
+#error "This file was generated using the moc from 3.1.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -25,7 +25,7 @@ const char *frmAddKonto::className() const
 }
 
 QMetaObject *frmAddKonto::metaObj = 0;
-static QMetaObjectCleanUp cleanUp_frmAddKonto;
+static QMetaObjectCleanUp cleanUp_frmAddKonto( "frmAddKonto", &frmAddKonto::staticMetaObject );
 
 #ifndef QT_NO_TRANSLATION
 QString frmAddKonto::tr( const char *s, const char *c )
@@ -67,6 +67,7 @@ QMetaObject* frmAddKonto::staticMetaObject()
     static const QUMethod slot_12 = {"slotDataOnStderr", 0, 0 };
     static const QUMethod slot_13 = {"slotDataOnStdout", 0, 0 };
     static const QUMethod slot_14 = {"slotEndOfProcess", 0, 0 };
+    static const QUMethod slot_15 = {"languageChange", 0, 0 };
     static const QMetaData slot_tbl[] = {
 	{ "slotAddKonto()", &slot_0, QMetaData::Public },
 	{ "LineEditBar_returnPressed()", &slot_1, QMetaData::Public },
@@ -82,11 +83,12 @@ QMetaObject* frmAddKonto::staticMetaObject()
 	{ "PushButtonOK_clicked()", &slot_11, QMetaData::Public },
 	{ "slotDataOnStderr()", &slot_12, QMetaData::Public },
 	{ "slotDataOnStdout()", &slot_13, QMetaData::Public },
-	{ "slotEndOfProcess()", &slot_14, QMetaData::Public }
+	{ "slotEndOfProcess()", &slot_14, QMetaData::Public },
+	{ "languageChange()", &slot_15, QMetaData::Protected }
     };
     metaObj = QMetaObject::new_metaobject(
 	"frmAddKonto", parentObject,
-	slot_tbl, 15,
+	slot_tbl, 16,
 	0, 0,
 #ifndef QT_NO_PROPERTIES
 	0, 0,
@@ -99,7 +101,8 @@ QMetaObject* frmAddKonto::staticMetaObject()
 
 void* frmAddKonto::qt_cast( const char* clname )
 {
-    if ( !qstrcmp( clname, "frmAddKonto" ) ) return (frmAddKonto*)this;
+    if ( !qstrcmp( clname, "frmAddKonto" ) )
+	return this;
     return QWidget::qt_cast( clname );
 }
 
@@ -121,6 +124,7 @@ bool frmAddKonto::qt_invoke( int _id, QUObject* _o )
     case 12: slotDataOnStderr(); break;
     case 13: slotDataOnStdout(); break;
     case 14: slotEndOfProcess(); break;
+    case 15: languageChange(); break;
     default:
 	return QWidget::qt_invoke( _id, _o );
     }
@@ -133,8 +137,10 @@ bool frmAddKonto::qt_emit( int _id, QUObject* _o )
 }
 #ifndef QT_NO_PROPERTIES
 
-bool frmAddKonto::qt_property( int _id, int _f, QVariant* _v)
+bool frmAddKonto::qt_property( int id, int f, QVariant* v)
 {
-    return QWidget::qt_property( _id, _f, _v);
+    return QWidget::qt_property( id, f, v);
 }
+
+bool frmAddKonto::qt_static_property( QObject* , int , int , QVariant* ){ return FALSE; }
 #endif // QT_NO_PROPERTIES

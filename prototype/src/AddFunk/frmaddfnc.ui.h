@@ -28,7 +28,9 @@
 #include <qstring.h>		
 #include <qfile.h>
 #include <qregexp.h>
+#include <qwhatsthis.h> 
 #define MAXSTRING 5000
+#define VERSION "Version: 0.1\n 2003-06-03"
 
     QProcess* process;
     QString inrad;

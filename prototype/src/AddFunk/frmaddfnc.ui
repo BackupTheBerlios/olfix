@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
 <class>frmAddFnc</class>
 <widget class="QWidget">
     <property name="name">
@@ -14,6 +14,10 @@
     </property>
     <property name="caption">
         <string>ADDFNCW  Lägga upp ny funktion</string>
+    </property>
+    <property name="whatsThis" stdset="0">
+        <string>Version: 0.1
+2003-06-03</string>
     </property>
     <widget class="QLabel">
         <property name="name">
@@ -173,7 +177,25 @@
         <receiver>frmAddFnc</receiver>
         <slot>slotLedTextEntered()</slot>
     </connection>
+    <connection>
+        <sender>LineEditFunc</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmAddFnc</receiver>
+        <slot>slotFuncEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditLedtext</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmAddFnc</receiver>
+        <slot>slotLedTextEntered()</slot>
+    </connection>
 </connections>
+<tabstops>
+    <tabstop>LineEditFunc</tabstop>
+    <tabstop>LineEditLedtext</tabstop>
+    <tabstop>PushButtonOK</tabstop>
+    <tabstop>PushButtonQuit</tabstop>
+</tabstops>
 <includes>
     <include location="local" impldecl="in implementation">frmaddfnc.ui.h</include>
 </includes>

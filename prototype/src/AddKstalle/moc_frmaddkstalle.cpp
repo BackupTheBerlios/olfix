@@ -2,7 +2,7 @@
 ** frmAddKstalle meta object code from reading C++ file 'frmaddkstalle.h'
 **
 ** Created: Thu Mar 20 07:53:53 2003
-**      by: The Qt MOC ($Id: moc_frmaddkstalle.cpp,v 1.1 2003/05/08 08:54:20 frazze Exp $)
+**      by: The Qt MOC ($Id: moc_frmaddkstalle.cpp,v 1.2 2003/09/28 05:51:17 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/

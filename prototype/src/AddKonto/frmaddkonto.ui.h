@@ -1,6 +1,9 @@
 /****************************************************************/
 /**		ADDKTOW					*/
-/**		20003-01-17					*/
+/**		2003-01-17					*/
+/**	Modifierad 2003-05-11	Jan Pihlgren			*/
+/**	Modifierad 2003-08-06	Jan Pihlgren			*/
+/**	Version 0.2						*/
 /**		Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -229,7 +232,7 @@ void frmAddKonto::slotEndOfProcess()
 		j = -1;
 	    }
             i = -1;
-            i = inrad.find( QRegExp("KTOADD:Inserted"), 0 );  
+	    i = inrad.find( QRegExp("OK:"), 0 );  
             if(i == 0){
 		QMessageBox::information( this, "KTOADD",
 			"Uppdatering OK!\n" 

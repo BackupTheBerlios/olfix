@@ -1,7 +1,8 @@
 /****************************************************************/
 /**		ADDBARW					*/
-/**		20003-01-18					*/
-/**		Jan Pihlgren	jan@pihlgren.se			*/
+/**		2003-05-28					*/
+/**		Ver 0.2                                                                                    */
+/**   Copyright	Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
  *					                                                 *
@@ -25,6 +26,7 @@
 #include <qstring.h>		
 #include <qfile.h>
 #include <qregexp.h> 
+#define VERSION "0.2"
 #define MAXSTRING 5000
 
     QProcess* process;
@@ -192,10 +194,10 @@ void frmAddBar::slotEndOfProcess()
     int i=-1;
     int j=-1;
     
-    qDebug("inrad=%s",inrad.latin1());
+//    qDebug("inrad=%s",inrad.latin1());
             i = -1;
             i = inrad.find( QRegExp("Error:"), 0 );
-	qDebug("frmAddBar-inrad=%s i=%d\n",inrad.latin1(),i);
+//	qDebug("frmAddBar-inrad=%s i=%d\n",inrad.latin1(),i);
             if (i == 0) {
 		QMessageBox::critical( this, "OLFIX - BARADD",
 			"ERROR!\n"+inrad 
@@ -229,4 +231,16 @@ void frmAddBar::slotEndOfProcess()
 	    inrad="";
 	    i = -1;
     	    }
+}
+
+
+void frmAddBar::slotAbout()
+{
+    QString meddelande;
+    meddelande="OLFIX - BARADDW\n Version: ";
+    meddelande.append(VERSION);
+	QMessageBox::information( this, "Om BARADD",
+				  meddelande
+		);
+
 }
