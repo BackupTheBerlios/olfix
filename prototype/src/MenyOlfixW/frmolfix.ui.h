@@ -8,10 +8,11 @@
 /***************************************************************************
                           OLFIXW  -  description
                              -------------------
-		     version 0.3
-    begin                : Tis 16 maj 2003
+		     version 0.4
+    begin                   : Tis 16 maj 2003
+    modified	: Tis 11 nov 2003
     copyright            : (C) 2003 by Jan Pihlgren
-    email                : jan@pihlgren.se
+    email                  : jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
  *					                                                 *
@@ -50,13 +51,14 @@ void frmOlfix::slotGetProgram()
 {
 	const char *userp = getenv("USER");
             QString usr(userp);
-	QString bibl;
+//	QString bibl;
 	inrad="";
 	errorrad="";
-	bibl.append("./STYRMAN");		// OLFIX huvudprogram
+//	bibl.append("./STYRMAN");		// OLFIX huvudprogram
 
 	process = new QProcess();
-	process->addArgument(bibl);
+//	process->addArgument(bibl);
+	process->addArgument("./STYRMAN");	// OLFIX huvudprogram
 	process->addArgument(usr);		// userid
 	process->addArgument( "PRGLST");	// OLFIX funktion
 
@@ -427,3 +429,4 @@ void frmOlfix::slotHelp()
                             "Ännu inte implementerad!"
                             );
 }
+

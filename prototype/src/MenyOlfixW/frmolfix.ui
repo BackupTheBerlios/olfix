@@ -30,99 +30,184 @@
     <property name="iconText">
         <string>OLFIX</string>
     </property>
-    <grid>
+    <widget class="QPushButton">
         <property name="name">
-            <cstring>unnamed</cstring>
+            <cstring>PushButton4</cstring>
         </property>
-        <property name="margin">
-            <number>11</number>
+        <property name="geometry">
+            <rect>
+                <x>121</x>
+                <y>11</y>
+                <width>104</width>
+                <height>24</height>
+            </rect>
         </property>
-        <property name="spacing">
-            <number>6</number>
+        <property name="text">
+            <string>Hjälp</string>
         </property>
-        <widget class="QPushButton" row="0" column="1">
-            <property name="name">
-                <cstring>PushButton4</cstring>
-            </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButton2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>341</x>
+                <y>11</y>
+                <width>104</width>
+                <height>24</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Om OLFIX</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButton3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>231</x>
+                <y>11</y>
+                <width>104</width>
+                <height>24</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Licensvillkor</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonQuit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>11</x>
+                <y>384</y>
+                <width>104</width>
+                <height>26</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Slut</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QListView">
+        <column>
             <property name="text">
-                <string>Hjälp</string>
+                <string>Funktioner</string>
             </property>
-        </widget>
-        <widget class="QPushButton" row="0" column="3">
-            <property name="name">
-                <cstring>PushButton2</cstring>
-            </property>
-            <property name="text">
-                <string>Om OLFIX</string>
-            </property>
-        </widget>
-        <widget class="QPushButton" row="0" column="2">
-            <property name="name">
-                <cstring>PushButton3</cstring>
-            </property>
-            <property name="text">
-                <string>Licensvillkor</string>
-            </property>
-        </widget>
-        <widget class="QListView" row="1" column="1" rowspan="2" colspan="3">
-            <column>
-                <property name="text">
-                    <string>Funktioner</string>
-                </property>
-                <property name="clickable">
-                    <bool>true</bool>
-                </property>
-                <property name="resizable">
-                    <bool>true</bool>
-                </property>
-            </column>
-            <column>
-                <property name="text">
-                    <string>Program</string>
-                </property>
-                <property name="clickable">
-                    <bool>true</bool>
-                </property>
-                <property name="resizable">
-                    <bool>true</bool>
-                </property>
-            </column>
-            <property name="name">
-                <cstring>ListView1</cstring>
-            </property>
-            <property name="rootIsDecorated">
+            <property name="clickable">
                 <bool>true</bool>
             </property>
-        </widget>
-        <widget class="QPushButton" row="2" column="0">
-            <property name="name">
-                <cstring>PushButtonQuit</cstring>
-            </property>
-            <property name="text">
-                <string>Slut</string>
-            </property>
-            <property name="default">
+            <property name="resizable">
                 <bool>true</bool>
             </property>
-        </widget>
-        <spacer row="0" column="0" rowspan="2" colspan="1">
-            <property name="name">
-                <cstring>Spacer1</cstring>
+        </column>
+        <column>
+            <property name="text">
+                <string>Program</string>
             </property>
-            <property name="orientation">
-                <enum>Vertical</enum>
+            <property name="clickable">
+                <bool>true</bool>
             </property>
-            <property name="sizeType">
-                <enum>Expanding</enum>
+            <property name="resizable">
+                <bool>true</bool>
             </property>
-            <property name="sizeHint">
-                <size>
-                    <width>0</width>
-                    <height>385</height>
-                </size>
-            </property>
-        </spacer>
-    </grid>
+        </column>
+        <property name="name">
+            <cstring>ListView1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>121</x>
+                <y>41</y>
+                <width>324</width>
+                <height>369</height>
+            </rect>
+        </property>
+        <property name="rootIsDecorated">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <spacer>
+        <property name="name">
+            <cstring>Spacer1</cstring>
+        </property>
+        <property name="orientation">
+            <enum>Vertical</enum>
+        </property>
+        <property name="sizeType">
+            <enum>Expanding</enum>
+        </property>
+        <property name="sizeHint">
+            <size>
+                <width>16</width>
+                <height>315</height>
+            </size>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>55</x>
+                <y>65</y>
+                <width>16</width>
+                <height>315</height>
+            </rect>
+        </property>
+    </spacer>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>15</y>
+                <width>100</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Databas</string>
+        </property>
+        <property name="alignment">
+            <set>AlignCenter</set>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditDatabase</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>40</y>
+                <width>101</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="text">
+            <string>olfix</string>
+        </property>
+        <property name="alignment">
+            <set>AlignHCenter</set>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>

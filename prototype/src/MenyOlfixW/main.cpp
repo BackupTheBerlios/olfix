@@ -1,6 +1,7 @@
 /****************************************************************/
 /**		main.cpp		OLFIXW				*/
 /**		2003-02-05					*/
+/**		modified 2003-11-11				*/
 /**		Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -22,9 +23,23 @@
 #include "frmolfix.h"
 #include <qregexp.h>
 
-int main( int argc, char* argv[] )
+#include <qprocess.h>
+#include <qlineedit.h>
+
+int which_database(char *envp[]);
+char database[15]="";
+
+int main( int argc, char* argv[] , char *envp[])
 {
+   which_database(envp);
+
   QApplication myapp( argc, argv );
+//  frmOlfix* mywidget = new frmOlfix();
+  
+/*  fprintf(stderr,"databas=%s\n",database);
+    qDebug("databas=%s",database);
+*/    
+ // mywidget->lineEditDatabase->setText(database);
   
   QString rcfil;
   QString bibl;
@@ -53,10 +68,77 @@ int main( int argc, char* argv[] )
  	fprintf(stderr,"%s\n", rcfil.latin1() );
   }
   QDir::setCurrent ( bibl );
+ 
+  frmOlfix* mywidget = new frmOlfix();
+  mywidget->lineEditDatabase->setText(database);
+//  frmOlfix Olfix;
   
-  frmOlfix Olfix;
-  
-  myapp.setMainWidget( &Olfix );
-  Olfix.show();
-  myapp.exec();
+//  myapp.setMainWidget( &Olfix );
+  myapp.setMainWidget( mywidget);
+//  Olfix.show();
+  mywidget->show();
+  return myapp.exec();
+}
+
+int which_database(char *envp[])
+{
+	FILE *fil_pek;
+
+	char home[50];
+	char *home_pek;
+	char resource[]="/.olfixrc";
+	char filename[50]="";
+	char tmp[20]="";
+	char temp[10]="";
+	char *tmp_pek;
+	int i,status;
+
+	for (i = 0;envp[i]!=NULL;i++){
+		if(strstr(envp[i],"HOME=") != NULL){
+			strncpy(temp,envp[i],4);
+/*			fprintf(stderr,"temp=%s\n",temp); */
+			status=strcmp(temp,"HOME");
+/*			fprintf(stderr,"status=%d\n",status); */
+			if (status == 0){
+				home_pek=(strstr(envp[i],"HOME="));
+				home_pek=home_pek+5;
+				strcpy(home,home_pek);
+			}
+/*			fprintf(stderr,"home_pek=%d %s\n",home_pek,home_pek);	*/
+		}
+	}
+/*	fprintf(stderr,"home=%s\n",home);	*/
+	strncpy(filename,home,strlen(home));
+	strncat(filename,resource,strlen(resource));
+
+/*	fprintf(stderr,"filename=%s\n",filename);	*/
+	status=-1;
+
+	if ((fil_pek = fopen(filename,"r")) != NULL){
+		while (fgets(tmp,150,fil_pek) != NULL){
+/*			fprintf(stderr,"tmp=%s\n",tmp); */
+			if(strstr(tmp,"DATABASE=")){
+				tmp_pek=(strstr(tmp,"DATABASE="))+9;
+				strncpy(database,tmp_pek,strlen(tmp_pek));
+				status=0;
+			}
+		}
+/*		fprintf(stderr,"database=%s_len=%d\n",database,strlen(database)); */
+		fclose(fil_pek);
+	}
+	else{
+/*		fprintf(stderr,"database=%s_len=%d\n",database,strlen(database)); */
+	 	fprintf(stderr,"Error: Filen .olfixrc kan inte öppnas\n");
+	}
+/*	for (i=0;i < strlen(database);i++){	*/
+	for (i=0;i < 15;i++){
+		tmp[i]=database[i];
+	}
+	tmp[i-1]=0;
+/*	fprintf(stderr,"tmp=%s, i=%d len(tmp)=%d\n",tmp,i,strlen(tmp));	*/
+	strncpy(database,tmp,strlen(tmp));
+	database[strlen(tmp)]=0;
+/*	fprintf(stderr,"databas=%s\n",database);	*/
+
+	return status;
 }
