@@ -1,9 +1,10 @@
 /***************************************************************************
                           LEVDSP.c  -  description
                              -------------------
-			     Ver: 0.3
+			     Visa leverantörsdata
+			     Ver: 0.4
     begin                : Mån  30  juni 2003
-    modified		 : Tors  6  nov 2003
+    modified		 : Tors 24  febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -21,14 +22,14 @@
 
 	Kommando: ./LEVDSP levnr
 
-	Function: Visa all information på ett konto i tabell KTOPLAN
+	Function: Visa all information på en leverantör i tabell LEVREG
 
 	OUTPUT: LEVNR LEVORGNR LEVNAMN LEVADRESS LEVPOSTNR LEVPOSTADR LEVLAND LEVTFNNR LEVFAXNR LEVTELEX LEVEMAIL LEVREFERENT LEVREFTFN LEVMOMSKOD LEVSKULD LEVKONTO LEVVALUTA BETALVILKOR
 	samt errornb och error (text)
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVDSP.c,v 1.2 2003/11/06 10:31:08 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVDSP.c,v 1.3 2005/02/24 06:58:56 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -104,7 +105,7 @@ int main(int argc, char *argv[], char *envp[])
   	fprintf(stderr,"LEVDSP argv%d = %s\n",i,argv[i]);
   }
 */
-  strncpy(levnr,argv[1],strlen(argv[1]));
+  strncpy(levnr,argv[1],sizeof(levnr));		/* 2005-02-24	*/
   strncat(temp5,temp1,strlen(temp1));
 /* SELECT * FROM LEVREG WHERE (LEVNR = "	*/
   strncat(temp5,levnr,strlen(levnr));/* 1234 */

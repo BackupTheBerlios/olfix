@@ -1,9 +1,9 @@
 /***************************************************************************
                           LEVCHG.c  -  description
                              -------------------
-    Version		 : 0.3
-    begin                : Mån 30 juni 2003
-    modified		 : Tors 6 nov 2003
+    Version		 : 0.4
+    begin                : Mån  30 juni 2003
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -38,7 +38,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVCHG.c,v 1.2 2003/11/06 08:29:39 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVCHG.c,v 1.3 2005/02/24 06:55:15 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -136,32 +136,32 @@ int main(int argc, char *argv[], char *envp[])
 /* ================================================================================ */
 
   if (argv[1] != NULL){
-  	strncpy(levnr,argv[1],strlen(argv[1]));
+  	strncpy(levnr,argv[1],sizeof(levnr));
   }
   else{
   	fprintf(stderr,"Error: LEVCHG: Ange kundnummer!\n");
 	exit(-1);
   }
 
-  strncpy(levorgnr,argv[2],strlen(argv[2]));		/* nr 2		*/
-  strncpy(levnamn,argv[3],strlen(argv[3]));		/* nr 3		*/
-  strncpy(levadr,argv[4],strlen(argv[4]));		/* nr 4		*/
-  strncpy(levpostnr,argv[5],strlen(argv[5]));		/* nr 5		*/
-  strncpy(levpostadr,argv[6],strlen(argv[6]));		/* nr 6		*/
-  strncpy(levland,argv[7],strlen(argv[7]));		/* nr 7		*/
-  strncpy(levtfnnr,argv[8],strlen(argv[8]));		/* nr 8		*/
-  strncpy(levfaxnr,argv[9],strlen(argv[9]));		/* nr 9		*/
-  strncpy(levtelex,argv[10],strlen(argv[10]));		/* nr 10	*/
-  strncpy(levemail,argv[11],strlen(argv[11]));		/* nr 11	*/
-  strncpy(levpostgironr,argv[12],strlen(argv[12]));	/* nr 12	*/
-  strncpy(levbankgironr,argv[13],strlen(argv[13]));	/* nr 13	*/
-  strncpy(levref,argv[14],strlen(argv[14]));		/* nr 14	*/
-  strncpy(levreftfn,argv[15],strlen(argv[15]));		/* nr 15	*/
-  strncpy(levmomskod,argv[16],strlen(argv[16]));	/* nr 16	*/
-  strncpy(levkonto,argv[17],strlen(argv[17]));		/* nr 17	*/
-  strncpy(levkundnr,argv[18],strlen(argv[18]));		/* nr 18	*/
-  strncpy(levvaluta,argv[19],strlen(argv[19]));		/* nr 19	*/
-  strncpy(betalvilkor,argv[20],strlen(argv[20]));		/* nr 20	*/
+  strncpy(levorgnr,argv[2],sizeof(levorgnr));		/* nr 2		2005-02-24	*/
+  strncpy(levnamn,argv[3],sizeof(levnamn));		/* nr 3		2005-02-24	*/
+  strncpy(levadr,argv[4],sizeof(levadr));		/* nr 4		2005-02-24	*/
+  strncpy(levpostnr,argv[5],sizeof(levpostnr));		/* nr 5		2005-02-24	*/
+  strncpy(levpostadr,argv[6],sizeof(levpostadr));	/* nr 6		2005-02-24	*/
+  strncpy(levland,argv[7],sizeof(levland));		/* nr 7		2005-02-24	*/
+  strncpy(levtfnnr,argv[8],sizeof(levtfnnr));		/* nr 8		2005-02-24	*/
+  strncpy(levfaxnr,argv[9],sizeof(levfaxnr));		/* nr 9		2005-02-24	*/
+  strncpy(levtelex,argv[10],sizeof(levtelex));		/* nr 10	2005-02-24	*/
+  strncpy(levemail,argv[11],sizeof(levemail));		/* nr 11	2005-02-24	*/
+  strncpy(levpostgironr,argv[12],sizeof(levpostgironr));/* nr 12	2005-02-24	*/
+  strncpy(levbankgironr,argv[13],sizeof(levbankgironr));/* nr 13	2005-02-24	*/
+  strncpy(levref,argv[14],sizeof(levref));		/* nr 14	2005-02-24	*/
+  strncpy(levreftfn,argv[15],sizeof(levreftfn));	/* nr 15	2005-02-24	*/
+  strncpy(levmomskod,argv[16],sizeof(levmomskod));	/* nr 16	2005-02-24	*/
+  strncpy(levkonto,argv[17],sizeof(levkonto));		/* nr 17	2005-02-24	*/
+  strncpy(levkundnr,argv[18],sizeof(levkundnr));	/* nr 18	2005-02-24	*/
+  strncpy(levvaluta,argv[19],sizeof(levvaluta));	/* nr 19	2005-02-24	*/
+  strncpy(betalvilkor,argv[20],sizeof(betalvilkor));	/* nr 20	2005-02-24	*/
 
 
 /*,LEVNAMN,LEVADRESS,LEVPOSTNR,LEVPOSTADR,LEVLAND,LEVTFNNR,LEVFAXNR,LEVTELEX,LEVEMAIL,LEVREFERENT,LEVREFTFN,LEVMOMSKOD,LEVSKULD,LEVKONTO,LEVVALUTA,BETALVILKOR) VALUES (";	*/
