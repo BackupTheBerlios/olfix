@@ -1,7 +1,27 @@
-Changelog OLFIX 20040314
+Changelog OLFIX 20040324
+		Nya program
+		BALRPTW		Balansrapport/Balansräkning(ej färdig)
 
+		Ändrade program
+		SDOLISW		Lagt till Saldototaler
+
+		Nya funktioner
+		VERHDSP		Lista lägsta och högsta datum för angivet bokföringsår.
+
+		Ändrade funktioner
+		TRANSIDdata.txt	Nya funktioner.
+
+		Ändrade rapporter
+		Saldolista.kut	Lagt till saldototaler
+
+		Ändrade data
+		PROGRAMdata.txt	Nya program
+
+		Dokumentation
+		Teknisk Manual	Uppdaterad (2004-03-23)
+________________________________________________________
 Ver 0.1.14.A	OBS! Alfa
-20040314
+20040317
 		Nya program
 		OLFIXHLP	Hjälpfil till OLFIX
 
@@ -28,7 +48,7 @@ Ver 0.1.13.A	OBS! Alfa
 		ADDLEVSW	Nytt leveranssätt
 
 
-		Ändrade program
+
 		SDOLISW		Ändrad att passa till kugar 1.2.92 ->
 				samt till ISO-8859-1 för XML, mm
 		LSTINKW		Uppdatering (stretching)
