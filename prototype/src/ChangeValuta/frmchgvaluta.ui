@@ -1,0 +1,346 @@
+<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<class>frmChgValuta</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmChgValuta</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>307</width>
+            <height>210</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>CHGVALW  Ändra valuta</string>
+    </property>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelBeteck</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>60</y>
+                <width>70</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Beteckning:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditBeteck</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>90</x>
+                <y>60</y>
+                <width>210</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonQuit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>145</x>
+                <y>180</y>
+                <width>61</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avsluta</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditLand</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>90</x>
+                <y>90</y>
+                <width>210</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditKop</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>90</x>
+                <y>120</y>
+                <width>55</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditSalj</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>90</x>
+                <y>150</y>
+                <width>55</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelValuta</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>30</y>
+                <width>45</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Valuta:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelLand</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>90</y>
+                <width>40</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Land:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelKop</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>120</y>
+                <width>40</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Köp:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelSalj</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>150</y>
+                <width>40</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Sälj:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditValuta</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>91</x>
+                <y>30</y>
+                <width>45</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonGet</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>180</y>
+                <width>51</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hämta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonUpdate</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>65</x>
+                <y>180</y>
+                <width>70</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Uppdatera</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>LineEditBeteck</sender>
+        <signal>returnPressed()</signal>
+        <receiver>PushButtonGet</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonGet</sender>
+        <signal>clicked()</signal>
+        <receiver>LineEditBeteck</receiver>
+        <slot>clear()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonGet</sender>
+        <signal>clicked()</signal>
+        <receiver>LineEditValuta</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonGet</sender>
+        <signal>clicked()</signal>
+        <receiver>LineEditValuta</receiver>
+        <slot>clear()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditBeteck</sender>
+        <signal>returnPressed()</signal>
+        <receiver>LineEditLand</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditValuta</sender>
+        <signal>returnPressed()</signal>
+        <receiver>LineEditBeteck</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditLand</sender>
+        <signal>returnPressed()</signal>
+        <receiver>LineEditKop</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditKop</sender>
+        <signal>returnPressed()</signal>
+        <receiver>PushButtonUpdate</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditValuta</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmChgValuta</receiver>
+        <slot>slotValutaEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditBeteck</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmChgValuta</receiver>
+        <slot>slotBeteckningEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditLand</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmChgValuta</receiver>
+        <slot>slotLandEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditKop</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmChgValuta</receiver>
+        <slot>slotKopEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditSalj</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmChgValuta</receiver>
+        <slot>slotSaljEntered()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonGet</sender>
+        <signal>clicked()</signal>
+        <receiver>frmChgValuta</receiver>
+        <slot>slotPushButtonGet_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonQuit</sender>
+        <signal>clicked()</signal>
+        <receiver>frmChgValuta</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonUpdate</sender>
+        <signal>clicked()</signal>
+        <receiver>frmChgValuta</receiver>
+        <slot>slotChgValuta()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>LineEditValuta</tabstop>
+    <tabstop>PushButtonGet</tabstop>
+    <tabstop>LineEditBeteck</tabstop>
+    <tabstop>LineEditLand</tabstop>
+    <tabstop>LineEditKop</tabstop>
+    <tabstop>PushButtonUpdate</tabstop>
+    <tabstop>PushButtonQuit</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">frmchgvaluta.ui.h</include>
+</includes>
+<slots>
+    <slot>init()</slot>
+    <slot>slotGetValuta()</slot>
+    <slot>slotChgValuta()</slot>
+    <slot>slotValutaEntered()</slot>
+    <slot>slotBeteckningEntered()</slot>
+    <slot>slotLandEntered()</slot>
+    <slot>slotKopEntered()</slot>
+    <slot>slotSaljEntered()</slot>
+    <slot>slotPushButtonGet_clicked()</slot>
+    <slot>slotValDataOnStdout()</slot>
+    <slot>slotValDataOnStderr()</slot>
+    <slot>slotEndOfValProcess()</slot>
+    <slot>slotChgDataOnStdout()</slot>
+    <slot>slotChgDataOnStderr()</slot>
+    <slot>slotEndOfChgProcess()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

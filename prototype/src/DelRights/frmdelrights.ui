@@ -1,0 +1,209 @@
+<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<class>frmDelRights</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmDelRights</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>311</width>
+            <height>219</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>DELRGTW Ta bort  behörighet</string>
+    </property>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>10</y>
+                <width>79</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Användar-ID:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>40</y>
+                <width>69</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Behörighet:</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonQuit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>115</x>
+                <y>190</y>
+                <width>61</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Sluta</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel6</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>165</y>
+                <width>111</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Radera behörighet</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditTransid</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>90</x>
+                <y>40</y>
+                <width>90</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditUserid</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>90</x>
+                <y>10</y>
+                <width>90</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonGet</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>195</x>
+                <y>40</y>
+                <width>71</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hämta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>190</y>
+                <width>61</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>OK</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>LineEditUserid</sender>
+        <signal>returnPressed()</signal>
+        <receiver>PushButtonGet</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditUserid</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmDelRights</receiver>
+        <slot>slotUseridEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditTransid</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmDelRights</receiver>
+        <slot>slotTransidEntered()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonGet</sender>
+        <signal>clicked()</signal>
+        <receiver>frmDelRights</receiver>
+        <slot>slotGetRights()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>frmDelRights</receiver>
+        <slot>slotDelRgt()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonQuit</sender>
+        <signal>clicked()</signal>
+        <receiver>frmDelRights</receiver>
+        <slot>close()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>LineEditUserid</tabstop>
+    <tabstop>PushButtonGet</tabstop>
+    <tabstop>PushButtonOK</tabstop>
+    <tabstop>PushButtonQuit</tabstop>
+    <tabstop>LineEditTransid</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">frmdelrights.ui.h</include>
+</includes>
+<slots>
+    <slot>init()</slot>
+    <slot>slotUseridEntered()</slot>
+    <slot>slotTransidEntered()</slot>
+    <slot>slotGetRights()</slot>
+    <slot>slotGetDataOnStdout()</slot>
+    <slot>slotGetDataOnStderr()</slot>
+    <slot>slotEndOfGetProcess()</slot>
+    <slot>slotDelRgt()</slot>
+    <slot>slotDelDataOnStdout()</slot>
+    <slot>slotDelDataOnStderr()</slot>
+    <slot>slotEndOfDelProcess()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

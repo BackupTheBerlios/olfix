@@ -1,0 +1,201 @@
+<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<class>frmAddKstalle</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmAddKstalle</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>423</width>
+            <height>152</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>OLFIX - ADDKSTW  Lägga upp nytt kostnadsställe</string>
+    </property>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelArid</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>30</y>
+                <width>81</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Bokföringsår:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelKstalle</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>60</y>
+                <width>87</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Kostnadsställe:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelBenamn</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>90</y>
+                <width>70</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Benämning:</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonQuit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>65</x>
+                <y>125</y>
+                <width>61</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avsluta</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditBar</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>30</y>
+                <width>35</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditKstalle</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>60</y>
+                <width>60</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditBenamn</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>90</y>
+                <width>315</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>125</y>
+                <width>51</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>OK</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>PushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>LineEditBar</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonQuit</sender>
+        <signal>clicked()</signal>
+        <receiver>frmAddKstalle</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>frmAddKstalle</receiver>
+        <slot>slotPushButtonOK_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditBar</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmAddKstalle</receiver>
+        <slot>slotBarEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditKstalle</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmAddKstalle</receiver>
+        <slot>slotKstalleEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditBenamn</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmAddKstalle</receiver>
+        <slot>slotBenamnEntered()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>LineEditBar</tabstop>
+    <tabstop>LineEditKstalle</tabstop>
+    <tabstop>LineEditBenamn</tabstop>
+    <tabstop>PushButtonOK</tabstop>
+    <tabstop>PushButtonQuit</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">frmaddkstalle.ui.h</include>
+</includes>
+<slots>
+    <slot>init()</slot>
+    <slot>slotBarEntered()</slot>
+    <slot>slotKstalleEntered()</slot>
+    <slot>slotBenamnEntered()</slot>
+    <slot>slotPushButtonOK_clicked()</slot>
+    <slot>slotAddKstalle()</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>slotEndOfProcess()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

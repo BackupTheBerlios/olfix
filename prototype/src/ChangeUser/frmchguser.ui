@@ -1,0 +1,312 @@
+<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<class>frmChgUser</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmChgUser</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>319</width>
+            <height>190</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>CHGUSRW  Ändra användare</string>
+    </property>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelAvd</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>90</y>
+                <width>70</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avd:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelGrupp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>120</y>
+                <width>70</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Grupp:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelNamn</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>60</y>
+                <width>70</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Namn:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelUserID</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>30</y>
+                <width>81</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Användar-ID:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditNamn</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>90</x>
+                <y>60</y>
+                <width>210</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditAvd</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>90</x>
+                <y>90</y>
+                <width>80</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditGrupp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>90</x>
+                <y>120</y>
+                <width>80</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonGet</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>160</y>
+                <width>51</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hämta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonUpdate</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>70</x>
+                <y>160</y>
+                <width>70</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Uppdatera</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditUserid</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>91</x>
+                <y>30</y>
+                <width>80</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonQuit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>150</x>
+                <y>160</y>
+                <width>61</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avsluta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>PushButtonQuit</sender>
+        <signal>clicked()</signal>
+        <receiver>frmChgUser</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditNamn</sender>
+        <signal>returnPressed()</signal>
+        <receiver>PushButtonGet</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonGet</sender>
+        <signal>clicked()</signal>
+        <receiver>LineEditNamn</receiver>
+        <slot>clear()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonGet</sender>
+        <signal>clicked()</signal>
+        <receiver>LineEditUserid</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonGet</sender>
+        <signal>clicked()</signal>
+        <receiver>LineEditUserid</receiver>
+        <slot>clear()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditGrupp</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmChgUser</receiver>
+        <slot>slotGruppEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditNamn</sender>
+        <signal>returnPressed()</signal>
+        <receiver>LineEditAvd</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditUserid</sender>
+        <signal>returnPressed()</signal>
+        <receiver>LineEditNamn</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditNamn</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmChgUser</receiver>
+        <slot>slotNameEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditAvd</sender>
+        <signal>returnPressed()</signal>
+        <receiver>LineEditGrupp</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditAvd</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmChgUser</receiver>
+        <slot>slotAvdEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditUserid</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmChgUser</receiver>
+        <slot>slotUseridEntered()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonGet</sender>
+        <signal>clicked()</signal>
+        <receiver>frmChgUser</receiver>
+        <slot>slotPushButtonGet_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonUpdate</sender>
+        <signal>clicked()</signal>
+        <receiver>frmChgUser</receiver>
+        <slot>slotPushButtonUpdate_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditGrupp</sender>
+        <signal>returnPressed()</signal>
+        <receiver>PushButtonUpdate</receiver>
+        <slot>setFocus()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>LineEditUserid</tabstop>
+    <tabstop>PushButtonGet</tabstop>
+    <tabstop>LineEditNamn</tabstop>
+    <tabstop>LineEditAvd</tabstop>
+    <tabstop>LineEditGrupp</tabstop>
+    <tabstop>PushButtonUpdate</tabstop>
+    <tabstop>PushButtonQuit</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">frmchguser.ui.h</include>
+</includes>
+<slots>
+    <slot>slotGetUser()</slot>
+    <slot>slotChgUser()</slot>
+    <slot>slotUseridEntered()</slot>
+    <slot>slotNameEntered()</slot>
+    <slot>slotAvdEntered()</slot>
+    <slot>slotGruppEntered()</slot>
+    <slot>slotPushButtonGet_clicked()</slot>
+    <slot>slotPushButtonUpdate_clicked()</slot>
+    <slot>slotUsrDataOnStdout()</slot>
+    <slot>slotEndOfUsrProcess()</slot>
+    <slot>slotChgDataOnStdout()</slot>
+    <slot>slotChgDataOnStderr()</slot>
+    <slot>slotEndOfChgProcess()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

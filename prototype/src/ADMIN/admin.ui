@@ -1,0 +1,207 @@
+<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<class>ADMIN</class>
+<widget class="QMainWindow">
+    <property name="name">
+        <cstring>ADMIN</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>300</width>
+            <height>220</height>
+        </rect>
+    </property>
+    <property name="minimumSize">
+        <size>
+            <width>21</width>
+            <height>64</height>
+        </size>
+    </property>
+    <property name="maximumSize">
+        <size>
+            <width>300</width>
+            <height>220</height>
+        </size>
+    </property>
+    <property name="baseSize">
+        <size>
+            <width>300</width>
+            <height>220</height>
+        </size>
+    </property>
+    <property name="caption">
+        <string>OLFIX Administration</string>
+    </property>
+</widget>
+<menubar>
+    <property name="name">
+        <cstring>menubar</cstring>
+    </property>
+    <item text="&amp;Användare" name="fileMenu">
+        <action name="userAddAction"/>
+        <action name="userChangeAction"/>
+        <action name="userListAction"/>
+        <action name="userDeleteAction"/>
+        <separator/>
+        <separator/>
+    </item>
+    <item text="&amp;Behörigheter" name="editMenu">
+        <action name="rightAddAction"/>
+        <separator/>
+        <action name="rightListAction"/>
+        <action name="rightListOneUserAction"/>
+        <separator/>
+        <action name="rightDeleteAction"/>
+    </item>
+</menubar>
+<toolbars>
+</toolbars>
+<actions>
+    <action>
+        <property name="name">
+            <cstring>userAddAction</cstring>
+        </property>
+        <property name="text">
+            <string>userAdd</string>
+        </property>
+        <property name="menuText">
+            <string>Lägga till användare</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>userChangeAction</cstring>
+        </property>
+        <property name="text">
+            <string>userChange</string>
+        </property>
+        <property name="menuText">
+            <string>Ändra användare</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>userDeleteAction</cstring>
+        </property>
+        <property name="text">
+            <string>userDelete</string>
+        </property>
+        <property name="menuText">
+            <string>Ta bort användare</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>userListAction</cstring>
+        </property>
+        <property name="text">
+            <string>userList</string>
+        </property>
+        <property name="menuText">
+            <string>Lista användare</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>rightAddAction</cstring>
+        </property>
+        <property name="text">
+            <string>rightAdd</string>
+        </property>
+        <property name="menuText">
+            <string>Lägga till behörighet</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>rightDeleteAction</cstring>
+        </property>
+        <property name="text">
+            <string>rightDelete</string>
+        </property>
+        <property name="menuText">
+            <string>Ta bort behörighet</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>rightListAction</cstring>
+        </property>
+        <property name="text">
+            <string>Lista behörigheter</string>
+        </property>
+        <property name="menuText">
+            <string>Lista behörigheter</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>rightListOneUserAction</cstring>
+        </property>
+        <property name="text">
+            <string>Visa en användares behörighet</string>
+        </property>
+        <property name="menuText">
+            <string>Visa en användares behörighet</string>
+        </property>
+    </action>
+</actions>
+<connections>
+    <connection>
+        <sender>userAddAction</sender>
+        <signal>activated()</signal>
+        <receiver>ADMIN</receiver>
+        <slot>userAddSlot()</slot>
+    </connection>
+    <connection>
+        <sender>userChangeAction</sender>
+        <signal>activated()</signal>
+        <receiver>ADMIN</receiver>
+        <slot>userChangeSlot()</slot>
+    </connection>
+    <connection>
+        <sender>userDeleteAction</sender>
+        <signal>activated()</signal>
+        <receiver>ADMIN</receiver>
+        <slot>userDeleteSlot()</slot>
+    </connection>
+    <connection>
+        <sender>userListAction</sender>
+        <signal>activated()</signal>
+        <receiver>ADMIN</receiver>
+        <slot>userListSlot()</slot>
+    </connection>
+    <connection>
+        <sender>rightListAction</sender>
+        <signal>activated()</signal>
+        <receiver>ADMIN</receiver>
+        <slot>rightListSlot()</slot>
+    </connection>
+    <connection>
+        <sender>rightDeleteAction</sender>
+        <signal>activated()</signal>
+        <receiver>ADMIN</receiver>
+        <slot>rightDeleteSlot()</slot>
+    </connection>
+    <connection>
+        <sender>rightAddAction</sender>
+        <signal>activated()</signal>
+        <receiver>ADMIN</receiver>
+        <slot>rightAddSlot()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">admin.ui.h</include>
+</includes>
+<slots>
+    <slot>rightAddSlot()</slot>
+    <slot>rightDeleteSlot()</slot>
+    <slot>rightListSlot()</slot>
+    <slot>userAddSlot()</slot>
+    <slot>userChangeSlot()</slot>
+    <slot>userDeleteSlot()</slot>
+    <slot>userListSlot()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

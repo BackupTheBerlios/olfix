@@ -1,0 +1,201 @@
+<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<class>frmChgFtgData</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmChgFtgData</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>678</width>
+            <height>296</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>CHGFTGW - Ändra företagsdata</string>
+    </property>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>15</y>
+                <width>50</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Posttyp:</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonGet</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>125</x>
+                <y>10</y>
+                <width>51</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hämta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>265</y>
+                <width>65</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>OK</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Posttyp</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizeable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Benämning</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizeable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <property name="name">
+            <cstring>ListView1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>465</x>
+                <y>6</y>
+                <width>210</width>
+                <height>285</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonUpdate</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>80</x>
+                <y>265</y>
+                <width>71</width>
+                <height>26</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Uppdatera</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditPosttyp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>65</x>
+                <y>10</y>
+                <width>51</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>PushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>frmChgFtgData</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditPosttyp</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmChgFtgData</receiver>
+        <slot>slotGetPosttyp()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonGet</sender>
+        <signal>clicked()</signal>
+        <receiver>frmChgFtgData</receiver>
+        <slot>PushButtonGet_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>ListView1</sender>
+        <signal>clicked(QListViewItem*)</signal>
+        <receiver>frmChgFtgData</receiver>
+        <slot>ListView1_clicked(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonUpdate</sender>
+        <signal>clicked()</signal>
+        <receiver>frmChgFtgData</receiver>
+        <slot>PushButtonUpdate_clicked()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">frmchgftgdata.ui.h</include>
+</includes>
+<slots>
+    <slot>init()</slot>
+    <slot>slotGetPosttyp()</slot>
+    <slot>PushButtonGet_clicked()</slot>
+    <slot>slotGetFtgData( QString posttyp )</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>slotEndOfProcess()</slot>
+    <slot>slotGetADR1()</slot>
+    <slot>slotGetADR2()</slot>
+    <slot>slotGetADR3()</slot>
+    <slot>slotGetFTGNR()</slot>
+    <slot>slotGetTFN1()</slot>
+    <slot>slotGetTFN2()</slot>
+    <slot>slotGetTFAX()</slot>
+    <slot>slotGetEML1()</slot>
+    <slot>slotGetMOMS1()</slot>
+    <slot>slotLineEditMoms1_returnPressed()</slot>
+    <slot>slotGetPosttyper()</slot>
+    <slot>slotGetPostEndOfProcess()</slot>
+    <slot>ListView1_clicked( QListViewItem * item )</slot>
+    <slot>slotUpdFtgData( QString posttyp, QString ftgdata )</slot>
+    <slot>slotUpdateEndOfProcess()</slot>
+    <slot>PushButtonUpdate_clicked()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

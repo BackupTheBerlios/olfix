@@ -1,0 +1,232 @@
+<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<class>frmKtoRapport</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmKtoRapport</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>433</width>
+            <height>461</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>RPTKTOW  Kontorapport</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>11</number>
+        </property>
+        <property name="spacing">
+            <number>6</number>
+        </property>
+        <widget class="QLabel" row="1" column="0">
+            <property name="name">
+                <cstring>TextLabel2</cstring>
+            </property>
+            <property name="text">
+                <string>Datum:</string>
+            </property>
+        </widget>
+        <widget class="QGroupBox" row="3" column="0" rowspan="1" colspan="5">
+            <property name="name">
+                <cstring>GroupBox1</cstring>
+            </property>
+            <property name="title">
+                <string></string>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>11</number>
+                </property>
+                <property name="spacing">
+                    <number>6</number>
+                </property>
+                <widget class="QListView" row="0" column="0">
+                    <column>
+                        <property name="text">
+                            <string>Kontonr</string>
+                        </property>
+                        <property name="clickable">
+                            <bool>true</bool>
+                        </property>
+                        <property name="resizeable">
+                            <bool>true</bool>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Kontonamn</string>
+                        </property>
+                        <property name="clickable">
+                            <bool>true</bool>
+                        </property>
+                        <property name="resizeable">
+                            <bool>true</bool>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Debet</string>
+                        </property>
+                        <property name="clickable">
+                            <bool>true</bool>
+                        </property>
+                        <property name="resizeable">
+                            <bool>true</bool>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Kredit</string>
+                        </property>
+                        <property name="clickable">
+                            <bool>true</bool>
+                        </property>
+                        <property name="resizeable">
+                            <bool>true</bool>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Summa</string>
+                        </property>
+                        <property name="clickable">
+                            <bool>true</bool>
+                        </property>
+                        <property name="resizeable">
+                            <bool>true</bool>
+                        </property>
+                    </column>
+                    <property name="name">
+                        <cstring>ListView1</cstring>
+                    </property>
+                    <property name="frameShape">
+                        <enum>StyledPanel</enum>
+                    </property>
+                    <property name="frameShadow">
+                        <enum>Sunken</enum>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="QLabel" row="2" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>TextLabel1_2</cstring>
+            </property>
+            <property name="text">
+                <string>Bokföringsår:</string>
+            </property>
+        </widget>
+        <widget class="QLabel" row="0" column="0" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>TextLabel1</cstring>
+            </property>
+            <property name="font">
+                <font>
+                    <family>Times [Adobe]</family>
+                    <pointsize>16</pointsize>
+                    <bold>1</bold>
+                </font>
+            </property>
+            <property name="text">
+                <string>Kontorapport</string>
+            </property>
+        </widget>
+        <widget class="QLineEdit" row="2" column="2" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>LineEditBar</cstring>
+            </property>
+        </widget>
+        <widget class="QLabel" row="1" column="1" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>TextLabelDatum</cstring>
+            </property>
+            <property name="text">
+                <string>1998-01-01</string>
+            </property>
+        </widget>
+        <spacer row="0" column="3" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>Spacer9</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>315</width>
+                    <height>0</height>
+                </size>
+            </property>
+        </spacer>
+        <spacer row="1" column="4">
+            <property name="name">
+                <cstring>Spacer10</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>300</width>
+                    <height>0</height>
+                </size>
+            </property>
+        </spacer>
+        <spacer row="2" column="4">
+            <property name="name">
+                <cstring>Spacer3</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>300</width>
+                    <height>0</height>
+                </size>
+            </property>
+        </spacer>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>LineEditBar</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmKtoRapport</receiver>
+        <slot>slotLineEditBar_returnPressed()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">ktorapport.ui.h</include>
+</includes>
+<slots>
+    <slot>init()</slot>
+    <slot>slotLineEditBar_returnPressed()</slot>
+    <slot>slotGetVerrader()</slot>
+    <slot>slotCheckBar()</slot>
+    <slot>slotBARCHKEndOfProcess()</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>slotKTORPTEndOfProcess()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
