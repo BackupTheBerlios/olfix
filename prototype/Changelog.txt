@@ -1,10 +1,12 @@
-Changelog OLFIX 20041110
+Changelog OLFIX 20041113
 Blivande
 Ver 0.1.16.A
-20041110
+20041113
 
 		Allmänt
 		Flyttat OLFIX-paketet till /opt/olfix
+		Återställt (tagit bort katalogen C i repositoryt)
+			Filerna ligger i /src
 
 		Nya program
 		LSTLEVPW	Lista standardleveransplatser
@@ -19,7 +21,34 @@ Ver 0.1.16.A
 		OLFIXHLP
 			Ny sökväg till hjälpfilen
 		LSTKUW	Mindre justering av main.cpp
+		ADDBARW Mindre justering av main.cpp och *.pro
+		ADDBETV Mindre justering av main.cpp och *.pro
+		ADDFTGW Mindre justering av main.cpp och *.pro
+		ADDFNC  Mindre justering av main.cpp och *.pro
 		ADDINKW Mindre justering av main.cpp och AddBestellning.pro
+		ADDKTOW Mindre justering av main.cpp och *.pro
+		ADDKSTW Mindre justering av main.cpp och *.pro
+		ADDKUW  Mindre justering av main.cpp och *.pro
+		ADDLPLW Mindre justering av main.cpp och *.pro
+		ADDLEVW Mindre justering av main.cpp och *.pro
+		ADDLEVSW Mindre justering av main.cpp och *.pro
+		ADDLEVVW Mindre justering av main.cpp och *.pro
+		ADDORDW Mindre justering av main.cpp och *.pro
+		ADDRGTW Mindre justering av main.cpp och *.pro
+		ADDLEVPW Mindre justering av main.cpp och *.pro
+		ADDTXTW Mindre justering av main.cpp och *.pro
+		ADDUSRW Mindre justering av main.cpp och *.pro
+		ADDVALW Mindre justering av main.cpp och *.pro
+		BALRPTW Mindre justering av main.cpp och *.pro
+		BOKFORSW Mindre justering av main.cpp och *.pro
+		CHGARW Mindre justering av main.cpp och *.pro
+		CHGBARW Mindre justering av main.cpp och *.pro
+		CHGBETVW Mindre justering av main.cpp och *.pro
+		BYTFTGW Mindre justering av main.cpp och *.pro
+		CHGFTGW Mindre justering av main.cpp och *.pro
+
+		DELUSRW Mindre justering av main.cpp och AddBestellning.pro
+			Lagt in varningstext (Anv. OLFIX får inte tagas bort)
 
 
 		Nya funktioner
@@ -58,10 +87,10 @@ Ver 0.1.16.A
 
 		Dokumentation
 		Online Användarmanual finn på CVS
-		Teknisk Manual	Uppdaterad (2004-11-08)
+		Teknisk Manual	Uppdaterad (2004-11-12)
 			Kompleterat "Filosofin bakom konstruktionen"
 			Kompleterat med "GNU Free Documentation License"
-		Användarmanual, Uppdaterad (2004-11-06)
+		Användarmanual, Uppdaterad (2004-11-12)
 			GNU Free Documentation License
 ________________________________________________________
 Ver 0.1.15.A
