@@ -396,13 +396,13 @@
     <slot>slotFileRemove( QString filnamn )</slot>
     <slot>KugarVersion()</slot>
     <slot>GetReportDir()</slot>
-    <slot>CallKugar()</slot>
     <slot>getFortetagsnamn()</slot>
     <slot>slotFtgnamnEndOfProcess()</slot>
     <slot>GetBokfPeriod()</slot>
     <slot>slotGetBokfPeriodEndOfProcess()</slot>
-    <slot>GetVernr()</slot>
-    <slot>slotGetVernrEndOfProcess()</slot>
+    <slot>slotRunPrinting( QString rptfile, QString rpttemplate )</slot>
+    <slot>slotDataOnPrtStderr()</slot>
+    <slot>slotEndOfPrtProcess()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>

@@ -1,8 +1,8 @@
 /****************************************************************/
 /**		SDOLISW					*/
-/**		Ver 0.6                                                                                    */
+/**		Ver 0.7                                                                                    */
 /**		Created    2003-08-21				*/
-/**		Modified 2004-03-27				*/
+/**		Modified 2004-04-05				*/
 /**   Copyright	Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -118,7 +118,6 @@ void frmSaldolista::slotpushButtonOK_clicked()
 {
     if (csvflag != "J"){
 	slotFileRemove("Saldolista.kud");		// tag bort gammal datafil
-//	slotCreateHeader();			// Därifrån call slotGetData
     }else{
 	slotFileRemove("Saldolista.txt");		// tag bort gammal datafil	
     }
@@ -419,9 +418,9 @@ void frmSaldolista::slotEndOfProcess()
     filnamn.close();
     QMessageBox::information( this, "ATTBETW","Rapport skapad!\n");
     if (csvflag == "J"){
-	system("kspread /tmp/Saldolista.txt");
+	frmSaldolista::slotRunPrinting("Saldolista.txt","" );
     }else{
-	frmSaldolista::CallKugar();
+	frmSaldolista::slotRunPrinting("Saldolista.kud","Saldolista.kut" );
     }
      errorrad="";
      inrad="";
@@ -583,6 +582,7 @@ void frmSaldolista::GetReportDir()
 //    qDebug("reportpath=  %s",reportpath.latin1());
 }
 
+/*
 void frmSaldolista::CallKugar()
 {
     if (kugarversion<"1.2.92"){
@@ -593,6 +593,7 @@ void frmSaldolista::CallKugar()
 	system("kugar  /tmp/Saldolista.kud");
     }
 }
+*/
 
 void frmSaldolista::getFortetagsnamn()
 {
@@ -637,8 +638,6 @@ void frmSaldolista::slotFtgnamnEndOfProcess()
 	    ftgnamn = inrad.mid(j+2,m-4);
 	}
     }
-//	qDebug("inrad=%s j=%d m=%d length=%d",inrad.latin1(),j,m,inrad.length());
-//	qDebug("ftgnamn=%s|,m=%d",ftgnamn.latin1(),m);
 }
 
 
@@ -689,11 +688,9 @@ void frmSaldolista::slotGetBokfPeriodEndOfProcess()
 	    m=10;
 	    maxdate = inrad.mid(j+3,m);	    	    
 	}
-//	period=mindate+" -- "+maxdate;
     }
     fromdate=mindate;
     tomdate=maxdate;
-//	qDebug("period=%s|,m=%d",period.latin1(),m);    
 }
 
 QString frmSaldolista::CheckDatum( QString datumet )
@@ -747,93 +744,45 @@ QString frmSaldolista::CheckDatum( QString datumet )
         return tempdatum;
 }
 
-void frmSaldolista::GetVernr()
+void frmSaldolista::slotRunPrinting(QString rptfile,QString rpttemplate )
 {
-	const char *userp = getenv("USER");
-            QString usr(userp);
-	errorrad="";
 	inrad="";
-	
+	errorrad="";
+
 	process = new QProcess();
-	process->addArgument("./STYRMAN");	// OLFIX styrprogram
-	process->addArgument(usr);		// userid
-	process->addArgument( "VERHLST");	// OLFIX funktion
-	process->addArgument(bar);		// Bokföringsår
-
-	frmSaldolista::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-	frmSaldolista::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-            frmSaldolista::connect( process, SIGNAL(processExited() ),this, SLOT(slotGetVernrEndOfProcess() ) );
-
+	process->addArgument("./PRTAPI" );		// OLFIX program
+	process->addArgument(csvflag);
+	process->addArgument(rptfile);
+	process->addArgument(rpttemplate);
+//	qDebug("csvflag=%s, rptfile=%s, rpttemplate=%s",csvflag.latin1(),rptfile.latin1(),rpttemplate.latin1());
+	frmSaldolista::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnPrtStderr() ) );
+	frmSaldolista::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfPrtProcess() ) );
 
 	if ( !process->start() ) {
-		QMessageBox::warning( this, "SDOLISW",
-                            "Kan inte starta STYRMAN/VERHLST! \n" );
-	}
-}
-
-void frmSaldolista::slotGetVernrEndOfProcess()
-{
-    int i,j,m,n;
-    int ant;
-
-    QString antal;
-    QString temp;
-    QString vernr;
-    QString bokfar;
-    QString verdatum;
-    QString tempdatum1;
-    QString tempvernr;
-
-    i = -1;
-    i = errorrad.find( QRegExp("Error:"), 0 );
-    if (i == 0) {
-	QMessageBox::critical( this, "OLFIX - SDOLISW",
-		"ERROR!\n"+errorrad
-		);
-	errorrad="";
-    }else{	
-	i = -1;
-	i = inrad.find( QRegExp("NR_"), 0 );
-	if (i != -1) {
-	    j =  inrad.find( QRegExp("_VERNR:"), i );
-	    m = j - (i + 3);
-	    antal = inrad.mid(i +3,m);
-	    ant=antal.toInt();
-//	    qDebug("slotGetVernrEndOfProcess::antal=%s ant=%d",antal.latin1(),ant);	    
-	    temp="";
-	    for (n=0;n<ant;n++){
-		 i = inrad.find( QRegExp("VERNR:"), j );
-		 j = inrad.find(QRegExp("_:"),i);
-		 m = j - (i+6);
-		 vernr = inrad.mid(i+6,m);	
-		 i = j;
-		 j = inrad.find(QRegExp("_:"),i+2);
-		 m = j - (i+2);
-		 bokfar = inrad.mid(i+2,m);
-		 i = j;
-		 j = inrad.find(QRegExp("_:"),i+2);
-		 m = j - (i+2);
-		 verdatum = inrad.mid(i+2,m);
-		 if (verdatum <= fromdatum && verdatum != tempdatum1 ){
-		     fromvernr=vernr;
-		 }
-		 tempdatum1=verdatum;
-	             if (verdatum == tomdatum){
-		     tomvernr=vernr;
-		 }
-//		 qDebug("slotGetVernrEndOfProcess::bokfar=%s,verdatum=%s,vernr=%s",bokfar.latin1(),verdatum.latin1(),vernr.latin1());
-// 		 qDebug("slotGetVernrEndOfProcess::fromvernr=%s, tomvernr=%s",fromvernr.latin1(),tomvernr.latin1());
-		 qDebug("slotGetVernrEndOfProcess::vernr=%s",vernr.latin1());
-	     }
-	    if(tomvernr==""){
-		tomvernr=vernr;
-	    }
-	    if(fromvernr==""){
-		fromvernr="1";
-	    }
-//    	    qDebug("slotGetVernrEndOfProcess::vernr=%s,fromvernr=%s,tomvernr=%s",vernr.latin1(),fromvernr.latin1(),tomvernr.latin1());
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta PRTAPI!\n" );
 	}
     }
-    inrad="";
-    errorrad="";
+
+void frmSaldolista::slotDataOnPrtStderr()
+{
+   while (process->canReadLineStderr() ) {
+	QString line = process->readStderr();
+	errorrad.append(line);
+	errorrad.append("\n");
+    }
+}
+
+void frmSaldolista::slotEndOfPrtProcess()
+{
+    int i;
+    i = -1;
+    i = inrad.find( QRegExp("Error:"), 0 );
+         if (i != -1) {
+	QMessageBox::critical( this, "OLFIXW",
+		"ERROR!\n"+inrad
+	);
+	inrad="";
+	i = -1;
+     }
 }
