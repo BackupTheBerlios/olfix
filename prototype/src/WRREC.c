@@ -1,8 +1,9 @@
 /***************************************************************************
                           WRREC.c  -  description
                              -------------------
-			     version 0.04
+			     version 0.05
     begin                : Sön 10 aug 2003
+    modified		: Fre	2 jan 2004
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -14,7 +15,7 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- *********************************************** ****************************/
+ ***************************************************************************/
 
 /****************************************************************************
 	INPUT: posttyp bar vernr radnr ktonr dk belopp kst subkto datum userid vertext
@@ -27,7 +28,7 @@
 	OUTPUT: filen /tmp/vernr.txt
  *****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/WRREC.c,v 1.4 2003/11/11 08:26:04 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/WRREC.c,v 1.5 2004/01/02 12:29:12 janpihlgren Exp $ " ;
 
 #include <string.h>
 #include <stdlib.h>
@@ -69,8 +70,8 @@ int main (int argc, char *argv[], char *envp[])
 	char *recpek;
 
 	status = find_tmp_path(envp);
-/*	fprintf(stderr,"status=%d tmp path=%s\n",status,tmpfilepath);		*/
-/*	exit(0);		*/
+/*	fprintf(stderr,"status=%d tmp_path=%s\n",status,tmpfilepath);
+	exit(0);	*/
 	if (status != 0)
 		exit(status);
 
@@ -78,9 +79,9 @@ int main (int argc, char *argv[], char *envp[])
 		fprintf(stderr,"Error: För få argument till WRREC!\n");
 		exit (-1);
 	}
-/*	for (i=0;i<argc;i++){		*/
-/*		fprintf(stderr,"argv[%d]=%s\n",i,argv[i]);			*/
-/*	}				*/
+/*	for (i=0;i<argc;i++){
+		fprintf(stderr,"argv[%d]=%s\n",i,argv[i]);
+	}	*/
 	recpek=post;
 	typpek=posttyp;
 	vrnrpek=vernr;
@@ -107,7 +108,6 @@ int main (int argc, char *argv[], char *envp[])
 	strncpy(belopp,argv[7],strlen(argv[7]));
 	strncpy(kst,argv[8],strlen(argv[8]));
 	strncpy(subkto,argv[9],strlen(argv[9]));
-
 	if (argc == 10){
 		strncpy(datum,filler1,strlen(filler1));
 		strncpy(userid,filler2,strlen(filler2));
@@ -121,7 +121,8 @@ int main (int argc, char *argv[], char *envp[])
 		strncat(recpek+i," ",1);
 	}
 
-	strncpy(post,posttyp,strlen(posttyp));
+/*	strncpy(post,posttyp,strlen(posttyp));		*/
+	strcpy(post,posttyp);
 	strncat(post," ",1);
 	strncat(post,bar,strlen(bar));
 	strncat(post," ",1);
@@ -144,8 +145,8 @@ int main (int argc, char *argv[], char *envp[])
 	strncat(post,userid,strlen(userid));
 	strncat(post," ",1);
 	strncat(post,vertext,strlen(vertext));
-/*	fprintf(stderr,"post=%s\n",post);	*/
-/*	exit(0);				*/
+/*	fprintf(stderr,"post=%s\n",post);		*/
+/*	exit(0);	*/
 	status=reg_post(recpek,vrnrpek,typpek);
 	return status;
 }
@@ -170,23 +171,28 @@ int reg_post(char *rec,char *vrnr,char *typpek)
 	int i;
 
 	postpek=post;
-
+/*	fprintf(stderr,"tmpfilepath=%s_\n",tmpfilepath);	*/
 	for (i = 0;i < sizeof(post); i++){
 		strcpy(postpek+i,rec+i);
 	}
-	strncpy(filnamn,tmpfilepath,strlen(tmpfilepath));
+	for (i=0;i<strlen(tmpfilepath);i++){
+		if (tmpfilepath[i]==13 ||tmpfilepath[i]==10 ){
+			tmpfilepath[i]=0;
+		}
+	}
+/*	strncpy(filnamn,tmpfilepath,strlen(tmpfilepath));	*/
+	strcpy(filnamn,tmpfilepath);
+/*	fprintf(stderr,"filnamn=%s vrnr=%s\n",filnamn,vrnr);	*/
 	if (strlen(vrnr) == 0){
 		strncat(filnamn,"fel_fil",7);
 	}else{
 		strncat(filnamn,vrnr,strlen(vrnr));
 	}
 	strncat(filnamn,ext,strlen(ext));
-
-/*	fprintf(stderr,"posttyp=%s\n",typpek);		*/
-/*	fprintf(stderr,"postlengd=%d\n",strlen(post));	*/
+/*	fprintf(stderr,"filnamn=%s\n",filnamn);		*/
+/*	exit (0);					*/
 	for (i=strlen(post);i< sizeof(post)-2;i++)
 		strncat(post," ",1);
-/*	fprintf(stderr,"filnamn=%s\n",filnamn);		*/
 /*	strcat(post,":");				*/
 	strncat(post,"\n",1);
 
@@ -195,7 +201,6 @@ int reg_post(char *rec,char *vrnr,char *typpek)
 	}else{
 		fil_pek = fopen(filnamn,"a");
 	}
-
 	status = fwrite(post,POSTSIZE,1,fil_pek);
 /*	fprintf(stderr,"post=%s\n",post);		*/
 	fclose(fil_pek);
@@ -235,7 +240,6 @@ int find_tmp_path(char *envp[])
 /*	fprintf(stderr,"home=%s\n",home);			*/
 	strncpy(filename,home,strlen(home));
 	strncat(filename,resource,strlen(resource));
-
 /*	fprintf(stderr,"filename=%s\n",filename);		*/
 	status=-1;
 
@@ -244,7 +248,8 @@ int find_tmp_path(char *envp[])
 /*			fprintf(stderr,"tmp=%s\n",tmp);		*/
 			if(strstr(tmp,"VTMP=")){
 				tmp_pek=(strstr(tmp,"VTMP="))+5;
-				strncpy(tmpfilepath,tmp_pek,strlen(tmp_pek));
+/*				strncpy(tmpfilepath,tmp_pek,strlen(tmp_pek));		*/
+				strcpy(tmpfilepath,tmp_pek);
 				status=0;
 			}
 		}
