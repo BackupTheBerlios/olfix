@@ -1,7 +1,7 @@
-Changelog OLFIX 20050101
+Changelog OLFIX 20050111
 Blivande
 Ver 0.1.17.A
-20050101
+20050111
 		Nya funktioner
 		PKDADD.c	Lägga upp ett nytt produktklass/produktgrupp/produktkod
 		PKDLST.c	Lista produktklass/produktgrupp/produktkod
@@ -14,9 +14,11 @@ Ver 0.1.17.A
 		LSTPKDW		Lista produktklass/produktgrupp/produktkod
 		DSPBARW		Visa räkenskapsår.
 		LSTFTGW		Lista data i företagsregistret.
+		RESTRPT		Resultatrapport (ej klar)
 
 		Ändrade program
 		OLFIXW	Versionsnummer i Om OLFIX
+		BALRPTW		Utvecklad (alfastatus)
 
 		Nya tabeller
 		PASSW		Spara password för webbkund (webbshop)		*
@@ -35,6 +37,9 @@ Ver 0.1.17.A
 		FTGDATAdata_olfixtst.txt	Nya posttyper
 		FTGDATAdata.txt			Nya posttyper
 		PROGRAMdata.txt			Nytt program
+
+		Ändrade rapporter
+		Balansrapport.kut	Lagt till totalsumma.
 
 		Dokumentation
 		Teknisk Manual	Uppdaterad (2005-01-01)
