@@ -1,0 +1,413 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>frmDagbok</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmDagbok</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>550</width>
+            <height>240</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>DAGBOKW - Dagbok</string>
+    </property>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>30</y>
+                <width>46</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Datum:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditBar</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>95</x>
+                <y>50</y>
+                <width>46</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Ange bokföringsår med 2 bokstäver</string>
+        </property>
+    </widget>
+    <widget class="QButtonGroup">
+        <property name="name">
+            <cstring>buttonGroup1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>80</y>
+                <width>135</width>
+                <height>60</height>
+            </rect>
+        </property>
+        <property name="title">
+            <string></string>
+        </property>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel2_2</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>10</x>
+                    <y>10</y>
+                    <width>100</width>
+                    <height>16</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>CSV-format:</string>
+            </property>
+        </widget>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel3</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>10</x>
+                    <y>35</y>
+                    <width>96</width>
+                    <height>16</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>Utskriftsformat:</string>
+            </property>
+        </widget>
+        <widget class="QRadioButton">
+            <property name="name">
+                <cstring>radioButtonPrint</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>110</x>
+                    <y>35</y>
+                    <width>16</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>radioButtonPrint</string>
+            </property>
+            <property name="checked">
+                <bool>true</bool>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Skapar en rapport för Kugar</string>
+            </property>
+        </widget>
+        <widget class="QRadioButton">
+            <property name="name">
+                <cstring>radioButtonCSV</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>110</x>
+                    <y>10</y>
+                    <width>16</width>
+                    <height>16</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>radioButtonCSV</string>
+            </property>
+            <property name="checked">
+                <bool>false</bool>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Skapar en rapport i kommaseparerat format och startar Kspread</string>
+            </property>
+        </widget>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel4_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>145</x>
+                <y>85</y>
+                <width>237</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Startar Kspread med importerade data.</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel5</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>145</x>
+                <y>110</y>
+                <width>301</width>
+                <height>26</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Skapar en rapport  med Kugar färdig att skriva ut.</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel4</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>55</y>
+                <width>85</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Bokföringsår:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>165</x>
+                <y>55</y>
+                <width>99</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Fr. o. m. datum:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2_3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>370</x>
+                <y>55</y>
+                <width>87</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>T.o.m. datum:</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>20</x>
+                <y>206</y>
+                <width>100</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Skapa rapport</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonAvbryt</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>130</x>
+                <y>206</y>
+                <width>76</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avbryt</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditFromDatum</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>265</x>
+                <y>50</y>
+                <width>81</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Datum skrivs ÅÅÅÅ-MM-DD</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditTomDatum</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>460</x>
+                <y>50</y>
+                <width>81</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Datum skrivs ÅÅÅÅ-MM-DD</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>5</y>
+                <width>85</width>
+                <height>19</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+                <family>Times</family>
+                <pointsize>16</pointsize>
+                <bold>1</bold>
+            </font>
+        </property>
+        <property name="text">
+            <string>Dagbok</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabelDatum</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>60</x>
+                <y>30</y>
+                <width>80</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>2004-04-10</string>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>lineEditBar</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmDagbok</receiver>
+        <slot>slotlineEditBar_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>frmDagbok</receiver>
+        <slot>slotpushButtonOK_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonAvbryt</sender>
+        <signal>clicked()</signal>
+        <receiver>frmDagbok</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>radioButtonCSV</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>frmDagbok</receiver>
+        <slot>radioButtonCSV_toggled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>radioButtonPrint</sender>
+        <signal>toggled(bool)</signal>
+        <receiver>frmDagbok</receiver>
+        <slot>radioButtonPrint_toggled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>lineEditFromDatum</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmDagbok</receiver>
+        <slot>lineEditFromDatum_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditTomDatum</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmDagbok</receiver>
+        <slot>lineEditTomDatum_returnPressed()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>lineEditBar</tabstop>
+    <tabstop>pushButtonOK</tabstop>
+    <tabstop>pushButtonAvbryt</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">frmdagbok.ui.h</include>
+</includes>
+<slots>
+    <slot>slotlineEditBar_returnPressed()</slot>
+    <slot>lineEditFromDatum_returnPressed()</slot>
+    <slot>lineEditTomDatum_returnPressed()</slot>
+    <slot>radioButtonCSV_toggled( bool )</slot>
+    <slot>radioButtonPrint_toggled( bool )</slot>
+    <slot>slotpushButtonOK_clicked()</slot>
+    <slot>slotGetData()</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>slotGetDataEndOfProcess()</slot>
+    <slot>slotCreateHeader()</slot>
+    <slot>slotFileRemove( QString filnamn )</slot>
+    <slot>KugarVersion()</slot>
+    <slot>GetReportDir()</slot>
+    <slot>GetTmpDir()</slot>
+    <slot>getFortetagsnamn()</slot>
+    <slot>slotFtgnamnEndOfProcess()</slot>
+    <slot>GetBokfPeriod()</slot>
+    <slot>slotGetBokfPeriodEndOfProcess()</slot>
+    <slot>slotRunPrinting( QString rptfile, QString rpttemplate )</slot>
+    <slot>slotDataOnPrtStderr()</slot>
+    <slot>slotEndOfPrtProcess()</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+    <function returnType="QString">CheckDatum( QString datumet )</function>
+</functions>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
