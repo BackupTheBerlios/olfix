@@ -8,9 +8,9 @@
 /***************************************************************************
                           OLFIXW  -  description
                              -------------------
-		     version 0.6
+		     version 0.61
     begin                   : Tis 16 maj 2003
-    modified	: Tors 11 nov 2004
+    modified	: Ons 1 dec 2004
     copyright            : (C) 2003 by Jan Pihlgren
     email                  : jan@pihlgren.se
  ***************************************************************************/
@@ -34,11 +34,13 @@
 #define MAXSTRING 10000
 #define PRGNAMN 40
 
+
 	QProcess* process;
 	QString* rad;
 	QString inrad;
 	QString errorrad;
 	QString program;
+	QString version="0.61";
 
 void frmOlfix::init()
 {
@@ -403,8 +405,8 @@ void frmOlfix::slotOmOlfix()
 		"OLFIX är ett order/lager/faktureringssystem"
 			    " för Linux.\n"
                             "(C) 2003 av Jan-Gunnar Pihlgren\n"
-			    "2003-05-27"
-	);
+			    "2003-05-27\n"
+ 		             "Version: "+version+"\n"	);
 }
 
 void frmOlfix::slotLicensvillkor()
