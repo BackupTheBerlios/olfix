@@ -23,7 +23,7 @@
 "INKADD","Lägga upp en ny inköpsorder"
 "INKRADD","Lägga upp en ny inköpsorderrad"
 "INKHDSP","Visa orderhuvud för angiven inköpsorder"
-"INKLST","Lista alla rader på angiven inköpsorder"
+"INKRLST","Lista alla rader på angiven inköpsorder"
 "KSTADD","Nyupplägg av kostnadsställe"
 "KSTCHK","Kontrollera om visst kostnadställe finns"
 "KSTDSP","Visa info för ett kostnadställe"
