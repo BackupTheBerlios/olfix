@@ -1,9 +1,9 @@
 /***************************************************************************
                           VERHDSP.c  -  description
                              -------------------
-			     Ver: 0.1
-    begin                : Tis 23 mars 2004
-    modified		 :
+			     Ver: 0.2
+    begin                : Tis  23 mars 2004
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2004 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/VERHDSP.c,v 1.1 2004/03/23 09:57:28 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/VERHDSP.c,v 1.2 2005/02/24 12:53:10 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -74,7 +74,7 @@ int main(int argc, char *argv[], char *envp[])
   	fprintf(stderr,"Error: arid saknas!\n");
 	exit(0);
   }
-  strncpy(arid,argv[1],strlen(argv[1]));
+  strncpy(arid,argv[1],sizeof(arid));					/* 2005-02-24	*/
 
 /* ================================================================================ */
 /* 		Val av databas, START						    */
@@ -89,7 +89,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
-		strncpy(databas,database,15);
+		strncpy(databas,database,sizeof(databas));		/* 2005-02-24	*/
 	}else{
   		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}
