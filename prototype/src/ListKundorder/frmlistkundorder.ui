@@ -48,7 +48,7 @@
         <property name="name">
             <cstring>unnamed</cstring>
         </property>
-        <widget class="QListView" row="0" column="1" rowspan="3" colspan="1">
+        <widget class="QListView" row="0" column="1" rowspan="4" colspan="1">
             <column>
                 <property name="text">
                     <string>Ordernr</string>
@@ -117,7 +117,23 @@
                 <enum>LastColumn</enum>
             </property>
         </widget>
-        <spacer row="0" column="0">
+        <widget class="QPushButton" row="3" column="0">
+            <property name="name">
+                <cstring>PushButtonSluta</cstring>
+            </property>
+            <property name="text">
+                <string>Sluta</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="2" column="0">
+            <property name="name">
+                <cstring>PushButtonAgain</cstring>
+            </property>
+            <property name="text">
+                <string>Uppdatera</string>
+            </property>
+        </widget>
+        <spacer row="1" column="0">
             <property name="name">
                 <cstring>spacer1</cstring>
             </property>
@@ -130,24 +146,16 @@
             <property name="sizeHint">
                 <size>
                     <width>16</width>
-                    <height>156</height>
+                    <height>130</height>
                 </size>
             </property>
         </spacer>
-        <widget class="QPushButton" row="1" column="0">
+        <widget class="QPushButton" row="0" column="0">
             <property name="name">
-                <cstring>PushButtonAgain</cstring>
+                <cstring>PushButtonHjelp</cstring>
             </property>
             <property name="text">
-                <string>Uppdatera</string>
-            </property>
-        </widget>
-        <widget class="QPushButton" row="2" column="0">
-            <property name="name">
-                <cstring>PushButtonSluta</cstring>
-            </property>
-            <property name="text">
-                <string>Sluta</string>
+                <string>Hjälp</string>
             </property>
         </widget>
     </grid>
@@ -165,6 +173,12 @@
         <receiver>frmListKundorder</receiver>
         <slot>slotReloadLev()</slot>
     </connection>
+    <connection>
+        <sender>PushButtonHjelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmListKundorder</receiver>
+        <slot>PushButtonHjelp_clicked()</slot>
+    </connection>
 </connections>
 <includes>
     <include location="local" impldecl="in implementation">frmlistkundorder.ui.h</include>
@@ -176,6 +190,8 @@
     <slot>slotEndOfProcess()</slot>
     <slot>slotDataOnStderr()</slot>
     <slot>slotReloadLev()</slot>
+    <slot>PushButtonHjelp_clicked()</slot>
+    <slot>readResursFil()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

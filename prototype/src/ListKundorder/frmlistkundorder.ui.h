@@ -39,6 +39,7 @@
 	QString inrad;
 	QString errorrad;
 	QString* rad;
+	QString hjelpfil;
 	
 void frmListKundorder::GetKundorder()	
 {
@@ -223,5 +224,57 @@ void frmListKundorder::slotReloadLev()
     frmListKundorder::GetKundorder();
 }
 
+void frmListKundorder::PushButtonHjelp_clicked()
+{
+	inrad="";
+	frmListKundorder::readResursFil();		// Hämta path till hjälpfilen
 
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_KUNDORDER.html";
+	hjelpfil=hjelpfil+"#LISTORDER";		// Lägg till position
+//	qDebug("hjelpfil=%s",hjelpfil.latin1());
 
+	process = new QProcess();
+	process->addArgument( "OLFIXHLP" );	// OLFIX program
+	process->addArgument(hjelpfil);
+
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
+	}
+	PushButtonSluta->setFocus();
+
+}
+
+void frmListKundorder::readResursFil()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			               */
+    /* Plocka fram var hjälpfilen finns			               */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 );
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
+}
