@@ -1,9 +1,9 @@
 /***************************************************************************
                           FTGDSP.c  -  description
                              -------------------
-    Version		: 0.2
+    Version		: 0.3
     begin               : Tis 19 nov 2002
-    modified		: Tis 14 okt 2003
+    modified		: Mån 3  nov 2003
     copyright           : (C) 2002 by Jan Pihlgren
     email               : jan@pihlgren.se
  ***************************************************************************/
@@ -18,9 +18,9 @@
  *********************************************** ****************************/
 
 /*
-	INPUT: 2 st arg = posttyp database
+	INPUT: 2 st arg = posttyp [database]
 
-	Kommando: ./FTGDSP posttyp database
+	Kommando: ./FTGDSP posttyp [database]
 
 	Function: Visa information för önskad posttyp
 
@@ -29,7 +29,7 @@
 */
 
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FTGDSP.c,v 1.2 2003/10/17 07:52:15 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FTGDSP.c,v 1.3 2003/11/03 04:24:14 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -38,77 +38,90 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 #include "mysql.h"
+#define ANTARG 2
 
   MYSQL my_connection;
   MYSQL_RES *res_ptr;
   MYSQL_ROW sqlrow;
 
-int main(int argc, char *argv[])
+  int which_database(char *envp[]);
+  char database[15]="";
+
+int main(int argc, char *argv[], char *envp[])
 {
-  MYSQL my_connection;
   int res;
   int num_rows;
-//  int i;
+/*  int i;	*/
+  int status;
+  const char *userp = getenv("USER");	/* vem är inloggad?	*/
+  char databas[25]="olfix";
+  char usr[15];				/* userid		*/
 
-  const char *userp = getenv("USER");	// vem är inloggad?
-
-  char databas[]="olfix";
   char temp1[]="SELECT POSTTYP, FDATA FROM FTGDATA WHERE (POSTTYP = \"";
   char temp2[]="\"";
-//  char temp3[]=",";
   char temp4[]=")";
   char temp5[200]="";
-  char posttyp[5];
-  char fornr[4];	// företag nr fornr, 99 = testföretag
-  char usr[15];		// userid
-//  fprintf(stderr,"FTGDSPmain argc = %d\n",argc);
-//  for (i=0;i< argc;i++){
-//	fprintf(stderr,"FTGDSPmain argv%d = %s\n",i,argv[i]);
-//  }
-//  fprintf(stderr,"FTGDSPmain argv[2] = %s\n",argv[2]);
+  char posttyp[6]="";
 
-  strcpy(usr,userp);			// Den inloggades userid
-//  fprintf(stderr,"FTGDSPmain usr = %s\n",usr);
+ /*  fprintf(stderr,"FTGDSPmain argc = %d\n",argc);
+  for (i=0;i< argc;i++){
+	fprintf(stderr,"FTGDSPmain argv%d = %s\n",i,argv[i]);
+  }
+  fprintf(stderr,"FTGDSPmain argv[2] = %s\n",argv[2]);
+*/
+/* ================================================================================ */
+/* 		Val av databas, START						    */
+/* ================================================================================ */
 
-  if (argc<3){
-  	strcpy(databas,"olfixtst");	// olfixtst = testföretag
-  }else{
-  	if (strncmp(argv[2],"99",2)==0){
-		strcpy(databas,"olfixtst");
+  status = which_database(envp);
+
+  if (status != 0)
+	exit(status);
+
+  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+/*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
+  if (argc < ANTARG+1){
+    	if (strlen(database)!= 0){
+		strncpy(databas,database,15);
 	}else{
-  		strcpy(databas,argv[2]);
+  		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}
-  }
-  /* Om usr (userid) börjar på 'test' eller 'prov' använd databas 'olfixtst' */
-  if (strncmp(usr,"test",4)==0 || strncmp(usr,"prov",4)==0 ) {
-  	strcpy(databas,"olfixtst");
-  }
-
-  if (argc<4){
-  	strcpy(fornr,"99");	// 99 = testföretag
   }else{
-  	strcpy(fornr,argv[3]);
+	if (strlen(argv[ANTARG]) != 0){
+  		if (strncmp(argv[ANTARG],"99",2)==0){
+			strncpy(databas,"olfixtst",15);
+		}else{
+  			strncpy(databas,argv[ANTARG],15);
+  		}
+  	}
   }
-//  fprintf(stderr,"FTGDSPmain fornr = %s\n",fornr);
-  strcpy(posttyp,argv[1]);
+/*  fprintf(stderr,"ANTARG=%d,argv[ANTARG]=%s\n",ANTARG,argv[ANTARG]);	*/
+/* Om usr (userid) börjar på 'test' eller 'prov' använd databas 'olfixtst' */
+  if (strncmp(usr,"test",4)==0 || strncmp(usr,"prov",4)==0 ) {
+  	strncpy(databas,"olfixtst",15);
+  }
+ /* fprintf(stderr,"Databas=%s\n",databas);	*/
+/* ================================================================================ */
+/* 		Val av databas, END!						    */
+/* ================================================================================ */
+/*  fprintf(stderr,"FTGDSPmain argv[1] = %s len argv[1]=%d\n",argv[1],strlen(argv[1]));	*/
+  strncpy(posttyp,argv[1],strlen(argv[1]));
 
-  strcat(temp5,temp1);
+  strncpy(temp5,temp1,strlen(temp1));
 /* SELECT POSTTYP, FDATA FROM FTGDATA WHERE (POSTTYP = \"   */
-  strcat(temp5,posttyp);/* ADR1 */
+  strncat(temp5,posttyp,strlen(posttyp));/* ADR1 */
 /* SELECT POSTTYP, FDATA FROM FTGDATA WHERE (POSTTYP = "ADR1   */
-  strcat(temp5,temp2); /*  "    */
+  strncat(temp5,temp2,strlen(temp2)); /*  "    */
 /* SELECT POSTTYP, FDATA FROM FTGDATA WHERE (POSTTYP = "ADR1"   */
-  strcat(temp5,temp4); /*  )     */
+  strncat(temp5,temp4,strlen(temp4)); /*  )     */
 /* SELECT POSTTYP, FDATA FROM FTGDATA WHERE (POSTTYP = "ADR1")  */
 
-//  fprintf(stderr,"FTGDSPmain: temp5 = %s\n",temp5);
+/*  fprintf(stderr,"FTGDSPmain: temp5 = %s\n",temp5);	*/
 
-// exit(0);
   mysql_init(&my_connection);
   if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
-//  	fprintf(stdout,"FTGDSPmain:Connection success\n");
+/*  	fprintf(stdout,"FTGDSPmain:Connection success\n");	*/
   	res = mysql_query(&my_connection,temp5);
   	if (res){
 		fprintf(stderr,"Error: FTGDSP SELECT error: %s\n",mysql_error(&my_connection));
@@ -116,14 +129,16 @@ int main(int argc, char *argv[])
 	else{
 		res_ptr=mysql_store_result(&my_connection);
 		num_rows = mysql_affected_rows(&my_connection);
-//		if (res_ptr){
+/*		if (res_ptr){	*/
+/*		fprintf(stderr,"num_rows=%d\n",num_rows);	*/
 		if(num_rows != 0){
 			sqlrow=mysql_fetch_row(res_ptr);
-//	 		fprintf(stdout,"Fetched data....}");
+/*	 		fprintf(stdout,"Fetched data....}");	*/
 			fprintf(stdout,"OK: 1:%s  2:%s",sqlrow[0],sqlrow[1]);
-//			fprintf(stdout,"\n");
+/*			fprintf(stdout,"\n");			*/
 		}
 		else{
+//			fprintf(stderr,"sqlrow= 1:%s  2:%s",sqlrow[0],sqlrow[1]);
 			fprintf(stderr,"Error: FTGDSP, Data saknas!  %s\n", mysql_error(&my_connection));
 		}
 
@@ -142,5 +157,67 @@ int main(int argc, char *argv[])
 		}
     	}
   return EXIT_SUCCESS;
+}
+
+int which_database(char *envp[])
+{
+	FILE *fil_pek;
+
+	char home[50];
+	char *home_pek;
+	char resource[]="/.olfixrc";
+	char filename[50]="";
+	char tmp[20]="";
+	char temp[10]="";
+	char *tmp_pek;
+	int i,status;
+
+	for (i = 0;envp[i]!=NULL;i++){
+		if(strstr(envp[i],"HOME=") != NULL){
+			strncpy(temp,envp[i],4);
+/*			fprintf(stderr,"temp=%s\n",temp); */
+			status=strcmp(temp,"HOME");
+/*			fprintf(stderr,"status=%d\n",status); */
+			if (status == 0){
+				home_pek=(strstr(envp[i],"HOME="));
+				home_pek=home_pek+5;
+				strcpy(home,home_pek);
+			}
+/*			fprintf(stderr,"home_pek=%d %s\n",home_pek,home_pek);	*/
+		}
+	}
+/*	fprintf(stderr,"home=%s\n",home);	*/
+	strncpy(filename,home,strlen(home));
+	strncat(filename,resource,strlen(resource));
+
+/*	fprintf(stderr,"filename=%s\n",filename);	*/
+	status=-1;
+
+	if ((fil_pek = fopen(filename,"r")) != NULL){
+		while (fgets(tmp,150,fil_pek) != NULL){
+/*			fprintf(stderr,"tmp=%s\n",tmp); */
+			if(strstr(tmp,"DATABASE=")){
+				tmp_pek=(strstr(tmp,"DATABASE="))+9;
+				strncpy(database,tmp_pek,strlen(tmp_pek));
+				status=0;
+			}
+		}
+/*		fprintf(stderr,"database=%s_len=%d\n",database,strlen(database)); */
+		fclose(fil_pek);
+	}
+	else{
+/*		fprintf(stderr,"database=%s_len=%d\n",database,strlen(database)); */
+	 	fprintf(stderr,"Error: Filen .olfixrc kan inte öppnas\n");
+	}
+	for (i=0;i < strlen(database);i++){
+		tmp[i]=database[i];
+	}
+	tmp[i-1]=0;
+/*	fprintf(stderr,"tmp=%s, i=%d len(tmp)=%d\n",tmp,i,strlen(tmp));	*/
+	strncpy(database,tmp,strlen(tmp));
+	database[strlen(tmp)]=0;
+/*	fprintf(stderr,"databas=%s\n",database);	*/
+
+	return status;
 }
 
