@@ -1,9 +1,9 @@
 /***************************************************************************
                           KTORPT.c  -  description
                              -------------------
-    Version		 : 0.3
+    Version		 : 0.4
     begin                : Lör 8 mars 2003
-    modified		 : Ons 5 nov 2003
+    modified		 : Tors 25 mars 2004
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -18,17 +18,20 @@
  ***************************************************************************/
 
 /*
-	INPUT: arid	(Bokföringsår)
+	INPUT: arid,fromdatum,tomdatum	(Bokföringsår, Från och med datum, Till och med datum)
 	Function: gör  	SELECT VERRAD.KTONR,KTOPLAN.BENAMNING,VERRAD.DK,VERRAD.BELOPP FROM VERRAD
 			LEFT JOIN KTOPLAN ON KTOPLAN.KTONR = VERRAD.KTONR AND VERRAD.ARID = KTOPLAN.ARID
-			WHERE VERRAD.ARID = "AC"
+			LEFT JOIN VERHUVUD ON VERRAD.ARID = VERHUVUD.ARID AND VERRAD.VERNR=VERHUVUD.VERNR
+			WHERE VERRAD.ARID = "AD" AND
+			VERHUVUD.VERDATUM >= "2003-08-12" AND
+			VERHUVUD.VERDATUM <= "2003-08-16"
 			ORDER BY KTONR
 
 	OUTPUT: errornb och error (text)
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTORPT.c,v 1.3 2003/11/05 06:23:20 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTORPT.c,v 1.4 2004/03/25 06:45:36 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -38,7 +41,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "mysql.h"
-#define ANTARG 2
+#define ANTARG 4
 
   MYSQL my_connection;
   MYSQL_RES *res_ptr;
@@ -58,15 +61,23 @@ int main(int argc, char *argv[], char *envp[])
   char databas[25]="olfix";
   char usr[15];				/* userid		*/
 
-  char temp1[]="SELECT VERRAD.KTONR,KTOPLAN.BENAMNING,VERRAD.DK,VERRAD.BELOPP FROM VERRAD ";
+  char temp1a[]="SELECT VERRAD.KTONR,KTOPLAN.BENAMNING,VERRAD.DK,VERRAD.BELOPP,VERRAD.VERNR FROM VERRAD ";
   char temp1b[]="LEFT JOIN KTOPLAN ON KTOPLAN.KTONR = VERRAD.KTONR AND VERRAD.ARID = KTOPLAN.ARID ";
-  char temp1c[]="WHERE VERRAD.ARID = ";
-  char temp1d[]=" ORDER BY KTONR";
+  char temp1c[]="LEFT JOIN VERHUVUD ON VERRAD.ARID = VERHUVUD.ARID AND VERRAD.VERNR=VERHUVUD.VERNR ";
+  char temp1d[]="WHERE VERRAD.ARID = ";
+  char temp1e[]=" AND VERHUVUD.VERDATUM >= ";
+  char temp1f[]=" AND VERHUVUD.VERDATUM <= ";
+  char temp1g[]=" ORDER BY KTONR";
   char temp2[]="\"";
-  char temp5[200]="";
+  char temp5[400]="";
   char arid[3]="";
+  char fromdatum[11]="";
+  char tomdatum[11]="";
 
-  /* ================================================================================ */
+/*  for (i=0;i<argc;i++){
+  	fprintf(stderr,"argc=%d, argv[%d]=argv[%s]\n",argc,i,argv[i]);
+  }	*/
+/* ================================================================================ */
 /* 		Val av databas, START						    */
 /* ================================================================================ */
 
@@ -103,18 +114,69 @@ int main(int argc, char *argv[], char *envp[])
 /* ================================================================================ */
 
   strncpy(arid,argv[1],strlen(argv[1]));
-
-  strncpy(temp5,temp1,strlen(temp1));
-/* SELECT KTONR,DK,BELOPP FROM VERRAD WHERE ARID = "	*/
+  strncpy(fromdatum,argv[2],strlen(argv[2]));
+  strncpy(tomdatum,argv[3],strlen(argv[3]));
+  fprintf(stderr,"arid=%s,fromdatum=%s,tomdatum=%s\n",arid,fromdatum,tomdatum);
+  strncpy(temp5,temp1a,strlen(temp1a));
+/* SELECT VERRAD.KTONR,KTOPLAN.BENAMNING,VERRAD.DK,VERRAD.BELOPP,VERRAD.VERNR FROM VERRAD 	*/
   strncat(temp5,temp1b,strlen(temp1b));
+/* SELECT VERRAD.KTONR,KTOPLAN.BENAMNING,VERRAD.DK,VERRAD.BELOPP,VERRAD.VERNR FROM VERRAD 	*/
+/* LEFT JOIN KTOPLAN ON KTOPLAN.KTONR = VERRAD.KTONR AND VERRAD.ARID = KTOPLAN.ARID 		*/
   strncat(temp5,temp1c,strlen(temp1c));
+/* SELECT VERRAD.KTONR,KTOPLAN.BENAMNING,VERRAD.DK,VERRAD.BELOPP,VERRAD.VERNR FROM VERRAD 	*/
+/* LEFT JOIN KTOPLAN ON KTOPLAN.KTONR = VERRAD.KTONR AND VERRAD.ARID = KTOPLAN.ARID 		*/
+/* LEFT JOIN VERHUVUD ON VERRAD.ARID = VERHUVUD.ARID AND VERRAD.VERNR=VERHUVUD.VERNR 		*/
+  strncat(temp5,temp1d,strlen(temp1d));
+/* SELECT VERRAD.KTONR,KTOPLAN.BENAMNING,VERRAD.DK,VERRAD.BELOPP,VERRAD.VERNR FROM VERRAD 	*/
+/* LEFT JOIN KTOPLAN ON KTOPLAN.KTONR = VERRAD.KTONR AND VERRAD.ARID = KTOPLAN.ARID 		*/
+/* LEFT JOIN VERHUVUD ON VERRAD.ARID = VERHUVUD.ARID AND VERRAD.VERNR=VERHUVUD.VERNR 		*/
+/* WHERE VERRAD.ARID = 										*/
   strncat(temp5,temp2,strlen(temp2));
   strncat(temp5,arid,strlen(arid));
-/* SELECT KTONR,DK,BELOPP FROM VERRAD WHERE ARID = "AC	*/
   strncat(temp5,temp2,strlen(temp2));
-  strncat(temp5,temp1d,strlen(temp1d));
-/* SELECT KTONR,DK,BELOPP FROM VERRAD WHERE ARID = "AC" ORDER BY KTONR	*/
-
+/* SELECT VERRAD.KTONR,KTOPLAN.BENAMNING,VERRAD.DK,VERRAD.BELOPP,VERRAD.VERNR FROM VERRAD 	*/
+/* LEFT JOIN KTOPLAN ON KTOPLAN.KTONR = VERRAD.KTONR AND VERRAD.ARID = KTOPLAN.ARID 		*/
+/* LEFT JOIN VERHUVUD ON VERRAD.ARID = VERHUVUD.ARID AND VERRAD.VERNR=VERHUVUD.VERNR 		*/
+/* WHERE VERRAD.ARID = "AD"									*/
+  strncat(temp5,temp1e,strlen(temp1e));
+/* SELECT VERRAD.KTONR,KTOPLAN.BENAMNING,VERRAD.DK,VERRAD.BELOPP,VERRAD.VERNR FROM VERRAD 	*/
+/* LEFT JOIN KTOPLAN ON KTOPLAN.KTONR = VERRAD.KTONR AND VERRAD.ARID = KTOPLAN.ARID 		*/
+/* LEFT JOIN VERHUVUD ON VERRAD.ARID = VERHUVUD.ARID AND VERRAD.VERNR=VERHUVUD.VERNR 		*/
+/* WHERE VERRAD.ARID = "AD"									*/
+/* AND VERHUVUD.VERDATUM >= 									*/
+  strncat(temp5,temp2,strlen(temp2));
+  strncat(temp5,fromdatum,strlen(fromdatum));
+  strncat(temp5,temp2,strlen(temp2));
+/* SELECT VERRAD.KTONR,KTOPLAN.BENAMNING,VERRAD.DK,VERRAD.BELOPP,VERRAD.VERNR FROM VERRAD 	*/
+/* LEFT JOIN KTOPLAN ON KTOPLAN.KTONR = VERRAD.KTONR AND VERRAD.ARID = KTOPLAN.ARID 		*/
+/* LEFT JOIN VERHUVUD ON VERRAD.ARID = VERHUVUD.ARID AND VERRAD.VERNR=VERHUVUD.VERNR 		*/
+/* WHERE VERRAD.ARID = "AD"									*/
+/* AND VERHUVUD.VERDATUM >= "2003-08-10"							*/
+  strncat(temp5,temp1f,strlen(temp1f));
+/* SELECT VERRAD.KTONR,KTOPLAN.BENAMNING,VERRAD.DK,VERRAD.BELOPP,VERRAD.VERNR FROM VERRAD 	*/
+/* LEFT JOIN KTOPLAN ON KTOPLAN.KTONR = VERRAD.KTONR AND VERRAD.ARID = KTOPLAN.ARID 		*/
+/* LEFT JOIN VERHUVUD ON VERRAD.ARID = VERHUVUD.ARID AND VERRAD.VERNR=VERHUVUD.VERNR 		*/
+/* WHERE VERRAD.ARID = "AD"									*/
+/* AND VERHUVUD.VERDATUM >= "2003-08-10"							*/
+/* AND VERHUVUD.VERDATUM <= 									*/
+  strncat(temp5,temp2,strlen(temp2));
+  strncat(temp5,tomdatum,strlen(tomdatum));
+  strncat(temp5,temp2,strlen(temp2));
+/* SELECT VERRAD.KTONR,KTOPLAN.BENAMNING,VERRAD.DK,VERRAD.BELOPP,VERRAD.VERNR FROM VERRAD 	*/
+/* LEFT JOIN KTOPLAN ON KTOPLAN.KTONR = VERRAD.KTONR AND VERRAD.ARID = KTOPLAN.ARID 		*/
+/* LEFT JOIN VERHUVUD ON VERRAD.ARID = VERHUVUD.ARID AND VERRAD.VERNR=VERHUVUD.VERNR 		*/
+/* WHERE VERRAD.ARID = "AD"									*/
+/* AND VERHUVUD.VERDATUM >= "2003-08-10"							*/
+/* AND VERHUVUD.VERDATUM <= "2003-08-16"							*/
+  strncat(temp5,temp1g,strlen(temp1g));
+/* SELECT VERRAD.KTONR,KTOPLAN.BENAMNING,VERRAD.DK,VERRAD.BELOPP,VERRAD.VERNR FROM VERRAD 	*/
+/* LEFT JOIN KTOPLAN ON KTOPLAN.KTONR = VERRAD.KTONR AND VERRAD.ARID = KTOPLAN.ARID 		*/
+/* LEFT JOIN VERHUVUD ON VERRAD.ARID = VERHUVUD.ARID AND VERRAD.VERNR=VERHUVUD.VERNR 		*/
+/* WHERE VERRAD.ARID = "AD"									*/
+/* AND VERHUVUD.VERDATUM >= "2003-08-10"							*/
+/* AND VERHUVUD.VERDATUM <= "2003-08-16"							*/
+/* ORDER BY KTONR										*/
+/*  fprintf(stderr,"temp5=%s\n",temp5);		*/
   mysql_init(&my_connection);
 
   if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){

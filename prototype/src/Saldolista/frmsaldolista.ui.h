@@ -2,7 +2,7 @@
 /**		SDOLISW					*/
 /**		Ver 0.6                                                                                    */
 /**		Created    2003-08-21				*/
-/**		Modified 2004-03-23				*/
+/**		Modified 2004-03-25				*/
 /**   Copyright	Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -39,7 +39,13 @@
     QString bar;		// Bokföringsår
     QString csvflag;
     QString datum;
-    QString startdatum;
+    QString fromdatum;
+    QString fromdate;
+    QString fromvernr;
+    QString tomdatum;
+    QString tomdate;
+    QString tomvernr;
+    QString period;
     QString ftgnamn;
 
     QString reportpath;
@@ -71,9 +77,31 @@ void frmSaldolista::slotlineEditBar_returnPressed()
                       "Bokföringsår måste fyllas i! \n" );
 	lineEditBar->setFocus();
     }else{
-	frmSaldolista::GetBokfPeriod();
-	pushButtonOK->setFocus();
+	frmSaldolista::GetBokfPeriod();	
+	lineEditFromDatum->setFocus();
     }
+}
+
+void frmSaldolista::lineEditFromDatum_returnPressed()
+{
+    fromdatum=lineEditFromDatum->text();
+    if (fromdatum==""){
+	fromdatum=fromdate;
+	lineEditFromDatum->setText(fromdatum);
+    }
+    lineEditTomDatum->setFocus();
+}
+
+void frmSaldolista::lineEditTomDatum_returnPressed()
+{
+    tomdatum=lineEditTomDatum->text();
+    if(tomdatum==""){
+	tomdatum=tomdate;
+	lineEditTomDatum->setText(tomdatum);
+    }
+//    frmSaldolista::GetVernr();
+    period=fromdatum+" -- "+tomdatum;
+    pushButtonOK->setFocus();
 }
 
 void frmSaldolista::radioButtonCSV_toggled( bool )
@@ -90,11 +118,11 @@ void frmSaldolista::slotpushButtonOK_clicked()
 {
     if (csvflag != "J"){
 	slotFileRemove("Saldolista.kud");		// tag bort gammal datafil
-	slotCreateHeader();
+//	slotCreateHeader();			// Därifrån call slotGetData
     }else{
 	slotFileRemove("Saldolista.txt");		// tag bort gammal datafil	
     }
-    frmSaldolista::slotGetData();
+    frmSaldolista::slotCreateHeader();		// Därifrån call slotGetData
     pushButtonAvbryt->setFocus();
 }
 
@@ -108,6 +136,8 @@ void frmSaldolista::slotGetData()
 	process->addArgument(usr);		// userid
 	process->addArgument( "KTORPT");	// OLFIX funktion
 	process->addArgument(bar);		// Bokföringsår
+	process->addArgument(fromdatum);
+	process->addArgument(tomdatum);
 
 	frmSaldolista::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmSaldolista::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
@@ -158,6 +188,7 @@ void frmSaldolista::slotEndOfProcess()
     QString ktonamn;
     QString dk;
     QString belopp;
+    QString vernr;
     
     QString ktotemp;
     QString ktonamntemp;
@@ -236,7 +267,15 @@ void frmSaldolista::slotEndOfProcess()
 		 j = inrad.find(QRegExp("_:"),i+2);
 		 m = j - (i+2);
 		 belopp = inrad.mid(i+2,m);
-		 
+		 i = j;
+		 j = inrad.find(QRegExp("_:"),i+2);
+		 m = j - (i+2);
+		 vernr = inrad.mid(i+2,m);
+//		 qDebug("vernr=%s,fromvernr=%s,tomvernr=%s",vernr.latin1(),fromvernr.latin1(),tomvernr.latin1());
+     		 // =====================================================================
+//		 if ((vernr >= fromvernr) && (vernr <= tomvernr)){
+//		 qDebug("vernr=%s",vernr.latin1());		 
+//		 qDebug("VAL vernr=%s,fromvernr=%s,tomvernr=%s",vernr.latin1(),fromvernr.latin1(),tomvernr.latin1());
 		 if (ktonr != ktotemp){
 		     debetsum.setNum(debet,'f',2);
 		     kreditsum.setNum(kredit,'f',2);
@@ -341,6 +380,7 @@ void frmSaldolista::slotEndOfProcess()
 		 usaldo=debet -kredit;
 		 delusaldo=deldebet-delkredit;
 		 usaldototal=debettotal-kredittotal;
+	 //    }	// =====================================================================
 	     }
 	} 
 	if (csvflag != "J"){
@@ -408,7 +448,7 @@ void frmSaldolista::slotCreateHeader()
     rad[7]="   <!ATTLIST Rowhead\n";
     rad[8]="      level CDATA #REQUIRED\n";
     rad[9]="      ftgnamn CDATA #REQUIRED\n";
-    rad[10]="      startdatum CDATA #REQUIRED\n";
+    rad[10]="      period CDATA #REQUIRED\n";
     rad[11]="      datum CDATA #REQUIRED\n";
     rad[12]=">\n";
     rad[13]="   <!ELEMENT KugarData (Row* )>\n";
@@ -466,8 +506,8 @@ void frmSaldolista::slotCreateHeader()
     rapportrad.append("<Rowhead level=\"0");
     rapportrad.append("\" ftgnamn=\"");
     rapportrad.append(ftgnamn); 
-    rapportrad.append("\" startdatum=\"");
-    rapportrad.append(startdatum);    
+    rapportrad.append("\" period=\"");
+    rapportrad.append(period);    
     rapportrad.append("\" datum=\"");
     rapportrad.append(datum);
     rapportrad.append("\"/>\n");    
@@ -476,6 +516,7 @@ void frmSaldolista::slotCreateHeader()
     
     filnamn.open( IO_WriteOnly | IO_Append );
     stream << rapportrad;
+    frmSaldolista::slotGetData();
 }
 
 void frmSaldolista::slotFileRemove(QString filnamn)
@@ -648,7 +689,100 @@ void frmSaldolista::slotGetBokfPeriodEndOfProcess()
 	    m=10;
 	    maxdate = inrad.mid(j+3,m);	    	    
 	}
-	startdatum=mindate+" -- "+maxdate;
+//	period=mindate+" -- "+maxdate;
     }
-//	qDebug("startdatum=%s|,m=%d",startdatum.latin1(),m);    
+    fromdate=mindate;
+    tomdate=maxdate;
+//	qDebug("period=%s|,m=%d",period.latin1(),m);    
+}
+
+void frmSaldolista::GetVernr()
+{
+	const char *userp = getenv("USER");
+            QString usr(userp);
+	errorrad="";
+	inrad="";
+	
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "VERHLST");	// OLFIX funktion
+	process->addArgument(bar);		// Bokföringsår
+
+	frmSaldolista::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+	frmSaldolista::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+            frmSaldolista::connect( process, SIGNAL(processExited() ),this, SLOT(slotGetVernrEndOfProcess() ) );
+
+
+	if ( !process->start() ) {
+		QMessageBox::warning( this, "SDOLISW",
+                            "Kan inte starta STYRMAN/VERHLST! \n" );
+	}
+}
+
+void frmSaldolista::slotGetVernrEndOfProcess()
+{
+    int i,j,m,n;
+    int ant;
+
+    QString antal;
+    QString temp;
+    QString vernr;
+    QString bokfar;
+    QString verdatum;
+    QString tempdatum1;
+    QString tempvernr;
+
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+    if (i == 0) {
+	QMessageBox::critical( this, "OLFIX - SDOLISW",
+		"ERROR!\n"+errorrad
+		);
+	errorrad="";
+    }else{	
+	i = -1;
+	i = inrad.find( QRegExp("NR_"), 0 );
+	if (i != -1) {
+	    j =  inrad.find( QRegExp("_VERNR:"), i );
+	    m = j - (i + 3);
+	    antal = inrad.mid(i +3,m);
+	    ant=antal.toInt();
+//	    qDebug("slotGetVernrEndOfProcess::antal=%s ant=%d",antal.latin1(),ant);	    
+	    temp="";
+	    for (n=0;n<ant;n++){
+		 i = inrad.find( QRegExp("VERNR:"), j );
+		 j = inrad.find(QRegExp("_:"),i);
+		 m = j - (i+6);
+		 vernr = inrad.mid(i+6,m);	
+		 i = j;
+		 j = inrad.find(QRegExp("_:"),i+2);
+		 m = j - (i+2);
+		 bokfar = inrad.mid(i+2,m);
+		 i = j;
+		 j = inrad.find(QRegExp("_:"),i+2);
+		 m = j - (i+2);
+		 verdatum = inrad.mid(i+2,m);
+		 if (verdatum <= fromdatum && verdatum != tempdatum1 ){
+		     fromvernr=vernr;
+		 }
+		 tempdatum1=verdatum;
+	             if (verdatum == tomdatum){
+		     tomvernr=vernr;
+		 }
+//		 qDebug("slotGetVernrEndOfProcess::bokfar=%s,verdatum=%s,vernr=%s",bokfar.latin1(),verdatum.latin1(),vernr.latin1());
+// 		 qDebug("slotGetVernrEndOfProcess::fromvernr=%s, tomvernr=%s",fromvernr.latin1(),tomvernr.latin1());
+		 qDebug("slotGetVernrEndOfProcess::vernr=%s",vernr.latin1());
+	     }
+	    if(tomvernr==""){
+		tomvernr=vernr;
+	    }
+	    if(fromvernr==""){
+		fromvernr="1";
+	    }
+//    	    qDebug("slotGetVernrEndOfProcess::vernr=%s,fromvernr=%s,tomvernr=%s",vernr.latin1(),fromvernr.latin1(),tomvernr.latin1());
+	}
+    }
+    inrad="";
+    errorrad="";
 }

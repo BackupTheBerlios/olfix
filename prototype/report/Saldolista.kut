@@ -64,10 +64,10 @@
 		<Field BackgroundColor="0,255,255" BorderColor="0,0,0"
 		   BorderStyle="0" BorderWidth="0" CommaSeparator="0"
 		   Currency="36" DataType="0" DateFormat="0"
-		   Field="startdatum" FontFamily="Helvetica" FontItalic="0"
+		   Field="period" FontFamily="Helvetica" FontItalic="0"
 		   FontSize="10" FontWeight="25" ForegroundColor="0,0,0"
 		   HAlignment="0" Height="20" NegValueColor="255,0,0"
-		   Precision="0" Text="[startdatum]" Type="0"
+		   Precision="0" Text="[period]" Type="0"
 		   VAlignment="1" Width="150" WordWrap="0"
 		   X="312" Y="-50" />
 		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"

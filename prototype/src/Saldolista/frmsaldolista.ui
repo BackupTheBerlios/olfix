@@ -54,60 +54,6 @@
             <string>Datum:</string>
         </property>
     </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel4</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>50</y>
-                <width>85</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Bokföringsår:</string>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonOK</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>20</x>
-                <y>210</y>
-                <width>100</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Skapa rapport</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonAvbryt</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>130</x>
-                <y>210</y>
-                <width>76</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Avbryt</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
     <widget class="QLineEdit">
         <property name="name">
             <cstring>lineEditBar</cstring>
@@ -264,6 +210,118 @@
             <string>2003-08-01</string>
         </property>
     </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel4</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>55</y>
+                <width>85</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Bokföringsår:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>165</x>
+                <y>55</y>
+                <width>99</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Fr. o. m. datum:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2_3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>370</x>
+                <y>55</y>
+                <width>87</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>T.o.m. datum:</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>20</x>
+                <y>206</y>
+                <width>100</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Skapa rapport</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonAvbryt</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>130</x>
+                <y>206</y>
+                <width>76</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avbryt</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditFromDatum</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>265</x>
+                <y>50</y>
+                <width>81</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditTomDatum</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>460</x>
+                <y>50</y>
+                <width>81</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
@@ -296,6 +354,18 @@
         <receiver>frmSaldolista</receiver>
         <slot>radioButtonPrint_toggled(bool)</slot>
     </connection>
+    <connection>
+        <sender>lineEditFromDatum</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmSaldolista</receiver>
+        <slot>lineEditFromDatum_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditTomDatum</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmSaldolista</receiver>
+        <slot>lineEditTomDatum_returnPressed()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>lineEditBar</tabstop>
@@ -307,6 +377,8 @@
 </includes>
 <slots>
     <slot>slotlineEditBar_returnPressed()</slot>
+    <slot>lineEditFromDatum_returnPressed()</slot>
+    <slot>lineEditTomDatum_returnPressed()</slot>
     <slot>radioButtonCSV_toggled( bool )</slot>
     <slot>radioButtonPrint_toggled( bool )</slot>
     <slot>slotpushButtonOK_clicked()</slot>
@@ -323,6 +395,8 @@
     <slot>slotFtgnamnEndOfProcess()</slot>
     <slot>GetBokfPeriod()</slot>
     <slot>slotGetBokfPeriodEndOfProcess()</slot>
+    <slot>GetVernr()</slot>
+    <slot>slotGetVernrEndOfProcess()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
