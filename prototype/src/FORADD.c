@@ -1,9 +1,9 @@
 /***************************************************************************
                           FORADD.c  -  description
                              -------------------
-    begin                : Ons 10 nov	2004
+    begin                : Ons 12 nov	2004
     Modified		 :
-    copyright            : (C) 2003 by Jan Pihlgren
+    copyright            : (C) 2004 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
 
@@ -27,7 +27,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FORADD.c,v 1.1 2004/11/10 15:49:56 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FORADD.c,v 1.2 2004/11/12 06:32:56 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -87,7 +87,7 @@ int main(int argc, char *argv[], char *envp[])
 	  status = which_database(envp);
   }
 
-  fprintf(stderr,"FORADD: dbnr=%s dbnamn=%s databas=%s\n",dbnr,dbnamn,database);
+/*  fprintf(stderr,"FORADD: dbnr=%s dbnamn=%s databas=%s\n",dbnr,dbnamn,database);	*/
 
   if (status != 0)
 	exit(status);
@@ -131,7 +131,7 @@ int main(int argc, char *argv[], char *envp[])
   strncat(temp5,temp2,strlen(temp2)); /*  "     */
   strncat(temp5,temp4,strlen(temp4)); /*  )     */
 /* INSERT INTO DATABAS (DATABASNR,DATABASNAMN)VALUES ("55","olfixtest") */
-  fprintf(stderr,"FORADD: temp5 = %s\n",temp5);
+/*  fprintf(stderr,"FORADD: temp5 = %s\n",temp5);		*/
 
   mysql_init(&my_connection);
   if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
