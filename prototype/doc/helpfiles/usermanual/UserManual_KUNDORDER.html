@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+
+  <meta http-equiv="CONTENT-TYPE"
+ content="text/html; charset=iso-8859-15">
+  <title>UserManual</title>
+
+  <meta name="GENERATOR" content="OpenOffice.org 1.0.2  (Linux)">
+
+  <meta name="CREATED" content="20021205;10014400">
+
+  <meta name="CHANGEDBY" content="Jan Pihlgren">
+  <meta name="CHANGED" content="20050312;16451400">
+  <style>
+	<!--
+		@page { margin: 2cm }
+		P { margin-bottom: 0.21cm }
+	-->
+	</style>
+</head>
+<body lang="sv-SE">
+<p style="margin-bottom: 0cm;"> <a name="TOP"></a> <img
+ src="UserManual_html_OLFIX_LOGGA.jpg" name="Graphic1" align="middle"
+ width="643" height="268" border="0"> <br clear="left">
+<br>
+</p>
+<p align="center" style="margin-bottom: 0cm;"><font size="6"
+ style="font-size: 22pt;"> <b>Order/Lager/Fakturering för Linuxsystem</b></font></p>
+<p align="center" style="margin-bottom: 0cm;"><font size="6"
+ style="font-size: 22pt;"> Användarmanual
+</font></p>
+<p align="center" style="margin-bottom: 0cm;"><font size="4"
+ style="font-size: 16pt;">
+ Kapitel Försäljning
+ </font></p>
+<p align="center" style="margin-bottom: 0cm;"><font size="5"> Version
+0.41</font></p>
+<p align="center" style="margin-bottom: 0cm;"><font size="5"> 2005-03-16</font></p>
+<hr>
+<p style="margin-left: 3cm;">This program is free software; you can
+redistribute it and/or modify<br>
+it under the terms of the GNU General Public License as published by<br>
+the Free Software Foundation; either version 2 of the License, or<br>
+(at your option) any later version.</p>
+<p
+ style="border-style: none none double; border-width: medium medium 1.1pt; border-bottom: 1.1pt double rgb(128, 128, 128); padding: 0cm 0cm 0.05cm; margin-bottom: 0.5cm;"> <font
+ size="1" style="font-size: 6pt;">Copyright 2004 Jan Pihlgren.</font></p>
+<p align="center">
+<a name="INNEHALL"></a><font size="4" style="font-size: 16pt;">
+<b>
+<!---- <P STYLE="margin-top: 0.42cm; page-break-before: always; page-break-after: avoid">
+<!---->Innehåll</b></font></p>
+<p style="margin-left: 3cm;"><font face="San Serif"><font size="+1"></font>
+<!-- <a href="#FORSALJ">Försäljning</a><br> -->
+<a href="#FORSALJ1">Registrering av kundorder</a><br>
+<a href="#LEVPLATS">Registrering av standardleveransplats</a>
+
+<!--
+<a name="FORSALJ"></a>
+<p align="center">
+<!-- <b>FÖRSÄLJNING</b></p> -->
+
+<a name="FORSALJ1"></a>
+<p align="left">
+<b>Registrering av kundorder.</b>
+</p>
+
+<p align="center">
+<img src="UserManual_html_ADDORDW.png" name="Graphic10" align="bottom"
+ width="693" height="473" border="0">
+ </p>
+<p align="left" style="margin-bottom: 0cm;">
+ <b>OBS!</b> I alla fält du gör en förändring i
+måste du avsluta med att trycka Enter för att informationen ska följa
+med till databasen.<br>
+
+När programmet startar
+hämtas en lista med kunder upp så att man lätt kan hitta en kunds
+kundnummer. Även fältet <b>Önskad leveranstid </b><span style="">fylls
+i med</span><b> </b><span style="">dagens datum. Också fältet
+Leveransvecka fylls i med inevarande veckas sista dag enlig utseendet <b>ÅVVD.</b> </span> </p>
+<p align="left" style="margin-bottom: 0cm;"><span style="">Genom</span>
+att klicka på önskad rad av kunder så matas kundnumret in i fältet <b>Kundnr</b>.</p>
+<p align="left" style="margin-bottom: 0cm;">Det går också att skriva in
+kundnumret direkt ifall man kan det i huvudet. När man tryckt på
+&#8221;Enter&#8221; så hämtas kundens data och fylls i fälten. I fall det inte
+finns någon särskild leveransadress angiven för kunden så kopieras
+postadressen till fälten för leveransadress. Samtidigt anges i detta
+fall 000 in i fältet <b>Leveransplats</b><span style=""> för att markera
+att det inte finns någon särskild leveransplats registrerad på kunden.
+Först kommer det dock upp en varning och meddelar att leveransplats
+saknas. I detta fall klicka bara på knappen märkt OK.</span></p>
+<p align="left" style="margin-bottom: 0cm;">När detta är klart ställer
+sig markören i fältet <b>Artikelnr</b>. Fyll i artikelnummer och tryck
+&#8221;Enter&#8221; varvid <b>Benämning</b> fylls i. Acceptera benämningen genom
+att trycka på &#8221;Enter&#8221; eller ändra värdet  och avsluta med &#8221;Enter&#8221;. <b>Leveransvecka</b>
+har fyllts i och kan accepteras eller ändras. Sedan är det dags att ange
+vilket <b>Antal</b> som ska levereras. Värdet i fältet <b>Pris/st</b>
+är ifyllt. När det accepterats eller ändrats och avslutats med &#8221;Enter&#8221;
+så beräknas <b>Summa</b> och <b>Moms.</b></p>
+<p align="left" style="margin-bottom: 0cm;">Momsen beräknas utifrån den
+momssats som åsats den produktklass artikeln tillhör. Markören ställer
+sig på knappen <b>Godkänn rad Ja</b>. När man klickar på knappen så
+flyttas radens värden ner i det underliggande fältet och alla fält,
+Radnr, Artikelnr, Benämning, Antal, Pris/st, Summa och Moms, blankas ut
+och markören ställer sig ånyo i fältet Artikelnr. Fältet Leveransvecka
+blankas inte ut.</p>
+<p align="left" style="margin-bottom: 0cm;">I fall man upptäcker att en
+tidigare orderrad är felaktig kan den ändras genom att klicka på den i
+det stora fältet varpå den flyttas upp på raden för radregistrering.
+När ändringen är klar och godkänd flyttas den tillbaka till det stora
+fältet.</p>
+<p align="left" style="margin-bottom: 0cm;">När man är färdig med
+radregistreringen får man själv flytta markören till fältet <b>Frakt</b>.
+Man fyller i beloppet och trycker &#8221;Enter&#8221; varpå fältet låses. Fältet <b>Fraktmoms</b>
+beräknas efter den moms som finns angiven i fältet <b>Moms</b> (under
+fältet <b>Valuta</b>). Fältet <b>Summa moms</b> är summan av momsen
+för varje rad och Fraktmoms. Fältet <b>Order Total</b> anger orderns
+totalbelopp inklusive moms.</p>
+<p align="left" style="margin-bottom: 0cm;">OBS! I och med att <b>Frakt</b>
+accepteras kan ordern inte ändras. Valet står mellan att acceptera
+ordern, <b>Order klar!</b> eller <b>Avbryt. </b> </p>
+<p style="margin-bottom: 0cm;">
+<a href="#TOP">Till början</a>
+</p>
+
+<hr>
+<a name="LEVPLATS"></a>
+
+<p align="center">
+<b>Standardleveransplats</b>
+</p>
+Standardleveransplats är förberedda leveransadresser till kunder. Normalt så är standardleveransplats 001
+kundens postadress och 002 är kundens leveransadress,
+mottagningsadress, adressen ditt varor ska skickas. Det finns möjlighet
+att registrera 999 leveransadresser för varje kund.</p>
+<p align="left">
+<a name="LEVPLATS1"></a><b>
+Ny standardleveransplats.</b></p>
+<p align="center">
+<img src="UserManual_html_ADDLEVPW.png"
+ name="Graphic8" align="bottom" width="454" height="267" border="0"></p>
+<p align="left">
+För varje leveransadress registreras
+KundID, Platsnummer, Leveransadress, Postnummer, Postadress samt Land.
+Ifall land utelämnas registreras ett &#8211; (minustecken).</p>
+I samband med registrering av en ny kund läggs standardleveransplats 001
+och 002 upp.<br>
+Leveransplats 001 är lika med ordinarie postadress.<br>
+KundID kan innehålla upp till 10 bokstäver och/eller siffror.<br>
+Platsnummer kan innehålla 3 siffror.<br>
+Leveransadress, Postadress och land kan innehålla upp till 30
+bokstäver,siffror samt _. Även mellanslag accepteras.<br>
+Postnummer kan innehålla 5 siffror. Programmet kommer att dela upp
+postnumret i två delar, 3 siffror, mellanslag och 2 siffror. Vid
+inmatning skall siffrorna skrivas i enföljd.<br>
+Fält som är markerade med <font color="#ff0000">* </font><font
+ color="#000000"></font>är obligatoriska.</p>
+<p style="margin-bottom: 0cm;">
+<br>
+<a href="#TOP">Till början</a>
+</p>
+<hr>
+<p align="center">
+<a name="BEGREPP"></a> <b>BEGREPPSFÖRKLARINGAR</b></p>
+<p align="left">
+<b>Bokföringsår:</b> Tvåställig bokstavskombination som anger vilket
+bokföringsår som avses.</p>
+<br>
+</font></font></font></b></font></font></font></b></font></p>
+<p align="left" style="margin-bottom: 0cm;">
+<a href="#TOP">Till början</a>
+</p>
+</body>
+</html>
