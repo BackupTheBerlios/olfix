@@ -1,9 +1,9 @@
 /***************************************************************************
                           STYRMAN.c  -  description
                              -------------------
-			     ver 0.09
+			     ver 0.10
     begin                : Mån 30 juni 2003
-    Modified		 : Tis 21 okt  2003
+    Modified		 : Sön  9 nov  2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -14,7 +14,7 @@
                   OUTPUT:  errno, error (text)
 ****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.5 2003/10/21 06:31:01 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.6 2003/11/09 06:00:03 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -25,10 +25,10 @@
 #include <unistd.h>
 #include <string.h>
 #include <ctype.h>
-
 #include "mysql.h"
 #define MAXSTRING 10000
 #define FILEPATH 100
+#define ANTARG 10
 
   MYSQL my_connection;
   MYSQL_RES *res_ptr;
@@ -38,11 +38,11 @@
   char datastr[MAXSTRING]="";
   char tmpfilepath[FILEPATH];
 
-  void display_row();
-  int which_database(char *envp[]);
   char database[15]="";
   char databas[25]="olfix";
 
+void display_row();
+int which_database(char *envp[]);
 int check_Transtyp(char *trnstyp);
 int check_User(char *user);
 int check_Rights(char *usr, char *tr);
@@ -64,39 +64,40 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0)
 	exit(status);
 
-//  for (i=0; i<= argc;i++){
-//	fprintf(stderr,"styrman arg = %d %s\n",i,argv[i]);
-//	 }
-// ================================================================================
-// 		Val av databas, START
-// ================================================================================
+/*  for (i=0; i<= argc;i++){
+	fprintf(stderr,"styrman arg = %d %s\n",i,argv[i]);
+	 }
+*/
+/* ================================================================================	*/
+/* 		Val av databas, START							*/
+/* ================================================================================	*/
 
   status = which_database(envp);
 
   if (status != 0)
 	exit(status);
 
-  strcpy(usr,userp);			// Den inloggades userid
+  strncpy(usr,userp,15);			/* Den inloggades userid	*/
 
   if (strlen(database)!= 0){
-	strcpy(databas,database);
+	strncpy(databas,database,15);
   }else{
-  	strcpy(databas,"olfixtst");	// olfixtst = testföretag
+  	strncpy(databas,"olfixtst",15);		/* olfixtst = testföretag	*/
   }
   /* Om usr (userid) börjar på 'test' eller 'prov' använd databas 'olfixtst' */
   if (strncmp(usr,"test",4)==0 || strncmp(usr,"prov",4)==0 ) {
   	strcpy(databas,"olfixtst");
   }
-//  fprintf(stderr,"KUDSP database = %s databas=%s\n",database,databas);
+/*  fprintf(stderr,"KUDSP database = %s databas=%s\n",database,databas);	*/
 
-// ================================================================================
-// 		Val av databas, END!
-// ================================================================================
+/* ================================================================================	*/
+/* 		Val av databas, END!							*/
+/* ================================================================================	*/
 
 
   status=check_User(argv[1]);		/* Finns användaren(USERID)?		*/
   if(status != 0){
-      strcpy(anv,argv[1]);
+      strncpy(anv,argv[1],strlen(argv[1]));
       for (i = 0;i <= 8;i++){
 	anv[i]=toupper(anv[i]);
       }
@@ -104,9 +105,6 @@ int main(int argc, char *argv[], char *envp[])
      fprintf(stderr,"Error: STYRMAN(1). Användare %s finns ej\n",argv[1]);
      exit(-1);
   }
-//   else{
-//     printf("main:Användare %s existerar!\n",argv[1]);
-//  }
 
   status=-15;
   status=check_Transtyp(argv[2]);	/* Finns transaktionstypen(TRANSID)?	*/
@@ -114,28 +112,22 @@ int main(int argc, char *argv[], char *envp[])
      fprintf(stderr,"Error: STYRMAN(2). Function %s finns ej\n",argv[2]);
      exit(-1);
   }
-//   else{
-//     printf("main:Function %s existerar!\n",argv[2]);
-//  }
 
   status=-15;
   status=check_Rights(argv[1],argv[2]);	/* Har USERID behörighet till TRANSID ?	*/
-//  fprintf(stderr,"STYRMANmain_check_Rights status=%d\n",status);
+/*  fprintf(stderr,"STYRMANmain_check_Rights status=%d\n",status);		*/
   if(status != 0){
-      strcpy(anv,argv[1]);
+      strncpy(anv,argv[1],strlen(argv[1]));
       for (i = 0;i <= 8;i++){
 	anv[i]=toupper(anv[i]);
       }
-     strcpy(argv[1],anv);
+     strncpy(argv[1],anv,strlen(anv));
      fprintf(stderr,"Error: STYRMAN(3). User %s har ej behörighet till %s\n",argv[1],argv[2]);
      exit(-1);
   }
-//   else{
-//     printf("main:User %s har behörighet till %s\n",argv[1],argv[2]);
-//  }
 
   status=-15;
-//  fprintf(stderr,"argv[2]=%s\n",argv[2]);
+/*  fprintf(stderr,"argv[2]=%s\n",argv[2]);					*/
   status=do_Trans(argc, argv);		/* Genomför transaktionen.		*/
   if(status != 0){
   	fprintf(stderr,"%s\n",felpek);
@@ -143,7 +135,7 @@ int main(int argc, char *argv[], char *envp[])
   }
   else{
   	fprintf(stdout,"%s\n",&datastr);
-//  	fprintf(stdout,"OK: STYRMAN_main. Status: = %d  Antal argument = %d\n",status,argc);
+/*  	fprintf(stdout,"OK: STYRMAN_main. Status: = %d  Antal argument = %d\n",status,argc);	*/
   }
   return EXIT_SUCCESS;
 }
@@ -160,18 +152,18 @@ int do_Trans(int argnbr, char *trans[])
 	char tmp[FILEPATH]="";
 	char func[FILEPATH]="";
 
-//	fprintf(stderr,"path=%s\n",tmpfilepath);
+/*	fprintf(stderr,"path=%s\n",tmpfilepath);	*/
   	i=strlen(tmpfilepath);
   	strncpy(tmp,tmpfilepath,i-1);
-  	strcat(tmp,trans[2]);
-  	strcpy(func,tmp);
+  	strncat(tmp,trans[2],strlen(trans[2]));
+  	strncpy(func,tmp,strlen(tmp));
 
 	pid_t pid;
-//	fprintf(stderr,"1) argnr=%d\n",argnbr);
-//	for (i=0;i<=argnbr;i++){
-//		fprintf(stderr,"trans[%d] = %s\n",i,trans[i]);
-//	}
-//	fprintf(stderr,"func=%s\n",func);
+/*	fprintf(stderr,"1) argnr=%d\n",argnbr);			*/
+/*	for (i=0;i<=argnbr;i++){				*/
+/*		fprintf(stderr,"trans[%d] = %s\n",i,trans[i]);	*/
+/*	}							*/
+/*	fprintf(stderr,"func=%s\n",func);			*/
 
 	pipe(fds);
 	pid =fork();
@@ -256,14 +248,15 @@ int do_Trans(int argnbr, char *trans[])
 		waitpid (pid, NULL,0);
 		felpek=strstr(datastr,"Error:");	/* Error: */
 		if (felpek !=NULL){
-//			fprintf(stderr,"%s\n",felpek);
+/*			fprintf(stderr,"%s\n",felpek);		*/
 			return -1;
 		}
 		else{
-//			fprintf(stdout,"%s\n",&datastr);	/* returnera data till anropande program. */
+/*			fprintf(stdout,"%s\n",&datastr);	*/ /* returnera data till anropande program. */
 			return 0;
 		}
 	}
+	return 0;
 }
 
 
@@ -272,22 +265,20 @@ int check_Transtyp(char *trnstyp)
 {
 
   int res;
-//  char trnsid[8];
-//  char trnstxt[60];
   static char sql1[] = "SELECT TRNSID FROM TRANSID WHERE TRNSID=\"";
   static char sql2[] = "\"";
-  char sqlcommand[50];	/* 50 */
+  char sqlcommand[50]="";	/* 50 */
   int status=-15;
 
-  strcpy(sqlcommand,sql1);
-  strcat(sqlcommand,trnstyp);
-  strcat(sqlcommand,sql2);
+  strncpy(sqlcommand,sql1,strlen(sql1));
+  strncat(sqlcommand,trnstyp,strlen(trnstyp));
+  strncat(sqlcommand,sql2,strlen(sql2));
 
 
   mysql_init(&my_connection);
 
   if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
-  //printf("Connection success\n");
+/*	fprintf(stderr,"Connection success\n");		*/
 
   res = mysql_query(&my_connection,sqlcommand);
   if (res){
@@ -324,27 +315,27 @@ int check_User(char *user)
   int res;
   static char sql1[] = "SELECT USERID FROM USR WHERE USERID=\"";
   static char sql2[] = "\"";
-  char sqlcommand[50];	/* 50 */
+  char sqlcommand[50]="";	/* 50 */
   int status=15;
 
-  strcpy(sqlcommand,sql1);
-  strcat(sqlcommand,user);
-  strcat(sqlcommand,sql2);
+  strncpy(sqlcommand,sql1,strlen(sql1));
+  strncat(sqlcommand,user,strlen(user));
+  strncat(sqlcommand,sql2,strlen(sql2));
 
   mysql_init(&my_connection);
 
   if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
-  //printf("Connection success\n");
+/*	fprintf(stderr,"Connection success\n");		*/
 
   	res = mysql_query(&my_connection,sqlcommand);
-//	fprintf(stderr,"sqlcommand=%s res=%d\n",sqlcommand,res);
+/*	fprintf(stderr,"sqlcommand=%s res=%d\n",sqlcommand,res);	*/
   	if (res){
 		fprintf(stderr,"Error: STYRMAN_check-User_SELECT error: %s\n",mysql_error(&my_connection));
   	}
   	else{
 		res_ptr=mysql_store_result(&my_connection);
 		if (res_ptr){
-			//printf("Retrieved %lu rows\n",(unsigned long)mysql_num_rows(res_ptr));
+/*		fprintf(stderr,"Retrieved %lu rows\n",(unsigned long)mysql_num_rows(res_ptr));	*/
 			if((unsigned long)mysql_num_rows(res_ptr) > 0){ /* En rad har hittats */
 				status=0;
 			}
@@ -372,33 +363,30 @@ int check_User(char *user)
 int check_Rights(char *usr, char *tr)
 {
   int status=-15;
-
   int res;
   static char sql1[] = "SELECT USERID,TRNSID FROM RIGHTS WHERE USERID=\"";
   static char sql2[]="\"";
-//  static char sql3[]=",";
-//  static char sql4[]=")";
   char sqlcommand[200]="";
   static char sql6[14]=" AND TRNSID=\"";
 
-  strcat(sqlcommand,sql1);
+  strncpy(sqlcommand,sql1,strlen(sql1));
 /* SELECT FROM RIGHTS WHERE USERID = "  */
-  strcat(sqlcommand,usr);/* KALLE */
+  strncat(sqlcommand,usr,strlen(usr));/* KALLE */
 /* SELECT FROM RIGHTS WHERE USERID = "KALLE  */
-  strcat(sqlcommand,sql2); /*  "     */
+  strncat(sqlcommand,sql2,strlen(sql2)); /*  "     */
 /* SELECT FROM RIGHTS WHERE USERID = "KALLE" */
-  strcat(sqlcommand,sql6);
+  strncat(sqlcommand,sql6,strlen(sql6));
 /* SELECT FROM RIGHTS WHERE USERID = "KALLE" AND TRNSID ="  */
-  strcat(sqlcommand,tr); /* USERADD */
+  strncat(sqlcommand,tr,strlen(tr)); /* USERADD */
 /* SELECT FROM RIGHTS WHERE USERID = "KALLE" AND TRNSID ="USERADD  */
-  strcat(sqlcommand,sql2);
+  strncat(sqlcommand,sql2,strlen(sql2));
 /* SELECT FROM RIGHTS WHERE USERID = "KALLE" AND TRNSID ="USERADD"  */
-// fprintf(stderr,"STYRMANcheck_Rights SQL = %s\n",sqlcommand);
+/* fprintf(stderr,"STYRMANcheck_Rights SQL = %s\n",sqlcommand);		*/
 
   mysql_init(&my_connection);
 
   if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
-  	//printf("Connection success\n");
+/*	fprintf(stderr,"Connection success\n");		*/
   	res = mysql_query(&my_connection,sqlcommand);
   	if (res){
 		fprintf(stderr,"Error: STYRMAN_check_Rights_SELECT error: %s\n",mysql_error(&my_connection));
@@ -406,7 +394,7 @@ int check_Rights(char *usr, char *tr)
 	else{
 		res_ptr=mysql_store_result(&my_connection);
 		if (res_ptr){
-//			fprintf(stderr,"STYRMANcheck_Rights:Retrieved %lu rows\n",(unsigned long)mysql_num_rows(res_ptr));
+/*			fprintf(stderr,"STYRMANcheck_Rights:Retrieved %lu rows\n",(unsigned long)mysql_num_rows(res_ptr));	*/
 			if((unsigned long)mysql_num_rows(res_ptr) > 0){ /* En rad har hittats */
 				status=0;
 			}else{						/* Ingen rad hittades */
@@ -426,7 +414,7 @@ int check_Rights(char *usr, char *tr)
 				mysql_errno(&my_connection), mysql_error(&my_connection));
 		}
     	}
-//  fprintf(stdout,"STYRMANcheck_Rights:Jobb klart. Status = %d\n",status);
+/*  fprintf(stdout,"STYRMANcheck_Rights:Jobb klart. Status = %d\n",status);	*/
   return status;
 }
 
@@ -454,8 +442,8 @@ int find_tmp_path(char *envp[])
 			}
 		}
 	}
-	strcpy(filename,home);
-	strcat(filename,resource);
+	strncpy(filename,home,strlen(home));
+	strncat(filename,resource,strlen(resource));
 
 	status=-1;
 
@@ -463,7 +451,7 @@ int find_tmp_path(char *envp[])
 		while (fgets(tmp,50,fil_pek) != NULL){
 			if(strstr(tmp,"PATH=")){
 				tmp_pek=(strstr(tmp,"PATH="))+5;
-				strcpy(tmpfilepath,tmp_pek);
+				strncpy(tmpfilepath,tmp_pek,strlen(tmp_pek));
 				status=0;
 			}
 		}
@@ -479,7 +467,7 @@ int which_database(char *envp[])
 {
 	FILE *fil_pek;
 
-//	char home[]="$HOME";
+/*	char home[]="$HOME";	*/
 	char home[50];
 	char *home_pek;
 	char resource[]="/.olfixrc";
@@ -492,35 +480,34 @@ int which_database(char *envp[])
 	for (i = 0;envp[i]!=NULL;i++){
 		if(strstr(envp[i],"HOME=") != NULL){
 			strncpy(temp,envp[i],4);
-//			fprintf(stderr,"temp=%s\n",temp);
+/*			fprintf(stderr,"temp=%s\n",temp);		*/
 			status=strcmp(temp,"HOME");
-//			fprintf(stderr,"status=%d\n",status);
+/*			fprintf(stderr,"status=%d\n",status);		*/
 			if (status == 0){
 				home_pek=(strstr(envp[i],"HOME="));
 				home_pek=home_pek+5;
 				strcpy(home,home_pek);
 			}
-//			fprintf(stderr,"home_pek=%d %s\n",home_pek,home_pek);
-//			fprintf(stderr,"home_pek=%d %s\n",home_pek,home_pek);
+/*			fprintf(stderr,"home_pek=%d %s\n",home_pek,home_pek);	*/
 		}
 	}
-//	fprintf(stderr,"home=%s\n",home);
-	strcpy(filename,home);
-	strcat(filename,resource);
+/*	fprintf(stderr,"home=%s\n",home);	*/
+	strncpy(filename,home,strlen(home));
+	strncat(filename,resource,strlen(resource));
 
-//	fprintf(stderr,"filename=%s\n",filename);
+/*	fprintf(stderr,"filename=%s\n",filename);	*/
 	status=-1;
 
 	if ((fil_pek = fopen(filename,"r")) != NULL){
 		while (fgets(tmp,150,fil_pek) != NULL){
-//			fprintf(stderr,"tmp=%s\n",tmp);
+/*			fprintf(stderr,"tmp=%s\n",tmp);		*/
 			if(strstr(tmp,"DATABASE=")){
 				tmp_pek=(strstr(tmp,"DATABASE="))+9;
 				strncpy(database,tmp_pek,strlen(tmp_pek));
 				status=0;
 			}
 		}
-//		fprintf(stderr,"database=%s_len=%d\n",database,strlen(database));
+/*		fprintf(stderr,"database=%s_len=%d\n",database,strlen(database));	*/
 		fclose(fil_pek);
 	}
 	else{
@@ -530,7 +517,7 @@ int which_database(char *envp[])
 		tmp[i]=database[i];
 	}
 	tmp[i-1]=0;
-//	fprintf(stderr,"tmp=%s, i=%d len tmp=%d\n",tmp,i,strlen(tmp));
+/*	fprintf(stderr,"tmp=%s, i=%d len tmp=%d\n",tmp,i,strlen(tmp));		*/
 	strncpy(database,tmp,strlen(tmp));
 	database[strlen(tmp)]=0;
 
