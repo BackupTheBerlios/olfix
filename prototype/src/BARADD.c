@@ -1,9 +1,9 @@
 /***************************************************************************
                           BARADD.c  -  description
                              -------------------
-    Version		 : 0.2
+    Version		 : 0.3
     begin                : Tors 16 jan 2003
-    modified		 : Fre  31 okt 2003
+    modified		 : Ons  23 feb 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -27,7 +27,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BARADD.c,v 1.2 2003/10/31 13:38:09 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BARADD.c,v 1.3 2005/02/23 11:06:43 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -53,9 +53,9 @@ int main(int argc, char *argv[], char *envp[])
 /* int i;	*/
   int res;
   int status;
-  const char *userp = getenv("USER");	// vem är inloggad?
+  const char *userp = getenv("USER");	/* vem är inloggad?	*/
   char databas[25]="olfix";
-  char usr[15];				// userid
+  char usr[15];				/* userid		*/
 
 
   char temp1a[]="INSERT INTO BOKFAR(ARID,BENAMNING,ARSTART,ARSLUT,ARLAST,BESKATTNINGSAR,SENVERDAT,VERNR,KONTOPLAN) VALUES (";
@@ -88,13 +88,13 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0)
 	exit(status);
 
-  strncpy(usr,userp,15);			// Den inloggades userid
+  strncpy(usr,userp,15);			/* Den inloggades userid	*/
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
 		strncpy(databas,database,15);
 	}else{
-  		strncpy(databas,"olfixtst",15);	// olfixtst = testföretag
+  		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}
   }else{
 	if (strlen(argv[ANTARG]) != 0){
@@ -110,27 +110,27 @@ int main(int argc, char *argv[], char *envp[])
   if (strncmp(usr,"test",4)==0 || strncmp(usr,"prov",4)==0 ) {
   	strncpy(databas,"olfixtst",15);
   }
- fprintf(stderr,"Databas=%s\n",databas);
+ /* fprintf(stderr,"Databas=%s\n",databas);	*/
 /* ================================================================================ */
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
   if (argv[1] != NULL){
-  	strncpy(arid,argv[1],strlen(argv[1]));
+  	strncpy(arid,argv[1],sizeof(arid));	/* 2005-02-23	*/
   }
   else{
   	fprintf(stderr,"Error: BARADD: Ange årtal!\n");
 	exit(-1);
   }
 
-  strncpy(benamn,argv[2],strlen(argv[2]));
-  strncpy(arstart,argv[3],strlen(argv[3]));
-  strncpy(arslut,argv[4],strlen(argv[4]));
-  strncpy(arlast,argv[5],strlen(argv[5]));
-  strncpy(beskattar,argv[6],strlen(argv[6]));
-  strncpy(senverdat,argv[7],strlen(argv[7]));
-  strncpy(vernr,argv[8],strlen(argv[8]));
-  strncpy(ktoplan,argv[9],strlen(argv[9]));
+  strncpy(benamn,argv[2],sizeof(benamn));		/* 2005-02-23	*/
+  strncpy(arstart,argv[3],sizeof(arstart));		/* 2005-02-23	*/
+  strncpy(arslut,argv[4],sizeof(arslut));		/* 2005-02-23	*/
+  strncpy(arlast,argv[5],strlen(arlast));		/* 2005-02-23	*/
+  strncpy(beskattar,argv[6],sizeof(beskattar));		/* 2005-02-23	*/
+  strncpy(senverdat,argv[7],sizeof(senverdat));		/* 2005-02-23	*/
+  strncpy(vernr,argv[8],sizeof(vernr));			/* 2005-02-23	*/
+  strncpy(ktoplan,argv[9],sizeof(ktoplan));		/* 2005-02-23	*/
 
   strncpy(temp5,temp1a,strlen(temp1a));
 /* INSERT INTO BOKFAR(ARID,BENAMNING,ARSTART,ARSLUT,ARLAST,BESKATTNINGSAR,SENVERDAT,VERNR,KONTOPLAN) VALUES (   */
