@@ -1,12 +1,15 @@
-Changelog OLFIX 20041118
+Changelog OLFIX 20041128
 Blivande
 Ver 0.1.16.A
-20041118
+20041128
 
 		Allmänt
 		Flyttat OLFIX-paketet till /opt/olfix
 		Återställt (tagit bort katalogen C i repositoryt)
 			Filerna ligger i /src
+
+		Nya tabeller
+		PRODUKTGRUPP	Produktgrupper/Produktklasser (PRODKLASS,BESKRIVNING)
 
 		Nya program
 		LSTLEVPW	Lista standardleveransplatser
