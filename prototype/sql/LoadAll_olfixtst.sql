@@ -7,5 +7,7 @@ load data infile "/usr/local/olfix/data/PROGRAMdata.txt" replace into table PROG
 load data infile "/usr/local/olfix/data/KUNDREGdata_olfixtst.txt" replace into table KUNDREG Fields terminated by ',' enclosed by '"';
 load data infile "/usr/local/olfix/data/LEVREGdata_olfixtst.txt" replace into table LEVREG Fields terminated by ',' enclosed by '"';
 load data infile "/usr/local/olfix/data/BETVILKORdata_olfixtst.txt" replace into table BETVILKOR Fields terminated by ',' enclosed by '"';
+load data infile "/usr/local/olfix/data/ARTIKELREGdata_olfixtst.txt" replace into table ARTIKELREG Fields terminated by ',' enclosed by '"';
+load data infile "/usr/local/olfix/data/LAGERSTELLEREGdata_olfixtst.txt" replace into table LAGERSTELLEREG Fields terminated by ',' enclosed by '"';
 
 
