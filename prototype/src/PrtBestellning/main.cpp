@@ -1,15 +1,17 @@
 /****************************************************************/
-/**		main.cpp		PRTINKW		*/
-/**		2004-01-30					*/
+/**		main.cpp		PRTINKW			*/
+/**		Version 0.2					*/
+/**				2004-01-30			*/
+/**		Modifierad:	2004-02-16			*/
 /**		Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
- *					                                                 *
+ *					                                         *
  *   This program is free software; you can redistribute it and/or modify 	 *
- *   it under the terms of the GNU General Public License as published by       *
+ *   it under the terms of the GNU General Public License as published by        *
  *   the Free Software Foundation; either version 2 of the License, or     	 *
- *   (at your option) any later version.                                   		 *
- *                                                                         				 *
+ *   (at your option) any later version.                                   	 *
+ *                                                                         	 *
  *********************************************** *****************/
 
 #include <qapplication.h>
@@ -22,6 +24,7 @@
 #include <qlistbox.h>
 #include <qlabel.h>
 #include <qstring.h>
+#include <qlineedit.h>
 #include <qstringlist.h>
 #include <qfile.h>
 #include <qdir.h>
@@ -32,6 +35,8 @@ int main( int argc, char* argv[] )
   QApplication myapp( argc, argv );
 
   frmPrtInk* mywidget = new frmPrtInk();
+
+  mywidget->lineEditBestNr->setText(QString(argv[1]));
 
   QString rcfil;
   QString bibl;
