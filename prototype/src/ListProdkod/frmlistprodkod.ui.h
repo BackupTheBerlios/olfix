@@ -8,8 +8,9 @@
 /***************************************************************************
                           LSTPKDW -  description
                              -------------------
-		     version 0.1
-    begin                : Ons 1  dec 2004
+		     version 0.2
+    begin                   : Ons  1 dec   2004
+    Modified	: Tis  8 mars 2005
     copyright            : (C) 2004 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -82,6 +83,7 @@ void frmListProdkod::slotEndOfProcess()
   char antrad[6]="";
   char prodkod[6]="";
   char beskrivning[31]="";
+  char momskod[6]="";
 
 //    qDebug("inrad=%s",inrad.latin1());
     QListViewItem* item;
@@ -135,14 +137,29 @@ void frmListProdkod::slotEndOfProcess()
 		    j=sizeof(beskrivning) + m;
 		}
 	    }
+	    m=m+l+2;			// position för momskod
+	    l=0;
+	    for(j = m; j < sizeof(momskod) + m; j++){
+		if(tmp[j] != *("_")){
+		    momskod[l]=tmp[j];
+		    l++;
+		}else{
+		    momskod[l] = *("\0");
+		    j=sizeof(momskod) + m;
+		}
+	    }
+	
 	    m=m+l+2;
-	    item = new QListViewItem(ListView1,prodkod,beskrivning);
-// 	 	rensa betalvilkor,  dagar  och beskrivning
+	    item = new QListViewItem(ListView1,prodkod,beskrivning,momskod);
+// 	 	rensa produktkod, beskrivning  och momskod
 	    for (l=0;l<sizeof(prodkod);l++)
 		prodkod[l]=*("\0");
 	    for (l=0;l<sizeof(beskrivning);l++)
 		beskrivning[l]=*("\0");	
-//	 	rensa listrad 
+	    for (l=0;l<sizeof(momskod);l++)
+		momskod[l]=*("\0");	
+	    
+	    //	 	rensa listrad 
 	}
     }
 	    listrad.remove(0,70);   
