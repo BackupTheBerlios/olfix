@@ -1,9 +1,10 @@
 /***************************************************************************
                           BARFND.c  -  description
+			  Hitta bokföringsår
                              -------------------
 			 ; Vers. 0.2
-    begin                : Lör 9 aug	2003
-    modified		 : Sön 2 nov	2003
+    begin                : Lör  9 aug	2003
+    modified		 : Ons 23 febr  2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +29,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BARFND.c,v 1.2 2003/11/02 06:50:10 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BARFND.c,v 1.3 2005/02/23 11:17:43 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -97,7 +98,7 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-  strncpy(datum,argv[1],strlen(argv[1]));
+  strncpy(datum,argv[1],sizeof(datum));			/* 2005-02-23	*/
 /*  fprintf(stderr,"argv[1]=%s\n",argv[1]);	*/
 /*  fprintf(stderr,"datum=%s\n",datum);	*/
   strncpy(temp5,temp1,strlen(temp1));
