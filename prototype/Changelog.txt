@@ -1,18 +1,27 @@
-Changelog OLFIX 20040205
+Changelog OLFIX 20040209
 
 Ver 0.1.13.A	OBS! Alfa
-20040205
+20040209
 		Nya program
 		PRTINKW		Utskrift av beställning
+		ADDLEVVW	Nytt leveransvillkor
+		LSTLEVVW	Lista leveransvillkor
+		ADDLEVSW	Nytt leveranssätt
+
 
 		Ändrade program
 		SDOLISW		Ändrad att passa till kugar 1.2.92 ->
+				samt till ISO-8859-1 för XML, mm
 		LSTINKW		Uppdatering (stretching)
 		DSPINKW		Ändrade/nya fält
 
 		Nya funktioner
+		LEVVADD.c	Lägga upp ett nytt leveransvillkor
 		LEVVDSP.c	Visa ett leveransvillkor
-		LEVSETT.c	Visa ett leveranssätt
+		LEVVLST.c	Lista leveransvillkor
+		LEVSADD.c	Lägg upp ett nytt leveranssätt
+		LEVSDSP.c	Visa ett leveranssätt
+		LEVSLST.c	Lista leveranssätt
 
 		Ändrade funktioner
 		INKHDSP.c	Nya fält i INKREG
@@ -23,7 +32,10 @@ Ver 0.1.13.A	OBS! Alfa
 
 		Ny rapport
 		Bestellning.kut	Utskrift av beställning med hjälp av Kugar
-		
+
+		Ändrad rapport
+		Saldolista.kut	Ändrat till ISO-8859-1 för XML
+
 		Nytt script
 		setup.sh	används av makeself
 
@@ -51,7 +63,8 @@ Ver 0.1.13.A	OBS! Alfa
 			-"-		Ändrade fält (LEVBETVILLKOR,BESTTEXT)
 
 		Ändrade data
-		TRANSIDdata.txt	Nya funktioner, LEVVDSP,LEVSDSP
+		TRANSIDdata.txt	Nya funktioner, LEVVADD,LEVVDSP,LEVVLST,LEVSADD,LEVSDSP,
+		PROGRAMdata.txt	Nya program
 
 		Bibliotek/Directory
 		Nytt bibliotek	/report	Avsett för kugar-template
