@@ -8,12 +8,13 @@
 *****************************************************************************/
 /***************************************************************************
                           ADDORDW  -  description
+	         Kundorder
                              -------------------
-		     version 0.2
-    begin                : Sö 12 okt 2003
-    Updated	: Ons 9 febr 2005
-    copyright            : (C) 2003 by Jan Pihlgren
-    email                : jan@pihlgren.se
+		     version 0.3
+    begin   	: Sö  12 okt   2003
+    Updated	: Fre  4 mars 2005
+    copyright	: (C) 2003 by Jan Pihlgren
+    email     	: jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
  *					                                                 *
@@ -38,6 +39,7 @@
     QString* rad;
     QString errorrad;
 
+    QString orderdatum;
     QString ordernr;
     QString orderkundnr;
     QString orderkundnamn;
@@ -58,10 +60,36 @@
     QString orderbgnr;
     QString ordervaluta;
     QString orderbetvillkor;
-    
+   
+    /*  Orderradrad	 */	
+    bool radnrflag=FALSE;
+    QString orderradnr="010";    
+    QString oldradnr;
+    QString orderartikelnr;
+    QString orderbenamn;
+    QString orderantal;
+    QString orderradpris;
+    QString radbelopp;
+	    
+    /* Order 	*/
+    QString ordersumma;
+    QString momssumma;
+    QString fraktbelopp;
     
 void frmAddOrder::init()
 {
+//    int vecka;
+//    int year;
+    int dag;
+    QString dagnummer;
+    QString veckonr;
+    QString artal;
+    QDateTime dt = QDateTime::currentDateTime();
+    dag= QDate::currentDate().dayOfWeek();
+    orderdatum=dt.toString("yyyy-MM-dd");
+    
+    textLabelOrderdatum->setText(orderdatum);
+    frmAddOrder::listViewRader_format();
     frmAddOrder::getKundLista();
     lineEditOrderKundNr->setFocus();
 }
@@ -138,6 +166,199 @@ void frmAddOrder::slotOrderValuta_returnPressed()
 void frmAddOrder::slotOrderBetvilk_returnPressed()
 {
     orderbetvillkor=lineEditBetvilk->text();
+    pushButtonOK->setFocus();
+}
+
+/************************************************************************/
+/*		Orderradrad	Start					*/
+/************************************************************************/
+
+void frmAddOrder::lineEditArtikelNr_returnPressed()
+{
+    orderartikelnr=lineEditArtikelNr->text();
+    if (orderartikelnr==""){
+	QMessageBox::warning( this, "ADDORDW",
+			      "Artikelnummer måste anges!\n" );
+	lineEditArtikelNr->setFocus();
+    }else{
+	frmAddOrder::getArtikeldata();
+	lineEditBenamn->setFocus();
+    }
+}
+
+void frmAddOrder::lineEditBenamn_returnPressed()
+{
+    orderbenamn=lineEditBenamn->text();
+    lineEditAntal->setFocus();
+}
+
+void frmAddOrder::lineEditAntal_returnPressed()
+{
+    int i;
+    double antal;
+    orderantal=lineEditAntal->text();
+    antal=orderantal.toDouble();
+    if ( antal==0){
+	QMessageBox::warning( this, "ADDORDW",
+			      "Antal måste anges!\n" );
+	lineEditAntal->clear();
+	lineEditAntal->setFocus();
+    }else{
+	i = -1;
+	i =orderantal.find( QRegExp(","), 0 );
+	if (i != -1){
+	    orderantal.replace( QChar(','), "." );
+	    lineEditAntal->setText(orderantal);
+	}
+	lineEditAPris->setFocus();
+    }
+}
+
+void frmAddOrder::lineEditAPris_returnPressed()
+{
+    int i;
+    double pris,antal,summa;
+    orderradpris=lineEditAPris->text();
+    i = -1;
+    i =orderradpris.find( QRegExp(","), 0 );
+    if (i != -1){
+	orderradpris.replace( QChar(','), "." );
+	lineEditAPris->setText(orderradpris);
+    }
+    pris=orderradpris.toDouble();
+    antal=orderantal.toDouble();
+    summa=pris*antal;
+    radbelopp=radbelopp.setNum(summa,'f',2);
+    lineEditRadSumma->setText(radbelopp);
+    pushBtnOKRad->setFocus();
+}
+
+void frmAddOrder::pushBtnOKRad_clicked()
+{
+    double summa ,belopp, moms, momsbelopp;
+    QListViewItem * item;
+    int i;
+    item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,orderantal,orderradpris,radbelopp);
+    item->setText(8,orderbenamn);
+    if (radnrflag == FALSE){
+	i = orderradnr.toInt();
+	i = i+10;
+	orderradnr=QString::number(i,10);
+	if (orderradnr.length() <3){
+	    orderradnr="0"+orderradnr;
+	}
+    }else{
+	orderradnr=oldradnr;
+	radnrflag=FALSE;
+    }
+    /* Beräkna ordersumma	*/
+    summa=ordersumma.toDouble();
+    belopp=radbelopp.toDouble();
+    summa=summa+belopp;
+    ordersumma=ordersumma.setNum(summa,'f',2);
+    lineEditOrderSumma->setText(ordersumma);
+    /*  Beräkna momsen	*/  
+    moms=ordermoms.toDouble();
+    moms=moms/100;
+    momsbelopp=summa*moms;
+    momssumma=momssumma.setNum(momsbelopp,'f',2);
+    lineEditOrderMomsKr->setText(momssumma);
+    /* Nästa orderrad 	*/
+    lineEditRadnr->setText(orderradnr);
+    lineEditArtikelNr->clear();
+    lineEditBenamn->clear();
+    lineEditAntal->clear();
+    lineEditAPris->clear();
+    lineEditRadSumma->clear();
+    orderartikelnr="";
+    orderbenamn="";
+    orderantal="";
+    orderradpris="";
+    radbelopp="";
+    lineEditArtikelNr->setFocus();
+}
+
+void frmAddOrder::pushBtnRadNej_clicked()
+{
+    lineEditRadnr->setText(orderradnr);
+    lineEditArtikelNr->clear();
+    lineEditBenamn->clear();
+    lineEditAntal->clear();
+    lineEditAPris->clear();
+    lineEditRadSumma->clear();
+    orderartikelnr="";
+    orderbenamn="";
+    orderantal="";
+    orderradpris="";
+    radbelopp="";
+    lineEditArtikelNr->setFocus();
+}
+
+void frmAddOrder::listViewRader_clicked( QListViewItem * )
+{
+    double radsumma ,tmpordersumma;
+    radnrflag=TRUE;
+    oldradnr=orderradnr;
+    QListViewItem *item =  listViewRader->currentItem();
+    if ( !item )
+	return;
+    item->setSelected( TRUE );
+    QString temp0=item->text(0);	// radnr
+    QString temp1=item->text(1);	// artikelnr
+    QString temp2=item->text(2);	// artikelbenämning
+    QString temp3=item->text(3);	// antal
+    QString temp4=item->text(4);	// pris/st
+    QString temp5=item->text(5);	// radsumma
+    //    qDebug("temp=%s, %s, %s, %s, %s, %s",temp0.latin1(),temp1.latin1(),temp2.latin1(),temp3.latin1(),temp4.latin1(),temp5.latin1());
+    // --------------------------------------------------------------
+    lineEditRadnr->setText(temp0);
+    orderradnr=temp0;
+    lineEditArtikelNr->setText(temp1);
+    lineEditBenamn->setText(temp2);
+    lineEditAntal->setText(temp3);
+    lineEditAPris->setText(temp4);
+    lineEditRadSumma->setText(temp5);
+    radsumma=temp5.toDouble();
+    tmpordersumma=ordersumma.toDouble();
+    tmpordersumma=tmpordersumma-radsumma;
+    ordersumma=ordersumma.setNum(tmpordersumma,'f',2);
+    lineEditOrderSumma->setText(ordersumma);
+    lineEditArtikelNr->setFocus();
+    delete listViewRader->currentItem();
+}
+
+
+
+/************************************************************************/
+/*		Orderradrad	Slut					*/
+/************************************************************************/
+
+void frmAddOrder::lineEditOrderFrakt_returnPressed()
+{
+    double summa ,totalsumma,fraktsumma,moms,momsbelopp;
+    totalsumma=0;
+       /*	Fraktkostnad	   */
+    summa=ordersumma.toDouble();
+    fraktbelopp=lineEditOrderFrakt->text();
+    fraktsumma=fraktbelopp.toDouble(); 
+    lineEditOrderFrakt->setText(fraktbelopp);
+	    
+       /*  Beräkna momsen	*/  
+    moms=ordermoms.toDouble();
+    moms=moms/100;
+    momsbelopp=(summa+fraktsumma)*moms;
+    momssumma=momssumma.setNum(momsbelopp,'f',2);
+    lineEditOrderMomsKr->setText(momssumma);
+    
+       /* Order total 	*/
+    totalsumma=totalsumma+summa+fraktsumma+momsbelopp;
+    ordersumma=ordersumma.setNum(totalsumma,'f',2);
+    lineEditOrderTotal->setText(ordersumma);
+
+}
+
+void frmAddOrder::pushBtnOrderKlar_clicked()
+{
     pushButtonOK->setFocus();
 }
 
@@ -836,3 +1057,104 @@ void frmAddOrder::slotgetMomsEndOfProcess()
 	i = -1;
     }
 }
+
+void frmAddOrder::listViewRader_format()
+{
+    listViewRader->setColumnWidth(0,44);		// Radnr
+    listViewRader->setColumnWidth(1,236);		// Artikelnr
+    listViewRader->setColumnWidth(2,292);		// Benämning
+//    listViewRader->setColumnWidth(3,55);		// Lev.vecka
+    listViewRader->setColumnWidth(3,86);		// Antal
+    listViewRader->setColumnWidth(4,71);		// Pris
+    listViewRader->setColumnWidth(5,86);		// Summa
+}
+
+void frmAddOrder::getArtikeldata()
+{
+    const char *userp = getenv("USER");
+    QString usr(userp);
+
+    inrad="";
+    process = new QProcess();
+    process->addArgument("./STYRMAN");	// OLFIX styrprogram
+    process->addArgument(usr);		// userid
+    process->addArgument( "ARDSP");	// OLFIX funktion
+    process->addArgument(orderartikelnr);
+
+    frmAddOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+    frmAddOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+    frmAddOrder::connect( process, SIGNAL(processExited() ),this, SLOT(slotArdataEndOfProcess() ) );
+
+    if ( !process->start() ) {
+	// error handling
+	fprintf(stderr,"Problem starta STYRMAN/ARDSP!\n");
+	QMessageBox::warning( this, "Start av ARDSP",
+			      "Kan inte starta STYRMAN/ARDSP!\n"
+			      );
+    }
+}
+
+void frmAddOrder::slotArdataEndOfProcess()
+{
+    int i,m;
+
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+    //   qDebug("Error:",errorrad);
+    if (i != -1) {
+	QMessageBox::critical( this, "ADDORDW",
+			       "ERROR!\n"+errorrad
+			       );
+	errorrad="";
+	i = -1;
+	orderartikelnr="";
+	lineEditArtikelNr->clear();
+	lineEditArtikelNr->setFocus();
+    }else{
+	i = -1;
+	i = inrad.find( QRegExp("OK:"), 0 );
+	if (i != -1) {
+	    //	    int i1 = inrad.find( QRegExp("01:"), 0 );	//	artikelnr
+	    int i2 = inrad.find( QRegExp("02:"), 0 );		//	benämning 1
+	    int i3 = inrad.find( QRegExp("03:"), 0 );		//	benämning 2
+	    //	    int i4 = inrad.find( QRegExp("04:"), 0 );	//	enhet
+    	    int i5 = inrad.find( QRegExp("05:"), 0 );		//	försäljningspris
+	    int i6 = inrad.find( QRegExp("06:"), 0 );		//	ledtid
+//	    int i7 = inrad.find( QRegExp("07:"), 0 );		//	prodklass
+//	    int i15= inrad.find(QRegExp("15:"),0);		//	leverantörens artbenämning
+//	    int i16= inrad.find(QRegExp("16:"),0);
+//	    int i17= inrad.find(QRegExp("17:"),0);		//	leverantörens artnr
+//	    int i18= inrad.find(QRegExp("18:"),0);
+	    m=i3-i2;
+	    if (i2 != -1){
+		orderbenamn=inrad.mid(i2+3,m-4);
+		lineEditBenamn->setText(orderbenamn);
+	    }
+   	    m=i6-i5;
+	    if (i5 != -1){
+		orderradpris=inrad.mid(i5+3,m-4);
+		lineEditAPris->setText(orderradpris);
+	    }	    
+ 
+/*	    
+	    m=i7-i6;
+	    if (i6 != -1){
+		arledtid=inrad.mid(i6+3,m-4);
+	    }
+*/
+/*	    
+	    m=i16-i15;
+	    if (i15 != -1){
+		orderbenamn=inrad.mid(i15+3,m-4);
+	    }
+*/	    
+/*	    m=i18-i17;
+	    if (i17 != -1){
+		orderartikelnr=inrad.mid(i17+3,m-4);
+	    }
+*/	    
+//	    frmAddBest::getArtikelEkonomidata();
+	}
+    }
+}
+
