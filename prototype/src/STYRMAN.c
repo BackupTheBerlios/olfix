@@ -13,7 +13,7 @@
                   OUTPUT:  errno, error (text)
 ****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.3 2003/09/28 04:49:46 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.4 2003/09/28 04:50:34 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
