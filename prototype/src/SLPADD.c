@@ -1,9 +1,9 @@
 /***************************************************************************
                           SLPADD.c  -  description
                              -------------------
-    Vesrsion		 : 0.2
-    begin                : Ons 10 aug 2003
-    Modifierad		 : Sön  9 nov 2003
+    Vesrsion		 : 0.3
+    begin                : Ons  10 aug  2003
+    Modifierad		 : Tors 24 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/SLPADD.c,v 1.3 2003/11/09 04:43:07 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/SLPADD.c,v 1.4 2005/02/24 10:34:21 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -82,7 +82,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
-		strncpy(databas,database,15);
+		strncpy(databas,database,sizeof(databas));	/* 2005-02-24	*/
 	}else{
   		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}
@@ -105,12 +105,12 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-  strncpy(kundnr,argv[1],strlen(argv[1]));
-  strncpy(stdlevplats,argv[2],strlen(argv[2]));
-  strncpy(adress,argv[3],strlen(argv[3]));
-  strncpy(postnr,argv[4],strlen(argv[4]));
-  strncpy(postadr,argv[5],strlen(argv[5]));
-  strncpy(land,argv[6],strlen(argv[6]));
+  strncpy(kundnr,argv[1],sizeof(kundnr));		/* 2005-02-24	*/
+  strncpy(stdlevplats,argv[2],sizeof(stdlevplats));	/* 2005-02-24	*/
+  strncpy(adress,argv[3],sizeof(adress));		/* 2005-02-24	*/
+  strncpy(postnr,argv[4],sizeof(postnr));		/* 2005-02-24	*/
+  strncpy(postadr,argv[5],sizeof(postadr));		/* 2005-02-24	*/
+  strncpy(land,argv[6],sizeof(land));			/* 2005-02-24	*/
 
 
   strncpy(temp5,temp1,strlen(temp1));
