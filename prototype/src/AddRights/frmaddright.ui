@@ -8,120 +8,161 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>319</width>
-            <height>148</height>
+            <width>390</width>
+            <height>151</height>
         </rect>
     </property>
     <property name="caption">
         <string>ADDRGTW  Lägga upp ny behörighet</string>
     </property>
-    <widget class="QLabel">
+    <grid>
         <property name="name">
-            <cstring>TextLabel1</cstring>
+            <cstring>unnamed</cstring>
         </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>30</y>
-                <width>81</width>
-                <height>21</height>
-            </rect>
+        <property name="margin">
+            <number>11</number>
         </property>
-        <property name="frameShape">
-            <enum>NoFrame</enum>
+        <property name="spacing">
+            <number>6</number>
         </property>
-        <property name="frameShadow">
-            <enum>Plain</enum>
-        </property>
-        <property name="text">
-            <string>Användar-ID:</string>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonQuit</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>70</x>
-                <y>120</y>
-                <width>61</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Avsluta</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel1_2</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>60</y>
-                <width>70</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Behörighet:</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditFunk</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>90</x>
-                <y>60</y>
-                <width>80</width>
-                <height>22</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonOK</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>120</y>
-                <width>51</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>OK</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditUserid</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>91</x>
-                <y>30</y>
-                <width>80</width>
-                <height>22</height>
-            </rect>
-        </property>
-    </widget>
+        <widget class="QListView" row="0" column="2" rowspan="3" colspan="1">
+            <column>
+                <property name="text">
+                    <string>Funktion</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizeable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Beskrivning</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizeable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <property name="name">
+                <cstring>ListViewBehor_2</cstring>
+            </property>
+            <property name="rootIsDecorated">
+                <bool>false</bool>
+            </property>
+            <property name="resizeMode">
+                <enum>NoColumn</enum>
+            </property>
+        </widget>
+        <widget class="QLineEdit" row="1" column="1">
+            <property name="name">
+                <cstring>LineEditFunk</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>0</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="alignment">
+                <set>AlignAuto</set>
+            </property>
+        </widget>
+        <widget class="QLineEdit" row="0" column="1">
+            <property name="name">
+                <cstring>LineEditUserid</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>0</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="2" column="1">
+            <property name="name">
+                <cstring>PushButtonQuit</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>0</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="text">
+                <string>Avsluta</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="2" column="0">
+            <property name="name">
+                <cstring>PushButtonOK</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>0</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="text">
+                <string>OK</string>
+            </property>
+            <property name="default">
+                <bool>true</bool>
+            </property>
+        </widget>
+        <widget class="QLabel" row="0" column="0">
+            <property name="name">
+                <cstring>TextLabel1</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>0</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="frameShape">
+                <enum>NoFrame</enum>
+            </property>
+            <property name="frameShadow">
+                <enum>Plain</enum>
+            </property>
+            <property name="text">
+                <string>Användar-ID:</string>
+            </property>
+        </widget>
+        <widget class="QLabel" row="1" column="0">
+            <property name="name">
+                <cstring>TextLabel1_2</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>0</hsizetype>
+                    <vsizetype>0</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="text">
+                <string>Behörighet:</string>
+            </property>
+        </widget>
+    </grid>
 </widget>
 <connections>
-    <connection>
-        <sender>PushButtonQuit</sender>
-        <signal>clicked()</signal>
-        <receiver>frmAddRight</receiver>
-        <slot>close()</slot>
-    </connection>
     <connection>
         <sender>PushButtonOK</sender>
         <signal>clicked()</signal>
@@ -170,18 +211,33 @@
         <receiver>frmAddRight</receiver>
         <slot>slotUseridEntered()</slot>
     </connection>
+    <connection>
+        <sender>ListViewBehor_2</sender>
+        <signal>clicked(QListViewItem*)</signal>
+        <receiver>frmAddRight</receiver>
+        <slot>slotPickupFunc(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonQuit</sender>
+        <signal>clicked()</signal>
+        <receiver>frmAddRight</receiver>
+        <slot>close()</slot>
+    </connection>
 </connections>
 <includes>
     <include location="local" impldecl="in implementation">frmaddright.ui.h</include>
 </includes>
 <slots>
+    <slot access="protected">init()</slot>
     <slot>slotAddRight()</slot>
     <slot>slotUseridEntered()</slot>
     <slot>slotRightEntered()</slot>
-    <slot access="protected">init()</slot>
     <slot>slotDataOnStdout()</slot>
     <slot>slotDataOnStderr()</slot>
     <slot>slotEndOfProcess()</slot>
+    <slot>slotGetFunc()</slot>
+    <slot>slotEndOfGetFuncfProcess()</slot>
+    <slot>slotPickupFunc( QListViewItem * item )</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
