@@ -1,11 +1,12 @@
 /****************************************************************************
-** $Id: helpwindow.h,v 1.1 2004/02/20 08:00:07 janpihlgren Exp $
+** $Id: helpwindow.h,v 1.2 2004/11/07 07:33:45 janpihlgren Exp $
 **
 ** Copyright (C) 1992-2000 Trolltech AS.  All rights reserved.
 **
 ** This file is part of an example program for Qt.  This example
 ** program may be used, distributed and modified without limitation.
 **
+** Modified: 2004-11-07 Jan Pihlgren
 *****************************************************************************/
 
 #ifndef HELPWINDOW_H
@@ -16,6 +17,7 @@
 #include <qstringlist.h>
 #include <qmap.h>
 #include <qdir.h>
+#include <qfile.h> 
 
 class QComboBox;
 class QPopupMenu;
@@ -28,37 +30,11 @@ public:
     ~HelpWindow();
 
 private slots:
-/*
-    void setBackwardAvailable( bool );
-    void setForwardAvailable( bool );
-*/
     void sourceChanged( const QString& );
- /*   void about();
-    void aboutQt();
-    void openFile();
-    void newWindow();
-    void print();
-*/
-//    void pathSelected( const QString & );
-/*    void histChosen( int );
-    void bookmChosen( int );
-    void addBookmark();
-*/
+
 private:
-/*    void readHistory();
-    void readBookmarks();
-*/
     QTextBrowser* browser;
     QComboBox *pathCombo;
-/*    int backwardId, forwardId;
-    QStringList history, bookmarks;
-    QMap<int, QString> mHistory, mBookmarks;
-    QPopupMenu *hist, *bookm;
-*/
 };
-
-
-
-
 
 #endif
