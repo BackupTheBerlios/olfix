@@ -11,7 +11,7 @@
   <meta name="CREATED" content="20021205;10014400">
 
   <meta name="CHANGEDBY" content="Jan Pihlgren">
-  <meta name="CHANGED" content="20050312;16451400">
+  <meta name="CHANGED" content="20050322;16451400">
   <style>
 	<!--
 		@page { margin: 2cm }
@@ -35,8 +35,8 @@
  Kapitel Försäljning
  </font></p>
 <p align="center" style="margin-bottom: 0cm;"><font size="5"> Version
-0.41</font></p>
-<p align="center" style="margin-bottom: 0cm;"><font size="5"> 2005-03-16</font></p>
+0.42</font></p>
+<p align="center" style="margin-bottom: 0cm;"><font size="5"> 2005-03-22</font></p>
 <hr>
 <p style="margin-left: 3cm;">This program is free software; you can
 redistribute it and/or modify<br>
@@ -125,7 +125,11 @@ för varje rad och Fraktmoms. Fältet <b>Order Total</b> anger orderns
 totalbelopp inklusive moms.</p>
 <p align="left" style="margin-bottom: 0cm;">OBS! I och med att <b>Frakt</b>
 accepteras kan ordern inte ändras. Valet står mellan att acceptera
-ordern, <b>Order klar!</b> eller <b>Avbryt. </b> </p><br>
+ordern, <b>Order klar!</b> eller <b>Avbryt. </b> </p>
+<p style="margin-bottom: 0cm;">
+<a href="#TOP">Till början</a>
+</p><br>
+
 <a name="FORSALJ11"></a>
 <b>Registrering av en ny kund samtidigt som man registrerar en kundorder.</b><br><br>
 Ange 0 (noll) i fältet <b>Kundnr</b> så får man manuellt fylla i alla uppgifter om kunden.
@@ -133,7 +137,31 @@ Ange 0 (noll) i fältet <b>Kundnr</b> så får man manuellt fylla i alla uppgifter 
  Ifall kunden inte har en särskild leveransadress kan uppgifterna kopieras från postadressen
   genom att skriva 0 (noll) i fältet <b>Leveransplats</b>.<br>
 Avslutningsvis får man en fråga ifall man önskar spara uppgifterna som ny kund.
- Frågan erhålls när man trycker &#8221;Enter&#8221; i fältet <b>Moms</b>.<br>
+ Frågan erhålls när man trycker &#8221;Enter&#8221; i fältet <b>Moms</b>.<br><br>
+<b>OBS!</b> Betänk att det är begränsat antal uppgifter som registreras om kunden;<br>
+Kundnummer<br>
+Kundnamn<br>
+Adress<br>
+Postnummer<br>
+Postadress<br>
+Land<br>
+Referent<br>
+Säljare<br>
+Leveransplats (leveransplatsnummer)<br>
+Leveransvillkor (leveransvillkorsnummer)<br>
+Betalningsvillkor (betalningsvillkorsnummer)<br>
+Valuta<br><br>
+Som standardvärden, vilka ej påverkar kundordern, sätts på kunden:<br>
+Leveranssätt = 001<br>
+Ordererkännande = J<br>
+Plocklista = J<br>
+Följesedel = J<br>
+Expeditionsavgift = J<br>
+Fraktavgift = J<br>
+Kravbrev = J<br>
+Kreditlimit = 1000.00<br>
+Dröjmålsränta = J<br>
+Dröjmålsfaktura = J<br>
 <p style="margin-bottom: 0cm;">
 <a href="#FORSALJ1B">Åter till kundregistrering</a>
 </p>
