@@ -1,6 +1,8 @@
 /****************************************************************/
 /**		main.cpp		ADDLEVPW			*/
 /**		2003-09-06					*/
+/**		Ver 0.2     					*/
+/**		Modified 2003-10-2003				*/
 /**		Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -35,7 +37,9 @@ int main( int argc, char* argv[] )
 
   frmAddLevplats* mywidget = new frmAddLevplats();
   mywidget->lineEditKundID->setText(QString(argv[1]));
-  mywidget->lineEditLevPlatsNr->setText(QString(argv[2]));
+  if (argc>2){
+      mywidget->lineEditLevPlatsNr->setText(QString(argv[2]));
+  }
   QString rcfil;
   QString bibl;
   QStringList lines;

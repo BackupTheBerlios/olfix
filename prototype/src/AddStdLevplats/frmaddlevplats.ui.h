@@ -9,8 +9,9 @@
 /***************************************************************************
                           ADDLEVPW  -  description
                              -------------------
-		     version 0.1
+		     version 0.2
     begin                : Sön 7 aug 2003
+    Modified         : Mån 20 okt 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -49,6 +50,11 @@
 void frmAddLevplats::init()
 {
     lineEditKundID->setFocus();
+    if (kundid==NULL){
+	lineEditLevPlatsNr->setText("");
+//	lineEditLevPlatsNr->clear();
+    }
+//     qDebug("lineEditKundID::kundid=%s",kundid.latin1());    
 //    lineEditLevPlatsNr->setFocus();
 }
 
@@ -111,6 +117,10 @@ void frmAddLevplats::lineEditPostAdress_returnPressed()
 void frmAddLevplats::lineEditLand_returnPressed()
 {
     land=lineEditLand->text();
+    if (land==""){
+	land="-";
+            lineEditLand->setText(land);
+    }
     pushButtonOK->setFocus();
 }
 
