@@ -2,7 +2,7 @@
 ** frmDelValuta meta object code from reading C++ file 'frmdelvaluta.h'
 **
 ** Created: Thu Mar 20 08:13:44 2003
-**      by: The Qt MOC ($Id: moc_frmdelvaluta.cpp,v 1.1 2003/05/08 08:54:46 frazze Exp $)
+**      by: The Qt MOC ($Id: moc_frmdelvaluta.cpp,v 1.2 2003/09/28 07:47:33 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
