@@ -9,9 +9,9 @@
 /***************************************************************************
                           DSPINKW  -  description
                              -------------------
-		     version 0.2
+		     version 0.3
     begin     	: Sön 21 dec 2003
-    modified	: Mån 22 dec 2003
+    modified	: Tors 25 dec 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -355,12 +355,21 @@ void frmDspInk::slotDataOnStderr()
 void frmDspInk::listViewRader_format()
 {
     listViewRader->setColumnWidth(0,36);		// Radnr
+     listViewRader->setColumnAlignment( 0, Qt::AlignRight );
     listViewRader->setColumnWidth(1,185);		// Artikelnr
     listViewRader->setColumnWidth(2,185);		// Benämning
     listViewRader->setColumnWidth(3,55);		// Lev.vecka
-    listViewRader->setColumnWidth(4,88);		// Antal
-    listViewRader->setColumnWidth(5,88);		// Pris
-    listViewRader->setColumnWidth(6,80);		// Summa
+    listViewRader->setColumnAlignment( 3, Qt::AlignRight );
+    listViewRader->setColumnWidth(4,80);		// Beställt Antal
+    listViewRader->setColumnAlignment( 4, Qt::AlignRight );
+    listViewRader->setColumnWidth(5,80);		// Levererat Antal
+    listViewRader->setColumnAlignment( 5, Qt::AlignRight );
+    listViewRader->setColumnWidth(6,80);		// Resterande Antal
+    listViewRader->setColumnAlignment( 6, Qt::AlignRight );
+    listViewRader->setColumnWidth(7,80);		// Pris
+    listViewRader->setColumnAlignment( 7, Qt::AlignRight );
+    listViewRader->setColumnWidth(8,80);		// Summa    
+    listViewRader->setColumnAlignment( 8, Qt::AlignRight ); 
 }
 
 
@@ -374,12 +383,16 @@ void frmDspInk::slotRaderEndOfProcess()
     QString artikelnr;
     QString benemning;
     QString bestantal;
+    QString levantal="0";
+    QString rest="0";
     QString inkpris;
     QString levvecka;
     QString radsumma;
     QString ordersumma;
     double pris=0;
-    double radant=0;
+    double bestelltant=0;
+    double levant=0;
+    double restant=0;
     double summa=0;
     double ordersum=0;
     
@@ -417,8 +430,18 @@ void frmDspInk::slotRaderEndOfProcess()
 			artikelnr=tmp;
 		    if(p==4){
 			bestantal=tmp;
-			radant=tmp.toDouble();
+			bestelltant=tmp.toDouble();
 		    }
+		    if(p==5){
+			levantal=tmp;
+			levant=tmp.toDouble();
+//			qDebug("levantal=%s",levantal.latin1());
+		    }
+		    if(p==6){
+			rest=tmp;
+			restant=tmp.toDouble();
+		    }		    
+		    
 		    if(p==7){
 			inkpris=tmp;
 			pris=tmp.toDouble();
@@ -429,10 +452,14 @@ void frmDspInk::slotRaderEndOfProcess()
 			benemning=tmp;
 //		    qDebug("tmp=%s    p=%d",tmp.latin1(),p);
 		}
-		summa=radant*pris;
+//		summa=bestelltant*pris;
+//		restant=bestelltant-levant;			//Tillfällig lösning
+//		rest=rest.setNum(restant,'f',2);		// Tillfällig lösning
+		summa=(bestelltant-levant)*pris;
 		ordersum=ordersum+summa;
 		radsumma=radsumma.setNum(summa,'f',2 );
-		item = new QListViewItem(listViewRader,radnr,artikelnr,benemning,levvecka,bestantal,inkpris,radsumma);
+		item = new QListViewItem(listViewRader,radnr,artikelnr,benemning,levvecka,bestantal,levantal,rest,inkpris);
+		item->setText(8,radsumma);
 	    }
 	    ordersumma=ordersumma.setNum(ordersum,'f',2);
 	    lineEditOrderSumma->setText(ordersumma);
