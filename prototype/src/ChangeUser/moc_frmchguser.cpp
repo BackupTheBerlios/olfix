@@ -2,7 +2,7 @@
 ** frmChgUser meta object code from reading C++ file 'frmchguser.h'
 **
 ** Created: Sun Mar 23 14:33:44 2003
-**      by: The Qt MOC ($Id: moc_frmchguser.cpp,v 1.1 2003/05/08 08:54:36 frazze Exp $)
+**      by: The Qt MOC ($Id: moc_frmchguser.cpp,v 1.2 2003/09/28 06:49:18 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
