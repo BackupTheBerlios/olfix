@@ -1,9 +1,9 @@
 /***************************************************************************
                           WRREC.c  -  description
                              -------------------
-			     version 0.05
-    begin                : Sön 10 aug 2003
-    modified		: Fre	2 jan 2004
+			     version 0.2
+    begin                : Sön  10 aug  2003
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 	OUTPUT: filen /tmp/vernr.txt
  *****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/WRREC.c,v 1.5 2004/01/02 12:29:12 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/WRREC.c,v 1.6 2005/02/24 13:28:41 janpihlgren Exp $ " ;
 
 #include <string.h>
 #include <stdlib.h>
@@ -99,23 +99,23 @@ int main (int argc, char *argv[], char *envp[])
 		strncat(filler3," ",1);
 	}
 
-	strncpy(posttyp,argv[1],strlen(argv[1]));
-	strncpy(bar,argv[2],strlen(argv[2]));
-	strncpy(vernr,argv[3],strlen(argv[3]));
-	strncpy(radnr,argv[4],strlen(argv[4]));
-	strncpy(ktonr,argv[5],strlen(argv[5]));
-	strncpy(dk,argv[6],strlen(argv[6]));
-	strncpy(belopp,argv[7],strlen(argv[7]));
-	strncpy(kst,argv[8],strlen(argv[8]));
-	strncpy(subkto,argv[9],strlen(argv[9]));
+	strncpy(posttyp,argv[1],sizeof(posttyp));		/* 2005-02-24	*/
+	strncpy(bar,argv[2],sizeof(bar));			/* 2005-02-24	*/
+	strncpy(vernr,argv[3],sizeof(vernr));			/* 2005-02-24	*/
+	strncpy(radnr,argv[4],sizeof(radnr));			/* 2005-02-24	*/
+	strncpy(ktonr,argv[5],sizeof(ktonr));			/* 2005-02-24	*/
+	strncpy(dk,argv[6],sizeof(dk));				/* 2005-02-24	*/
+	strncpy(belopp,argv[7],sizeof(belopp));			/* 2005-02-24	*/
+	strncpy(kst,argv[8],sizeof(kst));			/* 2005-02-24	*/
+	strncpy(subkto,argv[9],sizeof(subkto));			/* 2005-02-24	*/
 	if (argc == 10){
-		strncpy(datum,filler1,strlen(filler1));
-		strncpy(userid,filler2,strlen(filler2));
-		strncpy(vertext,filler3,strlen(filler3));
+		strncpy(datum,filler1,sizeof(datum));		/* 2005-02-24	*/
+		strncpy(userid,filler2,sizeof(userid));		/* 2005-02-24	*/
+		strncpy(vertext,filler3,sizeof(vertext));	/* 2005-02-24	*/
 	}else{
-		strncpy(datum,argv[10],strlen(argv[10]));
-		strncpy(userid,argv[11],strlen(argv[11]));
-		strncpy(vertext,argv[12],strlen(argv[12]));
+		strncpy(datum,argv[10],sizeof(datum));		/* 2005-02-24	*/
+		strncpy(userid,argv[11],sizeof(userid));	/* 2005-02-24	*/
+		strncpy(vertext,argv[12],sizeof(vertext));	/* 2005-02-24	*/
 	}
 	for (i = 0; i < sizeof(post); i++){
 		strncat(recpek+i," ",1);
