@@ -206,6 +206,42 @@
 		   Width="100" WordWrap="0" X="680"
 		   Y="0" />
 	</Detail>
+			   
+	<Detail Height="20" Level="5">
+		<Label BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="0" BorderWidth="1" FontFamily="Helvetica"
+		   FontItalic="0" FontSize="10" FontWeight="75"
+		   ForegroundColor="0,0,0" HAlignment="0" Height="20"
+		   Text="Total" VAlignment="1" Width="100"
+		   WordWrap="0" X="0" Y="0" />
+		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="0" BorderWidth="0" CommaSeparator="0"
+		   Currency="36" DataType="2" DateFormat="0"
+		   Field="delsumdebet" FontFamily="Helvetica" FontItalic="0"
+		   FontSize="10" FontWeight="75" ForegroundColor="0,0,0"
+		   HAlignment="2" Height="20" NegValueColor="255,0,0"
+		   Precision="2" Text="[delsumdebet]" VAlignment="1"
+		   Width="100" WordWrap="0" X="480"
+		   Y="0" />
+		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="0" BorderWidth="0" CommaSeparator="0"
+		   Currency="36" DataType="2" DateFormat="0"
+		   Field="delsumkredit" FontFamily="Helvetica" FontItalic="0"
+		   FontSize="10" FontWeight="75" ForegroundColor="0,0,0"
+		   HAlignment="2" Height="20" NegValueColor="255,0,0"
+		   Precision="2" Text="[delsumkredit]" VAlignment="1"
+		   Width="100" WordWrap="0" X="580"
+		   Y="0" />
+		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="0" BorderWidth="0" CommaSeparator="0"
+		   Currency="36" DataType="2" DateFormat="0"
+		   Field="delsumutgsaldo" FontFamily="Helvetica" FontItalic="0"
+		   FontSize="10" FontWeight="75" ForegroundColor="0,0,0"
+		   HAlignment="2" Height="20" NegValueColor="255,0,0"
+		   Precision="2" Text="[delsumutgsaldo]" VAlignment="1"
+		   Width="100" WordWrap="0" X="680"
+		   Y="0" />
+	</Detail>
 
 	<PageFooter PrintFrequency="1" Height="32">
 		<Label BackgroundColor="255,255,255" BorderColor="0,0,0"
