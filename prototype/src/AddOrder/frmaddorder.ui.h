@@ -1622,6 +1622,8 @@ void frmAddOrder::createOrderrad(QString tmp0,QString tmp1,QString tmp2,QString 
     orderraddata.append(ordernr);	// ordernr
     orderraddata.append(skilj);
     orderraddata.append(tmp0);	// radnr
+    orderraddata.append(skilj);    
+    orderraddata.append(orderkundnr);	// kundnummer
     orderraddata.append(skilj);
     orderraddata.append(tmp1);	//artikelnr
     orderraddata.append(skilj);
@@ -1637,7 +1639,7 @@ void frmAddOrder::createOrderrad(QString tmp0,QString tmp1,QString tmp2,QString 
     orderraddata.append(skilj);    
     orderraddata.append(tmp7);	// momskr.
     orderraddata.append(skilj);    
-    orderraddata.append("END");	// momskr.
+    orderraddata.append("END");	
 
     qDebug("orderraddat=%s",orderraddata.latin1());
     frmAddOrder::AddOrderRad();
@@ -1715,8 +1717,12 @@ void frmAddOrder::slotOrderradDataOnStdout()
 void frmAddOrder::pushBtnHelp_clicked()
 {
 	inrad="";
-
 	frmAddOrder::readResursFil();		// Hämta path till hjälpfilen
+	
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+	int i2 = hjelpfil.length();
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_KUNDORDER.html";
 	hjelpfil=hjelpfil+"#FORSALJ1";		// Lägg till position
 //	qDebug("hjelpfil=%s",hjelpfil.latin1());
 
