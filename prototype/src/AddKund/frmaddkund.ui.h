@@ -9,8 +9,9 @@
 /***************************************************************************
                           ADDKUW  -  description
                              -------------------
-		     version 0.1
-    begin                : Lör 5 aug 2003
+		     version 0.2
+    begin                   : Lör 5 aug 2003
+    modified	: Sön 26 okt 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -30,6 +31,7 @@
 #include <qstring.h>
 #include <qfile.h>
 #include <qregexp.h>
+#include <qvalidator.h> 		// 2003-10-26
 #define MAXSTRING 5000
 
 
@@ -71,8 +73,68 @@
     QString fritext;
     QString kunddata;		// Alla ovanstående
 
+    QRegExp rx1( "[A-Za-z0-9ÅÄÖåäö]\\w{1,9}" );
+    QRegExp rx2( "[0-9]\\d{2}" );
+    QRegExp rx3( "[A-Za-z0-9ÅÄÖåäö ]{1,29}" );
+    QRegExp rx4( "[1-9]\\d{4}" );
+    QRegExp rx5( "[0-9+\\- ]{14}" );
+    QRegExp rx6( "[A-Za-z0-9ÅÄÖåäö@\\.]{1,29}" );
+    QRegExp rx7( "[A-Za-z0-9ÅÄÖåäö]{3}" );
+    QRegExp rx8( "[0-9]{1,3}" );
+    QRegExp rx9( "[A-ZÅÄÖ]{3}" );
+    QRegExp rx10( "[A-Za-z0-9ÅÄÖåäö]{1,3}" );
+    QRegExp rx11( "[J,N]");
+    QRegExp rx12( "\\d{1,10}" );
+    QRegExp rx13( "[A-Za-z0-9ÅÄÖåäö ]{1,99}" );
+    
+    QRegExpValidator validator1( rx1, 0 );
+    QRegExpValidator validator2( rx2, 0 );
+    QRegExpValidator validator3( rx3, 0 );
+    QRegExpValidator validator4( rx4, 0 );
+    QRegExpValidator validator5( rx5, 0 );
+    QRegExpValidator validator6( rx6, 0 );
+    QRegExpValidator validator7( rx7, 0 );
+    QRegExpValidator validator8( rx8, 0 );
+    QRegExpValidator validator9( rx9, 0 );
+    QRegExpValidator validator10( rx10, 0 );
+    QRegExpValidator validator11( rx11, 0 );
+    QRegExpValidator validator12( rx12, 0 );
+    QRegExpValidator validator13( rx13, 0 );
+    
 void frmAddKund::init()
 {
+    lineEditKundNr->setValidator(&validator1);
+    lineEditKundNamn->setValidator(&validator3);
+    lineEditKundAdress->setValidator(&validator3);
+    lineEditKundPostnr->setValidator(&validator4);
+    lineEditKundPostAdress->setValidator(&validator3);
+    lineEditKundLand->setValidator(&validator3);
+    lineEditKundTftnNr->setValidator(&validator5);
+    lineEditKundFaxNr->setValidator(&validator5);
+    lineEditKundEmail->setValidator(&validator6);
+    lineEditKundErRef->setValidator(&validator3);
+    lineEditErRefTfnNr->setValidator(&validator5);
+    lineEditKundErRefEmail->setValidator(&validator6);
+    lineEditKundSeljare->setValidator(&validator3);
+    lineEditKundDistrikt->setValidator(&validator7);
+    lineEditKundKategori->setValidator(&validator7);
+    lineEditKundStdLevplats->setValidator(&validator2);
+    lineEditKundLevvilk->setValidator(&validator2);
+    lineEditKundLevsett->setValidator(&validator2);
+    lineEditKundBetvilk->setValidator(&validator8);
+    lineEditValuta->setValidator(&validator9);
+    lineEditSprakkod->setValidator(&validator10);
+    lineEditOrdererk->setValidator(&validator11);
+    lineEditPlocklista->setValidator(&validator11);
+    lineEditFoljesedel->setValidator(&validator11);
+    lineEditExpAvgift->setValidator(&validator11);
+    lineEditFraktAvgift->setValidator(&validator11);
+    lineEditKravbrev->setValidator(&validator11);
+    lineEditKreditlimit->setValidator(&validator12);
+    lineEditDrojRenta->setValidator(&validator11);
+    lineEditDrojFaktura->setValidator(&validator11);
+    lineEditFriText->setValidator(&validator13);
+    
     lineEditKundNr->setFocus();
 }
 

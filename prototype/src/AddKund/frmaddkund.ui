@@ -504,22 +504,6 @@
     </widget>
     <widget class="QLabel">
         <property name="name">
-            <cstring>textLabel4_2_2</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>390</y>
-                <width>125</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Leveransplats: .....</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
             <cstring>textLabel8_2_2</cstring>
         </property>
         <property name="geometry">
@@ -568,22 +552,6 @@
     </widget>
     <widget class="QLabel">
         <property name="name">
-            <cstring>textLabel1_3</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>220</x>
-                <y>35</y>
-                <width>95</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Max 10 tecken.</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
             <cstring>textLabel1_5_2</cstring>
         </property>
         <property name="geometry">
@@ -605,6 +573,73 @@
             <string>&lt;p align="center"&gt;*&lt;/p&gt;</string>
         </property>
     </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>615</y>
+                <width>56</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>OK</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel5_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>195</x>
+                <y>390</y>
+                <width>125</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Leveransvillkor: ......</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_6</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>195</x>
+                <y>365</y>
+                <width>125</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Kundkategori: ........</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundNamn</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>60</y>
+                <width>201</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Namnet kan innehålla maximalt 60 tecken.</string>
+        </property>
+    </widget>
     <widget class="QLineEdit">
         <property name="name">
             <cstring>lineEditKundAdress</cstring>
@@ -616,6 +651,248 @@
                 <width>201</width>
                 <height>23</height>
             </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundPostnr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>110</y>
+                <width>75</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundPostAdress</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>135</y>
+                <width>201</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundLand</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>160</y>
+                <width>201</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>235</x>
+                <y>35</y>
+                <width>95</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Max 10 tecken.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>35</y>
+                <width>85</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Du kan använda valfritt sätt att ange KundID, siffror eller bokstäver eller en blandning av bägge.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundTftnNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>185</y>
+                <width>111</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundFaxNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>210</y>
+                <width>111</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundEmail</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>235</y>
+                <width>206</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundErRef</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>260</y>
+                <width>206</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditErRefTfnNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>285</y>
+                <width>110</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundErRefEmail</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>310</y>
+                <width>206</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundSeljare</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>335</y>
+                <width>206</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundDistrikt</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>360</y>
+                <width>35</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>3 tecken</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundKategori</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>325</x>
+                <y>360</y>
+                <width>35</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>3 tecken</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel4_2_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>390</y>
+                <width>125</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Leveransplats: .....</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundLevvilk</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>325</x>
+                <y>385</y>
+                <width>35</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>001</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundLevsett</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>495</x>
+                <y>385</y>
+                <width>36</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>001</string>
         </property>
     </widget>
     <widget class="QLineEdit">
@@ -794,296 +1071,6 @@
             <string>J</string>
         </property>
     </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonOK</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>615</y>
-                <width>56</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>OK</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundLevsett</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>495</x>
-                <y>385</y>
-                <width>36</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>001</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel5_2</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>195</x>
-                <y>390</y>
-                <width>125</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Leveransvillkor: ......</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundLevvilk</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>325</x>
-                <y>385</y>
-                <width>35</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>001</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel1_6</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>195</x>
-                <y>365</y>
-                <width>125</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Kundkategori: ........</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundNr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>140</x>
-                <y>35</y>
-                <width>75</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Du kan använda valfritt sätt att ange KundID, siffror eller bokstäver eller en blandning av bägge.</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundNamn</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>140</x>
-                <y>60</y>
-                <width>201</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Namnet kan innehålla maximalt 60 tecken.</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundPostnr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>140</x>
-                <y>110</y>
-                <width>75</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundPostAdress</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>140</x>
-                <y>135</y>
-                <width>201</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundLand</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>140</x>
-                <y>160</y>
-                <width>201</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundTftnNr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>140</x>
-                <y>185</y>
-                <width>111</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundFaxNr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>140</x>
-                <y>210</y>
-                <width>111</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundEmail</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>140</x>
-                <y>235</y>
-                <width>206</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundErRef</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>140</x>
-                <y>260</y>
-                <width>206</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditErRefTfnNr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>140</x>
-                <y>285</y>
-                <width>110</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundErRefEmail</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>140</x>
-                <y>310</y>
-                <width>206</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundSeljare</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>140</x>
-                <y>335</y>
-                <width>206</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundDistrikt</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>140</x>
-                <y>360</y>
-                <width>35</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>3 tecken</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundKategori</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>325</x>
-                <y>360</y>
-                <width>35</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>3 tecken</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKreditlimit</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>140</x>
-                <y>510</y>
-                <width>101</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
     <widget class="QLineEdit">
         <property name="name">
             <cstring>lineEditFriText</cstring>
@@ -1098,6 +1085,22 @@
         </property>
         <property name="toolTip" stdset="0">
             <string>Här kan du lägga in extra information om kunden.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKreditlimit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>510</y>
+                <width>101</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Ange kreditlimit i önskad valuta. Endast heltal.</string>
         </property>
     </widget>
     <widget class="QLineEdit">
