@@ -96,4 +96,5 @@
 "VERDSP","Visa enstaka verifikation"
 "VRDADD","Ny detaljpost för verifikation till VERD"
 "VRHADD","Ny huvudpost för verifikation till VERH"
+"WKUDSP","Visa begränsade kunddata för webbkund"
 "WRREC","Skriva post till tempfilen /tmp/vernr.txt"
