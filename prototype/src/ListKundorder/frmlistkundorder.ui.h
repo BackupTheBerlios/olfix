@@ -67,6 +67,12 @@ void frmListKundorder::GetKundorder()
 
 void frmListKundorder::init()
 {
+//    messages->setColumnAlignment( 1, Qt::AlignRight );
+    ListView1->setColumnAlignment(0,Qt::AlignRight);
+    ListView1->setColumnAlignment(1,Qt::AlignRight);
+    ListView1->setColumnAlignment(2,Qt::AlignHCenter);    
+    ListView1->setColumnAlignment(3,Qt::AlignHCenter);
+    ListView1->setColumnAlignment(4,Qt::AlignRight);
     PushButtonSluta->setFocus();
     frmListKundorder::GetKundorder();
 }	
