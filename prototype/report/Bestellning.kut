@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 
 <!DOCTYPE KugarTemplate SYSTEM "kugartemplate.dtd">
 
@@ -8,7 +8,7 @@
 		   BorderStyle="0" BorderWidth="1" FontFamily="Times New Roman"
 		   FontItalic="0" FontSize="12" FontWeight="75"
 		   ForegroundColor="0,0,0" HAlignment="0" Height="20"
-		   Text="BestÃ¤llning" VAlignment="1" Width="80"
+		   Text="Beställning" VAlignment="1" Width="80"
 		   WordWrap="0" X="250" Y="0" />
 	</PageHeader>
 
@@ -41,7 +41,7 @@
 		   BorderStyle="0" BorderWidth="1" FontFamily="Times New Roman"
 		   FontItalic="0" FontSize="6" FontWeight="75"
 		   ForegroundColor="0,0,0" HAlignment="0" Height="10"
-		   Text="BestÃ¤llningsnr" VAlignment="1" Width="80"
+		   Text="Beställningsnr" VAlignment="1" Width="80"
 		   WordWrap="0" X="360" Y="1" />
 		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
 		   BorderStyle="0" BorderWidth="1" CommaSeparator="0"
@@ -71,7 +71,7 @@
 		   BorderStyle="0" BorderWidth="1" FontFamily="Times New Roman"
 		   FontItalic="0" FontSize="6" FontWeight="75"
 		   ForegroundColor="0,0,0" HAlignment="0" Height="10"
-		   Text="LeverantÃ¶rsnr" VAlignment="1" Width="80"
+		   Text="Leverantörsnr" VAlignment="1" Width="80"
 		   WordWrap="0" X="250" Y="40" />
 		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
 		   BorderStyle="0" BorderWidth="1" CommaSeparator="44"
@@ -272,7 +272,7 @@
 		   BorderStyle="0" BorderWidth="1" FontFamily="Times New Roman"
 		   FontItalic="0" FontSize="6" FontWeight="75"
 		   ForegroundColor="0,0,0" HAlignment="0" Height="10"
-		   Text="LeveranssÃ¤tt" VAlignment="1" Width="80"
+		   Text="Leveranssätt" VAlignment="1" Width="80"
 		   WordWrap="0" X="250" Y="240" />
 		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
 		   BorderStyle="0" BorderWidth="1" CommaSeparator="44"
@@ -302,7 +302,7 @@
 		   BorderStyle="0" BorderWidth="1" FontFamily="Times New Roman"
 		   FontItalic="0" FontSize="6" FontWeight="75"
 		   ForegroundColor="0,0,0" HAlignment="0" Height="10"
-		   Text="VÃ¥r referens" VAlignment="1" Width="80"
+		   Text="Vår referens" VAlignment="1" Width="80"
 		   WordWrap="0" X="250" Y="275" />
 		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
 		   BorderStyle="0" BorderWidth="1" CommaSeparator="44"
@@ -317,7 +317,7 @@
 		   BorderStyle="0" BorderWidth="1" FontFamily="Times New Roman"
 		   FontItalic="0" FontSize="8" FontWeight="75"
 		   ForegroundColor="0,0,0" HAlignment="0" Height="15"
-		   Text="GodsmÃ¤rke" VAlignment="1" Width="80"
+		   Text="Godsmärke" VAlignment="1" Width="80"
 		   WordWrap="0" X="1" Y="310" />
 		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
 		   BorderStyle="0" BorderWidth="1" CommaSeparator="44"
@@ -338,13 +338,13 @@
 		   BorderStyle="0" BorderWidth="1" FontFamily="Times New Roman"
 		   FontItalic="0" FontSize="8" FontWeight="75"
 		   ForegroundColor="0,0,0" HAlignment="0" Height="27"
-		   Text="VÃ¥rt artikelnr BenÃ¤mning" VAlignment="1" Width="68"
+		   Text="Vårt artikelnr Benämning" VAlignment="1" Width="68"
 		   WordWrap="1" X="24" Y="357" />
 		<Label BackgroundColor="255,255,255" BorderColor="0,0,0"
 		   BorderStyle="0" BorderWidth="1" FontFamily="Times New Roman"
 		   FontItalic="0" FontSize="8" FontWeight="75"
 		   ForegroundColor="0,0,0" HAlignment="0" Height="27"
-		   Text="Ert artikelnr BenÃ¤mning" VAlignment="1" Width="68"
+		   Text="Ert artikelnr Benämning" VAlignment="1" Width="68"
 		   WordWrap="1" X="200" Y="357" />
 		<Label BackgroundColor="255,255,255" BorderColor="0,0,0"
 		   BorderStyle="0" BorderWidth="1" FontFamily="Times New Roman"
