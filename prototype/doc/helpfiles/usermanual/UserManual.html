@@ -20,9 +20,8 @@
 <P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=6 STYLE="font-size: 22pt"><B>Order/Lager/Fakturering
 f&ouml;r Linuxsystem</B></FONT></P>
 <P ALIGN=CENTER STYLE="margin-bottom: 0cm; font-weight: medium"><FONT SIZE=6 STYLE="font-size: 22pt">Anv&auml;ndarmanual</FONT></P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm; font-weight: medium"><FONT SIZE=5>Version
-0.32</FONT></P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2004-11-07</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm; font-weight: medium"><FONT SIZE=5>Version 0.40</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2005-02-27</FONT></P>
 <HR>
 <P STYLE="margin-left: 3cm">This program is free software; you can
 redistribute it and/or modify<BR>it under the terms of the GNU
@@ -33,51 +32,93 @@ any later version.</P>
 <FONT SIZE=1 STYLE="font-size: 6pt">Copyright 2004 Jan Pihlgren.</FONT></P>
 <P ALIGN=CENTER><A NAME="INNEHALL"></A><FONT SIZE=4 STYLE="font-size: 16pt"><B><!---- <P STYLE="margin-top: 0.42cm; page-break-before: always; page-break-after: avoid">
 <!---->Inneh&aring;ll</B></FONT></P>
-<P STYLE="margin-left: 3cm"><FONT FACE="San Serif"><font size="+1"></font><A HREF="#INLEDNING">Inledning
-</A><BR><A HREF="#INNAN">Innan du b&ouml;rjar.</A><BR><A HREF="#IGANG">Att
-komma ig&aring;ng</A><BR><A HREF="#GRUNDDATA">Grunddata </A><BR><A HREF="#FLERA">Flera
-f&ouml;retag.</A><BR><A HREF="#GRUNDATA2">Artiklar.</A><BR><A HREF="#GRUNDATA3">Artikelstruktur.</A><BR><A HREF="#BYTAFORETAG">Byte
-av f&ouml;retag.</A><BR><A HREF="#BOKFORING">Bokf&ouml;ring.</A><BR><A HREF="#INKOP">Ink&ouml;p.</A><BR><A HREF="#INKOP1">Registrering
-av ink&ouml;psorder.</A><BR><A HREF="#BESTEXEMPEL">Exempel p&aring;
-Best&auml;llning.</A><BR><A HREF="#INKOP2">Best&auml;llningsstock.</A><BR><A HREF="#LEVERANTOR">Leverant&ouml;rsreskontra.</A><BR><A HREF="#LEVERANTOR1">Registrering
-av leverant&ouml;rsfaktura.</A><BR><A HREF="#KONTO">Kontoadministration.</A><BR><A HREF="#KONTO1">Nya
-konton.</A><BR><A HREF="#LEVPLATS">Standardleveransplats.</A><BR><A HREF="#LEVPLATS1">Ny
-standardleveransplats.</A><BR><A HREF="#BEGREPP">Begrepsf&ouml;rklaringar</A></FONT></P>
+<P STYLE="margin-left: 3cm"><FONT FACE="San Serif"><font size="+1"></font>
+<A HREF="#INLEDNING">Inledning</A><BR>
+<A HREF="#INNAN">Innan du b&ouml;rjar.</A><BR>
+<A HREF="#IGANG">Att komma ig&aring;ng</A><BR>
+<A HREF="#GRUNDDATA">Grunddata </A><BR>
+<A HREF="#FLERA">Flera f&ouml;retag.</A><BR>
+<A HREF="#GRUNDATA2">Artiklar.</A><BR>
+<A HREF="#GRUNDATA3">Artikelstruktur.</A><BR>
+<A HREF="#BYTAFORETAG">Byte av f&ouml;retag.</A><BR>
+<A HREF="#BOKFORING">Bokf&ouml;ring.</A><BR>
+<A href="#NYTTBAR">Nytt räkenskapsår</A><br>
+<A HREF="#INKOP">Ink&ouml;p.</A><BR>
+<A HREF="#INKOP1">Registrering av ink&ouml;psorder.</A><BR>
+<A HREF="#BESTEXEMPEL">Exempel p&aring; Best&auml;llning.</A><BR>
+<A HREF="#INKOP2">Best&auml;llningsstock.</A><BR>
+<A HREF="#LEVERANTOR">Leverant&ouml;rsreskontra.</A><BR>
+<A HREF="#LEVERANTOR1">Registrering av leverant&ouml;rsfaktura.</A><BR>
+<A HREF="#KONTO">Kontoadministration.</A><BR>
+<A HREF="#KONTO1">Nya konton.</A><BR>
+<A HREF="#LEVPLATS">Standardleveransplats.</A><BR>
+<A HREF="#LEVPLATS1">Nystandardleveransplats.</A><BR>
+<A HREF="#BEGREPP">Begrepsf&ouml;rklaringar</A></FONT></P>
+
 <P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till
 b&ouml;rjan</A> </FONT>
 </P>
 <HR>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><font size="+1"></font><A NAME="INLEDNING"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Inledning</B></FONT></FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><font size="+1"></font>
+<A NAME="INLEDNING"></A>
+<FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Inledning</B></FONT></FONT></P>
 <P ALIGN=LEFT><FONT FACE="San Serif"><FONT SIZE=3>Olfix
 inneh&aring;ller nedanst&aring;ende funktionalitet. Det f&ouml;rsta
 man m&aring;ste g&ouml;ra &auml;r att l&auml;gga upp anv&auml;ndare
 som ska nyttja OLFIX. D&auml;refter tilldelar man vederb&ouml;rande
 beh&ouml;righet att anv&auml;nda n&ouml;dv&auml;ndiga funktioner.</FONT></FONT></P>
-<P STYLE="margin-left: 2.5cm"><FONT FACE="San Serif"><B>ADMINISTRATION</B><BR><B>Anv&auml;ndaradministration</B><BR><B>Ny
-anv&auml;ndare </B><BR><B>Visa enanv&auml;ndare </B><BR><B>&Auml;ndra
-anv&auml;ndarinformation</B><BR><B>Lista alla anv&auml;ndare </B><BR><B>Ta
-bort en anv&auml;ndare </B><BR><BR><B>Beh&ouml;righetsadministration</B><BR><B>Ny
-beh&ouml;righet</B><BR><B>Visa beh&ouml;righet </B><BR><B>&Auml;ndra
-beh&ouml;righet</B><BR><B>Lista beh&ouml;righeter</B><BR><B>Ta bort
-beh&ouml;righet </B><BR><BR><B>Funktionsadministration</B><BR><B>Lista
-funktioner.</B><BR><B>Ny funktion </B><BR><BR><B>F&ouml;retagsdata</B><BR><B>Byta
-f&ouml;retag </B><BR><B>Ny post</B><BR><B>Visa f&ouml;retagsdata</B><BR><B>&Auml;ndra
-post</B><BR><B>Ny text i textregistret</B><BR><B>Radera post i
-textregistret</B></FONT></P>
-<P STYLE="margin-left: 2.5cm"><FONT FACE="San Serif"><B>EKONOMI</B><BR><B>Bokf&ouml;ring</B><BR><B>Registrera
-verifikationer.</B><BR><B>Registrera
-leverant&ouml;rsfaktura</B><BR><BR><B>Kontoadministration</B><BR><B>Nytt
-konto</B><BR><B>Visa konto</B><BR><B>&Auml;ndra konto</B><BR><B>Lista
-konton</B><BR><B>Ta bort konto</B><BR><BR><B>Kostnadst&auml;lleadministration</B><BR><B>Nytt
-kostnadsst&auml;lle</B><BR><B>Visa ett kostnadst&auml;lle</B><BR><B>&Auml;ndra
-kostnadsst&auml;lle</B><BR><B>Lista kostnadsst&auml;llen</B><BR><B>Ta
-bort
-kostnadst&auml;lle</B><BR><BR><B>Rapporter</B><BR><B>Kontorapport</B><BR><B>Leverant&ouml;rsreskontra</B><BR><B>F&ouml;rfallna
-leverant&ouml;rsfakturor</B><BR><B>Saldolista</B><BR><B>Rapportgenerator</B><BR><BR><B>R&auml;kenskaps&aring;r</B><BR><B>Nytt
-bokf&ouml;rings&aring;r.</B><BR><B>&Auml;ndra
-bokf&ouml;rings&aring;rsdata</B><BR><BR><B>Valutaadministration</B><BR><B>Ny
-valuta</B><BR><B>Visa valuta</B><BR><B>&Auml;ndra valuta</B><BR><B>Lista
-valutor</B><BR><B>Ta bort valuta</B></FONT></P>
+<P STYLE="margin-left: 2.5cm"><FONT FACE="San Serif"><B>ADMINISTRATION</B><BR>
+<B>Anv&auml;ndaradministration</B><BR>
+<B>Ny anv&auml;ndare </B><BR>
+<B>Visa en anv&auml;ndare </B><BR>
+<B>&Auml;ndra anv&auml;ndarinformation</B><BR>
+<B>Lista alla anv&auml;ndare </B><BR><B>Ta bort en anv&auml;ndare </B><BR><BR>
+<B>Beh&ouml;righetsadministration</B><BR><B>Ny beh&ouml;righet</B><BR>
+<B>Visa beh&ouml;righet </B><BR>
+<B>&Auml;ndra beh&ouml;righet</B><BR>
+<B>Lista beh&ouml;righeter</B><BR><B>Ta bort beh&ouml;righet </B><BR><BR>
+<B>Funktionsadministration</B><BR>
+<B>Lista funktioner.</B><BR>
+<B>Ny funktion </B><BR><BR>
+<B>F&ouml;retagsdata</B><BR>
+<A HREF="#BYTAFORETAG"><B>Byta f&ouml;retag </B></A><BR>
+<B>Ny post</B><BR>
+<B>Visa f&ouml;retagsdata</B><BR>
+<B>&Auml;ndra post</B><BR>
+<B>Ny text i textregistret</B><BR>
+<B>Radera post i textregistret</B></FONT></P>
+<P STYLE="margin-left: 2.5cm"><FONT FACE="San Serif"><B>EKONOMI</B><BR>
+<B><A HREF="#BOKFORING">Bokf&ouml;ring.</A></B><BR>
+<B>Registrera verifikationer.</B><BR>
+<B>Registrera leverant&ouml;rsfaktura</B><BR><BR>
+<B>Kontoadministration</B><BR>
+<B>Nytt konto</B><BR>
+<B>Visa konto</B><BR>
+<B>&Auml;ndra konto</B><BR>
+<B>Lista konton</B><BR>
+<B>Ta bort konto</B><BR><BR>
+<B>Kostnadst&auml;lleadministration</B><BR>
+<B>Nytt kostnadsst&auml;lle</B><BR>
+<B>Visa ett kostnadst&auml;lle</B><BR>
+<B>&Auml;ndra kostnadsst&auml;lle</B><BR>
+<B>Lista kostnadsst&auml;llen</B><BR>
+<B>Ta bort kostnadst&auml;lle</B><BR><BR>
+<B>Rapporter</B><BR>
+<B>Kontorapport</B><BR>
+<B>Leverant&ouml;rsreskontra</B><BR>
+<B>F&ouml;rfallna leverant&ouml;rsfakturor</B><BR>
+<B>Saldolista</B><BR>
+<B>Rapportgenerator</B><BR><BR>
+<B>R&auml;kenskaps&aring;r</B><BR>
+<B><A HREF="#NYTTBAR"><B>Nytt bokf&ouml;rings&aring;r.</A></B><BR>
+<B>&Auml;ndra bokf&ouml;rings&aring;rsdata</B><BR><BR>
+<B>Valutaadministration</B><BR>
+<B>Ny valuta</B><BR>
+<B>Visa valuta</B><BR>
+<B>&Auml;ndra valuta</B><BR>
+<B>Lista valutor</B><BR>
+<B>Ta bort valuta</B></FONT></P>
+
 <P STYLE="margin-left: 2.5cm"><FONT FACE="San Serif"><B>F&Ouml;RS&Auml;LJNING</B><BR><B>Kunddata</B><BR><B>Ny
 kund</B><BR><B>Visa kunddata</B><BR><B>&Auml;ndra kunddata</B><BR><B>Lista
 kunder</B><BR><B>Ny leveransadress </B></FONT>
@@ -85,18 +126,22 @@ kunder</B><BR><B>Ny leveransadress </B></FONT>
 <P STYLE="margin-left: 2.5cm"><FONT FACE="San Serif"><B>MATERIALHANTERING</B><BR><B>Artikeldata</B><BR><B>Nya
 artiklar</B><BR><B>Nytt lagerst&auml;lle</B><BR><B>Visa
 artikeldata</B><BR><B>&Auml;ndra artikeldata</B><BR><B>Lista artiklar</B></FONT></P>
-<P STYLE="margin-left: 2.5cm"><FONT FACE="San Serif"><B>INK&Ouml;P</B><BR><B>Best&auml;llningar</B><BR><B>Registrera
-ink&ouml;psorder.</B><BR><B>Visa
-best&auml;llning.</B><BR><B>Best&auml;llningsstock.</B><BR><BR><B>Leverant&ouml;rsdata</B><BR><B>Ny
-leveerant&ouml;r</B><BR><B>Visa en leverant&ouml;r </B><BR><B>&Auml;ndra
-leverant&ouml;rsdata</B><BR><B>Lista leverant&ouml;rer</B></FONT></P>
+<P STYLE="margin-left: 2.5cm"><FONT FACE="San Serif"><B>INK&Ouml;P</B><BR><B>Best&auml;llningar</B><BR>
+<B><A HREF="#INKOP1">Registrering av ink&ouml;psorder.</A></B><BR>
+<B><A HREF="#BESTEXEMPEL">Visa best&auml;llning.</A></B><BR>
+<B><A HREF="#INKOP2">Best&auml;llningsstock.</A></B><BR><BR>
+<B>Leverant&ouml;rsdata</B><BR>
+<B>Ny leveerant&ouml;r</B><BR>
+<B>Visa en leverant&ouml;r </B><BR>
+<B>&Auml;ndra leverant&ouml;rsdata</B><BR>
+<B>Lista leverant&ouml;rer</B></FONT></P>
 <P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till
 b&ouml;rjan</A> </FONT>
 </P>
 <HR>
 <P ALIGN=CENTER><A NAME="INNAN"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Innan
 du b&ouml;rjar.</B></FONT></FONT></P>
-<P><FONT FACE="San Serif">F&ouml;ruts&auml;ttningen f&ouml;r
+<P><P ALIGN=LEFT><FONT FACE="San Serif">F&ouml;ruts&auml;ttningen f&ouml;r
 att kunna anv&auml;nda OLFIX &auml;r att databasmotorn MySQL &auml;r
 installerad samt att databasd&auml;monen &auml;r startad. Detta
 sk&ouml;ter din databasadministrat&ouml;r om. Det b&auml;sta &auml;r
@@ -108,16 +153,20 @@ har filen .<B>olfixrc</B> i ditt hemmabibliotek.<BR>Observera att det
 &auml;r en punkt framf&ouml;r filnamnet, punkten &auml;r en del av
 filnamnet.<BR>Inneh&aring;llet i filen ska se ut ungef&auml;r s&aring;
 h&auml;r:</FONT></P>
-<P><FONT FACE="San Serif">PATH=/usr/share/olfix/bin/<BR>HOST=localhost<BR>DATABASE=olfixtst<BR>HELPFILE=/doc/helpfiles/usermanual/UserManual.html<BR>REPORT=/usr/share/olfix/report/<BR>VTMP=/tmp/<BR><BR>V&auml;rdet
-f&ouml;r <FONT FACE="Courier, monospace">DATABASE </FONT>kan skifta.
+<P><P ALIGN=LEFT><FONT FACE="San Serif">
+PATH=/usr/share/olfix/bin/<BR>
+HOST=localhost<BR>
+DATABASE=olfixtst<BR>
+HELPFILE=/doc/helpfiles/usermanual/UserManual.html<BR>
+REPORT=/usr/share/olfix/report/<BR>VTMP=/tmp/<BR><BR>
+V&auml;rdet f&ouml;r <FONT FACE="Courier, monospace">DATABASE </FONT>kan skifta.
 Om det st&aring;r <FONT FACE="Courier, monospace">olfixtst</FONT> s&aring;
-kommer du att arbeta med testf&ouml;retaget.<BR>Om v&auml;rdet &auml;r
+innebär det att du arbetar med testf&ouml;retaget.<BR>Om v&auml;rdet &auml;r
 <FONT FACE="Courier, monospace">olfix</FONT> s&aring; anger det att
 du arbetar med det &rdquo;skarpa&rdquo;, ordinarie f&ouml;retaget.<BR>Detta
 &auml;r inte n&aring;got du ska &auml;ndra sj&auml;lv. Anv&auml;nd
-programmet BYTFTGW f&ouml;r att byta mellan olika f&ouml;retag.</FONT></P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till
-b&ouml;rjan</A> </FONT>
+programmet <A HREF="#BYTAFORETAG">BYTFTGW</A> f&ouml;r att byta mellan olika f&ouml;retag.</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till b&ouml;rjan</A> </FONT>
 </P>
 <HR>
 <P ALIGN=CENTER><A NAME="IGANG"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Att
@@ -152,7 +201,7 @@ b&ouml;rjan</A> </FONT>
 </P>
 <HR>
 <P ALIGN=CENTER><A NAME="GRUNDDATA"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Grunddata</B></FONT></FONT></P>
-<P><FONT FACE="San Serif"><FONT SIZE=3>Det f&ouml;rsta som
+<P><P ALIGN=LEFT><FONT FACE="San Serif"><FONT SIZE=3>Det f&ouml;rsta som
 m&aring;ste g&ouml;ras innan man kan anv&auml;nda OLFIX &auml;r att
 mata in grunddata.<BR>Grunddata &auml;r t ex f&ouml;retagsuppgifter,
 anv&auml;ndare, beh&ouml;righeter, kontoplan och r&auml;kenskaps&aring;r.
@@ -161,19 +210,19 @@ anv&auml;ndare l&auml;ggs upp med ADDUSRW, beh&ouml;righeter med
 ADDRGTW och kontoplan l&auml;ggs upp med ADDKTOW.</FONT></FONT></P>
 <P><A NAME="FLERA"></A><FONT FACE="San Serif"><FONT SIZE=3><B>Flera
 f&ouml;retag.</B></FONT></FONT></P>
-<P><A NAME="GRUNDATA2"></A><FONT FACE="San Serif"><FONT SIZE=3>OLFIX
+<P><A NAME="GRUNDATA2"></A><P ALIGN=LEFT><FONT FACE="San Serif"><FONT SIZE=3>OLFIX
 medger hantering av upp till 99 olika f&ouml;retag. F&ouml;retag nr
 99 &auml;r reserverat f&ouml;r testf&ouml;retaget.<BR>OLFIX levereras
 med ett &rdquo;skarpt&rdquo; (ordinarie) f&ouml;retag (01) och ett
 testf&ouml;retag (99).</FONT></FONT></P>
 <P><FONT FACE="San Serif"><FONT SIZE=3><B>Artiklar</B></FONT></FONT></P>
-<P><A NAME="GRUNDATA3"></A><FONT FACE="San Serif"><FONT SIZE=3>Artikeltyp
+<P><A NAME="GRUNDATA3"></A><P ALIGN=LEFT><FONT FACE="San Serif"><FONT SIZE=3>Artikeltyp
 0 = Tillverkningsartikel som tillverkas mot lager.<BR>Artikeltyp 1 =
 Tillverkningsartikel som ej tillveraks mot lager.<BR>Artikeltyp 2 =
 K&ouml;partikel som k&ouml;ps mot lager.<BR>Artikeltyp 3 = K&ouml;partikel
 som ej k&ouml;ps mot lager.<BR>Grundv&auml;rde = 0</FONT></FONT></P>
 <P><FONT FACE="San Serif"><FONT SIZE=3><B>Artikelstruktur</B></FONT></FONT></P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif">Blank =
+<P STYLE="margin-bottom: 0cm"><P ALIGN=LEFT><FONT FACE="San Serif">Blank =
 ing&aring;r ej i struktur.<BR>B = Bottenartikel.<BR>I = Ing&aring;r
 &quot;mitt&quot; i artikel.<BR>T = Toppartikel.<BR>F = Fantom, ing&aring;r
 &quot;mitt&quot; i artikel, ej fysisk artikel.<BR>Grundv&auml;rde =
@@ -182,8 +231,11 @@ blank.<BR><BR><A HREF="#TOP">Till b&ouml;rjan</A> </FONT>
 <HR>
 <P ALIGN=CENTER><A NAME="BYTAFORETAG"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Byte
 av f&ouml;retag.</B></FONT></FONT></P>
-<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><FONT SIZE=3><B>Byte
-av f&ouml;retag.</B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><FONT SIZE=3></FONT></FONT>
+OLFIX medger enkel hantering av 99 olika företag.<br>
+Varje företag har sin egen databas, vilken måste läggas upp av en behörig person.<br>
+OLFIX levereras med två företag, <i>olfix</i>, nr 01 och <i>olfixtst</i>, nr 99.<br>
+</P>
 <P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=3><IMG SRC="UserManual_html_BYTFTGW.png" NAME="Graphic9" ALIGN=BOTTOM WIDTH=608 HEIGHT=218 BORDER=0></FONT></FONT></P>
 <P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till
 b&ouml;rjan</A> </FONT>
@@ -191,8 +243,8 @@ b&ouml;rjan</A> </FONT>
 <HR>
 <P ALIGN=CENTER><A NAME="BOKFORING"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Bokf&ouml;ring</B></FONT></FONT></P>
 <P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=3><IMG SRC="UserManual_html_BOKFORSW.png" NAME="Graphic3" ALIGN=BOTTOM WIDTH=643 HEIGHT=411 BORDER=0></FONT></FONT></P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><FONT SIZE=3>Efter
-inmatning av <B>bokf&ouml;rings&aring;r</B> g&ouml;rs kontroll att
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><FONT SIZE=3>
+Efter inmatning av <B><A HREF="#BEGREPP">bokf&ouml;rings&aring;r</A></B> g&ouml;rs kontroll att
 bokf&ouml;rings&aring;ret &auml;r upplagt. s&auml;tts automatiskt.
 <B>Verifikationstext</B> skrivs in av anv&auml;ndaren.<B>Radnr</B>
 s&auml;tts automatiskt. Inmatning av <B>Kontonr</B> kan g&ouml;ras p&aring;
@@ -221,6 +273,23 @@ kan ske.</FONT></FONT></P>
 <P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till
 b&ouml;rjan</A> </FONT>
 </P>
+<HR>
+<P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Räkenskapsår</B></FONT></FONT></P>
+<P><A NAME="NYTTBAR"></A><FONT FACE="San Serif"><FONT SIZE=3>
+<B>Nytt räkenskapsår.</B></FONT></FONT></P>
+Hur man lägger upp ett nytt räkenskapsår/bokföringsår.
+<P ALIGN=CENTER STYLE="font-weight: medium"><FONT FACE="San Serif"><FONT SIZE=3><IMG SRC="UserManual_html_ADDBARW.png" NAME="Graphic10" ALIGN=BOTTOM WIDTH=450 HEIGHT=270 BORDER=0></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="font-weight: medium">
+Ange <b><A HREF="#BEGREPP">bokf&ouml;rings&aring;r</A></b> med två tecken.
+<b>Benämningen</b> anges med räkenskapetsårets omfattning, t ex 2001-01-01 -- 2001-12-31.<br>
+Fyll i <b>Startdatum</b> med räkenskapsårets början, t ex 2001-01-01.<br>
+Fyll i <b>Slutdatum</b> med datumet för räkenskapsårets sista dag, t ex 2001-12-31.<br>
+Som <b>Beskattningsår</b> anges det årtal för vilket räkenskaperna ska beskattas, t ex 2001. <br>
+Som <b>Senaste ver.datum</b> anges normalt räkenskapsårets första dag, t ex 2001-01-01.<br>
+Såsom <b>Nästa ver.nummer</b> anges vilket verifikationsnummer nästa bokföringsverifikation skall åsättas, normalt anges <b>1</b>. Fältet uppdateras sedan i samband bedbokföringen.<br>
+I fältet <b>Kontoplan</b> anger man efter vilken kontoplan som räkenskaperna/konteringarna är upprättad.<br><br>
+Efter detta är det dags att regstrera alla konton.</P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till b&ouml;rjan</A> </FONT></P>
 <HR>
 <P ALIGN=CENTER><A NAME="INKOP"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Ink&ouml;p</B></FONT></FONT></P>
 <P><A NAME="INKOP1"></A><FONT FACE="San Serif"><FONT SIZE=3><B>Registrering
@@ -281,9 +350,7 @@ i det stora bl&aring; f&auml;ltet s&aring; flyttas orderraden
 tillbaka f&ouml;r registrering av orderrad. Efter redigering s&aring;
 trycker man Enter s&aring; flyttas raden &aring;nya ner i det stora
 bl&aring;a f&auml;ltet.</FONT></FONT></P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till
-b&ouml;rjan</A> </FONT>
-</P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till b&ouml;rjan</A> </FONT></P>
 <HR>
 <P><A NAME="BESTEXEMPEL"></A><FONT FACE="San Serif"><FONT SIZE=3><B>Exempel
 p&aring; best&auml;llning.</B></FONT></FONT></P>
@@ -411,10 +478,9 @@ enf&ouml;ljd.<BR>F&auml;lt som &auml;r markerade med <FONT COLOR="#ff0000">*
 b&ouml;rjan</A> </FONT>
 </P>
 <HR>
-<P ALIGN=CENTER><A NAME="BEGREPP"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>BEGREPPSF&Ouml;RKLARINGAR</B></FONT></FONT></P>
-<P ALIGN=LEFT><FONT FACE="San Serif">Bokf&ouml;rings&aring;r:
-Tv&aring;st&auml;llig bokstavskombination som anger vilket
-<B>bokf&ouml;rings&aring;r</B> som avses.</FONT></P>
+<P ALIGN=CENTER><A NAME="BEGREPP"></A>
+<FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>BEGREPPSF&Ouml;RKLARINGAR</B></FONT></FONT></P>
+<P ALIGN=LEFT><FONT FACE="San Serif"><b>Bokf&ouml;rings&aring;r:</b> Tv&aring;st&auml;llig bokstavskombination som anger vilket bokf&ouml;rings&aring;r som avses.</FONT></P>
 <P ALIGN=LEFT><BR><BR>
 </P>
 <P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till
