@@ -2,7 +2,7 @@
 ** frmListRights meta object code from reading C++ file 'frmlistrights.h'
 **
 ** Created: Thu Mar 20 15:14:29 2003
-**      by: The Qt MOC ($Id: moc_frmlistrights.cpp,v 1.1 2003/05/08 08:54:57 frazze Exp $)
+**      by: The Qt MOC ($Id: moc_frmlistrights.cpp,v 1.2 2003/09/28 08:26:38 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
