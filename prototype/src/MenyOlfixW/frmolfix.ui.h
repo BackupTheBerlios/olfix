@@ -430,7 +430,7 @@ void frmOlfix::slotHelp()
 
 	process = new QProcess();
 	process->addArgument( "OLFIXHLP" );		// OLFIX program
-	process->addArgument("/doc/helpfiles/usermanual/UserManual.html");
+//	process->addArgument("/doc/helpfiles/usermanual/UserManual.html");
 	
 	if ( !process->start() ) {
 	    // error handling
@@ -440,6 +440,6 @@ void frmOlfix::slotHelp()
 /*  QMessageBox::information( this, "Hjälpindexl",
                             "Ännu inte implementerad!"
                             );
-*/			    
+*/
 }
 

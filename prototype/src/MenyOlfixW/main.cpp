@@ -1,7 +1,7 @@
 /****************************************************************/
 /**		main.cpp		OLFIXW				*/
 /**		2003-02-05					*/
-/**		modified 2003-11-11				*/
+/**		modified 2004-11-05				*/
 /**		Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -27,29 +27,43 @@
 #include <qlineedit.h>
 
 int which_database(char *envp[]);
+int find_homedir(char *envp[]);
+int copy_rcfile(void);
+
 char database[15]="";
+char resourcefile[100]="";
 
 int main( int argc, char* argv[] , char *envp[])
 {
-   which_database(envp);
-
   QApplication myapp( argc, argv );
-//  frmOlfix* mywidget = new frmOlfix();
-  
-/*  fprintf(stderr,"databas=%s\n",database);
-    qDebug("databas=%s",database);
-*/    
- // mywidget->lineEditDatabase->setText(database);
   
   QString rcfil;
   QString bibl;
   QStringList lines;
   QString homeDir( QDir::homeDirPath() );
+  
   rcfil.append(homeDir);
-  rcfil.append("/.olfixrc");	// configfil
-// Läs in config filen här
+  rcfil.append("/.olfixrc");	/* resursfil, configfil		*/
   QFile file(rcfil);
-  if ( file.open( IO_ReadOnly ) ) {
+  /***************************************************/
+  /*  Testa om $HOME/.olfixrc existerar, om inte skapa den.    */
+  /***************************************************/
+  if ( !file.open( IO_ReadOnly )){
+      file.close();
+      find_homedir(envp);		/* Hämta $HOME			    			*/
+      copy_rcfile();		/* Kopiera från /opt/olfix/script/.olficrc till  $HOME/.olfixrc	*/
+  }
+  
+/****************************************/
+/*  Vilken databas ska användas?		*/
+/****************************************/      
+   which_database(envp);
+
+  /****************************************/
+  /*  Läs in data från $HOME/.olfixrc här	 */
+  /****************************************/
+   file.close();
+   if ( file.open( IO_ReadOnly ) ) {
 	QTextStream stream( &file );
 	QString line;
         while ( !stream.eof() ) {
@@ -71,11 +85,8 @@ int main( int argc, char* argv[] , char *envp[])
  
   frmOlfix* mywidget = new frmOlfix();
   mywidget->lineEditDatabase->setText(database);
-//  frmOlfix Olfix;
   
-//  myapp.setMainWidget( &Olfix );
   myapp.setMainWidget( mywidget);
-//  Olfix.show();
   mywidget->show();
   return myapp.exec();
 }
@@ -140,5 +151,45 @@ int which_database(char *envp[])
 	database[strlen(tmp)]=0;
 /*	fprintf(stderr,"databas=%s\n",database);	*/
 
+	return status;
+}
+
+int copy_rcfile(void)
+{
+    int status;
+    char rcfile[]="/opt/olfix/script/.olfixrc";
+    char kommando[100]="";
+    strncpy(kommando,"cp ",3);
+    strncat(kommando,rcfile,strlen(rcfile));
+    strncat(kommando," ",1);
+    strncat(kommando,resourcefile,strlen(resourcefile));
+/*    fprintf(stderr,"kommando=%s\n",kommando);	*/
+    status = system(kommando);
+    return status;
+}
+
+
+int find_homedir(char *envp[])
+{
+	char home[50]="";
+	char *home_pek;
+	char resource[]="/.olfixrc";
+	char temp[10]="";
+	int i,status;
+
+	for (i = 0;envp[i]!=NULL;i++){
+		if(strstr(envp[i],"HOME=") != NULL){
+			strncpy(temp,envp[i],4);
+			status=strcmp(temp,"HOME");
+			if (status == 0){
+				home_pek=(strstr(envp[i],"HOME="));
+				home_pek=home_pek+5;
+				strcpy(home,home_pek);
+			}
+		}
+	}
+	strncpy(resourcefile,home,strlen(home));
+	strncat(resourcefile,resource,strlen(resource));
+	status=-1;
 	return status;
 }
