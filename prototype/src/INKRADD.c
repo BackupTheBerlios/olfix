@@ -1,9 +1,9 @@
 /***************************************************************************
                           INKRADD.c  -  description
                              -------------------
-    Version		 : 0.2
-    begin                : Tors 18 dec 2003
-    Modified		 : Ons 4 febr 2004
+    Version		 : 0.3
+    begin                : Tors 18 dec  2003
+    Modified		 : Ons  23 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@ Fältavskiljare = _:_
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKRADD.c,v 1.3 2004/02/05 06:04:18 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKRADD.c,v 1.4 2005/02/23 16:57:43 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -103,7 +103,7 @@ int main(int argc, char *argv[], char *envp[])
 /* ================================================================================ */
 
   if (argv[1] != NULL){
-  	strncpy(inkorderdata,argv[1],strlen(argv[1]));
+  	strncpy(inkorderdata,argv[1],sizeof(inkorderdata));	/* 2005-02-23	*/
   }
   else{
   	fprintf(stderr,"Error: INKRADD: Ange inköpsordernummer!\n");

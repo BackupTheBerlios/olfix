@@ -1,9 +1,11 @@
 /***************************************************************************
                           INKLST.c  -  description
                              -------------------
-			     Ver: 0.1
-    begin                : M?n 29  dec 2003
-    modified		 :
+			     Lista inköpsorder
+
+			     Ver: 0.2
+    begin                : Mån 29  dec  2003
+    modified		 : Ons 23  febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -30,7 +32,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKLST.c,v 1.1 2003/12/31 06:26:38 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKLST.c,v 1.2 2005/02/23 16:54:37 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -89,7 +91,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
-		strncpy(databas,database,15);
+		strncpy(databas,database,sizeof(databas));	/* 2005-02-23	*/
 	}else{
   		strncpy(databas,"olfixtst",15);	/* olfixtst = testf?retag	*/
 	}

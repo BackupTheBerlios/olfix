@@ -1,9 +1,9 @@
 /***************************************************************************
                           INKADD.c  -  description
                              -------------------
-    Version		 : 0.3
-    begin                : Sön  14 dec 2003
-    Modified		 : Tors 18 dec 2003
+    Version		 : 0.4
+    begin                : Sön  14 dec  2003
+    Modified		 : Ons  23 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -30,7 +30,7 @@ Fältavskiljare = _:_
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKADD.c,v 1.4 2004/02/04 14:53:05 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKADD.c,v 1.5 2005/02/23 16:45:56 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -105,7 +105,7 @@ int main(int argc, char *argv[], char *envp[])
 /* ================================================================================ */
 
   if (argv[1] != NULL){
-  	strncpy(inkorderdata,argv[1],strlen(argv[1]));
+  	strncpy(inkorderdata,argv[1],sizeof(inkorderdata));	/* 2005-02-23	*/
   }
   else{
   	fprintf(stderr,"Error: INKADD: Ange inköpsordernummer!\n");

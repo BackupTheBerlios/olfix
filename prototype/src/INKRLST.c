@@ -1,9 +1,9 @@
 /***************************************************************************
                           INKRLST.c  -  description
                              -------------------
-			     Ver: 0.3
-    begin                : Sön 21  dec 2003
-    modified		 : Tis 3 feb 2004
+			     Ver: 0.4
+    begin                : Sön 21  dec  2003
+    modified		 : Ons 23  febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -30,7 +30,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKRLST.c,v 1.3 2004/02/03 07:51:48 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKRLST.c,v 1.4 2005/02/23 17:01:07 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -75,7 +75,7 @@ int main(int argc, char *argv[], char *envp[])
   	fprintf(stderr,"Error: Inköpsordernr saknas!\n");
 	exit(0);
   }
-  strncpy(inkordnr,argv[1],strlen(argv[1]));
+  strncpy(inkordnr,argv[1],sizeof(inkordnr));	/* 2005-02-23	*/
 
 /* ================================================================================ */
 /* 		Val av databas, START						    */
