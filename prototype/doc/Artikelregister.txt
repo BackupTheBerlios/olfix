@@ -1,0 +1,61 @@
+ARTIKELREG
+
+ARTIKELNR	VARCHAR(30) not null PRIMARY KEY	// Artikelnummer/ArtikelID
+ARBENEMNING1	VARCHAR(30) not null			// Benämning, rad 1
+ARBENEMNING2	VARCHAR(30)				// Benämning, rad 2
+ARENHET		VARCHAR(5)				// Lagerenhet (ST,PKT,LITER,PAR,DUSS) osv
+AROMRFAKTOR	INT					// Omräkningsfaktor för ARENHET (1,10,100,1000 osv)
+ARFPRIS		DECIMAL(10,2)				// Försäljningspris
+ARLEDTID	VARCHAR(3)				// Ledtid, dagar
+ARPRODKLASS	VARCHAR(5)				// Produktklass
+ARPRODKTO	VARCHAR(5)				// Produktkonto
+ARLEVNR1	VARCHAR(10)				// Leverantörsnr leverantör nr 1, LEVREG
+ARLEVNR2	VARCHAR(10)				// Leverantörsnr leverantör nr 2, LEVREG
+ARLEVNR3	VARCHAR(10)				// Leverantörsnr leverantör nr 3, LEVREG
+ARNETTOVIKT	DECIMAL(10,2)				// Nettovikt
+ARARTTYP	ENUM ('0','1','2','3')DEFAULT '0'	// Artikeltyp 0=tillverkning lager
+							//            1=tillverkning ej lager
+							//	      2=köp lager
+							//            3=köp ej lager
+ARSTRUKT	ENUM (' ','B','I','T','F')DEFAULT ' '	// Strukturkod för artikeln
+							// Blank = ingår ej i struktur
+							// B = Bottenartikel
+							// I = Ingår "mitt" i artikel
+							// T = Toppartikel
+							// F = Fantom, ingår "mitt" i artikel
+ARURBENEMNING	VARCHAR(30)				// Ursprungsbenämning
+ARURLAND	VARCHAR(30)				// Ursprungsland
+ARURARTNR	VARCHAR(30)				// Leverantörens artikelnr
+ARTULLTAX	VARCHAR(7)				// Tulltaxekod
+ARVOLYM		DECIMAL(2,3)				// Volym i kubikmeter
+AROMRFAKTOR	INT					// Omräkningsfaktor
+-------------------Tillägg?
+ARARBKOSTNAS	DECIMAL(10,2)				// Arbetskostnad
+ARMTRLKOSTNAD	DECIMAL(10,2)				// Materialkostnad
+ARUPPKOSTNAD	DECIMAL(10,2)				// Uppsättningskostnad
+ARFORBRPER	DECIMAL(10,2)				// Förbrukat antal perioden
+ARFORBRAR	DECIMAL(10,2)				// Förbrukat antal under året
+AREKONKVANT	DECIMAL(10,2)				// Ekonomisk orderkvantitet
+ARTILLVKVANT	DECIMAL(10,2)				// Tillverkat antal
+
+
+
+LAGERSTELLEREG						// Lagerställeregister
+
+ARLAGST		VARCHAR(1)  not null PRIMARY KEY	// Lagerställe
+ARTIKELNR	VARCHAR(30) not null PRIMARY KEY	// Artikelnummer/ArtikelID	 ARTIKELREG
+ARLAGHYLLA	VARCHAR(10)				// Lagerhylla
+ARLAGSALDO	DECIMAL(10,2)				// Lagersaldo för lagerställe
+ARINVGRP	VARCHAR(3)				// Inventeringsgrupp
+ARABC		VARCHAR(2)				// ABCkod
+ARVALUTA	VARCHAR(3)				// Valuta, VALUTA-registret
+ARIPRIS		DECIMAL(10,2)				// Inköpspris, senaste inköp
+ARIKVANT0	DECIMAL(10,2)				// Inköpskvantitet, senaste inköp
+ARIKVANT1	DECIMAL(10,2)				// Inköpskavntitet, näst senaste inköp
+ARIKVANT2	DECIMAL(10,2)				// Inköpskvantitet, näst,näst senaste inköp
+ARKALKPRIS	DECIMAL(10,2)				// Kalkylpris
+ARPLANKPRIS	DECIMAL(10,2)				// Planerat kalkylpris
+ARFRYSTKPRIS	DECIMAL(10,2)				// Fryst kalkylpris
+ARBESTKVANT	DECIMAL(10,2)				// Beställd kvantitet
+ARBESTPUNKT	DECIMAL(10,2)				// Beställningspunkt
+AROMKOST	DECIMAL(10,2)				// Omkostnader
