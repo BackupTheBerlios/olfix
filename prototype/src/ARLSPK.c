@@ -1,9 +1,10 @@
 /***************************************************************************
                           ARLSPK.c  -  description
+			  Lista artiklar per produktkod
                              -------------------
-    Version		 : 0.1
+    Version		 : 0.2
     begin                : Sön 13 febr 2005
-    modified		 :
+    modified		 : Ons 23 febr 2005
     copyright            : (C) 2005 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -31,7 +32,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARLSPK.c,v 1.1 2005/02/13 16:05:29 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARLSPK.c,v 1.2 2005/02/23 10:47:13 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -65,19 +66,22 @@ int main(int argc, char *argv[], char *envp[])
 	fprintf(stderr,"Error. Produktklass saknas!\n");
 	exit(-1);}
    else{
-/*	fprintf(stderr,"argv[%d]=%s\n",ANTARG-1,argv[ANTARG-1]);	*/
-   	strncpy(prodklass,argv[ANTARG-1],strlen(prodklass));
+	fprintf(stderr,"argv[%d]=%s\n",ANTARG-1,argv[ANTARG-1]);
+   	strncpy(prodklass,argv[1],sizeof(prodklass));		/*	2005-02-23	*/
 	}
-
+/*  if (strlen(prodklass)<1){
+	strncpy(prodklass,argv[ANTARG-1],strlen(argv[1]));
+	} */
+	fprintf(stderr,"prodklass=%s   strlen prodklass=%d\n",prodklass,strlen(prodklass));
   char temp1a[]="SELECT ARTIKELNR,ARBENEMNING1,ARBENEMNING2,ARURARTNR AS ISBNNR FROM ARTIKELREG WHERE ARPRODKLASS = \"";
   char temp1b[]="\" ORDER BY ARTIKELNR";
   char temp5[200]="";
 
 /* fprintf(stderr,"ARLSPK argc = %d\n",argc);			*/
-/*  for (i=0;i< argc;i++){
+  for (i=0;i< argc;i++){
   	fprintf(stderr,"ARLSPK argv%d = %s\n",i,argv[i]);
     }
-*/
+
 /* ================================================================================ */
 /* 		Val av databas, START						    */
 /* ================================================================================ */
@@ -109,7 +113,7 @@ int main(int argc, char *argv[], char *envp[])
   if (strncmp(usr,"test",4)==0 || strncmp(usr,"prov",4)==0 ) {
   	strncpy(databas,"olfixtst",15);
   }
-/* fprintf(stderr,"Databas=%s\n",databas);	*/
+ fprintf(stderr,"Databas=%s\n",databas);
 /* ================================================================================ */
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
@@ -117,8 +121,8 @@ int main(int argc, char *argv[], char *envp[])
   strncpy(temp5,temp1a,strlen(temp1a));
   strncat(temp5,prodklass,strlen(prodklass));
   strncat(temp5,temp1b,strlen(temp1b));
-/*  fprintf(stderr,"temp5=%s\n",temp5);
-  exit(0);					*/
+  fprintf(stderr,"temp5=%s\n",temp5);
+/*  exit(0);					*/
 
   mysql_init(&my_connection);
   if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){

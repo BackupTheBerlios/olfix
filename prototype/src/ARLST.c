@@ -1,9 +1,9 @@
 /***************************************************************************
                           ARLST.c  -  description
                              -------------------
-    Version		 : 0.1
+    Version		 : 0.2
     begin                : Sön 23 nov 2003
-    modified		 :
+    modified		 : Ons 23 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -31,7 +31,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARLST.c,v 1.1 2003/11/23 09:00:47 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARLST.c,v 1.2 2005/02/23 10:50:26 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
