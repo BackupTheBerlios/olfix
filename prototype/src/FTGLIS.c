@@ -1,9 +1,11 @@
 /***************************************************************************
                           FTGLIS.c  -  description
                              -------------------
-    Version		 : 0.2
-    begin                : Fre 15 aug 2003
-    modified		 : Mån  3 nov 2003
+			     Lista posttyper med data
+
+    Version		 : 0.3
+    begin                : Fre 15 aug  2003
+    modified		 : Ons 23 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -25,7 +27,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FTGLIS.c,v 1.1 2003/11/03 09:24:41 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FTGLIS.c,v 1.2 2005/02/23 15:08:51 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -54,7 +56,7 @@ int main(int argc, char *argv[], char *envp[])
   char databas[25]="olfix";
   char usr[15];				/* userid		*/
 
-  /* ================================================================================ */
+/* ================================================================================ */
 /* 		Val av databas, START						    */
 /* ================================================================================ */
 
@@ -67,7 +69,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
-		strncpy(databas,database,15);
+		strncpy(databas,database,sizeof(databas));	/* 2005-02-23	*/
 	}else{
   		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}

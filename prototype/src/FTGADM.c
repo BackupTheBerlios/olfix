@@ -1,10 +1,11 @@
 /***************************************************************************
                           FTGADM.c  -  description
                              -------------------
-			     version 0.4
+			     version 0.5
 			     ersätter FOREG.c
 			     ersätter FORADM.c (2003-04-15)
-    begin                : Fre 22 nov 2002
+    begin                : Fre 22 nov  2002
+    modified		 : Ons 23 febr 2005
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -19,7 +20,7 @@
  *                                                                         *
  *********************************************** ****************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FTGADM.c,v 1.2 2003/11/02 15:16:31 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FTGADM.c,v 1.3 2005/02/23 15:01:06 janpihlgren Exp $ " ;
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -103,8 +104,8 @@ fprintf(stderr,"database=%s\n",database);
 /* ================================================================================ */
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
-fprintf(stderr,"argv[1]=%s\n",argv[1]);
-  strncpy(userid,argv[1],strlen(argv[1]));
+/*	fprintf(stderr,"argv[1]=%s\n",argv[1]);		*/
+  strncpy(userid,argv[1],sizeof(userid));		/* 2005-02-23	*/
   meny();
   return 0;
   meny();
