@@ -24,6 +24,7 @@
 "MOMS4","Momssats 4"
 "MOMS5","Momssats 5"
 "AUTOK","Automatkontering J/N"
+"KORNR","Senast använda kundordernr"
 "BF1","Bokföringsperiod 1"
 "BF2","Bokföringsperiod 2"
 "BF3","Bokföringsperiod 3"

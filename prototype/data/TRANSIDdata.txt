@@ -29,6 +29,7 @@
 "KUCHG","Ändra kunddata"
 "KUCHK","Kontrollera om kundnr finns"
 "KUDSP","Visa kunddata"
+"KULST","Lista kunder, kundnr och namn"
 "LEVADD","Lägga upp en ny leverantör"
 "LEVCHG","Ändra leverantörsdata"
 "LEVDSP","Visa en leverantör"

@@ -54,6 +54,7 @@
 "userid","KUCHG"
 "userid","KUCHK"
 "userid","KUDSP"
+"userid","KULST"
 "userid","LEVADD"
 "userid","LEVCHG"
 "userid","LEVDSP"

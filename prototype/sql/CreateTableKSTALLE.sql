@@ -1,3 +1,6 @@
 use olfix;
 create table KSTALLE(ARID VARCHAR(2) not null,KSTALLE VARCHAR(4)not null ,BENAMNING VARCHAR(100));
 alter table KSTALLE ADD PRIMARY KEY (ARID,KSTALLE);
+use olfixtst;
+create table KSTALLE(ARID VARCHAR(2) not null,KSTALLE VARCHAR(4)not null ,BENAMNING VARCHAR(100));
+alter table KSTALLE ADD PRIMARY KEY (ARID,KSTALLE);
