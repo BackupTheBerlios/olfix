@@ -24,7 +24,7 @@ fi
 mkdir $INSTALLPATH
 cp -R * $INSTALLPATH
 cd $INSTALLPATH/script
-$INSTALLPATH/script/install.sh
+$INSTALLPATH/script/setup2.sh
 
 dialog --backtitle "OLFIX installation." \
 --msgbox "** Installationen klar! **" 5 35
