@@ -68,19 +68,6 @@
             <string>&lt;p align="center"&gt;&lt;font color="#ff0000"&gt;*&lt;/font&gt;&lt;/p&gt;</string>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditBestLevNr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>110</x>
-                <y>5</y>
-                <width>110</width>
-                <height>19</height>
-            </rect>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>textLabel2</cstring>
@@ -1668,6 +1655,38 @@
             <number>2</number>
         </property>
     </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonUtskrift</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>145</x>
+                <y>536</y>
+                <width>60</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Till utskrift</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditBestLevNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>110</x>
+                <y>5</y>
+                <width>110</width>
+                <height>19</height>
+            </rect>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
@@ -1844,6 +1863,12 @@
         <receiver>frmAddBest</receiver>
         <slot>lineEditKommentar_returnPressed()</slot>
     </connection>
+    <connection>
+        <sender>pushButtonUtskrift</sender>
+        <signal>clicked()</signal>
+        <receiver>frmAddBest</receiver>
+        <slot>TillUtskrift()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>lineEditBestLevNr</tabstop>
@@ -1955,6 +1980,8 @@
     <slot>slotLevvillkEndOfProcess()</slot>
     <slot>CheckLevsett()</slot>
     <slot>slotLevsettEndOfProcess()</slot>
+    <slot>TillUtskrift()</slot>
+    <slot>slotUtskriftEndOfProcess()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>

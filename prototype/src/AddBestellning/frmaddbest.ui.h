@@ -9,9 +9,9 @@
 /***************************************************************************
 			  ADDINKW  -  description
 			     -------------------
-		     version 0.7
+		     version 0.8
     begin                	: Mån 8 dec 2003
-    modified	: Ons 4 febr 2004
+    modified	: Mån 16 febr 2004
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -117,6 +117,7 @@ void frmAddBest::init()
     lineEditLeveransvecka->setText(bestleveransvecka);
     frmAddBest::listViewRader_format();
     frmAddBest::getLevLista();
+    lineEditBestLevNr->setFocus();
 }
 
 void frmAddBest::slotLevNr_returnPressed()
@@ -1808,4 +1809,46 @@ void frmAddBest::slotLevsettEndOfProcess()
 	    }
 	}
     }
+}
+
+void frmAddBest::TillUtskrift()
+{
+/************************************************************************/
+/*	Gå till PRTINKW, Utskrift av beställning.				*/
+/************************************************************************/
+	const char *userp = getenv("USER");
+            QString usr(userp);
+
+	process = new QProcess();
+	process->addArgument( "PRTINKW");	// OLFIX program
+	process->addArgument(bestnr);
+	frmAddBest::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+	frmAddBest::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+            frmAddBest::connect( process, SIGNAL(processExited() ),this, SLOT(slotUtskriftEndOfProcess() ) );
+
+	if ( !process->start() ) {
+		// error handling
+		QMessageBox::warning( this, "",
+                            "Kan inte starta PRTINKW! \n" );
+	}
+}
+
+void frmAddBest::slotUtskriftEndOfProcess()
+{
+ // Kontrollera om utskriftsprogrammet, PRTINKW, blev aroppat utan fel
+    int i;
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+    if (i != -1) {
+	QMessageBox::warning( this, "ADDINKWW",
+		"Kunde inte hitta programmet för utskrift,PRTINKW\n"+errorrad);
+	errorrad="";
+    }
+     i = -1;
+     i = inrad.find( QRegExp("OK:"), 0 );
+     if (i != -1) {
+//	QMessageBox::information( this, "ADDINKW","Utskriftsprogrammet,PRTINKW, hittat!\n"+errorrad);
+    inrad="";
+    }
+     lineEditBestLevNr->setFocus();
 }
