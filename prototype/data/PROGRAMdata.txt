@@ -83,4 +83,5 @@
 "083","Försäljning","Kunddata","Lista kunders leveransplatser","LSTLEVPW"
 "084","Administration","Företagsdata","Ny databasregistrering","ADDFORW"
 "085","Administration","Företagsdata","Lista databaser","LSTFORW"
-"086","Materialhantering","Artikeldata","Ny produktklass/produktgrupp","ADDPKDW"
+"086","Materialhantering","Artikeladmin.","Ny produktklass/produktgrupp","ADDPKDW"
+"087","Materialhantering","Artikeladmin.","Lista produktklass/produktgrupp","LSTPKDW"
