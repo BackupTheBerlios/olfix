@@ -81,6 +81,8 @@
 "VALCHG","Ändra valutainformation"
 "VALDEL","Ta bort en valuta"
 "VALDSP","Visa en valuta"
+"VERHDSP","Hämta mindatum och maxdatum för angivet bokf.år"
+"VERHLST","Lista verifikationers huvudposter för önskat bokföringsår"
 "VERUPD","Nyuppläggning av verifikat"
 "VERDSP","Visa enstaka verifikation"
 "VRDADD","Ny detaljpost för verifikation till VERD"
