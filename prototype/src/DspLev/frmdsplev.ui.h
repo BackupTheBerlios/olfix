@@ -9,7 +9,7 @@
 /***************************************************************************
                           DSPLEVW  -  description
                              -------------------
-		     version 0.02
+		     version 0.3
     begin                : Tis 1 juli 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
@@ -59,6 +59,7 @@
     QString betalvillkor;	// antal dagar
     
     QString ftgdata;	// För antal dagar i betalningsvillkor
+    QString beskrivning;	// beskrivning av betalningsvillkor
 
 void frmDspLev::init()
 {
@@ -313,21 +314,6 @@ void frmDspLev::slotEndOfProcess()
 	 if (i21 != -1){
 	     getbetvilk=inrad.mid(i21+3,2);
 	     lineEditBetvilk->setText(getbetvilk);
-	     i = -1;
-	     i = getbetvilk.find( QRegExp("1"), 0 );
-	     if (i  != -1 ){
-		 posttyp="BVLK1";
-	     }
-	     i = -1;
-	     i = getbetvilk.find( QRegExp("2"), 0 );
-	     if (i  != -1 ){
-		 posttyp="BVLK2";
-	     }
-	     i = -1;
-	     i = getbetvilk.find( QRegExp("3"), 0 );
-	     if (i  != -1 ){
-		 posttyp="BVLK3";
-	     }
 	 }
 //	 qDebug("posttyp = %s i=%d",posttyp.latin1(),i);
 	 inrad="";
@@ -335,10 +321,11 @@ void frmDspLev::slotEndOfProcess()
 	inrad="";
 	i = -1;
      } 
-     slotGetFtgData(posttyp);
+//     slotGetBetvilkorData(posttyp);
+      slotGetBetvilkorData(getbetvilk);
 }
 
-void frmDspLev::slotGetFtgData(QString posttyp)
+void frmDspLev::slotGetBetvilkorData(QString betvilk)
 {
 	const char *userp = getenv("USER");
             QString usr(userp);
@@ -346,45 +333,55 @@ void frmDspLev::slotGetFtgData(QString posttyp)
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// userid
-	process->addArgument( "FTGDSP");	// OLFIX funktion
-	process->addArgument(posttyp);
-
+	process->addArgument( "BETDSP");	// OLFIX funktion
+	process->addArgument(betvilk);
+//	qDebug("betvilk=%s",betvilk.latin1());
 	frmDspLev::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmDspLev::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-            frmDspLev::connect( process, SIGNAL(processExited() ),this, SLOT(slotFtgEndOfProcess() ) );
+            frmDspLev::connect( process, SIGNAL(processExited() ),this, SLOT(slotBetvilkEndOfProcess() ) );
 
             if ( !process->start() ) {
 		// error handling
-		fprintf(stderr,"Problem starta STYRMAN/FTGDSP!\n");
+		fprintf(stderr,"Problem starta STYRMAN/BETDSP!\n");
 		QMessageBox::warning( this, "DSPLEVW",
-                            "Kan inte starta STYRMAN/FTGDSP! \n" );
+                            "Kan inte starta STYRMAN/BETDSP! \n" );
 	    }
 }
 
 
-void frmDspLev::slotFtgEndOfProcess()
+void frmDspLev::slotBetvilkEndOfProcess()
 {
-    int i,m;
+    int i,j,m;
     
 //    qDebug("inrad=%s",inrad.latin1());
     
     i = -1;
     i = errorrad.find( QRegExp("Error:"), 0 );
  //   qDebug("Error:",errorrad);
-         if (i != -1) {
+    if (i != -1) {
 	QMessageBox::critical( this, "DSPLEVW",
 		"ERROR!\n"+errorrad
-	);
+		);
 	errorrad="";
 	i = -1;
-     }
-     i = -1;
-     i = inrad.find( QRegExp("2:"), 0 );     
-     if (i != -1) {
+    }
+    
+     j = -1;
+     j = inrad.find( QRegExp("BESKRIVNING:"), 0 );     
+     if (j != -1) {
 	 m = inrad.length();
-	 betalvillkor=inrad.mid(i+2,m-2);
+	 beskrivning=inrad.mid(i+6,m-2);
 	 lineEditBetvilkDag->setText(betalvillkor);
      }
+    
+     i = -1;
+     i = inrad.find( QRegExp("DAGAR:"), 0 );     
+     if (i != -1) {
+	 m = j-i;
+	 betalvillkor=inrad.mid(i+6,m-6);
+	 lineEditBetvilkDag->setText(betalvillkor);
+     }
+//     qDebug("i=%d, j=%d",i,j);
      inrad="";
      i=-1;
 }

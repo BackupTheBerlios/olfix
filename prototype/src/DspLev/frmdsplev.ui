@@ -768,8 +768,8 @@
     <slot>slotDataOnStdout()</slot>
     <slot>slotDataOnStderr()</slot>
     <slot>slotEndOfProcess()</slot>
-    <slot>slotGetFtgData( QString posttyp )</slot>
-    <slot>slotFtgEndOfProcess()</slot>
+    <slot>slotGetBetvilkorData( QString betvilk )</slot>
+    <slot>slotBetvilkEndOfProcess()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
