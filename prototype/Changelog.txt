@@ -1,13 +1,142 @@
-Changelog OLFIX 20031005
+Changelog OLFIX 2003112
 
-Ver 0.1.9.B	Nytt
-20031005	DSPKUW		Visa kunddata,GUI
+Ver 0.1.10.A	OBS! Alfa
+2003112
+
+________________________________________________________
+Changelog OLFIX 2003111
+
+Ver 0.1.9.A	OBS! Alfa
+2003111
+		Ny funktionallitet.
+		Skapat en ny databas för testföretag, olfixtst
+		Påbörjat lägga in validering av data.
+
+		Nya program
+		DSPKUW		Visa kunddata,GUI
 		KUDSP.c		Visa kunddata
 		CHGKUW		Ändra kunddata,GUI
 		KUCHG.c		Ändra kunddata
+		LSTKUW		Lista kunder, GUI
+		KULST.c		Lista kunder (Kundnr och namn)
+		BYTFTGW		Byta företag/databas mellan ordinarie (01) och test (99)
+		ARCHK.c		Kontrollera om artikelnummer finns eller ej
+		ARADD.c		Lägga upp en ny artikel i ARTIKELREG
+		ADDARW		Lägga upp en ny artikel i ARTIKELREG, GUI. Preliminär
+
+		Ändrade program
+		ADDKUW		Lagt till validering av indata.
+		ADDLEVPW	Rättning av bugg (main.cpp) samt lagt till validering av indata
+		OLFIXW		Visa vilken databas som används.
+		ATTBET.c	Ta emot en parameter för val av företag samt kodstädning
+		ARICHK.c	Ta emot en parameter för val av företag samt kodstädning
+		BARADD.c	Ta emot en parameter för val av företag samt kodstädning
+		BARCHG.c	Ta emot en parameter för val av företag samt kodstädning
+		BARCHK.c	Ta emot en parameter för val av företag samt kodstädning
+		BARDSP.c	Ta emot en parameter för val av företag samt kodstädning
+		BARFND.c	Ta emot en parameter för val av företag samt kodstädning
+		FTGADD.c	Ta emot en parameter för val av företag samt kodstädning
+		FTGADM.c	Ta emot en parameter för val av företag samt kodstädning.Pgm obsolete
+		FTGDSP.c	Ta emot en parameter för val av företag samt kodstädning.Buggrättning
+		FTGLIS.c	Ta emot en parameter för val av företag samt kodstädning
+		FTGUPD.c	Ta emot en parameter för val av företag samt kodstädning
+		KSTADD.c	Ta emot en parameter för val av företag samt kodstädning
+		KSTCHK.c	Ta emot en parameter för val av företag samt kodstädning
+		KSTDSP.c	Ta emot en parameter för val av företag samt kodstädning
+		KSTLST.c	Ta emot en parameter för val av företag samt kodstädning
+		KTOADD.c	Ta emot en parameter för val av företag samt kodstädning
+		KTOCHG.c	Ta emot en parameter för val av företag samt kodstädning
+		KTOCHK.c	Ta emot en parameter för val av företag samt kodstädning
+		KTODSP.c	Ta emot en parameter för val av företag samt kodstädning
+		KTOLST.c	Ta emot en parameter för val av företag samt kodstädning
+		KTORPT.c	Ta emot en parameter för val av företag samt kodstädning
+		KTOVIEW.c	Ta emot en parameter för val av företag samt kodstädning
+		KUADD.c		Ta emot en parameter för val av företag samt kodstädning
+		KUCHG.c		Ta emot en parameter för val av företag samt kodstädning
+		KUCHK.c		Ta emot en parameter för val av företag samt kodstädning
+		KUDSP.c		Ta emot en parameter för val av företag samt kodstädning
+		KULST.c		Ta emot en parameter för val av företag samt kodstädning
+		LEVADD.c	Ta emot en parameter för val av företag samt kodstädning
+		LEVCHG.c	Ta emot en parameter för val av företag samt kodstädning + buggrättning
+		LEVDSP.c	Ta emot en parameter för val av företag samt kodstädning
+		LEVLST.c	Ta emot en parameter för val av företag samt kodstädning
+		LRESADD.c	Ta emot en parameter för val av företag samt kodstädning
+		LRESRPT.c	Ta emot en parameter för val av företag samt kodstädning
+		OLFIX.c		Ta emot en parameter för val av företag samt kodstädning
+		PRGLST.c	Ta emot en parameter för val av företag samt kodstädning
+		RGTADD.c	Ta emot en parameter för val av företag samt kodstädning
+		RGTCHK.c	Ta emot en parameter för val av företag samt kodstädning
+		RGTDEL.c	Ta emot en parameter för val av företag samt kodstädning + buggrättning
+		RGTDSP.c	Ta emot en parameter för val av företag samt kodstädning
+		RGTLST.c	Ta emot en parameter för val av företag samt kodstädning
+		RPTCRE.c	Ta emot en parameter för val av företag samt kodstädning
+		SLPADD.c	Ta emot en parameter för val av företag samt kodstädning
+		STYRMAN.c	Ta emot en parameter för val av företag samt kodstädning
+		TRHDADD.c	Ta emot en parameter för val av företag samt kodstädning
+		TRNSADD.c	Ta emot en parameter för val av företag samt kodstädning
+		TRNSLST.c	Ta emot en parameter för val av företag samt kodstädning
+		USERADD.c	Ta emot en parameter för val av företag samt kodstädning
+		USERCHG.c	Ta emot en parameter för val av företag samt kodstädning
+		USERDEL.c	Ta emot en parameter för val av företag samt kodstädning
+		USERDSP.c	Ta emot en parameter för val av företag samt kodstädning
+		USERLST.c	Ta emot en parameter för val av företag samt kodstädning + buggrättning
+		VALADD.c	Ta emot en parameter för val av företag samt kodstädning
+		VALCHG.c	Ta emot en parameter för val av företag samt kodstädning
+		VALDEL.c	Ta emot en parameter för val av företag samt kodstädning
+		VALDSP.c	Ta emot en parameter för val av företag samt kodstädning
+		VALLST.c	Ta emot en parameter för val av företag samt kodstädning
+		VERUPD.c	Ta emot en parameter för val av företag samt kodstädning
+		WRREC.c		Ta emot en parameter för val av företag samt kodstädning
+
+		Nya tabeller
+		ORDERREG	Orderregister,preliminär
+		ORDERRADREG	Orderradsregister, preliminär
+		ARTIKELREG	Artikelregister, preliminär
+		LAGERSTELLEREG	Lagerställeregister,kompleterande artikeldata,preliminär
+
+		Ändrad tabeller
+
+		SQL, nytt
+		CreateTableORDERREG.sql		Skapa ORDERREG
+		CreateTableORDERRADREG.sql	Skapa ORDERRADREG
+		CreateDatabaseOlfixtst.sql	Skapa databasen olfixtst
+		CreateAllOlfixtst.sql		Skapa alla tabeller till olfixtst
+		CreateTableARTIKELREG.sql	Skapa ARTIKELREG, preliminär
+		CreateTableLAGERSTELLEREG.sql	Skapa LAGERSTELLEREG, preliminär
+
+		SQL, ändrat
+		CreateTableFTGDATA.sql
+		CreateTableBETVILKOR.sql	Lagt till olfixtst
+		CreateTableBOKFAR.sql		Lagt till olfixtst
+		CreateTableKSTALLE.sql		Lagt till olfixtst
+		CreateTableKTOPLAN.sql		Lagt till olfixtst
+		CreateTableKUNDREG.sql		Lagt till olfixtst
+		CreateTableLEVREG.sql		Lagt till olfixtst
+		CreateTableLEVRESK.sql		Lagt till olfixtst
+		CreateTableORDERRADREG.sql	Lagt till olfixtst
+		CreateTableORDERREG.sql		Lagt till olfixtst
+		CreateTablePROGRAM.sql		Lagt till olfixtst
+		CreateTableRIGHTS.sql		Lagt till olfixtst
+		LoadStandaloneRIGHTSdata.sql	Lagt till olfixtst
+		LoadRIGHTS.sql			Lagt till olfixtst
+		CreateTableSTDLEVPLATS.sql	Lagt till olfixtst
+		CreateTableTRHD.sql		Lagt till olfixtst
+		CreateTableTRANSID.sql		Lagt till olfixtst
+		LoadTRANSID.sql			Lagt till olfixtst
+		CreateTableUSR.sql		Lagt till olfixtst
+		CreateTableVALUTA.sql		Lagt till olfixtst
+		CreateTableVERHUVUD.sql		Lagt till olfixtst
+		CreateTableVERRAD.sql		Lagt till olfixtst
+
+		Data
+		TRANSIDdata.txt			Lagt till nya funktioner
+		PROGRAMdata,txt			Nya program
+		StandaloneRIGHTSdata.txt	Nya funktioner
+		FTGDATAdata.txt			Lagt till KORNR (Senast använda kundordernr)
 
 		Dokumentation
-		Teknisk Manual	Uppdaterad (2003-10-05)
+		Teknisk Manual	Uppdaterad (2003-11-11)
+		User Manual	Uppdaterad (2003-10-24)
 ________________________________________________________
 Ver 0.1.8.B	Nytt
 20030928	RPTCRE.c	Rapportgenerator för valfri SQLfråga
@@ -216,7 +345,7 @@ ________________________________________________________
 Ver 0.1.1.B
 20030330	Uppdaterat all .c-filer med
 			 /*@unused@*/ static char RCS_id[] =
-			    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/Changelog.txt,v 1.1 2003/10/05 06:24:10 janpihlgren Exp $ " ;
+			    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/Changelog.txt,v 1.2 2003/11/12 15:29:27 janpihlgren Exp $ " ;
 		OLFIXW.    Lagt till "stretch"-möjlighet.
 		.olfixrc   Utökad med VTMP=/tmp/
 		WRREC.c.   Hämtar sökvägen till vernr.txt från filen $HOME/.olfixrc
