@@ -1,9 +1,9 @@
 /***************************************************************************
                           INKRADD.c  -  description
                              -------------------
-    Version		 : 0.1
+    Version		 : 0.2
     begin                : Tors 18 dec 2003
-    Modified		 :
+    Modified		 : Ons 4 febr 2004
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@ Fältavskiljare = _:_
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKRADD.c,v 1.2 2003/12/18 05:32:24 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKRADD.c,v 1.3 2004/02/05 06:04:18 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -39,7 +39,7 @@ Fältavskiljare = _:_
 #include <string.h>
 #include "mysql.h"
 #define ANTARG 2
-#define ANTFELT 11
+#define ANTFELT 14
 
   MYSQL my_connection;
   MYSQL_RES *res_ptr;
@@ -55,7 +55,7 @@ int main(int argc, char *argv[], char *envp[])
   const char *userp = getenv("USER");	// vem är inloggad?
   char usr[15];				// userid
 
-  char temp1a[]="INSERT INTO INKRADREG (INKORDNR,INKORDRADNR,ARTIKELNR,ENHET,BESTANTAL,LEVERERAT,RESTNOTERAT,INKPRIS,LEVVECKA,TORDNR,OPNR) VALUES (";
+  char temp1a[]="INSERT INTO INKRADREG (INKORDNR,INKORDRADNR,ARTIKELNR,BENEMNING,LEVARTIKELNR,LEVBENEMNING,ENHET,BESTANTAL,LEVERERAT,RESTNOTERAT,INKPRIS,LEVVECKA,TORDNR,OPNR) VALUES (";
   char temp2[]="\"";
   char temp3[]=",";
   char temp4[]=")";
