@@ -1,7 +1,7 @@
-Changelog OLFIX 20040209
+Changelog OLFIX 20040210
 
 Ver 0.1.13.A	OBS! Alfa
-20040209
+20040210
 		Nya program
 		PRTINKW		Utskrift av beställning
 		ADDLEVVW	Nytt leveransvillkor
@@ -41,6 +41,7 @@ Ver 0.1.13.A	OBS! Alfa
 
 		Ändrade script
 		install.sh	Arbetar med "dialog" och anropas från setup.sh
+				install.sh byter namn till setup2.sh
 		create_dist	Skapa självextraherande distribution.
 		.olfixrc	Lagt till REPORT=/usr/local/olfix/report/
 
@@ -70,7 +71,8 @@ Ver 0.1.13.A	OBS! Alfa
 		Nytt bibliotek	/report	Avsett för kugar-template
 
 		Dokumentation
-		Teknisk Manual	Uppdaterad samt levereras som .pdf
+		Teknisk Manual	Uppdaterad
+		User Manual	Uppdaterad
 ________________________________________________________
 Ver 0.1.12.A	OBS! Alfa
 20040111
