@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
 <class>frmAddUser</class>
 <widget class="QWidget">
     <property name="name">
@@ -11,6 +11,12 @@
             <width>337</width>
             <height>190</height>
         </rect>
+    </property>
+    <property name="font">
+        <font>
+            <family>Helvetica</family>
+            <pointsize>10</pointsize>
+        </font>
     </property>
     <property name="caption">
         <string>ADDUSRW  Lägga upp ny användare</string>
@@ -103,19 +109,6 @@
     </widget>
     <widget class="QLineEdit">
         <property name="name">
-            <cstring>LineEditUserId</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>91</x>
-                <y>30</y>
-                <width>80</width>
-                <height>22</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
             <cstring>LineEditName</cstring>
         </property>
         <property name="geometry">
@@ -170,6 +163,19 @@
         </property>
         <property name="default">
             <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditUserId</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>91</x>
+                <y>30</y>
+                <width>80</width>
+                <height>22</height>
+            </rect>
         </property>
     </widget>
 </widget>
@@ -245,6 +251,30 @@
         <signal>clicked()</signal>
         <receiver>frmAddUser</receiver>
         <slot>slotAddUser()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditUserId</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmAddUser</receiver>
+        <slot>slotUserIdEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditName</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmAddUser</receiver>
+        <slot>slotNameEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditAvd</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmAddUser</receiver>
+        <slot>slotAvdEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditGrupp</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmAddUser</receiver>
+        <slot>slotGruppEntered()</slot>
     </connection>
 </connections>
 <tabstops>
