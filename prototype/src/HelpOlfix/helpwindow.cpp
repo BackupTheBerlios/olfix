@@ -1,5 +1,5 @@
 /****************************************************************************
-** $Id: helpwindow.cpp,v 1.2 2004/11/07 07:33:45 janpihlgren Exp $
+** $Id: helpwindow.cpp,v 1.3 2005/03/12 06:59:33 janpihlgren Exp $
 **
 ** Copyright (C) 1992-2002 Trolltech AS.  All rights reserved.
 **
@@ -7,7 +7,7 @@
 ** program may be used, distributed and modified without limitation.
 **
 ** Modifierad: 2004-02-20	Jan Pihlgren
-**                      2004-11-07  Jan Pihlgren
+**                      2005-03-11  Jan Pihlgren
 **		OLFIXHLP
 *****************************************************************************/
 
@@ -31,7 +31,7 @@ HelpWindow::HelpWindow( const QString& home_, const QString& _path,
     : QMainWindow( parent, name, WDestructiveClose ),
       pathCombo( 0 )
 {
-    QString binpath;
+  QString binpath;
     binpath=QDir::currentDirPath();
 /*    qDebug("helpwindows::Current Path=%s",binpath.latin1());		*/
         
@@ -63,7 +63,7 @@ HelpWindow::HelpWindow( const QString& home_, const QString& _path,
     connect( browser, SIGNAL( highlighted( const QString&) ),
              statusBar(), SLOT( message( const QString&)) );
 
-    resize( 640,700 );
+    resize( 700,700 );
     browser->setFocus();
 
 }

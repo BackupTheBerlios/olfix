@@ -1,12 +1,12 @@
 /****************************************************************************
-** $Id: main.cpp,v 1.2 2004/11/07 07:33:45 janpihlgren Exp $
+** $Id: main.cpp,v 1.3 2005/03/12 06:59:33 janpihlgren Exp $
 **
 ** Copyright (C) 1992-2000 Trolltech AS.  All rights reserved.
 **
 ** This file is part of an example program for Qt.  This example
 ** program may be used, distributed and modified without limitation.
 **
-**  Modifierad: 2004-11-07	Jan Pihlgren
+**  Modifierad: 2005-03-11	Jan Pihlgren
 **  main.cpp	OLFIXHLP
 *****************************************************************************/
 
@@ -69,7 +69,7 @@ int main( int argc, char ** argv )
  
     HelpWindow *help = new HelpWindow(home, ".", 0, "help viewer");
     help->setCaption("OLFIX - Användarmanual");
-    if ( QApplication::desktop()->width() > 400
+    if ( QApplication::desktop()->width() > 500
          && QApplication::desktop()->height() > 500 )
         help->show();
     else
