@@ -1,7 +1,7 @@
-Changelog OLFIX 20041114
+Changelog OLFIX 20041118
 Blivande
 Ver 0.1.16.A
-20041114
+20041118
 
 		Allmänt
 		Flyttat OLFIX-paketet till /opt/olfix
@@ -23,7 +23,7 @@ Ver 0.1.16.A
 		LSTKUW	Mindre justering av main.cpp
 		ADDBARW Mindre justering av main.cpp och *.pro
 		ADDBETV Mindre justering av main.cpp och *.pro
-		ADDFTGW Mindre justering av main.cpp och *.pro
+		ADDFTGW Mindre justering av main.cpp och *.pro. Nytt fält,Branschtillhörighet.
 		ADDFNC  Mindre justering av main.cpp och *.pro
 		ADDINKW Mindre justering av main.cpp och AddBestellning.pro
 		ADDKTOW Mindre justering av main.cpp och *.pro
@@ -45,7 +45,7 @@ Ver 0.1.16.A
 		CHGBARW Mindre justering av main.cpp och *.pro
 		CHGBETVW Mindre justering av main.cpp och *.pro
 		BYTFTGW Mindre justering av main.cpp och *.pro
-		CHGFTGW Mindre justering av main.cpp och *.pro
+		CHGFTGW Mindre justering av main.cpp och *.pro.Nytt fält,Branschtillhörighet.
 		CHGKTOW Mindre justering av main.cpp och *.pro
 		CHGKUW Mindre justering av main.cpp och *.pro
 		CHGLEVW Mindre justering av main.cpp och *.pro
@@ -60,7 +60,7 @@ Ver 0.1.16.A
 		DSPAREW Mindre justering av main.cpp och *.pro
 		DSPARW Mindre justering av main.cpp och *.pro
 		DSPINKW Mindre justering av main.cpp och *.pro
-		DSPFTGW Mindre justering av main.cpp och *.pro
+		DSPFTGW Mindre justering av main.cpp och *.pro.Nytt fält,Branschtillhörighet.
 		DSPKTOW Mindre justering av main.cpp och *.pro
 		DSPKSTW Mindre justering av main.cpp och *.pro
 		DSPKUW Mindre justering av main.cpp och *.pro
@@ -91,7 +91,7 @@ Ver 0.1.16.A
 		PRTINKW Mindre justering av main.cpp och *.pro
 		RPTGENW Mindre justering av main.cpp och *.pro
 		SDOLISW Mindre justering av main.cpp och *.pro
-		
+
 		Nya funktioner
 		LEVPLST.c	Lista standardleveransplatser
 		FORADD.c	Ny databas i tabell DATABAS
@@ -105,6 +105,8 @@ Ver 0.1.16.A
 			CreateTable_olfixtstRIGHTS_ADMIN.sql
 			CreateTableDATABAS.sql
 			LoadTableDATABAS.sql
+			CreateOLFIX.sql Skapar databaserna olix och olfixtst med data
+				 	samt användaren olfix.
 
 		Ändrade sql
 
