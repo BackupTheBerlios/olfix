@@ -1,26 +1,45 @@
-Changelog OLFIX 20040325
+Changelog OLFIX 20040504
+Ver 0.1.16.A
+20040504
+
+
+________________________________________________________
+Ver 0.1.15.A
+20040503
+		Allmännt
+		C		Nytt bibliotek för alla c-program som flyttas från src
+
 		Nya program
 		BALRPTW		Balansrapport/Balansräkning(ej färdig)
+		DAGBOKW		Dagboksrapport
+		HUVBOKW		Huvudboksrapport
 
 		Ändrade program
 		SDOLISW		Lagt till Saldototaler
 				Fromdatum och Tomdatum
 
 		Nya funktioner
-		VERHDSP		Lista lägsta och högsta datum för angivet bokföringsår.
+		VERHDSP.c	Lista lägsta och högsta datum för angivet bokföringsår.
+		DBOKRPT.c	Dagboksrapport
+		HBOKRPT.c	Huvudboksrapport
+		PRTAPI.c	Interface för utskrifter
 
 		Ändrade funktioner
 		KTORPT.c	Utökad funktionallitet,(fromdatum och tomdatum)
-		TRANSIDdata.txt	Nya funktioner.
+
+		Nya rapporter
+		Huvudbok.kut	Utskriftmall för huvudbok
+		Dagbok.kut	Utskriftsmall för dagbok
 
 		Ändrade rapporter
 		Saldolista.kut	Lagt till saldototaler
 
 		Ändrade data
 		PROGRAMdata.txt	Nya program
+		TRANSIDdata.txt	Nya funktioner,DBOKRPT,HBOKRPT,PRTAPI,VERHDSP
 
 		Dokumentation
-		Teknisk Manual	Uppdaterad (2004-03-25)
+		Teknisk Manual	Uppdaterad (2004-04-09)
 ________________________________________________________
 Ver 0.1.14.A	OBS! Alfa
 20040317
