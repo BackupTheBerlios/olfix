@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
 <class>frmAddValuta</class>
 <widget class="QWidget">
     <property name="name">
@@ -121,35 +121,6 @@
             </rect>
         </property>
     </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonQuit</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>65</x>
-                <y>185</y>
-                <width>61</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Avsluta</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditBeteck</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>90</x>
-                <y>60</y>
-                <width>210</width>
-                <height>22</height>
-            </rect>
-        </property>
-    </widget>
     <widget class="QLineEdit">
         <property name="name">
             <cstring>LineEditValuta</cstring>
@@ -193,6 +164,35 @@
         </property>
         <property name="default">
             <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditBeteck</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>90</x>
+                <y>60</y>
+                <width>210</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonQuit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>65</x>
+                <y>185</y>
+                <width>61</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avsluta</string>
         </property>
     </widget>
 </widget>
@@ -249,7 +249,37 @@
         <sender>PushButtonOK</sender>
         <signal>clicked()</signal>
         <receiver>frmAddValuta</receiver>
-        <slot>slotPushButtonOK_clicked()</slot>
+        <slot>slotAddValuta()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditValuta</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmAddValuta</receiver>
+        <slot>slotValuta_lostFocus()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditBeteck</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmAddValuta</receiver>
+        <slot>slotBeteckning_lostFocus()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditLand</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmAddValuta</receiver>
+        <slot>slotLand_lostFocus()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditKop</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmAddValuta</receiver>
+        <slot>slotKop_lostFocus()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditSalj</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmAddValuta</receiver>
+        <slot>slotSalj_lostFocus()</slot>
     </connection>
 </connections>
 <tabstops>
@@ -257,6 +287,7 @@
     <tabstop>LineEditBeteck</tabstop>
     <tabstop>LineEditLand</tabstop>
     <tabstop>LineEditKop</tabstop>
+    <tabstop>LineEditSalj</tabstop>
     <tabstop>PushButtonOK</tabstop>
     <tabstop>PushButtonQuit</tabstop>
 </tabstops>
@@ -266,15 +297,19 @@
 <slots>
     <slot>init()</slot>
     <slot>slotAddValuta()</slot>
+    <slot>slotValuta_lostFocus()</slot>
     <slot>slotValutaEntered()</slot>
+    <slot>slotBeteckning_lostFocus()</slot>
     <slot>slotBeteckningEntered()</slot>
+    <slot>slotLand_lostFocus()</slot>
     <slot>slotLandEntered()</slot>
+    <slot>slotKop_lostFocus()</slot>
     <slot>slotKopEntered()</slot>
+    <slot>slotSalj_lostFocus()</slot>
     <slot>slotSaljEntered()</slot>
     <slot>slotDataOnStdout()</slot>
     <slot>slotDataOnStderr()</slot>
     <slot>slotEndOfProcess()</slot>
-    <slot>slotPushButtonOK_clicked()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

@@ -8,8 +8,8 @@
 /***************************************************************************
                           ADDVALW  -  description
                              -------------------
-		     version 0.01
-    begin                : Fre 21 febr 2003
+		     version 0.02
+    begin                : Fre 6 juni 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -82,6 +82,13 @@ void frmAddValuta::slotAddValuta()
 	}
 }
 
+
+
+void frmAddValuta::slotValuta_lostFocus()
+{
+    slotValutaEntered();
+}
+
 void frmAddValuta::slotValutaEntered()
 {
     valuta=LineEditValuta->text();
@@ -90,10 +97,20 @@ void frmAddValuta::slotValutaEntered()
     LineEditBeteck->setFocus();
 }
 
+void frmAddValuta::slotBeteckning_lostFocus()
+{
+    slotBeteckningEntered();
+}
+
 void frmAddValuta::slotBeteckningEntered()
 {
     beteckning=LineEditBeteck->text();
     LineEditLand->setFocus();
+}
+
+void frmAddValuta::slotLand_lostFocus()
+{
+    slotLandEntered();
 }
 
 void frmAddValuta::slotLandEntered()
@@ -102,10 +119,20 @@ void frmAddValuta::slotLandEntered()
     LineEditKop->setFocus();
 }
 
+void frmAddValuta::slotKop_lostFocus()
+{
+    slotKopEntered();
+}
+
 void frmAddValuta::slotKopEntered()
 {
     kop=LineEditKop->text();
     LineEditSalj->setFocus();
+}
+
+void frmAddValuta::slotSalj_lostFocus()
+{
+    slotSaljEntered();
 }
 
 void frmAddValuta::slotSaljEntered()
@@ -161,8 +188,3 @@ void frmAddValuta::slotEndOfProcess()
      }
 }
 
-
-void frmAddValuta::slotPushButtonOK_clicked()
-{
-    frmAddValuta::slotAddValuta();
-}
