@@ -346,6 +346,10 @@
     <slot>slotOmOlfix()</slot>
     <slot>slotLicensvillkor()</slot>
     <slot>slotHelp()</slot>
+    <slot>slotRunBytftgProgram( QString prg )</slot>
+    <slot>slotEndOfBytftgProcess()</slot>
+    <slot>slotDataOnBytftgStderr()</slot>
+    <slot>slotDataOnBytftgStdout()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

@@ -8,9 +8,9 @@
 /***************************************************************************
                           OLFIXW  -  description
                              -------------------
-		     version 0.62
-    begin                   : Tis 16 maj 2003
-    modified	: Lör 11 dec 2004
+		     version 0.63
+    begin                   : Tis  16 maj  2003
+    modified	: Tors  3 mars 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                  : jan@pihlgren.se
  ***************************************************************************/
@@ -40,7 +40,7 @@
 	QString inrad;
 	QString errorrad;
 	QString program;
-	QString version="0.62";
+	QString version="0.63";
 
 void frmOlfix::init()
 {
@@ -372,7 +372,11 @@ void frmOlfix::slotEndOfCheckProcess()
      qWarning("slotEndOfCheckProcess(): errorrad=%s inrad=%s i=%d\n",errorrad.latin1(),inrad.latin1(),i);
 
      if(i != -1){
-	 frmOlfix::slotRunProgram( program );
+	 if (program=="BYTFTGW"){
+	     frmOlfix::slotRunBytftgProgram(program);
+	 }else{
+	     frmOlfix::slotRunProgram( program );
+	 }
      }
      else{
 	QMessageBox::warning( this, "OLFIX - Behörighet",
@@ -442,3 +446,67 @@ void frmOlfix::slotHelp()
 */
 }
 
+void frmOlfix::slotRunBytftgProgram( QString prg )
+{
+    /******************************************************************************/
+    /*  Funktion för att kommunicera med BYFTGW, få info om att man byt företag(databas)	*/
+    /*		2005-03-03							*/
+    /******************************************************************************/
+ /*   qDebug("Körs för start av BYFTGW");		*/
+           QString prog;
+	prog.append("./");
+            prog.append(prg);
+	inrad="";
+	errorrad="";
+
+	process = new QProcess();
+	process->addArgument( prog );		// OLFIX program
+	frmOlfix::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnBytftgStderr() ) );		
+	frmOlfix::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnBytftgStdout() ) );	
+	frmOlfix::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfBytftgProcess() ) );
+
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta "+prog+"!\n" );
+	}
+}
+
+void frmOlfix::slotEndOfBytftgProcess()
+{
+    int i;
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+         if (i != -1) {
+	QMessageBox::critical( this, "OLFIXW",
+		"ERROR!\n"+errorrad
+	);
+	errorrad="";
+	i = -1;
+     }
+}
+
+void frmOlfix::slotDataOnBytftgStderr()
+{
+   while (process->canReadLineStderr() ) {
+	QString line = process->readStderr();
+	errorrad.append(line);
+	errorrad.append("\n");
+    }
+}
+
+void frmOlfix::slotDataOnBytftgStdout()
+{
+    int i,l;
+    while (process->canReadLineStdout() ) {
+	QString line = process->readStdout();
+	inrad.append(line);
+	inrad.append("\n");
+    }
+/*   qDebug("slotDataOnBytftgStdout::inrad=%s",inrad.latin1());		*/
+   i = -1;
+   i = inrad.find( QRegExp("Databas="), 0 );
+   if ( i != -1){   
+       l=inrad.length();
+       lineEditDatabase->setText(inrad.mid(8,l-8));
+   }      
+}
