@@ -2,7 +2,7 @@
 ** frmDspKstalle meta object code from reading C++ file 'frmdspkstalle.h'
 **
 ** Created: Thu Mar 20 08:17:24 2003
-**      by: The Qt MOC ($Id: moc_frmdspkstalle.cpp,v 1.1 2003/05/08 08:54:48 frazze Exp $)
+**      by: The Qt MOC ($Id: moc_frmdspkstalle.cpp,v 1.2 2003/09/28 07:50:42 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
