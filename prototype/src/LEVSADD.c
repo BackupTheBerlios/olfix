@@ -1,9 +1,10 @@
 /***************************************************************************
                           LEVSADD.c  -  description
                              -------------------
-    Version		 : 0.1
-    begin                : Mån 9 febr	2004
-    modified		 :
+			     Nytt leveranssätt
+    Version		 : 0.2
+    begin                : Mån   9 febr	2004
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +29,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVSADD.c,v 1.1 2004/02/09 07:18:45 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVSADD.c,v 1.2 2005/02/24 07:28:07 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -106,9 +107,9 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-  strncpy(levsett,argv[1],strlen(argv[1]));
+  strncpy(levsett,argv[1],sizeof(levsett));			/* 2005-02-24	*/
 /*  fprintf(stderr,"levsett=%s\n",levsett);	*/
-  strncpy(beskrivning,argv[2],strlen(argv[2]));
+  strncpy(beskrivning,argv[2],sizeof(beskrivning));		/* 2005-02-24	*/
 /*  fprintf(stderr,"argv[1]=%s,argv[2]=%s\n",argv[1],argv[2]);	*/
   strncpy(temp5,temp1,strlen(temp1));
 /* INSERT INTO LEVSETT(LEVSETTNR,LEVSETTTEXT) VALUES ("  */

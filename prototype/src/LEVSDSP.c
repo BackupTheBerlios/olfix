@@ -1,9 +1,10 @@
 /***************************************************************************
                           LEVSDSP.c  -  description
                              -------------------
-    Version		 : 0.1
-    begin                : Ons 4 febr 2004
-    modified		 :
+			     Visa leveranssätt
+    Version		 : 0.2
+    begin                : Ons   4 febr 2004
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +29,7 @@
 
  ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVSDSP.c,v 1.2 2004/02/07 08:13:46 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVSDSP.c,v 1.3 2005/02/24 07:32:11 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -77,7 +78,7 @@ int main(int argc, char *argv[], char *envp[])
 
   if (argc<3){
     	if (strlen(database)!= 0){
-		strncpy(databas,database,15);
+		strncpy(databas,database,sizeof(databas));	/* 2005-02-24	*/
 	}else{
   		strncpy(databas,"olfixtst",15);	// olfixtst = testf?retag
 	}
@@ -101,7 +102,7 @@ int main(int argc, char *argv[], char *envp[])
 
 /*  fprintf(stderr,"betvilk=%d\n",betvilk); */
 
-  strncpy(betvilkor,argv[1],8);
+  strncpy(betvilkor,argv[1],sizeof(betvilkor));		/* 2005-02-24	*/
   strncat(temp5,temp1,strlen(temp1));
 /* SELECT * FROM BETVILKOR WHERE BETVILKOR = "  */
   strncat(temp5,betvilkor,8);/* AC */

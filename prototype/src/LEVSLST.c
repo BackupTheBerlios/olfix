@@ -1,9 +1,9 @@
 /***************************************************************************
                           LEVSLST.c  -  description
                              -------------------
-    Version		 : 0.1
-    begin                : Mån 9 febr 2004
-    modified		 :
+    Version		 : 0.2
+    begin                : Mån   9 febr 2004
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2004 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -31,7 +31,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVSLST.c,v 1.1 2004/02/09 07:18:45 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVSLST.c,v 1.2 2005/02/24 07:35:15 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -80,7 +80,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
-		strncpy(databas,database,15);
+		strncpy(databas,database,sizeof(databas));	/* 2005-02-24	*/
 	}else{
   		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}
