@@ -1,7 +1,8 @@
 /****************************************************************/
 /**		ADDFTGW					*/
 /**		2003-08-15					*/
-/**		Version: 0.1					*/
+/**		Version: 0.2					*/
+/**		Modifierad: 2004-11-18				*/
 /**		Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -38,6 +39,7 @@
 
     QString ftgnamn;
     QString ftgnr;
+    QString snikd;
     QString postadr;
     QString postnr1;
     QString postort;
@@ -76,6 +78,12 @@ void frmAddFtgData::slotLineEditFtgNamn_returnPressed()
 void frmAddFtgData::slotLineEditFtgNr_returnPressed()
 {
     ftgnr = LineEditFtgNr->text();
+    LineEditBranschkod->setFocus();
+}
+
+void frmAddFtgData::slotLineEditBranschkod_returnPressed()
+{
+    snikd = LineEditBranschkod->text();
     LineEditPostAdress->setFocus();
 }
 
@@ -217,6 +225,7 @@ void frmAddFtgData::slotPushButtonOK_clicked()
 {
     slotUpdateFtgdata("FNAMN",ftgnamn);
     slotUpdateFtgdata("FTGNR",ftgnr);
+    slotUpdateFtgdata("SNIKD",snikd);
     slotUpdateFtgdata("ADR1",postadr);
     slotUpdateFtgdata("ADR2",postnr1);
     slotUpdateFtgdata("ADR3",postort);
@@ -379,7 +388,15 @@ void frmAddFtgData::slotGetEndOfProcess()
 		m = j - (i + 7);
 		ftgnr = inrad.mid(i+7,m);
 		LineEditFtgNr->setText((ftgnr));
-	    } 	    
+	    }
+ 	    i=-1;
+	    i = inrad.find( QRegExp("SNIKD_:"), 0 );
+	    if (i != -1) {
+		j = inrad.find( QRegExp("_:"), i+7 );
+		m = j - (i + 7);
+		snikd = inrad.mid(i+7,m);
+		LineEditBranschkod->setText((snikd));
+	    } 	    	    
 	    i=-1;
 	    i = inrad.find( QRegExp("ADR1_:"), 0 );
 	    if (i != -1) {

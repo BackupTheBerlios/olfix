@@ -210,6 +210,8 @@
     <slot>slotLineEditFnamn_returnPressed()</slot>
     <slot>slotGetFTGNR()</slot>
     <slot>slotLineEditFtgnr_returnPressed()</slot>
+    <slot>slotGetSNIKD()</slot>
+    <slot>slotLineEditBranschkod_returnPressed()</slot>
     <slot>slotGetTFN1()</slot>
     <slot>slotLineEditTfnnr1_returnPressed()</slot>
     <slot>slotGetTFN2()</slot>

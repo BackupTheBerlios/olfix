@@ -1,7 +1,8 @@
 /****************************************************************/
 /**		CHGFTGW					*/
-/**		Version: 0.3                                                                            */
+/**		Version: 0.4                                                                            */
 /**		20003-06-30					*/
+/**		Modifierad: 2004-11-18				*/
 /**		Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -44,6 +45,7 @@
    QString ftgpostadr;
    QString ftgpostnr;
    QString ftgort;
+   QString snikd;
     
     QLineEdit* LineEditFtgnr;
     QLineEdit* LineEditFnamn;
@@ -74,6 +76,7 @@
     QLineEdit* LineEditBetvilk3;
     
     QLineEdit* LineEditAutokonto;
+    QLineEdit* LineEditBranschkod;
 
 void frmChgFtgData::init()
 {
@@ -212,12 +215,17 @@ void frmChgFtgData::slotEndOfProcess()
     if (i != -1){
 	slotGetADR7();
     }
-
     i = -1;
     i = posttyp.find( QRegExp("FTGNR"), 0 );
     if (i != -1){
 	slotGetFTGNR();
     }
+/*    i = -1;
+    i = posttyp.find( QRegExp("SNIKD"), 0 );
+    if (i != -1){
+	slotGetSNIKD();
+    }
+*/    
     i = -1;
     i = posttyp.find( QRegExp("FNAMN"), 0 );
     if (i != -1){
@@ -279,6 +287,12 @@ void frmChgFtgData::slotEndOfProcess()
     if (i != -1){
 	slotGetAUTOK();
     }   
+    i = -1;
+    i = posttyp.find( QRegExp("SNIKD"), 0 );		// Branschkod
+    if (i != -1){
+	slotGetSNIKD();
+    }   
+    
 }
 
 void frmChgFtgData::slotGetADR1()
@@ -639,6 +653,43 @@ void frmChgFtgData::slotGetFTGNR()
 void frmChgFtgData::slotLineEditFtgnr_returnPressed()
 {
     fdata=LineEditFtgnr->text();
+    PushButtonUpdate->setFocus();
+}
+
+void frmChgFtgData::slotGetSNIKD()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString snikd;
+   QLabel* TextLabelBranschkod;
+//   QLineEdit* LineEditBranschkod;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    snikd = inrad.mid(k+2,m-2);
+//    qDebug("snikd=%s",snikd.latin1());
+    TextLabelBranschkod = new QLabel( this, "TextLabelBranschkod" );
+    // geometri = x , y , w , h
+    TextLabelBranschkod->setGeometry( QRect( 10, 50, 100, 26 ) );
+    TextLabelBranschkod->setText( trUtf8( "Branschkod:" ) );
+    
+    TextLabelBranschkod->show();
+    LineEditBranschkod = new QLineEdit( this, "LineEditBranschkod" );
+    LineEditBranschkod->setGeometry( QRect( 110, 50, 100, 26 ) );
+    connect( LineEditBranschkod, SIGNAL(  returnPressed()), this, SLOT( slotLineEditBranschkod_returnPressed() ) );    
+    LineEditBranschkod->show();
+    LineEditBranschkod->setText(snikd);
+    LineEditBranschkod->setFocus();
+}
+
+void frmChgFtgData::slotLineEditBranschkod_returnPressed()
+{
+    fdata=LineEditBranschkod->text();
     PushButtonUpdate->setFocus();
 }
 

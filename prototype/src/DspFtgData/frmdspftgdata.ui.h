@@ -1,7 +1,8 @@
 /****************************************************************/
 /**		DSPFTGW					*/
-/**		Version: 0.4 					*/
+/**		Version: 0.5 					*/
 /**		20003-08-14					*/
+/**		Modifierad: 2004-11-18				*/
 /**		Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -223,7 +224,12 @@ void frmDspFtgData::slotEndOfProcess()
     if (i != -1){
 	slotGetAUTOK();
     } 
+    i = posttyp.find( QRegExp("SNIKD"), 0 );
+    if (i != -1){
+	slotGetSNIKD();
+    } 
 
+    
 }
 
 void frmDspFtgData::slotGetFNAMN()
@@ -698,5 +704,27 @@ void frmDspFtgData::slotGetAUTOK()
 //    qDebug("autok=%s",autok.latin1());
     lineEditAutokont->setText(autok);   
     inrad="";
-//    slotGetFtgData("MOMSU");
+    slotGetFtgData("SNIKD");
+}
+
+void frmDspFtgData::slotGetSNIKD()
+{
+//	Branschkod
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString snikd;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    snikd = inrad.mid(k+2,m-2);
+//    qDebug("autok=%s",autok.latin1());
+    LineEditBranschkod->setText(snikd);   
+    inrad="";
+ //   slotGetFtgData("SNIKD");
 }
