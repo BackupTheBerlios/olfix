@@ -9,7 +9,7 @@
 /***************************************************************************
                           CHGARW  -  description
                              -------------------
-    Version 	: 0.2
+    Version 	: 0.3
     begin                	: Sön 16 nov 2003
     modified	:Mån 24 nov 2003
     copyright             : (C) 2003 by Jan Pihlgren
@@ -936,7 +936,7 @@ void frmChgArtikel::lineEditFrystKalkylPris_returnPressed()
     if (lineEditFrystKalkylPris->text() != frystkpris){
 	changeflag=0;
     }
-    frystkpris=lineEditKalkylPris->text();
+    frystkpris=lineEditFrystKalkylPris->text();
     if (frystkpris==""){
 	frystkpris="0.00";
 	lineEditFrystKalkylPris->setText(frystkpris);
