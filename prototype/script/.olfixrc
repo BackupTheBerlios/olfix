@@ -1,5 +1,5 @@
-PATH=/usr/local/olfix/bin/
+PATH=/opt/olfix/bin/
 HOST=localhost
-DATABASE=olfix
-REPORT=/usr/local/olfix/report/
+DATABASE=olfixtst
+HELPFILE=/doc/helpfiles/usermanual/UserManual.html
 VTMP=/tmp/
