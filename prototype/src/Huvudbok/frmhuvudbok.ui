@@ -396,6 +396,7 @@
     <slot>slotFileRemove( QString filnamn )</slot>
     <slot>KugarVersion()</slot>
     <slot>GetReportDir()</slot>
+    <slot>GetTmpDir()</slot>
     <slot>getFortetagsnamn()</slot>
     <slot>slotFtgnamnEndOfProcess()</slot>
     <slot>GetBokfPeriod()</slot>

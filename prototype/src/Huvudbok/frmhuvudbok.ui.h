@@ -1,8 +1,8 @@
 /****************************************************************/
 /**		HUVBOKW					*/
-/**		Ver 0.1                                                                                    */
+/**		Ver 0.2                                                                                    */
 /**		Created    2004-03-30				*/
-/**		Modified 					*/
+/**		Modified 2004-04-09				*/ 
 /**   Copyright	Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -49,6 +49,7 @@
     QString ftgnamn;
 
     QString reportpath;
+    QString tmppath;
     QString kugarversion;
     QString kommando;
     
@@ -63,6 +64,7 @@ void frmHuvudbok::init()
     textLabelDatum->setText(datum);
     frmHuvudbok::KugarVersion();
     frmHuvudbok::GetReportDir();
+    frmHuvudbok::GetTmpDir();
     frmHuvudbok::getFortetagsnamn();
 }
 
@@ -107,6 +109,7 @@ void frmHuvudbok::lineEditTomDatum_returnPressed()
 void frmHuvudbok::radioButtonCSV_toggled( bool )
 {
     csvflag="J";
+    slotFileRemove("Huvudbok.txt");
 }
 
 void frmHuvudbok::radioButtonPrint_toggled( bool )
@@ -222,9 +225,9 @@ void frmHuvudbok::slotGetDataEndOfProcess()
     QString rapportrad;
         
     if (csvflag == "J"){
-	fil="/tmp/Huvudbok.txt";
+	fil=tmppath+"Huvudbok.txt";
     }else{
-	fil="/tmp/Huvudbok.kud";
+	fil=tmppath+"Huvudbok.kud";
     }
     QFile filnamn( fil );
     ackumulerat="0.00";
@@ -292,7 +295,7 @@ void frmHuvudbok::slotGetDataEndOfProcess()
 		 ackumulerat.setNum(acksaldo,'f',2);
 		 
 		 if (csvflag =="J"){			// Skapa rapportrad för Kspread
-		     rapportrad=(ktotemp);			 
+		     rapportrad=(ktonr);			 
 		     rapportrad.append(",");			 
 		     rapportrad.append(verdatum);			 
 		     rapportrad.append(",");			 
@@ -310,28 +313,9 @@ void frmHuvudbok::slotGetDataEndOfProcess()
 		     rapportrad.append(",");			 
 		     rapportrad.append(ackumulerat);
 		     rapportrad.append("\n");
-		     if (ktotemp != ""){
+//		     if (ktotemp != ""){
 			 stream << rapportrad;
-		     }
-		     if (ktonr.mid(0,1) != ktotemp.mid(0,1) && ktotemp !=""){
-			 ktosumdebet.setNum(ktodelsumdebet,'f',2);
-			 ktosumkredit.setNum(ktodelsumkredit,'f',2);
-			 ktosumackumulerat.setNum(ktodelsumackumulerat,'f',2);		
-			 rapportrad="KLASSTOTAL";
-			 rapportrad.append(",");
-			 rapportrad.append("");		// Blankt kontonamnsfält
-			 rapportrad.append(",");
-			 rapportrad.append(ktosumdebet);
-			 rapportrad.append(",");
-			 rapportrad.append(ktosumkredit);
-			 rapportrad.append(",");
-			 rapportrad.append(ktosumackumulerat);
-			 rapportrad.append("\n");
-			 stream << rapportrad;
-			 ktodelsumdebet=0;
-			 ktodelsumkredit=0;
-			 ktodelsumackumulerat=0;
-		     }					
+//		     }
 		 }else{		 		// Skapa raportrad för Kugar
 		     if (ktonr != ktotemp && ktotemp !=""){
 			 ktosumdebet.setNum(ktodelsumdebet,'f',2);
@@ -448,21 +432,6 @@ void frmHuvudbok::slotGetDataEndOfProcess()
 	     stream << rapportrad;
 	     rapportrad="</KugarData>";
 	     stream << rapportrad;
-	 }else{
-	     totaldebet.setNum(debettotal,'f',2);
-	     totalkredit.setNum(kredittotal,'f',2);
-	     totalackumulerat.setNum(acksaldototal,'f',2);			
-	     rapportrad="SALDOTOTALER";
-	     rapportrad.append(",");
-	     rapportrad.append("");		// Blankt kontonamnsfält
-	     rapportrad.append(",");
-	     rapportrad.append(totaldebet);
-	     rapportrad.append(",");
-	     rapportrad.append(totalkredit);
-	     rapportrad.append(",");
-	     rapportrad.append(totalackumulerat);
-	     rapportrad.append("\n");
-	     stream << rapportrad;	     
 	 }
     }
     filnamn.close();
@@ -484,7 +453,8 @@ void frmHuvudbok::slotCreateHeader()
     QString rad[antrad];
     QString rapportrad;
 
-    QFile filnamn("/tmp/Huvudbok.kud");
+    QFile filnamn(tmppath+"Huvudbok.kud");
+    
     QTextStream stream(&filnamn);
 
     slotFileRemove("Huvudbok.kud");	// radera gammal fil. Ändra till .kud
@@ -585,10 +555,13 @@ void frmHuvudbok::slotFileRemove(QString filnamn)
 //  Ta bort temporärfilen /tmp/Huvudbok.kud eller filen /tmp/Huvudbok.txt
     bool status;
     QDir d = QDir::root();                   // "/"
-    if ( !d.cd("tmp") ) {                       // "/tmp"
+/*    if ( !d.cd("tmp") ) {                       // "/tmp"
         qWarning( "Cannot find the \"/tmp\" directory" );
-    }
-    status=d.remove(filnamn,FALSE);
+    } */
+    filnamn=tmppath+filnamn;
+//    status=d.remove(filnamn,FALSE);
+    status=remove(filnamn);
+//    qDebug("filnamn=%s, status=%d",filnamn.latin1(),status);
 }
 
 void frmHuvudbok::KugarVersion()
@@ -597,11 +570,13 @@ void frmHuvudbok::KugarVersion()
 //  Anrop av kugar skiljer sig mellan version 1.2.1 och version 1.2.92 ->
     bool status;
     int i = -1;
-
+    
+    QString command;
     QString filename;
 
-    system("kugar -v >/tmp/kugarversion.txt");
-    filename="/tmp/kugarversion.txt";
+    command="kugar -v >"+tmppath+"kugarversion.txt";
+    system(command);
+    filename=tmppath+"kugarversion.txt";
     QFile file(filename);
     status=file.open(IO_ReadOnly);
     QTextStream stream( &file );
@@ -614,7 +589,7 @@ void frmHuvudbok::KugarVersion()
 	}
     }
     file.close ();
-   frmHuvudbok::slotFileRemove("kugarversion.txt");
+    frmHuvudbok::slotFileRemove("kugarversion.txt");
 }
 
 void frmHuvudbok::GetReportDir()
@@ -640,6 +615,32 @@ void frmHuvudbok::GetReportDir()
 	}
     }
     file.close ();
+}
+
+void frmHuvudbok::GetTmpDir()
+{
+    QString hemkatalog;
+    QString olfixrcfile;	// filen $HOME/.olfixrc
+
+    bool status;
+    int i = -1;
+    //	Hämta sökvägen till kugar template. Default /usr/local/olfix/report
+    //	Hämtas från .olfixrc
+    hemkatalog=QDir::homeDirPath ();
+    olfixrcfile=hemkatalog+"/.olfixrc";
+    QFile file(olfixrcfile);
+    status=file.open(IO_ReadOnly);
+    QTextStream stream( &file );
+    while ( !stream.eof() ) {
+	inrad = stream.readLine();
+	i = inrad.find( QRegExp("VTMP="), 0 );
+	if(i == 0){
+	    tmppath=inrad.mid(5,inrad.length()-5);
+	    i= -1;
+	}
+    }
+    file.close ();
+//    qDebug("tmppath=%s",tmppath.latin1());
 }
 
 void frmHuvudbok::getFortetagsnamn()
