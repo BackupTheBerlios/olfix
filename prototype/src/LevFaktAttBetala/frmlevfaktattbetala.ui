@@ -1,0 +1,123 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>frmLevFaktAttBetala</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmLevFaktAttBetala</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>463</width>
+            <height>207</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>ATTBETW - Rapport över leverantörsfakturor att betala</string>
+    </property>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>15</x>
+                <y>25</y>
+                <width>91</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Förfallodatum:</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>15</x>
+                <y>180</y>
+                <width>100</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Skapa rapport</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonAvbryt</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>125</x>
+                <y>180</y>
+                <width>66</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avbryt</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditExpireDate</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>115</x>
+                <y>20</y>
+                <width>106</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>pushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>frmLevFaktAttBetala</receiver>
+        <slot>slotpushButtonOK_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonAvbryt</sender>
+        <signal>clicked()</signal>
+        <receiver>frmLevFaktAttBetala</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditExpireDate</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmLevFaktAttBetala</receiver>
+        <slot>slotlineEditExpireDate_returnPressed()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">frmlevfaktattbetala.ui.h</include>
+</includes>
+<slots>
+    <slot>slotlineEditExpireDate_returnPressed()</slot>
+    <slot>slotpushButtonOK_clicked()</slot>
+    <slot>slotSkapRapportfil()</slot>
+    <slot>slotEndOfProcess()</slot>
+    <slot>slotFileRemove( QString filnamn )</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>slotCreateHeader()</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
