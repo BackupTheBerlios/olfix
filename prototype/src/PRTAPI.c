@@ -1,9 +1,9 @@
 /***************************************************************************
                           PRTAPI.c  -  description
                              -------------------
-			     version 0.1
+			     version 0.2
     begin                : Lör 3 april 2004
-    modified		 :
+    modified		 : Sön 12 dec 2004
     copyright            : (C) 2004 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -26,7 +26,7 @@
 	OUTPUT:
  *****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PRTAPI.c,v 1.1 2004/04/04 07:23:32 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PRTAPI.c,v 1.2 2004/12/12 05:15:44 janpihlgren Exp $ " ;
 
 #include <string.h>
 #include <stdlib.h>
@@ -78,7 +78,7 @@ int main (int argc, char *argv[], char *envp[])
 	}
 	strncpy(temp,tmpfilepath,strlen(tmpfilepath));
 	strncat(temp,printfil,strlen(printfil));
-/*	fprintf(stderr,"cvs=%s, printfil=%s, prttemplate=%s, temp=%s\n",csvflag,printfil,prttemplate,temp); */
+/*	fprintf(stderr,"cvs=%s, printfil=%s, prttemplate=%s,temp=%s\n",csvflag,printfil,prttemplate,temp); */
 	status=KugarVersion();
 	if (status != 0)
 		exit(status);
@@ -92,18 +92,19 @@ int main (int argc, char *argv[], char *envp[])
 /*		fprintf(stderr,"kugarversion=%s, len=%d\n",kugarversion,strlen(kugarversion));		*/
 		if (strcmp(kugarversion,"1.2.92")<0){
 			strncpy(command,command_d,strlen(command_d));
-			strncat(command,tmpfilepath,strlen(tmpfilepath));
+			strncat(command,tmpfilepath,strlen(tmpfilepath)-1);
 			strncat(command,printfil,strlen(printfil));
 			strncat(command,command_e,strlen(command_e));
 			strncat(command,reportpath,strlen(reportpath));
 			strncat(command,prttemplate,strlen(prttemplate));
+			/* EX: kugar -d /tmp/Saldolista.txt -r /opt/olfix/report/Saldolista.kut		*/
 		}else{
 			strcpy(command,"kugar ");
-			strncat(command,tmpfilepath,strlen(tmpfilepath));
+			strncat(command,tmpfilepath,strlen(tmpfilepath)-1);
 			strncat(command,printfil,strlen(printfil));
 		}
 	}
-/*	fprintf(stderr,"command=%s\n",command);		*/
+	fprintf(stderr,"command_3=%s\n",command);
 	system(command);
 	return status;
 }
@@ -174,13 +175,16 @@ int KugarVersion()
 	FILE *fil_pek;
 
 	strncpy(command,command_a,strlen(command_a));
-	strncat(command,tmpfilepath,strlen(tmpfilepath));
+	strncat(command,tmpfilepath,strlen(tmpfilepath)-1);
 	strncat(command,command_b,strlen(command_b));
-/*	fprintf(stderr,"command=%s\n",command);				*/
+	fprintf(stderr,"command_1=%s\n",command);
 	system(command);
 
-	strncpy(filnamn,tmpfilepath,strlen(tmpfilepath));
+	strncpy(filnamn,tmpfilepath,strlen(tmpfilepath)-1);
 	strncat(filnamn,command_b,strlen(command_b));
+
+/*	Ex: kugar -v /tmp/kugarverssion.txt	*/
+	fprintf(stderr,"command_2=%s\n",command);
 
 	if ((fil_pek = fopen(filnamn,"r")) != NULL){
 		while (fgets(tmp,50,fil_pek) != NULL){
@@ -195,7 +199,7 @@ int KugarVersion()
 		fclose(fil_pek);
 	}
 	else{
-	 	fprintf(stderr,"Error: Filen kugarversion.txt kan inte öppnas\n");
+	 	fprintf(stderr,"Error: Filen %skugarversion.txt kan inte öppnas\n",tmpfilepath);
 	}
 	return status;
 }
