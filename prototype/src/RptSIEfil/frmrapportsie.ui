@@ -1,0 +1,449 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>frmRapportSIE</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmRapportSIE</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>600</width>
+            <height>297</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>RPTSIEW - Skapa SIE-filer</string>
+    </property>
+    <widget class="QRadioButton">
+        <property name="name">
+            <cstring>radioButton3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>20</x>
+                <y>75</y>
+                <width>97</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>SIE-fil Typ 3</string>
+        </property>
+    </widget>
+    <widget class="QRadioButton">
+        <property name="name">
+            <cstring>radioButton2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>20</x>
+                <y>50</y>
+                <width>98</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>SIE-fil Typ 2</string>
+        </property>
+    </widget>
+    <widget class="QRadioButton">
+        <property name="name">
+            <cstring>radioButton1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>20</x>
+                <y>25</y>
+                <width>97</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>SIE-fil Typ 1</string>
+        </property>
+    </widget>
+    <widget class="QRadioButton">
+        <property name="name">
+            <cstring>radioButton4</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>20</x>
+                <y>100</y>
+                <width>97</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>SIE-fil Typ 4</string>
+        </property>
+        <property name="checked">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>15</x>
+                <y>165</y>
+                <width>100</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Bokföringsår:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditDatabas</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>115</x>
+                <y>190</y>
+                <width>130</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonQuit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>200</x>
+                <y>270</y>
+                <width>81</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avbryt</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButton_OK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>270</y>
+                <width>90</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Skapa SIE-fil</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonGetData</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>15</x>
+                <y>271</y>
+                <width>76</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hämta data</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditFtgNamn</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>240</x>
+                <y>10</y>
+                <width>155</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="readOnly">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditPostAdress</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>240</x>
+                <y>40</y>
+                <width>200</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="readOnly">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditPostnr1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>240</x>
+                <y>70</y>
+                <width>86</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="readOnly">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditPostOrt</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>240</x>
+                <y>100</y>
+                <width>200</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="readOnly">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditTfnnr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>240</x>
+                <y>130</y>
+                <width>101</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="readOnly">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditFtgNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>405</x>
+                <y>10</y>
+                <width>181</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="readOnly">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditSnikd</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>480</x>
+                <y>40</y>
+                <width>106</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditBeskattAr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>470</x>
+                <y>160</y>
+                <width>66</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditKontoplan</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>350</x>
+                <y>160</y>
+                <width>116</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditBar</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>115</x>
+                <y>160</y>
+                <width>36</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditStartdatum</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>160</x>
+                <y>160</y>
+                <width>85</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditSlutdatum</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>251</x>
+                <y>160</y>
+                <width>90</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>radioButton4</sender>
+        <signal>clicked()</signal>
+        <receiver>frmRapportSIE</receiver>
+        <slot>radioButtonSIE_Typ4_pressed()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonQuit</sender>
+        <signal>clicked()</signal>
+        <receiver>frmRapportSIE</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>pushButton_OK</sender>
+        <signal>clicked()</signal>
+        <receiver>frmRapportSIE</receiver>
+        <slot>CreateSIE_file()</slot>
+    </connection>
+    <connection>
+        <sender>radioButton1</sender>
+        <signal>clicked()</signal>
+        <receiver>frmRapportSIE</receiver>
+        <slot>radioButtonSIE_Typ1_pressed()</slot>
+    </connection>
+    <connection>
+        <sender>radioButton2</sender>
+        <signal>clicked()</signal>
+        <receiver>frmRapportSIE</receiver>
+        <slot>radioButtonSIE_Typ2_pressed()</slot>
+    </connection>
+    <connection>
+        <sender>radioButton3</sender>
+        <signal>clicked()</signal>
+        <receiver>frmRapportSIE</receiver>
+        <slot>radioButtonSIE_Typ3_pressed()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditBar</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmRapportSIE</receiver>
+        <slot>lineEditBar_returned()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonGetData</sender>
+        <signal>clicked()</signal>
+        <receiver>frmRapportSIE</receiver>
+        <slot>GetInfo()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>radioButton1</tabstop>
+    <tabstop>radioButton2</tabstop>
+    <tabstop>radioButton3</tabstop>
+    <tabstop>radioButton4</tabstop>
+    <tabstop>lineEditBar</tabstop>
+    <tabstop>pushButtonGetData</tabstop>
+    <tabstop>pushButton_OK</tabstop>
+    <tabstop>pushButtonQuit</tabstop>
+    <tabstop>LineEditFtgNamn</tabstop>
+    <tabstop>LineEditFtgNr</tabstop>
+    <tabstop>LineEditPostAdress</tabstop>
+    <tabstop>LineEditSnikd</tabstop>
+    <tabstop>LineEditPostnr1</tabstop>
+    <tabstop>LineEditPostOrt</tabstop>
+    <tabstop>LineEditTfnnr</tabstop>
+    <tabstop>LineEditStartdatum</tabstop>
+    <tabstop>LineEditSlutdatum</tabstop>
+    <tabstop>LineEditKontoplan</tabstop>
+    <tabstop>LineEditBeskattAr</tabstop>
+    <tabstop>lineEditDatabas</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">frmrapportsie.ui.h</include>
+</includes>
+<slots>
+    <slot>radioButtonSIE_Typ1_pressed()</slot>
+    <slot>radioButtonSIE_Typ2_pressed()</slot>
+    <slot>radioButtonSIE_Typ3_pressed()</slot>
+    <slot>radioButtonSIE_Typ4_pressed()</slot>
+    <slot>GetInfo()</slot>
+    <slot>CreateSIE_file()</slot>
+    <slot>lineEditBar_returned()</slot>
+    <slot>GetForetagsdata( QString posttyp )</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>slotEndOfProcess()</slot>
+    <slot>slotGetFNAMN()</slot>
+    <slot>slotGetADR1()</slot>
+    <slot>slotGetADR2()</slot>
+    <slot>slotGetADR3()</slot>
+    <slot>slotGetFTGNR()</slot>
+    <slot>slotGetTFN1()</slot>
+    <slot>slotGetSNIKKOD()</slot>
+    <slot>slotGetBar()</slot>
+    <slot>slotGetBarEndOfProcess()</slot>
+    <slot>GetDatabase()</slot>
+    <slot>slotFileRemove( QString filnamn )</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
