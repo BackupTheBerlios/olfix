@@ -1,8 +1,9 @@
 /***************************************************************************
                           USERADD.c  -  description
                              -------------------
-    begin                : tis 8 okt 
-    update		 : mars 19 2003
+    Version		 : 0.3
+    begin                : tis  8 okt   2002
+    modified		 : Mån 10 nov 2003
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -27,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/USERADD.c,v 1.1 2003/05/08 08:54:11 frazze Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/USERADD.c,v 1.2 2003/11/10 04:32:54 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -36,61 +37,105 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-
 #include "mysql.h"
+#define ANTARG 5
 
-
-int main(int argc, char *argv[])
-{
   MYSQL my_connection;
+  MYSQL_RES *res_ptr;
+  MYSQL_ROW sqlrow;
+
+int which_database(char *envp[]);
+char database[15]="";
+
+int main(int argc, char *argv[], char *envp[])
+{
+/* int i;	*/
   int res;
+  int status;
+  const char *userp = getenv("USER");	/* vem är inloggad?	*/
+  char databas[25]="olfix";
+  char usr[15];				/* userid		*/
 
   char temp1[]="INSERT INTO USR(USERID,NAMN,AVD,GRUPP) VALUES (\"";
   char temp2[]="\"";
   char temp3[]=",";
   char temp4[]=")";
   char temp5[200]="";
-  char userid[8];
-  char namn[30];
-  char avd[10];
-  char grupp[10];
+  char userid[9]="";
+  char namn[31]="";
+  char avd[11]="";
+  char grupp[11]="";
+/* ================================================================================ */
+/* 		Val av databas, START						    */
+/* ================================================================================ */
 
-  strcpy(userid,argv[1]);
-  strcpy(namn,argv[2]);
-  strcpy(avd,argv[3]);
-  strcpy(grupp,argv[4]);
+  status = which_database(envp);
 
-  strcat(temp5,temp1);
+  if (status != 0)
+	exit(status);
+
+  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+/*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
+  if (argc < ANTARG+1){
+    	if (strlen(database)!= 0){
+		strncpy(databas,database,15);
+	}else{
+  		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
+	}
+  }else{
+	if (strlen(argv[ANTARG]) != 0){
+  		if (strncmp(argv[ANTARG],"99",2)==0){
+			strncpy(databas,"olfixtst",15);
+		}else{
+  			strncpy(databas,argv[ANTARG],15);
+  		}
+  	}
+  }
+/*  fprintf(stderr,"ANTARG=%d,argv[ANTARG]=%s\n",ANTARG,argv[ANTARG]);	*/
+/* Om usr (userid) börjar på 'test' eller 'prov' använd databas 'olfixtst' */
+  if (strncmp(usr,"test",4)==0 || strncmp(usr,"prov",4)==0 ) {
+  	strncpy(databas,"olfixtst",15);
+  }
+/* fprintf(stderr,"Databas=%s\n",databas);	*/
+/* ================================================================================ */
+/* 		Val av databas, END!						    */
+/* ================================================================================ */
+
+  strncpy(userid,argv[1],strlen(argv[1]));
+  strncpy(namn,argv[2],strlen(argv[2]));
+  strncpy(avd,argv[3],strlen(argv[3]));
+  strncpy(grupp,argv[4],strlen(argv[4]));
+
+  strncpy(temp5,temp1,strlen(temp1));
 /* INSERT INTO USR(USERID,NAMN,AVD,GRUPP) VALUES ("  */
-  strcat(temp5,userid);/* KALLE */
+  strncat(temp5,userid,strlen(userid));/* KALLE */
 /* INSERT INTO USR(USERID,NAMN,AVD,GRUPP) VALUES ("JAPI  */
-  strcat(temp5,temp2); /*  "     */
-  strcat(temp5,temp3); /*  ,     */
-  strcat(temp5,temp2); /*  "     */
+  strncat(temp5,temp2,strlen(temp2)); /*  "     */
+  strncat(temp5,temp3,strlen(temp3)); /*  ,     */
+  strncat(temp5,temp2,strlen(temp2)); /*  "     */
 /* INSERT INTO USR(USERID,NAMN,AVD,GRUPP) VALUES ("JAPI","  */
-  strcat(temp5,namn);/* Jan Pihlgren  */
+  strncat(temp5,namn,strlen(namn));/* Jan Pihlgren  */
 /* INSERT INTO  USR(USERID,NAMN,AVD,GRUPP) VALUES ("JAPI","Jan Pihlgren  */
-  strcat(temp5,temp2); /*  "     */
-  strcat(temp5,temp3); /*  ,     */
-  strcat(temp5,temp2); /*  "     */
+  strncat(temp5,temp2,strlen(temp2)); /*  "     */
+  strncat(temp5,temp3,strlen(temp3)); /*  ,     */
+  strncat(temp5,temp2,strlen(temp2)); /*  "     */
 /* INSERT INTO  USR(USERID,NAMN,AVD,GRUPP) VALUES ("JAPI","Jan Pihlgren","  */
-  strcat(temp5,avd);
+  strncat(temp5,avd,strlen(avd));
 /* INSERT INTO  USR(USERID,NAMN,AVD,GRUPP) VALUES ("JAPI","Jan Pihlgren","Ekonomi   */
-  strcat(temp5,temp2); /*  "     */
-  strcat(temp5,temp3); /*  ,     */
-  strcat(temp5,temp2); /*  "     */
+  strncat(temp5,temp2,strlen(temp2)); /*  "     */
+  strncat(temp5,temp3,strlen(temp3)); /*  ,     */
+  strncat(temp5,temp2,strlen(temp2)); /*  "     */
 /* INSERT INTO  USR(USERID,NAMN,AVD,GRUPP) VALUES ("JAPI","Jan Pihlgren","Ekonomi","  */
-  strcat(temp5,grupp);
+  strncat(temp5,grupp,strlen(grupp));
 /* INSERT INTO  USR(USERID,NAMN,AVD,GRUPP) VALUES ("JAPI","Jan Pihlgren","Ekonomi","Redov  */
-  strcat(temp5,temp2); /*  "     */
-  strcat(temp5,temp4); /*  )     */
+  strncat(temp5,temp2,strlen(temp2)); /*  "     */
+  strncat(temp5,temp4,strlen(temp4)); /*  )     */
 /* INSERT INTO  USR(USERID,NAMN,AVD,GRUPP) VALUES ("JAPI","Jan Pihlgren","Ekonomi","Redov")  */
 
   mysql_init(&my_connection);
 
-  if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", "olfix", 0, NULL, 0)){
-  // fprintf(stderr,"OK: USERADD Connection success\n");
+  if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
+/*   fprintf(stderr,"OK: USERADD Connection success\n");	*/
 
     res = mysql_query(&my_connection,temp5);
 
@@ -116,4 +161,64 @@ int main(int argc, char *argv[])
   return EXIT_SUCCESS;
 }
 
+int which_database(char *envp[])
+{
+	FILE *fil_pek;
 
+	char home[50];
+	char *home_pek;
+	char resource[]="/.olfixrc";
+	char filename[50]="";
+	char tmp[20]="";
+	char temp[10]="";
+	char *tmp_pek;
+	int i,status;
+
+	for (i = 0;envp[i]!=NULL;i++){
+		if(strstr(envp[i],"HOME=") != NULL){
+			strncpy(temp,envp[i],4);
+/*			fprintf(stderr,"temp=%s\n",temp); */
+			status=strcmp(temp,"HOME");
+/*			fprintf(stderr,"status=%d\n",status); */
+			if (status == 0){
+				home_pek=(strstr(envp[i],"HOME="));
+				home_pek=home_pek+5;
+				strcpy(home,home_pek);
+			}
+/*			fprintf(stderr,"home_pek=%d %s\n",home_pek,home_pek);	*/
+		}
+	}
+/*	fprintf(stderr,"home=%s\n",home);	*/
+	strncpy(filename,home,strlen(home));
+	strncat(filename,resource,strlen(resource));
+
+/*	fprintf(stderr,"filename=%s\n",filename);	*/
+	status=-1;
+
+	if ((fil_pek = fopen(filename,"r")) != NULL){
+		while (fgets(tmp,150,fil_pek) != NULL){
+/*			fprintf(stderr,"tmp=%s\n",tmp); */
+			if(strstr(tmp,"DATABASE=")){
+				tmp_pek=(strstr(tmp,"DATABASE="))+9;
+				strncpy(database,tmp_pek,strlen(tmp_pek));
+				status=0;
+			}
+		}
+/*		fprintf(stderr,"database=%s_len=%d\n",database,strlen(database)); */
+		fclose(fil_pek);
+	}
+	else{
+/*		fprintf(stderr,"database=%s_len=%d\n",database,strlen(database)); */
+	 	fprintf(stderr,"Error: Filen .olfixrc kan inte öppnas\n");
+	}
+	for (i=0;i < strlen(database);i++){
+		tmp[i]=database[i];
+	}
+	tmp[i-1]=0;
+/*	fprintf(stderr,"tmp=%s, i=%d len(tmp)=%d\n",tmp,i,strlen(tmp));	*/
+	strncpy(database,tmp,strlen(tmp));
+	database[strlen(tmp)]=0;
+/*	fprintf(stderr,"databas=%s\n",database);	*/
+
+	return status;
+}
