@@ -1,9 +1,9 @@
 /***************************************************************************
                           INKRLST.c  -  description
                              -------------------
-			     Ver: 0.1
+			     Ver: 0.2
     begin                : Sön 21  dec 2003
-    modified		 :
+    modified		 : Månd 22 dec 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -22,14 +22,15 @@
 	Kommando: ./INKRLST inkordnr
 
 	Function: Visa all information för alla orderrader på en inköpsorder i tabell INKRADREG
+		samt BENEMNING1 från ARTIKELREG
 
 	OUTPUT: INKORDNR INKORDRADNR ARTIKELNR ENHET BESTANTAL LEVERERAT RESTNOTERAT INKPRIS
-		LEVVECKA TORDNR OPNR
+		LEVVECKA TORDNR OPNR BENEMNING1
 	samt errornb och error (text)
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKRLST.c,v 1.1 2003/12/21 06:33:18 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKRLST.c,v 1.2 2003/12/22 03:05:49 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -61,9 +62,9 @@ int main(int argc, char *argv[], char *envp[])
   char usr[15];				/* userid		*/
   char inkordnr[11]="";			/* inköpsordernummer	*/
 
-  char temp1[]="SELECT * FROM INKRADREG WHERE INKORDNR =  ";
+  char temp1[]="SELECT INKORDNR, INKORDRADNR,INKRADREG.ARTIKELNR,ENHET,BESTANTAL,LEVERERAT,RESTNOTERAT,INKPRIS,LEVVECKA,TORDNR,OPNR,ARBENEMNING1 from INKRADREG,ARTIKELREG WHERE INKRADREG.ARTIKELNR = ARTIKELREG.ARTIKELNR AND INKRADREG.INKORDNR = ";
   char temp1a[]=" ORDER BY INKORDRADNR";
-  char temp5[200]="";
+  char temp5[500]="";
 
 /*  for (i=0;i< argc;i++){
   	fprintf(stderr,"INKRLST argv%d = %s\n",i,argv[i]);
@@ -113,11 +114,12 @@ int main(int argc, char *argv[], char *envp[])
 /* ================================================================================ */
 
   strncpy(temp5,temp1,strlen(temp1));
-/* SELECT * FROM INKRADREG WHERE INKORDNR = 	*/
+/* SELECT INKORDNR, INKORDRADNR,INKRADREG.ARTIKELNR,ENHET,BESTANTAL,LEVERERAT,RESTNOTERAT,INKPRIS,LEVVECKA,TORDNR,OPNR,ARBENEMNING1 from INKRADREG,ARTIKELREG WHERE INKRADREG.ARTIKELNR = ARTIKELREG.ARTIKELNR AND INKRADREG.INKORDNR = 	*/
   strncat(temp5,inkordnr,strlen(inkordnr));
-/* SELECT * FROM INKRADREG WHERE INKORDNR = 99999	*/
+  /*fprintf(stderr,"temp5=%s\n",temp5);		*/
+/* SELECT INKORDNR, INKORDRADNR,INKRADREG.ARTIKELNR,ENHET,BESTANTAL,LEVERERAT,RESTNOTERAT,INKPRIS,LEVVECKA,TORDNR,OPNR,ARBENEMNING1 from INKRADREG,ARTIKELREG WHERE INKRADREG.ARTIKELNR = ARTIKELREG.ARTIKELNR AND INKRADREG.INKORDNR = 99999	*/
   strncat(temp5,temp1a,strlen(temp1a));
-/* SELECT * FROM INKRADREG WHERE INKORDNR = 99999 ORDER BY INKORDRADNR	*/
+/* SELECT INKORDNR, INKORDRADNR,INKRADREG.ARTIKELNR,ENHET,BESTANTAL,LEVERERAT,RESTNOTERAT,INKPRIS,LEVVECKA,TORDNR,OPNR,ARBENEMNING1 from INKRADREG,ARTIKELREG WHERE INKRADREG.ARTIKELNR = ARTIKELREG.ARTIKELNR AND INKRADREG.INKORDNR = 99999 ORDER BY INKORDRADNR	*/
 /* fprintf(stderr,"temp5=%s\n",temp5);		*/
 
   mysql_init(&my_connection);
