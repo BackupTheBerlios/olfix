@@ -1,9 +1,9 @@
 /***************************************************************************
                           VALADD.c  -  description
                              -------------------
-    Version		 : 0.2
-    begin                : Fre 21 febr	2003
-    modified		 : Tis 11 nov 2003
+    Version		 : 0.3
+    begin                : Fre  21 febr	2003
+    modified		 : Tors 24 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/VALADD.c,v 1.2 2003/11/11 05:39:43 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/VALADD.c,v 1.3 2005/02/24 12:31:17 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -80,7 +80,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
-		strncpy(databas,database,15);
+		strncpy(databas,database,sizeof(databas));		/* 2005-02-24	*/
 	}else{
   		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}
@@ -103,11 +103,11 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-  strncpy(valuta,argv[1],strlen(argv[1]));
-  strncpy(land,argv[2],strlen(argv[2]));
-  strncpy(salj,argv[3],strlen(argv[3]));
-  strncpy(kop,argv[4],strlen(argv[4]));
-  strncpy(beteckning,argv[5],strlen(argv[5]));
+  strncpy(valuta,argv[1],sizeof(valuta));		/* 2005-02-24	*/
+  strncpy(land,argv[2],sizeof(land));			/* 2005-02-24	*/
+  strncpy(salj,argv[3],sizeof(salj));			/* 2005-02-24	*/
+  strncpy(kop,argv[4],sizeof(kop));			/* 2005-02-24	*/
+  strncpy(beteckning,argv[5],sizeof(beteckning));	/* 2005-02-24	*/
 
   strncpy(temp5,temp1,strlen(temp1));
 /* INSERT INTO VALUTA(VALUTAID,LAND,SALJ,KOP,BETECKNING) VALUES ("  */
