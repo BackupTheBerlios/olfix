@@ -28,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/RGTDEL.c,v 1.2 2003/11/08 12:04:25 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/RGTDEL.c,v 1.3 2003/11/08 15:31:50 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -128,8 +128,8 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stdout,"RGTDEL Connection success\n");	*/
 
     	res = mysql_query(&my_connection,temp5);
-//	fprintf(stderr,"RGTDEL res = %d\n",res);
-	fprintf(stdout,"RGTDEL affeted rows = %lu rows\n",(unsigned long)mysql_affected_rows(&my_connection));
+/*	fprintf(stderr,"RGTDEL res = %d\n",res);	*/
+/*	fprintf(stdout,"RGTDEL affeted rows = %lu rows\n",(unsigned long)mysql_affected_rows(&my_connection));	*/
 	if ((unsigned long)mysql_affected_rows(&my_connection) < 1){
 		fprintf(stderr,"Error: RGTDEL DELETE ERROR: Ingen post raderad\n");
         }else{
