@@ -1,5 +1,6 @@
 /***************************************************************************
                           ATTBET.c  -  description
+			  Lista leverantörsfakturor att betal
                              -------------------
     Version		 : 0.2
     begin                : Mån 18 aug 2003
@@ -29,7 +30,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ATTBET.c,v 1.1 2003/10/27 08:14:29 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ATTBET.c,v 1.2 2005/02/23 11:00:00 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -100,7 +101,7 @@ int main(int argc, char *argv[], char *envp[])
 /* ================================================================================ */
 
 /*  fprintf(stderr,"ATTBET: argv[1]=%s\n",argv[1]); */
-  strncpy(datum,argv[1],11);
+  strncpy(datum,argv[1],sizeof(datum));		/* 2005-02-23	*/
 /*  fprintf(stderr,"ATTBET: datum=%s\n",datum); */
   strncpy(temp5,temp1a,strlen(temp1a));
   strncat(temp5,temp1d,strlen(temp1d));
