@@ -1,8 +1,8 @@
 /****************************************************************************
 ** frmOlfix meta object code from reading C++ file 'frmolfix.h'
 **
-** Created: Tue Mar 25 05:38:40 2003
-**      by: The Qt MOC ($Id: moc_frmolfix.cpp,v 1.1 2003/05/08 08:55:02 frazze Exp $)
+** Created: Tue May 27 07:00:28 2003
+**      by: The Qt MOC ($Id: moc_frmolfix.cpp,v 1.2 2003/09/28 08:30:05 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -13,8 +13,8 @@
 #include <qapplication.h>
 
 #include <private/qucomextra_p.h>
-#if !defined(Q_MOC_OUTPUT_REVISION) || (Q_MOC_OUTPUT_REVISION != 19)
-#error "This file was generated using the moc from 3.0.5. It"
+#if !defined(Q_MOC_OUTPUT_REVISION) || (Q_MOC_OUTPUT_REVISION != 26)
+#error "This file was generated using the moc from 3.1.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -25,7 +25,7 @@ const char *frmOlfix::className() const
 }
 
 QMetaObject *frmOlfix::metaObj = 0;
-static QMetaObjectCleanUp cleanUp_frmOlfix;
+static QMetaObjectCleanUp cleanUp_frmOlfix( "frmOlfix", &frmOlfix::staticMetaObject );
 
 #ifndef QT_NO_TRANSLATION
 QString frmOlfix::tr( const char *s, const char *c )
@@ -77,6 +77,7 @@ QMetaObject* frmOlfix::staticMetaObject()
     static const QUMethod slot_13 = {"slotOmOlfix", 0, 0 };
     static const QUMethod slot_14 = {"slotLicensvillkor", 0, 0 };
     static const QUMethod slot_15 = {"slotHelp", 0, 0 };
+    static const QUMethod slot_16 = {"languageChange", 0, 0 };
     static const QMetaData slot_tbl[] = {
 	{ "init()", &slot_0, QMetaData::Public },
 	{ "slotGetProgram()", &slot_1, QMetaData::Public },
@@ -93,11 +94,12 @@ QMetaObject* frmOlfix::staticMetaObject()
 	{ "slotDataOnCheckStderr()", &slot_12, QMetaData::Public },
 	{ "slotOmOlfix()", &slot_13, QMetaData::Public },
 	{ "slotLicensvillkor()", &slot_14, QMetaData::Public },
-	{ "slotHelp()", &slot_15, QMetaData::Public }
+	{ "slotHelp()", &slot_15, QMetaData::Public },
+	{ "languageChange()", &slot_16, QMetaData::Protected }
     };
     metaObj = QMetaObject::new_metaobject(
 	"frmOlfix", parentObject,
-	slot_tbl, 16,
+	slot_tbl, 17,
 	0, 0,
 #ifndef QT_NO_PROPERTIES
 	0, 0,
@@ -110,7 +112,8 @@ QMetaObject* frmOlfix::staticMetaObject()
 
 void* frmOlfix::qt_cast( const char* clname )
 {
-    if ( !qstrcmp( clname, "frmOlfix" ) ) return (frmOlfix*)this;
+    if ( !qstrcmp( clname, "frmOlfix" ) )
+	return this;
     return QWidget::qt_cast( clname );
 }
 
@@ -133,6 +136,7 @@ bool frmOlfix::qt_invoke( int _id, QUObject* _o )
     case 13: slotOmOlfix(); break;
     case 14: slotLicensvillkor(); break;
     case 15: slotHelp(); break;
+    case 16: languageChange(); break;
     default:
 	return QWidget::qt_invoke( _id, _o );
     }
@@ -145,8 +149,10 @@ bool frmOlfix::qt_emit( int _id, QUObject* _o )
 }
 #ifndef QT_NO_PROPERTIES
 
-bool frmOlfix::qt_property( int _id, int _f, QVariant* _v)
+bool frmOlfix::qt_property( int id, int f, QVariant* v)
 {
-    return QWidget::qt_property( _id, _f, _v);
+    return QWidget::qt_property( id, f, v);
 }
+
+bool frmOlfix::qt_static_property( QObject* , int , int , QVariant* ){ return FALSE; }
 #endif // QT_NO_PROPERTIES

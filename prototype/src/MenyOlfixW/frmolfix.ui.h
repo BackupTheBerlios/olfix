@@ -8,8 +8,8 @@
 /***************************************************************************
                           OLFIXW  -  description
                              -------------------
-		     version 0.2
-    begin                : Sön 16 febr 2003
+		     version 0.3
+    begin                : Tis 16 maj 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -40,7 +40,7 @@
 	QString program;
 
 void frmOlfix::init()
-{ 
+{
     frmOlfix::slotGetProgram();
     PushButtonQuit->setFocus();
 }
@@ -248,10 +248,10 @@ void frmOlfix::slotEndOfProcess()
 		strcpy(mnutxttemp,mnutxt);
 //		item = new QListViewItem(ListView1,"",pgm);	    
 //		mnufolder[mnufoldnr]->setText(1,pgm);
-	    }	
+	    }
 //  	mnufolder[mnufoldnr]->setText(1,pgm);
 //	fprintf(stderr,"slut (%d) %s (%d) %s (%d) %s\n",pgmfoldnr,prggrptemp,mnufoldnr,mnugrptemp,mnutxtnr,mnutxt);
-	    
+
 // 	 rensa pgrnr,proggrp,mnugrp,mnutxt,pgm
   	for (l=0;l<sizeof(prgnr);l++)
 		prgnr[l]=*("\0");
@@ -274,7 +274,7 @@ void frmOlfix::ListView1_clicked( QListViewItem * item)
 {
     char programnamn[PRGNAMN]="";
     QString prog;
-        
+
     if(!item){
 	return;
     }
@@ -288,7 +288,7 @@ void frmOlfix::ListView1_clicked( QListViewItem * item)
 //     fprintf(stderr,"item=%s\n",data);
      inrad="";
      errorrad="";
-     frmOlfix::CheckBehor( programnamn );    
+     frmOlfix::CheckBehor( programnamn );
 }
 
 void frmOlfix::slotRunProgram( QString prg )
@@ -298,7 +298,7 @@ void frmOlfix::slotRunProgram( QString prg )
             prog.append(prg);
 	inrad="";
 	errorrad="";
-	
+
 	process = new QProcess();
 	process->addArgument( prog );		// OLFIX program
 	frmOlfix::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnPrgStderr() ) );
@@ -404,6 +404,7 @@ void frmOlfix::slotOmOlfix()
 		"OLFIX är ett order/lager/faktureringssystem"
 			    " för Linux.\n"
                             "(C) 2003 av Jan-Gunnar Pihlgren\n"
+			    "2003-05-27"
 	);
 }
 

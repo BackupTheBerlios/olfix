@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
 <class>frmOlfix</class>
 <widget class="QWidget">
     <property name="name">
@@ -18,6 +18,12 @@
             <green>255</green>
             <blue>255</blue>
         </color>
+    </property>
+    <property name="font">
+        <font>
+            <family>Helvetica</family>
+            <pointsize>10</pointsize>
+        </font>
     </property>
     <property name="caption">
         <string>OLFIX - Order/Lager/Fakturering för Linuxsystem</string>
@@ -67,7 +73,7 @@
                 <property name="clickable">
                     <bool>true</bool>
                 </property>
-                <property name="resizeable">
+                <property name="resizable">
                     <bool>true</bool>
                 </property>
             </column>
@@ -78,7 +84,7 @@
                 <property name="clickable">
                     <bool>true</bool>
                 </property>
-                <property name="resizeable">
+                <property name="resizable">
                     <bool>true</bool>
                 </property>
             </column>
@@ -95,6 +101,9 @@
             </property>
             <property name="text">
                 <string>Slut</string>
+            </property>
+            <property name="default">
+                <bool>true</bool>
             </property>
         </widget>
         <spacer row="0" column="0" rowspan="2" colspan="1">
@@ -148,6 +157,13 @@
         <slot>slotHelp()</slot>
     </connection>
 </connections>
+<tabstops>
+    <tabstop>PushButton4</tabstop>
+    <tabstop>PushButton3</tabstop>
+    <tabstop>PushButton2</tabstop>
+    <tabstop>PushButtonQuit</tabstop>
+    <tabstop>ListView1</tabstop>
+</tabstops>
 <includes>
     <include location="local" impldecl="in implementation">frmolfix.ui.h</include>
 </includes>
