@@ -9,9 +9,9 @@
 /***************************************************************************
                           LSTINKW  -  description
                              -------------------
-		     version 0.1
+		     version 0.2
     begin     	: Mån 29 dec 2003
-    modified	: 
+    modified	: Lör 31 jan 2004 (stretching i frmlstink.ui)
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
