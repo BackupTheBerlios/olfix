@@ -1,4 +1,5 @@
 PATH=/usr/local/olfix/bin/
 HOST=localhost
 DATABASE=olfix
+REPORT=/usr/local/olfix/report/
 VTMP=/tmp/
