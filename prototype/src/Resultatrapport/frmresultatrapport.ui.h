@@ -236,7 +236,7 @@ void frmResultatrapport::slotEndOfProcess()
 	    ant=antal.toInt();		/* Antal verifikationsrader	*/
 //	    qDebug("slotEndOfProcess() 2 ::antal=%s ant=%d",antal.latin1(),ant);	    
 	    ktotemp="";	 
-	    for (n=0;n<=ant;n++){
+	    for (n=0;n<=ant+1;n++){
 		i = j;
 		 j = inrad.find(QRegExp("_:"),i+2);
 		 m = j - (i+2);
@@ -281,21 +281,31 @@ void frmResultatrapport::slotEndOfProcess()
 			 if (ktotemp != ""){
 			     stream << rapportrad;
 			 }
-		     }else{		 		// Skapa raportrad för Kugar
-//			 qDebug("ktonr=%s, klassflag=%d, klasstemp=%d",ktonr.latin1(),klassflag,klasstemp);
+		     }else{		 		// Skapa rapportrad för Kugar
+			 qDebug("ktonr=%s, ktotemp=%s, klassflag=%d, klasstemp=%d",ktonr.latin1(),ktotemp.latin1(),klassflag,klasstemp);
 			 if (ktotemp==""){
 			     rapportrad="<Rubrik1 level=\"1\" ";
 			     rapportrad.append("klass1=\"");
-			     rapportrad.append("1");
+			     rapportrad.append("3");
 			     rapportrad.append("\" klassnamn=\"");
 			     rapportrad.append("RÖRELSEINTÄKTER");
 			     rapportrad.append("\"/>\n");
 			     stream << rapportrad;
-			     klassflag=3000;			  
+			     klassflag=2999;			  
 			 }
 			 
-// 			 if ((klasstemp < 2000) && (ktonr.mid(0,1).toInt()==2 )){
-//			  if ((klasstemp >=1999) && (klasstemp <= 2001 )){
+			 if (ktotemp.mid(0,2).toInt()==30 && klassflag != 3000){
+			     rubrik="Försäljning";
+			     rapportrad="<Rubrik2 level=\"2\" ";
+			     rapportrad.append("klass1=\"");
+			     rapportrad.append("30");
+			     rapportrad.append("\" klassnamn=\"");
+			     rapportrad.append(rubrik);
+			     rapportrad.append("\"/>\n");
+			     stream << rapportrad;
+			     klassflag=3000;			     
+			 }
+			 			 
 			 if(ktotemp.mid(0,1).toInt() == 4 && klassflag < 4000){
 			     rubrik="RÖRELSEKOSTNADER";	     
 			     rapportrad="<Rubrik1 level=\"1\" ";
@@ -305,200 +315,69 @@ void frmResultatrapport::slotEndOfProcess()
 			     rapportrad.append(rubrik);
 			     rapportrad.append("\"/>\n");
 			     stream << rapportrad;
-			     klassflag=4000;			     
+			     klassflag=3999;			     
 			 }
-
-			 if (ktotemp.mid(0,2).toInt()==30 && klassflag != 3000){
-			     rubrik="FÖRSÄLJNING";
-			     rapportrad="<Rubrik2 level=\"2\" ";
-			     rapportrad.append("klass3=\"");
-			     rapportrad.append("30");
-			     rapportrad.append("\" klassnamn=\"");
-			     rapportrad.append(rubrik);
-			     rapportrad.append("\"/>\n");
-			     stream << rapportrad;
-			     klassflag=3000;
-			     
-			 }
-			 if (ktotemp.mid(0,2).toInt()==31 && klassflag != 3100){
-			     rubrik="3100 ??";
-			     rapportrad="<Rubrik2 level=\"2\" ";
-			     rapportrad.append("klass3=\"");
-			     rapportrad.append("31");
-			     rapportrad.append("\" klassnamn=\"");
-			     rapportrad.append(rubrik);
-			     rapportrad.append("\"/>\n");
-			     stream << rapportrad;
-			     klassflag=3100;
-			 }			 
-			 if (ktotemp.mid(0,2).toInt()==32 && klassflag != 3200){
-			     rubrik="3200 ??";
-			     rapportrad="<Rubrik2 level=\"2\" ";
-			     rapportrad.append("klass3=\"");
-			     rapportrad.append("32");
-			     rapportrad.append("\" klassnamn=\"");
-			     rapportrad.append(rubrik);
-			     rapportrad.append("\"/>\n");
-			     stream << rapportrad;
-			     klassflag=3200;	     
-			 }
-			 if (ktotemp.mid(0,2).toInt()==13 && klassflag != 1300){
-			     rubrik="FINANSIELLA ANLÄGGNINGSTILLGÅNGAR";
-			     rapportrad="<Rubrik2 level=\"2\" ";
-			     rapportrad.append("klass1=\"");
-			     rapportrad.append("13");
-			     rapportrad.append("\" klassnamn=\"");
-			     rapportrad.append(rubrik);
-			     rapportrad.append("\"/>\n");
-			     stream << rapportrad;
-			     klassflag=1300;
-			 }
-			 if (ktotemp.mid(0,2).toInt()==14 && klassflag != 1400){
-			     rubrik="LAGER OCH PÅGÅENDE ARBETEN";
+			 
+			 if (ktotemp.mid(0,2).toInt()==40 && klassflag != 4000){
+			     rubrik="Material och varor";
 			     rubrikrad="<Rubrik2 level=\"2\" ";
 			     rubrikrad.append("klass1=\"");
-			     rubrikrad.append("14");
+			     rubrikrad.append("40");
 			     rubrikrad.append("\" klassnamn=\"");
 			     rubrikrad.append(rubrik);
 			     rubrikrad.append("\"/>\n");
 			     stream << rubrikrad;
-			     klassflag=1400;
+			     klassflag=4000;
 			 }
- 			 if (ktotemp.mid(0,2).toInt()==15 && klassflag != 1500){
-			     rubrik="KUNDFORDRINGAR";
-			     rubrikrad="<Rubrik2 level=\"2\" ";
-			     rubrikrad.append("klass1=\"");
-			     rubrikrad.append("15");
-			     rubrikrad.append("\" klassnamn=\"");
-			     rubrikrad.append(rubrik);
-			     rubrikrad.append("\"/>\n");
-			     stream << rubrikrad;
-			     klassflag=1500;
-			 }
-			 if (ktotemp.mid(0,2).toInt()==16 && klassflag != 1600){
-			     rubrik="ÖVRIGA KORTFRISTIGA FORDRINGAR";
+			 
+			 if (ktotemp.mid(0,1).toInt() >= 5 && ktotemp.mid(0,1).toInt() < 7 && klassflag != 5000){
+			     rubrik="Övriga externa rörelseutgifter";			     
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
-			     rapportrad.append("16");
+			     rapportrad.append("50-69");
 			     rapportrad.append("\" klassnamn=\"");
 			     rapportrad.append(rubrik);
 			     rapportrad.append("\"/>\n");
 			     stream << rapportrad;
-			     klassflag=1600;
+			     klassflag=5000;
 			 }
-			 if (ktotemp.mid(0,2).toInt()==17 && klassflag != 1700){
-			     rubrik="FÖRUTBETALDA KOSTNADER";
+			 
+			 if (ktotemp.mid(0,1).toInt() > 7 && ktotemp.mid(0,2).toInt() < 78 && klassflag != 7000){
+			     rubrik="Utgifter för personal";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
-			     rapportrad.append("17");
+			     rapportrad.append("70-77");
 			     rapportrad.append("\" klassnamn=\"");
 			     rapportrad.append(rubrik);
 			     rapportrad.append("\"/>\n");
 			     stream << rapportrad;
-			     klassflag=1700;
+			     klassflag=7000;
 			 }
-			 if (ktotemp.mid(0,2).toInt()==18 && klassflag != 1800){
-			     rubrik="KORTFRISTIGA PLACERINGAR";
-			     rubrikrad="<Rubrik2 level=\"2\" ";
-			     rubrikrad.append("klass1=\"");
-			     rubrikrad.append("18");
-			     rubrikrad.append("\" klassnamn=\"");
-			     rubrikrad.append(rubrik);
-			     rubrikrad.append("\"/>\n");
-			     stream << rubrikrad;
-			     klassflag=1800;
-			 }
-			 if (ktotemp.mid(0,2).toInt()==19 && klassflag != 1900){
-			     rubrik="KASSA OCH BANK";
+			 
+			 if (ktotemp.mid(0,2).toInt() >= 78 && ktotemp.mid(0,1).toInt() < 8 && klassflag != 7800){
+			     rubrik="Avskrivningar/nedskrivningar";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
-			     rapportrad.append("19");
+			     rapportrad.append("78");
 			     rapportrad.append("\" klassnamn=\"");
 			     rapportrad.append(rubrik);
 			     rapportrad.append("\"/>\n");
 			     stream << rapportrad;
-			     klassflag=1900;
+			     klassflag=7800;
 			 }
-//			 if (ktonr.mid(0,2).toInt()==20 && ktotemp.mid(0,2).toInt()==20){
-//			 if (klassflag >=2000 && klassflag <=2099){
-			 if (ktotemp.mid(0,2).toInt()==20 && klassflag == 2000){
-			     rubrik="EGET KAPITAL";
+			 
+			 if (ktotemp.mid(0,1).toInt() < 8  && ktotemp.mid(0,1).toInt() == 8 && klassflag != 8000){
+			     rubrik="Finansiella inkomster och utgifter";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
-			     rapportrad.append("20");
+			     rapportrad.append("80");
 			     rapportrad.append("\" klassnamn=\"");
 			     rapportrad.append(rubrik);
 			     rapportrad.append("\"/>\n");
 			     stream << rapportrad;
-			     klassflag=2000;
+			     klassflag=8000;
 			 }
-			 if (ktotemp.mid(0,2).toInt()==21 && klassflag != 2100){
-			     rubrik="OBESKATTADE RESERVER";
-			     rubrikrad="<Rubrik2 level=\"2\" ";
-			     rubrikrad.append("klass1=\"");
-			     rubrikrad.append("21");
-			     rubrikrad.append("\" klassnamn=\"");
-			     rubrikrad.append(rubrik);
-			     rubrikrad.append("\"/>\n");
-			     stream << rubrikrad;
-			     klassflag=2100;
-			 }
-			 if (ktotemp.mid(0,2).toInt()==22 && klassflag != 2200){
-			     rubrik="AVSÄTTNINGAR";			     
-			     rapportrad="<Rubrik2 level=\"2\" ";
-			     rapportrad.append("klass1=\"");
-			     rapportrad.append("22");
-			     rapportrad.append("\" klassnamn=\"");
-			     rapportrad.append(rubrik);
-			     rapportrad.append("\"/>\n");
-			     stream << rapportrad;
-			     klassflag=2200;
-			 }
-			 if (ktotemp.mid(0,2).toInt()==23 && klassflag != 2300){
-			     rubrik="LÅNGFRISTIGA SKULDER";
-			     rapportrad="<Rubrik2 level=\"2\" ";
-			     rapportrad.append("klass1=\"");
-			     rapportrad.append("23");
-			     rapportrad.append("\" klassnamn=\"");
-			     rapportrad.append(rubrik);
-			     rapportrad.append("\"/>\n");
-			     stream << rapportrad;
-			     klassflag=2300;
-			 }
-			 if (ktotemp.mid(0,2).toInt()==24 && klassflag != 2400){
-			     rubrik="KORTFISTIGA SKULDER, KUNDER, LEVERANTÖRER";
-			     rapportrad="<Rubrik2 level=\"2\" ";
-			     rapportrad.append("klass1=\"");
-			     rapportrad.append("24");
-			     rapportrad.append("\" klassnamn=\"");
-			     rapportrad.append(rubrik);
-			     rapportrad.append("\"/>\n");
-			     stream << rapportrad;
-			     klassflag=2400;
-			 }
-			 if (ktotemp.mid(0,2).toInt()==25 && klassflag != 2500){
-			     rubrik="SKATTESKULDER";
-			     rapportrad="<Rubrik2 level=\"2\" ";
-			     rapportrad.append("klass1=\"");
-			     rapportrad.append("25");
-			     rapportrad.append("\" klassnamn=\"");
-			     rapportrad.append(rubrik);
-			     rapportrad.append("\"/>\n");
-			     stream << rapportrad;
-			     klassflag=2500;
-			 }
-			 if (ktotemp.mid(0,2).toInt()==26 && klassflag != 2600){
-			     rubrik="MOMS";
-			     rapportrad="<Rubrik2 level=\"2\" ";
-			     rapportrad.append("klass1=\"");
-			     rapportrad.append("26");
-			     rapportrad.append("\" klassnamn=\"");
-			     rapportrad.append(rubrik);
-			     rapportrad.append("\"/>\n");
-			     stream << rapportrad;
-			     klassflag=2600;
-			 }
-			 if (ktotemp.mid(0,2).toInt()==27 && klassflag != 2700){
+/*			 if (ktotemp.mid(0,2).toInt()==27 && klassflag != 2700){
 			     rubrik="PERSONALENS KÄLLSKATT MM";
 			     rapportrad="<Rubrik2 level=\"2\" ";
 			     rapportrad.append("klass1=\"");
@@ -508,30 +387,7 @@ void frmResultatrapport::slotEndOfProcess()
 			     rapportrad.append("\"/>\n");
 			     stream << rapportrad;
 			     klassflag=2700;
-			 }
-			 if (ktotemp.mid(0,2).toInt()==28 && klassflag != 2800){
-			     rubrik="ÖVRIGA KORTFRISTIGA SKULDER";
-			     rapportrad="<Rubrik2 level=\"2\" ";
-			     rapportrad.append("klass1=\"");
-			     rapportrad.append("28");
-			     rapportrad.append("\" klassnamn=\"");
-			     rapportrad.append(rubrik);
-			     rapportrad.append("\"/>\n");
-			     stream << rapportrad;
-			     klassflag=2800;
-			 }
-			 if (ktotemp.mid(0,2).toInt()==29 && klassflag != 2900){
-			     rubrik="UPPLUPNA KOSTNADER MM";
-			     rapportrad="<Rubrik2 level=\"2\" ";
-			     rapportrad.append("klass1=\"");
-			     rapportrad.append("29");
-			     rapportrad.append("\" klassnamn=\"");
-			     rapportrad.append(rubrik);
-			     rapportrad.append("\"/>\n");
-			     stream << rapportrad;
-			     klassflag=2900;
-			 }
-			 			 
+*/			 			 
 			 rapportrad="<Row level=\"3\" ";
 			 rapportrad.append(" kontonr=\"");
 			 rapportrad.append(ktotemp);
@@ -579,7 +435,7 @@ void frmResultatrapport::slotEndOfProcess()
 		     kredit=0;
 		     usaldo=0;	     
 		 }
-		 if (ktonr.mid(0,1).toInt()<3){
+		 if (ktonr.mid(0,1).toInt()>2){
 		 if (dk == "D"){
 		     debet=debet+belopp.toDouble();
 		     deldebet=deldebet+belopp.toDouble();
