@@ -1,9 +1,9 @@
 /***************************************************************************
                           WKUDSP.c  -  description
                              -------------------
-    Version		 : 0.1
+    Version		 : 0.2
     begin                : Mån   6  dec	2004
-    Modified		 :
+    Modified		 : Tors 24 febr 2005
     copyright            : (C) 2004 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -41,7 +41,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/WKUDSP.c,v 1.1 2004/12/10 06:12:09 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/WKUDSP.c,v 1.2 2005/02/24 13:15:54 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -85,7 +85,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
-		strncpy(databas,database,15);
+		strncpy(databas,database,sizeof(databas));		/* 2005-02-24	*/
 	}else{
   		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}
@@ -112,7 +112,7 @@ int main(int argc, char *argv[], char *envp[])
   	fprintf(stderr,"Error: Lösenord måste anges!\n");
 	exit(-1);
   }else{
-  	strncpy(passw,argv[2],strlen(argv[2]));
+  	strncpy(passw,argv[2],sizeof(passw));			/* 2005-02-24	*/
   }
   if (argc <2){
   	fprintf(stderr,"Error: Kundnr saknas.\n");
@@ -133,7 +133,7 @@ int main(int argc, char *argv[], char *envp[])
   	fprintf(stderr,"WKUDSP main argv%d = %s\n",i,argv[i]);
   }
 */
-  strncpy(kundnr,argv[1],strlen(argv[1]));
+  strncpy(kundnr,argv[1],sizeof(kundnr));			/* 2005-02-24	*/
 
   strncpy(temp5,temp1,strlen(temp1));
   strncat(temp5,kundnr,strlen(kundnr));/* 12334 */

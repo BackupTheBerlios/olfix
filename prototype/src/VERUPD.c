@@ -1,9 +1,9 @@
 /***************************************************************************
                           VERUPD.c  -  description
                              -------------------
-    Version		 : 0.8
-    begin                : Tis 29 april 2003
-    modified		 : Fre 2 jan 2004
+    Version		 : 0.9
+    begin                : Tis  29 april 2003
+    modified		 : Tors 24 febr  2005
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 	OUTPUT: errornb och error (text)
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/VERUPD.c,v 1.5 2004/01/02 12:29:27 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/VERUPD.c,v 1.6 2005/02/24 13:11:13 janpihlgren Exp $ " ;
 
 
 #ifdef HAVE_CONFIG_H
@@ -69,7 +69,7 @@ int which_database(char *envp[]);
 
 int main(int argc, char *argv[], char *envp[])
 {
- int i;	
+ int i;
 /*  int res;	*/
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
 
@@ -100,7 +100,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
-		strncpy(databas,database,15);
+		strncpy(databas,database,sizeof(databas));		/* 2005-02-24	*/
 	}else{
   		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}
@@ -138,7 +138,7 @@ int main(int argc, char *argv[], char *envp[])
 	}
 
 	strcpy(vrnrfil,tmpfilepath);
-	strncat(vrnrfil,argv[1],strlen(argv[1]));		/* argv[1] = vernr	*/
+	strncat(vrnrfil,argv[1],sizeof(vrnrfil));		/* argv[1] = vernr	2005-02-24 */
 	strncat(vrnrfil,ext,strlen(ext));
 /*	fprintf(stderr,"VERUPDmain: vrnrfil = %s\n",&vrnrfil);		*/
 /*	exit(0);							*/
