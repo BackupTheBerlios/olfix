@@ -9,9 +9,9 @@
 /***************************************************************************
                           ADDINKW  -  description
                              -------------------
-		     version 0.2
+		     version 0.3
     begin                : Mån 8 dec 2003
-    modified	: Fre 19 dec 2003
+    modified	: Lör 20 dec 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -64,8 +64,10 @@
     QString bestinkopspris;
     QString bestantal;
     QString radbelopp;
-    QString bestradnr;
-    QString bestsumma;
+    QString bestradnr="010";
+    bool radnrflag=FALSE;
+    QString oldradnr;
+    QString bestsumma="";
 
     QString posttyp;	// För data från FTGDATA
     QString bestftgnamn;
@@ -101,7 +103,10 @@ void frmAddBest::init()
 void frmAddBest::slotLevNr_returnPressed()
 {
     bestlevnr=lineEditBestLevNr->text();
-//    listViewRader->clear();
+    bestradnr="010";
+    listViewRader->clear();
+    lineEditOrderSumma->clear();
+    bestsumma="";
 //    qDebug("slotLevNr_returnPressed:: bestlevnr=%s",bestlevnr.latin1());
     frmAddBest::getLevData();
     lineEditGodsmarke->setFocus();
@@ -123,7 +128,6 @@ void frmAddBest::slotPickupLevnr( QListViewItem * item)
      bestlevnr=levnummer;
      lineEditBestLevNr->setText((bestlevnr));
      frmAddBest::slotLevNr_returnPressed();
-//     lineEditBestLevNr->setFocus();
 }
 
 void frmAddBest::slotbestNr_returnPressed()
@@ -168,8 +172,8 @@ void frmAddBest::lineEditLeveransDatum_returnPressed()
 void frmAddBest::lineEditBesttyp_returnPressed()
 {
     besttyp=lineEditBesttyp->text();
-    bestradnr="010";
-    bestsumma="";
+//   bestradnr="010";
+//    bestsumma="";
     lineEditRadnr->setText(bestradnr);
     lineEditArtikelNr->setFocus();
 }
@@ -250,11 +254,16 @@ void frmAddBest::pushButtonRadJa_clicked()
     QListViewItem * item;
     int i;
     item = new QListViewItem(listViewRader,bestradnr,bestartikelnr,bestbenamn,bestleveransvecka,bestantal,bestinkopspris,radbelopp);
-    i = bestradnr.toInt();
-    i = i+10;
-    bestradnr=QString::number(i,10);
-    if (bestradnr.length() <3){
-	bestradnr="0"+bestradnr;
+    if (radnrflag == FALSE){
+	i = bestradnr.toInt();
+	i = i+10;
+	bestradnr=QString::number(i,10);
+	if (bestradnr.length() <3){
+	    bestradnr="0"+bestradnr;
+	}
+    }else{
+	bestradnr=oldradnr;
+	radnrflag=FALSE;
     }
     summa=bestsumma.toDouble();
     belopp=radbelopp.toDouble();
@@ -475,6 +484,8 @@ void frmAddBest::slotEndOfProcess()
 	    lineEditFtgAdress->clear();
 	    lineEditFtgPostnr->clear();
 	    lineEditFtgPostAdress->clear();
+	    lineEditOrderSumma->clear();
+	    bestsumma="";
 	    lineEditBestDatum->setText(bestdatum);
 	    lineEditLeveransDatum->setText(bestleveransdatum);
 	    lineEditLeveransvecka->setText(bestleveransvecka);
@@ -1259,16 +1270,16 @@ void frmAddBest::SaveOrderRader()
        QString temp5=it.current()->text(5);	// pris/st
        QString temp6=it.current()->text(6);	// radsumma
  //      qDebug("i=%d  temp=%s, %s, %s, %s, %s, %s, %s",i,temp0.latin1(),temp1.latin1(),temp2.latin1(),temp3.latin1(),temp4.latin1(),temp5.latin1(),temp6.latin1());
-       frmAddBest::createOrderrad(temp0,temp1,temp2,temp3, temp4,temp5,temp6);
+       frmAddBest::createOrderrad(temp0,temp1,temp3, temp4,temp5);
     }
     listViewRader->clear();
     lineEditBestLevNr->setFocus();
 }
 
-void frmAddBest::createOrderrad(QString tmp0,QString tmp1,QString tmp2,QString tmp3, QString tmp4,QString tmp5,QString tmp6)
+void frmAddBest::createOrderrad(QString tmp0,QString tmp1,QString tmp3, QString tmp4,QString tmp5)
 {
     orderraddata="";
-//    qDebug("bestnr=%s, tmp=%s, %s, %s, %s, %s, %s, %s",bestnr.latin1(),tmp0.latin1(),tmp1.latin1(),tmp2.latin1(),tmp3.latin1(),tmp4.latin1(),tmp5.latin1(),tmp6.latin1());
+//    qDebug("bestnr=%s, tmp=%s, %s, %s, %s, %s, %s, %s",bestnr.latin1(),tmp0.latin1(),tmp1.latin1(),tmp3.latin1(),tmp4.latin1(),tmp5.latin1());
      QString skilj;
     skilj="_:_";
     orderraddata=skilj;
@@ -1349,6 +1360,8 @@ void frmAddBest::slotOrderadEndOfProcess()
 
 void frmAddBest::listViewRader_clicked( QListViewItem * )
 {
+    radnrflag=TRUE;
+    oldradnr=bestradnr;
     QListViewItem *item =  listViewRader->currentItem();
     if ( !item )
         return;
