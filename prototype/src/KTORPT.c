@@ -1,9 +1,9 @@
 /***************************************************************************
                           KTORPT.c  -  description
                              -------------------
-    Version		 : 0.4
+    Version		 : 0.41
     begin                : Lör 8 mars 2003
-    modified		 : Tors 25 mars 2004
+    modified		 : Tors 27 jan 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -31,7 +31,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTORPT.c,v 1.4 2004/03/25 06:45:36 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTORPT.c,v 1.5 2005/01/27 06:33:57 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -198,6 +198,7 @@ int main(int argc, char *argv[], char *envp[])
 			display_row();
 			i++;
 		}
+		fprintf(stdout,"END");
 	if (mysql_errno(&my_connection))  {
 		fprintf(stderr,"Error: KTORPT Retriev error:  %s\n", mysql_error(&my_connection));
 		}
