@@ -1,8 +1,8 @@
 /***************************************************************************
                           STYRMAN.c  -  description
                              -------------------
-			     ver 0.06
-    begin                : Tis 29  april 2003
+			     ver 0.08
+    begin                : Mån 30 juni 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -13,7 +13,7 @@
                   OUTPUT:  errno, error (text)
 ****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.2 2003/05/13 03:48:37 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.3 2003/09/28 04:49:46 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -26,7 +26,7 @@
 #include <ctype.h>
 
 #include "mysql.h"
-#define MAXSTRING 5000
+#define MAXSTRING 10000
 #define FILEPATH 100
 
   MYSQL my_connection;
@@ -55,10 +55,9 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0)
 	exit(status);
 
-
 //  for (i=0; i<= argc;i++){
 //	fprintf(stderr,"styrman arg = %d %s\n",i,argv[i]);
-// }
+//	 }
 
   status=check_User(argv[1]);		/* Finns användaren(USERID)?		*/
   if(status != 0){
@@ -177,8 +176,40 @@ int do_Trans(int argnbr, char *trans[])
 		if (argnbr==13){
 			status=execl(func, func, trans[3], trans[4],trans[5],trans[6],trans[7],trans[8],trans[9],trans[10],trans[11],trans[12],(char *) 0);
 		}
-
-	}
+		if (argnbr==14){
+			status=execl(func, func, trans[3], trans[4],trans[5],trans[6],trans[7],trans[8],trans[9],trans[10],trans[11],trans[12],trans[13],(char *) 0);
+		}
+		if (argnbr==15){
+			status=execl(func, func, trans[3], trans[4],trans[5],trans[6],trans[7],trans[8],trans[9],trans[10],trans[11],trans[12],trans[13],trans[14],(char *) 0);
+		}
+		if (argnbr==16){
+			status=execl(func, func, trans[3], trans[4],trans[5],trans[6],trans[7],trans[8],trans[9],trans[10],trans[11],trans[12],trans[13],trans[14],trans[15],(char *) 0);
+		}
+		if (argnbr==17){
+			status=execl(func, func, trans[3], trans[4],trans[5],trans[6],trans[7],trans[8],trans[9],trans[10],trans[11],trans[12],trans[13],trans[14],trans[15],trans[16],(char *) 0);
+		}
+		if (argnbr==18){
+			status=execl(func, func, trans[3], trans[4],trans[5],trans[6],trans[7],trans[8],trans[9],trans[10],trans[11],trans[12],trans[13],trans[14],trans[15],trans[16],trans[17],(char *) 0);
+		}
+		if (argnbr==19){
+			status=execl(func, func, trans[3], trans[4],trans[5],trans[6],trans[7],trans[8],trans[9],trans[10],trans[11],trans[12],trans[13],trans[14],trans[15],trans[16],trans[17],trans[18],(char *) 0);
+		}
+		if (argnbr==20){
+			status=execl(func, func, trans[3], trans[4],trans[5],trans[6],trans[7],trans[8],trans[9],trans[10],trans[11],trans[12],trans[13],trans[14],trans[15],trans[16],trans[17],trans[18],trans[19],(char *) 0);
+		}
+		if (argnbr==21){
+			status=execl(func, func, trans[3], trans[4],trans[5],trans[6],trans[7],trans[8],trans[9],trans[10],trans[11],trans[12],trans[13],trans[14],trans[15],trans[16],trans[17],trans[18],trans[19],trans[20],(char *) 0);
+		}
+		if (argnbr==22){
+			status=execl(func, func, trans[3], trans[4],trans[5],trans[6],trans[7],trans[8],trans[9],trans[10],trans[11],trans[12],trans[13],trans[14],trans[15],trans[16],trans[17],trans[18],trans[19],trans[20],trans[21],(char *) 0);
+		}
+		if (argnbr==23){
+			status=execl(func, func, trans[3], trans[4],trans[5],trans[6],trans[7],trans[8],trans[9],trans[10],trans[11],trans[12],trans[13],trans[14],trans[15],trans[16],trans[17],trans[18],trans[19],trans[20],trans[21],trans[22],(char *) 0);
+		}
+		if (argnbr==24){
+			status=execl(func, func, trans[3], trans[4],trans[5],trans[6],trans[7],trans[8],trans[9],trans[10],trans[11],trans[12],trans[13],trans[14],trans[15],trans[16],trans[17],trans[18],trans[19],trans[20],trans[21],trans[22],trans[23],(char *) 0);
+		}
+ }
 	else{				/* Parent (Denna process) */
 		FILE* stream;
 		close (fds[1]);
@@ -200,12 +231,14 @@ int do_Trans(int argnbr, char *trans[])
 	}
 }
 
+
+
 int check_Transtyp(char *trnstyp)
 {
 
   int res;
-  char trnsid[8];
-  char trnstxt[60];
+//  char trnsid[8];
+//  char trnstxt[60];
   static char sql1[] = "SELECT TRNSID FROM TRANSID WHERE TRNSID=\"";
   static char sql2[] = "\"";
   char sqlcommand[50];	/* 50 */
@@ -308,8 +341,8 @@ int check_Rights(char *usr, char *tr)
   int res;
   static char sql1[] = "SELECT USERID,TRNSID FROM RIGHTS WHERE USERID=\"";
   static char sql2[]="\"";
-  static char sql3[]=",";
-  static char sql4[]=")";
+//  static char sql3[]=",";
+//  static char sql4[]=")";
   char sqlcommand[200]="";
   static char sql6[14]=" AND TRNSID=\"";
 
@@ -373,7 +406,7 @@ int find_tmp_path(char *envp[])
 	char tmp[50]="";
 	char temp[10]="";
 	char *tmp_pek;
-	int i,j,status;
+	int i,status;
 
 	for (i = 0;envp[i]!=NULL;i++){
 		if(strstr(envp[i],"HOME=") != NULL){
