@@ -1,8 +1,8 @@
 /***************************************************************************
                           ARADD.c  -  description
                              -------------------
-    Version		 : 0.1
-    Modified		 :
+    Version		 : 0.2
+    Modified		 : Ons 23 febr 2005
     begin                : Ons 29 okt 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
@@ -36,7 +36,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARADD.c,v 1.2 2003/11/13 11:02:18 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARADD.c,v 1.3 2005/02/23 09:06:59 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -74,7 +74,7 @@ int main(int argc, char *argv[], char *envp[])
   int tmp,lenght,ant,i,j,k,n;
 
   if (argv[1] != NULL){
-  	strncpy(artikeldata,argv[1],strlen(argv[1]));
+  	strncpy(artikeldata,argv[1],sizeof(artikeldata));
   }
   else{
   	fprintf(stderr,"Error: ARADD: Ange artikelnummer!\n");
