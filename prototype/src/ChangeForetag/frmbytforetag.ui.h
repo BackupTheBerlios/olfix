@@ -71,6 +71,7 @@ void frmBytForetag::pushButtonDo_clicked()
     lineEditForetag->setText(newforetag);
     lineEditDatabas->setText(newdatabase);
     setDatabase();
+    init();
     pushButtonOK->setFocus();
 }
 
