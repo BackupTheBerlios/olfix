@@ -1,0 +1,189 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>frmListLevplats</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmListLevplats</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>625</width>
+            <height>277</height>
+        </rect>
+    </property>
+    <property name="sizePolicy">
+        <sizepolicy>
+            <hsizetype>5</hsizetype>
+            <vsizetype>5</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+    </property>
+    <property name="minimumSize">
+        <size>
+            <width>500</width>
+            <height>250</height>
+        </size>
+    </property>
+    <property name="maximumSize">
+        <size>
+            <width>700</width>
+            <height>280</height>
+        </size>
+    </property>
+    <property name="baseSize">
+        <size>
+            <width>500</width>
+            <height>270</height>
+        </size>
+    </property>
+    <property name="caption">
+        <string>OLFIX - LSTLEVPW Lista leveransplatser</string>
+    </property>
+    <property name="iconText">
+        <string>OLFIX</string>
+    </property>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonSluta</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>240</y>
+                <width>70</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Sluta</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonAgain</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>205</y>
+                <width>71</width>
+                <height>31</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Uppdatera</string>
+        </property>
+    </widget>
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Levplatsnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Kundnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Adress</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Postnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Postadress</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <property name="name">
+            <cstring>ListView1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>90</x>
+                <y>10</y>
+                <width>530</width>
+                <height>261</height>
+            </rect>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <property name="selectionMode">
+            <enum>Single</enum>
+        </property>
+        <property name="showSortIndicator">
+            <bool>true</bool>
+        </property>
+        <property name="itemMargin">
+            <number>5</number>
+        </property>
+        <property name="resizeMode">
+            <enum>AllColumns</enum>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>PushButtonSluta</sender>
+        <signal>clicked()</signal>
+        <receiver>frmListLevplats</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonAgain</sender>
+        <signal>clicked()</signal>
+        <receiver>frmListLevplats</receiver>
+        <slot>slotReloadLev()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">frmlistlevplats.ui.h</include>
+</includes>
+<slots>
+    <slot>GetLev()</slot>
+    <slot>init()</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotEndOfProcess()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>slotReloadLev()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
