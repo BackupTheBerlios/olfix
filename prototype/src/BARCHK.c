@@ -1,9 +1,9 @@
 /***************************************************************************
                           BARCHK.c  -  description
                              -------------------
-    Version		 : 0.2
+    Version		 : 0.3
     begin                : Tors 27 febr	2003
-    modified		 : Lör 1 nov	2003
+    modified		 : Osd 23 febr	2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BARCHK.c,v 1.2 2003/11/01 16:31:26 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BARCHK.c,v 1.3 2005/02/23 08:59:27 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -97,7 +97,7 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-  strncpy(arid,argv[1],strlen(argv[1]));
+  strncpy(arid,argv[1],sizeof(arid));	/*	2005-02-23	*/
 
   strncat(temp5,temp1,strlen(temp1));
 /* SELECT ARID FROM BOKFAR WHERE ARID = "  */

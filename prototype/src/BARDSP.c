@@ -1,9 +1,9 @@
 /***************************************************************************
                           BARDSP.c  -  description
                              -------------------
-    Version		 : 0.2
+    Version		 : 0.3
     begin                : Tis  3  dec	2002
-    modified		 : Sön  2  nov  2003
+    modified		 : Ons 23  febr 2005
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BARDSP.c,v 1.2 2003/11/02 06:00:38 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BARDSP.c,v 1.3 2005/02/23 08:55:10 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -96,7 +96,9 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-  strncpy(arid,argv[1],strlen(arid));
+  strncpy(arid,argv[1],sizeof(arid));	/* 2005-02-23	*/
+/*  fprintf(stderr,"strlen argv1=%d\n",strlen(argv[1]));	*/
+/*  fprintf(stderr,"BARDSPmain: arid = %s strlen argv1=%d\n",arid,strlen(argv[1]));	*/
 
   strncat(temp5,temp1,strlen(temp1));
 /* SELECT VERNR FROM BOKFAR WHERE ARID = "  */
@@ -104,7 +106,7 @@ int main(int argc, char *argv[], char *envp[])
 /* SELECT VERNR FROM BOKFAR WHERE ARID = "AC  */
   strncat(temp5,temp2,strlen(temp2)); /*  "     */
 /* SELECT VERNR FROM BOKFAR WHERE ARID = "AC" */
-//  fprintf(stderr,"BARDSPmain: temp5 = %s\n",temp5);
+/*  fprintf(stderr,"BARDSPmain: temp5 = %s\n",temp5);	*/
 
   mysql_init(&my_connection);
   if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
