@@ -9,9 +9,9 @@
 /***************************************************************************
                           CHGARW  -  description
                              -------------------
-    Version 	: 0.3
+    Version 	: 0.4
     begin                	: Sön 16 nov 2003
-    modified	:Mån 24 nov 2003
+    modified	: Sön  7 dec 2003
     copyright             : (C) 2003 by Jan Pihlgren
     email    	: jan@pihlgren.se
  ***************************************************************************/
@@ -1080,7 +1080,7 @@ void frmChgArtikel::slotGetGrDataEndOfProcess()
 	    int i18 = inrad.find( QRegExp("18:"), 0 );	//	tulltaxenr 	Tulltaxekod
 	    int i19 = inrad.find( QRegExp("19:"), 0 );	//	volym
 	    int i20 = inrad.find( QRegExp("20:"), 0 );	//	omrfaktor 	Omräkningsfaktor
-	    int i21 = inrad.length();
+	    int i21 = inrad.find( QRegExp("END:"), 0 );//	Slutet på posten.
 
 //	    qDebug("inrad=%s",inrad.latin1());
 
@@ -1200,7 +1200,7 @@ void frmChgArtikel::slotGetGrDataEndOfProcess()
 
 	 m=i21-i20;
 	 if (i20 != -1){
-	     omrfaktor =inrad.mid(i20+3,m-9);
+	     omrfaktor =inrad.mid(i20+3,m-4);
 	     lineEditOmrFaktor->setText(omrfaktor );
 	 }
 
@@ -1290,7 +1290,7 @@ void  frmChgArtikel::slotgetLaDataEndOfProcess()
 	    int i15 = inrad.find( QRegExp("15:"), 0 );	//	bestkvant	Beställd kvantitet
 	    int i16 = inrad.find( QRegExp("16:"), 0 );	//	bestpunkt	Beställningspunkt
 	    int i17 = inrad.find( QRegExp("17:"), 0 );	//	omkost		Omkostnader
-	    int i18 = inrad.length();
+	    int i18 = inrad.find( QRegExp("END:"), 0 );//	Slutet på posten
 
 	    m=i2-i1;
 	    if (i1 != -1){

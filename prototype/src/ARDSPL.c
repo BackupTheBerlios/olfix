@@ -30,7 +30,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARDSPL.c,v 1.3 2003/11/17 06:52:57 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARDSPL.c,v 1.4 2003/12/07 04:10:17 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -110,7 +110,7 @@ int main(int argc, char *argv[], char *envp[])
   char temp2[]="\"";
   char temp4[]=")";
   char temp5[200]="";
-  char artikelnr[11]="";
+  char artikelnr[31]="";
   char lagerstelle[2]="";
 
 /*  for (i=0;i< argc;i++){
@@ -170,6 +170,7 @@ int main(int argc, char *argv[], char *envp[])
 			fprintf(stdout,"15:%s  ",sqlrow[14]);
 			fprintf(stdout,"16:%s  ",sqlrow[15]);
 			fprintf(stdout,"17:%s  ",sqlrow[16]);
+			fprintf(stdout,"END:");
 /*
 			fprintf(stdout,"18:%s  ",sqlrow[17]);
 			fprintf(stdout,"19:%s  ",sqlrow[18]);

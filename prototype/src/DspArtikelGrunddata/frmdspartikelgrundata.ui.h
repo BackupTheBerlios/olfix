@@ -98,7 +98,8 @@ void frmDspArtikelGrunddata::getGrunddata()
 /************************************************************************/
 	const char *userp = getenv("USER");
             QString usr(userp);
-
+             inrad="";
+	     
 //            qDebug("Anropa ARDSP, artikelnr=%s",artikelnr.latin1());
 	process = new QProcess();
 	process->addArgument( "./STYRMAN");	// OLFIX funktion
@@ -125,7 +126,8 @@ void frmDspArtikelGrunddata::getLagerdata()
 /************************************************************************/
 	const char *userp = getenv("USER");
             QString usr(userp);
-
+	 inrad="";
+	 
 	process = new QProcess();
 	process->addArgument( "./STYRMAN");	// OLFIX funktion
 	process->addArgument(usr);
@@ -194,7 +196,7 @@ void frmDspArtikelGrunddata::slotGetGrDataEndOfProcess()
 	    int i18 = inrad.find( QRegExp("18:"), 0 );	//	tulltaxenr 	Tulltaxekod
 	    int i19 = inrad.find( QRegExp("19:"), 0 );	//	volym
 	    int i20 = inrad.find( QRegExp("20:"), 0 );	//	omrfaktor 	Omräkningsfaktor
-	    int i21 = inrad.length();
+	    int i21 = inrad.find( QRegExp("END:"), 0 );// 	Slut på posten
 	 
 	    m=i2-i1;
 	    if (i1 != -1){
@@ -374,7 +376,7 @@ void frmDspArtikelGrunddata::slotgetLaDataEndOfProcess()
 	    int i15 = inrad.find( QRegExp("15:"), 0 );	//	bestkvant	Beställd kvantitet
 	    int i16 = inrad.find( QRegExp("16:"), 0 );	//	bestpunkt	Beställningspunkt
 	    int i17 = inrad.find( QRegExp("17:"), 0 );	//	omkost		Omkostnader
-	    int i18 = inrad.length();
+	    int i18 =inrad.find( QRegExp("END:"), 0 );// 	Slut på posten
 	 
 	    m=i2-i1;
 	    if (i1 != -1){

@@ -1,9 +1,9 @@
 /***************************************************************************
                           ARDSP.c  -  description
                              -------------------
-    Version		 : 0.1
-    begin                : Lör 15  nov	2003
-    Modified		 :
+    Version		 : 0.2
+    begin                : Lör 15 nov	2003
+    Modified		 : Lör  6 dec	2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -31,7 +31,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARDSP.c,v 1.1 2003/11/15 10:09:10 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARDSP.c,v 1.2 2003/12/07 04:10:34 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -54,7 +54,8 @@
 
 int main(int argc, char *argv[], char *envp[])
 {
-  int res,i;
+  int res;
+/*  int i;	*/
   int num_rows;
   int status;
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
@@ -102,22 +103,19 @@ int main(int argc, char *argv[], char *envp[])
   	fprintf(stderr,"Error: Artikelnr saknas.\n");
 	exit(-1);
   }
+/*
   for (i=0;i<argc;i++){
-/*  	fprintf(stderr,"argc=%d argv[%d]=%s\n",argc,i,argv[i]);		*/
+  	fprintf(stderr,"argc=%d argv[%d]=%s\n",argc,i,argv[i]);
   }
-
+*/
   char temp1[]="SELECT * FROM ARTIKELREG WHERE (ARTIKELNR = \"";
   char temp2[]="\"";
   char temp4[]=")";
   char temp5[200]="";
-  char artikelnr[11]="";
+  char artikelnr[31]="";
 
-/*  for (i=0;i< argc;i++){
-  	fprintf(stderr,"ARDSP main argv%d = %s\n",i,argv[i]);
-  }
-*/
   strncpy(artikelnr,argv[1],strlen(argv[1]));
-
+  fprintf(stderr,"ARDSP artikelnr = %s\n",artikelnr);
   strncpy(temp5,temp1,strlen(temp1));
 /* SELECT * FROM ARTIKELREG WHERE (artikelnr = "	*/
   strncat(temp5,artikelnr,strlen(artikelnr));/* 12334 */
@@ -126,7 +124,6 @@ int main(int argc, char *argv[], char *envp[])
 /* SELECT * FROM ARTIKELREG WHERE (artikelnr = "12334"	*/
   strncat(temp5,temp4,strlen(temp4)); /*  )     */
 /* SELECT * FROM ARTIKELREG WHERE (artikelnr = "12334")	*/
-  strncat(temp5,"\n",1);
 /*  fprintf(stderr,"ARDSP temp5 = %s\n",temp5);		*/
 
   mysql_init(&my_connection);
@@ -165,6 +162,7 @@ int main(int argc, char *argv[], char *envp[])
 			fprintf(stdout,"18:%s  ",sqlrow[17]);
 			fprintf(stdout,"19:%s  ",sqlrow[18]);
 			fprintf(stdout,"20:%s  ",sqlrow[19]);
+			fprintf(stdout,"END:");
 /*
 			fprintf(stdout,"21:%s  ",sqlrow[20]);
 			fprintf(stdout,"22:%s  ",sqlrow[21]);
