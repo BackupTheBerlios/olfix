@@ -1,6 +1,7 @@
 /****************************************************************/
 /**		DSPFTGW					*/
-/**		20003-04-15					*/
+/**		Version: 0.4 					*/
+/**		20003-08-14					*/
 /**		Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -38,7 +39,7 @@
 void frmDspFtgData::init()
 {
     PushButtonOK->setFocus();
-    slotGetFtgData("ADR1");
+    slotGetFtgData("FNAMN");
 }
 
 
@@ -108,6 +109,11 @@ void frmDspFtgData::slotEndOfProcess()
 
 //    qDebug("posttyp=%s",posttyp.latin1());   
     i = -1;
+    i = posttyp.find( QRegExp("FNAMN"), 0 );
+    if (i != -1){
+	slotGetFNAMN();
+    }
+    i = -1;
     i = posttyp.find( QRegExp("ADR1"), 0 );
     if (i != -1){
 	slotGetADR1();
@@ -121,6 +127,36 @@ void frmDspFtgData::slotEndOfProcess()
     i = posttyp.find( QRegExp("ADR3"), 0 );
     if (i != -1){
 	slotGetADR3();
+    }
+        i = -1;
+    i = posttyp.find( QRegExp("ADR4"), 0 );
+    if (i != -1){
+	slotGetADR4();
+    }
+    i = -1;
+    i = posttyp.find( QRegExp("ADR5"), 0 );
+    if (i != -1){
+	slotGetADR5();
+    }
+    i = -1;
+    i = posttyp.find( QRegExp("ADR6"), 0 );
+    if (i != -1){
+	slotGetADR6();
+    }
+    i = -1;
+    i = posttyp.find( QRegExp("ADR7"), 0 );
+    if (i != -1){
+	slotGetADR7();
+    }
+    i = -1;
+    i = posttyp.find( QRegExp("ADR8"), 0 );
+    if (i != -1){
+	slotGetADR8();
+    }
+    i = -1;
+    i = posttyp.find( QRegExp("ADR9"), 0 );
+    if (i != -1){
+	slotGetADR9();
     }
     i = -1;
     i = posttyp.find( QRegExp("FTGNR"), 0 );
@@ -147,20 +183,56 @@ void frmDspFtgData::slotEndOfProcess()
     if (i != -1){
 	slotGetEML1();
     }    
+    i = -1;
+    i = posttyp.find( QRegExp("MOMS1"), 0 );
+    if (i != -1){
+	slotGetMOMS1();
+    }    
+    i = -1;
+    i = posttyp.find( QRegExp("MOMS2"), 0 );
+    if (i != -1){
+	slotGetMOMS2();
+    }    
+    i = -1;
+    i = posttyp.find( QRegExp("MOMS3"), 0 );
+    if (i != -1){
+	slotGetMOMS3();
+    }    
+    i = -1;
+    i = posttyp.find( QRegExp("MOMS4"), 0 );
+    if (i != -1){
+	slotGetMOMS4();
+    }    
+    i = -1;
+    i = posttyp.find( QRegExp("MOMS5"), 0 );
+    if (i != -1){
+	slotGetMOMS5();
+    } 
+        i = -1;
+    i = posttyp.find( QRegExp("MOMSI"), 0 );
+    if (i != -1){
+	slotGetMOMSI();
+    } 
+    i = -1;
+    i = posttyp.find( QRegExp("MOMSU"), 0 );
+    if (i != -1){
+	slotGetMOMSU();
+    } 
+    i = -1;
+    i = posttyp.find( QRegExp("AUTOK"), 0 );
+    if (i != -1){
+	slotGetAUTOK();
+    } 
+
 }
 
-
-void frmDspFtgData::slotGetADR1()
+void frmDspFtgData::slotGetFNAMN()
 {
    int i,j,k,m;
    QString posttyp;
    QString adr;
-   QString ftgnamn;
-   QString postadr; 
-   QString postnr;
-   QString ort;
+   QString fnamn;
    
-//   qDebug("flag=%s",flag.latin1()); 
     i = inrad.find( QRegExp("OK:"), 0 );
     j = inrad.find(QRegExp("1:"),0);
     k = inrad.find( QRegExp("2:"), 0 );
@@ -168,64 +240,45 @@ void frmDspFtgData::slotGetADR1()
     posttyp = inrad.mid(j+2,m-2);
 //    qDebug("posttyp=%s",posttyp.latin1());   
     m = inrad.length();
-    adr = inrad.mid(k+2,m-2);
-//    qDebug("adr1=%s",adr.latin1());
+    fnamn = inrad.mid(k+2,m-2);
+//    qDebug("moms5=%s",moms5.latin1());
+    LineEditFtgNamn->setText(fnamn);
     
-    i = adr.find(QRegExp(" : "),0);
-//    qDebug("adr - i=%d",i);
-    ftgnamn = adr.mid(0,i);
-    LineEditFtgNamn->setText(ftgnamn);
-    
-    j = adr.find(QRegExp(" : "),i+2);
-//    qDebug("adr - j=%d adr - i=%d adr - j-i =%d",j,i,j-i);
-    postadr = adr.mid(i+3,j-(i+3));
+    inrad="";
+    slotGetFtgData("ADR1");
+}
+
+void frmDspFtgData::slotGetADR1()
+{
+    //	Postadressen
+   int i,j,k,m;
+   QString posttyp;
+   QString postadr; 
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = inrad.length();
+    postadr = inrad.mid(k+2,m-2);
     LineEditPostAdress->setText(postadr);
-    
-    k = adr.find(QRegExp(" : "),j+2);
-//    qDebug("adr - j=%d adr - k=%d",j,k);
-    postnr = adr.mid(j+3,k-(j+3));
-    LineEditPostnr1->setText(postnr);
-    
-    ort = adr.mid(k+3,m);
-    LineEditPostOrt->setText(ort);
-    
+        
     inrad="";
     slotGetFtgData("ADR2");
 }
 
 void frmDspFtgData::slotGetADR2()
 {
+   //	Postnummer
    int i,j,k,m;
    QString posttyp;
-   QString adr;
-   QString ftgnamn;
-   QString adress; 
    QString postnr;
-   QString ort;
    
     i = inrad.find( QRegExp("OK:"), 0 );
     j = inrad.find(QRegExp("1:"),0);
     k = inrad.find( QRegExp("2:"), 0 );
-    m = k - j;
-    posttyp = inrad.mid(j+2,m-2);
-//    qDebug("posttyp=%s",posttyp.latin1());   
-    m = inrad.length();
-    adr = inrad.mid(k+2,m-2);
-//    qDebug("adr=%s",adr.latin1());
-    
-    i = adr.find(QRegExp(" : "),0);   
-    j = adr.find(QRegExp(" : "),i+2);
-//    qDebug("adr - j=%d adr - i=%d adr - j-i =%d",j,i,j-i);
-    adress = adr.mid(i+3,j-(i+3));
-    LineEditBesoksAdress->setText(adress);
-    
-    k = adr.find(QRegExp(" : "),j+2);
-//    qDebug("adr - j=%d adr - k=%d",j,k);
-    postnr = adr.mid(j+3,k-(j+3));
-    LineEditPostnr2->setText(postnr);
-    
-    ort = adr.mid(k+3,m);
-    LineEditBesoksOrt->setText(ort);
+    m = inrad.length();;
+    postnr = inrad.mid(k+2,m-2);
+    LineEditPostnr1->setText(postnr);
     
     inrad="";
     slotGetFtgData("ADR3");
@@ -233,37 +286,124 @@ void frmDspFtgData::slotGetADR2()
 
 void frmDspFtgData::slotGetADR3()
 {
+    //	Ort
    int i,j,k,m;
    QString posttyp;
-   QString adr;
-   QString ftgnamn;
-   QString adress; 
-   QString postnr;
    QString ort;
    
     i = inrad.find( QRegExp("OK:"), 0 );
     j = inrad.find(QRegExp("1:"),0);
     k = inrad.find( QRegExp("2:"), 0 );
-    m = k - j;
-    posttyp = inrad.mid(j+2,m-2);
-//    qDebug("posttyp=%s",posttyp.latin1());   
     m = inrad.length();
-    adr = inrad.mid(k+2,m-2);
-//    qDebug("adr=%s",adr.latin1());
+    ort = inrad.mid(k+2,m-2);
+    LineEditPostOrt->setText(ort);
     
-    i = adr.find(QRegExp(" : "),0);
+    inrad="";
+    slotGetFtgData("ADR4");
+}
+
+void frmDspFtgData::slotGetADR4()
+{
+    //	Besöksadressen
+   int i,j,k,m;
+   QString posttyp;
+   QString postadr; 
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = inrad.length();
+    postadr = inrad.mid(k+2,m-2);
+    LineEditBesoksAdress->setText(postadr);
+        
+    inrad="";
+    slotGetFtgData("ADR5");
+}
+
+void frmDspFtgData::slotGetADR5()
+{
+   //	Postnummer
+   int i,j,k,m;
+   QString posttyp;
+   QString postnr;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = inrad.length();;
+    postnr = inrad.mid(k+2,m-2);
+    LineEditPostnr2->setText(postnr);
     
-    j = adr.find(QRegExp(" : "),i+2);
-//    qDebug("adr - j=%d adr - i=%d adr - j-i =%d",j,i,j-i);
-    adress = adr.mid(i+3,j-(i+3));
-    LineEditGodsAdress->setText(adress);
+    inrad="";
+    slotGetFtgData("ADR6");
+}
+
+void frmDspFtgData::slotGetADR6()
+{
+    //	Ort
+   int i,j,k,m;
+   QString posttyp;
+   QString ort;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = inrad.length();
+    ort = inrad.mid(k+2,m-2);
+    LineEditBesoksOrt->setText(ort);
     
-    k = adr.find(QRegExp(" : "),j+2);
-//    qDebug("adr - j=%d adr - k=%d",j,k);
-    postnr = adr.mid(j+3,k-(j+3));
+    inrad="";
+    slotGetFtgData("ADR7");
+}
+
+void frmDspFtgData::slotGetADR7()
+{
+    //	Godsdressen
+   int i,j,k,m;
+   QString posttyp;
+   QString postadr; 
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = inrad.length();
+    postadr = inrad.mid(k+2,m-2);
+    LineEditGodsAdress->setText(postadr);
+        
+    inrad="";
+    slotGetFtgData("ADR8");
+}
+
+void frmDspFtgData::slotGetADR8()
+{
+   //	Postnummer
+   int i,j,k,m;
+   QString posttyp;
+   QString postnr;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = inrad.length();;
+    postnr = inrad.mid(k+2,m-2);
     LineEditPostnr3->setText(postnr);
     
-    ort = adr.mid(k+3,m);
+    inrad="";
+    slotGetFtgData("ADR9");
+}
+
+void frmDspFtgData::slotGetADR9()
+{
+    //	Ort
+   int i,j,k,m;
+   QString posttyp;
+   QString ort;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = inrad.length();
+    ort = inrad.mid(k+2,m-2);
     LineEditGodsOrt->setText(ort);
     
     inrad="";
@@ -345,7 +485,7 @@ void frmDspFtgData::slotGetTFAX()
    int i,j,k,m;
    QString posttyp;
    QString adr;
-   QString tfnnr;
+   QString telefax;
    
     i = inrad.find( QRegExp("OK:"), 0 );
     j = inrad.find(QRegExp("1:"),0);
@@ -354,9 +494,9 @@ void frmDspFtgData::slotGetTFAX()
     posttyp = inrad.mid(j+2,m-2);
 //    qDebug("posttyp=%s",posttyp.latin1());   
     m = inrad.length();
-    tfnnr = inrad.mid(k+2,m-2);
+    telefax = inrad.mid(k+2,m-2);
 //    qDebug("tfnnr=%s",tfnnr.latin1());
-    LineEditTelefax->setText(tfnnr);
+    LineEditTelefax->setText(telefax);
     
     inrad="";
     slotGetFtgData("EML1");
@@ -378,9 +518,185 @@ void frmDspFtgData::slotGetEML1()
 //    qDebug("posttyp=%s",posttyp.latin1());   
     m = inrad.length();
     mailadr = inrad.mid(k+2,m-2);
-//    qDebug("tfnnr=%s",tfnnr.latin1());
+//    qDebug("tfnnr=%s",mailadr.latin1());
     LineEditemailadress->setText(mailadr);
     
     inrad="";
-//    slotGetFtgData("EML1");
+    slotGetFtgData("MOMS1");
+}
+
+
+void frmDspFtgData::slotGetMOMS1()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString moms1;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    moms1 = inrad.mid(k+2,m-2);
+//    qDebug("moms1=%s",moms1.latin1());
+    LineEditMoms1->setText(moms1);
+    
+    inrad="";
+    slotGetFtgData("MOMS2");
+}
+
+void frmDspFtgData::slotGetMOMS2()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString moms2;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    moms2 = inrad.mid(k+2,m-2);
+//    qDebug("moms2=%s",moms2.latin1());
+    LineEditMoms2->setText(moms2);
+    
+    inrad="";
+    slotGetFtgData("MOMS3");
+}
+
+void frmDspFtgData::slotGetMOMS3()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString moms3;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    moms3 = inrad.mid(k+2,m-2);
+//    qDebug("moms3=%s",moms3.latin1());
+    LineEditMoms3->setText(moms3);
+    
+    inrad="";
+    slotGetFtgData("MOMS4");
+}
+
+void frmDspFtgData::slotGetMOMS4()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString moms4;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    moms4 = inrad.mid(k+2,m-2);
+//    qDebug("moms4=%s",moms4.latin1());
+    LineEditMoms4->setText(moms4);
+    
+    inrad="";
+    slotGetFtgData("MOMS5");
+}
+
+void frmDspFtgData::slotGetMOMS5()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString moms5;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    moms5 = inrad.mid(k+2,m-2);
+//    qDebug("moms5=%s",moms5.latin1());
+    LineEditMoms5->setText(moms5);
+    
+    inrad="";
+    slotGetFtgData("MOMSI");
+}
+
+void frmDspFtgData::slotGetMOMSI()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString momsi;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    momsi = inrad.mid(k+2,m-2);
+//    qDebug("momsi=%s",momsi.latin1());
+    lineEditMomktoIng->setText(momsi);
+    
+    inrad="";
+    slotGetFtgData("MOMSU");
+}
+
+void frmDspFtgData::slotGetMOMSU()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString momsu;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    momsu = inrad.mid(k+2,m-2);
+//    qDebug("momsu=%s",momsu.latin1());
+    lineEditMomktoUtg->setText(momsu);   
+    inrad="";
+    slotGetFtgData("AUTOK");
+}
+
+void frmDspFtgData::slotGetAUTOK()
+{
+//	Automatkontering J/N    
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString autok;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    autok = inrad.mid(k+2,m-2);
+//    qDebug("autok=%s",autok.latin1());
+    lineEditAutokont->setText(autok);   
+    inrad="";
+//    slotGetFtgData("MOMSU");
 }
