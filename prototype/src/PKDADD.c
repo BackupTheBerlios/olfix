@@ -1,9 +1,9 @@
 /***************************************************************************
                           PKDADD.c  -  description
                              -------------------
-    Version		 : 0.2
+    Version		 : 0.3
     begin                : Mån  29 nov  2004
-    modified		 : Tors 24 febr 2005
+    modified		 : Ons   9 mars 2005
     copyright            : (C) 2004 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -17,14 +17,14 @@
  *                                                                         *
  *********************************************** ****************************/
 
-/*	INPUT: 2 st arg. PRODKLASS och BESKRIVNING (fälten i tabellen PRODUKTGRUPP)
+/*	INPUT: 3 st arg. PRODKLASS,BESKRIVNING och MOMSKOD (fälten i tabellen PRODUKTGRUPP)
 	Function: Add record i tabell PRODUKTGRUPP
 
 	OUTPUT: errornb och error (text)
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PKDADD.c,v 1.2 2005/02/24 08:59:33 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PKDADD.c,v 1.3 2005/03/09 07:25:55 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -34,7 +34,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "mysql.h"
-#define ANTARG 3
+#define ANTARG 4
 
   MYSQL my_connection;
   MYSQL_RES *res_ptr;
@@ -52,13 +52,14 @@ int main(int argc, char *argv[], char *envp[])
   char databas[25]="olfix";
   char usr[15];				/* userid		*/
 
-  char temp1[]="INSERT INTO PRODUKTGRUPP(PRODKLASS,BESKRIVNING) VALUES (\"";
+  char temp1[]="INSERT INTO PRODUKTGRUPP(PRODKLASS,BESKRIVNING,MOMSKOD) VALUES (\"";
   char temp2[]="\"";
   char temp3[]=",";
   char temp4[]=")";
   char temp5[200]="";
   char prodkod[6]="";
   char beskrivning[2000]="";
+  char momskod[6]="";
 /*
   for (i=0;i<argc;i++){
   	fprintf(stderr,"argc=%d, argv[%d]=%s\n",argc,i,argv[i]);
@@ -102,22 +103,28 @@ int main(int argc, char *argv[], char *envp[])
 
   strncpy(prodkod,argv[1],sizeof(prodkod));			/* 2005-02-24	*/
   strncpy(beskrivning,argv[2],sizeof(beskrivning));		/* 2005-02-24	*/
+  strncpy(momskod,argv[3],sizeof(momskod));			/* 2005-03-09	*/
 
 /*  fprintf(stderr,"argv1=%s argv2=%s\n",argv[1],argv[2]);	*/
 
   strncat(temp5,temp1,strlen(temp1));
-/* INSERT INTO PRODUKTGRUPP(PRODKLASS,BESKRIVNING) VALUES ("  */
+/* INSERT INTO PRODUKTGRUPP(PRODKLASS,BESKRIVNING,MOMSKOD) VALUES ("  */
   strncat(temp5,prodkod,strlen(prodkod));/* 001 */
-/* INSERT INTO PRODUKTGRUPP(PRODKLASS,BESKRIVNING) VALUES ("001  */
+/* INSERT INTO PRODUKTGRUPP(PRODKLASS,BESKRIVNING,MOMSKOD) VALUES ("001  */
   strncat(temp5,temp2,strlen(temp2)); /*  "     */
   strncat(temp5,temp3,strlen(temp3)); /*  ,     */
   strncat(temp5,temp2,strlen(temp2)); /*  "     */
-/* INSERT INTO PRODUKTGRUPP(PRODKLASS,BESKRIVNING) VALUES ("001","  */
+/* INSERT INTO PRODUKTGRUPP(PRODKLASS,BESKRIVNING,MOMSKOD) VALUES ("001","  */
   strncat(temp5,beskrivning,strlen(beskrivning));/*   */
-/* INSERT INTO PRODUKTGRUPP(PRODKLASS,BESKRIVNING) VALUES ("001","Löpande text med information  */
+/* INSERT INTO PRODUKTGRUPP(PRODKLASS,BESKRIVNING,MOMSKOD) VALUES ("001","Löpande text med information  */
   strncat(temp5,temp2,strlen(temp2)); /*  "     */
+  strncat(temp5,temp3,strlen(temp3)); /*  ,     */
+  strncat(temp5,temp2,strlen(temp2)); /*  "     */
+  strncat(temp5,beskrivning,strlen(momskod));
+  strncat(temp5,temp2,strlen(temp2)); /*  "     */
+/*INSERT INTO PRODUKTGRUPP(PRODKLASS,BESKRIVNING,MOMSKOD) VALUES ("001","Löpande text med information","MOMS1"  */
   strncat(temp5,temp4,strlen(temp4)); /*  )     */
-/* INSERT INTO PRODUKTGRUPP(PRODKLASS,BESKRIVNING) VALUES ("001","Löpande text med information")  */
+/* INSERT INTO PRODUKTGRUPP(PRODKLASS,BESKRIVNING,MOMSKOD) VALUES (("001","Löpande text med information","MOMS1")  */
 /*  fprintf(stderr,"temp5=%s\n",temp5);	*/
 /*  exit(0);*/
 
