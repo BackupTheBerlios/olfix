@@ -8,8 +8,8 @@
 /***************************************************************************
                           BOKFORSW  -  description	BOKFORS=BokföringStandard
                              -------------------
-		     version 0.1
-    begin                : Fre 28 febr 2003
+		     version 0.41
+    begin                : Sön 10 aug 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -31,7 +31,10 @@
 #include <qlistview.h>
 #include <qdatetime.h>
 #include <qfileinfo.h>
+#include <qdir.h>
+
 #define MAXSTRING 15000
+#define VERSION "0.41"
 
     QProcess* process;
     QString inrad;
@@ -58,11 +61,23 @@ void frmBokfstd::init()
 {
     QDateTime dt = QDateTime::currentDateTime();
     
+//    QString version;
+//    version="Version: ";
+//    version.append(VERSION);
+//    textLabelVersion->setText(version);
     datum=dt.toString("yyyy-MM-dd");
     TextLabelDate->setText(datum);
     LineEditBar->setFocus();
+    radnr="0";				// ver. 0.4
 }
-    
+
+void frmBokfstd::slotLineEditBar_lostFocus()
+{
+    arid=LineEditBar->text();
+    if (arid != "")
+	slotLineEditBar_returnPressed();
+}
+
 void frmBokfstd::slotLineEditBar_returnPressed()
 {
     arid=LineEditBar->text();
@@ -72,45 +87,96 @@ void frmBokfstd::slotLineEditBar_returnPressed()
 	QMessageBox::warning( this, "BOKFORSW",
                       "Bokföringsår måste fyllas i! \n" );
 	LineEditBar->setFocus();
-	    }
-   frmBokfstd::slotCheckBar();
+    }
+    else{
+	frmBokfstd::slotCheckBar();
+    }
 }
+
 
 void frmBokfstd::slotLineEditVerText_returnPressed()
 {
     vertext=LineEditVerText->text();
+//    qDebug("0.radnr=%s\n",radnr.latin1());
     frmBokfstd::slotUpdateRadnr();
 }
 
+
+void frmBokfstd::slotLineEditKtonr_textChanged()
+{
+    QString temp;
+    temp = LineEditKtonr->text();
+    
+    QListViewItem *item = ListViewKto->findItem( temp, 0, BeginsWith );
+    ListViewKto->setCurrentItem(item);
+}
+
+void frmBokfstd::slotLineEditKtonr_lostFocus()
+{
+    kontonr=LineEditKtonr->text();
+    if (kontonr != "")
+	slotLineEditKtonr_returnPressed();
+}
 
 void frmBokfstd::slotLineEditKtonr_returnPressed()
 {
     kontonr=LineEditKtonr->text();
     frmBokfstd::slotCheckKonto();
-//    LineEditDK->setFocus();
+    LineEditDK->setFocus();
+}
+
+void frmBokfstd::slotLineEditDK_lostFocus()
+{
+    dk=LineEditDK->text();
+    if (dk != "")
+	slotLineEditDK_returnPressed();
 }
 
 void frmBokfstd::slotLineEditDK_returnPressed()
 {
     dk=LineEditDK->text();
+    if (dk == "+"){				// japi 20030520
+	dk="D";
+    }
+    if (dk == "-"){				// japi 20030520
+	dk="K";
+    }
     dk=dk.upper();
     LineEditDK->setText((dk));
     LineEditBelopp->setFocus();
 }
 
+/*
+void frmBokfstd::slotLineEditBelopp_lostFocus()
+{
+    belopp=LineEditBelopp->text();
+    if (belopp != "")
+	slotLineEditBelopp_returnPressed();
+}
+*/
+
 void frmBokfstd::slotLineEditBelopp_returnPressed()
 {
     int i = -1;
     belopp=LineEditBelopp->text();
+    i = belopp.find( QRegExp(","), 0 );
+//   qDebug("1. belopp = %s  i =%d\n",belopp.latin1(),i );    
+    if ( i != -1){
+	 belopp = belopp.replace( i, 1, "." );
+    }
+    
+    i = -1;    
+    i = belopp.findRev(".");
+//   qDebug("2. belopp = %s  i =%d\n",belopp.latin1(),i );
+    if ( i == -1){
+	belopp = belopp.append(".00");
+    }    
     while (belopp.length()<12){
 	belopp.prepend(" ");
     }
-//    qDebug("belopp=%s\n",belopp.latin1());
-    i = belopp.find( QRegExp(","), 0 );
-    if ( i != -1){
-	 belopp = belopp.replace( i, 1, "." );
-	 LineEditBelopp->setText(belopp);
-    }
+//    qDebug("3. belopp=%s\n",belopp.latin1());
+    
+    LineEditBelopp->setText(belopp); 
 //    qDebug("belopp=%s\n",belopp.latin1());
     LineEditKst->setFocus();
 }
@@ -142,9 +208,19 @@ void frmBokfstd::slotRadOK()
 // Beräkna och vissa differensen på registrerade rader (Vad som återstår att registrera)    
     i = radnr.toInt();
     if (i == 1){
-	differ = belopp.toDouble();
+	if (dk == "D"){
+	    differ = belopp.toDouble();
+	}
+	else{
+	    differ = 0 - belopp.toDouble();
+	}
     }else{
-	differ = differ - belopp.toDouble();
+	if (dk == "K"){
+	    differ = differ - belopp.toDouble();
+	}
+	else{
+	    differ = differ + belopp.toDouble();
+	}		
     }
     diff = diff.setNum(differ,'f',2);
     LineEditDiff->setText(diff);
@@ -287,7 +363,8 @@ void frmBokfstd::slotBARCHKEndOfProcess()
 		    inrad="";
 		    errorrad="";
 		    LineEditVernr->setFocus();
-		   frmBokfstd::slotGetKontoLista();
+		    ListViewKto->clear();
+		    frmBokfstd::slotGetKontoLista();
 		}
 	    }
 }
@@ -688,11 +765,22 @@ void frmBokfstd::slotVerOK()
 void frmBokfstd::slotVerRemove()
 {
 // Rensa alla fält samt ta bort temporärfilen /tmp/vernr.txt
+// Ändrad 2003-05-20 japi    
+    bool status;    
     QString filnamn;
-    filnamn.append("/tmp/");
-    filnamn.append(vernr);
+    QDir d = QDir::root();                      // "/"
+    if ( !d.cd("tmp") ) {                       // "/tmp"
+        qWarning( "Cannot find the \"/tmp\" directory" );
+    }
+    
+//    filnamn.append("/tmp/");
+//    filnamn.append(vernr);
+    filnamn=vernr;
     filnamn.append(".txt");
-    QFile::remove(filnamn);
+    
+//    qDebug("filnamn=%s",filnamn.latin1());
+    status=d.remove(filnamn,FALSE);
+//    qDebug("status=%d",status);
     frmBokfstd::slotCleanUp();  
     frmBokfstd::slotGetNextVernr();
 }
@@ -761,3 +849,4 @@ void frmBokfstd::slotCleanUp()
     diff="";
     differ = 0;  
 }
+
