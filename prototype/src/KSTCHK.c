@@ -1,9 +1,9 @@
 /***************************************************************************
                           KSTCHK.c  -  description
                              -------------------
-    Version		 : 0.2
-    begin                : Lör 1 mars 2003
-    modified		 : Tis 4 nov 2003
+    Version		 : 0.3
+    begin                : Lör  1 mars 2003
+    modified		 : Ons 24 febr 2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -26,7 +26,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KSTCHK.c,v 1.2 2003/11/04 04:28:00 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KSTCHK.c,v 1.3 2005/02/24 04:56:27 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -96,8 +96,8 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-  strncpy(arid,argv[1],strlen(argv[1]));
-  strncpy(kstalle,argv[2],strlen(argv[2]));
+  strncpy(arid,argv[1],sizeof(arid));			/* 2005-02-24	*/
+  strncpy(kstalle,argv[2],sizeof(kstalle));
 
 
   strncpy(temp5,temp1,strlen(temp1));
