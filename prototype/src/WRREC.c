@@ -1,8 +1,8 @@
 /***************************************************************************
                           WRREC.c  -  description
                              -------------------
-			     version 0.03
-    begin                : Tis 29 april 2003
+			     version 0.04
+    begin                : Sön 10 aug 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -27,7 +27,7 @@
 	OUTPUT: filen /tmp/vernr.txt
  *****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/WRREC.c,v 1.2 2003/05/13 03:50:54 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/WRREC.c,v 1.3 2003/09/28 04:55:39 janpihlgren Exp $ " ;
 
 #include <string.h>
 #include <stdio.h>
@@ -142,8 +142,8 @@ int main (int argc, char *argv[], char *envp[])
 	strcat(post,userid);
 	strcat(post," ");
 	strcat(post,vertext);
-//	fprintf(stderr,"post=%s\n",post);
-//	exit(0);
+//	fprintf(stderr,"post=%s\n",post);	//
+//	exit(0);				//
 	status=reg_post(recpek,vrnrpek,typpek);
 	return status;
 }
@@ -160,7 +160,7 @@ int reg_post(char *rec,char *vrnr,char *typpek)
 //	char path[]="/tmp/";
 	char ext[]=".txt";
 	char filnamn[23]="";
-	char tmp[46]=" ";
+//	char tmp[46]=" ";
 
 	char post[POSTSIZE+1]="";
 	char *postpek;
@@ -213,7 +213,7 @@ int find_tmp_path(char *envp[])
 	char tmp[50]="";
 	char temp[10]="";
 	char *tmp_pek;
-	int i,j,status;
+	int i,status;
 
 	for (i = 0;envp[i]!=NULL;i++){
 		if(strstr(envp[i],"HOME=") != NULL){
