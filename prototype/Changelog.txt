@@ -1,14 +1,16 @@
-Changelog OLFIX 20040324
+Changelog OLFIX 20040325
 		Nya program
 		BALRPTW		Balansrapport/Balansräkning(ej färdig)
 
 		Ändrade program
 		SDOLISW		Lagt till Saldototaler
+				Fromdatum och Tomdatum
 
 		Nya funktioner
 		VERHDSP		Lista lägsta och högsta datum för angivet bokföringsår.
 
 		Ändrade funktioner
+		KTORPT.c	Utökad funktionallitet,(fromdatum och tomdatum)
 		TRANSIDdata.txt	Nya funktioner.
 
 		Ändrade rapporter
@@ -18,7 +20,7 @@ Changelog OLFIX 20040324
 		PROGRAMdata.txt	Nya program
 
 		Dokumentation
-		Teknisk Manual	Uppdaterad (2004-03-23)
+		Teknisk Manual	Uppdaterad (2004-03-25)
 ________________________________________________________
 Ver 0.1.14.A	OBS! Alfa
 20040317
