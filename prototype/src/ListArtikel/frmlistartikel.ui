@@ -44,6 +44,38 @@
     <property name="iconText">
         <string>OLFIX</string>
     </property>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonAgain</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>205</y>
+                <width>71</width>
+                <height>31</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Uppdatera</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonSluta</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>240</y>
+                <width>70</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Sluta</string>
+        </property>
+    </widget>
     <widget class="QListView">
         <column>
             <property name="text">
@@ -89,41 +121,21 @@
                 <height>261</height>
             </rect>
         </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonAgain</cstring>
+        <property name="selectionMode">
+            <enum>Single</enum>
         </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>205</y>
-                <width>71</width>
-                <height>31</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Uppdatera</string>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonSluta</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>240</y>
-                <width>70</width>
-                <height>30</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Sluta</string>
+        <property name="allColumnsShowFocus">
+            <bool>true</bool>
         </property>
     </widget>
 </widget>
 <connections>
+    <connection>
+        <sender>PushButtonAgain</sender>
+        <signal>clicked()</signal>
+        <receiver>frmListArtikel</receiver>
+        <slot>slotReloadArtikel()</slot>
+    </connection>
     <connection>
         <sender>PushButtonSluta</sender>
         <signal>clicked()</signal>
@@ -131,10 +143,10 @@
         <slot>close()</slot>
     </connection>
     <connection>
-        <sender>PushButtonAgain</sender>
-        <signal>clicked()</signal>
+        <sender>ListView1</sender>
+        <signal>clicked(QListViewItem*)</signal>
         <receiver>frmListArtikel</receiver>
-        <slot>slotReloadArtikel()</slot>
+        <slot>PickupArtikelnr(QListViewItem*)</slot>
     </connection>
 </connections>
 <includes>
@@ -146,6 +158,7 @@
     <slot>slotDataOnStdout()</slot>
     <slot>slotDataOnStderr()</slot>
     <slot>slotReloadArtikel()</slot>
+    <slot>PickupArtikelnr( QListViewItem * item )</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>

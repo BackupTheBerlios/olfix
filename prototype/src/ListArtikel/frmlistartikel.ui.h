@@ -8,8 +8,9 @@
 /***************************************************************************
                           LSTARW  -  description
                              -------------------
-		     version 0.1
+		     version 0.2
     begin                : Sön 22 nov 2003
+    modified	: Sön  7 dec 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -31,6 +32,8 @@
 #include <qregexp.h>
 #include <qfont.h>
 #include <qlistview.h>
+#include <qclipboard.h> 			// 2003-12-07
+#include <qapplication.h>		// 2003-12-07
 #define MAXSTRING 5000
 
 	QProcess* process;
@@ -186,4 +189,24 @@ void frmListArtikel::slotReloadArtikel()
     ListView1->clear();
     inrad="";
     frmListArtikel::GetArtikel();
+}
+
+void frmListArtikel::PickupArtikelnr(QListViewItem * item)	// 2003-12-07
+{
+    QString artikelnr;
+    char artikelnummer[31]="";
+//    qDebug("PickupArtikelnr\n");
+    if(!item){
+	return;
+    }
+     ListView1->setCurrentItem(item);
+     if(!item->key(0,TRUE)){
+	 return;
+     }
+
+     strcpy(artikelnummer,item->key(0,TRUE));
+     artikelnr=artikelnummer;
+//     qDebug("artikelnr=%s",artikelnr.latin1());
+     QClipboard *cb = QApplication::clipboard();     
+     cb->setText( artikelnr);
 }
