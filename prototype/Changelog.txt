@@ -1,11 +1,11 @@
-Changelog OLFIX 20041212
+Changelog OLFIX 20050101
 Blivande
 Ver 0.1.17.A
-20041212
+20050101
 		Nya funktioner
 		PKDADD.c	Lägga upp ett nytt produktklass/produktgrupp/produktkod
 		PKDLST.c	Lista produktklass/produktgrupp/produktkod
-		WKUDSP.c	Visa kunddata för en webbkund				*
+		WKUDSP.c	Visa kunddata för en webbkund		*
 
 		Ändrade funktioner
 		PRTAPI.c	Buggrättning, hantering av CR (hex 0A) i /tmp/
@@ -13,13 +13,17 @@ Ver 0.1.17.A
 		Nya program
 		LSTPKDW		Lista produktklass/produktgrupp/produktkod
 		DSPBARW		Visa räkenskapsår.
+		LSTFTGW		Lista data i företagsregistret.
 
 		Ändrade program
 		OLFIXW	Versionsnummer i Om OLFIX
 
 		Nya tabeller
-		PASSW		Spara password för webbkund (webbshop)			*
+		PASSW		Spara password för webbkund (webbshop)		*
 		KUNDKATEGORI	Beskrivning över kundkategorier
+
+		Ändrade tabeller
+		FTGDATA		Ny posttyp, WKUNR, Senast använda kundnr.
 
 		Ny sql
 		CreateTabellPASSW.sql		Skapa tabellen PASSW		*
@@ -28,10 +32,14 @@ Ver 0.1.17.A
 		Ändrade sql
 		CreateOLFIX.sql Skapar databaserna olix och olfixtst med data
 				 	samt användaren olfix.
+		FTGDATAdata_olfixtst.txt	Nya posttyper
+		FTGDATAdata.txt			Nya posttyper
+		PROGRAMdata.txt			Nytt program
 
 		Dokumentation
-		Teknisk Manual	Uppdaterad (2004-12-10)
-		UserManual	Uppdaterad (2004-12-05)
+		Teknisk Manual	Uppdaterad (2005-01-01)
+		UserManual	Uppdaterad (2004-12-20)
+		Installationsanvisningar.txt (2004-12-23)
 
 Ver 0.1.16.A
 20041130
