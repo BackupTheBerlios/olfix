@@ -1,22 +1,16 @@
 #!/bin/sh
+# Version 0.2	2004-01-18	Jan Pihlgren
 INSTALLPATH=/usr/local/olfix
-OLFIX_PATH=$HOME/tmp/olfix_path.txt
 
-exitcode=0
-dialog --backtitle "OLFIX installation." \
+INSTALLPATH=`dialog --backtitle "OLFIX installation." \
 --title "OLFIX INSTALLATION" \
---inputbox "Var vill du installera filerna? " 10 60  $INSTALLPATH 2>$OLFIX_PATH
-exitcode=$?
+--inputbox "Var vill du installera filerna? " 10 60  $INSTALLPATH 2>&1`
 
-if [ $exitcode -eq 0 ]
+if [ "$?" != "0" ]
 then
-	choice=`cat $OLFIX_PATH`
-	INSTALLPATH=$choice
-else
 	dialog --backtitle "OLFIX installation." \
 	--msgbox "** Installationen avbröts! **" 5 35
 	clear
-	rm -f $OLFIX_PATH
 	exit
 fi
 
