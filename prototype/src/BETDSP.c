@@ -2,8 +2,8 @@
                           BETDSP.c  -  description
                              -------------------
     begin                : Sön  8  aug	2003
-    Version		 : 0.2
-    modified		 : Mån 27 okt 2003
+    Version		 : 0.3
+    modified		 : Ons 4 jan 2004
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
  ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BETDSP.c,v 1.1 2003/10/27 09:35:40 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BETDSP.c,v 1.2 2004/02/04 08:53:08 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -127,6 +127,7 @@ int main(int argc, char *argv[], char *envp[])
 				fprintf(stdout,"BETVILKOR: %s ",sqlrow[0]);
 				fprintf(stdout,"DAGAR: %s ",sqlrow[1]);
 				fprintf(stdout,"BESKRIVNING: %s ",sqlrow[2]);
+				fprintf(stdout,"END:");
 				fprintf(stdout,"\n");
 			}
 			else{
