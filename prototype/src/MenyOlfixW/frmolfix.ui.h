@@ -8,9 +8,9 @@
 /***************************************************************************
                           OLFIXW  -  description
                              -------------------
-		     version 0.41
+		     version 0.5
     begin                   : Tis 16 maj 2003
-    modified	: Tors 27 nov 2003
+    modified	: Fre 20 febr 2004
     copyright            : (C) 2003 by Jan Pihlgren
     email                  : jan@pihlgren.se
  ***************************************************************************/
@@ -425,8 +425,21 @@ void frmOlfix::slotLicensvillkor()
 
 void frmOlfix::slotHelp()
 {
-  QMessageBox::information( this, "Hjälpindexl",
+	inrad="";
+	errorrad="";
+
+	process = new QProcess();
+	process->addArgument( "OLFIXHLP" );		// OLFIX program
+	process->addArgument("/doc/helpfiles/usermanual/UserManual.html");
+	
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
+	}
+
+/*  QMessageBox::information( this, "Hjälpindexl",
                             "Ännu inte implementerad!"
                             );
+*/			    
 }
 
