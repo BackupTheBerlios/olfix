@@ -27,7 +27,7 @@
 	OUTPUT: errornb och error (text)
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/VERUPD.c,v 1.2 2003/05/13 03:50:30 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/VERUPD.c,v 1.3 2003/09/28 04:54:40 janpihlgren Exp $ " ;
 
 
 #ifdef HAVE_CONFIG_H
