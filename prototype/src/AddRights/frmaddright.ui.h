@@ -6,13 +6,14 @@
 ** a constructor, and a destroy() slot in place of a destructor.
 *****************************************************************************/
 /***************************************************************************
-                          ADDRGTW  -  description
-                             -------------------
-		     version 0.03
-    begin                : Sön 11 april 2003
+			  ADDRGTW  -  description
+			     -------------------
+		     version 0.04
+    begin                : Tis 27 maj 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
+/* Lagt till "lostFocus" i Funk och LineEditUserid (2003-05-27/japi) */
 /*****************************************************************
  *					                                                 *
  *   This program is free software; you can redistribute it and/or modify 	 *
@@ -31,14 +32,14 @@
 #include <qlistview.h>
 #define MAXSTRING 15000
 
-    QProcess* process;
-    QString inrad;
-    QString errorrad;
-    QString* rad;
-    QString Userid;
-    QString Funk;
+QProcess* process;
+QString inrad;
+QString errorrad;
+QString* rad;
+QString Userid;
+QString Funk;
 
-    
+
 void frmAddRight::init()
 {
     LineEditUserid->clear();
@@ -49,39 +50,39 @@ void frmAddRight::init()
 
 void frmAddRight::slotAddRight()
 {
-/************************************************************************/
-/*	Uppdatera databasen						*/
-/************************************************************************/
-	const char *userp = getenv("USER");
-            QString usr(userp);
-	   
-	 frmAddRight::slotUseridEntered();
-	 frmAddRight::slotRightEntered();
-	    
-	process = new QProcess();
-	process->addArgument("./STYRMAN");	// OLFIX styrprogram
-	process->addArgument(usr);		// Userid
-	process->addArgument( "RGTADD");	// OLFIX funktion
-	process->addArgument(Userid);
-	process->addArgument(Funk);
-	
-	frmAddRight::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-	frmAddRight::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-            frmAddRight::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
- 
-	
-	if (Userid == "" || Funk ==""){
-    	    QMessageBox::warning( this, "ADDRGTW",
-                      "Userid och/eller Behörighet saknas \n" );
-	}
-	else {
-	    if ( !process->start() ) {
-		// error handling
-		fprintf(stderr,"Problem starta STYRMAN/RGTADD!\n");
-		QMessageBox::warning( this, "ADDRGTW",
-                            "Kan inte starta STYRMAN/RGTADD! \n" );
-	    }   
-	}
+    /************************************************************************/
+    /*	Uppdatera databasen						*/
+    /************************************************************************/
+    const char *userp = getenv("USER");
+    QString usr(userp);
+    
+    frmAddRight::slotUseridEntered();
+    frmAddRight::slotRightEntered();
+    
+    process = new QProcess();
+    process->addArgument("./STYRMAN");	// OLFIX styrprogram
+    process->addArgument(usr);		// Userid
+    process->addArgument( "RGTADD");	// OLFIX funktion
+    process->addArgument(Userid);
+    process->addArgument(Funk);
+    
+    frmAddRight::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+    frmAddRight::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+    frmAddRight::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
+    
+    
+    if (Userid == "" || Funk ==""){
+	QMessageBox::warning( this, "ADDRGTW",
+			      "Userid och/eller Behörighet saknas \n" );
+    }
+    else {
+	if ( !process->start() ) {
+	    // error handling
+	    fprintf(stderr,"Problem starta STYRMAN/RGTADD!\n");
+	    QMessageBox::warning( this, "ADDRGTW",
+				  "Kan inte starta STYRMAN/RGTADD! \n" );
+	}   
+    }
 }
 
 void frmAddRight::slotUseridEntered()
@@ -106,7 +107,7 @@ void frmAddRight::slotDataOnStdout()
 	QString line = process->readStdout();
 	inrad.append(line);
 	inrad.append("\n");
-//	qWarning( "slotDataOnStdout: Userid=%s \n", inrad.latin1() );
+	//	qWarning( "slotDataOnStdout: Userid=%s \n", inrad.latin1() );
     }
 }
 
@@ -116,9 +117,9 @@ void frmAddRight::slotDataOnStderr()
 	QString line = process->readStderr();
 	errorrad.append(line);
 	errorrad.append("\n");
-//	qWarning( "slotDataOnErrout: Userid=%s \n", inrad.latin1() );
+	//	qWarning( "slotDataOnErrout: Userid=%s \n", inrad.latin1() );
     }
-
+    
 }
 
 
@@ -127,73 +128,73 @@ void frmAddRight::slotEndOfProcess()
     int i;
     i = -1;
     i = errorrad.find( QRegExp("Error:"), 0 );
-         if (i != -1) {
+    if (i != -1) {
 	QMessageBox::critical( this, "ADDRGTW",
-		"ERROR!\n"+errorrad
-	);
+			       "ERROR!\n"+errorrad
+			       );
 	errorrad="";
 	i = -1;
-     }
-     i = -1;
-     i = inrad.find( QRegExp("OK:"), 0 );
-     if (i != -1) {
+    }
+    i = -1;
+    i = inrad.find( QRegExp("OK:"), 0 );
+    if (i != -1) {
 	QMessageBox::information( this, "ADDRGTW",
-		"Uppdatering OK!\n"+errorrad
-	);
+				  "Uppdatering OK!\n"+errorrad
+				  );
 	LineEditUserid->clear();
 	LineEditFunk->clear();
 	LineEditUserid->setFocus();
 	inrad="";
 	i = -1;
-     }
+    }
 }
 
 void frmAddRight::slotGetFunc()
 {
-	const char *userp = getenv("USER");
-            QString usr(userp);
-	QString bibl;
-	
-	inrad="";
-	errorrad="";
-	
-	bibl.append("./STYRMAN");		// OLFIX huvudprogram
-
-	process = new QProcess();
-	process->addArgument(bibl);
-	process->addArgument(usr);		// userid
-	process->addArgument( "TRNSLST");	// OLFIX funktion
-
-	fprintf(stderr,"Starta STYRMAN/TRNSLST! %s\n",usr.latin1());
-
-	frmAddRight::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-	frmAddRight::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-	frmAddRight::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfGetFuncfProcess() ) );
-
-	if ( !process->start() ) {
-                // error handling
-	    fprintf(stderr,"Problem starta STYRMAN/TRNSLST!\n");
-	    QMessageBox::warning( this, "Start av TRNSLST ",
-                            "Kan inte starta STYRMAN/TRNSLST!\n"
-                            );
-        }
-
+    const char *userp = getenv("USER");
+    QString usr(userp);
+    QString bibl;
+    
+    inrad="";
+    errorrad="";
+    
+    bibl.append("./STYRMAN");		// OLFIX huvudprogram
+    
+    process = new QProcess();
+    process->addArgument(bibl);
+    process->addArgument(usr);		// userid
+    process->addArgument( "TRNSLST");	// OLFIX funktion
+    
+    fprintf(stderr,"Starta STYRMAN/TRNSLST! %s\n",usr.latin1());
+    
+    frmAddRight::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+    frmAddRight::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+    frmAddRight::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfGetFuncfProcess() ) );
+    
+    if ( !process->start() ) {
+	// error handling
+	fprintf(stderr,"Problem starta STYRMAN/TRNSLST!\n");
+	QMessageBox::warning( this, "Start av TRNSLST ",
+			      "Kan inte starta STYRMAN/TRNSLST!\n"
+			      );
+    }
+    
 }
 
 void frmAddRight::slotEndOfGetFuncfProcess() 
 {
-   QListViewItem* item;
+    QListViewItem* item;
     int i;
     i = -1;
     i = errorrad.find( QRegExp("Error:"), 0 );
-         if (i != -1) {
+    if (i != -1) {
 	QMessageBox::critical( this, "ADDRGTW",
-		"ERROR!\n"+errorrad
-	);
+			       "ERROR!\n"+errorrad
+			       );
 	errorrad="";
 	i = -1;
-     }
-
+    }
+    
     QString listrad;
     rad=&inrad;
     inrad.latin1();
@@ -205,15 +206,15 @@ void frmAddRight::slotEndOfGetFuncfProcess()
     char antrad[6]="";
     char trnsid[9]="";
     char benamn[61]="";
-//    char listrad[90]="";
-
+    //    char listrad[90]="";
+    
     tmppek=tmp;
     qstrcpy(tmp,inrad);
     pos1=strstr(tmp,"NR_");
     pos2=strstr(tmp,"_:");
     i=pos2-pos1;
     m=i+2;		// startposition för första trnsid.
-//    fprintf(stdout,"i=%d  m=%d",i,m);
+    //    fprintf(stdout,"i=%d  m=%d",i,m);
     k=0;
     for (j=3;j<i;j++){
 	antrad[k]=tmp[j];
@@ -231,7 +232,7 @@ void frmAddRight::slotEndOfGetFuncfProcess()
 		j=sizeof(trnsid) + m;
 	    }
 	}
-//	fprintf(stdout,"%s  ",user);
+	//	fprintf(stdout,"%s  ",user);
 	m=m+l+2;	// position för benamn
 	l=0;
 	for(j = m; j < sizeof(benamn) + m; j++){
@@ -243,15 +244,15 @@ void frmAddRight::slotEndOfGetFuncfProcess()
 		j=sizeof(benamn) + m;
 	    }
 	}
-//	fprintf(stdout,"%s  ",benamn);
+	//	fprintf(stdout,"%s  ",benamn);
 	m=m+l+2;
 	item = new QListViewItem(ListViewBehor_2,trnsid,benamn);
-// 	 rensa user,namn,avd och grupp 
-  	for (l=0;l<sizeof(trnsid);l++)
-		trnsid[l]=*("\0");
+	// 	 rensa user,namn,avd och grupp 
+	for (l=0;l<sizeof(trnsid);l++)
+	    trnsid[l]=*("\0");
 	for (l=0;l<sizeof(benamn);l++)
-		benamn[l]=*("\0");
-//	 rensa listrad
+	    benamn[l]=*("\0");
+	//	 rensa listrad
 	listrad.remove(0,70);
     }
 }
@@ -260,16 +261,16 @@ void frmAddRight::slotEndOfGetFuncfProcess()
 void frmAddRight::slotPickupFunc( QListViewItem * item)
 {
     char func[9]="";
-//    qDebug("PickupFunc\n");
+    //    qDebug("PickupFunc\n");
     if(!item){
 	return;
     }
-     ListViewBehor_2->setCurrentItem(item);
-     if(!item->key(0,TRUE)){
-	 return;
-     }
-
-     strcpy(func,item->key(0,TRUE));
-     Funk=func;
-     LineEditFunk->setText((Funk));
+    ListViewBehor_2->setCurrentItem(item);
+    if(!item->key(0,TRUE)){
+	return;
+    }
+    
+    strcpy(func,item->key(0,TRUE));
+    Funk=func;
+    LineEditFunk->setText((Funk));
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
 <class>frmAddRight</class>
 <widget class="QWidget">
     <property name="name">
@@ -8,9 +8,15 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>390</width>
+            <width>432</width>
             <height>151</height>
         </rect>
+    </property>
+    <property name="font">
+        <font>
+            <family>Helvetica</family>
+            <pointsize>10</pointsize>
+        </font>
     </property>
     <property name="caption">
         <string>ADDRGTW  Lägga upp ny behörighet</string>
@@ -33,7 +39,7 @@
                 <property name="clickable">
                     <bool>true</bool>
                 </property>
-                <property name="resizeable">
+                <property name="resizable">
                     <bool>true</bool>
                 </property>
             </column>
@@ -44,7 +50,7 @@
                 <property name="clickable">
                     <bool>true</bool>
                 </property>
-                <property name="resizeable">
+                <property name="resizable">
                     <bool>true</bool>
                 </property>
             </column>
@@ -101,6 +107,9 @@
             </property>
             <property name="text">
                 <string>Avsluta</string>
+            </property>
+            <property name="default">
+                <bool>true</bool>
             </property>
         </widget>
         <widget class="QPushButton" row="2" column="0">
@@ -223,7 +232,26 @@
         <receiver>frmAddRight</receiver>
         <slot>close()</slot>
     </connection>
+    <connection>
+        <sender>LineEditUserid</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmAddRight</receiver>
+        <slot>slotUseridEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditFunk</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmAddRight</receiver>
+        <slot>slotRightEntered()</slot>
+    </connection>
 </connections>
+<tabstops>
+    <tabstop>LineEditUserid</tabstop>
+    <tabstop>LineEditFunk</tabstop>
+    <tabstop>PushButtonOK</tabstop>
+    <tabstop>PushButtonQuit</tabstop>
+    <tabstop>ListViewBehor_2</tabstop>
+</tabstops>
 <includes>
     <include location="local" impldecl="in implementation">frmaddright.ui.h</include>
 </includes>

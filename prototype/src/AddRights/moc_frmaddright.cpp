@@ -1,8 +1,8 @@
 /****************************************************************************
 ** frmAddRight meta object code from reading C++ file 'frmaddright.h'
 **
-** Created: Tue Mar 25 16:09:50 2003
-**      by: The Qt MOC ($Id: moc_frmaddright.cpp,v 1.1 2003/05/08 08:54:22 frazze Exp $)
+** Created: Tue May 27 06:35:06 2003
+**      by: The Qt MOC ($Id: moc_frmaddright.cpp,v 1.2 2003/09/28 06:13:38 janpihlgren Exp $)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -13,8 +13,8 @@
 #include <qapplication.h>
 
 #include <private/qucomextra_p.h>
-#if !defined(Q_MOC_OUTPUT_REVISION) || (Q_MOC_OUTPUT_REVISION != 19)
-#error "This file was generated using the moc from 3.0.5. It"
+#if !defined(Q_MOC_OUTPUT_REVISION) || (Q_MOC_OUTPUT_REVISION != 26)
+#error "This file was generated using the moc from 3.1.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -25,7 +25,7 @@ const char *frmAddRight::className() const
 }
 
 QMetaObject *frmAddRight::metaObj = 0;
-static QMetaObjectCleanUp cleanUp_frmAddRight;
+static QMetaObjectCleanUp cleanUp_frmAddRight( "frmAddRight", &frmAddRight::staticMetaObject );
 
 #ifndef QT_NO_TRANSLATION
 QString frmAddRight::tr( const char *s, const char *c )
@@ -58,7 +58,14 @@ QMetaObject* frmAddRight::staticMetaObject()
     static const QUMethod slot_3 = {"slotDataOnStdout", 0, 0 };
     static const QUMethod slot_4 = {"slotDataOnStderr", 0, 0 };
     static const QUMethod slot_5 = {"slotEndOfProcess", 0, 0 };
-    static const QUMethod slot_6 = {"init", 0, 0 };
+    static const QUMethod slot_6 = {"slotGetFunc", 0, 0 };
+    static const QUMethod slot_7 = {"slotEndOfGetFuncfProcess", 0, 0 };
+    static const QUParameter param_slot_8[] = {
+	{ "item", &static_QUType_ptr, "QListViewItem", QUParameter::In }
+    };
+    static const QUMethod slot_8 = {"slotPickupFunc", 1, param_slot_8 };
+    static const QUMethod slot_9 = {"languageChange", 0, 0 };
+    static const QUMethod slot_10 = {"init", 0, 0 };
     static const QMetaData slot_tbl[] = {
 	{ "slotAddRight()", &slot_0, QMetaData::Public },
 	{ "slotUseridEntered()", &slot_1, QMetaData::Public },
@@ -66,11 +73,15 @@ QMetaObject* frmAddRight::staticMetaObject()
 	{ "slotDataOnStdout()", &slot_3, QMetaData::Public },
 	{ "slotDataOnStderr()", &slot_4, QMetaData::Public },
 	{ "slotEndOfProcess()", &slot_5, QMetaData::Public },
-	{ "init()", &slot_6, QMetaData::Protected }
+	{ "slotGetFunc()", &slot_6, QMetaData::Public },
+	{ "slotEndOfGetFuncfProcess()", &slot_7, QMetaData::Public },
+	{ "slotPickupFunc(QListViewItem*)", &slot_8, QMetaData::Public },
+	{ "languageChange()", &slot_9, QMetaData::Protected },
+	{ "init()", &slot_10, QMetaData::Protected }
     };
     metaObj = QMetaObject::new_metaobject(
 	"frmAddRight", parentObject,
-	slot_tbl, 7,
+	slot_tbl, 11,
 	0, 0,
 #ifndef QT_NO_PROPERTIES
 	0, 0,
@@ -83,7 +94,8 @@ QMetaObject* frmAddRight::staticMetaObject()
 
 void* frmAddRight::qt_cast( const char* clname )
 {
-    if ( !qstrcmp( clname, "frmAddRight" ) ) return (frmAddRight*)this;
+    if ( !qstrcmp( clname, "frmAddRight" ) )
+	return this;
     return QWidget::qt_cast( clname );
 }
 
@@ -96,7 +108,11 @@ bool frmAddRight::qt_invoke( int _id, QUObject* _o )
     case 3: slotDataOnStdout(); break;
     case 4: slotDataOnStderr(); break;
     case 5: slotEndOfProcess(); break;
-    case 6: init(); break;
+    case 6: slotGetFunc(); break;
+    case 7: slotEndOfGetFuncfProcess(); break;
+    case 8: slotPickupFunc((QListViewItem*)static_QUType_ptr.get(_o+1)); break;
+    case 9: languageChange(); break;
+    case 10: init(); break;
     default:
 	return QWidget::qt_invoke( _id, _o );
     }
@@ -109,8 +125,10 @@ bool frmAddRight::qt_emit( int _id, QUObject* _o )
 }
 #ifndef QT_NO_PROPERTIES
 
-bool frmAddRight::qt_property( int _id, int _f, QVariant* _v)
+bool frmAddRight::qt_property( int id, int f, QVariant* v)
 {
-    return QWidget::qt_property( _id, _f, _v);
+    return QWidget::qt_property( id, f, v);
 }
+
+bool frmAddRight::qt_static_property( QObject* , int , int , QVariant* ){ return FALSE; }
 #endif // QT_NO_PROPERTIES
