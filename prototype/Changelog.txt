@@ -1,8 +1,40 @@
-Changelog OLFIX 2003112
+Changelog OLFIX 2003123
 
 Ver 0.1.10.A	OBS! Alfa
-2003112
+2003123
+		Nya program
+		DSPARW		Visa data på artikel, ej ekonomiska, GUI
+		DSPAREW		Visa ekonomidata på en artikel, GUI
+		CHGARW		Ändra artikeldata, GUI
+		AR2ADD.c	Lägga upp lagerdata för en artikel.
+		ARCHG.c		Ändra grunddata för en artikel.
+		ARCHGL.c	Ändra lagerställedata för en artikel.
+		ARDSP.c		Visa grunddata för en artikel.
+		ARDSPL.c	Visa lagerställedata för en artikel,bl a ekonomidata
+		BETLST.c	Lista betalningsvillkor
+		LSTBETVW	Lista betalningsvillkor, GUI
+		BETADD.c	Lägga upp nya betalningsvillkor
+		ADDBETVW	Lägga upp nya betalningsvillkor, GUI
 
+		Ändrade program
+		ARADD.c		Tillägg av fältet AROMRFAKTOR
+		ADDARW		Lagt till lagerställe mm. Preliminär
+		DSPLEVW		Buggrättning
+
+		SQL, ändrat
+		CreateTableARTIKELREG.sql	Tillägg av fältet AROMRFAKTOR
+		CreateTableLAGERSTELLEREG.sql	Tillägg av fältet AROMKOST,ARPLANKPRIS,ARFRYSTKPRIS
+
+		Ändrad tabeller
+		ARTIKELREG	Tillägg av fältet AROMRFAKTOR (omräkningsfaktor)
+		LAGERSTELLEREG	Tillägg av fältet AROMKOST (omkostnader),ARPLANKPRIS,ARFRYSTKPRIS
+
+		Data
+		PROGRAMdata,txt			Nya program, + ändrad indelning
+		TRANSIDdata.txt			Nya funktioner
+
+		Dokumentation
+		Teknisk Manual	Uppdaterad (2003-11-23)
 ________________________________________________________
 Changelog OLFIX 2003111
 
@@ -345,7 +377,7 @@ ________________________________________________________
 Ver 0.1.1.B
 20030330	Uppdaterat all .c-filer med
 			 /*@unused@*/ static char RCS_id[] =
-			    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/Changelog.txt,v 1.2 2003/11/12 15:29:27 janpihlgren Exp $ " ;
+			    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/Changelog.txt,v 1.3 2003/11/23 05:59:16 janpihlgren Exp $ " ;
 		OLFIXW.    Lagt till "stretch"-möjlighet.
 		.olfixrc   Utökad med VTMP=/tmp/
 		WRREC.c.   Hämtar sökvägen till vernr.txt från filen $HOME/.olfixrc
