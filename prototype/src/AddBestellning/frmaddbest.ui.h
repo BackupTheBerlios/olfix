@@ -9,8 +9,9 @@
 /***************************************************************************
                           ADDINKW  -  description
                              -------------------
-		     version 0.1
+		     version 0.2
     begin                : Mån 8 dec 2003
+    modified	: Fre 19 dec 2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -1344,4 +1345,31 @@ void frmAddBest::slotOrderadEndOfProcess()
 	);
     }
     errorrad="";
+}
+
+void frmAddBest::listViewRader_clicked( QListViewItem * )
+{
+    QListViewItem *item =  listViewRader->currentItem();
+    if ( !item )
+        return;
+    item->setSelected( TRUE );
+    QString temp0=item->text(0);	// radnr
+    QString temp1=item->text(1);	// artikelnr
+    QString temp2=item->text(2);	// artikelbenämning
+    QString temp3=item->text(3);	// leveransvecka
+    QString temp4=item->text(4);	// antal
+    QString temp5=item->text(5);	// pris/st
+    QString temp6=item->text(6);	// radsumma
+//    qDebug("temp=%s, %s, %s, %s, %s, %s, %s",temp0.latin1(),temp1.latin1(),temp2.latin1(),temp3.latin1(),temp4.latin1(),temp5.latin1(),temp6.latin1());
+// --------------------------------------------------------------
+    lineEditRadnr->setText(temp0);
+    bestradnr=temp0;
+    lineEditArtikelNr->setText(temp1);
+    lineEditBenamn->setText(temp2);
+    lineEditLeveransvecka->setText(temp3);
+    lineEditAntal->setText(temp4);
+    lineEditAPris->setText(temp5);
+    lineEditRadSumma->setText(temp6);
+    lineEditArtikelNr->setFocus();
+    delete listViewRader->currentItem();
 }

@@ -701,131 +701,6 @@
             <set>AlignRight</set>
         </property>
     </widget>
-    <widget class="QListView">
-        <column>
-            <property name="text">
-                <string>Radnr</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>false</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Artikelnr</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Benämning</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Lev.vecka</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Antal</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Pris</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Summa</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <property name="name">
-            <cstring>listViewRader</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>5</x>
-                <y>315</y>
-                <width>725</width>
-                <height>166</height>
-            </rect>
-        </property>
-        <property name="sizePolicy">
-            <sizepolicy>
-                <hsizetype>0</hsizetype>
-                <vsizetype>0</vsizetype>
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-            </sizepolicy>
-        </property>
-        <property name="minimumSize">
-            <size>
-                <width>715</width>
-                <height>166</height>
-            </size>
-        </property>
-        <property name="maximumSize">
-            <size>
-                <width>725</width>
-                <height>166</height>
-            </size>
-        </property>
-        <property name="lineWidth">
-            <number>2</number>
-        </property>
-        <property name="margin">
-            <number>0</number>
-        </property>
-        <property name="midLineWidth">
-            <number>10</number>
-        </property>
-        <property name="selectionMode">
-            <enum>NoSelection</enum>
-        </property>
-        <property name="itemMargin">
-            <number>2</number>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>textLabel3_2</cstring>
@@ -1460,6 +1335,131 @@
             <bool>true</bool>
         </property>
     </widget>
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Radnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>false</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Artikelnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Benämning</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Lev.vecka</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Antal</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Pris</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Summa</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <property name="name">
+            <cstring>listViewRader</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>315</y>
+                <width>725</width>
+                <height>166</height>
+            </rect>
+        </property>
+        <property name="sizePolicy">
+            <sizepolicy>
+                <hsizetype>0</hsizetype>
+                <vsizetype>0</vsizetype>
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+            </sizepolicy>
+        </property>
+        <property name="minimumSize">
+            <size>
+                <width>715</width>
+                <height>166</height>
+            </size>
+        </property>
+        <property name="maximumSize">
+            <size>
+                <width>725</width>
+                <height>166</height>
+            </size>
+        </property>
+        <property name="lineWidth">
+            <number>2</number>
+        </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <property name="midLineWidth">
+            <number>10</number>
+        </property>
+        <property name="selectionMode">
+            <enum>Single</enum>
+        </property>
+        <property name="itemMargin">
+            <number>2</number>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
@@ -1588,6 +1588,12 @@
         <receiver>frmAddBest</receiver>
         <slot>lineEditFtgPostAdress_returnPressed()</slot>
     </connection>
+    <connection>
+        <sender>listViewRader</sender>
+        <signal>clicked(QListViewItem*)</signal>
+        <receiver>frmAddBest</receiver>
+        <slot>listViewRader_clicked(QListViewItem*)</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>lineEditBestLevNr</tabstop>
@@ -1670,6 +1676,7 @@
     <slot>createOrderrad( QString tmp0, QString tmp1, QString tmp2, QString tmp3, QString tmp4, QString tmp5, QString tmp6 )</slot>
     <slot>AddOrderRad()</slot>
     <slot>slotOrderadEndOfProcess()</slot>
+    <slot>listViewRader_clicked( QListViewItem * )</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
