@@ -1,13 +1,14 @@
 /***************************************************************************
                           FTGADM.c  -  description
                              -------------------
-			     version 0.03
+			     version 0.4
 			     ersätter FOREG.c
 			     ersätter FORADM.c (2003-04-15)
     begin                : Fre 22 nov 2002
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
+/* 	INPUT: userid [databas]						   */
 
 /***************************************************************************
  *                                                                         *
@@ -18,31 +19,34 @@
  *                                                                         *
  *********************************************** ****************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FTGADM.c,v 1.1 2003/05/08 08:54:06 frazze Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FTGADM.c,v 1.2 2003/11/02 15:16:31 janpihlgren Exp $ " ;
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <ctype.h>
 #include "vt220.h"
 #include "getrad.h"
 #include "unpad.h"
 #define MAXRAD 30
 #define MAXSTRING 5000
+#define ANTARG 1
 
+int which_database(char *envp[]);
+  char database[15]="";
 
 char userid[9]="";
-
-char foretagsnamn[30];
-char adr1adr[30];
-char adr1postnr[9];
-char adr1ort[15];
-char adr2adr[30];
-char adr2postnr[9];
-char adr2ort[15];
-char adr3adr[30];
-char adr3postnr[9];
-char adr3ort[15];
+char foretagsnamn[30]="";
+char adr1adr[30]="";
+char adr1postnr[9]="";
+char adr1ort[15]="";
+char adr2adr[30]="";
+char adr2postnr[9]="";
+char adr2ort[15]="";
+char adr3adr[30]="";
+char adr3postnr[9]="";
+char adr3ort[15]="";
 
 
 void meny(void);
@@ -56,13 +60,54 @@ int updateForadm(char *rectyp);		/* rectyp = posttyp. */
 int trim(void);
 int clearAdresser(void);
 
-main(int argc, char *argv[])
+ int main(int argc, char *argv[], char *envp[])
 {
-	int i;
-	strcpy(userid,argv[1]);
-	meny();
-	return 0;
-	meny();
+/*  int i;	*/
+  int status;
+  const char *userp = getenv("USER");	/* vem är inloggad?	*/
+  char databas[25]="olfix";
+  char usr[15];				/* userid		*/
+  fprintf(stderr,"argc=%d\n",argc);
+  /* ================================================================================ */
+/* 		Val av databas, START						    */
+/* ================================================================================ */
+
+  status = which_database(envp);
+fprintf(stderr,"database=%s\n",database);
+  if (status != 0)
+	exit(status);
+
+  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+/*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
+  if (argc < ANTARG+1){
+    	if (strlen(database)!= 0){
+		strncpy(databas,database,15);
+	}else{
+  		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
+	}
+  }else{
+	if (strlen(argv[ANTARG]) != 0){
+  		if (strncmp(argv[ANTARG],"99",2)==0){
+			strncpy(databas,"olfixtst",15);
+		}else{
+  			strncpy(databas,argv[ANTARG],15);
+  		}
+  	}
+  }
+  fprintf(stderr,"ANTARG=%d,argv[ANTARG]=%s\n",ANTARG,argv[ANTARG]);
+/* Om usr (userid) börjar på 'test' eller 'prov' använd databas 'olfixtst' */
+  if (strncmp(usr,"test",4)==0 || strncmp(usr,"prov",4)==0 ) {
+  	strncpy(databas,"olfixtst",15);
+  }
+/* fprintf(stderr,"Databas=%s\n",databas);	*/
+/* ================================================================================ */
+/* 		Val av databas, END!						    */
+/* ================================================================================ */
+fprintf(stderr,"argv[1]=%s\n",argv[1]);
+  strncpy(userid,argv[1],strlen(argv[1]));
+  meny();
+  return 0;
+  meny();
 }
 
 void meny(void)
@@ -105,7 +150,7 @@ start:
 	getrad(rad,MAXRAD);
 	svar = rad[0];
 
-//	fprintf(stderr,"svaret är %c",svar);
+/*	fprintf(stderr,"svaret är %c",svar);	*/
 
 	switch (svar){
 		case '0':
@@ -132,32 +177,32 @@ start:
  		goto start;
 	}
 	else{
-		strcpy(anrop,"./OLFIX ");
-		strcat(anrop,userid);
+		strncpy(anrop,"./OLFIX ",strlen(anrop));
+		strncat(anrop,userid,strlen(userid));
 		status=system(anrop);
 	}
 }
 
 void updateAdress(void)
 {
-	char rad[2];
+	char rad[2]="";
 	int status,dummy,i;
-	char tmp[10];
+/*	char tmp[10]="";	*/
 	char svar;
-	char adr[6];
+	char adr[6]="";
 	static char adr1[]="ADR1";
 	static char adr2[]="ADR2";
 	static char adr3[]="ADR3";
 
-//	cls();
+/*	cls();	*/
 	status=clearAdresser();
-	strcpy(adr,adr1);
+	strncpy(adr,adr1,strlen(adr1));
 	status = getAdress(adr);
-	strcpy(adr,adr2);
+	strncpy(adr,adr2,strlen(adr2));
 	status = getAdress(adr);
-	strcpy(adr,adr3);
+	strncpy(adr,adr3,strlen(adr3));
 	status = getAdress(adr);
-//	fprintf(stderr,"start\n");
+/*	fprintf(stderr,"start\n");	*/
 start:
 	status=0;
 	cls();
@@ -296,10 +341,10 @@ start:
 
 void updateTfn(void)
 {
-	char rad[2];
+	char rad[2]="";
 	int status;
 	char svar;
-	char anrop[30]="";
+/*	char anrop[30]="";	*/
 start:
 	status=0;
 	cls();
@@ -324,28 +369,28 @@ start:
 	locate(7,55);
 	fprintf(stdout,"3. Faxnummer");
 
-//	locate(9,30);
-//	fprintf(stdout,"Besöksadress");
-//	locate(10,30);
-//	fprintf(stdout,"------------");
-//	locate(11,1);
-//	fprintf(stdout,"5. Gatuadr:");
-//	locate(11,44);
-//	fprintf(stdout,"6. Postnr:");
-//	locate(11,62);
-//	fprintf(stdout,"7. Ort");
+/*	locate(9,30);
+	fprintf(stdout,"Besöksadress");
+	locate(10,30);
+	fprintf(stdout,"------------");
+	locate(11,1);
+	fprintf(stdout,"5. Gatuadr:");
+	locate(11,44);
+	fprintf(stdout,"6. Postnr:");
+	locate(11,62);
+	fprintf(stdout,"7. Ort");
 
-//	locate(13,30);
-//	fprintf(stdout,"Leveransadress");
-//	locate(14,30);
-//	fprintf(stdout,"--------------");
-//	locate(15,1);
-//	fprintf(stdout,"8. Gatuadr:");
-//	locate(15,45);
-//	fprintf(stdout,"9. Postnr:");
-//	locate(15,62);
-//	fprintf(stdout,"10. Ort");
-
+	locate(13,30);
+	fprintf(stdout,"Leveransadress");
+	locate(14,30);
+	fprintf(stdout,"--------------");
+	locate(15,1);
+	fprintf(stdout,"8. Gatuadr:");
+	locate(15,45);
+	fprintf(stdout,"9. Postnr:");
+	locate(15,62);
+	fprintf(stdout,"10. Ort");
+*/
 
 	locate(17,30);
 	fprintf(stdout,"0. SLUTA");
@@ -357,7 +402,7 @@ start:
 	getrad(rad,MAXRAD);
 	svar = rad[0];
 
-//	fprintf(stderr,"svaret är %c",svar);
+/*	fprintf(stderr,"svaret är %c",svar);	*/
 
 	switch (svar){
 		case '0':
@@ -391,11 +436,11 @@ int getAdress(char *adr)
 
 	pid_t pid;
 
-	int dummy;
-	char rad[3];
+/*	int dummy;	*/
+/*	char rad[3];	*/
 	char tmp[MAXSTRING]="";
 
-//	fprintf(stderr,"getAdress_adr=%s\n",adr);
+/*	fprintf(stderr,"getAdress_adr=%s\n",adr);	*/
 
 	pipe(fds);
 	pid=fork();
@@ -404,8 +449,8 @@ int getAdress(char *adr)
 		close (fds[0]);
 		dup2 (fds[1], STDOUT_FILENO);
 		status=execl("STYRMAN", "STYRMAN", userid, "FORDSP", adr, (char *) 0);
-//		fprintf(stderr,"status=%d\n",status);
-//		fprintf(stdout,"Child uppdatering OK? (<J>/N) ");
+/*		fprintf(stderr,"status=%d\n",status);	*/
+/*		fprintf(stdout,"Child uppdatering OK? (<J>/N) ");	*/
 	}
 	else{				/* Parent (Denna process) */
 		FILE* stream;
@@ -423,7 +468,7 @@ int getAdress(char *adr)
 			return -1;
 		}
 		else{
-//			fprintf(stdout,"FORADMgetAdressParent: datstr= %s\n",datastr);
+/*			fprintf(stdout,"FORADMgetAdressParent: datstr= %s\n",datastr);	*/
 			pos=strstr(datastr,". Status =");
 			if (pos != 0){
 				status=atoi(strncpy(datastr,pos+11,2));
@@ -431,12 +476,12 @@ int getAdress(char *adr)
 			}
 			pos=strstr(datastr,"1:ADR");
 			if (pos != 0){
-				strcpy(tmp,datastr);
-//				fprintf(stdout,"FORADMgetAdressParent2:%s\n",tmp);
+				strncpy(tmp,datastr,strlen(datastr));
+/*				fprintf(stdout,"FORADMgetAdressParent2:%s\n",tmp);	*/
 			}
 			free(datastr);
-//			fprintf(stdout,"Parent lista OK? (<J>/N) ");
-//			dummy = getrad(rad,3);
+/*			fprintf(stdout,"Parent lista OK? (<J>/N) ");	*/
+/*			dummy = getrad(rad,3);	*/
 		}
 	}
 /********************************************************************************/
@@ -445,7 +490,7 @@ int getAdress(char *adr)
 /* Sedan kommer "2:" och därefter kommer data som innehåller:			*/
 /* Företagsnamn, adress, postnummer, ort åtskilda av " : ".			*/
 /********************************************************************************/
-//	fprintf(stdout,"%s\n",tmp);
+/*	fprintf(stdout,"%s\n",tmp);				*/
 /*	Plocka ut posttyp					*/
 	pos1=strstr(tmp,"ADR");
 	pos2=strstr(tmp,"2:");
@@ -457,7 +502,7 @@ int getAdress(char *adr)
 		k++;
 	}
 	l=atoi(&ptyp[3]);
-//	fprintf(stderr,"l=%d\n",l);
+/*	fprintf(stderr,"l=%d\n",l);				*/
 /*		Plocka ut data ur den hämtade strängen		*/
 	switch (l){
 		case 1:
@@ -469,28 +514,28 @@ int getAdress(char *adr)
 			for (j = 0;j < i; j++){
 				foretagsnamn[j] = pos1[j];
 			}
-//			fprintf(stderr,"företagsnamn=%s\n",foretagsnamn);
+/*			fprintf(stderr,"företagsnamn=%s\n",foretagsnamn);	*/
 			pos1 = pos2+2;
 			pos2=strstr(pos1,":");
 			i=pos2-pos1;
 			for (j = 0;j < i; j++){
 				adr1adr[j] = pos1[j];
 			}
-//			fprintf(stderr,"adr1adr=%s\n",adr1adr);
+/*			fprintf(stderr,"adr1adr=%s\n",adr1adr);			*/
 			pos1 = pos2+2;
 			pos2=strstr(pos1,":");
 			i=pos2-pos1;
 			for (j = 0;j < i; j++){
 				adr1postnr[j] = pos1[j];
 			}
-//			fprintf(stderr,"ad1postnr=%s\n",adr1postnr);
+/*			fprintf(stderr,"ad1postnr=%s\n",adr1postnr);		*/
 			pos1 = pos2+2;
 			m=strlen(pos1);
-			//i=pos2-pos1;
+			/* i=pos2-pos1;		*/
 			for (j = 0;j < m; j++){
 				adr1ort[j] = pos1[j];
 			}
-//			fprintf(stderr,"ad1ort=%s\n",adr1ort);
+/*			fprintf(stderr,"ad1ort=%s\n",adr1ort);			*/
 			break;
 		case 2:
 			pos1 = pos2+2;
@@ -520,11 +565,11 @@ int getAdress(char *adr)
 			m=strlen(pos1);
 			if (m < 1)
 				return -1;
-//			fprintf(stderr,"m=%d\n",m);
+/*			fprintf(stderr,"m=%d\n",m);		*/
 			for (j = 0;j < m; j++){
 				adr2ort[j] = pos1[j];
 			}
-//			fprintf(stderr,"ad2ort=%s\n",adr2ort);
+/*			fprintf(stderr,"ad2ort=%s\n",adr2ort);		*/
 			break;
 		case 3:
 			pos1 = pos2+2;
@@ -535,27 +580,27 @@ int getAdress(char *adr)
 			for (j = 0;j < i; j++){
 				foretagsnamn[j] = pos1[j];
 			}
-//			fprintf(stderr,"företagsnamn=%s\n",foretagsnamn);
+/*			fprintf(stderr,"företagsnamn=%s\n",foretagsnamn);		*/
 			pos1 = pos2+2;
 			pos2=strstr(pos1,":");
 			i=pos2-pos1;
 			for (j = 0;j < i; j++){
 				adr3adr[j] = pos1[j];
 			}
-//			fprintf(stderr,"adr3adr=%s\n",adr3adr);
+/*			fprintf(stderr,"adr3adr=%s\n",adr3adr);		*/
 			pos1 = pos2+2;
 			pos2=strstr(pos1,":");
 			i=pos2-pos1;
 			for (j = 0;j < i; j++){
 				adr3postnr[j] = pos1[j];
 			}
-//			fprintf(stderr,"adr3postnr=%s\n",adr3postnr);
+/*			fprintf(stderr,"adr3postnr=%s\n",adr3postnr);	*/
 			pos1 = pos2+2;
 			m=strlen(pos1);
 			for (j = 0;j < m; j++){
 				adr3ort[j] = pos1[j];
 			}
-//			fprintf(stderr,"ad3ort=%s\n",adr3ort);
+/*			fprintf(stderr,"ad3ort=%s\n",adr3ort);		*/
 			break;
 		default:
 			break;
@@ -576,30 +621,30 @@ int updateForadm(char *rectyp)
 	int status=0;
 	char data[200]="";
 	char tmp[]=" : ";
-	char adr[6];
+	char adr[6]="";
 	static char adr1[]="ADR1";
 	static char adr2[]="ADR2";
 	static char adr3[]="ADR3";
 	char *pos;
-	
+
 	status=trim();
-//	fprintf(stderr,"FORADMupdateFORADM:rectyp=%s\n",rectyp);
+/*	fprintf(stderr,"FORADMupdateFORADM:rectyp=%s\n",rectyp);	*/
 
 	status=strcmp(rectyp,"ADR");
 	if (status == 0){
-		strcpy(adr,adr1);
-		strcpy(data,foretagsnamn);
-		strcat(data,tmp);
-		strcat(data,adr1adr);
-		strcat(data,tmp);
-		strcat(data,adr1postnr);
-		strcat(data,tmp);
-		strcat(data,adr1ort);
-//		fprintf(stderr,"FORADMupdateFORADM:adr=%s data=%s\n",adr,data);
+		strncpy(adr,adr1,strlen(adr1));
+		strncpy(data,foretagsnamn,strlen(foretagsnamn));
+		strncat(data,tmp,strlen(tmp));
+		strncat(data,adr1adr,strlen(adr1adr));
+		strncat(data,tmp,strlen(tmp));
+		strncat(data,adr1postnr,strlen(adr1postnr));
+		strncat(data,tmp,strlen(tmp));
+		strncat(data,adr1ort,strlen(adr1ort));
+/*		fprintf(stderr,"FORADMupdateFORADM:adr=%s data=%s\n",adr,data);	*/
 /************************************************/
 /*	 Skicka data för ADR1 			*/
 /************************************************/
-		strcpy(adr,adr1);
+		strncpy(adr,adr1,strlen(adr1));
 		pipe(fds);
 		pid=fork();
 
@@ -607,8 +652,8 @@ int updateForadm(char *rectyp)
 			close (fds[0]);
 			dup2 (fds[1], STDOUT_FILENO);
 			status=execl("STYRMAN", "STYRMAN", userid, "FTGUPD", adr, data, (char *) 0);
-//			fprintf(stderr,"status=%d\n",status);
-//			fprintf(stdout,"Child uppdatering OK? (<J>/N) ");
+/*			fprintf(stderr,"status=%d\n",status);			*/
+/*			fprintf(stdout,"Child uppdatering OK? (<J>/N) ");	*/
 		}
 		else{				/* Parent (Denna process) */
 			FILE* stream;
@@ -626,25 +671,25 @@ int updateForadm(char *rectyp)
 				return -1;
 			}
 			else{
-//				fprintf(stdout,"FORADMupdateFORADMParent: datstr= %s\n",datastr);
+/*				fprintf(stdout,"FORADMupdateFORADMParent: datstr= %s\n",datastr);	*/
 				pos=strstr(datastr,". Status =");
 				if (pos != 0){
 					status=atoi(strncpy(datastr,pos+11,2));
 					fprintf(stdout,"FORADMupdateFORADM: Status2 = %d\n",status);
 				}
 				free(datastr);
-//				fprintf(stdout,"Parent lista OK? (<J>/N) ");
+/*				fprintf(stdout,"Parent lista OK? (<J>/N) ");	*/
 			}
 		}
-		strcpy(adr,adr2);
-		strcpy(data,foretagsnamn);
-		strcat(data,tmp);
-		strcat(data,adr2adr);
-		strcat(data,tmp);
-		strcat(data,adr2postnr);
-		strcat(data,tmp);
-		strcat(data,adr2ort);
-//		fprintf(stderr,"FORADMupdateFORADM:adr=%s data=%s\n",adr,data);
+		strncpy(adr,adr2,strlen(adr2));
+		strncpy(data,foretagsnamn,strlen(foretagsnamn));
+		strncat(data,tmp,strlen(tmp));
+		strncat(data,adr2adr,strlen(adr2adr));
+		strncat(data,tmp,strlen(tmp));
+		strncat(data,adr2postnr,strlen(adr2postnr));
+		strncat(data,tmp,strlen(tmp));
+		strncat(data,adr2ort,strlen(adr2ort));
+/*		fprintf(stderr,"FORADMupdateFORADM:adr=%s data=%s\n",adr,data);		*/
 /************************************************/
 /*	 Skicka data för ADR2 			*/
 /************************************************/
@@ -655,8 +700,8 @@ int updateForadm(char *rectyp)
 			close (fds[0]);
 			dup2 (fds[1], STDOUT_FILENO);
 			status=execl("STYRMAN", "STYRMAN", userid, "FTGUPD", adr, data,(char *) 0);
-//			fprintf(stderr,"status=%d\n",status);
-//			fprintf(stdout,"Child uppdatering OK? (<J>/N) ");
+/*			fprintf(stderr,"status=%d\n",status);			*/
+/*			fprintf(stdout,"Child uppdatering OK? (<J>/N) ");	*/
 		}
 		else{				/* Parent (Denna process) */
 			FILE* stream;
@@ -674,26 +719,26 @@ int updateForadm(char *rectyp)
 				return -1;
 			}
 			else{
-//				fprintf(stdout,"FORADMupdateFORADMParent: datstr= %s\n",datastr);
+/*				fprintf(stdout,"FORADMupdateFORADMParent: datstr= %s\n",datastr);	*/
 				pos=strstr(datastr,". Status =");
 				if (pos != 0){
 					status=atoi(strncpy(datastr,pos+11,2));
 					fprintf(stdout,"FORADMupdateFORADM: Status2 = %d\n",status);
 				}
 				free(datastr);
-//				fprintf(stdout,"Parent lista OK? (<J>/N) ");
+/*				fprintf(stdout,"Parent lista OK? (<J>/N) ");	*/
 			}
 		}
 
-		strcpy(adr,adr3);
-		strcpy(data,foretagsnamn);
-		strcat(data,tmp);
-		strcat(data,adr3adr);
-		strcat(data,tmp);
-		strcat(data,adr3postnr);
-		strcat(data,tmp);
-		strcat(data,adr3ort);
-//		fprintf(stderr,"FORADMupdateFORADM:adr3=%s data=%s\n",adr,data);
+		strncpy(adr,adr3,strlen(adr3));
+		strncpy(data,foretagsnamn,strlen(foretagsnamn));
+		strncat(data,tmp,strlen(tmp));
+		strncat(data,adr3adr,strlen(adr3adr));
+		strncat(data,tmp,strlen(tmp));
+		strncat(data,adr3postnr,strlen(adr3postnr));
+		strncat(data,tmp,strlen(tmp));
+		strncat(data,adr3ort,strlen(adr3ort));
+/*		fprintf(stderr,"FORADMupdateFORADM:adr3=%s data=%s\n",adr,data);	*/
 /************************************************/
 /*	 Skicka data för ADR3 			*/
 /************************************************/
@@ -704,8 +749,8 @@ int updateForadm(char *rectyp)
 			close (fds[0]);
 			dup2 (fds[1], STDOUT_FILENO);
 			status=execl("STYRMAN", "STYRMAN", userid, "FTGUPD", adr, data, (char *) 0);
-//			fprintf(stderr,"status=%d\n",status);
-//			fprintf(stdout,"Child uppdatering OK? (<J>/N) ");
+/*			fprintf(stderr,"status=%d\n",status);			*/
+/*			fprintf(stdout,"Child uppdatering OK? (<J>/N) ");	*/
 		}
 		else{				/* Parent (Denna process) */
 			FILE* stream;
@@ -723,20 +768,21 @@ int updateForadm(char *rectyp)
 				return -1;
 			}
 			else{
-//				fprintf(stdout,"FORADMupdateFORADMParent: datstr= %s\n",datastr);
+/*				fprintf(stdout,"FORADMupdateFORADMParent: datstr= %s\n",datastr);	*/
 				pos=strstr(datastr,". Status =");
 				if (pos != 0){
 					status=atoi(strncpy(datastr,pos+11,2));
 					fprintf(stdout,"FORADMupdateFORADM: Status2 = %d\n",status);
 				}
 				free(datastr);
-//				fprintf(stdout,"Parent lista OK? (<J>/N) ");
+/*				fprintf(stdout,"Parent lista OK? (<J>/N) ");	*/
 			}
 		}
 	}
-//	exit(0);
+/*	exit(0);		*/
 	return status;
 }
+
 
 int getBokfPeriod(char *adr)
 {
@@ -744,11 +790,13 @@ int getBokfPeriod(char *adr)
 
 void updateBokfPeriod(void)
 {
-	char rad[2];
-	int status,dummy,i;
-	char tmp[10];
+	char rad[2]="";
+	int status;
+/*	int dummy;	*/
+/*	int i;		*/
+/*	char tmp[10]="";	*/
 	char svar;
-	char adr[6];
+	char adr[6]="";
 	static char per1[]="BF1";
 	static char per2[]="BF2";
 	static char per3[]="BF3";
@@ -768,40 +816,40 @@ void updateBokfPeriod(void)
 /********************************************************/
 /*	Hämta bokföringsperioder frånm databasen	*/
 /********************************************************/
-//	status=clearPerioder();
-	strcpy(adr,per1);
+/*	status=clearPerioder();		*/
+	strncpy(adr,per1,strlen(per1));
 	status = getBokfPeriod(adr);
-	strcpy(adr,per2);
+	strncpy(adr,per2,strlen(per2));
 	status=getBokfPeriod(adr);
-	strcpy(adr,per3);
+	strncpy(adr,per3,strlen(per3));
 	status = getBokfPeriod(adr);
-	strcpy(adr,per4);
+	strncpy(adr,per4,strlen(per4));
 	status = getBokfPeriod(adr);
-	strcpy(adr,per5);
+	strncpy(adr,per5,strlen(per5));
 	status=getBokfPeriod(adr);
-	strcpy(adr,per6);
+	strncpy(adr,per6,strlen(per6));
 	status = getBokfPeriod(adr);
-	strcpy(adr,per7);
+	strncpy(adr,per7,strlen(per7));
 	status = getBokfPeriod(adr);
-	strcpy(adr,per8);
+	strncpy(adr,per8,strlen(per8));
 	status=getBokfPeriod(adr);
-	strcpy(adr,per9);
+	strncpy(adr,per9,strlen(per9));
 	status = getBokfPeriod(adr);
-	strcpy(adr,per10);
+	strncpy(adr,per10,strlen(per10));
 	status = getBokfPeriod(adr);
-	strcpy(adr,per11);
+	strncpy(adr,per11,strlen(per11));
 	status=getBokfPeriod(adr);
-	strcpy(adr,per12);
+	strncpy(adr,per12,strlen(per12));
 	status = getBokfPeriod(adr);
-	strcpy(adr,per13);
+	strncpy(adr,per13,strlen(per13));
 	status = getBokfPeriod(adr);
-	strcpy(adr,per14);
+	strncpy(adr,per14,strlen(per14));
 	status=getBokfPeriod(adr);
-	strcpy(adr,per15);
+	strncpy(adr,per15,strlen(per15));
 	status = getBokfPeriod(adr);
 
-//	fprintf(stderr,"start\n");
-start:
+/*	fprintf(stderr,"start\n");	*/
+/*start:*/
 	status=0;
 	cls();
 	locate(1,35);
@@ -814,7 +862,7 @@ start:
 	locate(4,1);
 	fprintf(stdout,"Period 1:");
 	locate(4,18);
-//	fprintf(stdout,foretagsnamn);
+/*	fprintf(stdout,foretagsnamn);		*/
 	locate(5,1);
 	fprintf(stdout,"Period 2:");
 	locate(6,1);
@@ -854,10 +902,11 @@ int trim(void){
 	status=unpad(pek);
 	pek=adr3ort;
 }
+
 int clearAdresser(void)
 {
 	int i;
-	
+
 	for (i=0;i<30;i++)
 		foretagsnamn[i]=0x00;
 	for (i=0;i<30;i++)
@@ -878,4 +927,66 @@ int clearAdresser(void)
 		adr3postnr[i]=0x00;
 	for (i=0;i<15;i++)
 		adr3ort[i]=0x00;
+}
+
+int which_database(char *envp[])
+{
+	FILE *fil_pek;
+
+	char home[50];
+	char *home_pek;
+	char resource[]="/.olfixrc";
+	char filename[50]="";
+	char tmp[20]="";
+	char temp[10]="";
+	char *tmp_pek;
+	int i,status;
+
+	for (i = 0;envp[i]!=NULL;i++){
+		if(strstr(envp[i],"HOME=") != NULL){
+			strncpy(temp,envp[i],4);
+/*			fprintf(stderr,"temp=%s\n",temp); */
+			status=strcmp(temp,"HOME");
+/*			fprintf(stderr,"status=%d\n",status); */
+			if (status == 0){
+				home_pek=(strstr(envp[i],"HOME="));
+				home_pek=home_pek+5;
+				strcpy(home,home_pek);
+			}
+/*			fprintf(stderr,"home_pek=%d %s\n",home_pek,home_pek);	*/
+		}
+	}
+/*	fprintf(stderr,"home=%s\n",home);	*/
+	strncpy(filename,home,strlen(home));
+	strncat(filename,resource,strlen(resource));
+
+/*	fprintf(stderr,"filename=%s\n",filename);	*/
+	status=-1;
+
+	if ((fil_pek = fopen(filename,"r")) != NULL){
+		while (fgets(tmp,150,fil_pek) != NULL){
+/*			fprintf(stderr,"tmp=%s\n",tmp); */
+			if(strstr(tmp,"DATABASE=")){
+				tmp_pek=(strstr(tmp,"DATABASE="))+9;
+				strncpy(database,tmp_pek,strlen(tmp_pek));
+				status=0;
+			}
+		}
+/*		fprintf(stderr,"database=%s_len=%d\n",database,strlen(database)); */
+		fclose(fil_pek);
+	}
+	else{
+/*		fprintf(stderr,"database=%s_len=%d\n",database,strlen(database)); */
+	 	fprintf(stderr,"Error: Filen .olfixrc kan inte öppnas\n");
+	}
+	for (i=0;i < strlen(database);i++){
+		tmp[i]=database[i];
+	}
+	tmp[i-1]=0;
+/*	fprintf(stderr,"tmp=%s, i=%d len(tmp)=%d\n",tmp,i,strlen(tmp));	*/
+	strncpy(database,tmp,strlen(tmp));
+	database[strlen(tmp)]=0;
+/*	fprintf(stderr,"databas=%s\n",database);	*/
+
+	return status;
 }
