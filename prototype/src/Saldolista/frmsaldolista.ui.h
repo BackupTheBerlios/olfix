@@ -43,7 +43,6 @@
     QString fromdate;
     QString fromvernr;
     QString tomdatum;
-    QString tmpdatum;		/* AnvДnds i funktionen frmSaldolista::CheckDatum(fromdatum )*/
     QString tomdate;
     QString tomvernr;
     QString period;
@@ -60,7 +59,6 @@ void frmSaldolista::init()
                                     /*  J = GЖr en Kspreadrapport  				*/
     
     QDateTime dt = QDateTime::currentDateTime();
-//    dag= QDate::currentDate().dayOfWeek();
     datum=dt.toString("yyyy-MM-dd");
     textLabelDatum->setText(datum);
     frmSaldolista::KugarVersion();
@@ -88,10 +86,8 @@ void frmSaldolista::lineEditFromDatum_returnPressed()
     fromdatum=lineEditFromDatum->text();
     if (fromdatum==""){
 	fromdatum=fromdate;
-//	lineEditFromDatum->setText(fromdatum);
     }
-    frmSaldolista::CheckDatum(fromdatum ); 		// Kontrollera datumformat ееее-MM-DD
-    fromdatum=tmpdatum;
+    fromdatum=frmSaldolista::CheckDatum(fromdatum ); 		// Kontrollera datumformat ееее-MM-DD
     lineEditFromDatum->setText(fromdatum);
     lineEditTomDatum->setFocus();
 }
@@ -101,10 +97,8 @@ void frmSaldolista::lineEditTomDatum_returnPressed()
     tomdatum=lineEditTomDatum->text();
     if(tomdatum==""){
 	tomdatum=tomdate;
-//	lineEditTomDatum->setText(tomdatum);
     }
-    frmSaldolista::CheckDatum(tomdatum );  		// Kontrollera datumformat ееее-MM-DD  
-    tomdatum=tmpdatum;
+    tomdatum=frmSaldolista::CheckDatum(tomdatum );  		// Kontrollera datumformat ееее-MM-DD  
     lineEditTomDatum->setText(tomdatum);
     period=fromdatum+" -- "+tomdatum;
     pushButtonOK->setFocus();
@@ -702,13 +696,14 @@ void frmSaldolista::slotGetBokfPeriodEndOfProcess()
 //	qDebug("period=%s|,m=%d",period.latin1(),m);    
 }
 
-void frmSaldolista::CheckDatum( QString datumet )
+QString frmSaldolista::CheckDatum( QString datumet )
 {
     /*      Kontrollera och formatera datum enligt 20ее-MM-DD */
     int i;
     int j,k;
     QString tempdatum;
     QString millenium;
+//    QString tmp;
     
     i = datumet.length();
     k = datumet.find( QRegExp("-"), 0 );
@@ -748,8 +743,8 @@ void frmSaldolista::CheckDatum( QString datumet )
 	    }
 	}	
     }  
-    tmpdatum=tempdatum;
-//    qDebug("tempdatum=%s, tmpdatum=%s",tempdatum.latin1(),tmpdatum.latin1());
+//    qDebug("tempdatum=%s, ",tempdatum.latin1());
+        return tempdatum;
 }
 
 void frmSaldolista::GetVernr()

@@ -406,7 +406,7 @@
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
-    <function>CheckDatum( QString datumet )</function>
+    <function returnType="QString">CheckDatum( QString datumet )</function>
 </functions>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
