@@ -575,52 +575,6 @@
     </widget>
     <widget class="QPushButton">
         <property name="name">
-            <cstring>pushButtonOK</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>635</y>
-                <width>56</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="font">
-            <font>
-            </font>
-        </property>
-        <property name="text">
-            <string>OK</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushBtnOrderKlar</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>700</x>
-                <y>610</y>
-                <width>70</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="font">
-            <font>
-            </font>
-        </property>
-        <property name="text">
-            <string>Order klar!</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
             <cstring>pushButtonAvbryt</cstring>
         </property>
         <property name="geometry">
@@ -1242,72 +1196,6 @@
         </property>
         <property name="toolTip" stdset="0">
             <string>Ordersumma exklusive moms.</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditOrderFrakt</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>315</x>
-                <y>610</y>
-                <width>86</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="paletteForegroundColor">
-            <color>
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-            </color>
-        </property>
-        <property name="font">
-            <font>
-            </font>
-        </property>
-        <property name="alignment">
-            <set>AlignRight</set>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Fraktkostnad i kronor.</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditFraktmoms</cstring>
-        </property>
-        <property name="enabled">
-            <bool>false</bool>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>405</x>
-                <y>610</y>
-                <width>86</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="paletteForegroundColor">
-            <color>
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-            </color>
-        </property>
-        <property name="font">
-            <font>
-            </font>
-        </property>
-        <property name="text">
-            <string>0.00</string>
-        </property>
-        <property name="alignment">
-            <set>AlignRight</set>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Moms på fraktkostnad i kronor.</string>
         </property>
     </widget>
     <widget class="QLineEdit">
@@ -1955,6 +1843,118 @@
             <string>&lt;font size="+2"&gt;&lt;b&gt;Leveransaddress&lt;/b&gt;&lt;/font&gt;</string>
         </property>
     </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>635</y>
+                <width>56</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+            </font>
+        </property>
+        <property name="text">
+            <string>OK</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushBtnOrderKlar</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>700</x>
+                <y>610</y>
+                <width>70</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+            </font>
+        </property>
+        <property name="text">
+            <string>Order klar!</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditOrderFrakt</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>315</x>
+                <y>610</y>
+                <width>86</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="font">
+            <font>
+            </font>
+        </property>
+        <property name="alignment">
+            <set>AlignRight</set>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Fraktkostnad i kronor.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditFraktmoms</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>405</x>
+                <y>610</y>
+                <width>86</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="font">
+            <font>
+            </font>
+        </property>
+        <property name="text">
+            <string>0.00</string>
+        </property>
+        <property name="alignment">
+            <set>AlignRight</set>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Moms på fraktkostnad i kronor.</string>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
@@ -2268,6 +2268,10 @@
     <slot>slotOrderadEndOfProcess()</slot>
     <slot>slotOrderadDataOnStderr()</slot>
     <slot>slotOrderradDataOnStdout()</slot>
+    <slot>updateReserveratAntal( QString artnr, QString antal )</slot>
+    <slot>slotUpdateReserveratEndOfProcess()</slot>
+    <slot>slotUpdateReserveratDataOnStderr()</slot>
+    <slot>slotUpdateReserveratDataOnStdout()</slot>
     <slot>pushBtnHelp_clicked()</slot>
     <slot>readResursFil()</slot>
     <slot>NyKund()</slot>

@@ -10,9 +10,9 @@
                           ADDORDW  -  description
 	         Registrering av kundorder med möjlighet att registrera en ny kund.
                              -------------------
-		     version 0.3
+		     version 0.4
     begin   	: Sö      12 okt    2003
-    Updated	: Tis    22  mars 2005
+    Updated	: Tis    29  mars 2005
     copyright	: (C) 2003 by Jan Pihlgren
     email     	: jan@pihlgren.se
  ***************************************************************************/
@@ -33,17 +33,19 @@
 #include <qregexp.h>
 #define MAXSTRING 5000
 
-
+    int ganger=0;
     QProcess* process;
     QString inrad;
     QString inrad2;
     QString inrad3;    
-    QString inrad4;     
+    QString inrad4;
+    QString inrad5;	// updateReserveratAntal()
     QString* rad;
     QString errorrad;
     QString errorrad2;
     QString errorrad3;
-    QString errorrad4;    
+    QString errorrad4;
+    QString errorrad5;	// updateReserveratAntal()
     QString hjelpfil;    
 
     QString orderdatum;
@@ -701,6 +703,7 @@ void frmAddOrder::slotEndOfProcess()
 	     lineEditOrderSumma->clear();
 	     lineEditOrderFrakt->setEnabled("TRUE");
 	     lineEditOrderFrakt->clear();
+	     lineEditFraktmoms->clear();
 	     lineEditOrderMomsKr->clear();
 	     lineEditOrderTotal->clear();
 /*	      ----------------				*/	     
@@ -1766,13 +1769,10 @@ void frmAddOrder::SaveOrderRader()
 	QString temp5=it.current()->text(5);	// pris/st
 	QString temp6=it.current()->text(6);	// radsumma
 	QString temp7=it.current()->text(7);	// radmoms
-//	QString temp8=it.current()->text(8);	// leverantöreens artbenämning
 //            qDebug("i=%d  temp=%s, %s, %s, %s, %s, %s, %s, %s",i,temp0.latin1(),temp1.latin1(),temp2.latin1(),temp3.latin1(),temp4.latin1(),temp5.latin1(),temp6.latin1(),temp7.latin1());
 	frmAddOrder::createOrderrad(temp0,temp1,temp2,temp3, temp4,temp5,temp6,temp7);
     }
     listViewRader->clear();
-//    frmAddOrder::getOrdernr();
-//    lineEditOrderKundNr->setFocus();
 }
 
 void frmAddOrder::createOrderrad(QString tmp0,QString tmp1,QString tmp2,QString tmp3, QString tmp4,QString tmp5,QString tmp6,QString tmp7)
@@ -1787,7 +1787,7 @@ void frmAddOrder::createOrderrad(QString tmp0,QString tmp1,QString tmp2,QString 
     orderraddata.append(skilj);    
     orderraddata.append(orderkundnr);	// kundnummer
     orderraddata.append(skilj);
-    orderraddata.append(tmp1);	//artikelnr
+    orderraddata.append(tmp1);	// artikelnr
     orderraddata.append(skilj);
     orderraddata.append(tmp2);	//benämning
     orderraddata.append(skilj);
@@ -1804,7 +1804,9 @@ void frmAddOrder::createOrderrad(QString tmp0,QString tmp1,QString tmp2,QString 
     orderraddata.append("END");	
 
 //    qDebug("orderraddat=%s",orderraddata.latin1());
-    frmAddOrder::AddOrderRad();
+    frmAddOrder::AddOrderRad();				// parallell bearbetning
+    frmAddOrder::updateReserveratAntal(tmp1,tmp4);  	// parallell bearbetning
+
 }
 
 void frmAddOrder::AddOrderRad()
@@ -1814,10 +1816,10 @@ void frmAddOrder::AddOrderRad()
     /************************************************************************/
     const char *userp = getenv("USER");
     QString usr(userp);
-
-//    qDebug("frmAddOrder::AddOrderRad");
+//    qDebug("artnr=%s ant=%s",artnr.latin1(),ant.latin1());
     inrad2="";
     errorrad2="";
+ 
     process = new QProcess();
     process->addArgument("./STYRMAN");	// OLFIX styrprogram
     process->addArgument(usr);		// userid
@@ -1844,18 +1846,20 @@ void frmAddOrder::slotOrderadEndOfProcess()
 {
     int i;
     i = -1;
+ //   ganger++;
     i = errorrad2.find( QRegExp("Error:"), 0 );
     if (i != -1) {
 	QMessageBox::critical( this, "ADDORDW",
 			       "ERROR!\n"+errorrad2
 			       );
+// 	  qDebug("slotOrderadEndOfProcess::errorrad2=%s",errorrad2.latin1());	
 	errorrad2="";    
-    }else{
-//	    qDebug("slotOrderadEndOfProcess::inrad2=%s",inrad2.latin1());
-// 	   qDebug("slotOrderadEndOfProcess::errorrad2=%s",errorrad2.latin1());
-	frmAddOrder::getOrdernr();
-	lineEditOrderKundNr->setFocus();
     }
+    i = -1;
+    i = inrad2.find(QRegExp("OK:"),0);
+    if (i != -1) {
+//	qDebug("slotOrderadEndOfProcess::ganger=%d  inrad2=%s",ganger,inrad2.latin1());
+    }    
 }
 
 void frmAddOrder::slotOrderadDataOnStderr()
@@ -1873,6 +1877,77 @@ void frmAddOrder::slotOrderradDataOnStdout()
 	QString line = process->readStdout();
 	inrad2.append(line);
 	inrad2.append("\n");
+    }   
+}
+
+void frmAddOrder::updateReserveratAntal(QString artnr,QString antal)
+{
+/*******************************************************************/
+/* Uppdatera LAGERSTELLEREG, fält RESERVERAT, med funktion AR2UPD */    
+/*******************************************************************/
+    const char *userp = getenv("USER");
+    QString usr(userp);
+    QString val="1";	/* val=1 innebär att fältet RESERVERAT iLAGERSTELLEREG uppdateras */
+
+    inrad5="";
+    errorrad5="";
+    process = new QProcess();
+    process->addArgument("./STYRMAN");	// OLFIX styrprogram
+    process->addArgument(usr);		// userid
+    process->addArgument( "AR2UPD");	// OLFIX funktion
+    process->addArgument(val);
+    process->addArgument(artnr);
+    process->addArgument(antal);
+    
+//    qDebug("updateReserveratAntal::  val=%s artikelnr=%s antal=%s",val.latin1(),artnr.latin1(),antal.latin1());
+    frmAddOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotUpdateReserveratDataOnStdout() ) );
+    frmAddOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotUpdateReserveratDataOnStderr() ) );
+    frmAddOrder::connect( process, SIGNAL(processExited() ),this, SLOT(slotUpdateReserveratEndOfProcess() ) );
+
+    if (orderraddata == ""){
+	QMessageBox::warning( this, "ADDORDW",
+			      "Orderrad saknas \n" );
+    }else{
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::critical( this, "ADDORDW",
+				  "Kan inte starta STYRMAN/AR2UPD! \n" );
+	}
+    }    
+}
+
+void frmAddOrder::slotUpdateReserveratEndOfProcess()
+{
+    int i;
+    i = -1;
+    i = errorrad5.find( QRegExp("Error:"), 0 );
+    if (i != -1) {
+	QMessageBox::critical( this, "ADDORDW",
+			       "ERROR!\n"+errorrad5
+			       );
+	errorrad5="";    
+    }else{
+//	qDebug("slotUpdateReserveratEndOfProcess inrad5=%s",inrad5.latin1());
+ 	frmAddOrder::getOrdernr();
+	lineEditOrderKundNr->setFocus();   
+    }
+}
+
+void frmAddOrder::slotUpdateReserveratDataOnStderr()
+{
+      while (process->canReadLineStderr() ) {
+	QString line = process->readStderr();
+	errorrad5.append(line);
+	errorrad5.append("\n");
+    }
+}
+
+void frmAddOrder::slotUpdateReserveratDataOnStdout()
+{
+    while (process->canReadLineStdout() ) {
+	QString line = process->readStdout();
+	inrad5.append(line);
+	inrad5.append("\n");
     }   
 }
 
