@@ -30,7 +30,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/SIEEXPV.c,v 1.1 2005/04/12 06:21:36 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/SIEEXPV.c,v 1.2 2005/04/12 09:46:31 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -201,8 +201,8 @@ void display_row()
 {
    unsigned int field_count;
    field_count=0;
-   if (strcmp(sqlrow[0],flag)==1){
-   	if(strcmp (flag,"0")!=0){
+   if (strcmp(sqlrow[0],flag)!=0){
+   	if(strncmp(flag,"0",1)!=0){
 		fprintf(stdout,"}\n");
 	}
 	fprintf(stdout,"#VER \"%s\" \"%s\" ",serie,sqlrow[0]);
