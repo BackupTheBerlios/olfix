@@ -67,7 +67,7 @@
 "067","Försäljning","Kundorder","(Makulera kundorder)","DELORDW"
 "068","Försäljning","Kundorder","Visa en kundorder","DSPORDW"
 "069","Försäljning","Kundorder","Lista kundorder","LSTORDW"
-"070","Försäljning","Kundorder","(Skriva ut plocklista)","PLORDW"
+"070","Försäljning","Kundorder","Skriva ut plocklista","PLORDW"
 "071","Försäljning","Kundorder","(Skriva ut följesedel)","FSORDW"
 "072","Försäljning","Kundorder","(Skriva ut faktura)","FAKTORDW"
 "073","Inköp","Leverantörsdata","Lista leverantörer","LSTLEVW"
@@ -90,3 +90,4 @@
 "090","Ekonomi","Rapporter","Resultatrapport","RESRPTW"
 "091","Ekonomi","Räkenskapsår","Lista alla räkenskapsår","LSTBARW"
 "092","Försäljning","Kunddata","Söka kunder","SRCHKUW"
+"093","Ekonomi","Rapporter","Skapa SIE-fil","RPTSIEW"
