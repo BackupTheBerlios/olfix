@@ -9,9 +9,9 @@
 /***************************************************************************
                           RPTSIEW  -  description
                              -------------------
-		     version 0.1
-    begin                   : Tors 18 nov 2004
-    modified	:
+		     version 0.3
+    begin                   : Tors 18 nov   2004
+    modified	: Tors 14 april 2005
     copyright             : (C) 2004 by Jan Pihlgren
     email                   : jan@pihlgren.se
  ***************************************************************************/
@@ -63,7 +63,7 @@
 /*	Data från $HOME/.olfixrc, från vilken databas hämtas information	*/
     QString databas;	// Från vilken databas data hämtas
  
-    
+    QString reportfile;
     QString datum;
     
 void frmRapportSIE::init()
@@ -160,33 +160,34 @@ void frmRapportSIE::CreateSIE_file()
     QString programnamn="\"OLFIX\" ";
     QString versionsnr="0.15";
     QString lag="BFL";
-    
-    QFile filnamn("/tmp/SIEtyp4.txt");
-    slotFileRemove("SIEtyp4.txt");	// radera gammal fil i /tmp
+    QString file="/tmp/SIEtyp4.txt";
+    QFile filnamn(file);
+    slotFileRemove(file);	// radera gammal fil i /tmp
     QTextStream stream(&filnamn);
     
     rad[0]="#FLAGGA "+flagga+"\n";
-    rad[1]="#FNAMN \"";
-    rad[1].append(fnamn);
-    rad[1].remove("\n");
-    rad[1].append("\"\n");
-    rad[2]="#ADRESS \""+fnamn+ "\" "+"\"" +postadr+"\" "+"\""+postnr+"\" "+"\""+ ort + "\" "+ "\"" + tfnnr;
-    rad[2].remove("\n");
-    rad[2].append("\"\n");
-    rad[3]="#ORGNR "+ftgnr;
-    rad[3].remove("\n");
-    rad[3].append("\n");
-    rad[4]="#BKOD "+snikd;
-    rad[4].remove("\n");
-    rad[4].append("\n");
-    rad[5]="#FNR "+databas+"\n";
-    rad[6]="#GEN "+datum+" "+usr+"\n";
-    rad[7]="#FORMAT "+pc8+"\n";
-    rad[8]="#KPTYP "+ktoplan+"\n";
-    rad[9]="#PROGRAM "+ programnamn+" "+versionsnr+"\n";
-    rad[10]="#SIETYP "+rapporttyp+"\n";
-    rad[11]="#RAR "+LineEditStartdatum->text()+" "+LineEditSlutdatum->text()+"\n";
-    rad[12]="#TAXAR "+beskattar+" "+lag+"\n";
+    rad[1]="#FORMAT "+pc8+"\n";    
+    rad[2]="#SIETYP "+rapporttyp+"\n";
+    rad[3]="#PROGRAM "+ programnamn+" "+versionsnr+"\n";
+    rad[4]="#GEN "+datum+" "+usr+"\n";    
+    rad[5]="#FNAMN \"";
+    rad[5].append(fnamn);
+    rad[5].remove("\n");
+    rad[5].append("\"\n");
+    rad[6]="#FNR "+databas+"\n";    
+    rad[7]="#ORGNR "+ftgnr;    
+    rad[7].remove("\n");
+    rad[7].append("\n");   
+    rad[8]="#BKOD "+snikd;
+    rad[8].remove("\n");
+    rad[8].append("\n");    
+    rad[9]="#ADRESS \""+fnamn+ "\" "+"\"" +postadr+"\" "+"\""+postnr+"\" "+"\""+ ort + "\" "+ "\"" + tfnnr;
+    rad[9].remove("\n");
+    rad[9].append("\"\n");
+    rad[10]="#RAR "+LineEditStartdatum->text()+" "+LineEditSlutdatum->text()+"\n";        
+    rad[11]="#TAXAR "+beskattar+" "+lag+"\n";
+// ------------------------------------------------------------------    
+    rad[12]="#KPTYP "+ktoplan+"\n";
     
     rapportrad=rad[0];
 //    for (i=2;i<(antrad);i++){
@@ -196,6 +197,9 @@ void frmRapportSIE::CreateSIE_file()
     filnamn.open( IO_WriteOnly | IO_Append );
     stream << rapportrad;
     filnamn.close();
+    /* Hämta kontoplanen */
+    reportfile=file;
+    frmRapportSIE::GetKontoplan();
 }
 
 void frmRapportSIE::lineEditBar_returned()
@@ -526,7 +530,192 @@ void frmRapportSIE::slotFileRemove(QString filnamn)
     if ( !d.cd("tmp") ) {                       // "/tmp"
         qWarning( "Cannot find the \"/tmp\" directory" );
     }
-    status=d.remove(filnamn,FALSE);
+    status=d.remove(filnamn,TRUE);
 //    qDebug("status=%d",status);
 }
 
+void frmRapportSIE::GetKontoplan()
+{
+	const char *userp = getenv("USER");
+            QString usr(userp);
+	inrad="";
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "SIEEXPK");	// OLFIX funktion
+	process->addArgument(arid);
+	
+//	qDebug("slotGetBar::arid=%s",arid.latin1());
+	
+	frmRapportSIE::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+	frmRapportSIE::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+            frmRapportSIE::connect( process, SIGNAL(processExited() ),this, SLOT(slotGetKontoplanEndOfProcess() ) );
+
+	if (arid == "" ){
+    	    QMessageBox::warning( this, "RPTSIEW",
+                      "Bokföringsår måste vara ifyllt!" );
+	}
+	else {
+	    if ( !process->start() ) {
+		// error handling
+		QMessageBox::warning( this, "RPTSIEW",
+                            "Kan inte starta STYRMAN/SIEEXPK! \n" );
+	    }
+	}
+}
+
+void frmRapportSIE::slotGetKontoplanEndOfProcess()
+{
+    int i=-1;
+    int j1,j2;
+    QFile filnamn(reportfile);
+    QTextStream stream(&filnamn);    
+    QString kontoplan;
+//    qDebug("slotGetKontoplanEndOfProcess::reportfile=%s",reportfile.latin1());
+//    qDebug("slotGetKontoplanEndOfProcess::inrad=%s",inrad.latin1());    
+    
+     i = errorrad.find( QRegExp("Error:"), 0 );
+     if (i == 0) {
+		QMessageBox::critical( this, "OLFIX - SIEEXPK",
+			"ERROR!\n"+errorrad
+		);
+	            errorrad="";
+		i = -1;
+     }
+     i = inrad.find(QRegExp("OK:"),0);
+     if (i == 0){
+	 j1 = inrad.find(QRegExp("#KONTO"),0);
+	 j2 = inrad.find(QRegExp("END:"),0);
+//	 qDebug("SIEEXPK: j1=%d j2=%d längd=%d\n",j1,j2,inrad.length());
+	 kontoplan=inrad.mid(j1,j2-j1);
+     }
+//     qDebug("Kontoplan=\n%s",kontoplan.latin1());
+    filnamn.open( IO_WriteOnly | IO_Append );
+    stream << kontoplan;
+    filnamn.close();
+    frmRapportSIE::GetResultat();
+}
+
+void frmRapportSIE::GetResultat()
+{
+	const char *userp = getenv("USER");
+            QString usr(userp);
+	inrad="";
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "SIEEXPR");	// OLFIX funktion
+	process->addArgument(arid);
+	
+//	qDebug("slotGetBar::arid=%s",arid.latin1());
+	
+	frmRapportSIE::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+	frmRapportSIE::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+            frmRapportSIE::connect( process, SIGNAL(processExited() ),this, SLOT(slotGetResultatEndOfProcess() ) );
+
+	if (arid == "" ){
+    	    QMessageBox::warning( this, "RPTSIEW",
+                      "Bokföringsår måste vara ifyllt!" );
+	}
+	else {
+	    if ( !process->start() ) {
+		// error handling
+		QMessageBox::warning( this, "RPTSIEW",
+                            "Kan inte starta STYRMAN/SIEEXPR! \n" );
+	    }
+	}
+}
+
+void frmRapportSIE::slotGetResultatEndOfProcess()
+{
+    int i=-1;
+    int j1,j2;
+    QFile filnamn(reportfile);
+    QTextStream stream(&filnamn);    
+    QString resultat;
+//    qDebug("slotGetResultatEndOfProcess::reportfile=%s",reportfile.latin1());
+//    qDebug("slotGetResultatEndOfProcess::inrad=%s",inrad.latin1());    
+    
+     i = errorrad.find( QRegExp("Error:"), 0 );
+     if (i == 0) {
+		QMessageBox::critical( this, "OLFIX - SIEEXPR",
+			"ERROR!\n"+errorrad
+		);
+	            errorrad="";
+		i = -1;
+     }
+     i = inrad.find(QRegExp("OK:"),0);
+     if (i == 0){
+	 j1 = inrad.find(QRegExp("#UB"),0);
+	 j2 = inrad.find(QRegExp("END:"),0);
+//	 qDebug("SIEEXPR: j1=%d j2=%d längd=%d\n",j1,j2,inrad.length());
+	  resultat=inrad.mid(j1,j2-j1);
+     }
+//     qDebug("Kontoplan=\n%s",kontoplan.latin1());
+    filnamn.open( IO_WriteOnly | IO_Append );
+    stream << resultat;
+    filnamn.close();
+    frmRapportSIE::GetVerifikationer();
+}
+
+void frmRapportSIE::GetVerifikationer()
+{
+	const char *userp = getenv("USER");
+            QString usr(userp);
+	inrad="";
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "SIEEXPV");	// OLFIX funktion
+	process->addArgument(arid);
+	process->addArgument("0");		// serie
+	
+//	qDebug("slotGetBar::arid=%s",arid.latin1());
+	
+	frmRapportSIE::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+	frmRapportSIE::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+            frmRapportSIE::connect( process, SIGNAL(processExited() ),this, SLOT(slotGetVerifikationerEndOfProcess() ) );
+
+	if (arid == "" ){
+    	    QMessageBox::warning( this, "RPTSIEW",
+                      "Bokföringsår måste vara ifyllt!" );
+	}
+	else {
+	    if ( !process->start() ) {
+		// error handling
+		QMessageBox::warning( this, "RPTSIEW",
+                            "Kan inte starta STYRMAN/SIEEXPV! \n" );
+	    }
+	}
+}
+
+void frmRapportSIE::slotGetVerifikationerEndOfProcess()
+{
+   int i=-1;
+    int j1,j2;
+    QFile filnamn(reportfile);
+    QTextStream stream(&filnamn);    
+    QString verifikat;
+//    qDebug("slotGetVerifikationerEndOfProcess::reportfile=%s",reportfile.latin1());
+//    qDebug("slotGetVerifikationerEndOfProcess::inrad=%s",inrad.latin1());    
+    
+     i = errorrad.find( QRegExp("Error:"), 0 );
+     if (i == 0) {
+		QMessageBox::critical( this, "OLFIX - SIEEXPV",
+			"ERROR!\n"+errorrad
+		);
+	            errorrad="";
+		i = -1;
+     }
+     i = inrad.find(QRegExp("OK:"),0);
+     if (i == 0){
+	 j1 = inrad.find(QRegExp("#VER"),0);
+	 j2 = inrad.find(QRegExp("END:"),0);
+//	 qDebug("SIEEXPV: j1=%d j2=%d längd=%d\n",j1,j2,inrad.length());
+	 verifikat=inrad.mid(j1,j2-j1);
+     }
+//     qDebug("Verifikat=\n%s",kontoplan.latin1());
+    filnamn.open( IO_WriteOnly | IO_Append );
+    stream << verifikat;
+    filnamn.close();
+}

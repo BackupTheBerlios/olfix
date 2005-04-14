@@ -441,6 +441,12 @@
     <slot>slotGetBarEndOfProcess()</slot>
     <slot>GetDatabase()</slot>
     <slot>slotFileRemove( QString filnamn )</slot>
+    <slot>GetKontoplan()</slot>
+    <slot>slotGetKontoplanEndOfProcess()</slot>
+    <slot>GetResultat()</slot>
+    <slot>slotGetResultatEndOfProcess()</slot>
+    <slot>GetVerifikationer()</slot>
+    <slot>slotGetVerifikationerEndOfProcess()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
