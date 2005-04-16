@@ -11,7 +11,7 @@
                              -------------------
 		     version 0.3
     begin                   : Tors 18 nov   2004
-    modified	: Tors 14 april 2005
+    modified	: Lör  16 april 2005
     copyright             : (C) 2004 by Jan Pihlgren
     email                   : jan@pihlgren.se
  ***************************************************************************/
@@ -37,6 +37,7 @@
     QString inrad;
     QString inrad2;
     QString errorrad;
+    QString hjelpfil;
     
     
 /*	Data från företagsregistret, tabell  FTGDATA  		*/        
@@ -718,4 +719,59 @@ void frmRapportSIE::slotGetVerifikationerEndOfProcess()
     filnamn.open( IO_WriteOnly | IO_Append );
     stream << verifikat;
     filnamn.close();
+}
+
+void frmRapportSIE::pushBtnHelp_clicked()
+{
+	inrad="";
+	frmRapportSIE::readResursFil();		// Hämta path till hjälpfilen
+
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+//	int i2 = hjelpfil.length();
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_RAPPORTER.html";
+	hjelpfil=hjelpfil+"#SIERAPPORT4";		// Lägg till position
+//	qDebug("hjelpfil=%s",hjelpfil.latin1());
+
+	process = new QProcess();
+	process->addArgument( "OLFIXHLP" );	// OLFIX program
+	process->addArgument(hjelpfil);
+
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
+	}
+
+}
+
+void frmRapportSIE::readResursFil()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			               */
+    /* Plocka fram var hjälpfilen finns			               */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 );
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
 }

@@ -342,6 +342,22 @@
             </rect>
         </property>
     </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushBtnHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>166</x>
+                <y>10</y>
+                <width>60</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
@@ -391,6 +407,12 @@
         <signal>clicked()</signal>
         <receiver>frmRapportSIE</receiver>
         <slot>GetInfo()</slot>
+    </connection>
+    <connection>
+        <sender>pushBtnHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmRapportSIE</receiver>
+        <slot>pushBtnHelp_clicked()</slot>
     </connection>
 </connections>
 <tabstops>
@@ -447,6 +469,8 @@
     <slot>slotGetResultatEndOfProcess()</slot>
     <slot>GetVerifikationer()</slot>
     <slot>slotGetVerifikationerEndOfProcess()</slot>
+    <slot>pushBtnHelp_clicked()</slot>
+    <slot>readResursFil()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
