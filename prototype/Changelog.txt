@@ -1,12 +1,13 @@
-Changelog OLFIX 20050412
+Changelog OLFIX 20050416
 
 Blivande
 Ver 0.2.3.B
-2005-04-12
+2005-04-16
 		Nya program
 		DSPORDW		Visa en kundorder
 		PLORDW		Skapa och skriva ut plocklista för kundorder
 		FSORDW		Skapa och skriva ut följesedel till en kundorder
+		RPTSIEW		Skapa SIE-rapporter.
 
 		Ändrade program
 		ADDORDW    	Uppdatera LAGERSTELLEREG:RESERVERAT
@@ -20,6 +21,7 @@ Ver 0.2.3.B
 		ORDCHK.c	Kontrollera orderstatus mm
 		SIEEXPK.c	SIE export kontoplan
 		SIEEXPV.c	SIE export verifikationsrader
+		SIEEXPR.c	SIE export saldo
 		Makefile	Uppdaterad
 
 		Ändrade funktioner
@@ -41,10 +43,10 @@ Ver 0.2.3.B
 		Ändrade rapporter
 
 		Dokumentation
-		Usersmanual (Online)Uppdaterad (2005-04-04)
+		Usersmanual (Online)Uppdaterad (2005-04-16)
 		UserManual	Uppdaterad (2005-??-??)
 
-		Teknisk Manual	Uppdaterad (2005-04-03) Version 0.53
+		Teknisk Manual	Uppdaterad (2005-04-15) Version 0.53
 		Installationsanvisningar.txt (2005-??-??)
 		Installationsanvisningar.sxw (2005-??-??)
 		Korsrelationer.sxw Uppdaterad (2005-??-??)
