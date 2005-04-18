@@ -471,6 +471,7 @@
     <slot>slotGetVerifikationerEndOfProcess()</slot>
     <slot>pushBtnHelp_clicked()</slot>
     <slot>readResursFil()</slot>
+    <slot>GetTmpDir()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>

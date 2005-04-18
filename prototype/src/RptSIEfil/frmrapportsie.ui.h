@@ -65,6 +65,7 @@
     QString databas;	// Från vilken databas data hämtas
  
     QString reportfile;
+    QString tmppath;
     QString datum;
     
 void frmRapportSIE::init()
@@ -74,6 +75,8 @@ void frmRapportSIE::init()
     datum.remove("-");
     radioButton4->setChecked(TRUE);
     rapporttyp="4";
+    frmRapportSIE::GetTmpDir();
+    reportfile=tmppath+"SIEtyp4.txt";
     lineEditBar->setFocus();
 }
 
@@ -161,7 +164,9 @@ void frmRapportSIE::CreateSIE_file()
     QString programnamn="\"OLFIX\" ";
     QString versionsnr="0.15";
     QString lag="BFL";
-    QString file="/tmp/SIEtyp4.txt";
+//    QString file="/tmp/SIEtyp4.txt";
+    QString file;
+    file=reportfile;
     QFile filnamn(file);
     slotFileRemove(file);	// radera gammal fil i /tmp
     QTextStream stream(&filnamn);
@@ -774,4 +779,35 @@ void frmRapportSIE::readResursFil()
         }
     }
     f1.close();
+}
+
+void frmRapportSIE::GetTmpDir()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			               */
+    /* Plocka fram var mappen tmp finns		               */
+    /*****************************************************/
+
+    QString hemkatalog;
+    QString olfixrcfile;	// filen $HOME/.olfixrc
+
+    bool status;
+    int i = -1;
+    //	Hämta sökvägen till kugar template. Default /usr/local/olfix/report
+    //	Hämtas från .olfixrc
+    hemkatalog=QDir::homeDirPath ();
+    olfixrcfile=hemkatalog+"/.olfixrc";
+    QFile file(olfixrcfile);
+    status=file.open(IO_ReadOnly);
+    QTextStream stream( &file );
+    while ( !stream.eof() ) {
+	inrad = stream.readLine();
+	i = inrad.find( QRegExp("VTMP="), 0 );
+	if(i == 0){
+	    tmppath=inrad.mid(5,inrad.length()-5);
+	    i= -1;
+	}
+    }
+    file.close ();
+    qDebug("tmppath=%s",tmppath.latin1());
 }
