@@ -64,6 +64,7 @@
 /*	Data från $HOME/.olfixrc, från vilken databas hämtas information	*/
     QString databas;	// Från vilken databas data hämtas
  
+    QString sienamn="SIEtyp";
     QString reportfile;
     QString tmppath;
     QString datum;
@@ -76,7 +77,8 @@ void frmRapportSIE::init()
     radioButton4->setChecked(TRUE);
     rapporttyp="4";
     frmRapportSIE::GetTmpDir();
-    reportfile=tmppath+"SIEtyp4.txt";
+    reportfile=tmppath+sienamn+rapporttyp+".txt";
+//    qDebug("reportfile=%s",reportfile.latin1());
     lineEditBar->setFocus();
 }
 
@@ -87,6 +89,7 @@ void frmRapportSIE::radioButtonSIE_Typ1_pressed()
     radioButton3->setChecked(FALSE);
     radioButton4->setChecked(FALSE);
     rapporttyp="1";
+    reportfile=tmppath+sienamn+rapporttyp+".txt";
 }
 
 void frmRapportSIE::radioButtonSIE_Typ2_pressed()
@@ -96,6 +99,7 @@ void frmRapportSIE::radioButtonSIE_Typ2_pressed()
     radioButton3->setChecked(FALSE);
     radioButton4->setChecked(FALSE);
     rapporttyp="2";
+    reportfile=tmppath+sienamn+rapporttyp+".txt";
 }
 
 void frmRapportSIE::radioButtonSIE_Typ3_pressed()
@@ -105,6 +109,7 @@ void frmRapportSIE::radioButtonSIE_Typ3_pressed()
     radioButton3->setChecked(TRUE);
     radioButton4->setChecked(FALSE);
     rapporttyp="3";    
+    reportfile=tmppath+sienamn+rapporttyp+".txt";
 }
 
 void frmRapportSIE::radioButtonSIE_Typ4_pressed()
@@ -114,6 +119,7 @@ void frmRapportSIE::radioButtonSIE_Typ4_pressed()
     radioButton3->setChecked(FALSE);
     radioButton4->setChecked(TRUE);
     rapporttyp="4";    
+    reportfile=tmppath+sienamn+rapporttyp+".txt";
 }
 
 void frmRapportSIE::GetInfo()
@@ -809,5 +815,5 @@ void frmRapportSIE::GetTmpDir()
 	}
     }
     file.close ();
-    qDebug("tmppath=%s",tmppath.latin1());
+//    qDebug("tmppath=%s",tmppath.latin1());
 }
