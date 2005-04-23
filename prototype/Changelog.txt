@@ -1,12 +1,11 @@
-Changelog OLFIX 20050416
-
-Blivande
+Changelog OLFIX 20050423
+________________________________________________________
 Ver 0.2.3.B
-2005-04-16
+2005-04-23
 		Nya program
 		DSPORDW		Visa en kundorder
 		PLORDW		Skapa och skriva ut plocklista för kundorder
-		FSORDW		Skapa och skriva ut följesedel till en kundorder
+		FSORDW		Skapa och skriva ut följesedel till en kundorder.Påbörjad.
 		RPTSIEW		Skapa SIE-rapporter.
 
 		Ändrade program
@@ -39,6 +38,7 @@ Ver 0.2.3.B
 
 		Nya rapporter
 		KuOrderPlocklista.kut
+		KuOrderFoljesedel.kut
 
 		Ändrade rapporter
 
