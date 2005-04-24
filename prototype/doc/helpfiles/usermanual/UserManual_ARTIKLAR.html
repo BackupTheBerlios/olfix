@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+
+  <meta http-equiv="CONTENT-TYPE"
+ content="text/html; charset=iso-8859-15">
+  <title>UserManual</title>
+
+  <meta name="GENERATOR" content="OpenOffice.org 1.0.2  (Linux)">
+
+  <meta name="CREATED" content="20021205;10014400">
+
+  <meta name="CHANGEDBY" content="Jan Pihlgren">
+  <meta name="CHANGED" content="20050424;06501400">
+  <style>
+	<!--
+		@page { margin: 2cm }
+		P { margin-bottom: 0.21cm }
+	-->
+	</style>
+</head>
+<body lang="sv-SE">
+<p style="margin-bottom: 0cm;"> <a name="TOP"></a> <img
+ src="UserManual_html_OLFIX_LOGGA.jpg" name="Graphic1" align="middle"
+ width="643" height="268" border="0"> <br clear="left">
+<br>
+</p>
+<p align="center" style="margin-bottom: 0cm;"><font size="6"
+ style="font-size: 22pt;"> <b>Order/Lager/Fakturering för Linuxsystem</b></font></p>
+<p align="center" style="margin-bottom: 0cm;"><font size="6"
+ style="font-size: 22pt;"> Användarmanual
+</font></p>
+<p align="center" style="margin-bottom: 0cm;"><font size="4"
+ style="font-size: 16pt;">
+ Kapitel Artiklar
+ </font></p>
+<p align="center" style="margin-bottom: 0cm;"><font size="5">
+ Version 0.42
+ </font></p>
+<p align="center" style="margin-bottom: 0cm;"><font size="5">
+ 2005-04-16
+ </font></p>
+<hr>
+<p style="margin-left: 3cm;">This program is free software; you can
+redistribute it and/or modify<br>
+it under the terms of the GNU General Public License as published by<br>
+the Free Software Foundation; either version 2 of the License, or<br>
+(at your option) any later version.</p>
+<p
+ style="border-style: none none double; border-width: medium medium 1.1pt; border-bottom: 1.1pt double rgb(128, 128, 128); padding: 0cm 0cm 0.05cm; margin-bottom: 0.5cm;"> <font
+ size="1" style="font-size: 6pt;">Copyright 2004 Jan Pihlgren.</font></p>
+<p align="center">
+<a name="INNEHALL"></a><font size="4" style="font-size: 16pt;">
+<b>
+<!---- <P STYLE="margin-top: 0.42cm; page-break-before: always; page-break-after: avoid">
+<!---->Innehåll</b></font></p>
+<p style="margin-left: 3cm;"><font face="San Serif"><font size="+1"></font>
+<!-- <a href="#FORSALJ">Försäljning</a><br> -->
+<font face="San Serif">
+<a href="#ARTIKEL01">Lägga upp en ny artikel.</a><br></font>
+<hr>
+
+<font face="San Serif">
+<a name="ARTIKEL01"></a>
+<p align="left">
+<b>Lägga upp en ny artikel.</b>
+</p>
+
+<p align="center">
+<img src="UserManual_html_ADDARW.png" name="Graphic01" align="bottom"
+ width="700" height="700" border="0">
+ </p>
+<p align="left" style="margin-bottom: 0cm;">
+ <p style="margin-bottom: 0cm;">
+ Information om en artikel finns på två ställen, dels i ARTIKELREG och dels i LAGERSTELLEREG.<br>
+ ARTIKELREG innehåller grunduppgifter.<br>
+ LAGERSTELLEREG innehåller kvantitetsuppgifter. Det kan finnas flera lagerställen för en artikel.<br>
+ Vid nyregistrering av en artikel måste man börja med artikelnummer. Ett Artikelnummer kan bestå av upp till 30 valfria tecken.
+ Tecknen bör inte innehålla mellanslag/mellanrum eller <b>ej skrivbara</b> tecken. Artikelnummer bör inte innehålla någon form av logik.
+ Förr eller senare kommer logiken att spricka. Använd hellre <b>produktklass</b> för att sammanföra produkter enligt önskemål.<br>
+ Benämning används för att kortfattat och begripligt beskriva artikeln/produkten. Benämning kan innehålla upp till 60 tecken.
+ Benämning 1 är obligatoriskt. Benämning 2 kan användas för kompletterande beskrivning av artikeln.<br>
+ Fältet <b>Enhet</b> kan innehålla 5 tecken. Lämliga enheter är ST, Liter, Kg, Ton mm mm.<br>
+ <b>Omräkningsfaktor</b> är avsedd att användas för möjligheten att ange Kg och mena ton, omräkningsfaktor 3. Fältet kan innehålla siffror och bara heltal.<br>
+ Fälten <b>Nettovikt</b> och <b>Volym</b> är till för att underlätta fraktberäkningar.<br>
+ Med <b>Ledtid</b> avses tiden det tar att få fram en ny artikel. Antingen tillverkningstid eller den tid det tar från beställning tills artikeln finns hemma på lager.
+Ledtiden anges i dagar.<br>
+<b>Produktklass</b> anges med upp till 5 tecken, lämpligast med siffror. Produktklassen definieras i tabellen <b>PRODUKTGRUPP</b> där produktklassen beskrivs.
+<b>Produktkonto</b> används vid behov/önskemål för ekonomisk redovisning.<br>
+<b>Artikeltyp</b>, se <a href="#BEGREPP01">begreppsförklaringar.</a><br>
+<b>Struktur</b>, se <a href="#BEGREPP02">begreppsförklaringar.</a><br>
+<b>Tulltaxenr</b> enligt tullens förteckning. Behövs vid export av produkter/artiklar.<br>
+<b>Leverantör 1 - Leverantör 3</b> ange leverantörsnummer enligt tabell <b>LEVREG</b>. Används för att underlätta beställning av flera exemplar av artikeln.<br>
+<b>Ursprungsbenämning</b> och <b>Ursprungsland</b> används för att hålla reda på en leverantörs artikelnummer samt
+ifall en artikel kommer från något annat land än Sverige, vilket behövs vid export.<br>
+<br>
+<b>Lagerplatsdata</b><br>
+Lagerplatsdata innehåller kvantitetsuppgifter som kontinuerligt förändras.<br>
+<b>Lagerplats</b> 1 är grundvärde. Har man ingen annan lagerplats så används detta värde. Lagerplats medger 1(ett) tecken).<br>
+<b>Lagerhylla</b> kan anges med upp till 10 tecken. Lagerhylla anger var i lagret man förvarar artikeln.<br>
+<b>Lagersaldo</b> anger hur mycket av en artikel man har i sitt lager.<br>
+<b>Inventeringsgrupp</b> (3 tecken) används för att slippa inventera hela lagret vid ett enda tillfälle. Artiklar som tillhör samma inventeringsgrupp inventeras vid samma tillfälle.<br>
+<b>ABC-kod</b> anger, A = 20% mest värdefulla artiklar, C = 20% minst värdefulla artiklarna och B övriga 60%.<br>
+<b>Kalkylpris</b> är artikelns kostnad, inköpspris + omkostnader(fraktkostnad, tull, försökring, lagerkostnad mm) .<br>
+<b>Beställningspunkt</b> är det lägsta lagersaldo en artikel ska ha så att man hinner fylla på innan lagersaldot blir 0(noll)<br>
+
+<br>
+<a href="#TOP">Till början</a>
+</p><br>
+
+<hr>
+<p align="center">
+<a name="BEGREPP"></a> <b>BEGREPPSFÖRKLARINGAR</b></p>
+<p align="left">
+<a name="BEGREPP01"></a> <b>Artikeltyp</b><br>
+	0 = tillverkning lager, en artikel som tillverkas av det egna företaget och finns/ska finnas på lager.<br>
+	1 = tillverkning ej lager, en artikel som tillverkas av det egna företaget och <b>inte</b> ska finnas på lager.<br>
+	2 = köp lager, en artikel som köps, <b>ej</b> tillveraks av det egna företaget och finns/ska finnas på lager.<br>
+	3 = köp ej lager, en artikel som köps, <b>ej</b> tillveraks av det egna företaget och <b>inte</b> ska finnas på lager.<br>
+	4 = tjänst (för konsulter mm), en <b>icke</b> materiel "artikel", avsedd för tjänsteuppdrag mm<br>
+<br>
+<a name="BEGREPP02"></a> <b>Struktur</b><br>
+	Blank = ingår ej i struktur<br>
+	B = Bottenartikel<br>
+	I = Ingår "mitt" i artikel<br>
+	T = Toppartikel<br>
+	F = Fantom, ingår "mitt" i en artikel<br>
+
+<p align="left" style="margin-bottom: 0cm;">
+<a href="#TOP">Till början</a>
+</p>
+</body>
+</html>
