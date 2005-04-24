@@ -87,7 +87,7 @@
     QRegExp rx5( "\\w{0,5}" );
     QRegExp rx6( "[0-9,.]{0,12}" );
     QRegExp rx7( "[A-Za-z0-9ִֵײוהצ]{0,10}" );
-    QRegExp rx8( "[0-3]{1}" );
+    QRegExp rx8( "[0-4]{1}" );
     QRegExp rx9( "[BFIT ]{0,1}" );
     QRegExp rx10( "\\d{0,7}" );
     QRegExp rx11( "[A-Za-z0-9ִֵײוהצ/_ -]{1,29}" );
