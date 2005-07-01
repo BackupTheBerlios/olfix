@@ -8,9 +8,9 @@
 /***************************************************************************
                           OLFIXW  -  description
                              -------------------
-		     version 0.63
+		     version 0.64
     begin                   : Tis  16 maj  2003
-    modified	: Tors  3 mars 2005
+    modified	: Fre   1 juli   2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                  : jan@pihlgren.se
  ***************************************************************************/
@@ -40,7 +40,7 @@
 	QString inrad;
 	QString errorrad;
 	QString program;
-	QString version="0.63";
+	QString version="0.64";
 
 void frmOlfix::init()
 {
@@ -110,6 +110,17 @@ void frmOlfix::slotEndOfProcess()
 	errorrad="";
 	i = -1;
      }
+// ------------2005-07-01------------ START --------    	
+    i = -1;
+    i = errorrad.find( QRegExp("error"), 0 );
+         if (i != -1) {
+	QMessageBox::critical( this, "OLFIXW",
+		"ERROR!\n"+errorrad
+	);
+	errorrad="";
+	i = -1;
+     }	 
+//--------------2005-07-01------------ END ---------	 
     i = -1;
     i = inrad.find( QRegExp("Error:"), 0 );
          if (i != -1) {
