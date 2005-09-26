@@ -20,6 +20,7 @@
 "DBOKRPT","Dagboksrapport"
 "FORADD","Ny databas i tabellen DATABAS"
 "FORCHK","Kontr. om databas finns i tabell DATABAS"
+"FORDSP","Visa info om databas nr x"
 "FORLST","Lista databaser i tabell DATABAS"
 "FTGADD","Lägga upp en ny företagspost"
 "FTGDSP","Visa företagsdata"
