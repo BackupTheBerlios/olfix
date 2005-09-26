@@ -17,24 +17,6 @@
     </property>
     <widget class="QLabel">
         <property name="name">
-            <cstring>textLabel1</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>80</x>
-                <y>15</y>
-                <width>420</width>
-                <height>50</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Denna funktion används för att skifta mellan olika företag (databaser).
-Företag 01 (databas olfix) är det ordinarie, "skarpa" företaget.
-Företag 99 (databas olfixtst) är ett testföretag.</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
             <cstring>textLabel2</cstring>
         </property>
         <property name="geometry">
@@ -95,6 +77,113 @@ Företag 99 (databas olfixtst) är ett testföretag.</string>
         </property>
         <property name="text">
             <string>Databas:</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>536</x>
+                <y>10</y>
+                <width>45</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+                <pointsize>8</pointsize>
+            </font>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditDatabas</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>255</x>
+                <y>90</y>
+                <width>96</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="text">
+            <string>olfix</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditForetag</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>150</x>
+                <y>90</y>
+                <width>30</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="text">
+            <string>01</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditNyttForetag</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>150</x>
+                <y>115</y>
+                <width>30</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>99</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>80</x>
+                <y>15</y>
+                <width>420</width>
+                <height>50</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Denna funktion används för att skifta mellan olika företag (databaser).
+Företag 01 (databas olfix) är det ordinarie, "skarpa" företaget.
+Företag 99 (databas olfixtst) är ett testföretag.</string>
         </property>
     </widget>
     <widget class="QLineEdit">
@@ -161,93 +250,23 @@ Företag 99 (databas olfixtst) är ett testföretag.</string>
             <bool>true</bool>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditForetag</cstring>
-        </property>
-        <property name="enabled">
-            <bool>false</bool>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>150</x>
-                <y>90</y>
-                <width>30</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="paletteForegroundColor">
-            <color>
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-            </color>
-        </property>
-        <property name="text">
-            <string>01</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditDatabas</cstring>
-        </property>
-        <property name="enabled">
-            <bool>false</bool>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>255</x>
-                <y>90</y>
-                <width>96</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="paletteForegroundColor">
-            <color>
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-            </color>
-        </property>
-        <property name="text">
-            <string>olfix</string>
-        </property>
-    </widget>
     <widget class="QPushButton">
         <property name="name">
-            <cstring>pushButtonHelp</cstring>
+            <cstring>pushButtonBreak</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>536</x>
-                <y>10</y>
-                <width>45</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="font">
-            <font>
-                <pointsize>8</pointsize>
-            </font>
-        </property>
-        <property name="text">
-            <string>Hjälp</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditNyttForetag</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>150</x>
-                <y>115</y>
-                <width>30</width>
-                <height>23</height>
+                <x>190</x>
+                <y>165</y>
+                <width>71</width>
+                <height>20</height>
             </rect>
         </property>
         <property name="text">
-            <string>99</string>
+            <string>Avbryt</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
         </property>
     </widget>
 </widget>
@@ -276,6 +295,12 @@ Företag 99 (databas olfixtst) är ett testföretag.</string>
         <receiver>frmBytForetag</receiver>
         <slot>slotButtonHelp_clicked()</slot>
     </connection>
+    <connection>
+        <sender>pushButtonBreak</sender>
+        <signal>clicked()</signal>
+        <receiver>frmBytForetag</receiver>
+        <slot>close()</slot>
+    </connection>
 </connections>
 <includes>
     <include location="local" impldecl="in implementation">frmbytforetag.ui.h</include>
@@ -289,6 +314,14 @@ Företag 99 (databas olfixtst) är ett testföretag.</string>
     <slot>setDatabase()</slot>
     <slot>slotHelp()</slot>
     <slot>readResursFil()</slot>
+    <slot>checkDatabase( QString db, QString usr )</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>slotEndOfProcess()</slot>
+    <slot>getDatabasename()</slot>
+    <slot>slotDataOnStdoutDbnamn()</slot>
+    <slot>slotDataOnStderrDbnamn()</slot>
+    <slot>slotEndOfProcessDbnamn()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

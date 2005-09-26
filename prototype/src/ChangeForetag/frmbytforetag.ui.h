@@ -9,9 +9,9 @@
 /***************************************************************************
                           BYTFTGW  -  description
                              -------------------
-		     version 0.3
+		     version 0.4
     begin                   : Sön  19 okt    2003
-    modified:	: Tors  3 mars  2005
+    modified:	: Sön  25 sept  2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -37,47 +37,54 @@
 
 	QProcess* process;
 	QString inrad;
+	QString inraddb;
 	QString errorrad;
 
 	QString foretag;
 	QString newforetag;
 	QString database;
 	QString newdatabase;
-	QString hjelpfil;	
+	QString hjelpfil;
+	QString db;
+	QString usr;
+	int flag;
 	
 void which_database();
+// void checkDatabase(QString db,QString usr);
 	
 void frmBytForetag::init()
 {
+    const char *userp = getenv("USER");
+    QString tmp(userp);
+    usr=tmp;
+
     getDatabase();
     lineEditForetag->setText(foretag);
     lineEditDatabas->setText(database);
+    lineEditNyttForetag->setFocus();
 }
 
 void frmBytForetag::lineEditNyttForetag_returnPressed()
 {
     newforetag=lineEditNyttForetag->text();
-    if (newforetag == "99"){
-	newdatabase="olfixtst";
+    db=newforetag;
+    checkDatabase(newforetag,usr);
+    if (flag == -1){
+	db=newforetag;
+    }else{
+	lineEditNyttForetag->setFocus();
     }
-    if (newforetag == "01"){
-	newdatabase="olfix";
-    }
-    if (newforetag != "99" and newforetag != "01"){
-	newdatabase="olfix";
-	newdatabase.append(newforetag);
-    }
+//    qDebug("1.flag=%d",flag);  
 /*    qDebug("newdatabase= %s        newforetag=%s",newdatabase.latin1(),newforetag.latin1());	*/
-    lineEditNyDatabas->setText(newdatabase);
     pushButtonDo->setFocus();
 }
 
 void frmBytForetag::pushButtonDo_clicked()
 {
+ 
     lineEditForetag->setText(newforetag);
     lineEditDatabas->setText(newdatabase);
     setDatabase();
-    init();
     pushButtonOK->setFocus();
 }
 
@@ -90,7 +97,6 @@ void frmBytForetag::slotButtonHelp_clicked()
 void frmBytForetag::getDatabase()
 {
   QString rcfil;
-//  QString bibl;
   QStringList lines;
   QString homeDir( QDir::homeDirPath() );
    rcfil.append(homeDir);
@@ -130,13 +136,13 @@ void frmBytForetag::setDatabase()
     command.append(database);
     command.append("/DATABASE=");
     command.append(newdatabase);
-    command.append("/ $HOME/.olfixrc > $HOME/olfixtst.txt");
+    command.append("/ $HOME/.olfixrc > $HOME/olfixtst.tmp");	/* 2005-09-25 */
 /*    qDebug("command=%s",command.latin1());			*/
     system(command);
-    command="mv $HOME/olfixtst.txt $HOME/.olfixrc";
+    command="mv $HOME/olfixtst.tmp $HOME/.olfixrc";
 /*    qDebug("command=%s",command.latin1());			*/
     system(command);
-    fprintf(stdout,"Databas=%s\n",newdatabase.latin1());	/* 2005-03-03	*/
+//    fprintf(stdout,"Databas=%s\n",newdatabase.latin1());	/* 2005-03-03	*/
 }
 
 void frmBytForetag::slotHelp()
@@ -190,3 +196,138 @@ void frmBytForetag::readResursFil()
     }
     f1.close();
 }
+
+void frmBytForetag::checkDatabase(QString db,QString usr)
+{
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "FORCHK");	// OLFIX funktion
+	process->addArgument(db);
+
+
+	frmBytForetag::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+	frmBytForetag::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+            frmBytForetag::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
+
+	if (db == "" ){
+    	    QMessageBox::warning( this, "BYTFTGW/FORCHK",
+                      "Företag saknas! \n" );
+	}
+	else {
+	    if ( !process->start() ) {
+		// error handling
+/*		fprintf(stderr,"Problem starta STYRMAN/FORCHCK!\n");		*/
+		QMessageBox::warning( this, "BYTFTGW",
+                            "Kan inte starta STYRMAN/FORCHK! \n" );
+	    }
+	}	
+}
+
+void frmBytForetag::slotDataOnStdout()
+{
+    while (process->canReadLineStdout() ) {
+	QString line = process->readStdout();
+	inrad.append(line);
+	inrad.append("\n");
+    }
+}
+
+void frmBytForetag::slotDataOnStderr()
+{
+    while (process->canReadLineStderr() ) {
+	QString line = process->readStderr();
+	errorrad.append(line);
+	errorrad.append("\n");
+    }
+}
+
+void frmBytForetag::slotEndOfProcess()
+{
+    int h;
+    h = -1;
+    h = errorrad.find( QRegExp("Error:"), 0 );
+//   qDebug("errorrad=%s",errorrad.latin1());	
+         if (h != -1) {
+	QMessageBox::critical( this, "BYTFTGW",
+		"ERROR!\n"+errorrad
+	);
+	flag=h;
+	errorrad="";
+	h = -1;
+    }else{
+//	qDebug("slotEndOfProcess::inrad=%s",inrad.latin1());
+	flag=-1;
+	
+	getDatabasename();
+    }	
+}
+
+void frmBytForetag::getDatabasename()
+{
+//             qDebug("getDatabasename()::db=%s",db.latin1());
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "FORDSP");	// OLFIX funktion
+	process->addArgument(db);
+
+
+	frmBytForetag::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdoutDbnamn() ) );
+	frmBytForetag::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderrDbnamn() ) );
+            frmBytForetag::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcessDbnamn() ) );
+
+	if (db == "" ){
+    	    QMessageBox::warning( this, "BYTFTGW/FORDSP",
+                      "Företag saknas \n" );
+	}
+
+	    if ( !process->start() ) {
+		// error handling
+		fprintf(stderr,"Problem starta STYRMAN/FORDSP!\n");
+		QMessageBox::warning( this, "BYTFTGW",
+                            "Kan inte starta STYRMAN/FORDSP! \n" );
+	    }
+}	
+
+void frmBytForetag::slotDataOnStdoutDbnamn()
+{
+    while (process->canReadLineStdout() ) {
+	QString line = process->readStdout();
+	inraddb.append(line);
+	inraddb.append("\n");
+    }
+}
+
+void frmBytForetag::slotDataOnStderrDbnamn()
+{
+    while (process->canReadLineStderr() ) {
+	QString line = process->readStderr();
+	errorrad.append(line);
+	errorrad.append("\n");
+    }
+}
+
+void frmBytForetag::slotEndOfProcessDbnamn()
+{
+    int h,tmp;
+    h = -1;
+    h = errorrad.find( QRegExp("Error:"), 0 );
+//   qDebug("%s",errorrad.latin1());
+         if (h != -1) {
+	QMessageBox::critical( this, "BYTFTGW",
+		"ERROR!\n"+errorrad
+	);
+	flag=h;
+	errorrad="";
+	h = -1;
+    }else{
+	 tmp=inraddb.find(QRegExp("_:"),6);
+//	 qDebug("inraddb=%s  tmp=%d  length=%d",inraddb.latin1(),tmp,tmp2);
+	 newdatabase=inraddb.mid(6,tmp-6);
+	 lineEditNyDatabas->setText(newdatabase);
+//	 qDebug("newdatabase=%s",newdatabase.latin1());
+     }
+    inraddb="";
+}
+
