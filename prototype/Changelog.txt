@@ -1,4 +1,47 @@
-Changelog OLFIX 20050423
+Changelog OLFIX 20050926
+
+Blivande
+________________________________________________________
+Ver 0.3.B
+2005-09-26
+		Nya program
+		PLCHGW		Pricka av en kundorders plocklista(påbörjad)
+
+		Ändrade program
+		ADDARW    	Uppdatera Tip Artikeltyp ..4=Tjänst
+				Lagt till Hjälp
+		OLFIXW		Utökad felhantering
+
+		Nya funktioner
+		ORDRUPD.c	Uppdatera levererat och restnoterat i ORDERRADREG
+		FORDSP.c	Visa info om databas nr x.
+
+		Ändrade funktioner
+		AR2UPD.c	Lagt till update lagersaldo
+		FORCHK.c	Städat
+
+		Ändrade tabeller
+		ARTIKELREG
+			ändrat	ARARTTYP	ENUM ('0','1','2','3','4')DEFAULT '0',
+				lagt till '4' för artikeltyp = Tjänst
+
+		Ändrade sqlfiler.
+		CreateTableARTIKELREG.sql
+		AlterTableARTIKELREG.sql
+
+		Ändrade data
+		TRANSIDdata.txt
+
+		Dokumentation
+		Usersmanual (Online)Uppdaterad (2005-04-28)
+		UserManual	Uppdaterad (2005-04-28)
+
+		Teknisk Manual	Uppdaterad (2005-04-24) Version 0.54
+		Installationsanvisningar.txt (2005-??-??)
+		Installationsanvisningar.sxw (2005-??-??)
+		Korsrelationer.sxw Uppdaterad (2005-??-??)
+
+		(Rättat create_dist (2005-04-24))
 ________________________________________________________
 Ver 0.2.3.B
 2005-04-23
@@ -303,416 +346,3 @@ Ver 0.2.B
 		UserManual	Uppdaterad (2004-12-20)
 		Installationsanvisningar.txt (2004-12-23)
 
-Ver 0.1.16.A
-20041130
-		Allmänt
-		Flyttat OLFIX-paketet till /opt/olfix
-		Återställt (tagit bort katalogen C i repositoryt)
-			Filerna ligger i /src
-
-		Nya tabeller
-		PRODUKTGRUPP	Produktgrupper/Produktklasser (PRODKLASS,BESKRIVNING)
-
-		Nya program
-		LSTLEVPW	Lista standardleveransplatser
-		ADDLPLW		Nya Lagerplatser
-		ADDORDW		Nya kundorder
-		ADDFORW		Ny databas i tabell DATABAS
-		LSTFORW		Lista databaser i tabell DATABAS
-		ADDPKDW		Ny produktklass/produktgrupp/produktkod
-
-		Nya funktioner
-		PKDADD.c	Lägga upp ett nytt produktklass/produktgrupp/produktkod
-
-		Ändrade program
-		OLFIXW	Skapande av $HOME/.olfixrc första gången programmet körs.
-			Använder sig av /opt/olfix/script/.olfixrc
-		OLFIXHLP
-			Ny sökväg till hjälpfilen
-		LSTKUW	Mindre justering av main.cpp
-		ADDBARW Mindre justering av main.cpp och *.pro
-		ADDBETV Mindre justering av main.cpp och *.pro
-		ADDFTGW Mindre justering av main.cpp och *.pro. Nytt fält,Branschtillhörighet.
-		ADDFNC  Mindre justering av main.cpp och *.pro
-		ADDINKW Mindre justering av main.cpp och AddBestellning.pro
-		ADDKTOW Mindre justering av main.cpp och *.pro
-		ADDKSTW Mindre justering av main.cpp och *.pro
-		ADDKUW  Mindre justering av main.cpp och *.pro
-		ADDLPLW Mindre justering av main.cpp och *.pro
-		ADDLEVW Mindre justering av main.cpp och *.pro
-		ADDLEVSW Mindre justering av main.cpp och *.pro
-		ADDLEVVW Mindre justering av main.cpp och *.pro
-		ADDORDW Mindre justering av main.cpp och *.pro
-		ADDRGTW Mindre justering av main.cpp och *.pro
-		ADDLEVPW Mindre justering av main.cpp och *.pro
-		ADDTXTW Mindre justering av main.cpp och *.pro
-		ADDUSRW Mindre justering av main.cpp och *.pro
-		ADDVALW Mindre justering av main.cpp och *.pro
-		BALRPTW Mindre justering av main.cpp och *.pro
-		BOKFORSW Mindre justering av main.cpp och *.pro
-		CHGARW Mindre justering av main.cpp och *.pro
-		CHGBARW Mindre justering av main.cpp och *.pro
-		CHGBETVW Mindre justering av main.cpp och *.pro
-		BYTFTGW Mindre justering av main.cpp och *.pro
-		CHGFTGW Mindre justering av main.cpp och *.pro.Nytt fält,Branschtillhörighet.
-		CHGKTOW Mindre justering av main.cpp och *.pro
-		CHGKUW Mindre justering av main.cpp och *.pro
-		CHGLEVW Mindre justering av main.cpp och *.pro
-		CHGUSRW Mindre justering av main.cpp och *.pro
-		CHGVALW Mindre justering av main.cpp och *.pro
-		DAGBOKW Mindre justering av main.cpp och *.pro
-		DELRGTW Mindre justering av main.cpp och *.pro
-		DELTXTW Mindre justering av main.cpp och *.pro
-		DELUSRW Mindre justering av main.cpp och AddBestellning.pro
-			Lagt in varningstext (Anv. OLFIX får inte tagas bort)
-		DELVALW Mindre justering av main.cpp och *.pro
-		DSPAREW Mindre justering av main.cpp och *.pro
-		DSPARW Mindre justering av main.cpp och *.pro
-		DSPINKW Mindre justering av main.cpp och *.pro
-		DSPFTGW Mindre justering av main.cpp och *.pro.Nytt fält,Branschtillhörighet.
-		DSPKTOW Mindre justering av main.cpp och *.pro
-		DSPKSTW Mindre justering av main.cpp och *.pro
-		DSPKUW Mindre justering av main.cpp och *.pro
-		DSPLEVW Mindre justering av main.cpp och *.pro
-		DSPUSRW Mindre justering av main.cpp och *.pro
-		DSPVALW Mindre justering av main.cpp och *.pro
-		OLFIXHLP Mindre justering av main.cpp och *.pro
-		HUVBOKW Mindre justering av main.cpp och *.pro
-		RPTKTOW Mindre justering av main.cpp och *.pro
-		ATTBETW Mindre justering av main.cpp och *.pro
-		LEVFAKTW Mindre justering av main.cpp och *.pro
-		LEVRESKW Mindre justering av main.cpp och *.pro
-		LSTARW Mindre justering av main.cpp och *.pro
-		LSTINKW Mindre justering av main.cpp och *.pro
-		LSTBETVW Mindre justering av main.cpp och *.pro
-		LSTFORW Mindre justering av main.cpp och *.pro
-		LSTFNCW Mindre justering av main.cpp och *.pro
-		LSTKTOW Mindre justering av main.cpp och *.pro
-		LSTKSTW Mindre justering av main.cpp och *.pro
-		LSTKUW Mindre justering av main.cpp och *.pro
-		LSTLEVW Mindre justering av main.cpp och *.pro
-		LSTLEVPW Mindre justering av main.cpp och *.pro
-		LSTLEVSW Mindre justering av main.cpp och *.pro
-		LSTLEVVW Mindre justering av main.cpp och *.pro
-		LSTRGTW Mindre justering av main.cpp och *.pro
-		LSTUSRW Mindre justering av main.cpp och *.pro
-		LSTVALW Mindre justering av main.cpp och *.pro
-		PRTINKW Mindre justering av main.cpp och *.pro
-		RPTGENW Mindre justering av main.cpp och *.pro
-		SDOLISW Mindre justering av main.cpp och *.pro
-
-		Nya funktioner
-		LEVPLST.c	Lista standardleveransplatser
-		FORADD.c	Ny databas i tabell DATABAS
-		FORCHK.c	Kontrollera om databas finns i tabell DATABAS
-		FORLST.c	Lista databaser i tabell DATABAS
-
-		Ändrade funktioner
-		STYRMAN.c	Buggrättning
-
-		Nya sql
-			CreateTable_olfixtstRIGHTS_ADMIN.sql
-			CreateTableDATABAS.sql
-			LoadTableDATABAS.sql
-			CreateOLFIX.sql Skapar databaserna olix och olfixtst med data
-				 	samt användaren olfix.
-
-		Ändrade sql
-
-		Nya data
-			TableDATABASdata.txt  Data till Tabellen DATABAS
-
-		Ändrade data
-			PROGRAMdata.txt. Lagt till LSTLEVPW
-			TRANSIDdata.txt. Nya funktioner.
-
-		Ändrade script
-			.olfixrc har fått tillägget:
-				HELPFILE=/doc/helpfiles/usermanual/UserManual.html
-			../Makefile uppdaterad
-
-		Nya rapporter
-		Ändrade rapporter
-
-		Nya tabeller
-			DATABAS, lagra olika databas namn för OLFIX
-
-		Dokumentation
-		Online Användarmanual finn på CVS
-		Teknisk Manual	Uppdaterad (2004-11-12)
-			Kompleterat "Filosofin bakom konstruktionen"
-			Kompleterat med "GNU Free Documentation License"
-		Användarmanual, Uppdaterad (2004-11-12)
-			GNU Free Documentation License
-________________________________________________________
-Ver 0.1.15.A
-20040503
-		Allmännt
-		C		Nytt bibliotek för alla c-program som flyttas från src
-
-		Nya program
-		BALRPTW		Balansrapport/Balansräkning(ej färdig)
-		DAGBOKW		Dagboksrapport
-		HUVBOKW		Huvudboksrapport
-
-		Ändrade program
-		SDOLISW		Lagt till Saldototaler
-				Fromdatum och Tomdatum
-
-		Nya funktioner
-		VERHDSP.c	Lista lägsta och högsta datum för angivet bokföringsår.
-		DBOKRPT.c	Dagboksrapport
-		HBOKRPT.c	Huvudboksrapport
-		PRTAPI.c	Interface för utskrifter
-
-		Ändrade funktioner
-		KTORPT.c	Utökad funktionallitet,(fromdatum och tomdatum)
-
-		Nya rapporter
-		Huvudbok.kut	Utskriftmall för huvudbok
-		Dagbok.kut	Utskriftsmall för dagbok
-
-		Ändrade rapporter
-		Saldolista.kut	Lagt till saldototaler
-
-		Ändrade data
-		PROGRAMdata.txt	Nya program
-		TRANSIDdata.txt	Nya funktioner,DBOKRPT,HBOKRPT,PRTAPI,VERHDSP
-
-		Dokumentation
-		Teknisk Manual	Uppdaterad (2004-04-09)
-________________________________________________________
-Ver 0.1.14.A	OBS! Alfa
-20040317
-		Nya program
-		OLFIXHLP	Hjälpfil till OLFIX
-
-		Ändrade program
-		OLFIXW		Tillägg av hjälp, anrop till OLFIXHLP.
-		ADDINKW		Tillägg; Knapp för hopp till utskrift,PRTINKW
-		PRTINKW		main.cpp; Ta emot hopp från ADDINKW med
-				beställningsnummer
-		SDOLISW		Lagt in delsumma per kontoklass
-
-		Ändrade rapporter
-		Bestellning.kut	Bytt fontfamiljer till Nimbus Sans L och Cursor
-
-		Dokumentation
-		Teknisk Manual	Uppdaterad (2004-02-21)
-		Korsreferens	Påbörjad
-________________________________________________________
-Ver 0.1.13.A	OBS! Alfa
-20040210
-		Nya program
-		PRTINKW		Utskrift av beställning
-		ADDLEVVW	Nytt leveransvillkor
-		LSTLEVVW	Lista leveransvillkor
-		ADDLEVSW	Nytt leveranssätt
-
-
-
-		SDOLISW		Ändrad att passa till kugar 1.2.92 ->
-				samt till ISO-8859-1 för XML, mm
-		LSTINKW		Uppdatering (stretching)
-		DSPINKW		Ändrade/nya fält
-
-		Nya funktioner
-		LEVVADD.c	Lägga upp ett nytt leveransvillkor
-		LEVVDSP.c	Visa ett leveransvillkor
-		LEVVLST.c	Lista leveransvillkor
-		LEVSADD.c	Lägg upp ett nytt leveranssätt
-		LEVSDSP.c	Visa ett leveranssätt
-		LEVSLST.c	Lista leveranssätt
-
-		Ändrade funktioner
-		INKHDSP.c	Nya fält i INKREG
-		INKRLST.c	Nya fält i INKRADREG
-		BETDSP.c	Liten anpassning till ADDINKW
-		INKADD.c	Nya fält i INKREG
-		INKRADD.c	Nya fält i INKRADREG
-
-		Ny rapport
-		Bestellning.kut	Utskrift av beställning med hjälp av Kugar
-
-		Ändrad rapport
-		Saldolista.kut	Ändrat till ISO-8859-1 för XML
-
-		Nytt script
-		setup.sh	används av makeself
-
-		Ändrade script
-		install.sh	Arbetar med "dialog" och anropas från setup.sh
-				install.sh byter namn till setup2.sh
-		create_dist	Skapa självextraherande distribution.
-		.olfixrc	Lagt till REPORT=/usr/local/olfix/report/
-
-		Nya tabeller
-		LEVVILLKOR	Leveransvillkor (VILLKORSNR,VILLKORSTEXT)
-		LEVSETT		Leveranssätt (LEVSETTNR,LEVSETTTEXT)
-
-		Ändrade tabeller
-		INKRADREG	Tillägg av BENEMNING,LEVARTIKELNR,LEVBENEMNING
-
-		Nya SQL-satser
-		CreateTableLEVVILLKOR.sql
-		CreateTableLEVSETT.sql
-
-		Ändrade SQL-satser
-		CreateAll.sql		Nya tabeller mm
-		CreateAllOlfixtst.sql	Nya tebeller mm
-		CreateTableINKRADREG.sql	(BENEMNING,LEVARTIKELNR,LEVBENEMNING)
-		CreateTableINKREG.sql	(LEVVILLKOR,LEVSETT,ERREF,VARREFTFN,VARREFFAX,KOMMENTAR)
-			-"-		Ändrade fält (LEVBETVILLKOR,BESTTEXT)
-
-		Ändrade data
-		TRANSIDdata.txt	Nya funktioner, LEVVADD,LEVVDSP,LEVVLST,LEVSADD,LEVSDSP,
-		PROGRAMdata.txt	Nya program
-
-		Bibliotek/Directory
-		Nytt bibliotek	/report	Avsett för kugar-template
-
-		Dokumentation
-		Teknisk Manual	Uppdaterad
-		User Manual	Uppdaterad
-________________________________________________________
-Ver 0.1.12.A	OBS! Alfa
-20040111
-		Nya program
-		INKLST.c	Lista alla inköpsorderrader i INRADREG
-		LSTINKW		Lista alla inköpsorderrader. GUI. Beställningsstock
-
-		Ändrade program
-		BOKFORSW	Möjlighet att redigera redan inskrivna(ej sparade)
-				verifikationsrader.
-		ADDINKW		Förbättrad beräkning av levvecka
-		WRREC.c		Buggrättning
-		VERUPD.c	Buggrättning
-
-		Ändrade script
-		install.sh	Arbetar med "dialog" (ej klart)
-
-		Ändrade SQL-satser
-		CreateTableINKREG.sql	BESTTYP utökad med A=Avrop
-		CreateAll.sql		-"-
-		CreateAllOlfixtst.sql	-"-
-		AlterTableINKREG.sql	-"-
-		CreateTableARTIKELREG	ARTULLTAX utökad till 10 tecken
-		AlterTableARTIKELREG	-"-
-		CreateAll.sql		-"-
-		CreateAllOlfixtst.sql	-"-
-
-		Data, ändrat
-		PROGRAMdata.txt	Nya program
-		TRANSIDdata.txt	Nya funktioner
-
-		Dokumentation
-		Teknisk Manual	Uppdaterad
-		User Manual	Uppdaterad
-________________________________________________________
-Ver 0.1.11.A	OBS! Alfa
-20031225
-		Nya program
-		LSTLEVW		Lista leverantörer
-		TXTDSP.c	Visa en post ur TEXTREG
-		TXTADD.c	Lägga upp en ny post i TEXTREG
-		ADDTXTW		Lägga upp en ny post i TEXTREG. GUI
-		TXTDEL.c	Radera post i TEXTREG
-		DELTXTW		Radera post i TEXTREG. GUI
-		INKADD.c	Lägga upp en ny post i INKREG (inköpsregister)
-		INKRADD.c	Lägga upp en ny post i INKRADREG
-		ADDINKW		Registrera en inköpsorder. GUI
-		INKRLST.c	Lista alla orderrader för angiven inköpsorder.
-		INKHDSP.c	Visa orderhuvud för angiven inköpsorder.
-		DSPINKW		Visa en inköpsorder. GUI
-
-		Ny tabell
-		TEXTREG		För att lagra diverse texter.
-		INKREG		Inköpsorderregister
-		INKRADREG	Inköpsorderradregister
-
-		Nya SQL-satser
-		CreateTableTEXTREG.sql	Skapa tabellen TEXTREG
-		CreateTableINKREG.sql	Skapa tabellen INKREG
-		CreateTableINKRADREG.sql Skapa tabellen INKRADREG
-
-		Ändrade program
-		OLFIXW		Buggrättning
-		ARDSP.c		Buggrättning
-		ARDSPL.c	Buggrättning
-		DSPAREW		Buggrättning
-		DSPARW		Buggrättning
-		CHGARW		Buggrättning
-		LSTARW		Kopiera artikelnummer
-
-		Ändrade SQL-satser
-		CreateAll.sql	Ny tabell TEXTREG,INKREG,INKRADREG
-		CreateAllOlfixtst.sql	Ny tabell TEXTREG,INKREG,INKRADREG
-		add_user_DittNamn.sql	Stavfel
-		add_user_olfix.sql	Stavfel
-		LoadAll.sql		Inkluderat databasen olfixtst
-
-		Data, ändrat
-		PROGRAMdata.txt	Nya program
-		FTGDATAdata.txt	Nytt fält, INKNR, Senaste inköpsordernr
-		TRANSIDdata.txt	Nya funktioner
-
-		Dokumentation
-		Teknisk Manual	Uppdaterad (2003-12-25)
-		User Manual	Uppdaterad (2003-12-20)
-________________________________________________________
-Ver 0.1.10.A	OBS! Alfa
-20031229
-		Nya program
-		DSPARW		Visa data på artikel, ej ekonomiska, GUI
-		DSPAREW		Visa ekonomidata på en artikel, GUI
-		CHGARW		Ändra artikeldata, GUI
-		AR2ADD.c	Lägga upp lagerdata för en artikel.
-		ARCHG.c		Ändra grunddata för en artikel.
-		ARCHGL.c	Ändra lagerställedata för en artikel.
-		ARDSP.c		Visa grunddata för en artikel.
-		ARDSPL.c	Visa lagerställedata för en artikel,bl a ekonomidata
-		BETLST.c	Lista betalningsvillkor
-		LSTBETVW	Lista betalningsvillkor, GUI
-		BETADD.c	Lägga upp nya betalningsvillkor
-		ADDBETVW	Lägga upp nya betalningsvillkor, GUI
-		BETCHG.c	Ändra data för betalningsvillkor
-		CHGBETVW	Ändra data för betalningsvillkor, GUI
-
-		Ändrade program
-		ARADD.c		Tillägg av fältet AROMRFAKTOR
-		ADDARW		Lagt till lagerställe mm. Preliminär
-		DSPLEVW		Buggrättning
-		ARLST.c		Buggrättning
-		OLFIXW		Lagt in streching av widget.
-
-		SQL, Ändrat
-		CreateTableARTIKELREG.sql	Tillägg av fältet AROMRFAKTOR
-		CreateTableLAGERSTELLEREG.sql	Tillägg av fältet AROMKOST,ARPLANKPRIS,ARFRYSTKPRIS
-		CreateAllOlfixtst.sql
-		LoadAll_olfixtst.sql
-		LoadKUNDREG_olfixtst.sql
-
-		Ändrade tabeller
-		ARTIKELREG	Tillägg av fältet AROMRFAKTOR (omräkningsfaktor)
-		LAGERSTELLEREG	Tillägg av fältet AROMKOST (omkostnader),ARPLANKPRIS,ARFRYSTKPRIS
-
-		Data, Nytt
-		ARTIKELREGdata_olfixtst.txt	Data för testföretaget
-		BETVILKORdata_olfixtst.txt	Data för testföretaget
-		FTGDATAdat_olfixtst.txt		Data för testföretaget
-		KUNDREGdat_olfixtst.txt		Data för testföretaget
-		LAGERSTELLEREGdata_olfixtst.txt	Data för testföretaget
-		LEVREGdata_olfixtst.txt		Data för testföretaget
-
-		Data, ändrat
-		PROGRAMdata,txt			Nya program, + ändrad indelning
-		TRANSIDdata.txt			Nya funktioner
-
-		Dokumentation
-		Teknisk Manual	Uppdaterad (2003-11-23)
-________________________________________________________
-Changelog OLFIX 20031111
-
-Ver 0.1.9.A	OBS! Alfa
-20031111
-....
