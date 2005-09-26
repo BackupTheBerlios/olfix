@@ -1,8 +1,9 @@
 /***************************************************************************
                           FORCHK.c  -  description
                              -------------------
+			     Version: 0.2
     begin                : Tis  9 nov	2004
-    Modified		 : Ons 23 febr  2005
+    Modified		 : Mån 26 sept  2005
     copyright            : (C) 2004 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -27,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FORCHK.c,v 1.2 2005/02/23 14:28:22 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FORCHK.c,v 1.3 2005/09/26 06:35:12 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -103,11 +104,11 @@ int main(int argc, char *argv[], char *envp[])
 /* SELECT DATABASNR FROM DATABAS WHERE DATABASNRNR = "55  */
   strncat(temp5,temp2,strlen(temp2)); /*  "     */
 /* SELECT DATABASNR FROM DATABAS WHERE DATABASNRNR = "55" */
-//  fprintf(stderr,"FORCHK: temp5 = %s\n",temp5);
+/*  fprintf(stderr,"FORCHK: temp5 = %s\n",temp5);	  */
 
   mysql_init(&my_connection);
   if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
-//  fprintf(stdout,"KUCHKmain:Connection success\n");
+/*  fprintf(stdout,"FORCHKmain:Connection success\n");		*/
   	res = mysql_query(&my_connection,temp5);
   	if (res){
 		fprintf(stderr,"Error: FORCHK SELECT error: %s\n",mysql_error(&my_connection));
