@@ -26,7 +26,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FORDSP.c,v 1.1 2005/09/26 06:34:11 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FORDSP.c,v 1.2 2005/09/27 04:39:17 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -62,7 +62,7 @@ int main(int argc, char *argv[], char *envp[])
   char dbnr[4]="";
 
   if (argv[1] != NULL){
-  	strncpy(dbnr,argv[1],sizeof(dbnr));	/* 2005-02-23	*/
+  	strncpy(dbnr,argv[1],sizeof(dbnr));
   }else{
   	fprintf(stderr,"Error: FORDSP: Ange databasnummer!\n");
 	exit(-1);
@@ -81,7 +81,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
-		strncpy(databas,database,sizeof(databas));	/*2005-02-23	*/
+		strncpy(databas,database,sizeof(databas));
 	}else{
   		strncpy(databas,"olfixtst",15);	/* olfixtst = testföretag	*/
 	}
@@ -109,7 +109,7 @@ int main(int argc, char *argv[], char *envp[])
 /* SELECT DATABASTEXT FROM DATABAS WHERE DATABASNR="55  */
   strncat(temp5,temp2,strlen(temp2)); /*  "     */
 /* SELECT DATABASTEXT FROM DATABAS WHERE DATABASNR="55" */
-  fprintf(stderr,"FORDSP: temp5 = %s\n",temp5);
+/*  fprintf(stderr,"FORDSP: temp5 = %s\n",temp5);	*/
 
   mysql_init(&my_connection);
   if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
