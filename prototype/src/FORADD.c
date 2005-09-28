@@ -3,6 +3,7 @@
                              -------------------
     begin                : Ons 12 nov	2004
     Modified		 : Ons 23 febr  2005
+    			 : Ons 28 sept  2005
     copyright            : (C) 2004 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -21,13 +22,13 @@
 
 	Kommando: ./FORADD dbnr dbnamn [databas]
 
-	Function: Skapa en ny post i tabellen DATABAS
+	Function: Skapa en ny databas och en ny post i tabellen DATABAS
 
 	OUTPUT: data, errornb och error (text)
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FORADD.c,v 1.3 2005/02/23 14:18:40 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FORADD.c,v 1.4 2005/09/28 08:19:02 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -45,6 +46,7 @@
   MYSQL_ROW sqlrow;
   void display_row();
   int which_database(char *envp[]);
+  int newdatabase(char dbnr[4], char dbnamn[15]); /* 2005-09-25 */
 
   char database[15]="";
 
@@ -81,6 +83,8 @@ int main(int argc, char *argv[], char *envp[])
   	fprintf(stderr,"argv[%d]=%s\n",i,argv[i]);
   }
 */
+//  status = newdatabase(dbnr, dbnamn);				/* 2005-09-25 */
+// exit (0);
   if((argc > 3) && (argv[3] != NULL)){
 	strncpy(database,argv[3],sizeof(database));	/* 2005-02-23	*/
   }else{
@@ -153,9 +157,6 @@ int main(int argc, char *argv[], char *envp[])
 			mysql_errno(&my_connection), mysql_error(&my_connection));
 	}
  }
-if(status == 0){
-	fprintf(stdout,"OK: FORADD Status = %d\n",status);
- }
 if(status != 0){
 	fprintf(stderr,"Error: FORADD Databasen %s finns inte!\n",dbnr);
  }
@@ -221,4 +222,16 @@ int which_database(char *envp[])
 	database[strlen(tmp)]=0;
 
 	return status;
+}
+
+void display_row()
+{
+   unsigned int field_count;
+   field_count=0;
+	while (field_count < mysql_field_count(&my_connection))
+	{
+		fprintf(stdout,"%s: ",sqlrow[field_count]);
+		field_count++;
+	}
+/*	fprintf(stdout,"\n");	*/
 }
