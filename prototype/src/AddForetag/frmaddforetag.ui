@@ -9,38 +9,18 @@
             <x>0</x>
             <y>0</y>
             <width>462</width>
-            <height>148</height>
+            <height>163</height>
         </rect>
     </property>
     <property name="caption">
-        <string>ADDFORW  Lägga upp nytt företag</string>
+        <string>ADDFORW  Lägga upp nytt företag/databas</string>
     </property>
     <property name="toolTip" stdset="0">
-        <string>Uppdatera tabellen DATABAS med hänvisning till ny databas. Databasen måste existera.</string>
+        <string>Skapa en ny och tom databas, ett nytt företag</string>
     </property>
     <property name="whatsThis" stdset="0">
-        <string>Version: 0.1
-2003-06-03</string>
+        <string>Version: 0.2 2005-09-27</string>
     </property>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonQuit</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>70</x>
-                <y>120</y>
-                <width>61</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Avsluta</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>TextLabel1</cstring>
@@ -65,6 +45,41 @@
     </widget>
     <widget class="QLabel">
         <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>265</x>
+                <y>5</y>
+                <width>130</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Befintliga databaser</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonQuit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>70</x>
+                <y>135</y>
+                <width>61</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avsluta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
             <cstring>TextLabel1_2</cstring>
         </property>
         <property name="geometry">
@@ -79,17 +94,36 @@
             <string>Databas:</string>
         </property>
     </widget>
-    <widget class="QLineEdit">
+    <widget class="QPushButton">
         <property name="name">
-            <cstring>LineEditdbnr</cstring>
+            <cstring>pushButtonHelp</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>91</x>
-                <y>30</y>
-                <width>30</width>
-                <height>23</height>
+                <x>175</x>
+                <y>5</y>
+                <width>56</width>
+                <height>16</height>
             </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>90</y>
+                <width>76</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Password:</string>
         </property>
     </widget>
     <widget class="QPushButton">
@@ -99,7 +133,7 @@
         <property name="geometry">
             <rect>
                 <x>10</x>
-                <y>120</y>
+                <y>135</y>
                 <width>51</width>
                 <height>21</height>
             </rect>
@@ -109,6 +143,22 @@
         </property>
         <property name="default">
             <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditPassword</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>90</x>
+                <y>90</y>
+                <width>81</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="echoMode">
+            <enum>Password</enum>
         </property>
     </widget>
     <widget class="QLineEdit">
@@ -123,15 +173,63 @@
                 <height>23</height>
             </rect>
         </property>
+        <property name="toolTip" stdset="0">
+            <string>Ange ett databasnamn med gemener (små bokstäver). Icke å ä ö.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditdbnr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>91</x>
+                <y>30</y>
+                <width>30</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Ange databasnummer med två(2) siffror.</string>
+        </property>
+    </widget>
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Databasnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Databasnamn</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <property name="name">
+            <cstring>listView1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>240</x>
+                <y>25</y>
+                <width>211</width>
+                <height>131</height>
+            </rect>
+        </property>
     </widget>
 </widget>
 <connections>
-    <connection>
-        <sender>PushButtonOK</sender>
-        <signal>clicked()</signal>
-        <receiver>LineEditdbnamn</receiver>
-        <slot>clear()</slot>
-    </connection>
     <connection>
         <sender>PushButtonOK</sender>
         <signal>clicked()</signal>
@@ -157,16 +255,34 @@
         <slot>slotdbnrEntered()</slot>
     </connection>
     <connection>
+        <sender>PushButtonQuit</sender>
+        <signal>clicked()</signal>
+        <receiver>frmAddForetag</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>LineEditdbnamn</receiver>
+        <slot>clear()</slot>
+    </connection>
+    <connection>
         <sender>LineEditdbnamn</sender>
         <signal>returnPressed()</signal>
         <receiver>frmAddForetag</receiver>
         <slot>slotdbnamnEntered()</slot>
     </connection>
     <connection>
-        <sender>PushButtonQuit</sender>
+        <sender>pushButtonHelp</sender>
         <signal>clicked()</signal>
         <receiver>frmAddForetag</receiver>
-        <slot>close()</slot>
+        <slot>pushButtonHelp_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditPassword</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmAddForetag</receiver>
+        <slot>lineEditPassword_Entered()</slot>
     </connection>
 </connections>
 <tabstops>
@@ -182,13 +298,23 @@
     <slot access="protected">init()</slot>
     <slot>slotdbnrEntered()</slot>
     <slot>slotdbnamnEntered()</slot>
+    <slot>lineEditPassword_Entered()</slot>
+    <slot>pushButtonHelp_clicked()</slot>
     <slot>slotAddForetag()</slot>
     <slot>slotDataOnStdout()</slot>
     <slot>slotDataOnStderr()</slot>
     <slot>slotEndOfProcess()</slot>
     <slot>slottInformation()</slot>
-    <slot>slotCheckIfExist()</slot>
-    <slot>slotCheckEndOfProcess()</slot>
+    <slot>slotCheckIfExistDbnr()</slot>
+    <slot>slotCheckDbnrEndOfProcess()</slot>
+    <slot>listDatabaser()</slot>
+    <slot>slotEndOfProcessList()</slot>
+    <slot>slotCheckIfExistDbnamn()</slot>
+    <slot>slotCheckDbnamnEndOfProcess()</slot>
+    <slot>readResursFil()</slot>
+    <slot>checkDb_mysql()</slot>
+    <slot>CheckDbmysqlEndOfProcess()</slot>
+    <slot>slotDataOnStdoutMysql()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
