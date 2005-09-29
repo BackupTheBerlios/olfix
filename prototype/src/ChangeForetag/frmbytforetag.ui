@@ -12,6 +12,13 @@
             <height>192</height>
         </rect>
     </property>
+    <property name="paletteForegroundColor">
+        <color>
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+        </color>
+    </property>
     <property name="caption">
         <string>OLFIX - BYTFTGW Byt företag/databas</string>
     </property>
@@ -152,22 +159,6 @@
             <string>01</string>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditNyttForetag</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>150</x>
-                <y>115</y>
-                <width>30</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>99</string>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>textLabel1</cstring>
@@ -184,32 +175,6 @@
             <string>Denna funktion används för att skifta mellan olika företag (databaser).
 Företag 01 (databas olfix) är det ordinarie, "skarpa" företaget.
 Företag 99 (databas olfixtst) är ett testföretag.</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditNyDatabas</cstring>
-        </property>
-        <property name="enabled">
-            <bool>false</bool>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>255</x>
-                <y>115</y>
-                <width>96</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="paletteForegroundColor">
-            <color>
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-            </color>
-        </property>
-        <property name="text">
-            <string>olfixtst</string>
         </property>
     </widget>
     <widget class="QPushButton">
@@ -269,6 +234,83 @@ Företag 99 (databas olfixtst) är ett testföretag.</string>
             <bool>true</bool>
         </property>
     </widget>
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Databasnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Databasnamn</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <property name="name">
+            <cstring>listView1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>365</x>
+                <y>70</y>
+                <width>221</width>
+                <height>116</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditNyttForetag</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>150</x>
+                <y>115</y>
+                <width>30</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string></string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditNyDatabas</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>255</x>
+                <y>115</y>
+                <width>96</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="text">
+            <string></string>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
@@ -301,6 +343,12 @@ Företag 99 (databas olfixtst) är ett testföretag.</string>
         <receiver>frmBytForetag</receiver>
         <slot>close()</slot>
     </connection>
+    <connection>
+        <sender>listView1</sender>
+        <signal>clicked(QListViewItem*)</signal>
+        <receiver>frmBytForetag</receiver>
+        <slot>slotPickupDbnr(QListViewItem*)</slot>
+    </connection>
 </connections>
 <includes>
     <include location="local" impldecl="in implementation">frmbytforetag.ui.h</include>
@@ -322,6 +370,9 @@ Företag 99 (databas olfixtst) är ett testföretag.</string>
     <slot>slotDataOnStdoutDbnamn()</slot>
     <slot>slotDataOnStderrDbnamn()</slot>
     <slot>slotEndOfProcessDbnamn()</slot>
+    <slot>listDatabaser()</slot>
+    <slot>slotEndOfProcessList()</slot>
+    <slot>slotPickupDbnr( QListViewItem * item )</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

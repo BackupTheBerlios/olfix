@@ -10,8 +10,8 @@
                           BYTFTGW  -  description
                              -------------------
 		     version 0.4
-    begin                   : Sön  19 okt    2003
-    modified:	: Sön  25 sept  2005
+    begin                   : Sön   19 okt    2003
+    modified:	: Tors 29 sept  2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -39,8 +39,10 @@
 	QString inrad;
 	QString inraddb;
 	QString errorrad;
+	QString* rad;
 
 	QString foretag;
+	QString dbnr;
 	QString newforetag;
 	QString database;
 	QString newdatabase;
@@ -127,6 +129,7 @@ void frmBytForetag::getDatabase()
    if (database != "olfix" and database != "olfixtst"){
        foretag = database.right(2);
    }
+   listDatabaser();
 }
 
 void frmBytForetag::setDatabase()
@@ -150,12 +153,17 @@ void frmBytForetag::slotHelp()
 	inrad="";
 //	errorrad="";
 
-	frmBytForetag::readResursFil();		// Hämta path till hjälpfilen
-	hjelpfil=hjelpfil+"#BYTAFORETAG";		// Lägg till position
+	frmBytForetag::readResursFil();			// Hämta path till hjälpfilen
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_DATABASER.html";
+	hjelpfil=hjelpfil+"#DATABASBYT";			// Lägg till position
+
+//	hjelpfil=hjelpfil+"#BYTAFORETAG";		// Lägg till position
 //	qDebug("hjelpfil=%s",hjelpfil.latin1());
 
 	process = new QProcess();
-	process->addArgument( "OLFIXHLP" );	// OLFIX program
+	process->addArgument( "OLFIXHLP" );		// OLFIX program
 	process->addArgument(hjelpfil);
 
 	if ( !process->start() ) {
@@ -315,7 +323,7 @@ void frmBytForetag::slotEndOfProcessDbnamn()
     h = errorrad.find( QRegExp("Error:"), 0 );
 //   qDebug("%s",errorrad.latin1());
          if (h != -1) {
-	QMessageBox::critical( this, "BYTFTGW",
+	QMessageBox::critical( this, "BYTFTGW/FORDSP",
 		"ERROR!\n"+errorrad
 	);
 	flag=h;
@@ -331,3 +339,108 @@ void frmBytForetag::slotEndOfProcessDbnamn()
     inraddb="";
 }
 
+void frmBytForetag::listDatabaser()
+{
+	const char *userp = getenv("USER");
+            QString usr(userp);
+
+	process = new QProcess();
+	process->addArgument("./STYRMAN");
+	process->addArgument(usr);		// userid
+	process->addArgument( "FORLST");	// OLFIX funktion
+
+	frmBytForetag::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+            frmBytForetag::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcessList() ) );
+
+        if ( !process->start() ) {
+            // error handling
+	    QMessageBox::warning( this, "Start av FORLST ", "Kan inte starta FORLST!\n");
+        }
+
+}
+
+void frmBytForetag::slotEndOfProcessList()
+{
+    QString listrad;
+    QListViewItem* item;
+    rad=&inrad;
+    inrad.latin1();
+    char *pos1;
+    char *pos2;
+    char tmp[MAXSTRING];
+    char *tmppek;
+    int i,j,k,l,m;
+    char antrad[6]="";
+    char dbnr[4]="";
+    char dbnamn[16]="";
+
+    tmppek=tmp;
+    qstrcpy(tmp,inrad);
+    pos1=strstr(tmp,"NR_");
+    pos2=strstr(tmp,"_:");
+    i=pos2-pos1;
+    m=i+2;		// startposition för första userid.
+//    fprintf(stdout,"i=%d  m=%d",i,m);
+    k=0;
+    for (j=3;j<i;j++){
+	antrad[k]=tmp[j];
+	k++;
+    };
+    i=atoi(antrad);		// i = antal poster
+//    fprintf(stderr," i = %d\n",i);
+    for (k = 1;k <= i; k++){	// gå igenom alla raderna / posterna
+	l=0;
+	for(j = m; j < sizeof(dbnr) + m; j++){
+	    if(tmp[j] != *("_")){
+		dbnr[l]=tmp[j];
+		l++;
+	    }else{
+		dbnr[l] = *("\0");
+		j=sizeof(dbnr) + m;
+	    }
+	}
+//	fprintf(stdout,"%s  ",dbnr);
+	m=m+l+2;	// position för databasnummer
+	l=0;
+	for(j = m; j < sizeof(dbnamn) + m; j++){
+	    if(tmp[j] != *("_")){
+		dbnamn[l]=tmp[j];
+		l++;
+	    }else{
+		dbnamn[l] = *("\0");
+		j=sizeof(dbnamn) + m;
+	    }
+	}
+//	fprintf(stdout,"%s  ",dbnamn);
+	m=m+l+2;	// position för databasnamn
+	item = new QListViewItem(listView1,dbnr,dbnamn);
+ 	/* rensa databasbummer och databasnamn */
+   	for (l=0;l<sizeof(dbnr);l++)
+		dbnr[l]=*("\0");
+	for (l=0;l<sizeof(dbnamn);l++)
+		dbnamn[l]=*("\0");
+	/* rensa listrad */
+	listrad.remove(0,70);
+    }
+//    fprintf(stderr,"Klart!\n");
+}
+
+void frmBytForetag::slotPickupDbnr( QListViewItem * item)
+{
+    char dbnum[9]="";
+    if(!item){
+	return;
+    }
+     listView1->setCurrentItem(item);
+     if(!item->key(0,TRUE)){
+	 return;
+     }
+
+     strcpy(dbnum,item->key(0,TRUE));
+     dbnr=dbnum;
+     lineEditNyttForetag->setText((dbnr));
+     db=dbnr;
+     getDatabasename();
+     lineEditNyDatabas->setText(newdatabase);
+    pushButtonDo->setFocus();
+}
