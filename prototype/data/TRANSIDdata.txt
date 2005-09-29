@@ -17,6 +17,7 @@
 "BETDSP","Visa ett betalningsvillkor"
 "BETLST","Lista betalningsvillkor"
 "BOKF","Bokföringsprogram"
+"DBCHK","Lista databaser registrerade i databasen mysql"
 "DBOKRPT","Dagboksrapport"
 "FORADD","Ny databas i tabellen DATABAS"
 "FORCHK","Kontr. om databas finns i tabell DATABAS"
