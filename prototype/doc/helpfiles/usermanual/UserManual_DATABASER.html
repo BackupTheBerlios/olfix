@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-15">
+	<TITLE>UserManual</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.0.2  (Linux)">
+	<META NAME="CREATED" CONTENT="20021205;10014400">
+	<META NAME="CHANGEDBY" CONTENT="Jan Pihlgren">
+	<META NAME="CHANGED" CONTENT="20050929;7382300">
+	<STYLE>
+	<!--
+		@page { margin: 2cm }
+		P { margin-bottom: 0.21cm }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="sv-SE">
+<P STYLE="margin-bottom: 0cm"><A NAME="TOP"></A><IMG SRC="UserManual_html_OLFIX_LOGGA.jpg" NAME="Graphic1" ALIGN=MIDDLE WIDTH=643 HEIGHT=268 BORDER=0>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=6 STYLE="font-size: 22pt"><B>Order/Lager/Fakturering
+f&ouml;r Linuxsystem</B></FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=6 STYLE="font-size: 22pt">Anv&auml;ndarmanual
+</FONT>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=4 STYLE="font-size: 16pt">Kapitel
+Databaser </FONT>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.42 </FONT>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2005-09-29 </FONT>
+</P>
+<HR>
+<P STYLE="margin-left: 3cm">This program is free software; you can
+redistribute it and/or modify<BR>it under the terms of the GNU
+General Public License as published by<BR>the Free Software
+Foundation; either version 2 of the License, or<BR>(at your option)
+any later version.</P>
+<P STYLE="margin-bottom: 0.5cm; border-top: none; border-bottom: 1.10pt double #808080; border-left: none; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0cm; padding-right: 0cm">
+<FONT SIZE=1 STYLE="font-size: 6pt">Copyright 2004 Jan Pihlgren.</FONT></P>
+<P ALIGN=CENTER><A NAME="INNEHALL"></A><FONT SIZE=4 STYLE="font-size: 16pt"><B><!---- <P STYLE="margin-top: 0.42cm; page-break-before: always; page-break-after: avoid">
+<!---->Inneh&aring;ll</B></FONT></P>
+<P STYLE="margin-left: 3cm; margin-bottom: 0cm"><!-- <a href="#DATABAS">Databas</a><br> --><A HREF="#ALLMENT"><FONT FACE="San Serif">Allm&auml;nt.</FONT></A>
+</P>
+<P STYLE="margin-left: 3cm; margin-bottom: 0cm"><!-- <a href="#DATABAS">Databas</a><br> --><A HREF="#DATABASNY"><FONT FACE="San Serif">Skapandande
+av ny databas.</FONT></A></P>
+<P STYLE="margin-left: 3cm; margin-bottom: 0cm"><!-- <a href="#DATABAS">Databas</a><br> --><A HREF="#DATABASBYT"><FONT FACE="San Serif">Byta
+databas/f&ouml;retag</FONT></A></P>
+<HR>
+<P ALIGN=LEFT><A NAME="ALLMENT"></A><FONT FACE="San Serif"><B>Allm&auml;nt.</B></FONT></P>
+<P ALIGN=LEFT>Detta kapitel avhandlar m&ouml;jligheten till att
+anv&auml;nda flera f&ouml;retag helt &aring;tskilda fr&aring;nvarandra.
+OLFIX har m&ouml;jligheten att hantera 99 st olika f&ouml;retag,
+numrerade 01 &ndash; 99. Varje f&ouml;retag har sin egen
+databas.<BR>Detta inneb&auml;r bland annat skapande av nya databaser.
+Det kr&auml;vs kunskap om och f&ouml;rst&aring;else av databaser,
+databasmotorn MySQL samt fr&aring;gespr&aring;ket SQL framf&ouml;r
+allt i samband med skapande av nya f&ouml;retag/databaser. 
+</P>
+<P ALIGN=CENTER><FONT FACE="San Serif"><BR><A HREF="#INNEHALL">Till
+b&ouml;rjan</A></FONT></P>
+<HR>
+<P ALIGN=LEFT><A NAME="DATABASNY"></A><FONT FACE="San Serif"><B>Skapande
+av ny databas.</B> </FONT>
+</P>
+<P ALIGN=CENTER><IMG SRC="UserManual_html_ADDFORW.png" NAME="Graphic1" ALIGN=BOTTOM WIDTH=500 HEIGHT=220 BORDER=0></P>
+<P ALIGN=LEFT>Anv&auml;ndandet av programmet ADDFORW kr&auml;ver
+ing&aring;ende kunskaper om databashanteraren MySQL och OLFIX.<BR>OBS!
+Beh&ouml;righet att anv&auml;nda programmet b&ouml;r begr&auml;nsas
+till en dataadministrat&ouml;r eller en v&auml;l insatt och kunnig
+anv&auml;ndare.<BR>F&ouml;r att kunna skapa en ny databas kr&auml;vs
+beh&ouml;righet att g&ouml;ra detta.</P>
+<P ALIGN=LEFT>Programmet ADDFORW anv&auml;nds f&ouml;r att skappa en
+ny databas. Databasen &auml;r tom fr&aring;n b&ouml;rjan. Bara
+tabeller och ett f&aring;tal grunddata finns inlagda.<BR>Databasnumret
+anges med tv&aring; (2) siffror.<BR>Databasnamnet skall anges med
+gemener (sm&aring; bokst&auml;ver) och f&aring;r endast inneh&aring;lla
+15 tecken. Inget av tecknen f&aring;r vara &aring; &auml; &ouml;.<BR>Password
+avser det l&ouml;senord som anv&auml;nds f&ouml;r att via mysql g&ouml;ra
+f&ouml;r&auml;ndringar i databaserna.<BR>Programmet kontrollerar att
+inte angivet databasnummer eller databasnamn finns registrerat sedan
+tidigare.</P>
+<P ALIGN=CENTER><FONT FACE="San Serif"><BR><A HREF="#INNEHALL">Till
+b&ouml;rjan</A></FONT></P>
+<HR>
+<P ALIGN=LEFT><A NAME="DATABASBYT"></A><FONT FACE="San Serif"><B>Byta
+f&ouml;retag.</B></FONT></P>
+<P><BR><BR>
+</P>
+<P ALIGN=CENTER><IMG SRC="UserManual_html_BYTFTGW.png" NAME="Graphic2" ALIGN=MIDDLE WIDTH=608 HEIGHT=218 BORDER=0></P>
+<P ALIGN=LEFT>Ange databasnumret till det f&ouml;retag du vill arbeta
+med.  Du kan ocks&aring; klicka p&aring; &ouml;nskat databasnr i
+listan till h&ouml;ger.</P>
+<P ALIGN=LEFT><BR><BR>
+</P>
+<P ALIGN=CENTER><A HREF="#INNEHALL"><FONT FACE="San Serif">Till
+b&ouml;rjan</FONT></A></P>
+<HR>
+<P ALIGN=CENTER><A NAME="BEGREPP"></A><FONT FACE="San Serif"><B>BEGREPPSF&Ouml;RKLARINGAR</B></FONT></P>
+<P ALIGN=LEFT><FONT FACE="San Serif"><B>Bokf&ouml;rings&aring;r:</B>
+Tv&aring;st&auml;llig bokstavskombination som anger vilket
+bokf&ouml;rings&aring;r som avses.</FONT></P>
+<P><BR><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till
+b&ouml;rjan</A> </FONT>
+</P>
+</BODY>
+</HTML>
