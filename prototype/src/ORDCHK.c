@@ -1,9 +1,9 @@
 /***************************************************************************
                           ORDCHK.c  -  description
                              -------------------
-    Version		 : 0.1
-    begin                : Lör   2 april 2005
-    Modified		 :
+    Version		 : 0.2
+    begin                : Lör  2 april 2005
+    Modified		 : Fre 30 sept  2005
     copyright            : (C) 2005 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -30,7 +30,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ORDCHK.c,v 1.2 2005/04/02 16:42:57 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ORDCHK.c,v 1.3 2005/09/30 05:22:57 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -53,6 +53,14 @@
 
 int main(int argc, char *argv[], char *envp[])
 {
+if(argv[1]==NULL){
+	fprintf(stderr,"Ange önskat val!\n");
+	exit(0);
+	}
+if (argv[2]==NULL){
+	fprintf(stderr,"Ange ordernr!\n");
+	exit(0);
+	}
   int res,status;
   int i;
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
