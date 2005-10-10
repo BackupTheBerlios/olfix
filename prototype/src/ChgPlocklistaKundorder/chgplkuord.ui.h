@@ -8,6 +8,7 @@
 *****************************************************************************/
 /***************************************************************************
                           PLCHGW  -  Skapa plocklista för kundorder
+                         ChgPlocklistaKundorder
                              -------------------
 		     version 0.1
     begin     	: Mån  25 april 2005
@@ -40,6 +41,7 @@
     QString* rad;
     QString errorrad;
     QString hjelpfil;
+    int varv=0;
 
     QString kundordernr;
     QString reportpath;
@@ -108,14 +110,17 @@ void frmChgPlKundOrder::init()
 
 void frmChgPlKundOrder::lineEditOrderNr_returnPressed()
 {
+    listViewRader->clear();
     kundordernr=lineEditOrderNr->text();
     if (kundordernr == ""){
         QMessageBox::warning( this, "PLCHGW",
                      "Kundorder saknas! \n" );
 	lineEditOrderNr->setFocus();
+    }else{
+	frmChgPlKundOrder::checkStatus();
+//	GetOrderHeader();
+	listViewRader->setFocus();
     }
-    frmChgPlKundOrder::checkStatus();
-//    pushButtonOK->setFocus();
 }
 
 void frmChgPlKundOrder::lineEditPlockatAntal_returnPressed()
@@ -126,7 +131,12 @@ void frmChgPlKundOrder::lineEditPlockatAntal_returnPressed()
 
 void frmChgPlKundOrder::pushButtonOK_clicked()
 {
-    frmChgPlKundOrder::GetOrderHeader();
+/*****************************************/    
+/*                        Godkänn plockningen 	 */
+/*   Uppdataera kundorder och artikelregister      */    
+/*   Skapa följesedel            			*/     
+/*****************************************/     
+    frmChgPlKundOrder::updateOrder();
 }
 
 void frmChgPlKundOrder::GetOrderHeader()
@@ -153,8 +163,7 @@ void frmChgPlKundOrder::GetOrderHeader()
     	    QMessageBox::warning( this, "PLCHGW",
                       "Inköpsordernr saknas! \n" );
 	    lineEditOrderNr->setFocus();
-	}
-	else {
+	}else {
 	    if ( !process->start() ) {
 		// error handling
 		fprintf(stderr,"Problem starta STYRMAN/ORDDSP!\n");
@@ -187,8 +196,7 @@ void frmChgPlKundOrder::GetOrderRow()
 	if (kundordernr == ""){
     	    QMessageBox::warning( this, "PLCHGW",
                       "Kundorder saknas! \n" );
-	}
-	else {
+	}else {
 	    if ( !process->start() ) {
 		// error handling
 		QMessageBox::warning( this, "PLCHGW",
@@ -464,8 +472,10 @@ void frmChgPlKundOrder::RaderEndOfProcess()
     QString orderradpris;
     QString radbelopp;
     QString radmoms;		/*  Moms på radbelopp */
+    QString attlev;
+    int attleverera;			/* Temporär variabel för beräkning */
 
-    
+    varv=varv+1;			/* varv används enbart för felsökning */
 //   qDebug("RaderEndOfProcess::inrad=%s",inrad.latin1());
     int i,m,n;
     QString tmp;
@@ -473,14 +483,15 @@ void frmChgPlKundOrder::RaderEndOfProcess()
     i = -1;
     i = errorrad.find( QRegExp("Error:"), 0 );
          if (i != -1) {
-	QMessageBox::critical( this, "DSPORDW",
+	QMessageBox::critical( this, "PLCHGW",
 		"ERROR!\n"+errorrad
 	);
 	errorrad="";
 	i = -1;
-     }
+    }else{
      i = -1;
      i = inrad.find( QRegExp("OK:"), 0 );
+//     qDebug("RaderEndOfProcess:: i=%d, varv=%d",i,varv);
      if (i != -1) {
 	 
 	 int p1 = inrad.find( QRegExp("OK:"), 0 );
@@ -551,7 +562,13 @@ void frmChgPlKundOrder::RaderEndOfProcess()
 //	     qDebug("levererat antal=%s",tmp.latin1());
 	     m=(i14 - 3)-(i13 + 8);					// restnoterat
 	     restnoterat=inrad.mid(i13 + 8,m);
-//	     qDebug("restnoterat antal=%s",tmp.latin1());
+	     if(restnoterat.toInt() > 0){
+		  attleverera=restnoterat.toInt()-tmp.toInt();
+	      }else{
+		  attleverera=orderantal.toInt()-tmp.toInt();
+	      }
+	     attlev=attlev.setNum(attleverera);
+//	     qDebug("orderantal=%s restnoterat antal=%s attleverera=%d attlev=%s",orderantal.latin1(),tmp.latin1(),attleverera,attlev.latin1());
 	     m=(i15 )-(i14 + 8);					// radrabatt
 	     tmp=inrad.mid(i14 + 8,m);
 //	     qDebug("radrabatt=%s",tmp.latin1());
@@ -565,11 +582,11 @@ void frmChgPlKundOrder::RaderEndOfProcess()
 	     tmp=inrad.mid(i17 + 8,m);
 //	     qDebug("enhet=%s",tmp.latin1());
 	     
-               item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,radleveransvecka,orderantal,restnoterat);
-
-
+//               item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,radleveransvecka,orderantal,restnoterat);
+	      item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,radleveransvecka,orderantal,attlev);
 	    }
 	}
+ }
 }
 
 void frmChgPlKundOrder::DataOnStdout()
@@ -642,13 +659,12 @@ void frmChgPlKundOrder::checkStatus()
     	    QMessageBox::warning( this, "PLCHGW",
                       "Kundordernummer saknas! \n" );
 	    lineEditOrderNr->setFocus();
-	}
-	else {
+	}else {
 	    if ( !process->start() ) {
 		// error handling
-		fprintf(stderr,"Problem starta STYRMAN/ORDDSP!\n");
+		fprintf(stderr,"Problem starta STYRMAN/ORDCHK!\n");
 		QMessageBox::warning( this, "PLCHGW",
-                            "Kan inte starta STYRMAN/ORDDSP! \n" );
+                            "Kan inte starta STYRMAN/ORDCHK! \n" );
 	    }
 	}
 }
@@ -684,9 +700,7 @@ void frmChgPlKundOrder::CheckOrderEndOfProcess()
 	    lineEditOrderNr->setFocus();
     }else{
 	    frmChgPlKundOrder::GetOrderHeader();
-//	    pushButtonOK->setFocus();
     }
-//    qDebug("orderstatus=%s",orderstatus.latin1());
 }
 
 void frmChgPlKundOrder::listViewRader_format()
@@ -825,4 +839,28 @@ void frmChgPlKundOrder::readResursFil()
         }
     }
     f1.close();
+}
+
+void frmChgPlKundOrder::updateOrder()
+{
+    QString ordernum;
+    QString radnum;
+    QString levantal;
+    QString restantal;
+    double rest;
+    double lev;
+    
+    
+   QListViewItem *item =  listViewRader->firstChild();
+   ordernum= ordernr;
+   radnum=item->text(0); 
+   levantal=item->text(6);
+   restantal=item->text(5);
+   rest=restantal.toDouble();
+   lev=levantal.toDouble();
+   rest=rest-lev;
+   restantal=restantal.setNum(rest,'f',2);
+   
+   qDebug("ordernum=%s, radnum=%s, levantal=%s, restantal=%s",ordernum.latin1(),radnum.latin1(),levantal.latin1(),restantal.latin1());
+   
 }
