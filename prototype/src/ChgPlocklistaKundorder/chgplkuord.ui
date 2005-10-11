@@ -50,64 +50,6 @@
             <string>Ordernr</string>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditOrderNr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>25</x>
-                <y>30</y>
-                <width>90</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditOrderstatus</cstring>
-        </property>
-        <property name="enabled">
-            <bool>false</bool>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>120</x>
-                <y>30</y>
-                <width>76</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="paletteForegroundColor">
-            <color>
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-            </color>
-        </property>
-        <property name="text">
-            <string>status</string>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>A=Under arbete,N= Normal,F=Frisläppt,B=Slutbehandlad</string>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushBtnHelp</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>230</x>
-                <y>30</y>
-                <width>66</width>
-                <height>25</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Hjälp</string>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>textLabel5_2_3</cstring>
@@ -403,29 +345,6 @@ antal</string>
             <string>Önskad leveranstid för orderraden.</string>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditPlockatAntal</cstring>
-        </property>
-        <property name="enabled">
-            <bool>true</bool>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>795</x>
-                <y>125</y>
-                <width>86</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="font">
-            <font>
-            </font>
-        </property>
-        <property name="alignment">
-            <set>AlignRight</set>
-        </property>
-    </widget>
     <widget class="QPushButton">
         <property name="name">
             <cstring>pushBtnRadNej</cstring>
@@ -444,29 +363,6 @@ antal</string>
         </property>
         <property name="text">
             <string>Nej</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushBtnOKRad</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>955</x>
-                <y>125</y>
-                <width>30</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="font">
-            <font>
-            </font>
-        </property>
-        <property name="text">
-            <string>Ja</string>
         </property>
         <property name="default">
             <bool>true</bool>
@@ -635,6 +531,103 @@ antal</string>
             <string>Summa moms</string>
         </property>
     </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditOrderstatus</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>30</y>
+                <width>76</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="text">
+            <string>status</string>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>A=Under arbete,N= Normal,F=Frisläppt,B=Slutbehandlad</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushBtnHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>230</x>
+                <y>30</y>
+                <width>66</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushBtnOKRad</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>955</x>
+                <y>125</y>
+                <width>30</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+            </font>
+        </property>
+        <property name="text">
+            <string>Ja</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditPlockatAntal</cstring>
+        </property>
+        <property name="enabled">
+            <bool>true</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>795</x>
+                <y>125</y>
+                <width>86</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+            </font>
+        </property>
+        <property name="text">
+            <string>0</string>
+        </property>
+        <property name="alignment">
+            <set>AlignRight</set>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Fyll i antal enheter som plockats.</string>
+        </property>
+    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>textLabel1_5</cstring>
@@ -650,24 +643,8 @@ antal</string>
         <property name="text">
             <string>Plockningen klar</string>
         </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonOK</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>375</y>
-                <width>60</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>OK</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
+        <property name="toolTip" stdset="0">
+            <string>Uppdatera kundorder och artikelinformation.</string>
         </property>
     </widget>
     <widget class="QPushButton">
@@ -676,7 +653,7 @@ antal</string>
         </property>
         <property name="geometry">
             <rect>
-                <x>85</x>
+                <x>165</x>
                 <y>375</y>
                 <width>65</width>
                 <height>20</height>
@@ -782,6 +759,63 @@ antal</string>
             <font>
             </font>
         </property>
+        <property name="toolTip" stdset="0">
+            <string>Klicka på önskad orderrad och den flyttas upp till de separata fälten.</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonNext</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>85</x>
+                <y>375</y>
+                <width>66</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Nästa</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditOrderNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>25</x>
+                <y>30</y>
+                <width>90</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>375</y>
+                <width>60</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>OK</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Klicka för att uppdatera order och artikelregister.</string>
+        </property>
     </widget>
 </widget>
 <connections>
@@ -827,12 +861,30 @@ antal</string>
         <receiver>frmChgPlKundOrder</receiver>
         <slot>pushBtnHelp_clicked()</slot>
     </connection>
+    <connection>
+        <sender>pushButtonNext</sender>
+        <signal>clicked()</signal>
+        <receiver>frmChgPlKundOrder</receiver>
+        <slot>pushButtonNext_clicked()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>lineEditOrderNr</tabstop>
+    <tabstop>listViewRader</tabstop>
+    <tabstop>lineEditPlockatAntal</tabstop>
+    <tabstop>pushBtnOKRad</tabstop>
     <tabstop>pushButtonOK</tabstop>
+    <tabstop>pushButtonNext</tabstop>
     <tabstop>pushButtonSluta</tabstop>
     <tabstop>lineEditOrderstatus</tabstop>
+    <tabstop>lineEditRadnr</tabstop>
+    <tabstop>lineEditBenamn</tabstop>
+    <tabstop>lineEditAntalAtt_Leverera</tabstop>
+    <tabstop>lineEditLeveransvecka</tabstop>
+    <tabstop>pushBtnRadNej</tabstop>
+    <tabstop>lineEditArtikelNr</tabstop>
+    <tabstop>lineEditAntal</tabstop>
+    <tabstop>pushBtnHelp</tabstop>
 </tabstops>
 <includes>
     <include location="local" impldecl="in implementation">chgplkuord.ui.h</include>
@@ -842,6 +894,7 @@ antal</string>
     <slot>lineEditOrderNr_returnPressed()</slot>
     <slot>lineEditPlockatAntal_returnPressed()</slot>
     <slot>pushButtonOK_clicked()</slot>
+    <slot>pushButtonNext_clicked()</slot>
     <slot>GetOrderHeader()</slot>
     <slot>GetOrderRow()</slot>
     <slot>OrderHuvudEndOfProcess()</slot>
@@ -856,6 +909,11 @@ antal</string>
     <slot>pushBtnOKRad_clicked()</slot>
     <slot>pushBtnHelp_clicked()</slot>
     <slot>readResursFil()</slot>
+    <slot>updateOrder()</slot>
+    <slot>changeOrder( QString ordernum, QString radnum, QString levantal, QString restantal )</slot>
+    <slot>OrderUpdateEndOfProcess()</slot>
+    <slot>ARregUpdate( QString val, QString artiklenr, QString data )</slot>
+    <slot>ARregUpdateEndOfProcess()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
