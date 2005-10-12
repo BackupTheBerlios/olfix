@@ -853,9 +853,11 @@ void frmChgPlKundOrder::readResursFil()
 void frmChgPlKundOrder::updateOrder()
 {
     QString ordernum;
+    QString artikelnr;
     QString radnum;
     QString levantal;
     QString restantal;
+    QString trhddata;
     double rest;
     double lev;
     
@@ -864,6 +866,8 @@ void frmChgPlKundOrder::updateOrder()
    while(item){
        ordernum= ordernr;
        radnum=item->text(0); 
+       artikelnr=item->text(1);
+       artikelnr = artikelnr.stripWhiteSpace();
        levantal=item->text(6);
        restantal=item->text(5);
        rest=restantal.toDouble();
@@ -872,6 +876,12 @@ void frmChgPlKundOrder::updateOrder()
        restantal=restantal.setNum(rest,'f',2);
 //       qDebug("ordernum=%s, radnum=%s, levantal=%s, restantal=%s",ordernum.latin1(),radnum.latin1(),levantal.latin1(),restantal.latin1());
        changeOrder(ordernum,radnum,levantal,restantal);
+       ARregUpdate("4",artikelnr,levantal);	/* minska lagersaldo med plockat antal  */
+       trhddata="lagersaldo - "+levantal;
+       TRHDregAdd(trhddata );
+       ARregUpdate("2",artikelnr,levantal);	/* minska reserverat antal med plockat antal  */
+       trhddata="reserverat antal - "+levantal;
+       TRHDregAdd(trhddata );
        item=item->nextSibling ();
    }
    pushButtonOK->setEnabled(FALSE);  /* Kan inte uppdatera samma order flera gånger */
@@ -922,9 +932,11 @@ void frmChgPlKundOrder::OrderUpdateEndOfProcess()
 void frmChgPlKundOrder::ARregUpdate( QString val, QString artikelnr, QString data )
 {
 	/* Uppdatera artikelregistret, ARTIKELREG */
-		const char *userp = getenv("USER");
+	const char *userp = getenv("USER");
             QString usr(userp);
 
+//	qDebug("val=%s, artikelnr=%s, data=%s",val.latin1(),artikelnr.latin1(),data.latin1());
+	 
 	inrad="";
 	errorrad="";
 	process = new QProcess();
@@ -944,11 +956,63 @@ void frmChgPlKundOrder::ARregUpdate( QString val, QString artikelnr, QString dat
 		QMessageBox::warning( this, "PLCHGW",
                             "Kan inte starta STYRMAN/AR2UPD! \n" );
 	    }
-
-
 }
 
 void frmChgPlKundOrder::ARregUpdateEndOfProcess()
 {
+    int i;
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+ //   qDebug("Error:",errorrad);
+    if (i != -1) {
+	QMessageBox::critical( this, "PLCHGW",
+		"ERROR!\n"+errorrad
+	);
+    } 
+}
 
+void frmChgPlKundOrder::TRHDregAdd(QString trnsdata )
+{
+	/* Uppdatera artikelregistret, TRHD, historikregistret*/
+	const char *userp = getenv("USER");
+            QString usr(userp);
+	QString tidpunkt;
+	QDateTime dt = QDateTime::currentDateTime();
+	tidpunkt=dt.toString ( "yyyy-MM-dd hh:mm:ss" );
+	
+//	qDebug("val=%s, artikelnr=%s, data=%s",val.latin1(),artikelnr.latin1(),data.latin1());
+	 
+	inrad="";
+	errorrad="";
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "TRHDADD");	// OLFIX funktion
+	process->addArgument("AR2UPD");	// TRNSID
+	process->addArgument(tidpunkt);
+	process->addArgument(usr);
+	process->addArgument(trnsdata);
+
+	frmChgPlKundOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(DataOnStdout() ) );
+	frmChgPlKundOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(DataOnStderr() ) );
+            frmChgPlKundOrder::connect( process, SIGNAL(processExited() ),this, SLOT(TRHDregAddEndOfProcess() ) );
+	    
+	if ( !process->start() ) {
+		// error handling
+		QMessageBox::warning( this, "PLCHGW",
+                            "Kan inte starta STYRMAN/TRHDADD! \n" );
+	    }
+}
+
+void frmChgPlKundOrder::TRHDregAddEndOfProcess()
+{
+    int i;
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+ //   qDebug("Error:",errorrad);
+    if (i != -1) {
+	QMessageBox::critical( this, "PLCHGW",
+		"ERROR!\n"+errorrad
+	);
+    } 
 }

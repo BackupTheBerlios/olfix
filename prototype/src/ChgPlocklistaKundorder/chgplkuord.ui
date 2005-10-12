@@ -912,8 +912,10 @@ antal</string>
     <slot>updateOrder()</slot>
     <slot>changeOrder( QString ordernum, QString radnum, QString levantal, QString restantal )</slot>
     <slot>OrderUpdateEndOfProcess()</slot>
-    <slot>ARregUpdate( QString val, QString artiklenr, QString data )</slot>
+    <slot>ARregUpdate( QString val, QString artikelnr, QString data )</slot>
     <slot>ARregUpdateEndOfProcess()</slot>
+    <slot>TRHDregAdd( QString trnsdata )</slot>
+    <slot>TRHDregAddEndOfProcess()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
