@@ -603,7 +603,7 @@ void frmPrtFoljesedel::RaderEndOfProcess()
     i = -1;
     i = errorrad.find( QRegExp("Error:"), 0 );
          if (i != -1) {
-	QMessageBox::critical( this, "DSPORDW",
+	QMessageBox::critical( this, "FSORDW",
 		"ERROR!\n"+errorrad
 	);
 	errorrad="";
