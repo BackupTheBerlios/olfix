@@ -11,7 +11,7 @@
   <meta name="CREATED" content="20021205;10014400">
 
   <meta name="CHANGEDBY" content="Jan Pihlgren">
-  <meta name="CHANGED" content="20050426;06551400">
+  <meta name="CHANGED" content="20051017;06551400">
   <style>
 	<!--
 		@page { margin: 2cm }
@@ -35,8 +35,8 @@
  Kapitel Försäljning
  </font></p>
 <p align="center" style="margin-bottom: 0cm;"><font size="5"> Version
-0.42</font></p>
-<p align="center" style="margin-bottom: 0cm;"><font size="5"> 2005-04-26</font></p>
+0.43</font></p>
+<p align="center" style="margin-bottom: 0cm;"><font size="5"> 2005-10-17</font></p>
 <hr>
 <p style="margin-left: 3cm;">This program is free software; you can
 redistribute it and/or modify<br>
@@ -182,11 +182,7 @@ Dröjmålsfaktura = J<br>
 <p align="left"></p>
 <b>Leveransdatum:</b><br>
 Orderns huvusakliga leveransdatum. En orderrad kan ha eget, avvikande, leveransdatum.<br><br>
-<b>Orderstatus:</b><br>
-A = Order under arbete<br>
-N = Normal status<br>
-F = Frisläppt<br>
-B = Slutbehandlad, ska plockas port<br><br>
+<b>Orderstatus:</b> En orders status.<a href="#STATUS">Se begrepp.</a><br>
 <b>Ordersumma:</b><br>
 Ordersumma = Ordertotal inklusive moms.<br>
 <p align="left">
@@ -221,8 +217,19 @@ Skriv in <b>ordernr</b> och tryck på Enter. Därefter klicka på <b>OK</b> varvid 
 Med PLCHGW registrerar man det antal som ska levereras.<br>
 Detta måste göras innan följesedel och faktura kan skrivas ut.
 När plockningen registrerats så uppdateras lagersaldon mm.<br><br>
-<img src="UserManual_html_PLCHGW.png">
-
+<p align="center">
+<img src="UserManual_html_PLCHGW.png" width="693" height="373" border="0">
+<p align="left"></p><br><br>
+I fältet <b>Ordernr</b> skriver du in önskat ordernymmer och trycker "Enter.<br>
+I fältet <a href="#STATUS">Orderstatus</a> anges vilken status en order har.<br>
+Genom att klicka på den rad man har plockat flyttas informationen till
+de gråa fälten Radnr(000), Artikelnr ,Benämning, Leveransvecka, Beställt antal, Antal att leverera.<br>
+Sedan anger man i fältet <b>Plockat antal</b> det antal man plockat varefter man klickar på knappen <b>Ja</b> i Godkänn rad.<br>
+När alla rader är avprickade klickar man på knappen <b>OK</b> under Plockningen klar.
+Då uppdateras ordern och artikeldata.<br>
+Knappen <b>OK</b> blir grå och går sedan inte att klicka på flera gånger förrän man klickat på knappen <b>Nästa</b>.<br>
+Klicka på endera knappen <b>Nästa</b> för att hämta  nästa kundorder eller knappen <b>Avbryt</b> om avplockningen är klar.<br>
+Därefter är ordern klar för att skriva ut följesedel och därefter att fakturera.<br>
 <p align="left">
 <p style="margin-bottom: 0cm;">
 <a href="#TOP">Till början</a>
@@ -265,8 +272,15 @@ Fält som är markerade med <font color="#ff0000">* </font><font
 <a name="BEGREPP"></a> <b>BEGREPPSFÖRKLARINGAR</b></p>
 <p align="left">
 <b>Bokföringsår:</b> Tvåställig bokstavskombination som anger vilket
-bokföringsår som avses.</p>
-<br>
+bokföringsår/redovisningsår som avses.</p>
+<a name="STATUS"></a>
+<p align="left">
+<b>Orderstatus:</b><br>
+A = Order under arbete<br>
+N = Normal status<br>
+F = Frisläppt<br>
+B = Slutbehandlad, ska plockas port<br><br>
+
 </font></font></font></b></font></font></font></b></font></p>
 <p align="left" style="margin-bottom: 0cm;">
 <a href="#TOP">Till början</a>

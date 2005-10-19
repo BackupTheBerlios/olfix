@@ -11,7 +11,7 @@
   <meta name="CREATED" content="20021205;10014400">
 
   <meta name="CHANGEDBY" content="Jan Pihlgren">
-  <meta name="CHANGED" content="20050312;16451400">
+  <meta name="CHANGED" content="20051019;16451400">
   <style>
 	<!--
 		@page { margin: 2cm }
@@ -30,8 +30,8 @@
 <p align="center" style="margin-bottom: 0cm;"><font size="6"
  style="font-size: 22pt;"> Användarmanual</font></p>
 <p align="center" style="margin-bottom: 0cm;"><font size="5"> Version
-0.41</font></p>
-<p align="center" style="margin-bottom: 0cm;"><font size="5"> 2005-03-12</font></p>
+0.42</font></p>
+<p align="center" style="margin-bottom: 0cm;"><font size="5"> 2005-10-19</font></p>
 <hr>
 <p style="margin-left: 3cm;">This program is free software; you can
 redistribute it and/or modify<br>
@@ -51,24 +51,26 @@ the Free Software Foundation; either version 2 of the License, or<br>
 <a href="#INNAN">Innan du börjar.</a><br>
 <a href="#IGANG">Att komma igång</a><br>
 <a href="#GRUNDDATA">Grunddata </a><br>
+<a href="#ADMIN">Administration</a><br>
+<a href="#USERS1">Nya användare</a><br>
 <a href="#FLERA">Flera företag.</a><br>
 <a href="#GRUNDATA2">Artiklar.</a><br>
 <a href="#GRUNDATA3">Artikelstruktur.</a><br>
 <a href="#BYTAFORETAG">Byte av företag.</a><br>
 <a href="#BOKFORING">Bokföring.</a><br>
 <a href="#NYTTBAR">Nytt räkenskapsår</a><br>
+<a href="#KONTO">Kontoadministration.</a><br>
+<a href="#KONTO1">Nya konton.</a><br>
 <a href="#FORSALJ">Försäljning</a><br>
 <a href="#FORSALJ1">Registrering av kundorder</a><br>
+<a href="#LEVPLATS">Standardleveransplats.</a><br>
+<a href="#LEVPLATS1">Ny standardleveransplats.</a><br>
 <a href="#INKOP">Inköp.</a><br>
 <a href="#INKOP1">Registrering av inköpsorder.</a><br>
 <a href="#BESTEXEMPEL">Exempel på Beställning.</a><br>
 <a href="#INKOP2">Beställningsstock.</a><br>
 <a href="#LEVERANTOR">Leverantörsreskontra.</a><br>
 <a href="#LEVERANTOR1">Registrering av leverantörsfaktura.</a><br>
-<a href="#KONTO">Kontoadministration.</a><br>
-<a href="#KONTO1">Nya konton.</a><br>
-<a href="#LEVPLATS">Standardleveransplats.</a><br>
-<a href="#LEVPLATS1">Nystandardleveransplats.</a><br>
 <a href="#BEGREPP">Begrepsförklaringar</a></font></p>
 <p style="margin-bottom: 0cm;">
 <a href="#TOP">Till början</a>
@@ -85,7 +87,7 @@ tilldelar man vederbörande behörighet att använda nödvändiga funktioner.</p>
 <p style="margin-left: 2.5cm;">
 <b>ADMINISTRATION</b><br>
 <b>Användaradministration</b><br>
-<b>Ny användare </b><br>
+<a href="#USERS1"><b>Ny användare </b></a><br>
 <b>Visa en användare </b><br>
 <b>Ändra användarinformation</b><br>
 <b>Lista alla användare </b><br>
@@ -154,7 +156,6 @@ tilldelar man vederbörande behörighet att använda nödvändiga funktioner.</p>
 <b>Ändra kunddata</b><br>
 <b>Lista kunder</b><br>
 <b>Ny leveransadress </b><br>
-<br>
 <b>Kundorder</b><br>
 <b><a href="#FORSALJ1">Registrering av kundorder</a></b><br>
 <br>
@@ -165,8 +166,10 @@ tilldelar man vederbörande behörighet att använda nödvändiga funktioner.</p>
 <b>Visa artikeldata</b><br>
 <b>Ändra artikeldata</b><br>
 <b>Lista artiklar</b></b></font></font></p>
-<p style="margin-left: 2.5cm;"><font face="San Serif"><b><font
- face="San Serif"><b>INKÖP</b><br>
+<p style="margin-left: 2.5cm;">
+<!-- <font face="San Serif"><b><font
+ face="San Serif"> -->
+ <b>INKÖP</b><br>
 <b>Beställningar</b><br>
 <b><a href="#INKOP1">Registrering av inköpsorder.</a></b><br>
 <b><a href="#BESTEXEMPEL">Visa beställning.</a></b><br>
@@ -292,6 +295,29 @@ Grundvärde = blank.<br>
 <a href="#TOP">Till början</a></p>
 <hr>
 <p align="center">
+<a name="ADMIN"></a>
+<b>ADMINISTRATION</b> </p><br>
+<a name="USERS1"><b>Nya användare</b></a><br><br>
+<p align="left"></p>
+För att kunna använda OLFIX krävs att en användare finns registrerad i respektive databas.<br>
+Användaren måste dessutom finnas upplagd som användare i operativsystemet.<br>
+
+Lägga upp den nya användaren med ADDUSRW.<br>
+Administration - Användaradministration  - Ny användare.<br>
+
+<p align="center">
+<img src="UserManual_html_ADDUSRW.png"
+ name="Graphic9" align="bottom"  border="0"></p>
+<p align="left" style="margin-bottom: 0cm;">
+<b>Användar_ID:</b> Ange användarens inloggnings-ID. <b>OBS!</b> <u>Maximalt <b><font size="+1">8</font></b> tecken.</u><br>
+De övriga tre fälten är bara information.<br>
+<b>Namn:</b> Fyll i användarens verkliga namn.<br>
+<b>Avd:</b> Ange var i organisationen användaren arbetar, t ex Ekonomi, Produktion<br>
+<b>Grupp:</b> Ange vilken över- eller undergrupp användaren tillhör.<br><br>
+
+<a href="#TOP">Till början</a></p>
+<hr>
+<p align="center">
 <a name="BYTAFORETAG"></a>
 <b>Byte av företag.</b></p>
 <p align="left" style="margin-bottom: 0cm;">
@@ -344,7 +370,7 @@ till fälten för inmatning och ändring/redigering kan ske.</p>
 Hur man lägger upp ett nytt räkenskapsår/bokföringsår.
 <p align="center">
 <img src="UserManual_html_ADDBARW.png" name="Graphic10" align="bottom"
- width="450" height="270" border="0"></p>
+ width="600" height="370" border="0"></p>
 <p align="left">Ange
 <a href="#BEGREPP">bokföringsår</a> med två tecken. Benämningen anges med
 räkenskapetsårets omfattning, t ex 2001-01-01 -- 2001-12-31.<br>
