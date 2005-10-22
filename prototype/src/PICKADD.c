@@ -34,7 +34,7 @@ Fältavskiljare = _:_
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PICKADD.c,v 1.1 2005/10/20 05:09:29 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PICKADD.c,v 1.2 2005/10/22 04:44:39 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -66,7 +66,7 @@ int main(int argc, char *argv[], char *envp[])
   char temp2[]="\"";
   char temp3[]=",";
   char temp4[]=")";
-  char temp5[1500]="";
+  char temp5[2000]="";
   char plockdata[2000]="";
 
   char *pos1;
