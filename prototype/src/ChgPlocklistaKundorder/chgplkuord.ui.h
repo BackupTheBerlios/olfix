@@ -852,14 +852,21 @@ void frmChgPlKundOrder::readResursFil()
 
 void frmChgPlKundOrder::updateOrder()
 {
+    QDateTime dt = QDateTime::currentDateTime();
+    QString plockdatum=dt.toString("yyyy-MM-dd");
     QString ordernum;
     QString artikelnr;
     QString radnum;
+    QString benamn;
+    QString levvecka;
+    QString bestantal;
+    QString attleverera;
     QString levantal;
     QString restantal;
     QString trhddata;
+    QString plockdata;
     double rest;
-    double lev;
+    double plockat;
     
     
    QListViewItem *item =  listViewRader->firstChild();
@@ -868,20 +875,29 @@ void frmChgPlKundOrder::updateOrder()
        radnum=item->text(0); 
        artikelnr=item->text(1);
        artikelnr = artikelnr.stripWhiteSpace();
-       levantal=item->text(6);
-       restantal=item->text(5);
-       rest=restantal.toDouble();
-       lev=levantal.toDouble();
-       rest=rest-lev;
+       benamn=item->text(2);
+       levvecka=item->text(3);
+       bestantal=item->text(4);
+       attleverera=item->text(5);
+       plockatantal=item->text(6);
+//       plockatantal=levantal;
+//       restantal=item->text(5);
+       levantal="-";
+       rest=attleverera.toDouble();
+       plockat=plockatantal.toDouble();
+       rest=rest-plockat;
        restantal=restantal.setNum(rest,'f',2);
-//       qDebug("ordernum=%s, radnum=%s, levantal=%s, restantal=%s",ordernum.latin1(),radnum.latin1(),levantal.latin1(),restantal.latin1());
-       changeOrder(ordernum,radnum,levantal,restantal);
-       ARregUpdate("4",artikelnr,levantal);	/* minska lagersaldo med plockat antal  */
-       trhddata="lagersaldo - "+levantal;
+//       qDebug("ordernum=%s, radnum=%s, plockatantal=%s, restantal=%s",ordernum.latin1(),radnum.latin1(),plockatantal.latin1(),restantal.latin1());
+       changeOrder(ordernum,radnum,plockatantal,restantal);
+       ARregUpdate("4",artikelnr,plockatantal);	/* minska lagersaldo med plockat antal  */
+       trhddata="lagersaldo - "+plockatantal;
        TRHDregAdd(trhddata );
-       ARregUpdate("2",artikelnr,levantal);	/* minska reserverat antal med plockat antal  */
-       trhddata="reserverat antal - "+levantal;
-       TRHDregAdd(trhddata );
+       ARregUpdate("2",artikelnr,plockatantal);	/* minska reserverat antal med plockat antal  */
+       trhddata="reserverat antal - "+plockatantal;
+       TRHDregAdd(trhddata );     
+       plockdata="_:_"+ordernum+"_:_"+radnum+"_:_"+kundnr+"_:_"+artikelnr+"_:_"+benamn+"_:_"+levvecka+"_:_"+bestantal+"_:_"+attleverera+"_:_"+levantal+"_:_"+plockatantal+"_:_"+restantal+"_:_"+leveransdatum+"_:_"+"ST" +"_:_"+"P"+"_:_"+plockdatum+"_:_"+"END";
+//       qDebug("plockdata=%s",plockdata.latin1());
+       PlockAdd( plockdata );
        item=item->nextSibling ();
    }
    pushButtonOK->setEnabled(FALSE);  /* Kan inte uppdatera samma order flera gånger */
@@ -1005,6 +1021,45 @@ void frmChgPlKundOrder::TRHDregAdd(QString trnsdata )
 }
 
 void frmChgPlKundOrder::TRHDregAddEndOfProcess()
+{
+    int i;
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+ //   qDebug("Error:",errorrad);
+    if (i != -1) {
+	QMessageBox::critical( this, "PLCHGW",
+		"ERROR!\n"+errorrad
+	);
+    } 
+}
+
+void frmChgPlKundOrder::PlockAdd( QString data )
+{
+    /* Lägga till en post i PLOCKLISTEREG */
+            const char *userp = getenv("USER");
+            QString usr(userp);
+	
+	 
+	inrad="";
+	errorrad="";
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "PICKADD");	// OLFIX funktion
+	process->addArgument(data);		// data till PICKADD för PLOCKLISTEREG
+
+	frmChgPlKundOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(DataOnStdout() ) );
+	frmChgPlKundOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(DataOnStderr() ) );
+            frmChgPlKundOrder::connect( process, SIGNAL(processExited() ),this, SLOT(PlockAddEndOfProcess() ) );
+	    
+	if ( !process->start() ) {
+		// error handling
+		QMessageBox::warning( this, "PLCHGW",
+                            "Kan inte starta STYRMAN/PICKADD! \n" );
+	    }
+}
+
+void frmChgPlKundOrder::PlockAddEndOfProcess()
 {
     int i;
     i = -1;

@@ -666,6 +666,60 @@ antal</string>
             <bool>true</bool>
         </property>
     </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonNext</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>85</x>
+                <y>375</y>
+                <width>66</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Nästa</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditOrderNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>25</x>
+                <y>30</y>
+                <width>90</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>375</y>
+                <width>60</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>OK</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Klicka för att uppdatera order och artikelregister.</string>
+        </property>
+    </widget>
     <widget class="QListView">
         <column>
             <property name="text">
@@ -761,60 +815,6 @@ antal</string>
         </property>
         <property name="toolTip" stdset="0">
             <string>Klicka på önskad orderrad och den flyttas upp till de separata fälten.</string>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonNext</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>85</x>
-                <y>375</y>
-                <width>66</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Nästa</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditOrderNr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>25</x>
-                <y>30</y>
-                <width>90</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonOK</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>375</y>
-                <width>60</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>OK</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Klicka för att uppdatera order och artikelregister.</string>
         </property>
     </widget>
 </widget>
@@ -916,6 +916,8 @@ antal</string>
     <slot>ARregUpdateEndOfProcess()</slot>
     <slot>TRHDregAdd( QString trnsdata )</slot>
     <slot>TRHDregAddEndOfProcess()</slot>
+    <slot>PlockAdd( QString data )</slot>
+    <slot>PlockAddEndOfProcess()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
