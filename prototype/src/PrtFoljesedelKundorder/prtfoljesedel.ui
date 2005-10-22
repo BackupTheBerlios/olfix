@@ -15,19 +15,6 @@
     <property name="caption">
         <string>FSORDW - Skapa följesedel till en kundorder</string>
     </property>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditOrderNr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>25</x>
-                <y>30</y>
-                <width>90</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>textLabel1</cstring>
@@ -42,51 +29,6 @@
         </property>
         <property name="text">
             <string>Ordernr</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel1_2</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>120</x>
-                <y>6</y>
-                <width>75</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Orderstatus</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditOrderstatus</cstring>
-        </property>
-        <property name="enabled">
-            <bool>false</bool>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>120</x>
-                <y>30</y>
-                <width>76</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="paletteForegroundColor">
-            <color>
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-            </color>
-        </property>
-        <property name="text">
-            <string>status</string>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>A=Under arbete,N= Normal,F=Frisläppt,B=Slutbehandlad</string>
         </property>
     </widget>
     <widget class="QPushButton">
@@ -127,6 +69,137 @@
             <bool>true</bool>
         </property>
     </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditOrderstatus</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>30</y>
+                <width>76</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="text">
+            <string>status</string>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>A=Under arbete,N= Normal,F=Frisläppt,B=Slutbehandlad</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>6</y>
+                <width>75</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Orderstatus</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>251</x>
+                <y>6</y>
+                <width>230</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Plockade orderrader</string>
+        </property>
+    </widget>
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Plocknr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Ordernr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Radnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Status</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <property name="name">
+            <cstring>ListView1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>251</x>
+                <y>30</y>
+                <width>235</width>
+                <height>226</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditOrderNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>25</x>
+                <y>30</y>
+                <width>90</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
@@ -146,6 +219,12 @@
         <signal>returnPressed()</signal>
         <receiver>frmPrtFoljesedel</receiver>
         <slot>lineEditOrderNr_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>ListView1</sender>
+        <signal>clicked(QListViewItem*)</signal>
+        <receiver>frmPrtFoljesedel</receiver>
+        <slot>selectOrder_clicked(QListViewItem*)</slot>
     </connection>
 </connections>
 <tabstops>
@@ -178,6 +257,11 @@
     <slot>checkStatus()</slot>
     <slot>CheckOrderEndOfProcess()</slot>
     <slot>GetTmpDir()</slot>
+    <slot>getPlocklistor()</slot>
+    <slot>slotPicklisttEndOfProcess()</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>selectOrder_clicked( QListViewItem * )</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

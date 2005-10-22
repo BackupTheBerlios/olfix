@@ -31,6 +31,7 @@
 #include <qfile.h>
 #include <qregexp.h>
 #include <qdatetime.h>
+#include <qlistview.h>
 #define MAXSTRING 5000
 
 #include <qdir.h> 
@@ -98,6 +99,7 @@ void frmPrtFoljesedel::init()
     frmPrtFoljesedel::GetReportDir();
     frmPrtFoljesedel::GetTmpDir();
     frmPrtFoljesedel::KugarVersion();
+    frmPrtFoljesedel::getPlocklistor();
     lineEditOrderNr->setFocus();
 }
 
@@ -115,6 +117,7 @@ void frmPrtFoljesedel::lineEditOrderNr_returnPressed()
 
 void frmPrtFoljesedel::pushButtonOK_clicked()
 {
+    kundordernr=lineEditOrderNr->text();
     frmPrtFoljesedel::GetOrderHeader();
 }
 
@@ -1067,4 +1070,137 @@ void frmPrtFoljesedel::GetTmpDir()
     }
     file.close ();
 //    qDebug("tmppath=%s",tmppath.latin1());
+}
+
+void frmPrtFoljesedel::getPlocklistor()
+{
+	const char *userp = getenv("USER");
+            QString usr(userp);
+//	 inrad="";
+//	 errorrad="";
+
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "PICKLST");	// OLFIX funktion
+	process->addArgument("P");
+
+	frmPrtFoljesedel::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+	frmPrtFoljesedel::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+	frmPrtFoljesedel::connect( process, SIGNAL(processExited() ),this, SLOT(slotPicklisttEndOfProcess() ) );
+ 
+	if ( !process->start() ) {
+                // error handling
+//	    fprintf(stderr,"Problem starta STYRMAN/PICKLST!\n");
+	    QMessageBox::warning( this, "Start av PICKLST ",
+                            "Kan inte starta STYRMAN/PICKLST!\n"
+                            );
+        }
+}
+
+void frmPrtFoljesedel::slotPicklisttEndOfProcess()
+{
+    QListViewItem* item;
+    int i;
+    ListView1->setSorting(1,TRUE);
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+         if (i != -1) {
+	QMessageBox::critical( this, "FSORDW",
+		"ERROR!\n"+errorrad
+	);
+	errorrad="";
+	i = -1;
+     }
+
+    i = inrad.find( QRegExp("OK: NR_0_"), 0 );
+         if (i != -1) {
+	QMessageBox::information( this, "FSORDW",
+		"Plocklisteregistret innehåller inga poster!\nDet finns inga plockade ordrar!\n"
+	);
+	i = -1;
+     }
+
+    QString listrad;
+    QString antalrader;
+    int k,l,m,antrad;
+    QString plocknr;
+    QString ordernr;
+    QString radnr;
+    QString plockstatus;
+
+    i = inrad.find( QRegExp("OK: NR_"), 0 );
+    i = i+7;
+    l = inrad.find( QRegExp("_:"), 0 );
+    antalrader=inrad.mid(i,l-i);
+//    qDebug("antalrader=%s",antalrader.latin1());
+//    qDebug("inrad=%s i=%d",inrad.latin1(),i);
+   
+    m=l+2;			// startposition för första plocknr.
+    k=0;
+//    i=atoi(antrad);		// i = antal poster
+    antrad=atoi(antalrader);
+//    qDebug("m=%d",m);
+//    qDebug("antrad=%d l=%d",antrad,l);
+
+    for (k = 1;k <= antrad; k++){	// gå igenom alla raderna / posterna
+	l = inrad.find( QRegExp("_:"), m );
+//	qDebug("l=%d m=%d",l,m);
+	plocknr=inrad.mid(m,l-m);
+//	qDebug("%s  ",plocknr.latin1());
+	
+	m=l+2;			// position för ordernr
+	l = inrad.find( QRegExp("_:"), m );
+//	qDebug("l=%d m=%d",l,m);
+	ordernr=inrad.mid(m,l-m);
+//	qDebug("%s  ",ordernr.latin1());
+
+	m=l+2;			// position för radnr
+	l = inrad.find( QRegExp("_:"), m );
+//	qDebug("l=%d m=%d",l,m);
+	radnr=inrad.mid(m,l-m);
+//	qDebug("%s  ",radnr.latin1());
+	
+	m=l+2;			// position för plockstatus
+	l = inrad.find( QRegExp("_:"), m );
+//	qDebug("l=%d m=%d",l,m);
+	plockstatus=inrad.mid(m,l-m);
+//	qDebug("%s  ",plockstatus.latin1());
+	
+	m=l+2;
+	
+	item = new QListViewItem(ListView1,plocknr,ordernr,radnr,plockstatus);
+//	 rensa listrad
+	listrad.remove(0,80);
+    }
+}
+
+void frmPrtFoljesedel::slotDataOnStdout()
+{
+    while (process->canReadLineStdout() ) {
+	QString line = process->readStdout();
+	inrad.append(line);
+	inrad.append("\n");
+    }
+}
+
+void frmPrtFoljesedel::slotDataOnStderr()
+{
+    while (process->canReadLineStderr() ) {
+	QString line = process->readStderr();
+	errorrad.append(line);
+	errorrad.append("\n");
+//	qWarning( "slotDataOnErrout: Userid=%s \n", inrad.latin1() );
+    }
+}
+
+void frmPrtFoljesedel::selectOrder_clicked( QListViewItem * )
+{
+    QListViewItem *item =  ListView1->currentItem();
+    if ( !item )
+	return;
+    item->setSelected( TRUE );
+    QString temp1=item->text(1);	// ordernr
+    temp1 = temp1.stripWhiteSpace();
+    lineEditOrderNr->setText(temp1);
 }
