@@ -74,6 +74,7 @@
 "ORDLST","Lista kundorder"
 "ORDLST2","Lista kundorder med begränsad information"
 "PICKADD","Nytt plock av kundorderrad"
+"PICKDSP","Visa plockade men ej utskrivna plock"
 "PICKLST","Lista avprickade kundorderrader"
 "PKDADD","Ny produktgrupp/produktkod/produktklass"
 "PKDDSP","Visa en produktgrupp/produktkod/produktklass"
