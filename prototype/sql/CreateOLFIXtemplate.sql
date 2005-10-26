@@ -111,7 +111,7 @@ CREATE TABLE DATABAS (
 
 INSERT INTO DATABAS (DATABASNR, DATABASTEXT) VALUES ('01','olfix');
 INSERT INTO DATABAS (DATABASNR, DATABASTEXT) VALUES ('99','olfixtst');
-INSERT INTO DATABAS (DATABASNR, DATABASTEXT) VALUES ('h00','newdatabase');
+INSERT INTO DATABAS (DATABASNR, DATABASTEXT) VALUES ('00','newdatabase');
 
 --
 -- Table structure for table 'FTGDATA'
@@ -588,6 +588,30 @@ CREATE TABLE PASSW (
 -- Dumping data for table 'PASSW'
 --
 
+--
+-- Table structure for table 'PLOCKLISTEREG'
+--
+
+DROP TABLE IF EXISTS PLOCKLISTEREG;
+CREATE TABLE PLOCKLISTEREG (
+  PLOCKNR int(11) NOT NULL auto_increment,
+  ORDERNR varchar(10) NOT NULL default '',
+  ORDERRAD int(4) NOT NULL default '0',
+  KUNDNR varchar(10) NOT NULL default '',
+  ARTIKELNR varchar(30) NOT NULL default '',
+  BENEMNING varchar(60) default NULL,
+  LEVERANSVECKA varchar(5) default NULL,
+  BESTELLT decimal(10,2) NOT NULL default '0.00',
+  ATTLEVERERA decimal(10,2) NOT NULL default '0.00',
+  LEVERERAT decimal(10,2) NOT NULL default '0.00',
+  PLOCKAT decimal(10,2) NOT NULL default '0.00',
+  RESTNOTERAT decimal(10,2) NOT NULL default '0.00',
+  LEVDATUM date default NULL,
+  ENHET varchar(4) default NULL,
+  PLOCKSTATUS enum('P','U','B') default 'P',
+  PLOCKDATUM date NOT NULL default '0000-00-00',
+  PRIMARY KEY  (PLOCKNR)
+) TYPE=MyISAM;
 
 --
 -- Table structure for table 'PRODUKTGRUPP'
@@ -717,6 +741,7 @@ INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('090','E
 INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('091','Ekonomi','Räkenskapsår','Lista alla räkenskapsår','LSTBARW');
 INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('092','Försäljning','Kunddata','Söka kunder','SRCHKUW');
 INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('093','Ekonomi','Rapporter','Skapa SIE-fil','RPTSIEW');
+INSERT INTO PROGRAM VALUES ('094','Försäljning','Kundorder','Pricka av plocklista','PLCHGW');
 
 --
 -- Table structure for table 'RIGHTS'
@@ -939,6 +964,12 @@ INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('SIEEXPK','SIE-export av kontoplan
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('SIEEXPR','SIE-export av resultat');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('SIEEXPV','SIE-export av verifikat');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('WKUDSP','Visa begränsade kunddata för webbkund');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('DBCHK','Lista databaser registrerade i databasen mysql');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDLST2','Lista kundorder med begränsad information');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDLST','Lista kundorder');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKADD','Nytt plock av kundorderrad');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKDSP','Visa plockade men ej utskrivna plock');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKLST','Lista avprickade kundorderrader');
 
 --
 -- Table structure for table 'TRHD'
@@ -978,7 +1009,7 @@ CREATE TABLE USR (
 
 INSERT INTO USR (USERID, NAMN, AVD, GRUPP) VALUES ('OLFIX','Olfix Superuser','IT','Stab');
 INSERT INTO USR (USERID, NAMN, AVD, GRUPP) VALUES ('TESTARE','Testare Test','Prov','Utv');
-INSERT INTO USR (USERID, NAMN, AVD, GRUPP) VALUES ('ADMIN','Admin Adminstratör','IT','Stab');
+INSERT INTO USR (USERID, NAMN, AVD, GRUPP) VALUES ('ADMIN','Adam Administratör','IT','Stab');
 INSERT INTO USR (USERID, NAMN, AVD, GRUPP) VALUES ('OLLE','Olle Olfixsson','Ekonomi','Stab');
 INSERT INTO USR (USERID, NAMN, AVD, GRUPP) VALUES ('NEWUSER','Nyanvändare','IT','Stab');
 
@@ -1064,3 +1095,41 @@ CREATE TABLE VERRAD (
 --
 -- Dumping data for table 'VERRAD'
 --
+
+--
+-- Table structure for table 'WEBBKUND'
+--
+
+DROP TABLE IF EXISTS WEBBKUND;
+CREATE TABLE WEBBKUND (
+  KUNDNR varchar(10) NOT NULL default '',
+  NAMN varchar(60) NOT NULL default '',
+  ADRESS varchar(30) default NULL,
+  POSTNR varchar(6) default NULL,
+  POSTADR varchar(30) default NULL,
+  LAND varchar(30) default NULL,
+  ADRESS2 varchar(30) default NULL,
+  POSTNR2 varchar(6) default NULL,
+  POSTADR2 varchar(30) default NULL,
+  LAND2 varchar(30) default NULL,
+  TFNNR varchar(15) default NULL,
+  EMAILADR varchar(30) default NULL,
+  BETALVILLKOR char(3) default NULL,
+  LEVVILLKOR char(3) default NULL,
+  LEVSETT char(3) default NULL,
+  ORDERERKENNANDE enum('J','N') default 'J',
+  PLOCKLISTA enum('J','N') default 'J',
+  FOLJESEDEL enum('J','N') default 'J',
+  KRAVBREV enum('J','N') default 'J',
+  EXPAVGIFT enum('J','N') default 'J',
+  FRAKTAVG enum('J','N') default 'J',
+  KREDITLIMIT decimal(10,2) default NULL,
+  KREDITDAGAR int(11) default NULL,
+  DROJMALSRTA enum('J','N') default 'J',
+  DROJMALSFAKTURA enum('J','N') default 'J',
+  SENASTEKRAVDATUM date default NULL,
+  SKULD decimal(10,2) default NULL,
+  ORDERSTOCK decimal(10,2) default NULL,
+  PASSWORD varchar(16) NOT NULL default '',
+  PRIMARY KEY  (KUNDNR)
+) TYPE=MyISAM;
