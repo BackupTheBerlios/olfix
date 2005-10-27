@@ -1,42 +1,66 @@
-Changelog OLFIX 20050926
+Changelog OLFIX 20051027
 
 Blivande
 ________________________________________________________
-Ver 0.3.B
-2005-09-26
+Ver 0.2.4.B
+2005-10-27
+	Detta var tänkt att bli version 0.3, men utvecklingen har gått lite trögt, med lite små problem.
+	Framför allt med PLCHGW och FSORDW.
+
+	VARNING!!
+	I denna version finns tre tabeller, PLOCKLISTEREG, WEBBKUND och PASSW som eventuellt kan
+	komma att tagas bort i framtida versioner.
+	Dessa tabeller används för att testa olika senarion.
+
 		Nya program
-		PLCHGW		Pricka av en kundorders plocklista(påbörjad)
+		PLCHGW		Pricka av en kundorders plocklista
+		ADDFORW		Lägga upp nytt företag/ny databas
 
 		Ändrade program
 		ADDARW    	Uppdatera Tip Artikeltyp ..4=Tjänst
 				Lagt till Hjälp
 		OLFIXW		Utökad felhantering
+		BYTFTGW		Ändrat förbättrad samt anrop till hjälpfil
+		FSORDW		Kompleterat med listning av plockade orderrader(ej färdig)
 
 		Nya funktioner
 		ORDRUPD.c	Uppdatera levererat och restnoterat i ORDERRADREG
 		FORDSP.c	Visa info om databas nr x.
+		DBCHK.c		Lista vilka databaser som finns i systemet.
+		PICKADD.c	Lägga upp nya plock i tabellen PLOCKLISTEREG
+		PICKLST.c	Lista plocknr,ordernr,radnr och plockstatus från PLOCKLISTEREG
+		PICKDSP.c	Info om senaste plock.
 
 		Ändrade funktioner
 		AR2UPD.c	Lagt till update lagersaldo
 		FORCHK.c	Städat
+		ORDCHK.c	Buggrättning
+
+		Nya tabeller
+		PLOCKLISTEREG	Hålla reda på vad som är plockat på kundordar
 
 		Ändrade tabeller
 		ARTIKELREG
 			ändrat	ARARTTYP	ENUM ('0','1','2','3','4')DEFAULT '0',
 				lagt till '4' för artikeltyp = Tjänst
 
+		Nya sqlfiler
+		CreateOLFIXtemplate.sql Avsedd för att skapa en ny, tom, databas
+		CreateTablePLOCKLISTEREG.sql Skapa tabellen PLOCKLISTEREG
+
 		Ändrade sqlfiler.
 		CreateTableARTIKELREG.sql
 		AlterTableARTIKELREG.sql
+		CreateOLFIX.sql		Uppdaterad.
 
 		Ändrade data
-		TRANSIDdata.txt
+		TRANSIDdata.txt	Tillägg av FORDSP, DBCHK.
 
 		Dokumentation
-		Usersmanual (Online)Uppdaterad (2005-04-28)
-		UserManual	Uppdaterad (2005-04-28)
+		Usersmanual (Online)Uppdaterad (2005-10-19)
+		UserManual	Uppdaterad (2005-10-18)
 
-		Teknisk Manual	Uppdaterad (2005-04-24) Version 0.54
+		Teknisk Manual	Uppdaterad (2005-10-24) Version 0.55
 		Installationsanvisningar.txt (2005-??-??)
 		Installationsanvisningar.sxw (2005-??-??)
 		Korsrelationer.sxw Uppdaterad (2005-??-??)
