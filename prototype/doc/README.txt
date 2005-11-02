@@ -1,20 +1,19 @@
 README
-2004-11-07
+2005-11-01
 
 Installationsanvisningar  mm
 OBS!!!!! ==========================================
-Vi levererar OLFIX som en självextraherande fil.
+
 När det gäller installation av OLFIX behöver man göra en handpåläggning
 efter installationen och det gäller filen .olfixrc.
 Den behöver kopieras till varje användares hemmabibliotek ($HOME).
 
 Bifogat finns installationsanvisningarna i .txt format.
 
-I biblioteket /doc finns tre manualer (gjorda i OpenOffice.org, extension .sxw)
+I biblioteket /doc finns två manualer (gjorda i OpenOffice.org, extension .sxw)
 
 Teknisk manual, som bl a innehåller anvisningar för DRIFTSinstallation.
-Utvecklingsmanual, avsedd för den som vill göra något för/med OLFIX
-User Manual, knappt påbörjad
+User Manual,påbörjad
 
 OBS!!!!! ===========================================
 Vi har ändrat katalogstrukturen till följande:
@@ -27,7 +26,6 @@ Vi har ändrat katalogstrukturen till följande:
 /opt/olfix/doc/helpfiles/usermanual
 /opt/olfix/script
 /opt/olfix/sql
-/opt/olfix/util
 ====================================================
 I Mandrakelinux är katalogstrukturen:
 /usr/bin		Program
