@@ -33,7 +33,7 @@
 #include <qregexp.h>
 #include <qdatetime.h>
 #include <qcheckbox.h>
-#include <qdir.h> 
+//#include <qdir.h> 
 // #include "faktura.h"
 #define MAXSTRING 5000
 
@@ -110,7 +110,7 @@
 //  -----------------------------    
     QString radrest;
     QString radmomsprocent;
-   
+    QString fakturanr;
     
 void frmKundFaktura::init()
 {
@@ -124,6 +124,7 @@ void frmKundFaktura::init()
     textLabelFakturadatum->setText(fakturadatum);
     frmKundFaktura::listViewRader_format();
     frmKundFaktura::GetReportDir();
+    frmKundFaktura::GetFakturaNr();
     pushButtonOK->setEnabled(TRUE);
     lineEditOrderNr->setFocus();
 }
@@ -154,9 +155,9 @@ void frmKundFaktura::lineEditRadtotal_returnPressed()
 void frmKundFaktura::pushButtonOK_clicked()
 {
 /*****************************************/    
-/*                        Godkänn plockningen 	 */
-/*   Uppdataera kundorder och artikelregister      */    
-/*   Skapa följesedel            			*/     
+/*                        Godkänn fakturan 		 */
+/*   Uppdataera kundorder 			 */    
+/*   Skapa fakturan            			*/     
 /*****************************************/     
     frmKundFaktura::updateOrder();
 }
@@ -293,6 +294,7 @@ void frmKundFaktura::OrderHuvudEndOfProcess()
 	    m=i3-i2;
 	    if (i2 != -1){
 	  	kundnr=inrad.mid(i2+3,m-4);		// kundnr
+		lineEditKundnr->setText(kundnr);
 	    }
 
 	    m=i4-i3;
@@ -322,31 +324,37 @@ void frmKundFaktura::OrderHuvudEndOfProcess()
 	    m=i8-i7;
 	    if (i7 != -1){
 		kundnamn=inrad.mid(i7+3,m-4);		// kundnamn
+		lineEditKundNamn->setText(kundnamn);
 	    }
 
 	    m=i9-i8;
 	    if (i8 != -1){
 		kundadr=inrad.mid(i8+3,m-4);		// kundadress
+		lineEditKundAdress->setText(kundadr);
 	    }
 
 	    m=i10-i9;
 	    if (i9 != -1){
 		kundpostnr=inrad.mid(i9+3,m-4);		// kundpostnr
+		lineEditKundPostnr->setText(kundpostnr);
 	    }
 
 	    m=i11-i10;
 	    if (i10 != -1){
 		kundpostadr=inrad.mid(i10+3,m-4);	// kundpostadress
+		lineEditKundPostAdress->setText(kundpostadr);
 	    }
 
 	    m=i12-i11;
 	    if (i11 != -1){
 		kundland=inrad.mid(i11+3,m-4);		// kundland
+		lineEditKundLand->setText(kundland);
 	    }
 
 	    m=i13-i12;
 	    if (i12 != -1){
 		erref=inrad.mid(i12+3,m-4);		// erref
+		lineEditKundRef->setText(erref);
 	    }
 
 	    m=i14-i13;
@@ -501,7 +509,10 @@ void frmKundFaktura::RaderEndOfProcess()
     QString radbelopp;
     QString radmoms;		/*  Moms på radbelopp */
     QString attlev;
-    int radprisperst;			/* Temporär variabel för beräkning */
+    QString levvecka;		/* ursprungligen lovad leveransvecka */
+    int radprisperst;		/* Temporär variabel för beräkning */
+    double belopp;		/* Temporär variabel för beräkning */
+    double moms;			/* Temporär variabel för beräkning */
 
     varv=varv+1;			/* varv används enbart för felsökning */
 //   qDebug("RaderEndOfProcess::inrad=%s",inrad.latin1());
@@ -542,7 +553,6 @@ void frmKundFaktura::RaderEndOfProcess()
 	     int i8 = inrad.find( QRegExp("_:_08_:_"), m1 );		// antal
 	     int i9 = inrad.find( QRegExp("_:_09_:_"), m1 );		// apris
 	     int i10 = inrad.find( QRegExp("_:_10_:_"), m1 );		// summa rad, belopp exklusive moms
-//	     qDebug("i10=%d",i10);
 	     int i11 = inrad.find( QRegExp("_:_11_:_"), m1 );
 	     int i12 = inrad.find( QRegExp("_:_12_:"), m1 );
 	     int i13 = inrad.find( QRegExp("_:_13_:"), m1 );
@@ -551,43 +561,49 @@ void frmKundFaktura::RaderEndOfProcess()
 	     int i16 = inrad.find( QRegExp("_:_16_:_"), m1 );
 	     int i17 = inrad.find( QRegExp("_:_17_:_"), m1 );
 	     int i18 = inrad.find( QRegExp("_:_NEXT_:_"), m1 );
-//	     qDebug("i18 /next/=%d",i18);
-//	     int i19 = inrad.find( QRegExp("END"), 0 );
+	     
 	     m1=i18+10;
+//	       2. radnummer	     	     
 	     m=(i3)-(i2+5);
 	     orderradnr=inrad.mid(i2+5,m);
-//	     qDebug("i2=%d i3=%d m=%d  i18=%d\n m1=%d",i2,i3,m,i18,m1);
-//	     qDebug("orderradnr=%s ",orderradnr.latin1());
+	     orderradnr=orderradnr.stripWhiteSpace();
+//	     qDebug("radnr: i2=%d, i3=%d, m=%d,radnr=%s,len=%d",i2,i3,m,inrad.mid(i2+5,m).latin1(),orderradnr.length());
+	     if (orderradnr.length()<3){
+		 orderradnr="0"+orderradnr;
+	     }
+//	      3. kundnummer	     
 	     m=(i4-3)-(i3+5);
 	     tmp=inrad.mid(i3+8,m);
-//	     qDebug("kundnr=%s ",tmp.latin1());
+//	      4. radordertyp	     
 	     m=(i5-3)-(i4+5);
 	     tmp=inrad.mid(i4+8,m);
-//	     qDebug("radordertyp=%s ",tmp.latin1());
+//	      5. artikelnr	     
 	     m=(i6-3)-(i5+5);
 	     orderartikelnr=inrad.mid(i5+8,m);
-//	     qDebug("orderartikelnr=%s ",orderartikelnr.latin1());
+//	      6. benämning
 	     m=(i7-3)-(i6+5);
 	     orderbenamn=inrad.mid(i6+8,m);
-//	     qDebug("benämning=%s",orderbenamn.latin1());
+//	      7. leveransvecka
 	     m=(i8-3)-(i7+5);
-	     radantal=inrad.mid(i7+8,m);
-//	     qDebug("radantal=%s",radantal.latin1());
+	     levvecka=inrad.mid(i7+8,m);
+//	      8. antal						ursprungligen beställt antal 
 	     m=(i9-3)-(i8+8);
 	     orderantal=inrad.mid(i8+8,m);				// antal
-//	     qDebug("orderantal=%s",orderantal.latin1());
+//	       9. pris per st
 	     m=(i10)-(i9+8);
 	     orderradpris=inrad.mid(i9+8,m);			// apris
-//	     qDebug("orderradpris=%s",orderradpris.latin1());
+//	      10. radbelopp exkl moms
 	     m=(i11)-(i10 + 8);
 	     radbelopp=inrad.mid(i10 + 8,m);			// summa exklusive moms
-//	     qDebug("radbelopp=%s",radbelopp.latin1());
+//	      11. radmoms i kr
 	     m=(i12 - 3)-(i11 + 8);
 	     radmoms=inrad.mid(i11 + 8,m);				// moms i kronor
-//	     qDebug("radmoms=%s",radmoms.latin1());
+	     moms=radmoms.toDouble();
+	     radmoms=radmoms.setNum(moms,'f',2);			// få med ören
+//	      ??
 	     m=(i13 - 3)-(i12 + 8);
 	     tmp=inrad.mid(i12 + 8,m);				// levererat antal
-//	     qDebug("levererat antal=%s",tmp.latin1());
+//	      restnoterat antal
 	     m=(i14 - 3)-(i13 + 8);					// restnoterat
 	     restnoterat=inrad.mid(i13 + 8,m);
 	     if(restnoterat.toInt() > 0){
@@ -609,9 +625,15 @@ void frmKundFaktura::RaderEndOfProcess()
 	     m=(i18 - 3)-(i17 +8);					// enhet
 	     tmp=inrad.mid(i17 + 8,m);
 //	     qDebug("enhet=%s",tmp.latin1());
-	     
+	     tmp="?";
 //               item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,radantal,orderantal,restnoterat);
-	      item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,radantal,orderantal,attlev);
+	     
+	     /* Beräkning av radbelopp inkl moms */
+	     belopp=radbelopp.toDouble()+radmoms.toDouble();
+	     radbelopp=radbelopp.setNum(belopp,'f',2);
+
+	      item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,orderantal,restnoterat,orderradpris,tmp,radmoms);
+                  item->setText(8,radbelopp);
 	    }
 	}
  }
@@ -1020,48 +1042,49 @@ void frmKundFaktura::CreateReportHeader()
     rad[9]="      ftgnamn CDATA #REQUIRED\n";
     rad[10]="      datum CDATA #REQUIRED\n";
     rad[11]="      fakturanr CDATA #REQUIRED\n";
-    rad[12]="      sida CDATA #REQUIRED\n";
-    rad[13]="      kundnr CDATA #REQUIRED\n";
-    rad[14]="      kundnamn CDATA #REQUIRED\n";
-    rad[15]="      kundadr CDATA #REQUIRED\n";
-    rad[16]="      kundpostnr CDATA #REQUIRED\n";
-    rad[17]="      kundpostadr CDATA #REQUIRED\n";
-    rad[18]="      kundland CDATA #REQUIRED\n";
-    rad[19]="      levkundnamn CDATA #REQUIRED\n";
-    rad[20]="      kundlevadr CDATA #REQUIRED\n";
-    rad[21]="      levpostnr CDATA #REQUIRED\n";
-    rad[22]="      leveranspostadr CDATA #REQUIRED\n";
-    rad[23]="      leveransland CDATA #REQUIRED\n";
-    rad[24]="      seljare CDATA #REQUIRED\n";
-    rad[25]="      betvillkor CDATA #REQUIRED\n";
-    rad[28]="      levvillkor CDATA #REQUIRED\n";
-    rad[29]="      valuta CDATA #REQUIRED\n";
-    rad[30]="      levsett CDATA #REQUIRED\n";
-    rad[31]="      erref CDATA #REQUIRED\n";
-    rad[32]="      godsmerke CDATA #REQUIRED\n";
-    rad[33]="      foretagsnamn CDATA #REQUIRED\n";
-    rad[34]="      adress1 CDATA #REQUIRED\n";
-    rad[35]="      adress2 CDATA #REQUIRED\n";
-    rad[36]="      adress3 CDATA #REQUIRED\n";
-    rad[37]="      telefon CDATA #REQUIRED\n";
-    rad[38]=">\n";
-    rad[39]="  <!ELEMENT KugarData (Rad*)>\n";
-    rad[40]="  <!ATTLIST KugarData\n";
-    rad[41]="      Template CDATA #REQUIRED>\n\n";
-    rad[42]="  <!ELEMENT Rad EMPTY>\n";
-    rad[43]="  <!ATTLIST Rad\n";
-    rad[44]="      level CDATA #REQUIRED\n";
-    rad[45]="      pos CDATA #REQUIRED\n";
-    rad[46]="      vartnr CDATA #REQUIRED\n";
-    rad[47]="      antal CDATA #REQUIRED\n";
-    rad[48]="      levant CDATA #REQUIRED\n";
-    rad[49]="      restantal CDATA #REQUIRED\n";
-    rad[50]="      levtid CDATA #REQUIRED\n";
-    rad[51]=">\n";
-    rad[52]="]>\n\n";
-    rad[53]="<KugarData Template=\"";
+    rad[12]="      ordernr CDATA #REQUIRED\n";
+    rad[13]="      sida CDATA #REQUIRED\n";
+    rad[14]="      kundnr CDATA #REQUIRED\n";
+    rad[15]="      kundnamn CDATA #REQUIRED\n";
+    rad[16]="      kundadr CDATA #REQUIRED\n";
+    rad[17]="      kundpostnr CDATA #REQUIRED\n";
+    rad[18]="      kundpostadr CDATA #REQUIRED\n";
+    rad[19]="      kundland CDATA #REQUIRED\n";
+    rad[20]="      levkundnamn CDATA #REQUIRED\n";
+    rad[21]="      kundlevadr CDATA #REQUIRED\n";
+    rad[22]="      levpostnr CDATA #REQUIRED\n";
+    rad[23]="      leveranspostadr CDATA #REQUIRED\n";
+    rad[24]="      leveransland CDATA #REQUIRED\n";
+    rad[25]="      seljare CDATA #REQUIRED\n";
+    rad[26]="      betvillkor CDATA #REQUIRED\n";
+    rad[27]="      levvillkor CDATA #REQUIRED\n";
+    rad[28]="      valuta CDATA #REQUIRED\n";
+    rad[29]="      levsett CDATA #REQUIRED\n";
+    rad[30]="      erref CDATA #REQUIRED\n";
+    rad[31]="      godsmerke CDATA #REQUIRED\n";
+    rad[32]="      foretagsnamn CDATA #REQUIRED\n";
+    rad[33]="      adress1 CDATA #REQUIRED\n";
+    rad[34]="      adress2 CDATA #REQUIRED\n";
+    rad[35]="      adress3 CDATA #REQUIRED\n";
+    rad[36]="      telefon CDATA #REQUIRED\n";
+    rad[37]=">\n";
+    rad[38]="  <!ELEMENT KugarData (Rad*)>\n";
+    rad[30]="  <!ATTLIST KugarData\n";
+    rad[40]="      Template CDATA #REQUIRED>\n\n";
+    rad[41]="  <!ELEMENT Rad EMPTY>\n";
+    rad[42]="  <!ATTLIST Rad\n";
+    rad[43]="      level CDATA #REQUIRED\n";
+    rad[44]="      pos CDATA #REQUIRED\n";
+    rad[45]="      vartnr CDATA #REQUIRED\n";
+    rad[46]="      antal CDATA #REQUIRED\n";
+    rad[47]="      levant CDATA #REQUIRED\n";
+    rad[48]="      restantal CDATA #REQUIRED\n";
+    rad[49]="      levtid CDATA #REQUIRED\n";
+    rad[50]=">\n";
+    rad[51]="]>\n\n";
+    rad[52]="<KugarData Template=\"";
     rad[53].append(reportpath);
-    rad[53].append("KuOrderFoljesedel.kut\">\n");	// ange rätt template, absolut path
+    rad[54].append("KuOrderFoljesedel.kut\">\n");	// ange rätt template, absolut path
     rapportrad=rad[1];
     for (i=2;i<54;i++){
 	rapportrad.append(rad[i]);
@@ -1073,6 +1096,8 @@ void frmKundFaktura::CreateReportHeader()
     rapportrad.append("\" datum=\"");
     rapportrad.append(orderdatum);
     rapportrad.append("\" fakturanr=\"");
+    rapportrad.append(fakturanr);
+    rapportrad.append("\" ordernr=\"");
     rapportrad.append(ordernr);
     rapportrad.append("\" sida=\"");
     rapportrad.append(" 1");
@@ -1200,4 +1225,56 @@ void frmKundFaktura::FileRemove(QString filnamn)
     }
 //    qDebug("filnamn=%s",filnamn.latin1());
     status=d.remove(filnamn,FALSE);
+}
+
+void frmKundFaktura::GetFakturaNr()
+{
+	const char *userp = getenv("USER");
+            QString usr(userp);
+
+	inrad="";
+	errorrad="";
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "FTGDSP");	// OLFIX funktion
+	process->addArgument( "FAKNR");	// senast använda fakturanr
+
+	frmKundFaktura::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(DataOnStdout() ) );
+	frmKundFaktura::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(DataOnStderr() ) );
+            frmKundFaktura::connect( process, SIGNAL(processExited() ),this, SLOT(FakturanrEndOfProcess() ) );
+	    
+	if ( !process->start() ) {
+		// error handling
+		QMessageBox::warning( this, "KUFAKTW",
+                            "Kan inte starta STYRMAN/FGTDSP! \n" );
+	    }
+}
+
+void frmKundFaktura::FakturanrEndOfProcess()
+{
+    int i,m;
+    QString tmp;
+    double fnr=0;
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+ //   qDebug("Error:",errorrad);
+    if (i != -1) {
+	QMessageBox::critical( this, "KUFAKTW",
+		"ERROR!\n"+errorrad
+	);
+    } 
+    i = -1;
+    i = inrad.find( QRegExp("OK:"), 0 );
+    if (i != -1) {
+	m=inrad.length();
+	int i2 = inrad.find( QRegExp("2:"), 0 );		// senaste fakturanummer
+	tmp=inrad.mid(i2+2,m-i2);
+//	qDebug("FAKTNR i2=%d m=%d tmp=%s",i2,m,tmp.latin1());
+	fnr=tmp.toDouble(0)+1;
+	tmp=tmp.setNum(fnr);
+	fakturanr=tmp;
+	lineEditFakturanr->setText(fakturanr);
+//	qDebug("fnr=%f tmp=%s",fnr,tmp.latin1());
+    }    
 }
