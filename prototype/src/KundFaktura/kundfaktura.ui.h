@@ -80,7 +80,7 @@
     QString varref;	// 17
     QString seljare;
     QString exportkod;
-    QString moms;
+    QString moms;	// 28 ******* 
     QString levdatum;	// 21
     QString kundnum;	// 22
     QString ftgnamn;	// 23
@@ -442,7 +442,7 @@ void frmKundFaktura::OrderHuvudEndOfProcess()
 	    
 	    m=i29-i28;
 	    if (i28 != -1){
-//		moms=inrad.mid(i28+3,m-4);		// Moms i procent
+		moms=inrad.mid(i28+3,m-4);		// Moms i procent
 	    }
 	    
 	    m=i30-i29;
@@ -508,17 +508,23 @@ void frmKundFaktura::RaderEndOfProcess()
     QString orderradpris;
     QString radbelopp;
     QString radmoms;		/*  Moms på radbelopp */
+    QString levereratantal;
     QString attlev;
     QString levvecka;		/* ursprungligen lovad leveransvecka */
-    int radprisperst;		/* Temporär variabel för beräkning */
+    QString faktureratantal;		/* tidigare fakturerat antal */
+    QString momsprocent="25";
+    QString fakturatotal;
+//    int radprisperst;		/* Temporär variabel för beräkning */
     double belopp;		/* Temporär variabel för beräkning */
-    double moms;			/* Temporär variabel för beräkning */
-
+    double momsen;		/* Temporär variabel för beräkning */
+    double total=0;
     varv=varv+1;			/* varv används enbart för felsökning */
 //   qDebug("RaderEndOfProcess::inrad=%s",inrad.latin1());
     int i,m,n;
     QString tmp;
-
+    
+    momsprocent=moms;		/* moms från orderhuvudet */
+//    qDebug("moms=%s",moms.latin1());
     i = -1;
     i = errorrad.find( QRegExp("Error:"), 0 );
          if (i != -1) {
@@ -550,19 +556,20 @@ void frmKundFaktura::RaderEndOfProcess()
 	     int i5 = inrad.find( QRegExp("_:_05_:_"), m1 );		// artikelnr
 	     int i6 = inrad.find( QRegExp("_:_06_:_"), m1 );		// benämning
 	     int i7 = inrad.find( QRegExp("_:_07_:_"), m1 );		// leveransvecka
-	     int i8 = inrad.find( QRegExp("_:_08_:_"), m1 );		// antal
+	     int i8 = inrad.find( QRegExp("_:_08_:_"), m1 );		// beställt antal, ursprungligen
 	     int i9 = inrad.find( QRegExp("_:_09_:_"), m1 );		// apris
 	     int i10 = inrad.find( QRegExp("_:_10_:_"), m1 );		// summa rad, belopp exklusive moms
 	     int i11 = inrad.find( QRegExp("_:_11_:_"), m1 );
-	     int i12 = inrad.find( QRegExp("_:_12_:"), m1 );
-	     int i13 = inrad.find( QRegExp("_:_13_:"), m1 );
+	     int i12 = inrad.find( QRegExp("_:_12_:"), m1 );		// levererat antal
+	     int i13 = inrad.find( QRegExp("_:_13_:"), m1 );		// resterande antal
 	     int i14 = inrad.find( QRegExp("_:_14_:"), m1 );
 	     int i15 = inrad.find( QRegExp("_:_15_:_"), m1 );
 	     int i16 = inrad.find( QRegExp("_:_16_:_"), m1 );
 	     int i17 = inrad.find( QRegExp("_:_17_:_"), m1 );
-	     int i18 = inrad.find( QRegExp("_:_NEXT_:_"), m1 );
+	     int i18 = inrad.find( QRegExp("_:_18_:_"),m1 );		//  fakturerat antal
+	     int i19 = inrad.find( QRegExp("_:_NEXT_:_"), m1 );	// postslut
 	     
-	     m1=i18+10;
+	     m1=i19+10;
 //	       2. radnummer	     	     
 	     m=(i3)-(i2+5);
 	     orderradnr=inrad.mid(i2+5,m);
@@ -598,21 +605,21 @@ void frmKundFaktura::RaderEndOfProcess()
 //	      11. radmoms i kr
 	     m=(i12 - 3)-(i11 + 8);
 	     radmoms=inrad.mid(i11 + 8,m);				// moms i kronor
-	     moms=radmoms.toDouble();
-	     radmoms=radmoms.setNum(moms,'f',2);			// få med ören
-//	      ??
+//	     momsen=radmoms.toDouble();
+//	     radmoms=radmoms.setNum(momsen,'f',2);		// få med ören
+//	      12. levererat antal
 	     m=(i13 - 3)-(i12 + 8);
-	     tmp=inrad.mid(i12 + 8,m);				// levererat antal
+	     levereratantal=inrad.mid(i12 + 8,m);			// levererat antal
 //	      restnoterat antal
 	     m=(i14 - 3)-(i13 + 8);					// restnoterat
 	     restnoterat=inrad.mid(i13 + 8,m);
-	     if(restnoterat.toInt() > 0){
+/*	     if(restnoterat.toInt() > 0){
 		  radprisperst=restnoterat.toInt()-tmp.toInt();
 	      }else{
 		  radprisperst=orderantal.toInt()-tmp.toInt();
 	      }
 	     attlev=attlev.setNum(radprisperst);
-//	     qDebug("orderantal=%s restnoterat antal=%s radprisperst=%d attlev=%s",orderantal.latin1(),tmp.latin1(),radprisperst,attlev.latin1());
+*/	     
 	     m=(i15 )-(i14 + 8);					// radrabatt
 	     tmp=inrad.mid(i14 + 8,m);
 //	     qDebug("radrabatt=%s",tmp.latin1());
@@ -625,18 +632,34 @@ void frmKundFaktura::RaderEndOfProcess()
 	     m=(i18 - 3)-(i17 +8);					// enhet
 	     tmp=inrad.mid(i17 + 8,m);
 //	     qDebug("enhet=%s",tmp.latin1());
-	     tmp="?";
-//               item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,radantal,orderantal,restnoterat);
+//	      18. tidigare fakturerat antal 
+	     m=(i19 -3)-(i18 +8);
+	     faktureratantal=inrad.mid(i18 + 8,m);
+//	     tmp="?";
+/*****************************************************************************************/
+/*		Beräkningar								 */	     
+/*****************************************************************************************/
+	     /* Beräkning av (levererat antal - fakturerat antal) x apris */
+	     belopp=(levereratantal.toFloat() - faktureratantal.toInt()) * orderradpris.toFloat();
+	     radbelopp=radbelopp.setNum(belopp,'f',2);
 	     
+//	     QString momsprocent="25";
+	     /*  Beräkning av moms */
+   	     momsen=momsprocent.toFloat()/100;
+	     radmoms=radmoms.setNum(momsen*belopp,'f',2);		// summa moms på raden
+
 	     /* Beräkning av radbelopp inkl moms */
 	     belopp=radbelopp.toDouble()+radmoms.toDouble();
 	     radbelopp=radbelopp.setNum(belopp,'f',2);
 
-	      item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,orderantal,restnoterat,orderradpris,tmp,radmoms);
+	      item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,orderantal,levereratantal,orderradpris,momsprocent,radmoms);
                   item->setText(8,radbelopp);
+                  total=total+radbelopp.toDouble();
 	    }
 	}
  }
+    fakturatotal=fakturatotal.setNum(total,'f',2);
+    lineEditSumma->setText( fakturatotal);
 }
 
 void frmKundFaktura::DataOnStdout()
@@ -777,10 +800,12 @@ void frmKundFaktura::listViewRader_clicked( QListViewItem * )
     QString temp0=item->text(0);	// radnr
     QString temp1=item->text(1);	// artikelnr
     QString temp2=item->text(2);	// artikelbenämning
-    QString temp3=item->text(3);	// leveransvecka
-    QString temp4=item->text(4);	// Beställt antal
-    QString temp5=item->text(5);	// Antal att leverera
-    QString temp6=item->text(6);	// Plockat antal
+    QString temp3=item->text(3);	// Beställt antal
+    QString temp4=item->text(4);	// Levererat antal, antal att fakturera
+    QString temp5=item->text(5);	// Pris per styck
+    QString temp6=item->text(6);	// Moms i procent
+    QString temp7=item->text(7);	// Moms i kronor
+    QString temp8=item->text(8);	// Radtotal
     //    qDebug("temp=%s, %s, %s, %s, %s, %s",temp0.latin1(),temp1.latin1(),temp2.latin1(),temp3.latin1(),temp4.latin1(),temp5.latin1());
     // --------------------------------------------------------------
     lineEditRadnr->setText(temp0);
@@ -791,6 +816,8 @@ void frmKundFaktura::listViewRader_clicked( QListViewItem * )
     lineEditRadRest->setText(temp4);
     lineEditRadPris->setText(temp5);
     lineEditRadMomsProcent->setText(temp6);
+    lineEditRadMomsKr->setText(temp7);
+    lineEditRadtotal->setText(temp8);
     pushBtnOKRad->setFocus();
     delete listViewRader->currentItem();
 }
@@ -798,17 +825,46 @@ void frmKundFaktura::listViewRader_clicked( QListViewItem * )
 void frmKundFaktura::pushBtnOKRad_clicked()
 {
     QListViewItem * item;
-    int i;
+    int i,x;
+    QString rad;
+    QString orderradpris;
+    QString momsprocent;
+    QString radmoms;
+    QString radbelopp;
+    QString levereratantal;
+    QString fakturatotal;
+    double total=0; 
+    
     orderartikelnr=lineEditArtikelNr->text();
     orderbenamn=lineEditBenamn->text();
-    radantal =lineEditRadAntal->text();
-    radrest=lineEditRadRest->text();
-    radprisperst=lineEditRadPris->text();
-    radmomsprocent=lineEditRadMomsProcent->text();
+    orderantal =lineEditRadAntal->text();
+    levereratantal=lineEditRadRest->text();
+    orderradpris=lineEditRadPris->text();
+    momsprocent=lineEditRadMomsProcent->text();
+    radmoms=lineEditRadMomsKr->text();
+    radbelopp=lineEditRadtotal->text();
+        
+    item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,orderantal,levereratantal,orderradpris,momsprocent,radmoms);
+    item->setText(8,radbelopp);
     
-//    qDebug("rad=%s %s %s %s %s",orderradnr.latin1(),orderartikelnr.latin1(),orderbenamn.latin1(),radantal.latin1(),orderantal.latin1());
+    listViewRader->firstChild ();
     
-    item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,radantal,orderantal,radprisperst,radtotal);
+    x=listViewRader->childCount ();
+    item =  listViewRader->currentItem();
+    qDebug("x=%d",x);
+    for (i=0 ; i < x ; i++ ) {
+//	qDebug("i=%d",i);
+	rad=item->text(0);
+	radbelopp=item->text(8);
+//	qDebug("rad=%s  radbelopp=%s",rad.latin1(),radbelopp.latin1());
+	total=total+radbelopp.toDouble();
+	item=item->nextSibling ();	
+    }
+   fakturatotal=fakturatotal.setNum(total,'f',2);
+   lineEditSumma->setText( fakturatotal);
+
+//    total=total+radbelopp.toDouble();
+    
     if (radnrflag == FALSE){
 	i = orderradnr.toInt();
 	i = i+10;
