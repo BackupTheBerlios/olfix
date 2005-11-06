@@ -145,12 +145,100 @@ void frmKundFaktura::lineEditOrderNr_returnPressed()
 	listViewRader->setSelected(listViewRader->firstChild (),TRUE);
     }
 }
-
+/*
 void frmKundFaktura::lineEditRadtotal_returnPressed()
 {
     radtotal =lineEditRadtotal->text();
     pushBtnOKRad->setFocus();
 }
+*/
+/*****************************************/
+/*	Editering av fakturarader                       */
+/*****************************************/
+void frmKundFaktura::lineEditArtikelNr_returnPressed()
+{
+}
+
+void frmKundFaktura::lineEditBenamn_returnPressed()
+{
+}
+
+void frmKundFaktura::lineEditRadAntal_returnPressed()
+{
+    frmKundFaktura::CalculateRadtotal();
+}
+
+void frmKundFaktura::lineEditRadRest_returnPressed()
+{
+    frmKundFaktura::CalculateRadtotal();
+}
+
+void frmKundFaktura::lineEditRadPris_returnPressed()
+{
+    double belopp;
+    QString kronor;
+    belopp=lineEditRadPris->text().toDouble();
+    kronor=kronor.setNum(belopp,'f',2);
+    lineEditRadPris->setText(kronor);
+    frmKundFaktura::CalculateRadtotal();
+}
+
+void frmKundFaktura::lineEditRadMomsProcent_returnPressed()
+{
+    double belopp;
+    QString kronor;
+    belopp=lineEditRadMomsProcent->text().toDouble();
+    kronor=kronor.setNum(belopp,'f',2);
+    lineEditRadMomsProcent->setText(kronor);
+    frmKundFaktura::CalculateRadtotal();
+}
+
+void frmKundFaktura::lineEditRadMomsKr_returnPressed()
+{
+    double belopp;
+    QString kronor;
+    belopp=lineEditRadMomsKr->text().toDouble();
+    kronor=kronor.setNum(belopp,'f',2);
+    lineEditRadMomsKr->setText(kronor);
+    frmKundFaktura::CalculateRadtotal();
+}
+
+void frmKundFaktura::lineEditRadtotal_returnPressed()
+{
+    double belopp;
+    QString kronor;
+    belopp=lineEditRadtotal->text().toDouble();
+    kronor=kronor.setNum(belopp,'f',2);
+    lineEditRadtotal->setText(kronor);
+//    frmKundFaktura::CalculateRadtotal();
+    
+    radtotal =lineEditRadtotal->text();
+    pushBtnOKRad->setFocus();    
+}
+/*****************************************/
+/*	Beräkning av radtotal                             */
+/*****************************************/
+void frmKundFaktura::CalculateRadtotal()
+{
+    QString summa;
+    QString momskronor;				// för momskr
+    double pris,belopp,total,momskr;
+    float momsproc,bestantal,levantal;
+    bestantal=lineEditRadAntal->text().toFloat();
+    levantal=lineEditRadRest->text().toFloat();	// ej fakturerat antal
+    pris=lineEditRadPris->text().toDouble();
+    momsproc=lineEditRadMomsProcent->text().toFloat();
+    momskr=lineEditRadMomsKr->text().toDouble();
+    belopp=(levantal * pris);
+    momskronor=momskronor.setNum((belopp * momsproc / 100),'f',2);
+    total=belopp+(belopp * momsproc / 100);
+    summa=summa.setNum(total,'f',2);
+    lineEditRadtotal->setText(summa);
+    lineEditRadMomsKr->setText(momskronor);
+}
+
+
+
 
 void frmKundFaktura::pushButtonOK_clicked()
 {
@@ -825,7 +913,7 @@ void frmKundFaktura::listViewRader_clicked( QListViewItem * )
 void frmKundFaktura::pushBtnOKRad_clicked()
 {
     QListViewItem * item;
-    int i,x;
+    int x;
     QString rad;
     QString orderradpris;
     QString momsprocent;
@@ -835,6 +923,7 @@ void frmKundFaktura::pushBtnOKRad_clicked()
     QString fakturatotal;
     double total=0; 
     
+//    qDebug("Rad OK!");
     orderartikelnr=lineEditArtikelNr->text();
     orderbenamn=lineEditBenamn->text();
     orderantal =lineEditRadAntal->text();
@@ -847,18 +936,17 @@ void frmKundFaktura::pushBtnOKRad_clicked()
     item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,orderantal,levereratantal,orderradpris,momsprocent,radmoms);
     item->setText(8,radbelopp);
     
-    listViewRader->firstChild ();
+    QListViewItem *myChild=listViewRader->firstChild ();
     
     x=listViewRader->childCount ();
     item =  listViewRader->currentItem();
-    qDebug("x=%d",x);
-    for (i=0 ; i < x ; i++ ) {
-//	qDebug("i=%d",i);
-	rad=item->text(0);
-	radbelopp=item->text(8);
+//    qDebug("x=%d",x);
+    while( myChild ) {
+	rad=myChild->text(0);
+	radbelopp=myChild->text(8);
 //	qDebug("rad=%s  radbelopp=%s",rad.latin1(),radbelopp.latin1());
 	total=total+radbelopp.toDouble();
-	item=item->nextSibling ();	
+	myChild=myChild->nextSibling();
     }
    fakturatotal=fakturatotal.setNum(total,'f',2);
    lineEditSumma->setText( fakturatotal);
@@ -866,7 +954,7 @@ void frmKundFaktura::pushBtnOKRad_clicked()
 //    total=total+radbelopp.toDouble();
     
     if (radnrflag == FALSE){
-	i = orderradnr.toInt();
+	int i = orderradnr.toInt();
 	i = i+10;
 	orderradnr=QString::number(i,10);
 	if (orderradnr.length() <3){
