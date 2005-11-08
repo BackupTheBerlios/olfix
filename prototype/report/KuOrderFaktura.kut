@@ -397,6 +397,83 @@
 		   Precision="2" Text="[telefon]" VAlignment="1"
 		   Width="120" WordWrap="0" X="460"
 		   Y="781" />
+
+		<Label BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="0" BorderWidth="1" FontFamily="Nimbus Sans L"
+		   FontItalic="0" FontSize="8" FontWeight="75"
+		   ForegroundColor="0,0,0" HAlignment="0" Height="10"
+		   Text="Nettobelopp" VAlignment="1" Width="70"
+		   WordWrap="0" X="310" Y="750" />
+		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="1" BorderWidth="1" CommaSeparator="44"
+		   Currency="36" DataType="0" DateFormat="0"
+		   Field="nettobelopp" FontFamily="Cursor" FontItalic="0"
+		   FontSize="8" FontWeight="50" ForegroundColor="0,0,0"
+		   HAlignment="2" Height="12" NegValueColor="255,0,0"
+		   Precision="0" Text="[nettobelopp]" VAlignment="1"
+		   Width="65" WordWrap="1" X="310"
+		   Y="765" />
+		<Label BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="0" BorderWidth="1" FontFamily="Nimbus Sans L"
+		   FontItalic="0" FontSize="8" FontWeight="75"
+		   ForegroundColor="0,0,0" HAlignment="0" Height="10"
+		   Text="Frakt" VAlignment="1" Width="45"
+		   WordWrap="0" X="375" Y="750" />
+		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="1" BorderWidth="1" CommaSeparator="44"
+		   Currency="36" DataType="0" DateFormat="0"
+		   Field="frakt" FontFamily="Cursor" FontItalic="0"
+		   FontSize="8" FontWeight="50" ForegroundColor="0,0,0"
+		   HAlignment="2" Height="12" NegValueColor="255,0,0"
+		   Precision="0" Text="[frakt]" VAlignment="1"
+		   Width="45" WordWrap="1" X="375"
+		   Y="765" />
+		<Label BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="0" BorderWidth="1" FontFamily="Nimbus Sans L"
+		   FontItalic="0" FontSize="8" FontWeight="75"
+		   ForegroundColor="0,0,0" HAlignment="0" Height="10"
+		   Text="Moms" VAlignment="1" Width="45"
+		   WordWrap="0" X="420" Y="750" />
+		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="1" BorderWidth="1" CommaSeparator="44"
+		   Currency="36" DataType="0" DateFormat="0"
+		   Field="moms" FontFamily="Cursor" FontItalic="0"
+		   FontSize="8" FontWeight="50" ForegroundColor="0,0,0"
+		   HAlignment="2" Height="12" NegValueColor="255,0,0"
+		   Precision="0" Text="[moms]" VAlignment="1"
+		   Width="45" WordWrap="1" X="420"
+		   Y="765" />
+		<Label BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="0" BorderWidth="1" FontFamily="Nimbus Sans L"
+		   FontItalic="0" FontSize="8" FontWeight="75"
+		   ForegroundColor="0,0,0" HAlignment="0" Height="10"
+		   Text="Avrundning" VAlignment="1" Width="70"
+		   WordWrap="0" X="465" Y="750" />
+		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="1" BorderWidth="1" CommaSeparator="44"
+		   Currency="36" DataType="0" DateFormat="0"
+		   Field="avrund" FontFamily="Cursor" FontItalic="0"
+		   FontSize="8" FontWeight="50" ForegroundColor="0,0,0"
+		   HAlignment="2" Height="12" NegValueColor="255,0,0"
+		   Precision="0" Text="[avrund]" VAlignment="1"
+		   Width="70" WordWrap="1" X="465"
+		   Y="765" />
+		<Label BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="0" BorderWidth="1" FontFamily="Nimbus Sans L"
+		   FontItalic="0" FontSize="8" FontWeight="75"
+		   ForegroundColor="0,0,0" HAlignment="0" Height="10"
+		   Text="Totalt" VAlignment="1" Width="45"
+		   WordWrap="0" X="535" Y="750" />
+		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="1" BorderWidth="1" CommaSeparator="0"
+		   Currency="36" DataType="0" DateFormat="0"
+		   Field="fakturatotal" FontFamily="Cursor" FontItalic="0"
+		   FontSize="8" FontWeight="50" ForegroundColor="0,0,0"
+		   HAlignment="2" Height="12" NegValueColor="255,0,0"
+		   Precision="0" Text="[fakturatotal]" VAlignment="1"
+		   Width="60" WordWrap="1" X="535"
+		   Y="765" />
+
 	</Detail>
 
 	<Detail Height="26" Level="1">
@@ -428,7 +505,7 @@
 		   Width="45" WordWrap="0" X="375"
 		   Y="0" />
 		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
-		   BorderStyle="0" BorderWidth="1" CommaSeparator="44"
+		   BorderStyle="0" BorderWidth="1" CommaSeparator="1"
 		   Currency="32" DataType="0" DateFormat="11"
 		   Field="levant" FontFamily="Cursor" FontItalic="0"
 		   FontSize="8" FontWeight="50" ForegroundColor="0,0,0"
@@ -437,7 +514,7 @@
 		   Width="45" WordWrap="0" X="434"
 		   Y="0" />
 		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
-		   BorderStyle="0" BorderWidth="1" CommaSeparator="44"
+		   BorderStyle="0" BorderWidth="1" CommaSeparator="1"
 		   Currency="32" DataType="0" DateFormat="11"
 		   Field="styckpris" FontFamily="Cursor" FontItalic="0"
 		   FontSize="8" FontWeight="50" ForegroundColor="0,0,0"
@@ -454,6 +531,11 @@
 		   Precision="0" Text="[radsumma" VAlignment="2"
 		   Width="43" WordWrap="0" X="545"
 		   Y="0" />
+	</Detail>
+
+	<Detail Height="100" Level="2">
+	</Detail>
+	<Detail Height="100" Level="3">
 	</Detail>
 
 </KugarTemplate>
