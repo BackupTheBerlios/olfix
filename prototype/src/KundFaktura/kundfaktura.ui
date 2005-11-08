@@ -11,8 +11,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>1042</width>
-            <height>738</height>
+            <width>1048</width>
+            <height>739</height>
         </rect>
     </property>
     <property name="caption">
@@ -122,66 +122,6 @@
         </property>
         <property name="text">
             <string>Nästa</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel1_5</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>690</y>
-                <width>141</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Fakturering klar</string>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Uppdatera kundorder och artikelinformation.</string>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonOK</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>710</y>
-                <width>60</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>OK</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Klicka för att uppdatera order och artikelregister.</string>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonSluta</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>165</x>
-                <y>710</y>
-                <width>65</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Avbryt</string>
         </property>
         <property name="default">
             <bool>true</bool>
@@ -428,22 +368,6 @@
         </property>
         <property name="text">
             <string>Avrundning:</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel1_6</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>715</x>
-                <y>685</y>
-                <width>86</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Momsbelopp:</string>
         </property>
     </widget>
     <widget class="QLabel">
@@ -1034,205 +958,6 @@ antal</string>
 antal</string>
         </property>
     </widget>
-    <widget class="QListView">
-        <column>
-            <property name="text">
-                <string>Radnr</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Artikelnr</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Benämning</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Ant</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Lev.ant</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Pris/st</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Moms%</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Moms Kr</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Radtotal</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <property name="name">
-            <cstring>listViewRader</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>495</y>
-                <width>935</width>
-                <height>186</height>
-            </rect>
-        </property>
-        <property name="font">
-            <font>
-            </font>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Klicka på önskad orderrad och den flyttas upp till de separata fälten.</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditSumma</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>520</x>
-                <y>705</y>
-                <width>91</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="alignment">
-            <set>AlignRight</set>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditFrakt</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>620</x>
-                <y>705</y>
-                <width>90</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="alignment">
-            <set>AlignRight</set>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditMoms</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>715</x>
-                <y>705</y>
-                <width>91</width>
-                <height>25</height>
-            </rect>
-        </property>
-        <property name="alignment">
-            <set>AlignRight</set>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditAvrundning</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>815</x>
-                <y>705</y>
-                <width>101</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="alignment">
-            <set>AlignRight</set>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditTotal</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>925</x>
-                <y>705</y>
-                <width>106</width>
-                <height>25</height>
-            </rect>
-        </property>
-        <property name="alignment">
-            <set>AlignRight</set>
-        </property>
-    </widget>
     <widget class="QLineEdit">
         <property name="name">
             <cstring>lineEditArtikelNr</cstring>
@@ -1462,6 +1187,297 @@ antal</string>
             <set>AlignRight</set>
         </property>
     </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_5</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>690</y>
+                <width>141</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Skapa faktura/skriv ut</string>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Uppdatera kundorder och artikelinformation.</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>710</y>
+                <width>60</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>OK</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Klicka för att skapa och skriva ut faktura</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditFrakt</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>620</x>
+                <y>705</y>
+                <width>90</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="alignment">
+            <set>AlignRight</set>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditAvrundning</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>815</x>
+                <y>705</y>
+                <width>101</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="alignment">
+            <set>AlignRight</set>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_6</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>714</x>
+                <y>685</y>
+                <width>90</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Moms kr:</string>
+        </property>
+    </widget>
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Radnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Artikelnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Benämning</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Ant</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Lev.ant</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Pris/st</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Moms%</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Moms Kr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Radtotal</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <property name="name">
+            <cstring>listViewRader</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>495</y>
+                <width>935</width>
+                <height>186</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+            </font>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Klicka på önskad orderrad och den flyttas upp till de separata fälten.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditSumma</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>520</x>
+                <y>705</y>
+                <width>91</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="alignment">
+            <set>AlignRight</set>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditMoms</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>715</x>
+                <y>705</y>
+                <width>91</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="alignment">
+            <set>AlignRight</set>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditTotal</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>925</x>
+                <y>705</y>
+                <width>106</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="alignment">
+            <set>AlignRight</set>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonSluta</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>165</x>
+                <y>710</y>
+                <width>65</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avbryt</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonKalkylera</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>310</x>
+                <y>710</y>
+                <width>65</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Kalkylera!</string>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
@@ -1536,6 +1552,12 @@ antal</string>
         <receiver>frmKundFaktura</receiver>
         <slot>lineEditRadRest_returnPressed()</slot>
     </connection>
+    <connection>
+        <sender>pushButtonKalkylera</sender>
+        <signal>clicked()</signal>
+        <receiver>frmKundFaktura</receiver>
+        <slot>calculateFaktura()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>lineEditOrderNr</tabstop>
@@ -1585,6 +1607,8 @@ antal</string>
     <slot>CalculateRadtotal()</slot>
     <slot>pushButtonOK_clicked()</slot>
     <slot>pushButtonNext_clicked()</slot>
+    <slot>calculateFaktura()</slot>
+    <slot>createFaktura()</slot>
     <slot>GetOrderHeader()</slot>
     <slot>GetOrderRow()</slot>
     <slot>OrderHuvudEndOfProcess()</slot>
@@ -1599,17 +1623,21 @@ antal</string>
     <slot>pushBtnOKRad_clicked()</slot>
     <slot>pushBtnHelp_clicked()</slot>
     <slot>readResursFil()</slot>
-    <slot>updateOrder()</slot>
+    <slot>updateFaktura()</slot>
     <slot>changeOrder( QString ordernum, QString radnum, QString levantal, QString restantal )</slot>
-    <slot>OrderUpdateEndOfProcess()</slot>
+    <slot>updateFakturaEndOfProcess()</slot>
     <slot>TRHDregAdd( QString data )</slot>
     <slot>TRHDregAddEndOfProcess()</slot>
     <slot>CreateReportHeader()</slot>
+    <slot>createFakturaRad()</slot>
     <slot>CreateReportFot()</slot>
+    <slot>KugarVersion()</slot>
     <slot>CallKugar()</slot>
     <slot>FileRemove( QString filnamn )</slot>
     <slot>GetFakturaNr()</slot>
     <slot>FakturanrEndOfProcess()</slot>
+    <slot>getForetagsdata( QString posttyp )</slot>
+    <slot>ForetagsdataEndOfProcess()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
