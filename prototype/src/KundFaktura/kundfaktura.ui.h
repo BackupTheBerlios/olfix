@@ -42,6 +42,8 @@ QString inradny;
 QString* rad;
 QString errorrad;
 QString errorradny;
+QString listerrorrad;
+QString listinrad;
 QString hjelpfil;
 int varv=0;
 
@@ -125,7 +127,7 @@ void frmKundFaktura::init()
     frmKundFaktura::GetReportDir();
     frmKundFaktura::GetFakturaNr();
     frmKundFaktura::getForetagsdata("FNAMN");
-
+    frmKundFaktura::listKundorder();		// Hämta alla icke avslutade kundordrar
     pushButtonOK->setEnabled(TRUE);
     lineEditOrderNr->setFocus();
 }
@@ -209,15 +211,63 @@ void frmKundFaktura::lineEditRadtotal_returnPressed()
     radtotal =lineEditRadtotal->text();
     pushBtnOKRad->setFocus();    
 }
+
+void frmKundFaktura::lineEditSumma_returnPressed()
+{
+    pushButtonKalkylera->setFocus();
+}
+
+void frmKundFaktura::lineEditFrakt_returnPressed()
+{
+    double belopp;
+    QString kronor;
+    belopp=lineEditFrakt->text().toDouble();
+    kronor=kronor.setNum(belopp,'f',2);
+    lineEditFrakt->setText(kronor);   
+    pushButtonKalkylera->setFocus();
+}
+
+void frmKundFaktura::lineEditFraktmoms_returnPressed()
+{
+    double belopp;
+    QString kronor;
+    belopp=lineEditFraktmoms->text().toDouble();
+    kronor=kronor.setNum(belopp,'f',2);
+    lineEditFraktmoms->setText(kronor);
+    pushButtonKalkylera->setFocus();
+}
+
+void frmKundFaktura::lineEditMoms_returnPressed()
+{
+    double belopp;
+    QString kronor;
+    belopp=lineEditFraktmoms->text().toDouble();
+    kronor=kronor.setNum(belopp,'f',2);
+    lineEditFraktmoms->setText(kronor);
+    pushButtonKalkylera->setFocus();    
+}
+
+void frmKundFaktura::lineEditAvrundning_returnPressed()
+{
+    double belopp;
+    QString kronor;
+    belopp=lineEditAvrundning->text().toDouble();
+    kronor=kronor.setNum(belopp,'f',2);
+    lineEditAvrundning->setText(kronor);
+    pushButtonKalkylera->setFocus();    
+}
+
+
 /*****************************************/
 /*	Beräkning av radtotal                             */
 /*****************************************/
 void frmKundFaktura::CalculateRadtotal()
 {
     QString summa;
-    QString momskronor;				// för momskr
+    QString momskronor;				
     double pris,belopp,total,momskr;
     float momsproc,bestantal,levantal;
+    
     bestantal=lineEditRadAntal->text().toFloat();
     levantal=lineEditRadRest->text().toFloat();	// ej fakturerat antal
     pris=lineEditRadPris->text().toDouble();
@@ -251,18 +301,53 @@ void frmKundFaktura::pushButtonNext_clicked()
 void frmKundFaktura::calculateFaktura()
 {
     QString summa;
+    QString antal;
+    QString levant;
+    QString styckpris;
+    QString momsprocent;
+    QString momstotal;
+    QString fraktmoms;
+    QString radsumma;
+    QString netto;
+    QString frakt;
+    double moms;
+    double momssumma=0;
+    double radtotal=0;		// exkl moms
     double belopp;
+    double nettosumma=0;
     double sum=0;
    
-    summa=lineEditSumma->text();
-    belopp=summa.toDouble();
-    sum=sum+belopp;
-    summa=lineEditMoms->text();
-    belopp=summa.toDouble();
-    sum=sum+belopp;
-    summa=summa.setNum(sum,'f',2);
-    lineEditTotal->setText(summa);
+    QListViewItem *myChild=listViewRader->firstChild ();    
+    
+    while( myChild ) {
+//	antal=myChild->text(3);
+	levant=myChild->text(4);
+	styckpris=myChild->text(5);
+	momsprocent=myChild->text(6);
+	belopp=levant.toDouble() * styckpris.toDouble();
+	moms=(momsprocent.toFloat() * belopp) / 100 ;
+	momssumma=momssumma+moms;
+	radtotal=radtotal+belopp;
+	myChild=myChild->nextSibling();   
+    }
+    nettosumma=radtotal;				// nettobelopp, exkl moms
+    netto=netto.setNum(nettosumma,'f',2);		// nettobelopp, exkl moms
+    lineEditSumma->setText(netto);		            // nettobelopp, exkl moms	
+    sum=sum+nettosumma;				// radsumma exkl moms
+    frakt=lineEditFrakt->text();			// fraktkostnad exkl moms
+    belopp=frakt.toDouble();    			// fraktkostnad exkl moms
+    momsprocent=lineEditFraktmoms->text();		// moms i % för fraktkostnaden
+    moms=(momsprocent.toFloat() * belopp) /100;     // moms i kr på frakten
+    
+    momssumma=momssumma+moms;		// fakturans totala moms i kr
+    momstotal=momstotal.setNum(momssumma,'f',2);	// total moms för rader
+    lineEditMoms->setText(momstotal);
+
+    sum=sum+momssumma+belopp;			// totalbelopp på fakturan inkl moms
+    summa=summa.setNum(sum,'f',2);		// totalbelopp på fakturan inkl moms
+    lineEditTotal->setText(summa);			// totalbelopp på fakturan inkl moms
 }
+
 void frmKundFaktura::createFaktura()
 {
 //    qDebug("tmppath=%s fakturafil=%s",tmppath.latin1(),fakturafil.latin1());
@@ -1672,4 +1757,145 @@ void frmKundFaktura::ForetagsdataEndOfProcess()
 	    }
 	}
     }
+}
+
+void frmKundFaktura::listKundorder()
+{
+    listViewKundorder->clear();
+    frmKundFaktura::listKundordrar();
+    listViewKundorder->setFocus();
+    listViewKundorder->firstChild ();
+    listViewKundorder->setSelected(listViewRader->firstChild (),TRUE);
+}
+
+void frmKundFaktura::listKundordrar()
+{
+    /**********************************************************************/
+    /*	Lista kundordrar från ORDERREG 	   				*/
+    /**********************************************************************/
+    const char *userp = getenv("USER");
+    QString usr(userp);
+    
+    inrad="";
+    errorrad="";
+    process = new QProcess();
+    process->addArgument("./STYRMAN");	// OLFIX styrprogram
+    process->addArgument(usr);		// userid
+    process->addArgument( "ORDLST2");	// OLFIX funktion
+    
+    frmKundFaktura::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(ListaKundordrarDataOnStdout() ) );
+    frmKundFaktura::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(ListaKundordrarDataOnStderr() ) );
+    frmKundFaktura::connect( process, SIGNAL(processExited() ),this, SLOT(ListaKundordrarEndOfProcess() ) );
+    
+    if ( !process->start() ) {
+	// error handling
+	QMessageBox::warning( this, "KUFAKTW",
+			      "Kan inte starta STYRMAN/ORDLST! \n" );
+    }
+
+}
+
+void frmKundFaktura::ListaKundordrarEndOfProcess()
+{
+    QListViewItem* item;
+    int i;
+    listViewKundorder->setSorting(0,TRUE);
+    i = -1;
+    i = listerrorrad.find( QRegExp("Error:"), 0 );
+         if (i != -1) {
+	QMessageBox::critical( this, "LSTORDW",
+		"ERROR!\n"+errorrad
+	);
+	listerrorrad="";
+	i = -1;
+    }
+    i = listinrad.find( QRegExp("OK: NR_0_"), 0 );
+    if (i != -1) {
+	QMessageBox::information( this, "LSTORDW",
+		"Kundorderregistret innehåller inga poster!\n"
+		);
+	i = -1;
+    }
+
+    QString listrad;
+    QString antalrader;
+    QString ordernr;
+    QString kundnr;
+    rad=&listinrad;
+    listinrad.latin1();
+    int antrad,l,m;
+    int i1,i2,i3,i4;
+    int tmp5,tmp6,tmp7;
+    
+    m=0;
+    i1=listinrad.find( QRegExp("OK: NR_0_"), m); 		// startposition 
+    i2=listinrad.find( QRegExp("_:"), m );			// slutposition för antal rader
+    l=i2-(i1+8);
+    antalrader=listinrad.mid(i1+8,l);
+    antrad=antalrader.toInt();
+//    qDebug("antalrader=%s antrad=%d",antalrader.latin1(),antrad);    
+    // i2 + 2  = startposition för ordernr
+    tmp7=i2;
+    m=m+(i1+10);
+    for (i=0;i<antrad;i++){
+	i3=listinrad.find( QRegExp("_:"), m+1);		// slutposition for ordernr
+	l=i3-(tmp7+2);
+	ordernr=listinrad.mid(m+2,l);
+//	qDebug("ordernr=%s",ordernr.latin1());	
+	m=m+2+l;  
+	i4=listinrad.find( QRegExp("_:"), m+1);		// slutposition för kundnr
+	l=i4-(i3+2);
+//	qDebug("l=%d  i1=%d m=%d i2=%d i3=%d i4=%d",l,i1,m,i2,i3,i4);
+	kundnr=listinrad.mid(m+2,l);
+//	qDebug("kundnr=%s",kundnr.latin1());
+	m=m+2+l;
+	tmp5=listinrad.find( QRegExp("_:"), m+1);
+	l=tmp5-(i4+2);
+	m=m+2+l;
+	tmp6=listinrad.find( QRegExp("_:"), m+1);
+	l=tmp6-(tmp5+2);
+	m=m+2+l;
+	tmp7=listinrad.find( QRegExp("_:"), m+1);
+//	qDebug("tmp7=%d",tmp7);
+	l=tmp7-(tmp6+2);
+	m=m+2+l;
+//	item = new QListViewItem(listViewKundorder,ordernr,kundnr,levdatum,orderstatus,ordersumma);
+	item = new QListViewItem(listViewKundorder,ordernr,kundnr);	
+    }
+}
+
+void frmKundFaktura::ListaKundordrarDataOnStderr()
+{
+    while (process->canReadLineStderr() ) {
+	QString line = process->readStderr();
+	listerrorrad.append(line);
+	listerrorrad.append("\n");
+    }
+}
+
+void frmKundFaktura::ListaKundordrarDataOnStdout()
+{
+    while (process->canReadLineStdout() ) {
+	QString line = process->readStdout();
+	listinrad.append(line);
+	listinrad.append("\n");
+    }
+}
+
+void frmKundFaktura::slotPickupOrdernr( QListViewItem * item)
+{
+    char ordernummer[11]="";
+//    qDebug("PickupOrdernr\n");
+    if(!item){
+	return;
+    }
+     listViewKundorder->setCurrentItem(item);
+     if(!item->key(0,TRUE)){
+	 return;
+     }
+
+     strcpy(ordernummer,item->key(0,TRUE));
+     ordernr=ordernummer;
+     lineEditOrderNr->setText((ordernr));
+     lineEditOrderNr->setFocus();
 }
