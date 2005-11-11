@@ -169,7 +169,9 @@ INSERT INTO FTGDATA VALUES ('BF13','Bokföringsperiod 13','Januari');
 INSERT INTO FTGDATA VALUES ('INKNR','Senast använda inköpsordernr','28');
 INSERT INTO FTGDATA VALUES ('SNIKD','Branschtillhörighet','82301');
 INSERT INTO FTGDATA VALUES ('WKUNR','Senaste använda webbkundnummer','4379');
-
+INSERT INTO FTGDATA VALUES ('FAKNR','Senaste fakturanr på kundorder','0');
+INSERT INTO FTGDATA VALUES ('FKNR2','Senaste fakturanr på kundorder,serie 2','0');
+INSERT INTO FTGDATA VALUES ('FKNRS','Antal fakturanrserier, default = 1','0');
 --
 -- Table structure for table 'INKRADREG'
 --
@@ -1326,7 +1328,9 @@ INSERT INTO FTGDATA VALUES ('BF13','Bokföringsperiod 13','Januari');
 INSERT INTO FTGDATA VALUES ('INKNR','Senast använda inköpsordernr','28');
 INSERT INTO FTGDATA VALUES ('SNIKD','Branschtillhörighet','82301');
 INSERT INTO FTGDATA VALUES ('WKUNR','Senaste använda webbkundnummer','4379');
-
+INSERT INTO FTGDATA VALUES ('FAKNR','Senaste fakturanr på kundorder','0');
+INSERT INTO FTGDATA VALUES ('FKNR2','Senaste fakturanr på kundorder,serie 2','0');
+INSERT INTO FTGDATA VALUES ('FKNRS','Antal fakturanrserier, default = 1','0');
 --
 -- Table structure for table 'INKRADREG'
 --
@@ -2942,3 +2946,45 @@ CREATE TABLE WEBBKUND (
 
 INSERT INTO WEBBKUND VALUES ('100001','Karl-Oskar Webbsson','Box 99','199 99','AVLIDEN',NULL,'Itgatan 31','199 97','AVLIDEN',NULL,'09-990011','ko.webbsson@prog.net','5','001','003','J','J','J','J','J','J',5000.00,30,'J','J',NULL,0.00,0.00,'webbsson');
 
+use mysql;
+INSERT INTO user
+(
+Host,
+User,
+Password,
+Select_priv,
+Insert_priv,
+Update_priv,
+Delete_priv,
+Create_priv,
+Drop_priv,
+Reload_priv,
+Shutdown_priv,
+Process_priv,
+File_priv,
+Grant_priv,
+References_priv,
+Index_priv,
+Alter_priv
+)
+VALUES
+(
+"localhost",
+"olfix",
+PASSWORD("olfix"),
+"Y",
+"Y",
+"Y",
+"Y",
+"Y",
+"Y",
+"Y",
+"Y",
+"Y",
+"Y",
+"Y",
+"Y",
+"Y",
+"Y"
+);
+FLUSH PRIVILEGES;
