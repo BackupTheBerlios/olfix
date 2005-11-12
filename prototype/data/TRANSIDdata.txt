@@ -34,6 +34,7 @@
 "INKRADD","Lägga upp en ny inköpsorderrad"
 "INKHDSP","Visa orderhuvud för angiven inköpsorder"
 "INKRLST","Lista alla rader på angiven inköpsorder"
+"KRESADD","Ny post till kundreskontran"
 "KSTADD","Nyupplägg av kostnadsställe"
 "KSTCHK","Kontrollera om visst kostnadställe finns"
 "KSTDSP","Visa info för ett kostnadställe"
