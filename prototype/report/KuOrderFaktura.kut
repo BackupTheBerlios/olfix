@@ -397,7 +397,21 @@
 		   Precision="2" Text="[telefon]" VAlignment="1"
 		   Width="120" WordWrap="0" X="460"
 		   Y="781" />
-
+		<Label BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="0" BorderWidth="1" FontFamily="Nimbus Sans L"
+		   FontItalic="0" FontSize="8" FontWeight="75"
+		   ForegroundColor="0,0,0" HAlignment="0" Height="10"
+		   Text="Förfallodatum:" VAlignment="1" Width="75"
+		   WordWrap="0" X="310" Y="730" />
+		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="1" BorderWidth="1" CommaSeparator="44"
+		   Currency="36" DataType="0" DateFormat="0"
+		   Field="expiredate" FontFamily="Cursor" FontItalic="0"
+		   FontSize="8" FontWeight="50" ForegroundColor="0,0,0"
+		   HAlignment="2" Height="12" NegValueColor="255,0,0"
+		   Precision="0" Text="[expiredate]" VAlignment="1"
+		   Width="65" WordWrap="1" X="390"
+		   Y="730" />
 		<Label BackgroundColor="255,255,255" BorderColor="0,0,0"
 		   BorderStyle="0" BorderWidth="1" FontFamily="Nimbus Sans L"
 		   FontItalic="0" FontSize="8" FontWeight="75"
@@ -473,7 +487,6 @@
 		   Precision="0" Text="[fakturatotal]" VAlignment="1"
 		   Width="60" WordWrap="1" X="535"
 		   Y="765" />
-
 	</Detail>
 
 	<Detail Height="26" Level="1">
@@ -528,13 +541,14 @@
 		   Field="radsumma" FontFamily="Cursor" FontItalic="0"
 		   FontSize="8" FontWeight="50" ForegroundColor="0,0,0"
 		   HAlignment="0" Height="12" NegValueColor="255,0,0"
-		   Precision="0" Text="[radsumma" VAlignment="2"
+		   Precision="0" Text="[radsumma]" VAlignment="2"
 		   Width="43" WordWrap="0" X="545"
 		   Y="0" />
 	</Detail>
 
 	<Detail Height="100" Level="2">
 	</Detail>
+
 	<Detail Height="100" Level="3">
 	</Detail>
 
