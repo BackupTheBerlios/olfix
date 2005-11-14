@@ -8,8 +8,9 @@
 /***************************************************************************
                           LSTFNCW  -  description
                              -------------------
-		     version 0.2
-    begin                : Sön 23 febr 2003
+		     version 0.3
+    begin     	: Sön   23 febr  2003
+    Modified	: Mån 14 nov  2005
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -31,7 +32,7 @@
 #include <qregexp.h>
 #include <qfont.h>
 #include <qlistview.h>
-#define MAXSTRING 5000	// 2003-01-04 japi
+#define MAXSTRING 15000	// Utökat från 5000 till 15000 2005-11-14 japi
 
 	QProcess* process;
 	QString inrad;
@@ -44,15 +45,13 @@ void frmListFunk::GetFunc()
             QString usr(userp);
 	QString bibl;
 
-	bibl.append("./STYRMAN");		// OLFIX huvudprogram
+	bibl="./STYRMAN";		// OLFIX huvudprogram
 	
 	process = new QProcess();
 	process->addArgument(bibl);
 	process->addArgument(usr);		// userid
 	process->addArgument( "TRNSLST");	// OLFIX funktion
-	
-//	fprintf(stderr,"Starta STYRMAN/USERLST! %s\n",user);
-	
+		
 	frmListFunk::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmListFunk::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );	
 	frmListFunk::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );	    
@@ -158,7 +157,6 @@ void frmListFunk::slotEndOfProcess()
     }   
 }
 
-
 void frmListFunk::slotDataOnStderr()
 {
     while (process->canReadLineStderr() ) {
@@ -168,9 +166,6 @@ void frmListFunk::slotDataOnStderr()
 //	qWarning( "slotDataOnErrout: Userid=%s \n", inrad.latin1() );
     }
 }
-
-
-
 
 void frmListFunk::slotReloadFunc()
 {
