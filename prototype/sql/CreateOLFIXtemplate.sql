@@ -391,6 +391,37 @@ CREATE TABLE KUNDREG (
 -- Dumping data for table 'KUNDREG'
 --
 
+--
+-- Table structure for table 'KURESK'
+--
+
+DROP TABLE IF EXISTS KURESK;
+CREATE TABLE KURESK (
+  ORDERNR varchar(10) NOT NULL default '',
+  FAKTURANR varchar(20) NOT NULL default '',
+  KUNDNR varchar(10) NOT NULL default '',
+  FAKTURADATUM date default NULL,
+  EXPIREDATUM date default NULL,
+  NETTOBELOPP decimal(10,2) default NULL,
+  MOMSBELOPP decimal(10,2) default NULL,
+  FAKTURABELOPP decimal(10,2) default NULL,
+  BETALD enum('J','N') NOT NULL default 'N',
+  BETALDATUM date default NULL,
+  USERID varchar(8) default NULL,
+  VALUTA char(3) default 'SEK',
+  VALUTAKURS decimal(10,2) NOT NULL default '1.00',
+  VALUTABELOPP decimal(10,2) default '0.00',
+  BAR char(2) default NULL,
+  VERNR int(11) default NULL,
+  MOMSKTONR varchar(4) default NULL,
+  KTONR varchar(4) default NULL,
+  DEBETBELOPP decimal(10,2) default NULL,
+  PRIMARY KEY  (ORDERNR,FAKTURANR)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table 'KURESK'
+--
 
 --
 -- Table structure for table 'LAGERSTELLEREG'
