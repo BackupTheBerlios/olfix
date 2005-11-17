@@ -1,6 +1,62 @@
-Changelog OLFIX 20051027
+Changelog OLFIX 20051117
 
 Blivande
+________________________________________________________
+Ver 0.3.B
+2005-11-17
+		Nya program
+		KUFAKTW		Skapa kundfaktura
+		KURESKW		Kundreskontra på skärm
+
+		Ändrade program
+		LSTFNCW		Buggrättning
+
+		Nya funktioner
+		KRESADD.c	Ny post till tabellen KURESK. Kundreskontra
+		ORDUPD.c	För att uppdatera/ändra önskat fält i ORDERREG.Kan byggas ut.
+		ORADUPD.c	För att uppdatera FAKTURERAT (antal) i ORDERRADREG.
+		KRESLST.c	Lista kundreskontratabellen KURESK
+
+		Ändrade funktioner
+		ORDRDSP.c	Anpassat för fältet LEVERERAT i tabellen ORDERRADREG
+
+		Nya tabeller
+		KURESK		Kundreskontra
+
+		Ändrade tabeller
+		ORDERRADREG	Lagt till fältet FAKTURERAT
+
+		Nya sqlfiler
+		CreateTableKURESK.sql
+		InsertFTGDATA.sql	Ny Post, Antal fakturanrserier, default = 1
+		UpdateFTGDATA_FKNR2.sql	Ny post, En extra serie av fakturanr.
+
+		Ändrade sqlfiler.
+		CreateOLFIXtemplate.sql		Lagt till FAKNR,FKNR2,FKNRS (Senaste fakturanr)
+		CreateOLFIX.sql			Lagt till FAKNR,FKNR2,FKNRS (Senaste fakturanr)
+
+		Nya rapporter
+		Kundfaktura 	KundOrderFaktura.kut
+
+		Ändrade rapporter
+
+		Ändrade data
+		PROGRAMdata.txt. Nytt program KUFAKTW
+		TRANSIDdata.txt. Ny funktion, KRESADD, ny post till kundreskontran
+				 Ny funktion ORDUPD
+				 Nufunktion ORADUPD
+
+		Städat path/export
+
+		Dokumentation
+		Städat upp i path/doc
+		Usersmanual (Online)Uppdaterad (2005-10-19)
+		UserManual	Uppdaterad (2005-10-18)
+
+		Teknisk Manual	Uppdaterad (2005-11-12) Version 0.56
+		Installationsanvisningar.txt (2005-11-01)
+		Installationsanvisningar.sxw (2005-11-01)
+		Korsrelationer.sxw Uppdaterad (2005-??-??)
 ________________________________________________________
 Ver 0.2.4.B
 2005-10-27
