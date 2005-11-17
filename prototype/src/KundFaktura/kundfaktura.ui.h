@@ -28,15 +28,33 @@
 #include <qprocess.h>
 #include <qdir.h>
 #include <stdlib.h>
+#include <math.h>
 #include <qstring.h>
 #include <qfile.h>
 #include <qregexp.h>
 #include <qdatetime.h>
 #include <qcheckbox.h>
 #include <qthread.h> 
-#define MAXSTRING 5000
+#define MAXSTRING 15000
 
 QProcess* process;
+QProcess* proctrhd;
+QProcess* procfaktura;
+QProcess* prockresk;
+QProcess* procorder;
+QProcess* procorad;
+
+QString inradfaktura;
+QString errorradfaktura;
+QString inradtrhd;
+QString errorradtrhd;
+QString inradkresk;
+QString errorradkresk;
+QString inradorder;
+QString errorradorder;
+QString inradorderrad;
+QString errorradorderrad;
+
 QString inrad;
 QString inradny;
 QString* rad;
@@ -48,6 +66,8 @@ QString inradftg;
 QString errorradftg;
 QString betinrad;
 QString beterrorrad;
+QString faktinrad;
+QString fakterrorrad;
 QString hjelpfil;
 int varv=0;
 
@@ -80,6 +100,7 @@ QString leveransland;
 QString valuta;			// 10
 QString betvillkor;		// 11
 QString betalningsdagar;
+QString betvilkbeskriv;
 QString levvillkor;		// 12
 QString levsett;			// 13
 QString godsmerke;		// 14
@@ -119,6 +140,7 @@ QString radrest;
 QString radmomsprocent;
 QString fakturanr;
 QString fakturanrflag ="1" ;			// fakturanrflag = flagga för flera fakturanrserier  
+QString kureskpost;
 
 void frmKundFaktura::init()
 {
@@ -132,8 +154,8 @@ void frmKundFaktura::init()
     textLabelFakturadatum->setText(fakturadatum);
     
 //    QDateTime dt = QDateTime::currentDateTime();
-    QDateTime nt = dt.addDays ( +30 );	// Dagens datum + 30 dagar    
-    expdatum=nt.toString("yyyy-MM-dd");	// Förfallodatum
+    QDateTime nt = dt.addDays ( +30 );		// Dagens datum + 30 dagar    
+    expdatum=nt.toString("yyyy-MM-dd");		// Förfallodatum
     lineEditExpiredate->setText(expdatum);
     
     radioButton1->setEnabled(FALSE);		// Sätts till TRUE om flera fakturanrserier
@@ -162,6 +184,7 @@ void frmKundFaktura::lineEditOrderNr_returnPressed()
 	listViewRader->setFocus();
 	listViewRader->firstChild ();
 	listViewRader->setSelected(listViewRader->firstChild (),TRUE);
+	pushButtonOK->setEnabled(TRUE);
     }
 }
 
@@ -239,6 +262,46 @@ void frmKundFaktura::lineEditExpiredate_returnPressed()
 }
 
 /*****************************************/
+/*	Editering av fakturaadress                     */
+/*****************************************/
+
+void frmKundFaktura::lineEditKundNamn_returnPressed()
+{
+    kundnamn=lineEditKundNamn->text();
+    lineEditKundNamn->setText(kundnamn);
+}
+
+void frmKundFaktura::lineEditKundAdress_returnPressed()
+{
+    kundadr=lineEditKundAdress->text();
+    lineEditKundAdress->setText(kundadr);
+}
+
+void frmKundFaktura::lineEditKundPostnr_returnPressed()
+{
+    kundpostnr=lineEditKundPostnr->text();
+    lineEditKundPostnr->setText(kundpostnr);
+}
+
+void frmKundFaktura::lineEditKundPostAdress_returnPressed()
+{
+    kundpostadr=lineEditKundPostAdress->text();
+    lineEditKundPostAdress->setText(kundpostadr);
+}
+
+void frmKundFaktura::lineEditKundLand_returnPressed()
+{
+    kundland=lineEditKundLand->text();
+    lineEditKundLand->setText(kundland);
+}
+
+void frmKundFaktura::lineEditKundRef_returnPressed()
+{
+    erref=lineEditKundRef->text();
+    lineEditKundRef->setText(erref);
+}
+
+/*****************************************/
 /*	Editering av fakturarader                       */
 /*****************************************/
 void frmKundFaktura::lineEditArtikelNr_returnPressed()
@@ -252,11 +315,15 @@ void frmKundFaktura::lineEditBenamn_returnPressed()
 void frmKundFaktura::lineEditRadAntal_returnPressed()
 {
     frmKundFaktura::CalculateRadtotal();
+    pushBtnOKRad->setFocus();
+//    lineEditRadRest->setFocus();
 }
 
 void frmKundFaktura::lineEditRadRest_returnPressed()
 {
     frmKundFaktura::CalculateRadtotal();
+    pushBtnOKRad->setFocus();
+//    lineEditRadPris->setFocus();
 }
 
 void frmKundFaktura::lineEditRadPris_returnPressed()
@@ -267,6 +334,7 @@ void frmKundFaktura::lineEditRadPris_returnPressed()
     kronor=kronor.setNum(belopp,'f',2);
     lineEditRadPris->setText(kronor);
     frmKundFaktura::CalculateRadtotal();
+    lineEditRadMomsProcent->setFocus() ;
 }
 
 void frmKundFaktura::lineEditRadMomsProcent_returnPressed()
@@ -277,6 +345,7 @@ void frmKundFaktura::lineEditRadMomsProcent_returnPressed()
     kronor=kronor.setNum(belopp,'f',2);
     lineEditRadMomsProcent->setText(kronor);
     frmKundFaktura::CalculateRadtotal();
+    lineEditRadMomsKr->setFocus();
 }
 
 void frmKundFaktura::lineEditRadMomsKr_returnPressed()
@@ -287,6 +356,7 @@ void frmKundFaktura::lineEditRadMomsKr_returnPressed()
     kronor=kronor.setNum(belopp,'f',2);
     lineEditRadMomsKr->setText(kronor);
     frmKundFaktura::CalculateRadtotal();
+    lineEditRadtotal->setFocus();
 }
 
 void frmKundFaktura::lineEditRadtotal_returnPressed()
@@ -314,7 +384,7 @@ void frmKundFaktura::lineEditFrakt_returnPressed()
     belopp=lineEditFrakt->text().toDouble();
     kronor=kronor.setNum(belopp,'f',2);
     lineEditFrakt->setText(kronor);   
-    pushButtonKalkylera->setFocus();
+    lineEditFraktmoms->setFocus();
 }
 
 void frmKundFaktura::lineEditFraktmoms_returnPressed()
@@ -378,18 +448,23 @@ void frmKundFaktura::pushButtonOK_clicked()
     /*   Skapa fakturan            			*/
     /*   Uppdatera senast använda fakturanrserier	*/
     /*   Skapa post i Kundreskontraregistret KURESK	*/    
+   /*   Skapa post i Kundreskontraregistret KURESK	*/
+    /*   Uppdatera TRHD 				*/
     /*   Uppdataera kundorder, ORDERREG		*/    
     /*   Uppdataera kundorder, ORDERRADREG?	*/ 
     /*   Uppdataera kundorder, PLOCKLISTEREG	*/    
-    /*   Skapa post i Kundreskontraregistret KURESK	*/
-    /*   Uppdatera TRHD 				*/
     /**********************************************/     
-
+    qDebug("Start pushButtonOK_clicked()");
     frmKundFaktura::calculateFaktura();
     frmKundFaktura::createFaktura();		// Skapa och skriv ut en faktura med Kugar
 //    qDebug("fakturanr=%s",fakturanr.latin1());
     frmKundFaktura::updateFakturanr();
     frmKundFaktura::createKURESKpost();		// Skapa en post i kundreskontran.
+//						   Skapa en post i TRHD (görs efter createKURESKpost()
+//						   KURESKposten måste vara klar först !  
+    frmKundFaktura::updateOrderreg();		// Uppdatera ORDERSTATUS till F (fakturerat)
+//
+    qDebug("Slut pushButtonOK_clicked()");
 }
 
 void frmKundFaktura::pushButtonNext_clicked()
@@ -410,12 +485,14 @@ void frmKundFaktura::calculateFaktura()
     QString radsumma;
     QString netto;
     QString frakt;
+ 
     double moms;
     double momssumma=0;
     double radtotal=0;		// exkl moms
     double belopp;
     double nettosumma=0;
     double sum=0;
+    double tmp;
    
     QListViewItem *myChild=listViewRader->firstChild ();    
     
@@ -444,8 +521,14 @@ void frmKundFaktura::calculateFaktura()
     lineEditMoms->setText(momstotal);
 
     sum=sum+momssumma+belopp;			// totalbelopp på fakturan inkl moms
+    tmp=sum-labs(sum);
+    sum=sum-tmp;
+//    tmp=sum-tmp;
+//    qDebug("tmp=%f",tmp);
+    lineEditAvrundning->setText(summa.setNum(-tmp,'f',2)); // Avrundning alltid negativ
     summa=summa.setNum(sum,'f',2);		// totalbelopp på fakturan inkl moms
     lineEditTotal->setText(summa);			// totalbelopp på fakturan inkl moms
+    
 }
 
 void frmKundFaktura::createFaktura()
@@ -1303,20 +1386,20 @@ void frmKundFaktura::changeOrder( QString ordernum,QString radnum,QString levant
     
     inrad="";
     errorrad="";
-    process = new QProcess();
-    process->addArgument("./STYRMAN");	// OLFIX styrprogram
-    process->addArgument(usr);		// userid
-    process->addArgument( "ORDRUPD");	// OLFIX funktion
-    process->addArgument(ordernum);
-    process->addArgument(radnum);
-    process->addArgument(levantal);
-    process->addArgument(restantal);
+    procfaktura = new QProcess();
+    procfaktura->addArgument("./STYRMAN");	// OLFIX styrprogram
+    procfaktura->addArgument(usr);		// userid
+    procfaktura->addArgument( "ORDRUPD");	// OLFIX funktion
+    procfaktura->addArgument(ordernum);
+    procfaktura->addArgument(radnum);
+    procfaktura->addArgument(levantal);
+    procfaktura->addArgument(restantal);
     
-    frmKundFaktura::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(DataOnStdout() ) );
-    frmKundFaktura::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(DataOnStderr() ) );
-    frmKundFaktura::connect( process, SIGNAL(processExited() ),this, SLOT(updateFakturaEndOfProcess() ) );
+    frmKundFaktura::connect( procfaktura, SIGNAL(readyReadStdout() ),this, SLOT(upDateFakturaDataOnStdout() ) );
+    frmKundFaktura::connect( procfaktura, SIGNAL(readyReadStderr() ),this, SLOT(updateFakturaDataOnStderr() ) );
+    frmKundFaktura::connect( procfaktura, SIGNAL(processExited() ),this, SLOT(updateFakturaEndOfProcess() ) );
     
-    if ( !process->start() ) {
+    if ( !procfaktura->start() ) {
 	// error handling
 	QMessageBox::warning( this, "KUFAKTW",
 			      "Kan inte starta STYRMAN/ORDRUPD! \n" );
@@ -1327,11 +1410,11 @@ void frmKundFaktura::updateFakturaEndOfProcess()
 {
     int i;
     i = -1;
-    i = errorrad.find( QRegExp("Error:"), 0 );
+    i = errorradfaktura.find( QRegExp("Error:"), 0 );
     //   qDebug("Error:",errorrad);
     if (i != -1) {
 	QMessageBox::critical( this, "KUFAKTW",
-			       "ERROR!\n"+errorrad
+			       "ERROR!\n"+errorradfaktura
 			       );
     } 
 }
@@ -1347,22 +1430,22 @@ void frmKundFaktura::TRHDregAdd(QString trhdData, QString data )
     
     qDebug("trhdData=%s data=%s",trhdData.latin1(),data.latin1());
     
-    inrad="";
-    errorrad="";
-    process = new QProcess();
-    process->addArgument("./STYRMAN");	// OLFIX styrprogram
-    process->addArgument(usr);		// userid
-    process->addArgument( "TRHDADD");	// OLFIX funktion
-    process->addArgument(trhdData);	// TRNSID
-    process->addArgument(tidpunkt);
-    process->addArgument(usr);
-    process->addArgument(data);
+    inradtrhd="";
+    errorradtrhd="";
+    proctrhd = new QProcess();
+    proctrhd->addArgument("./STYRMAN");	// OLFIX styrprogram
+    proctrhd->addArgument(usr);		// userid
+    proctrhd->addArgument( "TRHDADD");	// OLFIX funktion
+    proctrhd->addArgument(trhdData);	// TRNSID
+    proctrhd->addArgument(tidpunkt);
+    proctrhd->addArgument(usr);
+    proctrhd->addArgument(data);
     
-    frmKundFaktura::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(DataOnStdout() ) );
-    frmKundFaktura::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(DataOnStderr() ) );
-    frmKundFaktura::connect( process, SIGNAL(processExited() ),this, SLOT(TRHDregAddEndOfProcess() ) );
+    frmKundFaktura::connect( proctrhd, SIGNAL(readyReadStdout() ),this, SLOT(TRHDregAddDataOnStdout() ) );
+    frmKundFaktura::connect( proctrhd, SIGNAL(readyReadStderr() ),this, SLOT(TRHDregAddDataOnStderr() ) );
+    frmKundFaktura::connect( proctrhd, SIGNAL(processExited() ),this, SLOT(TRHDregAddEndOfProcess() ) );
     
-    if ( !process->start() ) {
+    if ( !proctrhd->start() ) {
 	// error handling
 	QMessageBox::warning( this, "KUFAKTW",
 			      "Kan inte starta STYRMAN/TRHDADD! \n" );
@@ -1373,13 +1456,15 @@ void frmKundFaktura::TRHDregAddEndOfProcess()
 {
     int i;
     i = -1;
-    i = errorrad.find( QRegExp("Error:"), 0 );
+    i = errorradtrhd.find( QRegExp("Error:"), 0 );
     //   qDebug("Error:",errorrad);
     if (i != -1) {
 	QMessageBox::critical( this, "KUFAKTW",
-			       "ERROR!\n"+errorrad
+			       "ERROR!\n"+errorradtrhd
 			       );
-    } 
+    }
+    errorradtrhd="";
+    inradtrhd="";
 }
 
 void frmKundFaktura::CreateReportHeader()
@@ -1503,7 +1588,7 @@ void frmKundFaktura::CreateReportHeader()
     rapportrad.append("\" leveransland=\"");
     rapportrad.append(leveransland);
     rapportrad.append("\" betvillkor=\"");
-    rapportrad.append(betvillkor);
+    rapportrad.append(betvilkbeskriv);		// Betalningsvillkor i klartext
     rapportrad.append("\" levvillkor=\"");
     rapportrad.append(levvillkor);
     rapportrad.append("\" valuta=\"");
@@ -2017,7 +2102,7 @@ void frmKundFaktura::slotPickupOrdernr( QListViewItem * item)
 
 void frmKundFaktura::updateFakturanr()
 {
-    qDebug("updateFakturanr(FTGUPD) fakturanr = %s",fakturanr.latin1());
+//    qDebug("updateFakturanr(FTGUPD) fakturanr = %s",fakturanr.latin1());
     /**********************************************************************/
     /*	Uppdatera FTGDATA FAKNR eller FKNR2 berooende på fakturanrflag	*/
     /**********************************************************************/
@@ -2060,7 +2145,7 @@ void frmKundFaktura::createKURESKpost()
     QString usr(userp);
 
 //    QString expdatum;
-    QString kureskpost;		// kundreskontrapost
+//    QString kureskpost;		// kundreskontrapost
     QString skilje="_:_";		// skiljetecken mellan fält
 /*    
     QDateTime dt = QDateTime::currentDateTime();
@@ -2110,23 +2195,42 @@ void frmKundFaktura::createKURESKpost()
     kureskpost.append("END");
 //    qDebug("KURESKpost = %s",kureskpost.latin1());
     
-    inrad="";
-    errorrad="";
-    process = new QProcess();
-    process->addArgument("./STYRMAN");	// OLFIX styrprogram
-    process->addArgument(usr);		// userid
-    process->addArgument( "KRESADD");	// OLFIX funktion
-    process->addArgument(kureskpost);
+    inradkresk="";
+    errorradkresk="";
+    prockresk = new QProcess();
+    prockresk->addArgument("./STYRMAN");	// OLFIX styrprogram
+    prockresk->addArgument(usr);		// userid
+    prockresk->addArgument( "KRESADD");	// OLFIX funktion
+    prockresk->addArgument(kureskpost);
     
-    frmKundFaktura::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(DataOnStdout() ) );
-    frmKundFaktura::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(DataOnStderr() ) );
-    frmKundFaktura::connect( process, SIGNAL(processExited() ),this, SLOT(EndOfProcess() ) );
+    frmKundFaktura::connect( prockresk, SIGNAL(readyReadStdout() ),this, SLOT(KresaddDataOnStdout() ) );
+    frmKundFaktura::connect( prockresk, SIGNAL(readyReadStderr() ),this, SLOT(KresaddDataOnStderr() ) );
+    frmKundFaktura::connect( prockresk, SIGNAL(processExited() ),this, SLOT(KresaddEndOfProcess() ) );
     
-    if ( !process->start() ) {
+    if ( !prockresk->start() ) {
 	// error handling
 	QMessageBox::warning( this, "KUFAKTW",
 			      "Kan inte starta STYRMAN/KRESADD! \n" );
     }  
+}
+
+void frmKundFaktura::KresaddEndOfProcess()
+{
+    int i;
+    i = -1;
+    i = errorradkresk.find( QRegExp("Error:"), 0 );
+    //   qDebug("Error:",errorrad);
+    if (i != -1) {
+	QMessageBox::critical( this, "KUFAKTW",
+			       "ERROR!\n"+errorradkresk
+			       );
+    } 
+    i = -1;
+    i = inradkresk.find( QRegExp("OK:"), 0 );
+    //   qDebug("Error:",errorrad);
+    if (i != -1) {
+	frmKundFaktura::TRHDregAdd("KRESADD", kureskpost );
+    } 
 }
 
 void frmKundFaktura::EndOfProcess()
@@ -2187,7 +2291,7 @@ void frmKundFaktura::BetvillkorDataOnStderr()
 
 void frmKundFaktura::BetvillkorEndOfProcess()
 {
-    int i,j,l;
+    int i,j,l,m;
     int betdag;
     i = -1;
     i = errorrad.find( QRegExp("Error:"), 0 );
@@ -2203,9 +2307,13 @@ void frmKundFaktura::BetvillkorEndOfProcess()
     if (i != -1) {
 	j=betinrad.find( QRegExp("DAGAR:"), 0 )+6;
 	l=betinrad.find( QRegExp("BESKRIVNING:"), 0 );
+	m=betinrad.find( QRegExp("END:"), 0 );
 	betalningsdagar=betinrad.mid(j,l-j);
+	betvilkbeskriv=betinrad.mid(l+13,m-(l+13));
+//	qDebug("betvilkbeskr=%s",betvilkbeskriv.latin1());
     }else{
 	betalningsdagar=30;
+	betvilkbeskriv="30 dagar netto";
     }
 	
     betalningsdagar = betalningsdagar.stripWhiteSpace();
@@ -2216,3 +2324,260 @@ void frmKundFaktura::BetvillkorEndOfProcess()
     expdatum=nt.toString("yyyy-MM-dd");			// Förfallodatum
     lineEditExpiredate->setText(expdatum);
 }
+
+void frmKundFaktura::nextFaktura()
+{
+    qDebug("Start nextFaktura()");
+    lineEditOrderNr->clear();
+    lineEditOrderstatus->clear();
+    lineEditFakturanr->clear();
+    listViewRader->clear();
+    lineEditRadnr->setText("000");
+    lineEditArtikelNr->clear();
+    lineEditBenamn->clear();
+    lineEditRadAntal->clear();    
+    lineEditRadRest->clear();
+    lineEditRadPris->clear();
+    lineEditRadMomsProcent->clear();
+    lineEditRadMomsKr->clear();
+    lineEditRadtotal->clear();
+    orderartikelnr="";
+    orderbenamn="";
+    orderantal="";
+
+    lineEditKundnr->clear();
+    lineEditKundNamn->clear();
+    lineEditKundAdress->clear();	    
+    lineEditKundPostnr->clear();    
+    lineEditKundPostAdress->clear();
+    lineEditKundLand->clear();
+    lineEditKundRef->clear();
+    lineEditExpiredate->clear();
+    
+    lineEditSumma->clear();
+    lineEditFrakt->clear();
+    lineEditFraktmoms->clear();
+    lineEditMoms->clear();
+    lineEditAvrundning->clear();
+    lineEditTotal->clear();
+    
+//    frmKundFaktura::getForetagsdata("FKNRS");		// Hämta fakturanr
+    pushButtonOK->setEnabled(FALSE);
+//    pushButtonNext->setFocus();
+    lineEditOrderNr->setFocus();
+    qDebug("Slut nextFaktura()");
+}
+
+
+void frmKundFaktura::updateOrderreg()
+{
+    const char *userp = getenv("USER");
+    QString usr(userp);
+    
+    qDebug("Start updateOrderreg");
+    
+    inradorder="";
+    errorradorder="";
+
+    procorder = new QProcess(this);
+    procorder->addArgument("./STYRMAN");	// OLFIX styrprogram
+    procorder->addArgument(usr);			// userid
+    procorder->addArgument( "ORDUPD");		// OLFIX funktion
+    procorder->addArgument("1");			// 1 = uppdatera fältet ORDERSTATUS
+    procorder->addArgument(ordernr);		// för ordernr
+    procorder->addArgument("F");			// med värdet F (fakturerat)
+    
+    frmKundFaktura::connect( procorder, SIGNAL(readyReadStdout() ),this, SLOT(updateOrderregDataOnStdout() ) );
+    frmKundFaktura::connect( procorder, SIGNAL(readyReadStderr() ),this, SLOT(updateOrderregDataOnStderr() ) );
+    frmKundFaktura::connect( procorder, SIGNAL(processExited() ),this, SLOT(updateOrderregEndOfProcess() ) );
+    
+    if ( !procorder->start() ) {
+	// error handling
+	QMessageBox::warning( this, "KUFAKTW",
+			      "Kan inte starta STYRMAN/ORDUPD! \n" );
+    }  
+    qDebug("Slut updateOrderreg");
+}
+
+void frmKundFaktura::updateOrderregDataOnStdout()
+{
+    while (procorder->canReadLineStdout() ) {
+	QString line = procorder->readStdout();
+	inradorder.append(line);
+	inradorder.append("\n");
+    }
+}
+
+void frmKundFaktura::updateOrderregDataOnStderr()
+{
+    while (procorder->canReadLineStderr() ) {
+	QString line = procorder->readStderr();
+	errorradorder.append(line);
+	errorradorder.append("\n");
+    }
+}
+
+void frmKundFaktura::updateOrderregEndOfProcess()
+{
+     qDebug("Start updateOrderregEndOfProcess");
+     
+     int i;
+    i = -1;
+    i = errorradorder.find( QRegExp("Error:"), 0 );
+    if (i != -1) {
+	QMessageBox::critical( this, "KUFAKTW",
+			       "ERROR!\n"+errorradorder
+			       );
+    } 
+    i=-1;
+    i = inradorder.find( QRegExp("OK:"), 0 );
+    if (i != -1){
+	frmKundFaktura::updateOrderradreg();
+
+    }
+ //   frmKundFaktura::nextFaktura();
+   qDebug("Slut updateOrderregEndOfProcess");    
+}
+
+void frmKundFaktura::updateOrderradreg()
+{
+    qDebug("Start updateOrderradreg");
+    
+    const char *userp = getenv("USER");
+    QString usr(userp);    
+    int pr=0;
+    QString radnum;
+    QString antfakt;
+    QString tmp,temp;
+    tmp="";
+    QListViewItem *mittBarn=listViewRader->firstChild (); 
+    
+    while( mittBarn ) {
+	radnum=mittBarn->text(0);
+	antfakt=mittBarn->text(4);
+	tmp.append("|");
+	tmp.append(ordernr.stripWhiteSpace());
+	tmp.append("|");
+	tmp.append(radnum);
+	tmp.append("|");
+	tmp.append(antfakt);
+	pr ++;
+	mittBarn=mittBarn->nextSibling();	
+    }
+    temp=temp.setNum(pr);
+    tmp=tmp+"|";
+
+    procorad = new QProcess(this);
+    procorad->addArgument("./STYRMAN");	// OLFIX styrprogram
+    procorad->addArgument(usr);			// userid
+    procorad->addArgument( "ORADUPD");		// OLFIX funktion
+    procorad->addArgument(temp);			// antal  orderrader
+    procorad->addArgument(tmp);			// data
+
+    frmKundFaktura::connect( procorad, SIGNAL(readyReadStdout() ),this, SLOT(updateOrRadDataOnStdout() ) );
+    frmKundFaktura::connect( procorad, SIGNAL(readyReadStderr() ),this, SLOT(updateOrRadDataOnStderr() ) );
+    frmKundFaktura::connect( procorad, SIGNAL(processExited() ),this, SLOT(updateOrRadEndOfProcess() ) );
+    
+    qDebug("Start process, updateOrderradreg");
+    
+    if ( !procorad->start() ) {
+	    QMessageBox::warning( this, "KUFAKTW",
+			      "Kan inte starta STYRMAN/ORADUPD! \n" );
+	}  
+    qDebug("tmp=%s  temp=%s",tmp.latin1(),temp.latin1());
+    qDebug("Slut updateOrderradreg");
+}
+
+void frmKundFaktura::updateOrRadEndOfProcess()
+{
+    qDebug("Start updateOrRadEndOfProcess");
+     
+     int i;
+    i = -1;
+    i = errorradorderrad.find( QRegExp("Error:"), 0 );
+    if (i != -1) {
+	QMessageBox::critical( this, "KUFAKTW",
+			       "ERROR!\n"+errorradorderrad
+			       );
+    } 
+    i=-1;
+    i = inradorderrad.find( QRegExp("OK:"), 0 );
+    if (i != -1){
+//	qDebug("inradorderrad=%s",inradorderrad.latin1());
+    }    
+     frmKundFaktura::nextFaktura();
+    qDebug("Slut updateOrRadEndOfProcess");    
+}
+
+void frmKundFaktura::updateFakturaDataOnStdout()
+{
+    while (procfaktura->canReadLineStdout() ) {
+	QString line = procfaktura->readStdout();
+	inradfaktura.append(line);
+	inradfaktura.append("\n");
+    }
+}
+
+void frmKundFaktura::updateFakturaDataOnStderr()
+{
+    while (procfaktura->canReadLineStderr() ) {
+	QString line = procfaktura->readStderr();
+	errorradfaktura.append(line);
+	errorradfaktura.append("\n");
+    }
+}
+
+void frmKundFaktura::TRHDregAddDataOnStderr()
+{
+    while (proctrhd->canReadLineStderr() ) {
+	QString line = proctrhd->readStderr();
+	errorradtrhd.append(line);
+	errorradtrhd.append("\n");
+    }
+}
+
+void frmKundFaktura::TRHDregAddDataOnStdout()
+{
+    while (proctrhd->canReadLineStdout() ) {
+	QString line = proctrhd->readStdout();
+	inradtrhd.append(line);
+	inradtrhd.append("\n");
+    }
+}
+
+void frmKundFaktura::KresaddDataOnStdout()
+{
+    while (prockresk->canReadLineStdout() ) {
+	QString line = prockresk->readStdout();
+	inradkresk.append(line);
+	inradkresk.append("\n");
+    }
+}
+
+void frmKundFaktura::KresaddDataOnStderr()
+{
+    while (prockresk->canReadLineStderr() ) {
+	QString line = prockresk->readStderr();
+	errorradkresk.append(line);
+	errorradkresk.append("\n");
+    }
+}
+
+void frmKundFaktura::updateOrRadDataOnStdout()
+{
+    while (procorad->canReadLineStdout() ) {
+	QString line = procorad->readStdout();
+	inradorderrad.append(line);
+	inradorderrad.append("\n");
+    }
+}
+
+void frmKundFaktura::updateOrRadDataOnStderr()
+{
+    while (procorad->canReadLineStderr() ) {
+	QString line = procorad->readStderr();
+	errorradorderrad.append(line);
+	errorradorderrad.append("\n");
+    }
+}
+
