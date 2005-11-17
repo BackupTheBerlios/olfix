@@ -29,7 +29,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ORADUPD.c,v 1.1 2005/11/17 05:39:10 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ORADUPD.c,v 1.2 2005/11/17 09:22:07 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -60,6 +60,7 @@ int main(int argc, char *argv[], char *envp[])
 {
   int res;
   int status;
+  int flag=-1;
   int i,l,j,k,n,m;
   int anttecken;
   char *pos1;
@@ -124,7 +125,7 @@ int main(int argc, char *argv[], char *envp[])
   strncpy(temp,argv[1],sizeof(temp));
 /*  fprintf(stderr,"temp=%s\n",temp);		*/
   antalposter=atoi(temp);
-  fprintf(stderr,"antalposter=%d\n",antalposter);
+/*  fprintf(stderr,"antalposter=%d\n",antalposter);	*/
 /*  fprintf(stderr,"argc=%d argv[0]=%s argv[1]=%s argv[2]=%s \n",argc,argv[0],argv[1],argv[2]);		*/
   strncpy(data,argv[2],sizeof(data));
 //  fprintf(stderr,"data=%s\n",data);
@@ -190,12 +191,12 @@ int main(int argc, char *argv[], char *envp[])
   	strncat(temp5,temp3,sizeof(temp3));
 /*  UPDATE ORDERRADREG SET LEVERERAT = LEVERERAT + "15" , LEVERERAT = LEVERERAT + "15"  WHERE ORDERNR = "45123" AND ORDERRAD = "010" */
 
- 	fprintf(stderr,"ORADUPDmain: temp5=%s\n",temp5);
+/* 	fprintf(stderr,"ORADUPDmain: temp5=%s\n",temp5);	*/
 
  	strncpy(ordernr," ",sizeof(ordernr));
 	strncpy(radnr," ",sizeof(radnr));
 	strncpy(fakturerat," ",sizeof(fakturerat));
-	fprintf(stderr,"\n");
+/*	fprintf(stderr,"\n");	*/
 
 //  exit(0);
 	mysql_init(&my_connection);
@@ -206,9 +207,11 @@ int main(int argc, char *argv[], char *envp[])
   		if (!res){
 			if ((unsigned long)mysql_affected_rows(&my_connection) < 1){
 				fprintf(stderr,"Error: ORADUPD Updated %lu rows\n",(unsigned long)mysql_affected_rows(&my_connection));
+				flag=0;
 			}else{
-				fprintf(stderr,"OK: ORADUPD Updated %lu rows\n",
-				(unsigned long)mysql_affected_rows(&my_connection));
+				flag=-1;
+//				fprintf(stderr,"OK: ORADUPD Updated %lu rows\n",
+//				(unsigned long)mysql_affected_rows(&my_connection));
 			}
         	}else{
 			fprintf(stderr,"Error: ORADUPD UPDATE error: %d  %s\n", mysql_errno(&my_connection),
@@ -222,6 +225,11 @@ int main(int argc, char *argv[], char *envp[])
 				mysql_errno(&my_connection), mysql_error(&my_connection));
 		}
     	}
+    }
+    if(flag==-1){
+	fprintf(stdout,"OK: ORADUPD Updated %d poster\n",antalposter);
+//	fprintf(stderr,"OK: ORADUPD Updated %lu rows\n",
+//	(unsigned long)mysql_affected_rows(&my_connection));
     }
   return EXIT_SUCCESS;
 }
