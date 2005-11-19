@@ -1975,9 +1975,6 @@ inkl moms</string>
     <slot>pushBtnOKRad_clicked()</slot>
     <slot>pushBtnHelp_clicked()</slot>
     <slot>readResursFil()</slot>
-    <slot>updateFaktura()</slot>
-    <slot>changeOrder( QString ordernum, QString radnum, QString levantal, QString restantal )</slot>
-    <slot>updateFakturaEndOfProcess()</slot>
     <slot>TRHDregAdd( QString trhdData, QString data )</slot>
     <slot>TRHDregAddEndOfProcess()</slot>
     <slot>CreateReportHeader()</slot>
@@ -2012,7 +2009,6 @@ inkl moms</string>
     <slot>updateOrderradreg()</slot>
     <slot>updateOrRadEndOfProcess()</slot>
     <slot>updateFakturaDataOnStdout()</slot>
-    <slot>updateFakturaDataOnStderr()</slot>
     <slot>TRHDregAddDataOnStderr()</slot>
     <slot>TRHDregAddDataOnStdout()</slot>
     <slot>KresaddDataOnStdout()</slot>
