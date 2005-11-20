@@ -950,7 +950,7 @@ INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('SLPADD','Standardleveransplats');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNTST','Detta är en testfunktion');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARCHK','Kontrollera om artikelnummer finns');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARADD','Lägga upp en ny artikel');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('AR2ADD','Lägga upp ny artikel i lagerställeregister.');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('AR2ADD','Lägga upp ny artikel i lagerställeregister');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARDSP','Visa grunddata för en artikel');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARDSPL','Visa lagerdata för en artikel');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARCHG','Ändra grunddata för en artikel');
@@ -986,7 +986,7 @@ INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PKDADD','Ny produktgrupp/produktk
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PKDLST','Lista produktgrupper/produktkoder/produktklasser');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('WKUDSP','Visa begränsade kunddata för webbkund');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLSTL','Lista artiklar med lagersaldo');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLIS','Lista artiklaf för angiven produktklass');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLIS','Lista artiklar för angiven produktklass');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLSPK','Lista artiklar för angiven produktkod');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('AR2UPD','Uppdatera artikelpost i LAGERSTELLEREG');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARLST','Lista bokföringsår');
@@ -1007,6 +1007,12 @@ INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKADD','Nytt plock av kundorder
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKDSP','Visa plockade men ej utskrivna plock');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKLST','Lista avprickade kundorderrader');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KRESADD','Ny post till kundreskontran');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORADUPD','Uppdatera önskat fält i ORDERRADREG');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDRUPD','Uppdatera ORDERRADREG');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDUPD','Uppdatera önskat fält i ORDERREG');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLSPK2','Lista artiklar/produktkod med saldo');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KRESLST','Lista poster i kundreskontran');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDRADD','Lägga upp ny rad på kundorder');
 
 --
 -- Table structure for table 'TRHD'
@@ -2588,7 +2594,7 @@ INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('SLPADD','Standardleveransplats');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNTST','Detta är en testfunktion');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARCHK','Kontrollera om artikelnummer finns');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARADD','Lägga upp en ny artikel');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('AR2ADD','Lägga upp ny artikel i lagerställeregister.');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('AR2ADD','Lägga upp ny artikel i lagerställeregister');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARDSP','Visa grunddata för en artikel');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARDSPL','Visa lagerdata för en artikel');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARCHG','Ändra grunddata för en artikel');
@@ -2624,7 +2630,7 @@ INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PKDADD','Ny produktgrupp/produktk
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PKDLST','Lista produktgrupper/produktkoder/produktklasser');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('WKUDSP','Visa begränsade kunddata för webbkund');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLSTL','Lista artiklar med lagersaldo');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLIS','Lista artiklaf för angiven produktklass');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLIS','Lista artiklar för angiven produktklass');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLSPK','Lista artiklar för angiven produktkod');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('AR2UPD','Uppdatera artikelpost i LAGERSTELLEREG');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARLST','Lista bokföringsår');
@@ -2645,6 +2651,12 @@ INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKADD','Nytt plock av kundorder
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKDSP','Visa plockade men ej utskrivna plock');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKLST','Lista avprickade kundorderrader');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KRESADD','Ny post till kundreskontran');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORADUPD','Uppdatera önskat fält i ORDERRADREG');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDRUPD','Uppdatera ORDERRADREG');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDUPD','Uppdatera önskat fält i ORDERREG');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLSPK2','Lista artiklar/produktkod med saldo');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KRESLST','Lista poster i kundreskontran');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDRADD','Lägga upp ny rad på kundorder');
 
 --
 -- Table structure for table 'TRHD'
@@ -3031,14 +3043,14 @@ Select_priv,
 Insert_priv,
 Update_priv,
 Delete_priv,
-Create_priv, 
+Create_priv,
 Drop_priv,
 Reload_priv,
-Shutdown_priv, 
+Shutdown_priv,
 Process_priv,
 File_priv,
 Grant_priv,
-References_priv, 
+References_priv,
 Index_priv,
 Alter_priv
 )
@@ -3051,7 +3063,7 @@ PASSWORD("olfix"),
 "Y",
 "Y",
 "Y",
-"Y", 
+"Y",
 "Y",
 "Y",
 "Y",
