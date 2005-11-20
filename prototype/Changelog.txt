@@ -1,9 +1,13 @@
-Changelog OLFIX 20051117
+Changelog OLFIX 20051120
 
 Blivande
 ________________________________________________________
+Ver 0.3.1.B
+2005-11-20
+
+________________________________________________________
 Ver 0.3.B
-2005-11-17
+2005-11-20
 		Nya program
 		KUFAKTW		Skapa kundfaktura
 		KURESKW		Kundreskontra på skärm
@@ -34,6 +38,12 @@ Ver 0.3.B
 		Ändrade sqlfiler.
 		CreateOLFIXtemplate.sql		Lagt till FAKNR,FKNR2,FKNRS (Senaste fakturanr)
 		CreateOLFIX.sql			Lagt till FAKNR,FKNR2,FKNRS (Senaste fakturanr)
+		Städat bort överflödiga sql-script.
+			CreateAllOlfixtst.sql
+			CreateDatabaseOlfix.sql
+			CreateDatabaseOlfixtst.sql
+			CreateAll.sql
+			olfix_testdata.sql
 
 		Nya rapporter
 		Kundfaktura 	KundOrderFaktura.kut
@@ -45,15 +55,17 @@ Ver 0.3.B
 		TRANSIDdata.txt. Ny funktion, KRESADD, ny post till kundreskontran
 				 Ny funktion ORDUPD
 				 Nufunktion ORADUPD
+				 Uppdatering generellt(bortglömda funktioner)
+		FTGDATAdata.txt  Uppdaterat.
 
 		Städat path/export
 
 		Dokumentation
 		Städat upp i path/doc
-		Usersmanual (Online)Uppdaterad (2005-10-19)
+		Usersmanual (Online)Uppdaterad (2005-11-19)
 		UserManual	Uppdaterad (2005-10-18)
 
-		Teknisk Manual	Uppdaterad (2005-11-12) Version 0.56
+		Teknisk Manual	Uppdaterad (2005-11-18) Version 0.56
 		Installationsanvisningar.txt (2005-11-01)
 		Installationsanvisningar.sxw (2005-11-01)
 		Korsrelationer.sxw Uppdaterad (2005-??-??)
