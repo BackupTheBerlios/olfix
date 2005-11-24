@@ -1,0 +1,180 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>frmDspText</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmDspText</cstring>
+    </property>
+    <property name="enabled">
+        <bool>true</bool>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>829</width>
+            <height>250</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>DSPTXTW - Visa text i textregistret.</string>
+    </property>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonGet</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>270</x>
+                <y>0</y>
+                <width>56</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hämta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>5</y>
+                <width>123</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Textnr:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>30</y>
+                <width>125</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Text:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>linEditTextNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>145</x>
+                <y>0</y>
+                <width>75</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>220</y>
+                <width>56</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Sluta.</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QTextEdit">
+        <property name="name">
+            <cstring>textEdit1</cstring>
+        </property>
+        <property name="enabled">
+            <bool>true</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>145</x>
+                <y>28</y>
+                <width>675</width>
+                <height>215</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="paletteBackgroundColor">
+            <color>
+                <red>178</red>
+                <green>184</green>
+                <blue>184</blue>
+            </color>
+        </property>
+        <property name="textFormat">
+            <enum>PlainText</enum>
+        </property>
+        <property name="readOnly">
+            <bool>true</bool>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>pushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>frmDspText</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonGet</sender>
+        <signal>clicked()</signal>
+        <receiver>frmDspText</receiver>
+        <slot>getText()</slot>
+    </connection>
+    <connection>
+        <sender>linEditTextNr</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmDspText</receiver>
+        <slot>linEditTextNr_returnPressed()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>linEditTextNr</tabstop>
+    <tabstop>pushButtonGet</tabstop>
+    <tabstop>pushButtonOK</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">frmdsptext.ui.h</include>
+</includes>
+<slots>
+    <slot>linEditTextNr_returnPressed()</slot>
+    <slot>getText()</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>slotEndOfProcess()</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
