@@ -39,6 +39,7 @@
 	QString inrad;
 	QString errorrad;
 	QString hjelpfil;
+	QString textnummer;
 	
 void frmListTextReg::init()
 {
@@ -46,6 +47,7 @@ void frmListTextReg::init()
     ListView1->setColumnAlignment(0,Qt::AlignLeft);
     ListView1->setColumnAlignment(1,Qt::AlignLeft);
     PushButtonSluta->setFocus();
+    ListView1->clear();
     frmListTextReg::GetTexter();
 }	
 	
@@ -209,4 +211,49 @@ void frmListTextReg::readResursFil()
         }
     }
     f1.close();
+}
+
+void frmListTextReg::displayText()
+{
+    /*	Visa programmet DSPTXTW med det textnr som klickats på */
+	const char *userp = getenv("USER");
+            QString usr(userp);
+
+	
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "DSPTXTW");	// OLFIX funktion,begränsadedata
+	process->addArgument(textnummer);
+	
+	frmListTextReg::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+	frmListTextReg::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );	
+	frmListTextReg::connect( process, SIGNAL(processExited() ),this, SLOT(DisplayEndOfProcess() ) );	    
+ 
+	if ( !process->start() ) {
+                // error handling
+	    fprintf(stderr,"Problem starta STYRMAN/LSTTXTW!\n");
+	    QMessageBox::warning( this, "Start av DSPTXTW ",
+                            "Kan inte starta STYRMAN/DSPTXTW!\n"
+                            );
+        }
+}
+
+void frmListTextReg::ListView1_clicked( QListViewItem * )
+{
+    QListViewItem *item = ListView1->currentItem();
+    if ( !item )
+	return;
+    item->setSelected( TRUE );
+    textnummer=item->text(0);	// textnr
+//    qDebug("textnummer=%s",textnummer.latin1());
+    frmListTextReg::displayText();
+}
+
+
+void frmListTextReg::DisplayEndOfProcess()
+{
+    ListView1->clear();
+    frmListTextReg::GetTexter();
+    PushButtonSluta->setFocus();
 }

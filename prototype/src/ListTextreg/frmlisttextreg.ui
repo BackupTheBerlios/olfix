@@ -100,6 +100,9 @@
             <property name="text">
                 <string>Sluta</string>
             </property>
+            <property name="default">
+                <bool>true</bool>
+            </property>
         </widget>
         <widget class="QPushButton" row="2" column="0">
             <property name="name">
@@ -155,6 +158,12 @@
         <receiver>frmListTextReg</receiver>
         <slot>PushButtonHjelp_clicked()</slot>
     </connection>
+    <connection>
+        <sender>ListView1</sender>
+        <signal>clicked(QListViewItem*)</signal>
+        <receiver>frmListTextReg</receiver>
+        <slot>ListView1_clicked(QListViewItem*)</slot>
+    </connection>
 </connections>
 <includes>
     <include location="local" impldecl="in implementation">frmlisttextreg.ui.h</include>
@@ -167,6 +176,9 @@
     <slot>slotReloadText()</slot>
     <slot>PushButtonHjelp_clicked()</slot>
     <slot>readResursFil()</slot>
+    <slot>displayText()</slot>
+    <slot>ListView1_clicked( QListViewItem * )</slot>
+    <slot>DisplayEndOfProcess()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
