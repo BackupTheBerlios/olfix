@@ -1,0 +1,175 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>frmListTextReg</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmListTextReg</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>660</width>
+            <height>252</height>
+        </rect>
+    </property>
+    <property name="sizePolicy">
+        <sizepolicy>
+            <hsizetype>5</hsizetype>
+            <vsizetype>5</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+    </property>
+    <property name="minimumSize">
+        <size>
+            <width>660</width>
+            <height>250</height>
+        </size>
+    </property>
+    <property name="maximumSize">
+        <size>
+            <width>800</width>
+            <height>2800</height>
+        </size>
+    </property>
+    <property name="baseSize">
+        <size>
+            <width>500</width>
+            <height>270</height>
+        </size>
+    </property>
+    <property name="caption">
+        <string>OLFIX - LSTTXTW.  Lista texter i TEXTREG</string>
+    </property>
+    <property name="iconText">
+        <string>OLFIX</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QListView" row="0" column="1" rowspan="4" colspan="1">
+            <column>
+                <property name="text">
+                    <string>Textnr</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Text</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <property name="name">
+                <cstring>ListView1</cstring>
+            </property>
+            <property name="resizePolicy">
+                <enum>Manual</enum>
+            </property>
+            <property name="selectionMode">
+                <enum>Single</enum>
+            </property>
+            <property name="allColumnsShowFocus">
+                <bool>true</bool>
+            </property>
+            <property name="showSortIndicator">
+                <bool>true</bool>
+            </property>
+            <property name="resizeMode">
+                <enum>LastColumn</enum>
+            </property>
+            <property name="treeStepSize">
+                <number>20</number>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="3" column="0">
+            <property name="name">
+                <cstring>PushButtonSluta</cstring>
+            </property>
+            <property name="text">
+                <string>Sluta</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="2" column="0">
+            <property name="name">
+                <cstring>PushButtonAgain</cstring>
+            </property>
+            <property name="text">
+                <string>Uppdatera</string>
+            </property>
+        </widget>
+        <spacer row="1" column="0">
+            <property name="name">
+                <cstring>spacer1</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>16</width>
+                    <height>130</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QPushButton" row="0" column="0">
+            <property name="name">
+                <cstring>PushButtonHjelp</cstring>
+            </property>
+            <property name="text">
+                <string>Hjälp</string>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>PushButtonSluta</sender>
+        <signal>clicked()</signal>
+        <receiver>frmListTextReg</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonAgain</sender>
+        <signal>clicked()</signal>
+        <receiver>frmListTextReg</receiver>
+        <slot>slotReloadText()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonHjelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmListTextReg</receiver>
+        <slot>PushButtonHjelp_clicked()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">frmlisttextreg.ui.h</include>
+</includes>
+<slots>
+    <slot>GetTexter()</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotEndOfProcess()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>slotReloadText()</slot>
+    <slot>PushButtonHjelp_clicked()</slot>
+    <slot>readResursFil()</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

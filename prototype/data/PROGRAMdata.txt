@@ -92,3 +92,6 @@
 "092","Försäljning","Kunddata","Söka kunder","SRCHKUW"
 "093","Ekonomi","Rapporter","Skapa SIE-fil","RPTSIEW"
 "094","Försäljning","Kundorder","Pricka av plocklista","PLCHGW"
+"095","Ekonomi","Rapporter","Kundreskontra","KURESKW"
+"096","Administration","Företagsdata",Lista texter i TEXTREG","LSTTXTW"
+"097","Administration","Företagsdata","(Visa en post i TEXTREG)","DSPTXTW"
