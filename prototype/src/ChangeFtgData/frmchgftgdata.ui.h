@@ -1,8 +1,8 @@
 /****************************************************************/
 /**		CHGFTGW					*/
-/**		Version: 0.4                                                                            */
-/**		20003-06-30					*/
-/**		Modifierad: 2004-11-18				*/
+/**		Version: 0.1 					*/
+/**		2005-11-26					*/
+/**		Modifierad:					*/
 /**		Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -13,6 +13,7 @@
  *   (at your option) any later version.                                   		 *
  *                                                                         				 *
  *********************************************** *****************/
+
 /****************************************************************************
 ** ui.h extension file, included from the uic-generated form implementation.
 **
@@ -27,128 +28,72 @@
 #include <qstring.h>
 #include <qfile.h>
 #include <qregexp.h>
-#include <qlistview.h>
-//#include "frmchgftgdata_extra.h"
 #define MAXSTRING 5000
 
-    QProcess* process;
+    int processnr=0;
+    QProcess* process[25];
     QString inrad;
     QString errorrad;
     QString* rad;
+    QString flag;
     QString ptyp;	/* posttyp */
-    QString fdata;
-    QString fdata1;	// ADR1, ADR4, ADR7
-    QString fdata2;	//ADR2, ADR5, ADR8
-    QString fdata3;	//ADR3, ADR6, ADR9
-    
-   QString ftgnamn;
-   QString ftgpostadr;
-   QString ftgpostnr;
-   QString ftgort;
-   QString snikd;
-    
-    QLineEdit* LineEditFtgnr;
-    QLineEdit* LineEditFnamn;
-    QLineEdit* LineEditFtgNamn;
-    QLineEdit* LineEditAdr1PostAdr;
-    QLineEdit* LineEditAdr1PostNr;
-    QLineEdit* LineEditAdr1Ort;
-    QLineEdit* LineEditAdr2BesokAdr;
-    QLineEdit* LineEditAdr2PostNr;
-    QLineEdit* LineEditAdr2Ort;
-    QLineEdit* LineEditAdr3GodsAdr;
-    QLineEdit* LineEditAdr3PostNr;
-    QLineEdit* LineEditAdr3Ort;
 
-    
-    QLineEdit* LineEditTfnnr1;
-    QLineEdit* LineEditTfnnr2;
-    QLineEdit* LineEditTelefax;
-    QLineEdit* LineEditEmail;
-    QLineEdit* LineEditMoms1;
-    QLineEdit* LineEditMoms2;
-    QLineEdit* LineEditMoms3;
-    QLineEdit* LineEditMoms4;
-    QLineEdit* LineEditMoms5;   
-    
-    QLineEdit* LineEditBetvilk1;
-    QLineEdit* LineEditBetvilk2;
-    QLineEdit* LineEditBetvilk3;
-    
-    QLineEdit* LineEditAutokonto;
-    QLineEdit* LineEditBranschkod;
 
 void frmChgFtgData::init()
 {
-    frmChgFtgData::slotGetPosttyper();
-    LineEditPosttyp->setFocus();
+    textLabel2_2->hide();
+    lineEditFKNR2->hide();
+    PushButtonOK->setFocus();
+    slotGetFtgData("FNAMN");
 }
 
-void frmChgFtgData::slotGetPosttyp()
+void frmChgFtgData::PushButtonUpdate_clicked()
 {
-    ptyp=LineEditPosttyp->text();
-    ptyp=ptyp.upper();
-    LineEditPosttyp->setText((ptyp));
-}
-
-void frmChgFtgData::PushButtonGet_clicked()
-{
-    inrad="";
-    if (ptyp == "ADR2" | ptyp == "ADR3"){
-	ptyp = "ADR1";
-    }
-        if (ptyp == "ADR5" | ptyp == "ADR6"){
-	ptyp = "ADR4";
-    }
-     if (ptyp == "ADR8" | ptyp == "ADR9"){
-	ptyp = "ADR7";
-    }
-    slotGetFtgData(ptyp);
+    frmChgFtgData::changeFtgData();
 }
 
 void frmChgFtgData::slotGetFtgData(QString posttyp)
 {
 	const char *userp = getenv("USER");
             QString usr(userp);
-	inrad="";
-	process = new QProcess();
-	process->addArgument("./STYRMAN");	// OLFIX styrprogram
-	process->addArgument(usr);		// userid
-	process->addArgument( "FTGDSP");	// OLFIX funktion
-	process->addArgument(posttyp);
 
-	frmChgFtgData::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-	frmChgFtgData::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-            frmChgFtgData::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
-	if (ptyp == "" ){
-    	    QMessageBox::warning( this, "CHGFTGW",
-                      "Posttyp saknas! \n" );
-	}
-	else {
-	    if ( !process->start() ) {
+	process[processnr] = new QProcess();
+	process[processnr] ->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process[processnr] ->addArgument(usr);		// userid
+	process[processnr] ->addArgument( "FTGDSP");	// OLFIX funktion
+	process[processnr] ->addArgument(posttyp);
+	
+	frmChgFtgData::connect( process[processnr] , SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+	frmChgFtgData::connect( process[processnr] , SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+            frmChgFtgData::connect( process[processnr] , SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
+
+	 if ( !process[processnr] ->start() ) {
 		// error handling
-		fprintf(stderr,"Problem starta STYRMAN/FTGDSP!\n");
 		QMessageBox::warning( this, "CHGFTGW",
                             "Kan inte starta STYRMAN/FTGDSP! \n" );
 	    }
-	}
 }
+
 
 void frmChgFtgData::slotDataOnStdout()
 {
-    while (process->canReadLineStdout() ) {
-	QString line = process->readStdout();
+    while (process[processnr] ->canReadLineStdout() ) {
+	QString line = process[processnr] ->readStdout();
 	inrad.append(line);
+	inrad.append("\n");
     }
 }
 
+
 void frmChgFtgData::slotDataOnStderr()
 {
-    while (process->canReadLineStderr() ) {
-	QString line = process->readStderr();
+    while (process[processnr] ->canReadLineStderr() ) {
+	QString line = process[processnr] ->readStderr();
 	errorrad.append(line);
+	errorrad.append("\n");
     }
 }
+
 
 void frmChgFtgData::slotEndOfProcess()
 {
@@ -169,7 +114,12 @@ void frmChgFtgData::slotEndOfProcess()
     m = k - j;
     posttyp = inrad.mid(j+2,m-2);
 
-//    qDebug("posttyp=%s",posttyp.latin1());
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    i = -1;
+    i = posttyp.find( QRegExp("FNAMN"), 0 );
+    if (i != -1){
+	slotGetFNAMN();
+    }
     i = -1;
     i = posttyp.find( QRegExp("ADR1"), 0 );
     if (i != -1){
@@ -178,14 +128,14 @@ void frmChgFtgData::slotEndOfProcess()
     i = -1;
     i = posttyp.find( QRegExp("ADR2"), 0 );
     if (i != -1){
-	slotGetADR1();
+	slotGetADR2();
     }
     i = -1;
     i = posttyp.find( QRegExp("ADR3"), 0 );
     if (i != -1){
-	slotGetADR1();
+	slotGetADR3();
     }
-    i = -1;
+        i = -1;
     i = posttyp.find( QRegExp("ADR4"), 0 );
     if (i != -1){
 	slotGetADR4();
@@ -193,14 +143,14 @@ void frmChgFtgData::slotEndOfProcess()
     i = -1;
     i = posttyp.find( QRegExp("ADR5"), 0 );
     if (i != -1){
-	slotGetADR4();
+	slotGetADR5();
     }
     i = -1;
     i = posttyp.find( QRegExp("ADR6"), 0 );
     if (i != -1){
-	slotGetADR4();
+	slotGetADR6();
     }
-        i = -1;
+    i = -1;
     i = posttyp.find( QRegExp("ADR7"), 0 );
     if (i != -1){
 	slotGetADR7();
@@ -208,28 +158,17 @@ void frmChgFtgData::slotEndOfProcess()
     i = -1;
     i = posttyp.find( QRegExp("ADR8"), 0 );
     if (i != -1){
-	slotGetADR7();
+	slotGetADR8();
     }
     i = -1;
     i = posttyp.find( QRegExp("ADR9"), 0 );
     if (i != -1){
-	slotGetADR7();
+	slotGetADR9();
     }
     i = -1;
     i = posttyp.find( QRegExp("FTGNR"), 0 );
     if (i != -1){
 	slotGetFTGNR();
-    }
-/*    i = -1;
-    i = posttyp.find( QRegExp("SNIKD"), 0 );
-    if (i != -1){
-	slotGetSNIKD();
-    }
-*/    
-    i = -1;
-    i = posttyp.find( QRegExp("FNAMN"), 0 );
-    if (i != -1){
-	slotGetFNAMN();
     }
     i = -1;
     i = posttyp.find( QRegExp("TFN1"), 0 );
@@ -247,376 +186,269 @@ void frmChgFtgData::slotEndOfProcess()
 	slotGetTFAX();
     }
     i = -1;
+    i = posttyp.find( QRegExp("TELEX"), 0 );
+    if (i != -1){
+	slotGetTELEX();
+    }
+    i = -1;
     i = posttyp.find( QRegExp("EML1"), 0 );
     if (i != -1){
 	slotGetEML1();
-    }
+    }    
     i = -1;
     i = posttyp.find( QRegExp("MOMS1"), 0 );
     if (i != -1){
 	slotGetMOMS1();
-    }
+    }    
     i = -1;
     i = posttyp.find( QRegExp("MOMS2"), 0 );
     if (i != -1){
 	slotGetMOMS2();
-    }
+    }    
     i = -1;
     i = posttyp.find( QRegExp("MOMS3"), 0 );
     if (i != -1){
 	slotGetMOMS3();
-    }
+    }    
     i = -1;
-    i = posttyp.find( QRegExp("BVLK1"), 0 );	// Betalningsvillkor 1
+    i = posttyp.find( QRegExp("MOMS4"), 0 );
     if (i != -1){
-	slotGetBVLK1();
-    }
-
+	slotGetMOMS4();
+    }    
     i = -1;
-    i = posttyp.find( QRegExp("BVLK2"), 0 );	// Betalningsvillkor 2
+    i = posttyp.find( QRegExp("MOMS5"), 0 );
     if (i != -1){
-	slotGetBVLK2();
-    }
-    i = -1;
-    i = posttyp.find( QRegExp("BVLK3"), 0 );	// Betalningsvillkor 3
+	slotGetMOMS5();
+    } 
+        i = -1;
+    i = posttyp.find( QRegExp("MOMSI"), 0 );
     if (i != -1){
-	slotGetBVLK3();
-    }   
+	slotGetMOMSI();
+    } 
     i = -1;
-    i = posttyp.find( QRegExp("AUTOK"), 0 );	// Automatisk kontering J/N
+    i = posttyp.find( QRegExp("MOMSU"), 0 );
+    if (i != -1){
+	slotGetMOMSU();
+    } 
+    i = -1;
+    i = posttyp.find( QRegExp("AUTOK"), 0 );
     if (i != -1){
 	slotGetAUTOK();
-    }   
-    i = -1;
-    i = posttyp.find( QRegExp("SNIKD"), 0 );		// Branschkod
+    } 
+    i = posttyp.find( QRegExp("SNIKD"), 0 );
     if (i != -1){
 	slotGetSNIKD();
-    }   
-    
+    } 
+    i = posttyp.find( QRegExp("FAKNR"), 0 );
+    if (i != -1){
+	slotGetFAKNR();
+    } 
+    i = posttyp.find( QRegExp("FKNR2"), 0 );
+    if (i != -1){
+	slotGetFKNR2();
+    } 
+    i = posttyp.find( QRegExp("FKNRS"), 0 );
+    if (i != -1){
+	slotGetFKNRS();
+    } 
+    i = posttyp.find( QRegExp("INKNR"), 0 );
+    if (i != -1){
+	slotGetINKNR();
+    } 
+    i = posttyp.find( QRegExp("KORNR"), 0 );
+    if (i != -1){
+	slotGetKORNR();
+    } 
+    i = posttyp.find( QRegExp("SKUNR"), 0 );
+    if (i != -1){
+	slotGetSKUNR();
+    } 
 }
 
-void frmChgFtgData::slotGetADR1()
-{
-   int i,j,k,m;
-   QString posttyp;
-   QString adr;
-   QLabel* TextLabelPostAdr;
-   QLabel* TextLabelPostNr;
-   QLabel* TextLabelOrt;
-   
-    i = inrad.find( QRegExp("OK:"), 0 );
-    j = inrad.find(QRegExp("1:"),0);
-    k = inrad.find( QRegExp("2:"), 0 );
-    m = k-j;
-    adr = inrad.mid(j+2,m-2);
-    m = inrad.length()-(k+3);
-//    qDebug("adr=%s",adr.latin1());
-    if (adr.mid(0,4) == "ADR1"){
-	ftgpostadr = inrad.mid(k+2,m);
-	inrad="";
-	slotGetFtgData("ADR2");
-    }    
-     if (adr.mid(0,4) == "ADR2"){
-	ftgpostnr = inrad.mid(k+2,m);
-	inrad="";
-	slotGetFtgData("ADR3");
-    }
-     if (adr.mid(0,4) == "ADR3"){
-	ftgort = inrad.mid(k+2,m);
-	inrad="";
-    }
-   
-    TextLabelPostAdr = new QLabel( this, "TextLabelPostAdr" );
-    // geometri = x , y , w , h
-    TextLabelPostAdr->setGeometry( QRect( 10, 80, 100, 26 ) );
-    TextLabelPostAdr->setText( trUtf8( "Postadress:" ) );
-    TextLabelPostAdr->show();
-    
-    LineEditAdr1PostAdr = new QLineEdit( this, "LineEditAdr1PostAdr" );
-    LineEditAdr1PostAdr->setGeometry( QRect( 110, 80, 300, 26 ) );
-    connect( LineEditAdr1PostAdr, SIGNAL(  returnPressed()), this, SLOT( slotLineEditAdr1_PostAdr_returnPressed() ) );
-    LineEditAdr1PostAdr->show();
-    LineEditAdr1PostAdr->setText(ftgpostadr);
-    
-    TextLabelPostNr = new QLabel( this, "TextLabelPostNr" );
-    // geometri = x , y , w , h
-    TextLabelPostNr->setGeometry( QRect( 10, 110, 100, 26 ) );
-    TextLabelPostNr->setText( trUtf8( "Postnummer:" ) );
-    TextLabelPostNr->show();
- 
-    LineEditAdr1PostNr = new QLineEdit( this, "LineEditAdr1PostNr" );
-    LineEditAdr1PostNr->setGeometry( QRect( 110, 110, 60, 26 ) );
-    connect( LineEditAdr1PostNr, SIGNAL(  returnPressed()), this, SLOT( slotLineEditAdr1_PostNr_returnPressed() ) );
-    LineEditAdr1PostNr->show();
-    LineEditAdr1PostNr->setText(ftgpostnr);
-    
-    TextLabelOrt = new QLabel( this, "TextLabelOrt" );
-    // geometri = x , y , w , h
-    TextLabelOrt->setGeometry( QRect( 10, 140, 300, 26 ) );
-    TextLabelOrt->setText( trUtf8( "Ort:" ) );
-    TextLabelOrt->show();
-    
-    LineEditAdr1Ort = new QLineEdit( this, "LineEditAdr1PostAdr" );
-    LineEditAdr1Ort->setGeometry( QRect( 110, 140, 300, 26 ) );
-    connect( LineEditAdr1Ort, SIGNAL(  returnPressed()), this, SLOT( slotLineEditAdr1_Ort_returnPressed() ) );
-    LineEditAdr1Ort->show();
-    LineEditAdr1Ort->setText(ftgort);
-    
-    LineEditAdr1PostAdr->setFocus();   
-}
-
-void frmChgFtgData::slotLineEditAdr1_FtgNamn_returnPressed()
-{
-    ftgnamn = LineEditFtgNamn->text();
-    fdata = ftgnamn;
-//    qDebug("slotLineEditAdr1_FtgNamn fdata=%s",fdata.latin1());  
-    LineEditAdr1PostAdr->setFocus();
-}
-
-void frmChgFtgData::slotLineEditAdr1_PostAdr_returnPressed()
-{
-    ftgpostadr = LineEditAdr1PostAdr->text();
-    fdata1 = ftgpostadr;
-    LineEditAdr1PostNr->setFocus();
-}
-
-void frmChgFtgData::slotLineEditAdr1_PostNr_returnPressed()
-{
-    ftgpostnr=LineEditAdr1PostNr->text();
-    fdata2 = ftgpostnr;
-    LineEditAdr1Ort->setFocus();
-}
-
-void frmChgFtgData::slotLineEditAdr1_Ort_returnPressed()
-{
-    ftgort = LineEditAdr1Ort->text();
-    fdata3 = ftgort;
-    PushButtonUpdate->setFocus();
-}
-//===============
-void frmChgFtgData::slotGetADR4()
-{
-   int i,j,k,m;
-   QString posttyp;
-   QString adr;
-   QLabel* TextLabelBesokAdr;
-   QLabel* TextLabelPostNr;
-   QLabel* TextLabelOrt;
-   
-    i = inrad.find( QRegExp("OK:"), 0 );
-    j = inrad.find(QRegExp("1:"),0);
-    k = inrad.find( QRegExp("2:"), 0 );
-    m = k-j;
-    adr = inrad.mid(j+2,m-2);
-    m = inrad.length()-(k+3);
-//    qDebug("adr=%s",adr.latin1());
-    if (adr.mid(0,4) == "ADR4"){
-	ftgpostadr = inrad.mid(k+2,m);
-	inrad="";
-	slotGetFtgData("ADR5");
-    }    
-     if (adr.mid(0,4) == "ADR5"){
-	ftgpostnr = inrad.mid(k+2,m);
-	inrad="";
-	slotGetFtgData("ADR6");
-    }
-     if (adr.mid(0,4) == "ADR6"){
-	ftgort = inrad.mid(k+2,m);
-	inrad="";
-    }
-   
-    TextLabelBesokAdr = new QLabel( this, "TextLabelBesokAdr" );
-    // geometri = x , y , w , h
-    TextLabelBesokAdr->setGeometry( QRect( 10, 80, 100, 26 ) );
-    TextLabelBesokAdr->setText( trUtf8( "Besöksadress:" ) );
-    TextLabelBesokAdr->show();
-    
-    LineEditAdr2BesokAdr = new QLineEdit( this, "LineEditAdr2BesokAdr" );
-    LineEditAdr2BesokAdr->setGeometry( QRect( 110, 80, 300, 26 ) );
-    connect( LineEditAdr2BesokAdr, SIGNAL(  returnPressed()), this, SLOT( slotLineEditAdr2_BesokAdr_returnPressed() ) );
-    LineEditAdr2BesokAdr->show();
-    LineEditAdr2BesokAdr->setText(ftgpostadr);
-    
-    TextLabelPostNr = new QLabel( this, "TextLabelPostNr" );
-    // geometri = x , y , w , h
-    TextLabelPostNr->setGeometry( QRect( 10, 110, 100, 26 ) );
-    TextLabelPostNr->setText( trUtf8( "Postnummer:" ) );
-    TextLabelPostNr->show();
- 
-    LineEditAdr2PostNr = new QLineEdit( this, "LineEditAdr2PostNr" );
-    LineEditAdr2PostNr->setGeometry( QRect( 110, 110, 60, 26 ) );
-    connect( LineEditAdr2PostNr, SIGNAL(  returnPressed()), this, SLOT( slotLineEditAdr2_PostNr_returnPressed() ) );
-    LineEditAdr2PostNr->show();
-    LineEditAdr2PostNr->setText(ftgpostnr);
-    
-    TextLabelOrt = new QLabel( this, "TextLabelOrt" );
-    // geometri = x , y , w , h
-    TextLabelOrt->setGeometry( QRect( 10, 140, 300, 26 ) );
-    TextLabelOrt->setText( trUtf8( "Ort:" ) );
-    TextLabelOrt->show();
-    
-    LineEditAdr2Ort = new QLineEdit( this, "LineEditAdr2PostAdr" );
-    LineEditAdr2Ort->setGeometry( QRect( 110, 140, 300, 26 ) );
-    connect( LineEditAdr2Ort, SIGNAL(  returnPressed()), this, SLOT( slotLineEditAdr2_Ort_returnPressed() ) );
-    LineEditAdr2Ort->show();
-    LineEditAdr2Ort->setText(ftgort);
-    
-    LineEditAdr2BesokAdr->setFocus();   
-}
-//================
-void frmChgFtgData::slotLineEditAdr2_BesokAdr_returnPressed()
-{
-    ftgpostadr = LineEditAdr2BesokAdr->text();
-    fdata1 = ftgpostadr;
-    LineEditAdr2PostNr->setFocus();
-}
-
-void frmChgFtgData::slotLineEditAdr2_PostNr_returnPressed()
-{
-    ftgpostnr=LineEditAdr2PostNr->text();
-    fdata2 = ftgpostnr;
-    LineEditAdr2Ort->setFocus();
-}
-
-void frmChgFtgData::slotLineEditAdr2_Ort_returnPressed()
-{
-    ftgort = LineEditAdr2Ort->text();
-    fdata3 = ftgort;
-    PushButtonUpdate->setFocus();
-}
-//================
-void frmChgFtgData::slotGetADR7()
-{
-   int i,j,k,m;
-   QString posttyp;
-   QString adr;
-   QLabel* TextLabelGodsAdr;
-   QLabel* TextLabelPostNr;
-   QLabel* TextLabelOrt;
-   
-    i = inrad.find( QRegExp("OK:"), 0 );
-    j = inrad.find(QRegExp("1:"),0);
-    k = inrad.find( QRegExp("2:"), 0 );
-    m = k-j;
-//    qDebug("inrad=123456789012345678901234567890");
-//    qDebug("inrad=%s",inrad.latin1());
-//    qDebug("k=%d j=%d m=%d",k,j,m);
-    adr = inrad.mid(j+2,m-2);
-    m = inrad.length()-(k+3);
-//    qDebug("m=%d",m);
-//    qDebug("adr=%s",adr.latin1());
-    if (adr.mid(0,4) == "ADR7"){
-	ftgpostadr = inrad.mid(k+2,m);
-	inrad="";
-	slotGetFtgData("ADR8");
-    }    
-     if (adr.mid(0,4) == "ADR8"){
-	ftgpostnr = inrad.mid(k+2,m);
-	inrad="";
-	slotGetFtgData("ADR9");
-    }
-     if (adr.mid(0,4) == "ADR9"){
-	ftgort = inrad.mid(k+2,m);
-	inrad="";
-    }
-   
-    TextLabelGodsAdr = new QLabel( this, "TextLabelGodsAdr" );
-    // geometri = x , y , w , h
-    TextLabelGodsAdr->setGeometry( QRect( 10, 80, 100, 26 ) );
-    TextLabelGodsAdr->setText( trUtf8( "Godsadress:" ) );
-    TextLabelGodsAdr->show();
-    
-    LineEditAdr3GodsAdr = new QLineEdit( this, "LineEditAdr3GodsAdr" );
-    LineEditAdr3GodsAdr->setGeometry( QRect( 110, 80, 300, 26 ) );
-    connect( LineEditAdr3GodsAdr, SIGNAL(  returnPressed()), this, SLOT( slotLineEditAdr3_GodsAdr_returnPressed() ) );
-    LineEditAdr3GodsAdr->show();
-    LineEditAdr3GodsAdr->setText(ftgpostadr);
-    
-    TextLabelPostNr = new QLabel( this, "TextLabelPostNr" );
-    // geometri = x , y , w , h
-    TextLabelPostNr->setGeometry( QRect( 10, 110, 100, 26 ) );
-    TextLabelPostNr->setText( trUtf8( "Postnummer:" ) );
-    TextLabelPostNr->show();
- 
-    LineEditAdr3PostNr = new QLineEdit( this, "LineEditAdr3PostNr" );
-    LineEditAdr3PostNr->setGeometry( QRect( 110, 110, 60, 26 ) );
-    connect( LineEditAdr3PostNr, SIGNAL(  returnPressed()), this, SLOT( slotLineEditAdr3_PostNr_returnPressed() ) );
-    LineEditAdr3PostNr->show();
-    LineEditAdr3PostNr->setText(ftgpostnr);
-    
-    TextLabelOrt = new QLabel( this, "TextLabelOrt" );
-    // geometri = x , y , w , h
-    TextLabelOrt->setGeometry( QRect( 10, 140, 300, 26 ) );
-    TextLabelOrt->setText( trUtf8( "Ort:" ) );
-    TextLabelOrt->show();
-    
-    LineEditAdr3Ort = new QLineEdit( this, "LineEditAdr3Ort" );
-    LineEditAdr3Ort->setGeometry( QRect( 110, 140, 300, 26 ) );
-    connect( LineEditAdr3Ort, SIGNAL(  returnPressed()), this, SLOT( slotLineEditAdr3_Ort_returnPressed() ) );
-    LineEditAdr3Ort->show();
-    LineEditAdr3Ort->setText(ftgort);
-    
-    LineEditAdr3GodsAdr->setFocus();   
-}
-//================
-void frmChgFtgData::slotLineEditAdr3_GodsAdr_returnPressed()
-{
-    ftgpostadr = LineEditAdr3GodsAdr->text();
-    fdata1 = ftgpostadr;
-    LineEditAdr3PostNr->setFocus();
-}
-
-void frmChgFtgData::slotLineEditAdr3_PostNr_returnPressed()
-{
-    ftgpostnr=LineEditAdr3PostNr->text();
-    fdata2 = ftgpostnr;
-    LineEditAdr3Ort->setFocus();
-}
-
-void frmChgFtgData::slotLineEditAdr3_Ort_returnPressed()
-{
-    ftgort = LineEditAdr3Ort->text();
-    fdata3 = ftgort;
-    PushButtonUpdate->setFocus();
-}
-//================
 void frmChgFtgData::slotGetFNAMN()
 {
    int i,j,k,m;
    QString posttyp;
    QString adr;
    QString fnamn;
-   QLabel* TextLabelFnamn;
-//   QLineEdit* LineEditFtgnr;
    
     i = inrad.find( QRegExp("OK:"), 0 );
     j = inrad.find(QRegExp("1:"),0);
     k = inrad.find( QRegExp("2:"), 0 );
     m = k - j;
     posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
     m = inrad.length();
     fnamn = inrad.mid(k+2,m-2);
+//    qDebug("moms5=%s",moms5.latin1());
+    LineEditFtgNamn->setText(fnamn);
     
-//    qDebug("slotGetFTGNR FTGNR=%s",inrad.latin1());
-    TextLabelFnamn = new QLabel( this, "TextLabelFnamn" );
-    // geometri = x , y , w , h
-    TextLabelFnamn->setGeometry( QRect( 10, 50, 100, 26 ) );
-    TextLabelFnamn->setText( trUtf8( "FÃ¶retagsnamn:" ) );
-    
-    TextLabelFnamn->show();
-    LineEditFnamn = new QLineEdit( this, "LineEditFnamn" );
-    LineEditFnamn->setGeometry( QRect( 110, 50, 100, 26 ) );
-    connect( LineEditFnamn, SIGNAL(  returnPressed()), this, SLOT( slotLineEditFnamn_returnPressed() ) );    
-    LineEditFnamn->show();
-    LineEditFnamn->setText(fnamn);
-    LineEditFnamn->setFocus();
+    inrad="";
+    slotGetFtgData("ADR1");
 }
 
-void frmChgFtgData::slotLineEditFnamn_returnPressed()
+void frmChgFtgData::slotGetADR1()
 {
-    fdata=LineEditFnamn->text();
-    PushButtonUpdate->setFocus();
+    //	Postadressen
+   int i,j,k,m;
+   QString posttyp;
+   QString postadr; 
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = inrad.length();
+    postadr = inrad.mid(k+2,m-2);
+    LineEditPostAdress->setText(postadr);
+        
+    inrad="";
+    slotGetFtgData("ADR2");
 }
+
+void frmChgFtgData::slotGetADR2()
+{
+   //	Postnummer
+   int i,j,k,m;
+   QString posttyp;
+   QString postnr;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = inrad.length();;
+    postnr = inrad.mid(k+2,m-2);
+    LineEditPostnr1->setText(postnr);
+    
+    inrad="";
+    slotGetFtgData("ADR3");
+}
+
+void frmChgFtgData::slotGetADR3()
+{
+    //	Ort
+   int i,j,k,m;
+   QString posttyp;
+   QString ort;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = inrad.length();
+    ort = inrad.mid(k+2,m-2);
+    LineEditPostOrt->setText(ort);
+    
+    inrad="";
+    slotGetFtgData("ADR4");
+}
+
+void frmChgFtgData::slotGetADR4()
+{
+    //	Besöksadressen
+   int i,j,k,m;
+   QString posttyp;
+   QString postadr; 
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = inrad.length();
+    postadr = inrad.mid(k+2,m-2);
+    LineEditBesoksAdress->setText(postadr);
+        
+    inrad="";
+    slotGetFtgData("ADR5");
+}
+
+void frmChgFtgData::slotGetADR5()
+{
+   //	Postnummer
+   int i,j,k,m;
+   QString posttyp;
+   QString postnr;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = inrad.length();;
+    postnr = inrad.mid(k+2,m-2);
+    LineEditPostnr2->setText(postnr);
+    
+    inrad="";
+    slotGetFtgData("ADR6");
+}
+
+void frmChgFtgData::slotGetADR6()
+{
+    //	Ort
+   int i,j,k,m;
+   QString posttyp;
+   QString ort;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = inrad.length();
+    ort = inrad.mid(k+2,m-2);
+    LineEditBesoksOrt->setText(ort);
+    
+    inrad="";
+    slotGetFtgData("ADR7");
+}
+
+void frmChgFtgData::slotGetADR7()
+{
+    //	Godsdressen
+   int i,j,k,m;
+   QString posttyp;
+   QString postadr; 
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = inrad.length();
+    postadr = inrad.mid(k+2,m-2);
+    LineEditGodsAdress->setText(postadr);
+        
+    inrad="";
+    slotGetFtgData("ADR8");
+}
+
+void frmChgFtgData::slotGetADR8()
+{
+   //	Postnummer
+   int i,j,k,m;
+   QString posttyp;
+   QString postnr;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = inrad.length();;
+    postnr = inrad.mid(k+2,m-2);
+    LineEditPostnr3->setText(postnr);
+    
+    inrad="";
+    slotGetFtgData("ADR9");
+}
+
+void frmChgFtgData::slotGetADR9()
+{
+    //	Ort
+   int i,j,k,m;
+   QString posttyp;
+   QString ort;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = inrad.length();
+    ort = inrad.mid(k+2,m-2);
+    LineEditGodsOrt->setText(ort);
+    
+    inrad="";
+    slotGetFtgData("FTGNR");
+}
+
 
 void frmChgFtgData::slotGetFTGNR()
 {
@@ -624,228 +456,141 @@ void frmChgFtgData::slotGetFTGNR()
    QString posttyp;
    QString adr;
    QString ftgnr;
-   QLabel* TextLabelFtgnr;
-//   QLineEdit* LineEditFtgnr;
    
     i = inrad.find( QRegExp("OK:"), 0 );
     j = inrad.find(QRegExp("1:"),0);
     k = inrad.find( QRegExp("2:"), 0 );
     m = k - j;
     posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
     m = inrad.length();
     ftgnr = inrad.mid(k+2,m-2);
+//    qDebug("ftgnr=%s",ftgnr.latin1());
+    LineEditFtgNr->setText(ftgnr);
     
-//    qDebug("slotGetFTGNR FTGNR=%s",inrad.latin1());
-    TextLabelFtgnr = new QLabel( this, "TextLabelFtgnr" );
-    // geometri = x , y , w , h
-    TextLabelFtgnr->setGeometry( QRect( 10, 50, 100, 26 ) );
-    TextLabelFtgnr->setText( trUtf8( "FÃ¶retagsnummer:" ) );
-    
-    TextLabelFtgnr->show();
-    LineEditFtgnr = new QLineEdit( this, "LineEditFtgnr" );
-    LineEditFtgnr->setGeometry( QRect( 110, 50, 100, 26 ) );
-    connect( LineEditFtgnr, SIGNAL(  returnPressed()), this, SLOT( slotLineEditFtgnr_returnPressed() ) );    
-    LineEditFtgnr->show();
-    LineEditFtgnr->setText(ftgnr);
-    LineEditFtgnr->setFocus();
+    inrad="";
+    slotGetFtgData("TFN1");
 }
 
-void frmChgFtgData::slotLineEditFtgnr_returnPressed()
-{
-    fdata=LineEditFtgnr->text();
-    PushButtonUpdate->setFocus();
-}
-
-void frmChgFtgData::slotGetSNIKD()
-{
-   int i,j,k,m;
-   QString posttyp;
-   QString adr;
-   QString snikd;
-   QLabel* TextLabelBranschkod;
-//   QLineEdit* LineEditBranschkod;
-   
-    i = inrad.find( QRegExp("OK:"), 0 );
-    j = inrad.find(QRegExp("1:"),0);
-    k = inrad.find( QRegExp("2:"), 0 );
-    m = k - j;
-    posttyp = inrad.mid(j+2,m-2);
-    m = inrad.length();
-    snikd = inrad.mid(k+2,m-2);
-//    qDebug("snikd=%s",snikd.latin1());
-    TextLabelBranschkod = new QLabel( this, "TextLabelBranschkod" );
-    // geometri = x , y , w , h
-    TextLabelBranschkod->setGeometry( QRect( 10, 50, 100, 26 ) );
-    TextLabelBranschkod->setText( trUtf8( "Branschkod:" ) );
-    
-    TextLabelBranschkod->show();
-    LineEditBranschkod = new QLineEdit( this, "LineEditBranschkod" );
-    LineEditBranschkod->setGeometry( QRect( 110, 50, 100, 26 ) );
-    connect( LineEditBranschkod, SIGNAL(  returnPressed()), this, SLOT( slotLineEditBranschkod_returnPressed() ) );    
-    LineEditBranschkod->show();
-    LineEditBranschkod->setText(snikd);
-    LineEditBranschkod->setFocus();
-}
-
-void frmChgFtgData::slotLineEditBranschkod_returnPressed()
-{
-    fdata=LineEditBranschkod->text();
-    PushButtonUpdate->setFocus();
-}
 
 void frmChgFtgData::slotGetTFN1()
 {
    int i,j,k,m;
    QString posttyp;
    QString adr;
-   QString tfnnr1;
-   QLabel* TextLabelTfnnr1;
-//   QLineEdit* LineEditTfnnr1;
+   QString tfnnr;
    
     i = inrad.find( QRegExp("OK:"), 0 );
     j = inrad.find(QRegExp("1:"),0);
     k = inrad.find( QRegExp("2:"), 0 );
     m = k - j;
     posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
     m = inrad.length();
-    tfnnr1 = inrad.mid(k+2,m-2);
+    tfnnr = inrad.mid(k+2,m-2);
+    tfnnr=tfnnr.stripWhiteSpace();
+//    qDebug("tfnnr=%s",tfnnr.latin1());
+    LineEditTfnnr->setText(tfnnr);
     
-//    qDebug("slotGetTFN1(1) Tfnnr=%s",inrad.latin1());
-    TextLabelTfnnr1 = new QLabel( this, "TextLabelTfnnr1" );
-    // geometri = x , y , w , h
-    TextLabelTfnnr1->setGeometry( QRect( 10, 50, 100, 26 ) );
-    TextLabelTfnnr1->setText( trUtf8( "Telefonnummer 1:" ) );   
-    TextLabelTfnnr1->show();
-//    qDebug("slotGetTFN1(2) Posttyp=%s",posttyp.latin1());
-    LineEditTfnnr1 = new QLineEdit( this, "LineEditTfnnr1" );
-    LineEditTfnnr1->setGeometry( QRect( 110, 50, 100, 26 ) );
-//    qDebug("slotGetTFN1(3) Tfnnr=%s",tfnnr1.latin1());    
-    connect( LineEditTfnnr1, SIGNAL(  returnPressed()), this, SLOT( slotLineEditTfnnr1_returnPressed() ) );    
-    LineEditTfnnr1->show();
-    LineEditTfnnr1->setText(tfnnr1);
-    LineEditTfnnr1->setFocus();
+    inrad="";
+    slotGetFtgData("TFN2");
 }
 
-void frmChgFtgData::slotLineEditTfnnr1_returnPressed()
-{
-    fdata=LineEditTfnnr1->text();
-    PushButtonUpdate->setFocus();
-}
 
 void frmChgFtgData::slotGetTFN2()
 {
    int i,j,k,m;
    QString posttyp;
    QString adr;
-   QString tfnnr2;
-   QLabel* TextLabelTfnnr2;
-//   QLineEdit* LineEditTfnnr2;
+   QString tfnnr;
    
     i = inrad.find( QRegExp("OK:"), 0 );
     j = inrad.find(QRegExp("1:"),0);
     k = inrad.find( QRegExp("2:"), 0 );
     m = k - j;
     posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
     m = inrad.length();
-    tfnnr2 = inrad.mid(k+2,m-2);
+    tfnnr = inrad.mid(k+2,m-2);
+    tfnnr=tfnnr.stripWhiteSpace();
+//    qDebug("tfnnr=%s",tfnnr.latin1());
+    LineEditMobilTfn->setText(tfnnr);
     
-//    qDebug("slotGetTFN2(1) Tfnnr=%s",inrad.latin1());
-    TextLabelTfnnr2 = new QLabel( this, "TextLabelTfnnr2" );
-    // geometri = x , y , w , h
-    TextLabelTfnnr2->setGeometry( QRect( 10, 50, 100, 26 ) );
-    TextLabelTfnnr2->setText( trUtf8( "Mobiltfnnummer:" ) );   
-    TextLabelTfnnr2->show();
-//    qDebug("slotGetTFN2(2) Posttyp=%s",posttyp.latin1());
-    LineEditTfnnr2 = new QLineEdit( this, "LineEditTfnnr2" );
-    LineEditTfnnr2->setGeometry( QRect( 110, 50, 100, 26 ) );
-//    qDebug("slotGetTFN2(3) Tfnnr=%s",tfnnr2.latin1());    
-    connect( LineEditTfnnr2, SIGNAL(  returnPressed()), this, SLOT( slotLineEditTfnnr2_returnPressed() ) );
-    LineEditTfnnr2->show();
-    LineEditTfnnr2->setText(tfnnr2);
-    LineEditTfnnr2->setFocus();
+    inrad="";
+    slotGetFtgData("TFAX");
 }
 
-void frmChgFtgData::slotLineEditTfnnr2_returnPressed()
-{
-    fdata=LineEditTfnnr2->text();
-    PushButtonUpdate->setFocus();
-}
 
 void frmChgFtgData::slotGetTFAX()
 {
    int i,j,k,m;
    QString posttyp;
    QString adr;
-   QString tfax;
-   QLabel* TextLabelTelefax;
-//   QLineEdit* LineEditTfnnr2;
+   QString telefax;
    
     i = inrad.find( QRegExp("OK:"), 0 );
     j = inrad.find(QRegExp("1:"),0);
     k = inrad.find( QRegExp("2:"), 0 );
     m = k - j;
     posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
     m = inrad.length();
-    tfax = inrad.mid(k+2,m-2);
+    telefax = inrad.mid(k+2,m-2);
+    telefax=telefax.stripWhiteSpace();
+//    qDebug("tfnnr=%s",tfnnr.latin1());
+    LineEditTelefax->setText(telefax);
     
-//    qDebug("slotGetTFAX(1) Tfax=%s",inrad.latin1());
-    TextLabelTelefax = new QLabel( this, "TextLabelTelefax" );
-    // geometri = x , y , w , h
-    TextLabelTelefax->setGeometry( QRect( 10, 50, 100, 26 ) );
-    TextLabelTelefax->setText( trUtf8( "Telefaxnummer:" ) );   
-    TextLabelTelefax->show();
-//    qDebug("slotGetTFAX(2) Posttyp=%s",posttyp.latin1());
-    LineEditTelefax = new QLineEdit( this, "LineEditTelfax" );
-    LineEditTelefax->setGeometry( QRect( 110, 50, 100, 26 ) );
-//    qDebug("slotGetTFAX(3) Tfnnr=%s",tfax.latin1());    
-    connect( LineEditTelefax, SIGNAL(  returnPressed()), this, SLOT( slotLineEditTelefax_returnPressed() ) );
-    LineEditTelefax->show();
-    LineEditTelefax->setText(tfax);
-    LineEditTelefax->setFocus();
+    inrad="";
+    slotGetFtgData("TELEX");
 }
 
-void frmChgFtgData::slotLineEditTelefax_returnPressed()
+void frmChgFtgData::slotGetTELEX()
 {
-    fdata=LineEditTelefax->text();
-    PushButtonUpdate->setFocus();
-}
-void frmChgFtgData::slotGetEML1()
-{
-   int i,j,k,m;
+    int i,j,k,m;
    QString posttyp;
    QString adr;
-   QString email;
-   QLabel* TextLabelEmail;
-//   QLineEdit* LineEditEmail;
-
+   QString telex;
+   
     i = inrad.find( QRegExp("OK:"), 0 );
     j = inrad.find(QRegExp("1:"),0);
     k = inrad.find( QRegExp("2:"), 0 );
     m = k - j;
     posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
     m = inrad.length();
-    email = inrad.mid(k+2,m-2);
+    telex = inrad.mid(k+2,m-2);
+    telex=telex.stripWhiteSpace();
+//    qDebug("tfnnr=%s",tfnnr.latin1());
+    LineEdit1Telex->setText(telex);
     
-//    qDebug("slotGetEML1 EML1=%s",inrad.latin1());
-    TextLabelEmail = new QLabel( this, "TextLabelEmail" );
-    // geometri = x , y , w , h
-    TextLabelEmail->setGeometry( QRect( 10, 50, 100, 26 ) );
-    TextLabelEmail->setText( trUtf8( "e-mailadress:" ) );
-    
-    TextLabelEmail->show();
-    LineEditEmail = new QLineEdit( this, "LineEditEmail" );
-    LineEditEmail->setGeometry( QRect( 110, 50, 300, 26 ) );
-    connect( LineEditEmail, SIGNAL(  returnPressed()), this, SLOT( slotLineEditEmail_returnPressed() ) );
-    LineEditEmail->show();
-    LineEditEmail->setText(email);
-    LineEditEmail->setFocus();
+    inrad="";
+    slotGetFtgData("EML1");
+
 }
 
-void frmChgFtgData::slotLineEditEmail_returnPressed()
+void frmChgFtgData::slotGetEML1()
 {
-    fdata=LineEditEmail->text();
-    PushButtonUpdate->setFocus();
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString mailadr;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    mailadr = inrad.mid(k+2,m-2);
+    mailadr=mailadr.stripWhiteSpace();
+//    qDebug("tfnnr=%s",mailadr.latin1());
+    LineEditemailadress->setText(mailadr);
+    
+    inrad="";
+    slotGetFtgData("MOMS1");
 }
+
 
 void frmChgFtgData::slotGetMOMS1()
 {
@@ -853,36 +598,21 @@ void frmChgFtgData::slotGetMOMS1()
    QString posttyp;
    QString adr;
    QString moms1;
-   QLabel* TextLabelMoms1;
-//   QLineEdit* LineEditMoms1;
    
     i = inrad.find( QRegExp("OK:"), 0 );
     j = inrad.find(QRegExp("1:"),0);
     k = inrad.find( QRegExp("2:"), 0 );
     m = k - j;
     posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
     m = inrad.length();
     moms1 = inrad.mid(k+2,m-2);
-    
-//    qDebug("slotGetMOMS! MOMS 1=%s",inrad.latin1());
-    TextLabelMoms1 = new QLabel( this, "TextLabelMoms1" );
-    // geometri = x , y , w , h
-    TextLabelMoms1->setGeometry( QRect( 10, 50, 100, 26 ) );
-    TextLabelMoms1->setText( trUtf8( "MOMS 1:" ) );
-    
-    TextLabelMoms1->show();
-    LineEditMoms1 = new QLineEdit( this, "LineEditMoms1" );
-    LineEditMoms1->setGeometry( QRect( 110, 50, 300, 26 ) );
-    connect( LineEditMoms1, SIGNAL(  returnPressed()), this, SLOT( slotLineEditMoms1_returnPressed() ) );
-    LineEditMoms1->show();
+    moms1=moms1.stripWhiteSpace();
+//    qDebug("moms1=%s",moms1.latin1());
     LineEditMoms1->setText(moms1);
-    LineEditMoms1->setFocus();
-}
-
-void frmChgFtgData::slotLineEditMoms1_returnPressed()
-{
-    fdata=LineEditMoms1->text();
-    PushButtonUpdate->setFocus();
+    
+    inrad="";
+    slotGetFtgData("MOMS2");
 }
 
 void frmChgFtgData::slotGetMOMS2()
@@ -891,36 +621,21 @@ void frmChgFtgData::slotGetMOMS2()
    QString posttyp;
    QString adr;
    QString moms2;
-   QLabel* TextLabelMoms2;
-//   QLineEdit* LineEditMoms1;
    
     i = inrad.find( QRegExp("OK:"), 0 );
     j = inrad.find(QRegExp("1:"),0);
     k = inrad.find( QRegExp("2:"), 0 );
     m = k - j;
     posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
     m = inrad.length();
     moms2 = inrad.mid(k+2,m-2);
-    
-//    qDebug("slotGetMOMS! MOMS 1=%s",inrad.latin1());
-    TextLabelMoms2 = new QLabel( this, "TextLabelMoms2" );
-    // geometri = x , y , w , h
-    TextLabelMoms2->setGeometry( QRect( 10, 50, 100, 26 ) );
-    TextLabelMoms2->setText( trUtf8( "MOMS 2:" ) );
-    
-    TextLabelMoms2->show();
-    LineEditMoms2 = new QLineEdit( this, "LineEditMoms2" );
-    LineEditMoms2->setGeometry( QRect( 110, 50, 300, 26 ) );
-    connect( LineEditMoms2, SIGNAL(  returnPressed()), this, SLOT( slotLineEditMoms2_returnPressed() ) );
-    LineEditMoms2->show();
+    moms2=moms2.stripWhiteSpace();
+//    qDebug("moms2=%s",moms2.latin1());
     LineEditMoms2->setText(moms2);
-    LineEditMoms2->setFocus();
-}
-
-void frmChgFtgData::slotLineEditMoms2_returnPressed()
-{
-    fdata=LineEditMoms2->text();
-    PushButtonUpdate->setFocus();
+    
+    inrad="";
+    slotGetFtgData("MOMS3");
 }
 
 void frmChgFtgData::slotGetMOMS3()
@@ -929,372 +644,167 @@ void frmChgFtgData::slotGetMOMS3()
    QString posttyp;
    QString adr;
    QString moms3;
-   QLabel* TextLabelMoms3;
-//   QLineEdit* LineEditMoms3;
    
     i = inrad.find( QRegExp("OK:"), 0 );
     j = inrad.find(QRegExp("1:"),0);
     k = inrad.find( QRegExp("2:"), 0 );
     m = k - j;
     posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
     m = inrad.length();
     moms3 = inrad.mid(k+2,m-2);
-    
-//    qDebug("slotGetMOMS! MOMS 1=%s",inrad.latin1());
-    TextLabelMoms3 = new QLabel( this, "TextLabelMoms3" );
-    // geometri = x , y , w , h
-    TextLabelMoms3->setGeometry( QRect( 10, 50, 100, 26 ) );
-    TextLabelMoms3->setText( trUtf8( "MOMS 3:" ) );
-    
-    TextLabelMoms3->show();
-    LineEditMoms3 = new QLineEdit( this, "LineEditMoms3" );
-    LineEditMoms3->setGeometry( QRect( 110, 50, 300, 26 ) );
-    connect( LineEditMoms3, SIGNAL(  returnPressed()), this, SLOT( slotLineEditMoms3_returnPressed() ) );
-    LineEditMoms3->show();
+    moms3=moms3.stripWhiteSpace();
+//    qDebug("moms3=%s",moms3.latin1());
     LineEditMoms3->setText(moms3);
-    LineEditMoms3->setFocus();
+    
+    inrad="";
+    slotGetFtgData("MOMS4");
 }
 
-void frmChgFtgData::slotLineEditMoms3_returnPressed()
-{
-    fdata=LineEditMoms3->text();
-    PushButtonUpdate->setFocus();
-}
-
-void frmChgFtgData::slotGetBVLK1()
+void frmChgFtgData::slotGetMOMS4()
 {
    int i,j,k,m;
    QString posttyp;
    QString adr;
-   QString betvilk1;
-   QLabel* TextLabelBetvilk1;
-//   QLineEdit* LineEditMoms1;
+   QString moms4;
    
     i = inrad.find( QRegExp("OK:"), 0 );
     j = inrad.find(QRegExp("1:"),0);
     k = inrad.find( QRegExp("2:"), 0 );
     m = k - j;
     posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
     m = inrad.length();
-    betvilk1 = inrad.mid(k+2,m-2);
+    moms4 = inrad.mid(k+2,m-2);
+    moms4=moms4.stripWhiteSpace();
+//    qDebug("moms4=%s",moms4.latin1());
+    LineEditMoms4->setText(moms4);
     
-//    qDebug("slotGetBVLK1! BETV 1=%s",inrad.latin1());
-    TextLabelBetvilk1 = new QLabel( this, "TextLabelBetvilk1" );
-    // geometri = x , y , w , h
-    TextLabelBetvilk1->setGeometry( QRect( 10, 50, 100, 26 ) );
-    TextLabelBetvilk1->setText( trUtf8( "BETV 1:" ) );
-    
-    TextLabelBetvilk1->show();
-    LineEditBetvilk1 = new QLineEdit( this, "LineEditBetvilk1" );
-    LineEditBetvilk1->setGeometry( QRect( 110, 50, 300, 26 ) );
-    connect( LineEditBetvilk1, SIGNAL(  returnPressed()), this, SLOT( slotLineEditBetvilk1_returnPressed() ) );
-    LineEditBetvilk1->show();
-    LineEditBetvilk1->setText(betvilk1);
-    LineEditBetvilk1->setFocus();
+    inrad="";
+    slotGetFtgData("MOMS5");
 }
 
-void frmChgFtgData::slotLineEditBetvilk1_returnPressed()
-{
-    fdata=LineEditBetvilk1->text();
-    PushButtonUpdate->setFocus();
-}
-
-void frmChgFtgData::slotGetBVLK2()
+void frmChgFtgData::slotGetMOMS5()
 {
    int i,j,k,m;
    QString posttyp;
    QString adr;
-   QString betvilk2;
-   QLabel* TextLabelBetvilk2;
-//   QLineEdit* LineEditMoms1;
+   QString moms5;
    
     i = inrad.find( QRegExp("OK:"), 0 );
     j = inrad.find(QRegExp("1:"),0);
     k = inrad.find( QRegExp("2:"), 0 );
     m = k - j;
     posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
     m = inrad.length();
-    betvilk2 = inrad.mid(k+2,m-2);
+    moms5 = inrad.mid(k+2,m-2);
+    moms5=moms5.stripWhiteSpace();
+//    qDebug("moms5=%s",moms5.latin1());
+    LineEditMoms5->setText(moms5);
     
-//    qDebug("slotGetBVLK1! BETV 1=%s",inrad.latin1());
-    TextLabelBetvilk2 = new QLabel( this, "TextLabelBetvilk2" );
-    // geometri = x , y , w , h
-    TextLabelBetvilk2->setGeometry( QRect( 10, 50, 100, 26 ) );
-    TextLabelBetvilk2->setText( trUtf8( "BETV 2:" ) );
-    
-    TextLabelBetvilk2->show();
-    LineEditBetvilk2 = new QLineEdit( this, "LineEditBetvilk2" );
-    LineEditBetvilk2->setGeometry( QRect( 110, 50, 300, 26 ) );
-    connect( LineEditBetvilk2, SIGNAL(  returnPressed()), this, SLOT( slotLineEditBetvilk2_returnPressed() ) );
-    LineEditBetvilk2->show();
-    LineEditBetvilk2->setText(betvilk2);
-    LineEditBetvilk2->setFocus();
+    inrad="";
+    slotGetFtgData("MOMSI");
 }
 
-void frmChgFtgData::slotLineEditBetvilk2_returnPressed()
-{
-    fdata=LineEditBetvilk2->text();
-    PushButtonUpdate->setFocus();
-}
-
-void frmChgFtgData::slotGetBVLK3()
+void frmChgFtgData::slotGetMOMSI()
 {
    int i,j,k,m;
    QString posttyp;
    QString adr;
-   QString betvilk3;
-   QLabel* TextLabelBetvilk3;
-//   QLineEdit* LineEditMoms1;
+   QString momsi;
    
     i = inrad.find( QRegExp("OK:"), 0 );
     j = inrad.find(QRegExp("1:"),0);
     k = inrad.find( QRegExp("2:"), 0 );
     m = k - j;
     posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
     m = inrad.length();
-    betvilk3 = inrad.mid(k+2,m-2);
+    momsi = inrad.mid(k+2,m-2);
+    momsi=momsi.stripWhiteSpace();
+//    qDebug("momsi=%s",momsi.latin1());
+    lineEditMomktoIng->setText(momsi);
     
-//    qDebug("slotGetBVLK1! BETV 1=%s",inrad.latin1());
-    TextLabelBetvilk3 = new QLabel( this, "TextLabelBetvilk3" );
-    // geometri = x , y , w , h
-    TextLabelBetvilk3->setGeometry( QRect( 10, 50, 100, 26 ) );
-    TextLabelBetvilk3->setText( trUtf8( "BETV 3:" ) );
-    
-    TextLabelBetvilk3->show();
-    LineEditBetvilk3 = new QLineEdit( this, "LineEditBetvilk3" );
-    LineEditBetvilk3->setGeometry( QRect( 110, 50, 300, 26 ) );
-    connect( LineEditBetvilk3, SIGNAL(  returnPressed()), this, SLOT( slotLineEditBetvilk3_returnPressed() ) );
-    LineEditBetvilk3->show();
-    LineEditBetvilk3->setText(betvilk3);
-    LineEditBetvilk3->setFocus();
+    inrad="";
+    slotGetFtgData("MOMSU");
 }
 
-void frmChgFtgData::slotLineEditBetvilk3_returnPressed()
+void frmChgFtgData::slotGetMOMSU()
 {
-    fdata=LineEditBetvilk3->text();
-    PushButtonUpdate->setFocus();
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString momsu;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    momsu = inrad.mid(k+2,m-2);
+    momsu=momsu.stripWhiteSpace();
+//    qDebug("momsu=%s",momsu.latin1());
+    lineEditMomktoUtg->setText(momsu);   
+    inrad="";
+    slotGetFtgData("AUTOK");
 }
-
-void frmChgFtgData::slotGetPosttyper()
-{
-	const char *userp = getenv("USER");
-            QString usr(userp);
-	QString bibl;
-
-	process = new QProcess();
-	process->addArgument("./STYRMAN");
-	process->addArgument(usr);		// userid
-	process->addArgument( "FTGLST");	// OLFIX funktion
-
-//	fprintf(stderr,"Starta STYRMAN/VALLST! %s\n",user);
-
-	frmChgFtgData::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-	frmChgFtgData::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-	frmChgFtgData::connect( process, SIGNAL(processExited() ),this, SLOT(slotGetPostEndOfProcess() ) );
-
-	if ( !process->start() ) {
-                // error handling
-	    fprintf(stderr,"Problem starta STYRMAN/CHGFTGW!\n");
-	    QMessageBox::warning( this, "Start av FTGLST ",
-                            "Kan inte starta STYRMAN/FTGLST!\n"
-                            );
-        }
-}
-
-void frmChgFtgData::slotGetPostEndOfProcess()
-{
-    QString listrad;
-    QListViewItem* item;
-    char *pos1;
-    char *pos2;
-    char tmp[MAXSTRING];
-    char *tmppek;
-    int i,j,k,l,m;
-    char antrad[6]="";
-    char posttyp[6]="";
-    char benamn[61]="";
-    
-    i = -1;
-    i = errorrad.find( QRegExp("Error:"), 0 );
-         if (i != -1) {
-	QMessageBox::critical( this, "LSTFTGW",
-		"ERROR!\n"+errorrad
-	);
-	errorrad="";
-	i = -1;
-     }
-
-//    qDebug("slotGetPoster %s",inrad.latin1());
-    
-    tmppek=tmp;
-    qstrcpy(tmp,inrad);
-    pos1=strstr(tmp,"NR_");
-    pos2=strstr(tmp,"_:");
-    i=pos2-pos1;
-    m=i+2;		// startposition för första posttyp
-//    fprintf(stdout,"i=%d  m=%d",i,m);
-    k=0;
-    for (j=3;j<i;j++){
-	antrad[k]=tmp[j];
-	k++;
-    };
-    i=atoi(antrad);		// i = antal poster
-//    fprintf(stderr," i = %d\n",i);
-    for (k = 1;k <= i; k++){	// gå igenom alla raderna / posterna
-	l=0;
-	for(j = m; j < sizeof(posttyp) + m; j++){
-	    if(tmp[j] != *("_")){
-		posttyp[l]=tmp[j];
-		l++;
-	    }else{
-		posttyp[l] = *("\0");
-		j=sizeof(posttyp) + m;
-	    }
-	}
-//	fprintf(stdout,"%s  ",posttyp);
-	m=m+l+2;	// position för benamn
-	l=0;
-	for(j = m; j < sizeof(benamn) + m; j++){
-	    if(tmp[j] != *("_")){
-		benamn[l]=tmp[j];
-		l++;
-	    }else{
-		benamn[l] = *("\0");
-		j=sizeof(benamn) + m;
-	    }
-	}
-//	fprintf(stdout,"%s  ",benamn);
-	m=m+l+2;	// position för benamn
-	item = new QListViewItem(ListView1,posttyp,benamn);
- 	/* rensa posttyp och benamn */
-   	for (l=0;l<sizeof(posttyp);l++)
-		posttyp[l]=*("\0");
-	for (l=0;l<sizeof(benamn);l++)
-		benamn[l]=*("\0");
-	/* rensa listrad */
-	listrad.remove(0,70);
-	inrad="";
-    }   
-}
-
-void frmChgFtgData::ListView1_clicked( QListViewItem * item )
-{
-    char posttyp[6]="";
-
-    if(!item){
-	return;
-    }
-     ListView1->setCurrentItem(item);
-     if(!item->key(0,TRUE)){
-	 return;
-     }
-
-     strcpy(posttyp,item->key(0,TRUE));
-     ptyp=posttyp;
-     LineEditPosttyp->setText((ptyp));
-}
-
-
-void frmChgFtgData::slotUpdFtgData( QString posttyp, QString ftgdata )
-{
-	const char *userp = getenv("USER");
-            QString usr(userp);
-	 
-	inrad="";
-	errorrad="";
-	    
-	process = new QProcess();
-	process->addArgument("./STYRMAN");	// OLFIX styrprogram
-	process->addArgument(usr);		// userid
-	process->addArgument( "FTGUPD");	// OLFIX funktion
-	process->addArgument(posttyp);
-	process->addArgument(ftgdata);
-
-	frmChgFtgData::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-	frmChgFtgData::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-            frmChgFtgData::connect( process, SIGNAL(processExited() ),this, SLOT(slotUpdateEndOfProcess() ) );
-	if (ptyp == "" ){
-    	    QMessageBox::warning( this, "CHGFTGW",
-                      "Posttyp saknas! \n" );
-	}
-	else {
-	    if ( !process->start() ) {
-		// error handling
-		fprintf(stderr,"Problem starta STYRMAN/FTGUPD!\n");
-		QMessageBox::warning( this, "CHGFTGW",
-                            "Kan inte starta STYRMAN/FTGUPD! \n" );
-	    }
-	}
-}
-
-void frmChgFtgData::slotUpdateEndOfProcess()
-{
-    int i;
-    i = -1;
-    i = errorrad.find( QRegExp("Error:"), 0 );
-    if (i != -1) {
-	QMessageBox::critical( this, "CHGFTGW",
-		"ERROR!\n"+errorrad
-	);
-	errorrad="";
-	i = -1;
-    }
-    else{
-	i = inrad.find( QRegExp("OK:"), 0 );
-	if (i != -1) {
-	    QMessageBox::information( this, "CHGFTGW",
-		"Uppdatering OK!\n"
-		);
-	    inrad="";
-	    i = -1;
-	    frmChgFtgData::close();
-	}
-    }
-}
-
-void frmChgFtgData::PushButtonUpdate_clicked()
-{
-    if (ptyp == "ADR1" | ptyp == "ADR2" | ptyp == "ADR3"){
-	ptyp = "ADR1";
-	slotUpdFtgData( ptyp, fdata1 );
-	ptyp = "ADR2";
-	slotUpdFtgData( ptyp, fdata2 );
-	ptyp = "ADR3";
-	slotUpdFtgData( ptyp, fdata3 );
-	return;
-    }
-    if (ptyp == "ADR4" | ptyp == "ADR5" | ptyp == "ADR6"){
-	ptyp = "ADR4";
-	slotUpdFtgData( ptyp, fdata1 );
-	ptyp = "ADR5";
-	slotUpdFtgData( ptyp, fdata2 );
-	ptyp = "ADR6";
-	slotUpdFtgData( ptyp, fdata3 );
-	return;
-    }
-    if (ptyp == "ADR7" | ptyp == "ADR8" | ptyp == "ADR9"){
-	ptyp = "ADR7";
-	slotUpdFtgData( ptyp, fdata1 );
-	ptyp = "ADR8";
-	slotUpdFtgData( ptyp, fdata2 );
-	ptyp = "ADR9";
-	slotUpdFtgData( ptyp, fdata3 );
-	return;
-    }
-
-    slotUpdFtgData( ptyp, fdata );
-}
-
-
 
 void frmChgFtgData::slotGetAUTOK()
 {
+//	Automatkontering J/N    
    int i,j,k,m;
    QString posttyp;
    QString adr;
-   QString autok;
-   QLabel* TextLabelAutokonto;
-//   QLineEdit* LineEditMoms1;
+   QString autok;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    autok = inrad.mid(k+2,m-2);
+    autok=autok.stripWhiteSpace();
+//    qDebug("autok=%s",autok.latin1());
+    lineEditAutokont->setText(autok);   
+    inrad="";
+    slotGetFtgData("SNIKD");
+}
+
+void frmChgFtgData::slotGetSNIKD()
+{
+//	Branschkod
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString snikd;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    snikd = inrad.mid(k+2,m-2);
+    snikd=snikd.stripWhiteSpace();
+//    qDebug("autok=%s",autok.latin1());
+    LineEditBranschkod->setText(snikd);   
+    inrad="";
+    slotGetFtgData("FKNRS");
+}
+
+void frmChgFtgData::slotGetFKNRS()
+{
+//	Senaste fakturanr
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString fknrs;	
    
     i = inrad.find( QRegExp("OK:"), 0 );
     j = inrad.find(QRegExp("1:"),0);
@@ -1302,25 +812,296 @@ void frmChgFtgData::slotGetAUTOK()
     m = k - j;
     posttyp = inrad.mid(j+2,m-2);
     m = inrad.length();
-    autok = inrad.mid(k+2,m-2);
-    
-    //    qDebug("slotGetAUTOK::autok=%s",autok.latin1());
-    TextLabelAutokonto = new QLabel( this, "TextLabelAutokonto" );
-    // geometri = x , y , w , h
-    TextLabelAutokonto->setGeometry( QRect( 10, 50, 100, 26 ) );
-    TextLabelAutokonto->setText( trUtf8( "AUTOK:" ) );
-    
-    TextLabelAutokonto->show();
-    LineEditAutokonto = new QLineEdit( this, "LineEditAutokonto" );
-    LineEditAutokonto->setGeometry( QRect( 110, 50, 300, 26 ) );
-    connect( LineEditAutokonto, SIGNAL(  returnPressed()), this, SLOT( slotLineEditAutokonto_returnPressed() ) );
-    LineEditAutokonto->show();
-    LineEditAutokonto->setText(autok);
-    LineEditAutokonto->setFocus();
+    fknrs = inrad.mid(k+2,m-2);
+    fknrs=fknrs.stripWhiteSpace();
+    lineEditFKNRS->setText(fknrs); 
+    if (fknrs != "1"){
+	textLabel2_2->show();
+	lineEditFKNR2->show();
+    }else{
+	textLabel2_2->hide();
+	lineEditFKNR2->hide();
+    }
+    inrad="";
+    slotGetFtgData("FAKNR");
 }
 
-void frmChgFtgData::slotLineEditAutokonto_returnPressed()
+void frmChgFtgData::slotGetFAKNR()
 {
-    fdata=LineEditAutokonto->text();
-    PushButtonUpdate->setFocus();
+//	Senaste fakturanr
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString faknr;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    faknr = inrad.mid(k+2,m-2);
+    faknr=faknr.stripWhiteSpace();
+    lineEditFAKNR->setText(faknr);   
+    inrad="";
+    slotGetFtgData("FKNR2");
+}
+
+void frmChgFtgData::slotGetFKNR2()
+{
+//	Senaste fakturanr
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString fknr2;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    fknr2 = inrad.mid(k+2,m-2);
+    fknr2=fknr2.stripWhiteSpace();
+    lineEditFKNR2->setText(fknr2);   
+    inrad="";
+    slotGetFtgData("INKNR");    
+}
+
+void frmChgFtgData::slotGetINKNR()
+{
+//	Senaste fakturanr
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString inknr;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    inknr = inrad.mid(k+2,m-2);
+    inknr=inknr.stripWhiteSpace();
+    lineEditINKNR->setText(inknr);   
+    inrad="";
+    slotGetFtgData("SKUNR");    
+}
+
+void frmChgFtgData::slotGetSKUNR()
+{
+//	Senaste fakturanr
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString skunr;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    skunr = inrad.mid(k+2,m-2);
+    skunr=skunr.stripWhiteSpace();
+    lineEditSKUNR->setText(skunr);   
+    inrad="";
+    slotGetFtgData("KORNR");    
+}
+
+void frmChgFtgData::slotGetKORNR()
+{
+//	Senaste fakturanr
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString kornr;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    kornr = inrad.mid(k+2,m-2);
+    kornr=kornr.stripWhiteSpace();
+    lineEditKORNR->setText(kornr);   
+    inrad="";
+//    slotGetFtgData("KORNR");    
+}
+
+void frmChgFtgData::changeFtgData()
+{
+    QString ftgnamn=LineEditFtgNamn->text();		// FNAMN
+    if ( LineEditFtgNamn->edited() ) {
+	frmChgFtgData::updateFtgData( "FNAMN", ftgnamn );
+    }
+    QString ftgnr=LineEditFtgNr->text();			// FTGNR
+    if ( LineEditFtgNr->edited() ) {
+	frmChgFtgData::updateFtgData( "FTGNR", ftgnr );
+    }
+    QString branchkod=LineEditBranschkod->text();		// SNIKD
+    if ( LineEditBranschkod->edited() ) {
+	frmChgFtgData::updateFtgData( "SNIKD", branchkod );
+    }
+    QString postadr=LineEditPostAdress->text();		// ADR1
+    if ( LineEditPostAdress->edited() ) {
+	frmChgFtgData::updateFtgData( "ADR1", postadr );
+    }
+    QString postnr1=LineEditPostnr1->text();			// ADR2
+    if ( LineEditPostnr1->edited() ) {
+	frmChgFtgData::updateFtgData( "ADR2", postnr1 );
+    }
+    QString postort=LineEditPostOrt->text();			// ADR3
+    if ( LineEditPostOrt->edited() ) {
+	frmChgFtgData::updateFtgData( "ADR3", postort );
+    }
+    QString besoksadr=LineEditBesoksAdress->text();	// ADR4
+    if ( LineEditBesoksAdress->edited() ) {
+	frmChgFtgData::updateFtgData( "ADR4", besoksadr );
+    }
+    QString postnr2=LineEditPostnr2->text();			// ADR5
+    if ( LineEditPostnr2->edited() ) {
+	frmChgFtgData::updateFtgData( "ADR5", postnr2 );
+    }
+    QString besoksort=LineEditBesoksOrt->text();		// ADR6
+    if ( LineEditBesoksOrt->edited() ) {
+	frmChgFtgData::updateFtgData( "ADR6", besoksort );
+    }
+    QString godsadr=LineEditGodsAdress->text();		// ADR7
+    if ( LineEditGodsAdress->edited() ) {
+	frmChgFtgData::updateFtgData( "ADR7", godsadr );
+    }
+    QString postnr3=LineEditPostnr3->text();			// ADR8
+    if ( LineEditPostnr3->edited() ) {
+	frmChgFtgData::updateFtgData( "ADR8", postnr3 );
+    }
+    QString godsort=LineEditGodsOrt->text();		// ADR9
+    if ( LineEditGodsOrt->edited() ) {
+	frmChgFtgData::updateFtgData( "ADR9", godsort );
+    }
+    QString tfnnr=LineEditTfnnr->text();			// TFN1
+    tfnnr=tfnnr.stripWhiteSpace();
+    if ( LineEditTfnnr->edited() ) {
+	frmChgFtgData::updateFtgData( "TFN1", tfnnr );
+    }
+    QString mobiltfn=LineEditMobilTfn->text();		// TFNMB
+    mobiltfn=mobiltfn.stripWhiteSpace();
+    if ( LineEditMobilTfn->edited() ) {
+	frmChgFtgData::updateFtgData( "TFNMB", mobiltfn );
+    }
+    QString telefax=LineEditTelefax->text();			// TFAX
+    telefax=telefax.stripWhiteSpace();
+    if ( LineEditTelefax->edited() ) {
+	frmChgFtgData::updateFtgData( "TFAX", telefax );
+    }
+    QString email=LineEditemailadress->text();		// EML1
+    email=email.stripWhiteSpace();
+    if ( LineEditemailadress->edited() ) {
+	frmChgFtgData::updateFtgData( "EML1", email );
+    }
+    QString telex=LineEdit1Telex->text();			// TELEX
+    telex=telex.stripWhiteSpace();
+    if ( LineEdit1Telex->edited() ) {
+	frmChgFtgData::updateFtgData( "TELEX", telex );
+    }
+    QString moms1=LineEditMoms1->text();			// MOMS1
+    moms1=moms1.stripWhiteSpace();
+    if ( LineEditMoms1->edited() ) {
+	frmChgFtgData::updateFtgData( "MOMS1", moms1 );
+    }
+    QString moms2=LineEditMoms2->text();			// MOMS2
+    moms2=moms2.stripWhiteSpace();
+    if ( LineEditMoms2->edited() ) {
+	frmChgFtgData::updateFtgData( "MOMS2", moms2 );
+    }
+    QString moms3=LineEditMoms3->text();			// MOMS3
+    moms3=moms3.stripWhiteSpace();
+    if ( LineEditMoms3->edited() ) {
+	frmChgFtgData::updateFtgData( "MOMS3", moms3 );
+    }
+    QString moms4=LineEditMoms4->text();			// MOMS4
+    moms4=moms4.stripWhiteSpace();
+    if ( LineEditMoms4->edited() ) {
+	frmChgFtgData::updateFtgData( "MOMS4", moms4 );
+    }
+    QString moms5=LineEditMoms5->text();			// MOMS5
+    moms5=moms5.stripWhiteSpace();
+    if ( LineEditMoms5->edited() ) {
+	frmChgFtgData::updateFtgData( "MOMS5", moms5 );
+    }
+    QString inmoms=lineEditMomktoIng->text();		// MOMSI
+    inmoms=inmoms.stripWhiteSpace();
+    if ( lineEditMomktoIng->edited() ) {
+	frmChgFtgData::updateFtgData( "MOMSI", inmoms );
+    }
+    QString utmoms=lineEditMomktoUtg->text();		// MOMSU
+    utmoms=utmoms.stripWhiteSpace();
+    if ( lineEditMomktoUtg->edited() ) {
+	frmChgFtgData::updateFtgData( "MOMSU", utmoms );
+    }
+    QString autokont=lineEditAutokont->text();		// AUTOK
+    autokont=autokont.stripWhiteSpace();
+    if ( lineEditAutokont->edited() ) {
+	frmChgFtgData::updateFtgData( "AUTOK", autokont );
+    }
+    QString fknrs=lineEditFKNRS->text();			// FKNRS
+    if ( lineEditFKNRS->edited() ) {
+	fknrs=fknrs.stripWhiteSpace();
+	frmChgFtgData::updateFtgData( "FKNRS", fknrs );
+    }
+    QString faknr=lineEditFAKNR->text();			// FAKNR
+    faknr=faknr.stripWhiteSpace();
+    if ( lineEditFAKNR->edited() ) {
+	frmChgFtgData::updateFtgData( "FAKNR", faknr );
+    }
+    if (fknrs != "1"){
+	QString fknr2=lineEditFKNR2->text();		// FKNR2
+	fknr2=fknr2.stripWhiteSpace();
+	if ( lineEditFKNR2->edited() ) {
+	    frmChgFtgData::updateFtgData( "FKNR2", fknr2 );
+	}
+    }
+    QString inknr=lineEditINKNR->text();			// INKNR
+    inknr=inknr.stripWhiteSpace();
+    if ( lineEditINKNR->edited() ) {
+	frmChgFtgData::updateFtgData( "INKNR", inknr );
+    }
+    QString skunr=lineEditSKUNR->text();			// SKUNR
+    skunr=skunr.stripWhiteSpace();
+    if ( lineEditSKUNR->edited() ) {
+	frmChgFtgData::updateFtgData( "SKUNR", skunr );
+    }
+    QString kornr=lineEditKORNR->text();			// KORNR
+    kornr=kornr.stripWhiteSpace();
+    if ( lineEditKORNR->edited() ) {
+	frmChgFtgData::updateFtgData( "KORNR",kornr );
+    }
+    slotGetFtgData("FNAMN");
+    PushButtonOK->setFocus(); 
+    QMessageBox::information( this, "CHGFTGW","Företagsdata uppdaterat! \n" );
+}
+
+void frmChgFtgData::updateFtgData( QString posttyp,QString data )
+{
+	const char *userp = getenv("USER");
+            QString usr(userp);
+	    processnr++;
+	process[processnr]  = new QProcess();
+	process[processnr] ->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process[processnr] ->addArgument(usr);		// userid
+	process[processnr] ->addArgument( "FTGUPD");	// OLFIX funktion
+	process[processnr] ->addArgument(posttyp);
+	process[processnr] ->addArgument(data);
+	
+	frmChgFtgData::connect( process[processnr] , SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+	frmChgFtgData::connect( process[processnr] , SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+            frmChgFtgData::connect( process[processnr] , SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
+
+	 if ( !process[processnr] ->start() ) {
+		// error handling
+		QMessageBox::warning( this, "CHGFTGW",
+                            "Kan inte starta STYRMAN/FTGUPD! \n" );
+	    }
 }

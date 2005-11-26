@@ -1,7 +1,8 @@
 /****************************************************************/
-/**		main.cpp		CHGFTGW			*/
-/**		2003-04-17					*/
+/**		main.cpp		CHGFTGW (UPDFTGW)	*/
+/**		2005-11-26					*/
 /**		Jan Pihlgren	jan@pihlgren.se			*/
+/**	copyright 2005 Jan Pihlgren				*/
 /****************************************************************/
 /*****************************************************************
  *					                                                 *
@@ -37,10 +38,6 @@ int main( int argc, char* argv[] )
   QString bibl;
   QStringList lines;
   QString homeDir( QDir::homeDirPath() );
-    
-//  QLineEdit* LineEditMoms1;
-//  QObject::connect( LineEditMoms1, SIGNAL(  returnPressed()), &myapp, SLOT( slotLineEditMoms1_returnPressed() ) );
-
    rcfil.append(homeDir);
    rcfil.append("/.olfixrc");	// configfil
 // Läs in config filen här
