@@ -1081,6 +1081,7 @@ Serie 2</string>
     <slot>slotGetTFN1()</slot>
     <slot>slotGetTFN2()</slot>
     <slot>slotGetTFAX()</slot>
+    <slot>slotGetTELEX()</slot>
     <slot>slotGetEML1()</slot>
     <slot>slotGetMOMS1()</slot>
     <slot>slotGetMOMS2()</slot>

@@ -1,8 +1,8 @@
 /****************************************************************/
 /**		DSPFTGW					*/
-/**		Version: 0.5 					*/
+/**		Version: 0.6 					*/
 /**		20003-08-14					*/
-/**		Modifierad: 2004-11-18				*/
+/**		Modifierad: 2005-11-25				*/
 /**		Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -39,6 +39,9 @@
 
 void frmDspFtgData::init()
 {
+    PushButtonUpdate->hide();
+    textLabel2_2->hide();
+    lineEditFKNR2->hide();
     PushButtonOK->setFocus();
     slotGetFtgData("FNAMN");
 }
@@ -180,6 +183,11 @@ void frmDspFtgData::slotEndOfProcess()
 	slotGetTFAX();
     }
     i = -1;
+    i = posttyp.find( QRegExp("TELEX"), 0 );
+    if (i != -1){
+	slotGetTELEX();
+    }    
+    i = -1;
     i = posttyp.find( QRegExp("EML1"), 0 );
     if (i != -1){
 	slotGetEML1();
@@ -228,8 +236,30 @@ void frmDspFtgData::slotEndOfProcess()
     if (i != -1){
 	slotGetSNIKD();
     } 
-
-    
+    i = posttyp.find( QRegExp("FAKNR"), 0 );
+    if (i != -1){
+	slotGetFAKNR();
+    } 
+    i = posttyp.find( QRegExp("FKNR2"), 0 );
+    if (i != -1){
+	slotGetFKNR2();
+    } 
+    i = posttyp.find( QRegExp("FKNRS"), 0 );
+    if (i != -1){
+	slotGetFKNRS();
+    } 
+    i = posttyp.find( QRegExp("INKNR"), 0 );
+    if (i != -1){
+	slotGetINKNR();
+    } 
+    i = posttyp.find( QRegExp("KORNR"), 0 );
+    if (i != -1){
+	slotGetKORNR();
+    } 
+    i = posttyp.find( QRegExp("SKUNR"), 0 );
+    if (i != -1){
+	slotGetSKUNR();
+    } 
 }
 
 void frmDspFtgData::slotGetFNAMN()
@@ -505,9 +535,29 @@ void frmDspFtgData::slotGetTFAX()
     LineEditTelefax->setText(telefax);
     
     inrad="";
-    slotGetFtgData("EML1");
+    slotGetFtgData("TELEX");
 }
 
+void frmDspFtgData::slotGetTELEX()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString telex;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    telex = inrad.mid(k+2,m-2);
+//    qDebug("tfnnr=%s",tfnnr.latin1());
+    LineEdit1Telex->setText(telex);    
+    inrad="";
+    slotGetFtgData("EML1");
+}
 
 void frmDspFtgData::slotGetEML1()
 {
@@ -726,5 +776,130 @@ void frmDspFtgData::slotGetSNIKD()
 //    qDebug("autok=%s",autok.latin1());
     LineEditBranschkod->setText(snikd);   
     inrad="";
- //   slotGetFtgData("SNIKD");
+    slotGetFtgData("FKNRS");
+}
+
+void frmDspFtgData::slotGetFKNRS()
+{
+//	Senaste fakturanr
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString fknrs;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    fknrs = inrad.mid(k+2,m-2);
+    lineEditFKNRS->setText(fknrs); 
+    fknrs=fknrs.stripWhiteSpace();
+    if (fknrs != "1"){
+	textLabel2_2->show();
+	lineEditFKNR2->show();
+    }
+    inrad="";
+    slotGetFtgData("FAKNR");
+}
+
+void frmDspFtgData::slotGetFAKNR()
+{
+//	Senaste fakturanr
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString faknr;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    faknr = inrad.mid(k+2,m-2);
+    lineEditFAKNR->setText(faknr);   
+    inrad="";
+    slotGetFtgData("FKNR2");
+}
+
+void frmDspFtgData::slotGetFKNR2()
+{
+//	Senaste fakturanr
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString fknr2;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    fknr2 = inrad.mid(k+2,m-2);
+    lineEditFKNR2->setText(fknr2);   
+    inrad="";
+    slotGetFtgData("INKNR");    
+}
+
+void frmDspFtgData::slotGetINKNR()
+{
+//	Senaste fakturanr
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString inknr;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    inknr = inrad.mid(k+2,m-2);
+    lineEditINKNR->setText(inknr);   
+    inrad="";
+    slotGetFtgData("SKUNR");    
+}
+
+void frmDspFtgData::slotGetSKUNR()
+{
+//	Senaste fakturanr
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString skunr;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    skunr = inrad.mid(k+2,m-2);
+    lineEditSKUNR->setText(skunr);   
+    inrad="";
+    slotGetFtgData("KORNR");    
+}
+
+void frmDspFtgData::slotGetKORNR()
+{
+//	Senaste fakturanr
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString kornr;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    kornr = inrad.mid(k+2,m-2);
+    lineEditKORNR->setText(kornr);   
+    inrad="";
+//    slotGetFtgData("KORNR");    
 }
