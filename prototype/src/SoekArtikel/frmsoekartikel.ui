@@ -1,0 +1,328 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>frmSoekArtikel</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmSoekArtikel</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>880</width>
+            <height>252</height>
+        </rect>
+    </property>
+    <property name="sizePolicy">
+        <sizepolicy>
+            <hsizetype>5</hsizetype>
+            <vsizetype>5</vsizetype>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+    </property>
+    <property name="minimumSize">
+        <size>
+            <width>0</width>
+            <height>0</height>
+        </size>
+    </property>
+    <property name="maximumSize">
+        <size>
+            <width>32767</width>
+            <height>32767</height>
+        </size>
+    </property>
+    <property name="caption">
+        <string>OLFIX - SRCHARW   Söka artikel</string>
+    </property>
+    <property name="iconText">
+        <string>OLFIX</string>
+    </property>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>35</x>
+                <y>10</y>
+                <width>90</width>
+                <height>22</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>&lt;font size="+1"&gt;&lt;b&gt;Sökbegrepp&lt;/b&gt;&lt;/font&gt;</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonSluta</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>220</y>
+                <width>80</width>
+                <height>26</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Sluta</string>
+        </property>
+    </widget>
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Artikelnummer</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Benämning</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Benämning nr 2</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <property name="name">
+            <cstring>ListView1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>380</x>
+                <y>10</y>
+                <width>490</width>
+                <height>234</height>
+            </rect>
+        </property>
+        <property name="sizePolicy">
+            <sizepolicy>
+                <hsizetype>5</hsizetype>
+                <vsizetype>5</vsizetype>
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+            </sizepolicy>
+        </property>
+        <property name="resizePolicy">
+            <enum>AutoOneFit</enum>
+        </property>
+        <property name="dragAutoScroll">
+            <bool>false</bool>
+        </property>
+        <property name="selectionMode">
+            <enum>Single</enum>
+        </property>
+        <property name="allColumnsShowFocus">
+            <bool>false</bool>
+        </property>
+        <property name="itemMargin">
+            <number>3</number>
+        </property>
+        <property name="resizeMode">
+            <enum>LastColumn</enum>
+        </property>
+    </widget>
+    <widget class="QButtonGroup">
+        <property name="name">
+            <cstring>buttonGroup1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>30</x>
+                <y>35</y>
+                <width>180</width>
+                <height>85</height>
+            </rect>
+        </property>
+        <property name="title">
+            <string></string>
+        </property>
+        <widget class="QRadioButton">
+            <property name="name">
+                <cstring>radioButton1</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>10</x>
+                    <y>5</y>
+                    <width>110</width>
+                    <height>15</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>På artikelnr</string>
+            </property>
+            <property name="checked">
+                <bool>true</bool>
+            </property>
+        </widget>
+        <widget class="QRadioButton">
+            <property name="name">
+                <cstring>radioButton4</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>10</x>
+                    <y>60</y>
+                    <width>165</width>
+                    <height>16</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>På urspringsbenämning</string>
+            </property>
+            <property name="buttonGroupId">
+                <number>0</number>
+            </property>
+        </widget>
+        <widget class="QRadioButton">
+            <property name="name">
+                <cstring>radioButton2</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>10</x>
+                    <y>20</y>
+                    <width>120</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>På benämning 1</string>
+            </property>
+        </widget>
+        <widget class="QRadioButton">
+            <property name="name">
+                <cstring>radioButton3</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>10</x>
+                    <y>40</y>
+                    <width>125</width>
+                    <height>16</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>På benämning 2</string>
+            </property>
+        </widget>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonSoek</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>30</x>
+                <y>220</y>
+                <width>80</width>
+                <height>26</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Sök</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditSoek</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>30</x>
+                <y>130</y>
+                <width>336</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>PushButtonSoek</sender>
+        <signal>clicked()</signal>
+        <receiver>frmSoekArtikel</receiver>
+        <slot>GetArtikel()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonSluta</sender>
+        <signal>clicked()</signal>
+        <receiver>frmSoekArtikel</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditSoek</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmSoekArtikel</receiver>
+        <slot>lineEditSoek_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>radioButton1</sender>
+        <signal>clicked()</signal>
+        <receiver>frmSoekArtikel</receiver>
+        <slot>radioButton1_selected()</slot>
+    </connection>
+    <connection>
+        <sender>radioButton2</sender>
+        <signal>clicked()</signal>
+        <receiver>frmSoekArtikel</receiver>
+        <slot>radioButton2_selected()</slot>
+    </connection>
+    <connection>
+        <sender>radioButton3</sender>
+        <signal>clicked()</signal>
+        <receiver>frmSoekArtikel</receiver>
+        <slot>radioButton3_selected()</slot>
+    </connection>
+    <connection>
+        <sender>radioButton4</sender>
+        <signal>clicked()</signal>
+        <receiver>frmSoekArtikel</receiver>
+        <slot>radioButton4_selected()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">frmsoekartikel.ui.h</include>
+</includes>
+<slots>
+    <slot>GetArtikel()</slot>
+    <slot>slotEndOfProcess()</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>slotReloadArtikel()</slot>
+    <slot>PickupArtikelnr( QListViewItem * item )</slot>
+    <slot>lineEditSoek_returnPressed()</slot>
+    <slot>radioButton1_selected()</slot>
+    <slot>radioButton2_selected()</slot>
+    <slot>radioButton3_selected()</slot>
+    <slot>radioButton4_selected()</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
