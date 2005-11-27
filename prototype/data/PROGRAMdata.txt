@@ -95,3 +95,4 @@
 "095","Ekonomi","Rapporter","Kundreskontra","KURESKW"
 "096","Administration","Företagsdata","Lista texter i TEXTREG","LSTTXTW"
 "097","Administration","Företagsdata","Visa en post i TEXTREG","DSPTXTW"
+"098","Materialhantering","Artikeldata","Söka artikel","SRCHARW"
