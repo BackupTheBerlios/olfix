@@ -8,8 +8,8 @@
 /***************************************************************************
                           SCRHARW  -  description
                              -------------------
-		     version 0.1
-    begin    	: Sön 27 nov 2005
+		     version 0.2
+    begin    	: Sön 28 nov 2005
     modified	: 
     copyright 	: (C) 2005 by Jan Pihlgren
     email                : jan@pihlgren.se
@@ -222,23 +222,82 @@ void frmSoekArtikel::lineEditSoek_returnPressed()
 void frmSoekArtikel::radioButton1_selected()
 {
     begrepp="1";
+    lineEditSoek->clear();
+    lineEditSoek->setFocus();
 //    qDebug("begrepp=%s",begrepp.latin1());
 }
 
 void frmSoekArtikel::radioButton2_selected()
 {
     begrepp="2";
+    lineEditSoek->clear();
+    lineEditSoek->setFocus();
 //    qDebug("begrepp=%s",begrepp.latin1());
 }
 
 void frmSoekArtikel::radioButton3_selected()
 {
     begrepp="3";
+    lineEditSoek->clear();
+    lineEditSoek->setFocus();
 //    qDebug("begrepp=%s",begrepp.latin1());
 }
 
 void frmSoekArtikel::radioButton4_selected()
 {
     begrepp="4";
+    lineEditSoek->clear();
+    lineEditSoek->setFocus();
 //    qDebug("begrepp=%s",begrepp.latin1());
+}
+
+
+void frmSoekArtikel::ListView1_clicked(QListViewItem * )
+{
+    QListViewItem *item =  ListView1->currentItem();
+    if ( !item )
+	return;
+    item->setSelected( TRUE );
+    soekord=item->text(0);
+    lineEditSoek->setText(soekord);
+   radioButton1->setChecked(TRUE);
+   begrepp="1";
+}
+
+void frmSoekArtikel::PushButtonSoek_clicked()
+{
+    ListView1->clear();
+   frmSoekArtikel::GetArtikel();
+}
+
+void frmSoekArtikel::pushButtonGetData_clicked()
+{
+    if (begrepp=="1"){
+	const char *userp = getenv("USER");
+            QString usr(userp);
+	inrad="";				// töm inputbuffer
+	
+	process = new QProcess();
+//	process->addArgument("./STYRMAN");	// OLFIX huvudprogram
+//	process->addArgument(usr);		// userid
+	process->addArgument( "DSPARW");	// OLFIX funktion
+	process->addArgument(soekord);
+	
+	frmSoekArtikel::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+	frmSoekArtikel::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );	
+	frmSoekArtikel::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );	    
+ 
+	if (soekord==""){
+	    QMessageBox::warning( this, "SRCHARW ", "Artikelnummer får inte vara blankt!\n");
+	    lineEditSoek->setFocus();
+	}else{
+	    if ( !process->start() ) {
+                // error handling
+		QMessageBox::warning( this, "Start av DSPARW ", "Kan inte starta DSPARW!\n" );
+	    }
+	}
+    }else{
+	QString mening="Måste vara ett artikelnummer!\n";
+	QMessageBox::information( this, "SRCHARW",mening); 
+    }
 }

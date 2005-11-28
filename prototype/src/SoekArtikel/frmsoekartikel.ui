@@ -54,21 +54,91 @@
             <string>&lt;font size="+1"&gt;&lt;b&gt;Sökbegrepp&lt;/b&gt;&lt;/font&gt;</string>
         </property>
     </widget>
-    <widget class="QPushButton">
+    <widget class="QButtonGroup">
         <property name="name">
-            <cstring>PushButtonSluta</cstring>
+            <cstring>buttonGroup1</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>120</x>
-                <y>220</y>
-                <width>80</width>
-                <height>26</height>
+                <x>30</x>
+                <y>35</y>
+                <width>180</width>
+                <height>85</height>
             </rect>
         </property>
-        <property name="text">
-            <string>Sluta</string>
+        <property name="title">
+            <string></string>
         </property>
+        <widget class="QRadioButton">
+            <property name="name">
+                <cstring>radioButton3</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>10</x>
+                    <y>40</y>
+                    <width>125</width>
+                    <height>16</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>På benämning 2</string>
+            </property>
+        </widget>
+        <widget class="QRadioButton">
+            <property name="name">
+                <cstring>radioButton4</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>10</x>
+                    <y>60</y>
+                    <width>165</width>
+                    <height>16</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>På ursprungsbenämning</string>
+            </property>
+            <property name="buttonGroupId">
+                <number>0</number>
+            </property>
+        </widget>
+        <widget class="QRadioButton">
+            <property name="name">
+                <cstring>radioButton2</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>10</x>
+                    <y>20</y>
+                    <width>120</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>På benämning 1</string>
+            </property>
+        </widget>
+        <widget class="QRadioButton">
+            <property name="name">
+                <cstring>radioButton1</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>10</x>
+                    <y>5</y>
+                    <width>110</width>
+                    <height>15</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>På artikelnr</string>
+            </property>
+            <property name="checked">
+                <bool>true</bool>
+            </property>
+        </widget>
     </widget>
     <widget class="QListView">
         <column>
@@ -135,98 +205,15 @@
         <property name="allColumnsShowFocus">
             <bool>false</bool>
         </property>
+        <property name="showSortIndicator">
+            <bool>true</bool>
+        </property>
         <property name="itemMargin">
             <number>3</number>
         </property>
         <property name="resizeMode">
             <enum>LastColumn</enum>
         </property>
-    </widget>
-    <widget class="QButtonGroup">
-        <property name="name">
-            <cstring>buttonGroup1</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>30</x>
-                <y>35</y>
-                <width>180</width>
-                <height>85</height>
-            </rect>
-        </property>
-        <property name="title">
-            <string></string>
-        </property>
-        <widget class="QRadioButton">
-            <property name="name">
-                <cstring>radioButton1</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>10</x>
-                    <y>5</y>
-                    <width>110</width>
-                    <height>15</height>
-                </rect>
-            </property>
-            <property name="text">
-                <string>På artikelnr</string>
-            </property>
-            <property name="checked">
-                <bool>true</bool>
-            </property>
-        </widget>
-        <widget class="QRadioButton">
-            <property name="name">
-                <cstring>radioButton4</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>10</x>
-                    <y>60</y>
-                    <width>165</width>
-                    <height>16</height>
-                </rect>
-            </property>
-            <property name="text">
-                <string>På urspringsbenämning</string>
-            </property>
-            <property name="buttonGroupId">
-                <number>0</number>
-            </property>
-        </widget>
-        <widget class="QRadioButton">
-            <property name="name">
-                <cstring>radioButton2</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>10</x>
-                    <y>20</y>
-                    <width>120</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property name="text">
-                <string>På benämning 1</string>
-            </property>
-        </widget>
-        <widget class="QRadioButton">
-            <property name="name">
-                <cstring>radioButton3</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>10</x>
-                    <y>40</y>
-                    <width>125</width>
-                    <height>16</height>
-                </rect>
-            </property>
-            <property name="text">
-                <string>På benämning 2</string>
-            </property>
-        </widget>
     </widget>
     <widget class="QPushButton">
         <property name="name">
@@ -260,13 +247,51 @@
             </rect>
         </property>
     </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonSluta</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>220</y>
+                <width>80</width>
+                <height>26</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Sluta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonGetData</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>220</x>
+                <y>220</y>
+                <width>71</width>
+                <height>26</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hämta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
         <sender>PushButtonSoek</sender>
         <signal>clicked()</signal>
         <receiver>frmSoekArtikel</receiver>
-        <slot>GetArtikel()</slot>
+        <slot>PushButtonSoek_clicked()</slot>
     </connection>
     <connection>
         <sender>PushButtonSluta</sender>
@@ -304,6 +329,18 @@
         <receiver>frmSoekArtikel</receiver>
         <slot>radioButton4_selected()</slot>
     </connection>
+    <connection>
+        <sender>ListView1</sender>
+        <signal>clicked(QListViewItem*)</signal>
+        <receiver>frmSoekArtikel</receiver>
+        <slot>ListView1_clicked(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonGetData</sender>
+        <signal>clicked()</signal>
+        <receiver>frmSoekArtikel</receiver>
+        <slot>pushButtonGetData_clicked()</slot>
+    </connection>
 </connections>
 <includes>
     <include location="local" impldecl="in implementation">frmsoekartikel.ui.h</include>
@@ -320,6 +357,9 @@
     <slot>radioButton2_selected()</slot>
     <slot>radioButton3_selected()</slot>
     <slot>radioButton4_selected()</slot>
+    <slot>ListView1_clicked( QListViewItem * )</slot>
+    <slot>PushButtonSoek_clicked()</slot>
+    <slot>pushButtonGetData_clicked()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>

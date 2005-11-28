@@ -1,6 +1,7 @@
 /****************************************************************/
 /**		main.cpp		DSPARW			*/
 /**		2003-11-15					*/
+/**	Modifierad: Mån 28 nov 2005				*/
 /**		Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -22,6 +23,7 @@
 #include <qlistbox.h>
 #include <qlabel.h>
 #include <qstring.h>
+#include <qlineedit.h>
 #include <qstringlist.h>
 #include <qfile.h>
 #include <qdir.h>
@@ -30,8 +32,9 @@
 int main( int argc, char* argv[] )
 {
   QApplication myapp( argc, argv );
-
+  
   frmDspArtikelGrunddata* mywidget = new frmDspArtikelGrunddata();
+  mywidget->lineEditArtikelNr->setText(QString(argv[1]));		/*  2005-11-28 */
 
   QString rcfil;
   QString bibl;
