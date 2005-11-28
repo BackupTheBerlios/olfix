@@ -32,7 +32,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARSRCH.c,v 1.1 2005/11/27 09:47:28 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARSRCH.c,v 1.2 2005/11/28 12:09:33 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -100,7 +100,7 @@ int main(int argc, char *argv[], char *envp[])
 	strncat(temp5,soekord,sizeof(soekord));
 	strncat(temp5,temp4b,sizeof(temp4b));
   }
-  fprintf(stderr,"temp5=%s\n",temp5);
+/*  fprintf(stderr,"temp5=%s\n",temp5);	*/
 
 /* ================================================================================ */
 /* 		Val av databas, START						    */
