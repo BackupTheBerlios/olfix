@@ -1,0 +1,358 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>frmOlfix</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmOlfix</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>471</width>
+            <height>420</height>
+        </rect>
+    </property>
+    <property name="paletteBackgroundColor">
+        <color>
+            <red>0</red>
+            <green>255</green>
+            <blue>255</blue>
+        </color>
+    </property>
+    <property name="font">
+        <font>
+        </font>
+    </property>
+    <property name="caption">
+        <string>OLFIX - Order/Lager/Fakturering för Linuxsystem</string>
+    </property>
+    <property name="iconText">
+        <string>OLFIX</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QLayoutWidget" row="0" column="0">
+            <property name="name">
+                <cstring>layout12</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout10</cstring>
+                    </property>
+                    <vbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>textLabel1</cstring>
+                            </property>
+                            <property name="maximumSize">
+                                <size>
+                                    <width>100</width>
+                                    <height>16</height>
+                                </size>
+                            </property>
+                            <property name="text">
+                                <string>Databas</string>
+                            </property>
+                            <property name="alignment">
+                                <set>AlignCenter</set>
+                            </property>
+                        </widget>
+                        <widget class="QLineEdit">
+                            <property name="name">
+                                <cstring>lineEditDatabase</cstring>
+                            </property>
+                            <property name="enabled">
+                                <bool>false</bool>
+                            </property>
+                            <property name="maximumSize">
+                                <size>
+                                    <width>100</width>
+                                    <height>21</height>
+                                </size>
+                            </property>
+                            <property name="paletteForegroundColor">
+                                <color>
+                                    <red>0</red>
+                                    <green>0</green>
+                                    <blue>0</blue>
+                                </color>
+                            </property>
+                            <property name="text">
+                                <string>olfix</string>
+                            </property>
+                            <property name="alignment">
+                                <set>AlignHCenter</set>
+                            </property>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>spacer4</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Vertical</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>82</width>
+                                    <height>313</height>
+                                </size>
+                            </property>
+                        </spacer>
+                        <widget class="QPushButton">
+                            <property name="name">
+                                <cstring>PushButtonQuit</cstring>
+                            </property>
+                            <property name="maximumSize">
+                                <size>
+                                    <width>82</width>
+                                    <height>26</height>
+                                </size>
+                            </property>
+                            <property name="text">
+                                <string>Slut</string>
+                            </property>
+                            <property name="default">
+                                <bool>true</bool>
+                            </property>
+                        </widget>
+                    </vbox>
+                </widget>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout11</cstring>
+                    </property>
+                    <vbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLayoutWidget">
+                            <property name="name">
+                                <cstring>layout1</cstring>
+                            </property>
+                            <hbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QPushButton">
+                                    <property name="name">
+                                        <cstring>PushButton4</cstring>
+                                    </property>
+                                    <property name="maximumSize">
+                                        <size>
+                                            <width>60</width>
+                                            <height>24</height>
+                                        </size>
+                                    </property>
+                                    <property name="text">
+                                        <string>Hjälp</string>
+                                    </property>
+                                </widget>
+                                <spacer>
+                                    <property name="name">
+                                        <cstring>spacer2</cstring>
+                                    </property>
+                                    <property name="orientation">
+                                        <enum>Horizontal</enum>
+                                    </property>
+                                    <property name="sizeType">
+                                        <enum>Expanding</enum>
+                                    </property>
+                                    <property name="sizeHint">
+                                        <size>
+                                            <width>16</width>
+                                            <height>24</height>
+                                        </size>
+                                    </property>
+                                </spacer>
+                                <widget class="QPushButton">
+                                    <property name="name">
+                                        <cstring>PushButton3</cstring>
+                                    </property>
+                                    <property name="maximumSize">
+                                        <size>
+                                            <width>85</width>
+                                            <height>24</height>
+                                        </size>
+                                    </property>
+                                    <property name="text">
+                                        <string>Licensvillkor</string>
+                                    </property>
+                                </widget>
+                                <spacer>
+                                    <property name="name">
+                                        <cstring>spacer3</cstring>
+                                    </property>
+                                    <property name="orientation">
+                                        <enum>Horizontal</enum>
+                                    </property>
+                                    <property name="sizeType">
+                                        <enum>Expanding</enum>
+                                    </property>
+                                    <property name="sizeHint">
+                                        <size>
+                                            <width>16</width>
+                                            <height>24</height>
+                                        </size>
+                                    </property>
+                                </spacer>
+                                <widget class="QPushButton">
+                                    <property name="name">
+                                        <cstring>PushButton2</cstring>
+                                    </property>
+                                    <property name="maximumSize">
+                                        <size>
+                                            <width>75</width>
+                                            <height>24</height>
+                                        </size>
+                                    </property>
+                                    <property name="text">
+                                        <string>Om OLFIX</string>
+                                    </property>
+                                </widget>
+                            </hbox>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>spacer7</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>341</width>
+                                    <height>16</height>
+                                </size>
+                            </property>
+                        </spacer>
+                        <widget class="QListView">
+                            <column>
+                                <property name="text">
+                                    <string>Funktioner</string>
+                                </property>
+                                <property name="clickable">
+                                    <bool>true</bool>
+                                </property>
+                                <property name="resizable">
+                                    <bool>true</bool>
+                                </property>
+                            </column>
+                            <column>
+                                <property name="text">
+                                    <string>Program</string>
+                                </property>
+                                <property name="clickable">
+                                    <bool>true</bool>
+                                </property>
+                                <property name="resizable">
+                                    <bool>true</bool>
+                                </property>
+                            </column>
+                            <property name="name">
+                                <cstring>ListView1</cstring>
+                            </property>
+                            <property name="sizePolicy">
+                                <sizepolicy>
+                                    <hsizetype>7</hsizetype>
+                                    <vsizetype>7</vsizetype>
+                                    <horstretch>0</horstretch>
+                                    <verstretch>255</verstretch>
+                                </sizepolicy>
+                            </property>
+                            <property name="resizePolicy">
+                                <enum>AutoOneFit</enum>
+                            </property>
+                            <property name="rootIsDecorated">
+                                <bool>true</bool>
+                            </property>
+                        </widget>
+                    </vbox>
+                </widget>
+            </hbox>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>PushButtonQuit</sender>
+        <signal>clicked()</signal>
+        <receiver>frmOlfix</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>ListView1</sender>
+        <signal>clicked(QListViewItem*)</signal>
+        <receiver>frmOlfix</receiver>
+        <slot>ListView1_clicked(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>PushButton2</sender>
+        <signal>clicked()</signal>
+        <receiver>frmOlfix</receiver>
+        <slot>slotOmOlfix()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton3</sender>
+        <signal>clicked()</signal>
+        <receiver>frmOlfix</receiver>
+        <slot>slotLicensvillkor()</slot>
+    </connection>
+    <connection>
+        <sender>PushButton4</sender>
+        <signal>clicked()</signal>
+        <receiver>frmOlfix</receiver>
+        <slot>slotHelp()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>PushButton4</tabstop>
+    <tabstop>PushButton3</tabstop>
+    <tabstop>PushButton2</tabstop>
+    <tabstop>PushButtonQuit</tabstop>
+    <tabstop>ListView1</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">frmolfix.ui.h</include>
+</includes>
+<slots>
+    <slot>init()</slot>
+    <slot>slotGetProgram()</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>slotEndOfProcess()</slot>
+    <slot>ListView1_clicked( QListViewItem * item )</slot>
+    <slot>slotRunProgram( QString prg )</slot>
+    <slot>slotDataOnPrgStderr()</slot>
+    <slot>slotEndOfPrgProcess()</slot>
+    <slot>CheckBehor( QString prog )</slot>
+    <slot>slotEndOfCheckProcess()</slot>
+    <slot>slotDataOnCheckStdout()</slot>
+    <slot>slotDataOnCheckStderr()</slot>
+    <slot>slotOmOlfix()</slot>
+    <slot>slotLicensvillkor()</slot>
+    <slot>slotHelp()</slot>
+    <slot>slotRunBytftgProgram( QString prg )</slot>
+    <slot>slotEndOfBytftgProcess()</slot>
+    <slot>slotDataOnBytftgStderr()</slot>
+    <slot>slotDataOnBytftgStdout()</slot>
+    <slot>getRights()</slot>
+    <slot>slotRightEndOfProcess()</slot>
+    <slot>behorDataOnStdout()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
