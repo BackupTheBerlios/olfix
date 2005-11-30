@@ -42,9 +42,10 @@
 	QString inrad2;			/* 2005-11-29 */
 	QString errorrad;
 	QString program;
-	QString version="0.65";
+	QString version="0.65T  2005-11-30";
 	QString rights[1000];		/* 2005-11-29 */
 	int rightnbr=0;			/* 2005-11-29 */
+	QString flag="FALSK";		/* 2005-11-29 */
 	
 void frmOlfix::init()
 {
@@ -64,8 +65,6 @@ void frmOlfix::slotGetProgram()
 	process->addArgument("./STYRMAN");	// OLFIX huvudprogram
 	process->addArgument(usr);		// userid
 	process->addArgument( "PRGLST");	// OLFIX funktion
-
-//	fprintf(stderr,"Starta STYRMAN/PRGLST! %s\n",user);
 
 	frmOlfix::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmOlfix::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
@@ -87,7 +86,6 @@ void frmOlfix::slotDataOnStdout()
 	inrad.append(line);
 	inrad.append("\n");
     }
-//    fprintf(stdout,"Läser från slotDataOnStdout STYRMAN/PRGLST! %s\n",inrad.latin1());
 }
 
 
@@ -164,7 +162,7 @@ void frmOlfix::slotEndOfProcess()
     pos2=strstr(tmp,"_:");
     i=pos2-pos1;
     m=i+2+3;		// startposition
-//    fprintf(stdout,"i=%d  m=%d",i,m);
+    
     k=0;
     for (j=3;j<i;j++){
 	antrad[k]=tmp[j];
@@ -184,7 +182,7 @@ void frmOlfix::slotEndOfProcess()
 		j=sizeof(prgnr) + m;
 	    }
 	}
-//	fprintf(stdout,"%s  ",prgnr);
+	
 	m=m+l+2+3;	// position för proggrp
 	l=0;
 	for(j = m; j < sizeof(proggrp) + m; j++){
@@ -196,7 +194,7 @@ void frmOlfix::slotEndOfProcess()
 		j=sizeof(proggrp) + m;
 	    }
 	}
-//	fprintf(stdout,"%s  ",proggrp);
+	
 	m=m+l+2+3;	// position för mnugrp
 	l=0;
 	for(j = m; j < sizeof(mnugrp) + m; j++){
@@ -208,7 +206,7 @@ void frmOlfix::slotEndOfProcess()
 		j=sizeof(mnugrp) + m;
 	    }
 	}
-//	fprintf(stdout,"%s  ",mnugrp);
+	
 	m=m+l+2+3;	// position för mnutxt
 	l=0;
 	for(j = m; j < sizeof(mnutxt) + m; j++){
@@ -220,7 +218,7 @@ void frmOlfix::slotEndOfProcess()
 		j=sizeof(mnutxt) + m;
 	    }
 	}
-//	fprintf(stdout,"%s\n  ",mnutxt);
+	
 	m=m+l+2+3;	//position för pgm	
 	l=0;
 	for(j = m; j < sizeof(pgm) + m; j++){
@@ -233,8 +231,6 @@ void frmOlfix::slotEndOfProcess()
 	    }
 	}
 	m=m+l+2+3;
-// 	fprintf(stdout,"%s\n  ",mnutxt);	
-//	fprintf(stderr,"%s %s %s %s\n",proggrp,mnugrp,mnutxt,pgm);
 	
 	QString pgmfold;
 	QString mnufold;
@@ -245,12 +241,14 @@ void frmOlfix::slotEndOfProcess()
 	/*************************************************/
 	/*    Start 2005-11-29				*/
 	/*************************************************/
+
 	int ii = -1;
-	for (int i2=0;i2<=rightnbr;i2++){
+	for (int i2=0;i2<=rightnbr;i2++) {
 	    	ii=rights[i2].find( QRegExp(pgm), 0 );
 		if (ii != -1){
 		    QString temp=pgm;
-		    qDebug("Hittat program nr%d (k=%d)  %s",pgmreknare,k,temp.latin1());
+		    flag="SANT";
+//		    qDebug("Hittat programX nr%d (k=%d)  %s  flag=%s",pgmreknare,k,temp.latin1(),flag.latin1());
 		    i2=rightnbr;
 		    ii= -1;
 		    pgmreknare++;
@@ -258,32 +256,35 @@ void frmOlfix::slotEndOfProcess()
 	}
 	/*************************************************/
 	/*    End  2005-11-29				*/
-	/*************************************************/
+	/*************************************************/	
 	if (strcmp(prggrptemp,proggrp) != 0){
 	    pgmfold=proggrp;
 	    pgmfoldnr++;
-	    pgmfolder[pgmfoldnr] = new QListViewItem(ListView1, pgmfold);
+	    if (flag=="SANT"){				/* 2005-11-29 */
+		pgmfolder[pgmfoldnr] = new QListViewItem(ListView1, pgmfold);
+	    }
 	    strcpy(prggrptemp,proggrp);
 	    mnufoldnr=0;
 	}
             if (strcmp(mnugrptemp,mnugrp) != 0){
 		mnufold=mnugrp;
 		mnufoldnr++;
-		mnufolder[mnufoldnr] = new QListViewItem(pgmfolder[pgmfoldnr] ,mnufold);
+		if(flag=="SANT"){				/* 2005-11-29 */
+		    mnufolder[mnufoldnr] = new QListViewItem(pgmfolder[pgmfoldnr] ,mnufold);
+		}
 		strcpy(mnugrptemp,mnugrp);
 		mnutxtnr=0;
 	 }
             if (strcmp(mnutxttemp,mnutxt) != 0){
-		txtfold=mnutxt;
-		mnutxtnr++;
-		mnutxtfld[mnutxtnr] = new QListViewItem(mnufolder[mnufoldnr] ,mnutxt,pgm);
+//		qDebug("flag_mnutxt=%s",flag.latin1());
+		if (flag=="SANT"){			/* 2005-11-29 */
+		    txtfold=mnutxt;
+		    mnutxtnr++;
+		    mnutxtfld[mnutxtnr] = new QListViewItem(mnufolder[mnufoldnr] ,mnutxt,pgm);
+		}
 		strcpy(mnutxttemp,mnutxt);
-//		item = new QListViewItem(ListView1,"",pgm);	    
-//		mnufolder[mnufoldnr]->setText(1,pgm);
-	    }
-//  	mnufolder[mnufoldnr]->setText(1,pgm);
-//	fprintf(stderr,"slut (%d) %s (%d) %s (%d) %s\n",pgmfoldnr,prggrptemp,mnufoldnr,mnugrptemp,mnutxtnr,mnutxt);
-
+	 }
+	 flag="FALSK";
 // 	 rensa pgrnr,proggrp,mnugrp,mnutxt,pgm
   	for (l=0;l<sizeof(prgnr);l++)
 		prgnr[l]=*("\0");
@@ -297,9 +298,7 @@ void frmOlfix::slotEndOfProcess()
 		pgm[l]=*("\0");
 //	 rensa listrad
 	listrad.remove(0,70);
-    }
-//   fprintf(stderr,"%s",tmp);
-//    fprintf(stderr,"Klart!\n");
+    } 					// for ( k=..... slut  
 }
 
 void frmOlfix::ListView1_clicked( QListViewItem * item)
@@ -317,7 +316,6 @@ void frmOlfix::ListView1_clicked( QListViewItem * item)
 
      strcpy(programnamn,item->key(1,TRUE));
      prog=programnamn;
-//     fprintf(stderr,"item=%s\n",data);
      inrad="";
      errorrad="";
      frmOlfix::CheckBehor( programnamn );
@@ -381,7 +379,6 @@ void frmOlfix::CheckBehor(QString prog)
 	process->addArgument( "RGTCHK");	// OLFIX program
 	process->addArgument( usr.latin1() );
 	process->addArgument( prog.latin1() );
-//	qWarning("slotCheckBehor:  %s %s\n",usr.latin1(),prog.latin1()); 
 	
 	frmOlfix::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnCheckStdout() ) );
 	frmOlfix::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnCheckStderr() ) );
@@ -389,7 +386,6 @@ void frmOlfix::CheckBehor(QString prog)
 
 	if ( !process->start() ) {
 	    // error handling
-	    fprintf(stderr,"Problem starta OLFIXW - %s\n",prog.latin1());
 	    QMessageBox::warning( this, "OLFIX","Kan inte starta RGTCHK!\n" );
 	}
 }
@@ -422,7 +418,6 @@ void frmOlfix::slotDataOnCheckStdout()
 	inrad.append(line);
 	inrad.append("\n");
     }
-//   qWarning("slotDataOnCheckStdout(): inrad=%s\n",inrad.latin1());
 }
 
 void frmOlfix::slotDataOnCheckStderr()
@@ -464,17 +459,11 @@ void frmOlfix::slotHelp()
 
 	process = new QProcess();
 	process->addArgument( "OLFIXHLP" );		// OLFIX program
-//	process->addArgument("/doc/helpfiles/usermanual/UserManual.html");
 	
 	if ( !process->start() ) {
 	    // error handling
 	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
 	}
-
-/*  QMessageBox::information( this, "Hjälpindexl",
-                            "Ännu inte implementerad!"
-                            );
-*/
 }
 
 void frmOlfix::slotRunBytftgProgram( QString prg )
@@ -594,14 +583,13 @@ void frmOlfix::slotRightEndOfProcess()
     pos2=strstr(tmp,"_:");
     i=pos2-pos1;
     m=i+2;		// startposition för första userid.
-//    fprintf(stdout,"i=%d  m=%d",i,m);
     k=0;
     for (j=3;j<i;j++){
 	antrad[k]=tmp[j];
 	k++;
     }
     i=atoi(antrad);		// i = antal poster
-//    fprintf(stderr," i (antal rader) = %d\n",i);
+    
     for (k = 1;k <= i; k++){	// gå igenom alla raderna / posterna
 	l=0;
 	for(j = m; j < sizeof(user) + m; j++){
@@ -613,7 +601,7 @@ void frmOlfix::slotRightEndOfProcess()
 		j=sizeof(user) + m;
 	    }
 	}
-//	fprintf(stdout,"%s  ",user);
+	
 	m=m+l+2;	// position för namn
 	l=0;
 	for(j = m; j < sizeof(funk) + m; j++){
@@ -625,7 +613,7 @@ void frmOlfix::slotRightEndOfProcess()
 		j=sizeof(funk) + m;
 	    }
 	}
-//	fprintf(stdout,"%s  ",funk);
+	
 	m=m+l+2;	// position för funk
 	funktion=funk;
 	anv=user;
@@ -652,13 +640,6 @@ void frmOlfix::slotRightEndOfProcess()
 	/* rensa listrad */
 	listrad.remove(0,70);
     }
-/*    
-    for (i=0;i<=rightnbr;i++){
-	qDebug("rights[%d]=%s",i,rights[i].latin1());
-    }
-    qDebug("Klart!");
-*/    
-//    qDebug("antal program=%d",rightnbr);
 }
 
 void frmOlfix::behorDataOnStdout()
@@ -669,7 +650,6 @@ void frmOlfix::behorDataOnStdout()
 	inrad2.append("\n");
     }
 }
-
 	/*************************************************/
 	/*    End       2005-11-29				*/
 	/*************************************************/
