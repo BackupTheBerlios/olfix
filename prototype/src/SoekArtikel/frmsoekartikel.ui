@@ -8,7 +8,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>880</width>
+            <width>872</width>
             <height>252</height>
         </rect>
     </property>
@@ -38,269 +38,227 @@
     <property name="iconText">
         <string>OLFIX</string>
     </property>
-    <widget class="QLabel">
+    <grid>
         <property name="name">
-            <cstring>textLabel1</cstring>
+            <cstring>unnamed</cstring>
         </property>
-        <property name="geometry">
-            <rect>
-                <x>35</x>
-                <y>10</y>
-                <width>90</width>
-                <height>22</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>&lt;font size="+1"&gt;&lt;b&gt;Sökbegrepp&lt;/b&gt;&lt;/font&gt;</string>
-        </property>
-    </widget>
-    <widget class="QButtonGroup">
-        <property name="name">
-            <cstring>buttonGroup1</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>30</x>
-                <y>35</y>
-                <width>180</width>
-                <height>85</height>
-            </rect>
-        </property>
-        <property name="title">
-            <string></string>
-        </property>
-        <widget class="QRadioButton">
+        <widget class="QLabel" row="0" column="0" rowspan="1" colspan="3">
             <property name="name">
-                <cstring>radioButton3</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>10</x>
-                    <y>40</y>
-                    <width>125</width>
-                    <height>16</height>
-                </rect>
+                <cstring>textLabel1</cstring>
             </property>
             <property name="text">
-                <string>På benämning 2</string>
+                <string>&lt;font size="+1"&gt;&lt;b&gt;Sökbegrepp&lt;/b&gt;&lt;/font&gt;</string>
             </property>
         </widget>
-        <widget class="QRadioButton">
+        <widget class="QPushButton" row="5" column="0">
             <property name="name">
-                <cstring>radioButton4</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>10</x>
-                    <y>60</y>
-                    <width>165</width>
-                    <height>16</height>
-                </rect>
+                <cstring>PushButtonSoek</cstring>
             </property>
             <property name="text">
-                <string>På ursprungsbenämning</string>
+                <string>Sök</string>
             </property>
-            <property name="buttonGroupId">
-                <number>0</number>
-            </property>
-        </widget>
-        <widget class="QRadioButton">
-            <property name="name">
-                <cstring>radioButton2</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>10</x>
-                    <y>20</y>
-                    <width>120</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property name="text">
-                <string>På benämning 1</string>
-            </property>
-        </widget>
-        <widget class="QRadioButton">
-            <property name="name">
-                <cstring>radioButton1</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>10</x>
-                    <y>5</y>
-                    <width>110</width>
-                    <height>15</height>
-                </rect>
-            </property>
-            <property name="text">
-                <string>På artikelnr</string>
-            </property>
-            <property name="checked">
+            <property name="default">
                 <bool>true</bool>
             </property>
         </widget>
-    </widget>
-    <widget class="QListView">
-        <column>
+        <widget class="QPushButton" row="5" column="1" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>PushButtonSluta</cstring>
+            </property>
             <property name="text">
-                <string>Artikelnummer</string>
+                <string>Sluta</string>
             </property>
-            <property name="clickable">
+            <property name="default">
                 <bool>true</bool>
             </property>
-            <property name="resizable">
-                <bool>true</bool>
+        </widget>
+        <widget class="QPushButton" row="5" column="3" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>pushButtonGetData</cstring>
             </property>
-        </column>
-        <column>
             <property name="text">
-                <string>Benämning</string>
+                <string>Hämta</string>
             </property>
-            <property name="clickable">
+            <property name="default">
                 <bool>true</bool>
             </property>
-            <property name="resizable">
-                <bool>true</bool>
+        </widget>
+        <widget class="QButtonGroup" row="1" column="0" rowspan="2" colspan="4">
+            <property name="name">
+                <cstring>buttonGroup1</cstring>
             </property>
-        </column>
-        <column>
+            <property name="title">
+                <string></string>
+            </property>
+            <widget class="QRadioButton">
+                <property name="name">
+                    <cstring>radioButton3</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>10</x>
+                        <y>40</y>
+                        <width>125</width>
+                        <height>16</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>På benämning 2</string>
+                </property>
+            </widget>
+            <widget class="QRadioButton">
+                <property name="name">
+                    <cstring>radioButton4</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>10</x>
+                        <y>60</y>
+                        <width>165</width>
+                        <height>16</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>På ursprungsbenämning</string>
+                </property>
+                <property name="buttonGroupId">
+                    <number>0</number>
+                </property>
+            </widget>
+            <widget class="QRadioButton">
+                <property name="name">
+                    <cstring>radioButton2</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>10</x>
+                        <y>20</y>
+                        <width>120</width>
+                        <height>20</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>På benämning 1</string>
+                </property>
+            </widget>
+            <widget class="QRadioButton">
+                <property name="name">
+                    <cstring>radioButton1</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>10</x>
+                        <y>5</y>
+                        <width>110</width>
+                        <height>15</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>På artikelnr</string>
+                </property>
+                <property name="checked">
+                    <bool>true</bool>
+                </property>
+            </widget>
+        </widget>
+        <widget class="QPushButton" row="0" column="4" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>pushButtonHelp</cstring>
+            </property>
             <property name="text">
-                <string>Benämning nr 2</string>
+                <string>Hjälp</string>
             </property>
-            <property name="clickable">
+        </widget>
+        <widget class="QLineEdit" row="3" column="0" rowspan="1" colspan="6">
+            <property name="name">
+                <cstring>lineEditSoek</cstring>
+            </property>
+        </widget>
+        <widget class="QListView" row="0" column="6" rowspan="6" colspan="2">
+            <column>
+                <property name="text">
+                    <string>Artikelnummer</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Benämning</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Benämning nr 2</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <property name="name">
+                <cstring>ListView1</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>5</hsizetype>
+                    <vsizetype>5</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="resizePolicy">
+                <enum>AutoOneFit</enum>
+            </property>
+            <property name="dragAutoScroll">
+                <bool>false</bool>
+            </property>
+            <property name="selectionMode">
+                <enum>Single</enum>
+            </property>
+            <property name="allColumnsShowFocus">
+                <bool>false</bool>
+            </property>
+            <property name="showSortIndicator">
                 <bool>true</bool>
             </property>
-            <property name="resizable">
-                <bool>true</bool>
+            <property name="itemMargin">
+                <number>3</number>
             </property>
-        </column>
-        <property name="name">
-            <cstring>ListView1</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>380</x>
-                <y>10</y>
-                <width>490</width>
-                <height>234</height>
-            </rect>
-        </property>
-        <property name="sizePolicy">
-            <sizepolicy>
-                <hsizetype>5</hsizetype>
-                <vsizetype>5</vsizetype>
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-            </sizepolicy>
-        </property>
-        <property name="resizePolicy">
-            <enum>AutoOneFit</enum>
-        </property>
-        <property name="dragAutoScroll">
-            <bool>false</bool>
-        </property>
-        <property name="selectionMode">
-            <enum>Single</enum>
-        </property>
-        <property name="allColumnsShowFocus">
-            <bool>false</bool>
-        </property>
-        <property name="showSortIndicator">
-            <bool>true</bool>
-        </property>
-        <property name="itemMargin">
-            <number>3</number>
-        </property>
-        <property name="resizeMode">
-            <enum>LastColumn</enum>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonSoek</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>30</x>
-                <y>220</y>
-                <width>80</width>
-                <height>26</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Sök</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonSluta</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>120</x>
-                <y>220</y>
-                <width>80</width>
-                <height>26</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Sluta</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonGetData</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>220</x>
-                <y>220</y>
-                <width>71</width>
-                <height>26</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Hämta</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonHelp</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>295</x>
-                <y>10</y>
-                <width>71</width>
-                <height>31</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Hjälp</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditSoek</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>30</x>
-                <y>130</y>
-                <width>336</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
+            <property name="resizeMode">
+                <enum>LastColumn</enum>
+            </property>
+        </widget>
+        <spacer row="4" column="7">
+            <property name="name">
+                <cstring>spacer17</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>546</width>
+                    <height>10</height>
+                </size>
+            </property>
+        </spacer>
+    </grid>
 </widget>
 <connections>
     <connection>
