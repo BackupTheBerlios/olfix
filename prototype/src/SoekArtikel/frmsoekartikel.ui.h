@@ -42,6 +42,7 @@
 	QString* rad;
 	QString begrepp="1";
 	QString soekord;
+	QString hjelpfil;
 	
 
 void frmSoekArtikel::init()
@@ -301,3 +302,60 @@ void frmSoekArtikel::pushButtonGetData_clicked()
 	QMessageBox::information( this, "SRCHARW",mening); 
     }
 }
+
+void frmSoekArtikel::pushButtonHelp_clicked()
+{
+	inrad="";				// töm inputbuffer
+	frmSoekArtikel::readResursFil();		// Hämta path till hjälpfilen
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_ARTIKLAR.html";
+	hjelpfil=hjelpfil+"#ARTIKELSOEK";		// Lägg till position
+
+	process = new QProcess();
+	process->addArgument( "OLFIXHLP");	// OLFIX funktion
+	process->addArgument(hjelpfil);
+	
+	frmSoekArtikel::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+	frmSoekArtikel::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );	
+	frmSoekArtikel::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );	    
+ 
+	if ( !process->start() ) {
+                // error handling
+	    QMessageBox::warning( this, "Start av DSPARW ", "Kan inte starta OLFIXHLP!\n" );
+	}
+	lineEditSoek->setFocus();
+}
+
+void frmSoekArtikel::readResursFil()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			               */
+    /* Plocka fram var hjälpfilen finns			               */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 );
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
+}
+

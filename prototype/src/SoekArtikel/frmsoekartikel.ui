@@ -234,19 +234,6 @@
             <bool>true</bool>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditSoek</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>30</x>
-                <y>130</y>
-                <width>336</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
     <widget class="QPushButton">
         <property name="name">
             <cstring>PushButtonSluta</cstring>
@@ -283,6 +270,35 @@
         </property>
         <property name="default">
             <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>295</x>
+                <y>10</y>
+                <width>71</width>
+                <height>31</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditSoek</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>30</x>
+                <y>130</y>
+                <width>336</width>
+                <height>23</height>
+            </rect>
         </property>
     </widget>
 </widget>
@@ -341,6 +357,12 @@
         <receiver>frmSoekArtikel</receiver>
         <slot>pushButtonGetData_clicked()</slot>
     </connection>
+    <connection>
+        <sender>pushButtonHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmSoekArtikel</receiver>
+        <slot>pushButtonHelp_clicked()</slot>
+    </connection>
 </connections>
 <includes>
     <include location="local" impldecl="in implementation">frmsoekartikel.ui.h</include>
@@ -360,6 +382,8 @@
     <slot>ListView1_clicked( QListViewItem * )</slot>
     <slot>PushButtonSoek_clicked()</slot>
     <slot>pushButtonGetData_clicked()</slot>
+    <slot>pushButtonHelp_clicked()</slot>
+    <slot>readResursFil()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
