@@ -1,9 +1,48 @@
-Changelog OLFIX 20051120
+Changelog OLFIX 20051130
 
 Blivande
 ________________________________________________________
 Ver 0.3.1.B
-2005-11-20
+2005-11-30
+		Nya program
+		OLFIXTW		Ett extra menyprogram för OLFIX.
+				Olfix meny/huvudprogram som bara visar program som användaren
+				har behörighet att använda.
+				Vid användning, Döp om OLFIXW till OLFIXWO och OLFIXTW till OLFIXW.
+
+		LSTTXTW		Lista poster i TEXTREG
+		DSPTXTW		Visa en post i TEXTREG
+		SRCHARW		Söka artiklar i ARTIKELREG
+
+		Ändrade program
+		DSPFTGW		Uppdaterad, visa flera poster.
+		CHGFTGW		Totalt omgjort.
+		DSPARW		main.cpp ändrad så anrop kan ske från andra program med artikelnummer.
+		LSTRGTW		Möjliggjort expandering av fönstret.
+
+		Nya funktioner
+		TXTLST.c	Lista TEXTREG.
+		ARSRCH.c	Söka i ARTIKELREG
+
+		Ändrade data
+		PROGRAMdata.txt. Nytt program LSTTXTW,DSPTXTW,SRCHARW.
+				 Lista texter,Visa en text,Söka artiklar.
+		TRANSIDdata.txt. Ny funktion, TXTLST, lista poster i TEXTREG
+
+		Ändrade sqlfiler.
+		CreateOLFIXtemplate.sql		Uppdaterat (SRCHARW, DSPTXTW,LSTTXTW)
+		CreateOLFIX.sql			Uppdaterat (SRCHARW, DSPTXTW,LSTTXTW)
+				Korrigerat för dubbel post "ADMIN"
+
+		Dokumentation
+		Städat upp i path/doc
+		Usersmanual (Online)Uppdaterad (2005-11-30)
+		UserManual	Uppdaterad (2005-11-22) Version 0.36)
+
+		Teknisk Manual	Uppdaterad (2005-11-29) Version 0.57
+		Installationsanvisningar.txt (2005-11-01)
+		Installationsanvisningar.sxw (2005-11-01)
+		Korsrelationer.sxw Uppdaterad (2005-??-??)
 
 ________________________________________________________
 Ver 0.3.B
