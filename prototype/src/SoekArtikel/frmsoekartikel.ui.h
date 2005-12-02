@@ -279,9 +279,7 @@ void frmSoekArtikel::pushButtonGetData_clicked()
 	inrad="";				// töm inputbuffer
 	
 	process = new QProcess();
-//	process->addArgument("./STYRMAN");	// OLFIX huvudprogram
-//	process->addArgument(usr);		// userid
-	process->addArgument( "DSPARW");	// OLFIX funktion
+	process->addArgument( "./DSPARW");	// OLFIX funktion
 	process->addArgument(soekord);
 	
 	frmSoekArtikel::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
