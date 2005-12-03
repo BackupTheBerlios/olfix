@@ -9,9 +9,9 @@
 /***************************************************************************
                           KURESKW  -  description
                              -------------------
-		     version 0.1
+		     version 0.2
     begin     	: Tis   15 nov  2005
-    Modified	: 
+    Modified	: Lörd 03 dec 2005.  Möjliggjort expandering av fönstret.
     copyright            : (C) 2005 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -33,7 +33,7 @@
 #include <qregexp.h>
 #include <qlistview.h>
 #include <qdatetime.h>
-#define MAXSTRING 5000
+#define MAXSTRING 15000	/*  2005-12-03  */
 
     QProcess* process;
     
