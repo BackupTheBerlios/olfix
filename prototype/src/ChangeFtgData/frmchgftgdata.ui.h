@@ -1,8 +1,8 @@
 /****************************************************************/
 /**		CHGFTGW					*/
 /**		Version: 0.1 					*/
-/**		2005-11-26					*/
-/**		Modifierad:					*/
+/**		2005-12-05					*/
+/**		Modifierad: 	 				*/
 /**		Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -263,6 +263,15 @@ void frmChgFtgData::slotEndOfProcess()
     if (i != -1){
 	slotGetSKUNR();
     } 
+    i = posttyp.find( QRegExp("KFKTO"), 0 );
+    if (i != -1){
+	slotGetKFKTO();
+    } 
+    i = posttyp.find( QRegExp("INKTO"), 0 );
+    if (i != -1){
+	slotGetINKTO();
+    } 
+  
 }
 
 void frmChgFtgData::slotGetFNAMN()
@@ -928,7 +937,49 @@ void frmChgFtgData::slotGetKORNR()
     kornr=kornr.stripWhiteSpace();
     lineEditKORNR->setText(kornr);   
     inrad="";
-//    slotGetFtgData("KORNR");    
+    slotGetFtgData("KFKTO");    
+}
+
+void frmChgFtgData::slotGetKFKTO()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString kfkto;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    kfkto = inrad.mid(k+2,m-2);
+//    qDebug("moms5=%s",moms5.latin1());
+    lineEditKtonrKundfordr->setText(kfkto);
+    inrad="";
+    slotGetFtgData("INKTO");
+}
+
+void frmChgFtgData::slotGetINKTO()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString inkto;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    inkto = inrad.mid(k+2,m-2);
+//    qDebug("moms5=%s",moms5.latin1());
+    lineEditKtonrInbet->setText(inkto);    
+    inrad="";
+//    slotGetFtgData("INKTO");
 }
 
 void frmChgFtgData::changeFtgData()
@@ -1078,6 +1129,17 @@ void frmChgFtgData::changeFtgData()
     if ( lineEditKORNR->edited() ) {
 	frmChgFtgData::updateFtgData( "KORNR",kornr );
     }
+    QString kfkto=lineEditKtonrKundfordr->text();		// KFKTO
+    kfkto=kfkto.stripWhiteSpace();
+    if ( lineEditKtonrKundfordr->edited() ) {
+	frmChgFtgData::updateFtgData( "KFKTO",kfkto );
+    }
+    QString inbetkto=lineEditKtonrInbet->text();		// INKTO
+    inbetkto=inbetkto.stripWhiteSpace();
+    if ( lineEditKtonrInbet->edited() ) {
+	frmChgFtgData::updateFtgData( "INKTO",inbetkto );
+    }
+
     slotGetFtgData("FNAMN");
     PushButtonOK->setFocus(); 
     QMessageBox::information( this, "CHGFTGW","Företagsdata uppdaterat! \n" );
