@@ -1,0 +1,511 @@
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<class>frmKundfakturaBetald</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>frmKundfakturaBetald</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>600</width>
+            <height>315</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>KUFAKTBW - Registrera betalda kundfakturor</string>
+    </property>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>45</y>
+                <width>65</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Fakturanr:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>215</x>
+                <y>5</y>
+                <width>95</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Dagens datum:</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>325</x>
+                <y>5</y>
+                <width>61</width>
+                <height>26</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Fakturanr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Fakturadatum</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Kundnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <property name="name">
+            <cstring>listViewKundFakturor</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>325</x>
+                <y>40</y>
+                <width>266</width>
+                <height>266</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>405</x>
+                <y>10</y>
+                <width>185</width>
+                <height>24</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+                <pointsize>16</pointsize>
+                <bold>1</bold>
+            </font>
+        </property>
+        <property name="text">
+            <string>Kundorder</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>70</y>
+                <width>65</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Ordernr:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel3_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>105</y>
+                <width>64</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Summa:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel4</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>150</y>
+                <width>71</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Debetkonto:</string>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Kassa,Postgiro,Bankgiro,Bank</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel5</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>180</y>
+                <width>73</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Kreditkonto:</string>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Kundfordringar.</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabelDatum</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>215</x>
+                <y>20</y>
+                <width>95</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>2005-01-01</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>286</y>
+                <width>76</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Godkänn</string>
+        </property>
+        <property name="default">
+            <bool>false</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonAvbryt</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>90</x>
+                <y>285</y>
+                <width>65</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avbryt</string>
+        </property>
+        <property name="default">
+            <bool>false</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditFakturaNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>80</x>
+                <y>40</y>
+                <width>126</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditOrdernr</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>80</x>
+                <y>65</y>
+                <width>126</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditBelopp</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>211</x>
+                <y>100</y>
+                <width>110</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="alignment">
+            <set>AlignRight</set>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditDebetBelopp</cstring>
+        </property>
+        <property name="enabled">
+            <bool>true</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>210</x>
+                <y>145</y>
+                <width>111</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="alignment">
+            <set>AlignRight</set>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Fakturabelopp.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKreditBelopp</cstring>
+        </property>
+        <property name="enabled">
+            <bool>true</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>210</x>
+                <y>175</y>
+                <width>111</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="alignment">
+            <set>AlignRight</set>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Fakturabelopp</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditDebetKto</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>80</x>
+                <y>145</y>
+                <width>126</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Konto där pengarna sätts in.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKreditKto</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>80</x>
+                <y>175</y>
+                <width>125</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Konto för kundfordringar</string>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>pushButtonAvbryt</sender>
+        <signal>clicked()</signal>
+        <receiver>frmKundfakturaBetald</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>listViewKundFakturor</sender>
+        <signal>clicked(QListViewItem*)</signal>
+        <receiver>frmKundfakturaBetald</receiver>
+        <slot>listViewKundFakturor_clicked(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>lineEditDebetKto</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmKundfakturaBetald</receiver>
+        <slot>lineEditDebetKto_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditDebetBelopp</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmKundfakturaBetald</receiver>
+        <slot>lineEditDebetBelopp_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditKreditKto</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmKundfakturaBetald</receiver>
+        <slot>lineEditKreditKto_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditKreditBelopp</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmKundfakturaBetald</receiver>
+        <slot>lineEditKreditBelopp_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>frmKundfakturaBetald</receiver>
+        <slot>pushButtonOK_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmKundfakturaBetald</receiver>
+        <slot>pushButtonHelp_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditFakturaNr</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmKundfakturaBetald</receiver>
+        <slot>lineEditFakturaNr_returnPressed()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>lineEditFakturaNr</tabstop>
+    <tabstop>lineEditDebetKto</tabstop>
+    <tabstop>lineEditDebetBelopp</tabstop>
+    <tabstop>lineEditKreditKto</tabstop>
+    <tabstop>lineEditKreditBelopp</tabstop>
+    <tabstop>pushButtonOK</tabstop>
+    <tabstop>pushButtonAvbryt</tabstop>
+    <tabstop>pushButtonHelp</tabstop>
+    <tabstop>listViewKundFakturor</tabstop>
+    <tabstop>lineEditOrdernr</tabstop>
+    <tabstop>lineEditBelopp</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">frmkundfakturabetald.ui.h</include>
+</includes>
+<slots>
+    <slot>lineEditFakturaNr_returnPressed()</slot>
+    <slot>lineEditDebetKto_returnPressed()</slot>
+    <slot>lineEditDebetBelopp_returnPressed()</slot>
+    <slot>lineEditKreditKto_returnPressed()</slot>
+    <slot>lineEditKreditBelopp_returnPressed()</slot>
+    <slot>pushButtonOK_clicked()</slot>
+    <slot>getKundFaktura()</slot>
+    <slot>FaktDataOnStderr()</slot>
+    <slot>FaktDataOnStdout()</slot>
+    <slot>FaktEndOfProcess()</slot>
+    <slot>getKundReskontraLista()</slot>
+    <slot>KreskDataOnStderr()</slot>
+    <slot>KreskDataOnStdout()</slot>
+    <slot>KreskEndOfProcess()</slot>
+    <slot>listViewKundFakturor_clicked( QListViewItem * )</slot>
+    <slot>listViewKundFakturor_format()</slot>
+    <slot>pushButtonHelp_clicked()</slot>
+    <slot>readResursFil()</slot>
+    <slot>getForetagsData( QString posttyp )</slot>
+    <slot>FTGDataOnStderr()</slot>
+    <slot>FTGDataOnStdout()</slot>
+    <slot>FTGEndOfProcess()</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
