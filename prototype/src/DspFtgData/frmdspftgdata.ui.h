@@ -2,7 +2,7 @@
 /**		DSPFTGW					*/
 /**		Version: 0.6 					*/
 /**		20003-08-14					*/
-/**		Modifierad: 2005-11-25				*/
+/**		Modifierad: 2005-12-06				*/
 /**		Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
@@ -260,6 +260,15 @@ void frmDspFtgData::slotEndOfProcess()
     if (i != -1){
 	slotGetSKUNR();
     } 
+    i = posttyp.find( QRegExp("KFKTO"), 0 );
+    if (i != -1){
+	slotGetKFKTO();
+    } 
+    i = posttyp.find( QRegExp("INKTO"), 0 );
+    if (i != -1){
+	slotGetINKTO();
+    } 
+    
 }
 
 void frmDspFtgData::slotGetFNAMN()
@@ -781,7 +790,7 @@ void frmDspFtgData::slotGetSNIKD()
 
 void frmDspFtgData::slotGetFKNRS()
 {
-//	Senaste fakturanr
+//	Antal fakturanummerserier
    int i,j,k,m;
    QString posttyp;
    QString adr;
@@ -826,7 +835,7 @@ void frmDspFtgData::slotGetFAKNR()
 
 void frmDspFtgData::slotGetFKNR2()
 {
-//	Senaste fakturanr
+//	Senaste fakturanr, serie 2
    int i,j,k,m;
    QString posttyp;
    QString adr;
@@ -846,7 +855,7 @@ void frmDspFtgData::slotGetFKNR2()
 
 void frmDspFtgData::slotGetINKNR()
 {
-//	Senaste fakturanr
+//	Senaste inköpsordernr
    int i,j,k,m;
    QString posttyp;
    QString adr;
@@ -866,7 +875,7 @@ void frmDspFtgData::slotGetINKNR()
 
 void frmDspFtgData::slotGetSKUNR()
 {
-//	Senaste fakturanr
+//	Senaste kundnr
    int i,j,k,m;
    QString posttyp;
    QString adr;
@@ -886,7 +895,7 @@ void frmDspFtgData::slotGetSKUNR()
 
 void frmDspFtgData::slotGetKORNR()
 {
-//	Senaste fakturanr
+//	Senaste kundordernr
    int i,j,k,m;
    QString posttyp;
    QString adr;
@@ -901,5 +910,45 @@ void frmDspFtgData::slotGetKORNR()
     kornr = inrad.mid(k+2,m-2);
     lineEditKORNR->setText(kornr);   
     inrad="";
-//    slotGetFtgData("KORNR");    
+    slotGetFtgData("KFKTO");    
+}
+
+void frmDspFtgData::slotGetKFKTO()
+{
+//	Konto för kundfordringar
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString kfkto;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    kfkto = inrad.mid(k+2,m-2);
+    lineEditKFKTO->setText(kfkto);   
+    inrad="";
+    slotGetFtgData("INKTO");
+}
+
+void frmDspFtgData::slotGetINKTO()
+{
+//	Konto för inbetalningar, standard
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString inkto;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    inkto = inrad.mid(k+2,m-2);
+    lineEditINKTO->setText(inkto);   
+    inrad="";
+//    slotGetFtgData("INKTO");    
 }
