@@ -6,7 +6,7 @@
 	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.0.2  (Linux)">
 	<META NAME="CREATED" CONTENT="20021205;10014400">
 	<META NAME="CHANGEDBY" CONTENT="Jan Pihlgren">
-	<META NAME="CHANGED" CONTENT="20051206;6045000">
+	<META NAME="CHANGED" CONTENT="20051207;5565800">
 	<STYLE>
 	<!--
 		@page { margin: 2cm }
@@ -16,10 +16,12 @@
 </HEAD>
 <BODY LANG="sv-SE">
 <P STYLE="margin-bottom: 0cm"><IMG SRC="UserManual_html_OLFIX_LOGGA.jpg" NAME="Graphic1" ALIGN=MIDDLE WIDTH=643 HEIGHT=268 BORDER=0></P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=6 STYLE="font-size: 22pt">
-<B>Order/Lager/Fakturering f&ouml;r Linuxsystem</B></FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=6 STYLE="font-size: 22pt"><B>Order/Lager/Fakturering
+f&ouml;r Linuxsystem</B></FONT></P>
 <P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=6 STYLE="font-size: 22pt">Anv&auml;ndarmanual</FONT></P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=4 STYLE="font-size: 16pt">Kapitel F&ouml;retagsadministration </FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=4 STYLE="font-size: 16pt">Kapitel
+F&ouml;retagsadministration </FONT>
+</P>
 <P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.44</FONT></P>
 <P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2005-12-06</FONT></P>
 <HR>
@@ -28,105 +30,116 @@ redistribute it and/or modify<BR>it under the terms of the GNU
 General Public License as published by<BR>the Free Software
 Foundation; either version 2 of the License, or<BR>(at your option)
 any later version.</P>
-
-<FONT SIZE=1 STYLE="font-size: 6pt">Copyright 2004 Jan Pihlgren.</FONT></P>
+<P><FONT SIZE=1 STYLE="font-size: 6pt">Copyright 2004 Jan Pihlgren.</FONT></P>
 <HR>
-<P ALIGN=CENTER>
-<A NAME="TOP"></A>
-<FONT SIZE=4 STYLE="font-size: 16pt"><B>Inneh&aring;ll</B></P>
-<P ALIGN=LEFT STYLE="margin-left: 3cm">
-<FONT SIZE=4>
-<A HREF="#NEWFTGDATA">Nyuppl&auml;gg av f&ouml;retagsdata</A><BR>
-<A HREF="#DSPFTGDATA">Visa f&ouml;retagsdata</A><BR>
-<A HREF="#CHGFTGDATA">&Auml;ndra f&ouml;retagsdata.</A><br>
-<A HREF="#DOCRECORD">Postbeskrivning.</A></FONT></P>
+<P ALIGN=CENTER><A NAME="TOP"></A><FONT SIZE=4 STYLE="font-size: 16pt"><B>Inneh&aring;ll</B></FONT></P>
+<P ALIGN=LEFT STYLE="margin-left: 3cm"><FONT SIZE=4><A HREF="#NEWFTGDATA">Nyuppl&auml;gg
+av f&ouml;retagsdata</A><BR><A HREF="#DSPFTGDATA">Visa
+f&ouml;retagsdata</A><BR><A HREF="#CHGFTGDATA">&Auml;ndra
+f&ouml;retagsdata.</A><BR><A HREF="#DOCRECORD">Postbeskrivning.</A></FONT></P>
 <HR>
-<FONT SIZE=4 FACE="San Serif">
-<P ALIGN=LEFT><A NAME="NEWFTGDATA"></A><B>Nyupplägg av företagsdata.</B></P>
-
-
-
-<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><A HREF="#TOP">Till b&ouml;rjan</A></P>
+<P ALIGN=LEFT><A NAME="NEWFTGDATA"></A><FONT FACE="San Serif"><FONT SIZE=4><B>Nyuppl&auml;gg
+av f&ouml;retagsdata.</B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><A HREF="#TOP"><FONT SIZE=4><FONT FACE="San Serif">Till
+b&ouml;rjan</FONT></FONT></A></P>
 <HR>
-<P ALIGN=LEFT><A NAME="DSPFTGDATA"></A><FONT FACE="San Serif"><B>Visa företagsdata.</B><BR><BR>
-<P ALIGN=CENTER><FONT FACE="San Serif"><IMG SRC="UserManual_html_DSPFTGW.png" NAME="DSPFTGW" ALIGN=BOTTOM></FONT></P>
-<P ALIGN=LEFT><font face="San Serif" size="3">
-Informationen i tabellen FTGDATA används av de olika OLFIXprogrammen.<br>
-<b>Momssats 1 - Momssats 5:</b> Anger momssats i % (procent). MOMS1 - MOMS5<br>
-<b>Momskonto, ingående moms och Momskonto, utgående moms:</b> Konton i redovisningen där momsen redovisas. MOMSI, MOMSU<br>
-<b>Automatkontering J/N:</b> Värdet används vid registrering av leverantörsfakturor. AUTOK<br>
-<b>Kontonr kundfordringar:</b> Konto för redovisning av kundfordringar. KFKTO<br>
-<b>Kontonr inbetelning:</b> Det konto som normalt används för inbetalningar. INKTO<br>
-<b>Antal fakturanrserier:</b> Anger antal nummerserier för kundfakturor, normala och för faktoring t ex. FKNRS<br>
-<b>Antal</b> kan vara 1 eller 2.<br>
-<b>Senaste fakturanr:</b> Senast använda fakturanummer (normalt). FAKNR<br>
-<b>Senaste fakturanr serie 2:</b> Senast använda fakturanummer (faktoring). FKNR2<br>
-Se vidare <A HREF="#DOCRECORD">Postbeskrivning.</A></FONT></P><br>
-
-<P STYLE="margin-bottom: 0cm"><A HREF="#TOP">Till b&ouml;rjan</A></P>
-<HR>
-<P ALIGN=LEFT><A NAME="CHGFTGDATA"></A><FONT FACE="San Serif"><B>Ändra företagsdata.</B><BR><BR>
-<P ALIGN=CENTER><FONT FACE="San Serif"><IMG SRC="UserManual_html_CHGFTGW.png" NAME="CHGFTGW" ALIGN=BOTTOM></FONT></P>
-
-
-<P STYLE="margin-bottom: 0cm"><A HREF="#TOP">Till b&ouml;rjan</A></P>
-<HR>
-<P ALIGN=LEFT><A NAME="DOCRECORD"></A><FONT FACE="San Serif"><B>Postbeskrivning.</B><BR>
-<P ALIGN=LEFT><font face="Nimbus Sans L" size="2">
-"ADR1" = "Postadress"<br>
-"ADR2" = "Postnr till Postadress"<br>
-"ADR3" = "Ort till Postadress"<br>
-"ADR4" = "Besöksadress"<br>
-"ADR5" = "Postnr till Besöksadress"<br>
-"ADR6" = "Ort till Besöksadress"<br>
-"ADR7" = "Godsadress"<br>
-"ADR8" = "Postnr till Godsadress"<br>
-"ADR9" = "Ort till Godsadress"<br>
-"AUTOK" = "Automatkontering J/N"<br>
-"BF1"  = "Bokföringsperiod 1" <br>
-"BF2"  = "Bokföringsperiod 2" <br>
-"BF3"  = "Bokföringsperiod 3" <br>
-"BF4"  = "Bokföringsperiod 4" <br>
-"BF5"  = "Bokföringsperiod 5" <br>
-"BF6"  = "Bokföringsperiod 6" <br>
-"BF7"  = "Bokföringsperiod 7" <br>
-"BF8"  = "Bokföringsperiod 8" <br>
-"BF9"  = "Bokföringsperiod 9" <br>
-"BF10" = "Bokföringsperiod 10"<br>
-"BF11" = "Bokföringsperiod 11" <br>
-"BF12" = "Bokföringsperiod 12" <br>
-"BF13" = "Bokföringsperiod 13" <br>
-"EML1" = "E-mailadress"<br>
-"FAKNR" = "Senaste fakturanr på kundorder"<br>
-"FKNRS" = "Antal fakturanrserier, normalt 1" Kan vara 2.<br>
-"FKNR2" = "Senaste fakturanr på kundorder,serie 2"<br>
-"FNAMN" = "Företagsnamn"<br>
-"FTGNR" = "Företagsnummer" Här anges företagets registreringsnummer<br>
-"INKNR" = "Senast använda inköpsordernummer"<br>
-"INKTO" = "Konto för inbetalningar, standard" Konto dit inbetalningar bokförs i normalfall<br>
-"KFKTO" = "Konto för kundfordringar"<br>
-"KORNR" = "Senast använda kundordernummer"<br>
-"MOMS1" = "Momssats 1"<br>
-"MOMS2" = "Momssats 2"<br>
-"MOMS3" = "Momssats 3"<br>
-"MOMS4" = "Momssats 4"<br>
-"MOMS5" = "Momssats 5"<br>
-"MOMSI" = "Momskonto, ingående moms"<br>
-"MOMSU" = "Momskonto, utgående moms"<br>
-"SKUNR" = "Senast använda kundnr"<br>
-"SNIKD" = "Branshtillhörighet"<br>
-"TELEX" = "Telexnummer"<br>
-"TFAX"  = "Telefaxnummer"<br>
-"TFN1"  = "Telefonnummer till vx" eller annat telefonnummer.<br>
-"TFN2"  = "Mobiltelefonnummer"<br>
-"TFNMB" = "Mobiltelefonnummer"<br>
-"TFNVX" = "Telefonnummer till vx"<br>
-"WKUNR" = "Senast använda webbkundnummer" (kan användas om man vill koppla försäljning till webben).<br>
+<P ALIGN=LEFT><A NAME="DSPFTGDATA"></A><FONT FACE="San Serif"><FONT SIZE=4><B>Visa
+f&ouml;retagsdata.</B></FONT></FONT></P>
+<P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=4><IMG SRC="UserManual_html_DSPFTGW.png" NAME="DSPFTGW" ALIGN=BOTTOM WIDTH=726 HEIGHT=591 BORDER=0></FONT></FONT></P>
+<P ALIGN=LEFT><FONT FACE="San Serif">
+Informationen i tabellen FTGDATA anv&auml;nds av olika OLFIXprogram.<BR>
+Text inom <SPAN STYLE="background: #ffff00">[&nbsp;]</SPAN> anger f&auml;ltnamn i databastabellen FTGDATA.<BR>
+<B>Momssats 1 - Momssats 5:</B> Anger momssats i % (procent). <SPAN STYLE="background: #ffff00">[MOMS1 - MOMS5]</SPAN><BR>
+<B>Momskonto, ing&aring;ende moms och Momskonto, utg&aring;ende moms:</B> Konton i redovisningen d&auml;r momsen redovisas. <SPAN STYLE="background: #ffff00">[MOMSI, MOMSU]</SPAN><BR>
+<B>Automatkontering J/N:</B> V&auml;rdet anv&auml;nds vid registrering av leverant&ouml;rsfakturor. <SPAN STYLE="background: #ffff00">[AUTOK]</SPAN><BR>
+<B>Kontonr kundfordringar:</B> Konto f&ouml;r redovisning av kundfordringar.<SPAN STYLE="background: #ffff00">[KFKTO]</SPAN><BR>
+<B>Kontonr inbetalning:</B> Det konto som normalt anv&auml;nds f&ouml;r inbetalningar. <SPAN STYLE="background: #ffff00">[INKTO]</SPAN><BR>
+<B>Antal fakturanrserier:</B> Anger antal nummerserier f&ouml;r kundfakturor, normala och f&ouml;r faktoring t ex. <SPAN STYLE="background: #ffff00">[FKNRS]</SPAN><BR>
+<B>Antal</B> kan vara 1 eller 2.<BR>
+<B>Senaste fakturanr:</B> Senast anv&auml;nda fakturanummer (normalt). <SPAN STYLE="background: #ffff00">[FAKNR]</SPAN><BR>
+<B>Senaste fakturanr serie 2:</B> Senast anv&auml;nda fakturanummer (faktoring).<SPAN STYLE="background: #ffff00">[FKNR2]</SPAN><BR>
+Se vidare <A HREF="#DOCRECORD">Postbeskrivning.</A></FONT></P>
+<P><BR><BR>
 </P>
-
-<P STYLE="margin-bottom: 0cm"><A HREF="#TOP">Till b&ouml;rjan</A></P>
-</FONT>
-
-
+<P STYLE="margin-bottom: 0cm"><A HREF="#TOP"><FONT SIZE=4><FONT FACE="San Serif">Till
+b&ouml;rjan</FONT></FONT></A></P>
+<HR>
+<P ALIGN=LEFT><A NAME="CHGFTGDATA"></A><FONT FACE="San Serif"><FONT SIZE=4><B>&Auml;ndra
+f&ouml;retagsdata.</B></FONT></FONT></P>
+<P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=4><IMG SRC="UserManual_html_CHGFTGW.png" NAME="CHGFTGW" ALIGN=BOTTOM WIDTH=723 HEIGHT=592 BORDER=0></FONT></FONT></P>
+<P ALIGN=LEFT><FONT FACE="San Serif">
+Informationen i tabellen FTGDATA anv&auml;nds av olika OLFIXprogram.<BR><BR>
+&Auml;ndra informationen i &ouml;nskat f&auml;lt och tryck p&aring; <B>Enter</B>.<BR>
+N&auml;r all &auml;ndring &auml;r klar klicka p&aring; <B>Uppdatera</B> f&ouml;r att spara gjorda &auml;ndringar.<BR><BR>
+Text inom <SPAN STYLE="background: #ffff00">[&nbsp;]</SPAN> anger f&auml;ltnamn i databastabellen FTGDATA.<BR>
+<B>Momssats 1 - Momssats 5:</B> Anger momssats i % (procent). <SPAN STYLE="background: #ffff00">[MOMS1 - MOMS5]</SPAN><BR>
+<B>Momskonto, ing&aring;ende moms och Momskonto, utg&aring;ende moms:</B> Konton i redovisningen d&auml;r momsen redovisas. <SPAN STYLE="background: #ffff00">[MOMSI, MOMSU]</SPAN><BR>
+<B>Automatkontering J/N:</B> V&auml;rdet anv&auml;nds vid registrering av leverant&ouml;rsfakturor.<SPAN STYLE="background: #ffff00"> [AUTOK]</SPAN><BR>
+<B>Kontonr kundfordringar:</B> Konto f&ouml;r redovisning av kundfordringar. <SPAN STYLE="background: #ffff00">[KFKTO]</SPAN><BR>
+<B>Kontonr inbetalning:</B> Det konto som normalt anv&auml;nds f&ouml;r inbetalningar. <SPAN STYLE="background: #ffff00">[INKTO]</SPAN><BR>
+<B>Antal fakturanrserier:</B> Anger antal nummerserier f&ouml;r kundfakturor, normala och f&ouml;r faktoring t ex. <SPAN STYLE="background: #ffff00">[FKNRS]</SPAN><BR>
+<B>Antal</B> kan vara 1 eller 2.<BR>
+<B>Senaste fakturanr:</B> Senast anv&auml;nda fakturanummer (normalt). <SPAN STYLE="background: #ffff00">[FAKNR]</SPAN><BR>
+<B>Senaste fakturanr serie 2:</B> Senast anv&auml;nda fakturanummer (faktoring).<SPAN STYLE="background: #ffff00">[FKNR2]</SPAN><BR>
+Se vidare <A HREF="#DOCRECORD">Postbeskrivning.</A></FONT></P>
+<P><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><A HREF="#TOP"><FONT SIZE=4><FONT FACE="San Serif">Till
+b&ouml;rjan</FONT></FONT></A></P>
+<HR>
+<P ALIGN=LEFT><A NAME="DOCRECORD"></A><FONT FACE="San Serif"><FONT SIZE=4><B>Postbeskrivning.</B></FONT></FONT></P>
+<P ALIGN=LEFT><FONT FACE="Nimbus Sans L"><FONT SIZE=2>
+&quot;ADR1&quot; = &quot;Postadress&quot;<BR>
+&quot;ADR2&quot; = &quot;Postnr till Postadress&quot;<BR>
+&quot;ADR3&quot; = &quot;Ort till Postadress&quot;<BR>
+&quot;ADR4&quot; = &quot;Bes&ouml;ksadress&quot;<BR>
+&quot;ADR5&quot; = &quot;Postnr till Bes&ouml;ksadress&quot;<BR>
+&quot;ADR6&quot; = &quot;Ort till Bes&ouml;ksadress&quot;<BR>
+&quot;ADR7&quot; = &quot;Godsadress&quot;<BR>
+&quot;ADR8&quot; = &quot;Postnr till Godsadress&quot;<BR>
+&quot;ADR9&quot; = &quot;Ort till Godsadress&quot;<BR>
+&quot;AUTOK&quot; = &quot;Automatkontering J/N&quot;<BR>
+&quot;BF1&quot; = &quot;Bokf&ouml;ringsperiod 1&quot;<BR>
+&quot;BF2&quot; = &quot;Bokf&ouml;ringsperiod 2&quot; <BR>
+&quot;BF3&quot; = &quot;Bokf&ouml;ringsperiod 3&quot; <BR>
+&quot;BF4&quot; = &quot;Bokf&ouml;ringsperiod 4&quot; <BR>
+&quot;BF5&quot; = &quot;Bokf&ouml;ringsperiod 5&quot; <BR>
+&quot;BF6&quot; = &quot;Bokf&ouml;ringsperiod 6&quot; <BR>
+&quot;BF7&quot; = &quot;Bokf&ouml;ringsperiod 7&quot; <BR>
+&quot;BF8&quot; = &quot;Bokf&ouml;ringsperiod 8&quot; <BR>
+&quot;BF9&quot; = &quot;Bokf&ouml;ringsperiod 9&quot; <BR>
+&quot;BF10&quot; = &quot;Bokf&ouml;ringsperiod 10&quot;<BR>
+&quot;BF11&quot; = &quot;Bokf&ouml;ringsperiod 11&quot; <BR>
+&quot;BF12&quot; = &quot;Bokf&ouml;ringsperiod 12&quot; <BR>
+&quot;BF13&quot; = &quot;Bokf&ouml;ringsperiod 13&quot; <BR>
+&quot;EML1&quot; = &quot;E-mailadress&quot;<BR>
+&quot;FAKNR&quot; = &quot;Senaste fakturanr p&aring; kundorder&quot;<BR>
+&quot;FKNRS&quot; = &quot;Antal fakturanrserier, normalt 1&quot; Kan vara 2.<BR>
+&quot;FKNR2&quot; = &quot;Senaste fakturanr p&aring; kundorder,serie 2&quot;<BR>
+&quot;FNAMN&quot; = &quot;F&ouml;retagsnamn&quot;<BR>
+&quot;FTGNR&quot; = &quot;F&ouml;retagsnummer&quot; H&auml;r anges f&ouml;retagets registreringsnummer<BR>
+&quot;INKNR&quot; = &quot;Senast anv&auml;nda ink&ouml;psordernummer&quot;<BR>
+&quot;INKTO&quot; = &quot;Konto f&ouml;r inbetalningar, standard&quot; Konto dit inbetalningar bokf&ouml;rs i normalfall<BR>
+&quot;KFKTO&quot; = &quot;Konto f&ouml;r kundfordringar&quot;<BR>
+&quot;KORNR&quot; = &quot;Senast anv&auml;nda kundordernummer&quot;<BR>
+&quot;MOMS1&quot; = &quot;Momssats 1&quot;<BR>
+&quot;MOMS2&quot; = &quot;Momssats 2&quot;<BR>
+&quot;MOMS3&quot; = &quot;Momssats 3&quot;<BR>
+&quot;MOMS4&quot; = &quot;Momssats 4&quot;<BR>
+&quot;MOMS5&quot; = &quot;Momssats 5&quot;<BR>
+&quot;MOMSI&quot; = &quot;Momskonto, ing&aring;ende moms&quot;<BR>
+&quot;MOMSU&quot; = &quot;Momskonto, utg&aring;ende moms&quot;<BR>
+&quot;SKUNR&quot; = &quot;Senast anv&auml;nda kundnr&quot;<BR>
+&quot;SNIKD&quot; = &quot;Branshtillh&ouml;righet&quot;<BR>
+&quot;TELEX&quot; = &quot;Telexnummer&quot;<BR>
+&quot;TFAX&quot; = &quot;Telefaxnummer&quot;<BR>
+&quot;TFN1&quot; = &quot;Telefonnummer till vx&quot; eller annat telefonnummer.<BR>
+&quot;TFN2&quot; = &quot;Mobiltelefonnummer&quot;<BR>
+&quot;TFNMB&quot; = &quot;Mobiltelefonnummer&quot;<BR>
+&quot;TFNVX&quot; = &quot;Telefonnummer till vx&quot;<BR>
+&quot;WKUNR&quot; = &quot;Senast anv&auml;nda webbkundnummer&quot; (kan anv&auml;ndas om man vill koppla f&ouml;rs&auml;ljning till webben).
+</FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm"><A HREF="#TOP"><FONT SIZE=2><FONT FACE="Nimbus Sans L">Till
+b&ouml;rjan</FONT></FONT></A></P>
 </BODY>
 </HTML>
