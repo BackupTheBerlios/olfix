@@ -1,9 +1,9 @@
 /***************************************************************************
                           KRESLST.c  -  description
                              -------------------
-    Version		 : 0.1
+    Version		 : 0.2
     begin                : Tis  15 nov  2005
-    modified		 :
+    modified		 : Tors  8 dec  2005
     copyright            : (C) 2005 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -21,13 +21,13 @@
 	INPUT: inget
 	Function: gör  	SELECT ORDERNR,FAKTURANR,KUNDNR,FAKTURABELOPP,EXPIREDATUM,BETALD
 			FROM KURESK
-			ORDER BY ORDERNR;
+			ORDER BY FAKTURANR;
 
 	OUTPUT: errornb och error (text)
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KRESLST.c,v 1.1 2005/11/15 12:10:20 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KRESLST.c,v 1.2 2005/12/10 06:59:19 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -57,7 +57,7 @@ int main(int argc, char *argv[], char *envp[])
   char databas[25]="olfix";
   char usr[15];				/* userid		*/
 
-  char temp1[]="SELECT ORDERNR,FAKTURANR,KUNDNR,FAKTURABELOPP,EXPIREDATUM,BETALD FROM KURESK ORDER BY ORDERNR";
+  char temp1[]="SELECT ORDERNR,FAKTURANR,KUNDNR,FAKTURABELOPP,EXPIREDATUM,BETALD FROM KURESK ORDER BY FAKTURANR";
   char temp5[200]="";
 /* ================================================================================ */
 /* 		Val av databas, START						    */
