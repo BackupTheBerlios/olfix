@@ -23,6 +23,8 @@
  *   (at your option) any later version.                                   		 *
  *                                                                         				 *
  *****************************************************************/
+#include <qobject.h>
+#include <qnamespace.h> 
 
 #include <qmessagebox.h>
 #include <qprocess.h>
@@ -31,7 +33,8 @@
 #include <qstring.h>
 #include <qfile.h>
 #include <qregexp.h>
-#include <qvalidator.h>
+// #include <qvalidator.h>
+#include <qlistview.h>
 #define MAXSTRING 15000
 
 
@@ -54,7 +57,9 @@
     QString bar;					// bar = bokföringsår
     QString fakturanummer;
     QString debetkto;
+    QString debetbelopp;
     QString kreditkto;
+    QString kreditbelopp;
     QString vernr;					// verifikationsnummer för bokföring
 
 void frmKundfakturaBetald::init()
@@ -64,8 +69,7 @@ void frmKundfakturaBetald::init()
     datum=dt.toString("yyyy-MM-dd");
     textLabelDatum->setText(datum);    		// = registreringsdatum för fakturan.
     frameBokforing->hide();
-//    listViewKundFakturor->clear();
-    frmKundfakturaBetald::listViewKundFakturor_format();
+    frmKundfakturaBetald::listView_format();		// formater storleken på kolummerna i listorna
     frmKundfakturaBetald::getKundReskontraLista();
     ktopost="KFKTO";				// konto för kundfordringar i FTGDATA
     frmKundfakturaBetald::getForetagsData(ktopost);
@@ -74,9 +78,19 @@ void frmKundfakturaBetald::init()
 
 void frmKundfakturaBetald::lineEditFakturaNr_returnPressed()
 {
+    bool bokfor;
+    bokfor=checkBoxBokforing->isChecked();
     fakturanummer=lineEditFakturaNr->text();
     getKundFaktura();
-    lineEditDebetKto->setFocus();
+    if (bokfor) {
+	lineEditDebetKto->setFocus();
+//	qDebug("TRUE");
+    }else{
+//	QListViewItem *item =  listViewKundFakturor->currentItem();
+//	item->setSelected( TRUE );
+	listViewKundFakturor->setFocus();
+//	qDebug("FALSE");
+    }
 }
 
 void frmKundfakturaBetald::checkBoxBokforing_checked()
@@ -110,22 +124,26 @@ void frmKundfakturaBetald::lineEditBar_returnPressed()
 
 void frmKundfakturaBetald::lineEditDebetKto_returnPressed()
 {
-
+    debetkto=lineEditDebetKto->text();
+    lineEditDebetBelopp->setFocus();
 }
 
 void frmKundfakturaBetald::lineEditDebetBelopp_returnPressed()
 {
-
+    debetbelopp=lineEditDebetBelopp->text();
+    lineEditKreditKto->setFocus();
 }
 
 void frmKundfakturaBetald::lineEditKreditKto_returnPressed()
 {
-
+    kreditkto=lineEditKreditKto->text();
+    lineEditKreditBelopp->setFocus();
 }
 
 void frmKundfakturaBetald::lineEditKreditBelopp_returnPressed()
 {
-
+    kreditbelopp=lineEditKreditBelopp->text();
+    listViewKundFakturor->setFocus();
 }
 
 void frmKundfakturaBetald::pushButtonRight_clicked()
@@ -453,10 +471,11 @@ void  frmKundfakturaBetald::listViewKundFakturor_clicked( QListViewItem * )
 */
     fakturanummer=temp0;
     lineEditFakturaNr->setText(fakturanummer);
+    getKundFaktura();
     lineEditFakturaNr->setFocus();
 }
     
-void frmKundfakturaBetald::listViewKundFakturor_format()
+void frmKundfakturaBetald::listView_format()
 {
     listViewKundFakturor->setColumnWidth(0,70);		// Fakturanr
     listViewKundFakturor->setColumnWidth(1,90);		// Fakturadatum
@@ -467,6 +486,10 @@ void frmKundfakturaBetald::listViewKundFakturor_format()
     listViewKundFakturor->setColumnWidth(6,86);		// ?
     listViewKundFakturor->setColumnWidth(7,86);		// ?
 */
+    listViewBetalda->setColumnWidth(0,70);			// Fakturanr
+    listViewBetalda->setColumnWidth(1,90);			// Belopp
+    listViewBetalda->setColumnAlignment ( 1 , 2);		// AlignRight
+    listViewBetalda->setColumnAlignment ( 2 , 4);		// Kundnr, AlignCenter
 }
 
 void frmKundfakturaBetald::pushButtonHelp_clicked()

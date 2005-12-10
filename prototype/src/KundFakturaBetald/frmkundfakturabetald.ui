@@ -275,35 +275,6 @@
         </widget>
         <widget class="QLineEdit">
             <property name="name">
-                <cstring>lineEditKreditBelopp</cstring>
-            </property>
-            <property name="enabled">
-                <bool>true</bool>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>255</x>
-                    <y>95</y>
-                    <width>111</width>
-                    <height>23</height>
-                </rect>
-            </property>
-            <property name="paletteForegroundColor">
-                <color>
-                    <red>0</red>
-                    <green>0</green>
-                    <blue>0</blue>
-                </color>
-            </property>
-            <property name="alignment">
-                <set>AlignRight</set>
-            </property>
-            <property name="toolTip" stdset="0">
-                <string>Fakturabelopp</string>
-            </property>
-        </widget>
-        <widget class="QLineEdit">
-            <property name="name">
                 <cstring>lineEditKreditKto</cstring>
             </property>
             <property name="geometry">
@@ -376,52 +347,35 @@
                 <set>AlignRight</set>
             </property>
         </widget>
-    </widget>
-    <widget class="QListView">
-        <column>
-            <property name="text">
-                <string>Fakturanr</string>
+        <widget class="QLineEdit">
+            <property name="name">
+                <cstring>lineEditKreditBelopp</cstring>
             </property>
-            <property name="clickable">
+            <property name="enabled">
                 <bool>true</bool>
             </property>
-            <property name="resizable">
-                <bool>true</bool>
+            <property name="geometry">
+                <rect>
+                    <x>255</x>
+                    <y>95</y>
+                    <width>111</width>
+                    <height>23</height>
+                </rect>
             </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Fakturadatum</string>
+            <property name="paletteForegroundColor">
+                <color>
+                    <red>0</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                </color>
             </property>
-            <property name="clickable">
-                <bool>true</bool>
+            <property name="alignment">
+                <set>AlignRight</set>
             </property>
-            <property name="resizable">
-                <bool>true</bool>
+            <property name="toolTip" stdset="0">
+                <string>Fakturabelopp</string>
             </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Kundnr</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <property name="name">
-            <cstring>listViewKundFakturor</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>386</x>
-                <y>40</y>
-                <width>265</width>
-                <height>266</height>
-            </rect>
-        </property>
+        </widget>
     </widget>
     <widget class="QPushButton">
         <property name="name">
@@ -553,6 +507,96 @@
             <set>AlignRight</set>
         </property>
     </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonAvbryt</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>95</x>
+                <y>285</y>
+                <width>65</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avbryt</string>
+        </property>
+        <property name="default">
+            <bool>false</bool>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Ingen bearbetning/uppdatering görs!</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>285</y>
+                <width>76</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Godkänn</string>
+        </property>
+        <property name="default">
+            <bool>false</bool>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Starta bearbetning/updatering!</string>
+        </property>
+    </widget>
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Fakturanr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Fakturadatum</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Kundnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <property name="name">
+            <cstring>listViewKundFakturor</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>385</x>
+                <y>40</y>
+                <width>265</width>
+                <height>266</height>
+            </rect>
+        </property>
+    </widget>
     <widget class="QListView">
         <column>
             <property name="text">
@@ -609,52 +653,14 @@
                 <height>266</height>
             </rect>
         </property>
+        <property name="margin">
+            <number>0</number>
+        </property>
+        <property name="itemMargin">
+            <number>1</number>
+        </property>
         <property name="toolTip" stdset="0">
             <string>Fakturor som är betalda och ska bearbetas, plockas bort från kundreskontran.</string>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonAvbryt</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>95</x>
-                <y>285</y>
-                <width>65</width>
-                <height>25</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Avbryt</string>
-        </property>
-        <property name="default">
-            <bool>false</bool>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Ingen bearbetning/uppdatering görs!</string>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonOK</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>285</y>
-                <width>76</width>
-                <height>25</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Godkänn</string>
-        </property>
-        <property name="default">
-            <bool>false</bool>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Starta bearbetning/updatering!</string>
         </property>
     </widget>
 </widget>
@@ -790,7 +796,7 @@
     <slot>KreskDataOnStdout()</slot>
     <slot>KreskEndOfProcess()</slot>
     <slot>listViewKundFakturor_clicked( QListViewItem * )</slot>
-    <slot>listViewKundFakturor_format()</slot>
+    <slot>listView_format()</slot>
     <slot>pushButtonHelp_clicked()</slot>
     <slot>readResursFil()</slot>
     <slot>getForetagsData( QString posttyp )</slot>
