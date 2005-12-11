@@ -1040,6 +1040,8 @@ INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDLST','Lista kundorder');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKADD','Nytt plock av kundorderrad');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKDSP','Visa plockade men ej utskrivna plock');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKLST','Lista avprickade kundorderrader');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KRESLST','Lista kundreskontra med expiredatum');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KRELST','Lista kundreskontra med fakturadatum');
 
 --
 -- Table structure for table 'TRHD'
