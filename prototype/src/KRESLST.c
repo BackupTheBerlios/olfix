@@ -1,9 +1,9 @@
 /***************************************************************************
                           KRESLST.c  -  description
                              -------------------
-    Version		 : 0.2
+    Version		 : 0.3
     begin                : Tis  15 nov  2005
-    modified		 : Tors  8 dec  2005
+    modified		 : Mån  12 dec  2005
     copyright            : (C) 2005 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -18,7 +18,7 @@
  ***************************************************************************/
 
 /*
-	INPUT: inget
+	INPUT:     val. val = vilken sql-sats som ska exekveras.
 	Function: gör  	SELECT ORDERNR,FAKTURANR,KUNDNR,FAKTURABELOPP,EXPIREDATUM,BETALD
 			FROM KURESK
 			ORDER BY FAKTURANR;
@@ -27,7 +27,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KRESLST.c,v 1.2 2005/12/10 06:59:19 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KRESLST.c,v 1.3 2005/12/12 05:36:31 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -37,7 +37,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "mysql.h"
-#define ANTARG 1
+#define ANTARG 2
 
   MYSQL my_connection;
   MYSQL_RES *res_ptr;
@@ -53,11 +53,13 @@ int main(int argc, char *argv[], char *envp[])
   int i;
   int res;
   int status;
+  int val;
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
   char databas[25]="olfix";
   char usr[15];				/* userid		*/
 
-  char temp1[]="SELECT ORDERNR,FAKTURANR,KUNDNR,FAKTURABELOPP,EXPIREDATUM,BETALD FROM KURESK ORDER BY FAKTURANR";
+  char temp1a[]="SELECT ORDERNR,FAKTURANR,KUNDNR,FAKTURABELOPP,EXPIREDATUM,BETALD FROM KURESK ORDER BY FAKTURANR";
+  char temp1b[]="SELECT ORDERNR,FAKTURANR,KUNDNR,FAKTURABELOPP,FAKTURADATUM,BETALD FROM KURESK ORDER BY FAKTURANR";
   char temp5[200]="";
 /* ================================================================================ */
 /* 		Val av databas, START						    */
@@ -90,12 +92,22 @@ int main(int argc, char *argv[], char *envp[])
   if (strncmp(usr,"test",4)==0 || strncmp(usr,"prov",4)==0 ) {
   	strncpy(databas,"olfixtst",15);
   }
- /* fprintf(stderr,"Databas=%s\n",databas);	*/
+/*  fprintf(stderr,"Databas=%s\n",databas);	*/
 /* ================================================================================ */
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
-  strncpy(temp5,temp1,strlen(temp1));
+  if (argc < 2){
+  	strncpy(temp5,temp1a,sizeof(temp1a));
+  }else{
+/*	fprintf(stderr,"argc=%d  argv[1]=%s| len argv[1]=%d\n",argc,argv[1],strlen(argv[1]));	*/
+	val=atoi(argv[1]);
+  	if (val == 1){
+		strncpy(temp5,temp1a,sizeof(temp1a));
+	}else if (val == 2){
+		strncpy(temp5,temp1b,sizeof(temp1b));
+	}
+  }
 
 /*  fprintf(stderr,"temp5 = %s\n",temp5);	*/
 
