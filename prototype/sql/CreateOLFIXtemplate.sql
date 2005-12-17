@@ -812,6 +812,7 @@ INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('095','E
 INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('096','Administration','Företagsdata','Lista texter i TEXTREG','LSTTXTW');
 INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('097','Administration','Företagsdata','Visa en post i TEXTREG','DSPTXTW');
 INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('098','Materialhantering','Artikeldata','Söka artikel','SRCHARW');
+INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('098','Ekonomi','Bokföring','Reg.betald kundfaktura','KUFAKTBWW');
 
 --
 -- Table structure for table 'RIGHTS'
@@ -1042,6 +1043,7 @@ INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKDSP','Visa plockade men ej ut
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKLST','Lista avprickade kundorderrader');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KRESLST','Lista kundreskontra med expiredatum');
 INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KRELST','Lista kundreskontra med fakturadatum');
+INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KRESUPD','Uppdatering av betalda kundfakturor');
 
 --
 -- Table structure for table 'TRHD'
