@@ -15,17 +15,19 @@
 #include <qapplication.h>
 #include <qpushbutton.h>
 #include <qfont.h>
-#include "frmkundfakturabetald.h"
-
 #include <qprocess.h>
 #include <qmessagebox.h>
-#include <qlistbox.h>
+//#include <qlistbox.h>
 #include <qlabel.h>
 #include <qstring.h>
-#include <qstringlist.h>
+//#include <qstringlist.h>
+#include <qlistview.h>
 #include <qfile.h>
 #include <qdir.h>
+#include <qlineedit.h>
 #include <qregexp.h>
+#include <qcheckbox.h>
+#include "frmkundfakturabetald.h"
 
 int main( int argc, char* argv[] )
 {

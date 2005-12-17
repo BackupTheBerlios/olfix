@@ -23,9 +23,9 @@
  *   (at your option) any later version.                                   		 *
  *                                                                         				 *
  *****************************************************************/
-#include <qobject.h>
-#include <qnamespace.h> 
-
+// #include <qobject.h>
+// #include <qnamespace.h> 
+#include <qapplication.h>
 #include <qmessagebox.h>
 #include <qprocess.h>
 #include <qdir.h>
@@ -33,76 +33,101 @@
 #include <qstring.h>
 #include <qfile.h>
 #include <qregexp.h>
-// #include <qvalidator.h>
+#include <qdatetime.h>
+#include <qcheckbox.h>
+#include <qthread.h>
 #include <qlistview.h>
 #define MAXSTRING 15000
 
-
+    int processnbr=0;
     QProcess*  processhelp;
     QProcess*  processresk;
-    QProcess*  faktproc;
+    QProcess*  faktproc[200];
+    QProcess*  updateproc[200]; 
     QProcess*  ftgdataproc;
     QProcess*  vernrproc;
     QProcess*  barproc;
     
-    QString inrad = "";
+    QString inrad;
+    QString errorrad;    
     QString reskinrad;
+    QString reskerrorrad;
     QString faktinrad;
+    QString fakterrorrad;
+    QString updateinrad;
+    QString updateerrorrad;
     QString ftginrad;
     QString barinrad;
-    QString errorrad;
+
     QString hjelpfil;
 
     QString datum;				// = registreringsdatum för fakturan.
     QString bar;					// bar = bokföringsår
     QString fakturanummer;
+    QString kundnr;
+    QString belopp;				// fakturabelopp
+    QString fakturadatum;				// datum då fakturan skapades
+    QString betald;				// Är fakturan betald J/N
     QString debetkto;
     QString debetbelopp;
     QString kreditkto;
     QString kreditbelopp;
     QString vernr;					// verifikationsnummer för bokföring
-
+    QString ordernr;
+    QString faktnr;
+    
+    bool bokflag;
+    QString val;					// Används för att checka fakturor
+    int checkstatus=TRUE;
+    
 void frmKundfakturaBetald::init()
 {
-    QString ktopost;
     QDateTime dt = QDateTime::currentDateTime();    
     datum=dt.toString("yyyy-MM-dd");
-    textLabelDatum->setText(datum);    		// = registreringsdatum för fakturan.
+    textLabelDatum->setText(datum);    				/* = registreringsdatum för fakturan. */
     frameBokforing->hide();
-    frmKundfakturaBetald::listView_format();		// formater storleken på kolummerna i listorna
-    frmKundfakturaBetald::getKundReskontraLista();
-    ktopost="KFKTO";				// konto för kundfordringar i FTGDATA
-    frmKundfakturaBetald::getForetagsData(ktopost);
+    frmKundfakturaBetald::listView_format();				/* formater storleken på kolummerna i listorna */
+    frmKundfakturaBetald::getKundReskontraLista();	  		/* Hämta obetalda kundfakturor, kundreskontra */
+    frmKundfakturaBetald::getForetagsData("KFKTO"); 		/*  konto för kundfordringar i FTGDATA */
     lineEditFakturaNr->setFocus();
 }
 
 void frmKundfakturaBetald::lineEditFakturaNr_returnPressed()
-{
-    bool bokfor;
-    bokfor=checkBoxBokforing->isChecked();
-    fakturanummer=lineEditFakturaNr->text();
-    getKundFaktura();
-    if (bokfor) {
-	lineEditDebetKto->setFocus();
-//	qDebug("TRUE");
+{    
+    QString tmp;
+    checkstatus=TRUE;
+    fakturanummer = lineEditFakturaNr->text();
+    tmp = fakturanummer.stripWhiteSpace();
+//    qDebug("lineEditFakturaNr::fakturanummer=%s tmp=%s",fakturanummer.latin1(),tmp.latin1());
+    if (tmp == "") {
+	QMessageBox::warning( 0,
+			      tr("KUFAKTBW"),
+			      tr("Fakturanummer får inte vara blank!"),
+			      tr("OK") );
+	lineEditFakturaNr->setFocus();
     }else{
-//	QListViewItem *item =  listViewKundFakturor->currentItem();
-//	item->setSelected( TRUE );
-	listViewKundFakturor->setFocus();
-//	qDebug("FALSE");
+	getKundFaktura();
+	bokflag=checkBoxBokforing->isChecked();
+	if (bokflag) {
+	    lineEditDebetKto->setFocus();
+	}else{
+	    listViewKundFakturor->setFocus();
+	}
     }
+}
+
+void frmKundfakturaBetald::pushButtonCancel_clicked()
+{
+    close() ;
 }
 
 void frmKundfakturaBetald::checkBoxBokforing_checked()
 {
-    bool bokfor;
-    bokfor=checkBoxBokforing->isChecked();
-    if (!bokfor) {
-//	qDebug("FALSE");
+    bokflag=checkBoxBokforing->isChecked();
+    if (!bokflag) {
 	frameBokforing->hide();
     }
-    if(bokfor) {
-//	qDebug("TRUE");
+    if(bokflag) {
 	frameBokforing->show();
     }
 }
@@ -150,62 +175,159 @@ void frmKundfakturaBetald::pushButtonRight_clicked()
 {
 //    qDebug("Right");
     fakturanummer=lineEditFakturaNr->text();
-    getKundFaktura();
+    getKundFaktura();				// Hämta fräsha data för fakturan
 
     QListViewItem *item =  listViewKundFakturor->currentItem();
-    if ( !item )
+    if ( !item ){
 	return;
-    item->setSelected( TRUE );
-    QString temp0=item->text(0);	// fakturanr
-    QString temp1=item->text(1);	// fakturadatum
-    QString temp2=item->text(2);	// kundnr
-    QString temp3=lineEditBelopp->text();	// belopp
+    }
+    if (!item->isSelected()){
+	QMessageBox::warning( this, "KUFAKTBW","Ingen faktura är vald!\n" );
+	return;
+    }
+    QString temp0=item->text(0);			// fakturanr
+    QString temp1=item->text(1);			// fakturadatum
+    QString temp2=item->text(2);			// kundnr
+    QString temp3=lineEditBelopp->text();		// belopp
+    QString temp4=lineEditDebetKto->text();		// debetkonto
+    QString temp5=lineEditDebetBelopp->text();	// debetbelopp
+    QString temp6=lineEditKreditKto->text();		// kreditkonto
+    QString temp7=lineEditKreditBelopp->text();	// kreditbelopp
     delete listViewKundFakturor->currentItem();
-    item = new QListViewItem(listViewBetalda,temp0,temp3,temp2,temp1);
+    bokflag=checkBoxBokforing->isChecked();
+    if (!bokflag) {
+//	qDebug("FALSE");
+	bar="";
+	vernr="";
+	item = new QListViewItem(listViewBetalda,temp0,temp3,temp2,temp1,ordernr,datum);
+    }else{
+	item = new QListViewItem(listViewBetalda,temp0,temp3,temp2,temp1,ordernr,datum,bar,vernr);
+	item->setText(8,temp4);
+	item->setText(9,temp5);
+	item->setText(10,temp6);
+	item->setText(11,temp7);
+    }
 }
 
 void frmKundfakturaBetald::pushButtonLeft_clicked()
 {
-//    qDebug("Left");
-       QListViewItem *item =  listViewBetalda->currentItem();
-    if ( !item )
+//    QString message="Ingen faktura är utvald!\n";
+    //    qDebug("Left");
+    QListViewItem *item =  listViewBetalda->currentItem();
+    if ( !item ){
 	return;
-    item->setSelected( TRUE );
+    }
+    if (!item->isSelected()){
+	QMessageBox::warning( this, "KUFAKTBW","Ingen faktura är utvald!\n" );
+	return;
+    }
     QString temp0=item->text(0);	// fakturanr
     QString temp1=item->text(1);	// belopp
     QString temp2=item->text(2);	// kundnr
     QString temp3=item->text(3);	// fakturadatum
     delete listViewBetalda->currentItem();
-     item = new QListViewItem(listViewKundFakturor,temp0,temp3,temp2);
-    
+    item = new QListViewItem(listViewKundFakturor,temp0,temp3,temp2);
 }
 
 void frmKundfakturaBetald::pushButtonOK_clicked()
 {
-
+    /**********************************************************************/
+    /*	Uppdatera kundreskontran, bokföringen och historiken(TRHD)		*/
+    /**********************************************************************/    
+    QString record;
+    QString fnr;
+    QString fsumma;
+    QString knr;
+    QString fdatum;
+    QString onr;
+    QString bdatum;
+    QString bokfar;
+    QString vnr;
+    QString dkto;
+    QString dktosum;
+    QString kkto;
+    QString kktosum;
+    
+    pushButtonOK->setEnabled(FALSE);
+    QListViewItem *myChild=listViewBetalda->firstChild ();
+    while( myChild ) {
+	fnr=myChild->text(0);
+	fsumma=myChild->text(1);
+	knr=myChild->text(2);
+	fdatum=myChild->text(3);
+	onr=myChild->text(4);
+	bdatum=myChild->text(5);
+	bokfar=myChild->text(6);
+	vnr=myChild->text(7);
+	dkto=myChild->text(8);
+	dktosum=myChild->text(9);
+	kkto=myChild->text(10);
+	kktosum=myChild->text(11);
+	
+	record=";";
+	record.append(fnr);
+	record.append(";");
+	record.append(fsumma);
+	record.append(";");	
+	record.append(knr);
+	record.append(";");
+	record.append(fdatum);
+	record.append(";");	
+	record.append(onr);
+	record.append(";");	
+	record.append(bdatum);
+	record.append(";");	
+	record.append(bokfar);
+	record.append(";");	
+	record.append(vnr);
+	record.append(";");
+	record.append(dkto);
+	record.append(";");
+	record.append(dktosum);
+	record.append(";");
+	record.append(kkto);
+	record.append(";");
+	record.append(kktosum);
+	record.append(";END");
+	qDebug("record=%s",record.latin1());
+	listViewBetalda->setCurrentItem(myChild);
+//	doSomething( myChild );
+	myChild = myChild->nextSibling();
+	delete listViewBetalda->currentItem();
+	updateKundFaktura(record);
+    }
+    pushButtonOK->setEnabled(TRUE);
 }
 
 void frmKundfakturaBetald::getKundFaktura()
 {
+//    qDebug("getKundFaktura()  Start");
     /**********************************************************************/
     /*	Hämta vald faktura	  	 				*/
     /**********************************************************************/    
     const char *userp = getenv("USER");
     QString usr(userp);
-
+    processnbr++;
+    if (processnbr>175) {
+	processnbr=1;
+    }    
+    if (fakturanummer==""){
+	fakturanummer="1";
+    }
     faktinrad="";
-    errorrad="";
-    faktproc = new QProcess();
-    faktproc->addArgument("./STYRMAN");	// OLFIX styrprogram
-    faktproc->addArgument(usr);		// userid
-    faktproc->addArgument( "FAKTDSP");	// OLFIX funktion
-    faktproc->addArgument(fakturanummer);
+    fakterrorrad="";
+    faktproc[processnbr] = new QProcess();
+    faktproc[processnbr]->addArgument("./STYRMAN");	// OLFIX styrprogram
+    faktproc[processnbr]->addArgument(usr);		// userid
+    faktproc[processnbr]->addArgument( "FAKTDSP");	// OLFIX funktion
+    faktproc[processnbr]->addArgument(fakturanummer);
+//    qDebug("getKundFaktura()  Argument fakturanr=%s",fakturanummer.latin1());
+    frmKundfakturaBetald::connect( faktproc[processnbr], SIGNAL(readyReadStdout() ),this, SLOT(FaktDataOnStdout() ) );
+    frmKundfakturaBetald::connect( faktproc[processnbr], SIGNAL(readyReadStderr() ),this, SLOT(FaktDataOnStderr() ) );
+    frmKundfakturaBetald::connect( faktproc[processnbr], SIGNAL(processExited() ),this, SLOT(FaktEndOfProcess() ) );
+//    qDebug("getKundFaktura()  FAKTDSP start processnbr=%d",processnbr);
     
-    frmKundfakturaBetald::connect( faktproc, SIGNAL(readyReadStdout() ),this, SLOT(FaktDataOnStdout() ) );
-    frmKundfakturaBetald::connect( faktproc, SIGNAL(readyReadStderr() ),this, SLOT(FaktDataOnStderr() ) );
-    frmKundfakturaBetald::connect( faktproc, SIGNAL(processExited() ),this, SLOT(FaktEndOfProcess() ) );
-        
-    if ( !faktproc->start() ) {
+    if ( !faktproc[processnbr]->start() ) {
 	    // error handling
 	    QMessageBox::warning( this, "KUFAKTBW",
 				  "Kan inte starta STYRMAN/FAKTDSP! \n" );
@@ -214,17 +336,19 @@ void frmKundfakturaBetald::getKundFaktura()
 
 void frmKundfakturaBetald::FaktDataOnStderr()
 {
-    while (faktproc->canReadLineStderr() ) {
-	QString line = faktproc->readStderr();
-	errorrad.append(line);
-	errorrad.append("\n");
+//    qDebug("FaktDataOnStderr()   Start");
+    while (faktproc[processnbr]->canReadLineStderr() ) {
+	QString line = faktproc[processnbr]->readStderr();
+	fakterrorrad.append(line);
+	fakterrorrad.append("\n");
     }
+//    qDebug("FaktDataOnStderr()   Slut errorrad=%s",errorrad.latin1());
 }
 
 void frmKundfakturaBetald::FaktDataOnStdout()
 {
-    while (faktproc->canReadLineStdout() ) {
-	QString line = faktproc->readStdout();
+    while (faktproc[processnbr]->canReadLineStdout() ) {
+	QString line = faktproc[processnbr]->readStdout();
 	faktinrad.append(line);
 	faktinrad.append("\n");
     }
@@ -232,30 +356,25 @@ void frmKundfakturaBetald::FaktDataOnStdout()
 
 void frmKundfakturaBetald::FaktEndOfProcess()
 {
+//    qDebug("FaktEndOfProcess()   Start");
     QString tmp;
-    QString ordernr;
-    QString faktnr;
-    QString kundnr;
-    QString belopp;
-    QString debetktonr;
-    QString faktdatum;
-        
+    QString debetktonr;        
     int i,i1,m;
 
     tmp=faktinrad;
     tmp=tmp.stripWhiteSpace();
-//    qDebug("inrad=|%s|",tmp.latin1());
+//    qDebug("faktinrad=|%s|",tmp.latin1());
     if (tmp==""){
 		QMessageBox::critical( this, "KUFAKTBW",
 			       "Finns inget data eller FAKTDSP saknas!\n"
 			       );
 	    }
     i = -1;
-    i = errorrad.find( QRegExp("Error:"), 0 );
-    //   qDebug("Error:",errorrad);
+    i = fakterrorrad.find( QRegExp("Error:"), 0 );
+    //   qDebug("Error: %s",fakterrorrad.latin1());
     if (i != -1) {
 	QMessageBox::critical( this, "KUFAKTBW",
-			       "ERROR!\n"+errorrad
+			       "ERROR!\n"+fakterrorrad
 			       );
 	lineEditFakturaNr->setFocus();
     }
@@ -268,8 +387,15 @@ void frmKundfakturaBetald::FaktEndOfProcess()
 	    i1= faktinrad.find( QRegExp("_:"), i+3 );
 	    m=i1-(i+10);
 	    ordernr=faktinrad.mid(i+10,m);
+//	    qDebug("i=%d, i1=%d, m=%d, ordernr=%s",i,i1,m,ordernr.latin1());	    
+	}
+	i=-1;
+	i = faktinrad.find( QRegExp("_:FAKTURADATUM:"), 0 );
+	if (i != -1)  {
+	    i1= faktinrad.find( QRegExp("_:"), i+3 );
+	    m=i1-(i+10);
+	    fakturadatum=faktinrad.mid(i+10,m);
 //	    qDebug("i=%d, i1=%d, m=%d, ordernr=%s",i,i1,m,ordernr.latin1());
-	    lineEditOrdernr->setText(ordernr);
 	}
 	i=-1;
 	i = faktinrad.find( QRegExp("_:FAKTURABELOPP:"), 0 ); 
@@ -278,27 +404,51 @@ void frmKundfakturaBetald::FaktEndOfProcess()
 	    m=i1-(i+16);
 	    belopp=faktinrad.mid(i+16,m);
 //	    qDebug("i=%d, i1=%d, m=%d, belopp=%s",i,i1,m,belopp.latin1());
-	    lineEditBelopp->setText(belopp);
 	}
+	i=-1;
+	i = faktinrad.find( QRegExp("_:BETALD:"), 0 ); 
+	if (i != -1)  {
+	    i1= faktinrad.find( QRegExp("_:"), i+3 );
+	    m=i1-(i+9);
+	    betald=faktinrad.mid(i+9,m);
+//	    qDebug("i=%d, i1=%d, m=%d, betald=%s",i,i1,m,betald.latin1());
+	}	
 	i=-1;
 	i = faktinrad.find( QRegExp("_:KTONR:"), 0 ); 
 	if (i != -1)  {
 	    i1= faktinrad.find( QRegExp("_:"), i+3 );
 	    m=i1-(i+8);
 	    debetktonr=faktinrad.mid(i+8,m);
-//	    qDebug("i=%d, i1=%d, m=%d, debetktonr=%s",i,i1,m,debetktonr.latin1());
+//	    qDebug("i=%d, i1=%d, m=%d, debetkto=%s",i,i1,m,debetkto.latin1());
 	    if (debetktonr=="0000"){
-		debetktonr=debetkto;
+		debetkto=debetktonr;
 	    }
-	    lineEditDebetKto->setText(debetktonr);
-	    lineEditDebetBelopp->setText(belopp);
-	    lineEditKreditBelopp->setText(belopp);
 	}
 	lineEditDebetKto->setFocus();
     }
-    tmp=lineEditKreditKto->text();
-    if (tmp==""){
-	lineEditKreditKto->setText(kreditkto);
+    betald=betald.stripWhiteSpace();
+    if (betald != "J"){			// Fakturan redan betald
+	lineEditOrdernr->setText(ordernr);
+	lineEditBelopp->setText(belopp);    
+	lineEditDebetKto->setText(debetkto);
+	lineEditDebetBelopp->setText(belopp);
+	lineEditKreditBelopp->setText(belopp);
+	tmp=lineEditKreditKto->text();
+	if (tmp==""){
+	    lineEditKreditKto->setText(kreditkto);
+	}
+    }else{
+	QMessageBox::warning( 0,
+	      tr("KUFAKTBW"),
+	      tr("Fakturanummer är redan betald!"),
+	      tr("OK") );
+	lineEditOrdernr->clear();
+	lineEditBelopp->clear();
+	lineEditDebetKto->clear();
+	lineEditDebetBelopp->clear();
+	lineEditKreditKto->clear();
+	lineEditKreditBelopp->clear();
+	lineEditFakturaNr->setFocus();
     }
 }
 
@@ -311,13 +461,14 @@ void frmKundfakturaBetald::getKundReskontraLista()
     QString usr(userp);
 
     listViewKundFakturor->clear();
-    reskinrad = "";
-    errorrad = "";
+    reskinrad="";
+    reskerrorrad="";
     
     processresk = new QProcess();
     processresk->addArgument("./STYRMAN");	// OLFIX styrprogram
     processresk->addArgument(usr);		// userid
     processresk->addArgument( "KRESLST");	// OLFIX funktion
+    processresk->addArgument("2");		// 2 = använd fakturadatum i svaret
 
     frmKundfakturaBetald::connect( processresk, SIGNAL(readyReadStdout() ),this, SLOT(KreskDataOnStdout() ) );
     frmKundfakturaBetald::connect( processresk, SIGNAL(readyReadStderr() ),this, SLOT(KreskDataOnStderr() ) );
@@ -334,8 +485,8 @@ void frmKundfakturaBetald::KreskDataOnStderr()
 {
     while (processresk->canReadLineStderr() ) {
 	QString line = processresk->readStderr();
-	errorrad.append(line);
-	errorrad.append("\n");
+	reskerrorrad.append(line);
+	reskerrorrad.append("\n");
     }
 }
 
@@ -366,18 +517,16 @@ void frmKundfakturaBetald::KreskEndOfProcess()
     int i,i1,i2,i3,i4,l,m,n;
     int antrad;
     listViewKundFakturor->clear();    
-//    tmp = inrad;
     tmp = reskinrad.stripWhiteSpace();
-//    qDebug("inrad=|%s|",tmp.latin1());
     if (tmp == ""){
-	QMessageBox::critical( this, "KUFAKTBW", "Finns inget data eller KRESLST saknas!\n" );
+	QMessageBox::critical( this, "KUFAKTBW", "Finns inget data eller KRELST saknas!\n" );
     }else{
 	tmp="";
 	i = -1;
-	i = errorrad.find( QRegExp("Error:"), 0 );
+	i = reskerrorrad.find( QRegExp("Error:"), 0 );
 //   	qDebug("Error:",errorrad.latin1());
 	if (i != -1) {
-	    QMessageBox::critical( this, "KUFAKTBW","ERROR!\n"+errorrad);
+	    QMessageBox::critical( this, "KUFAKTBW","ERROR!\n"+reskerrorrad);
 	}
 	i = -1;
 	i = reskinrad.find( QRegExp("OK:"), 0 );
@@ -433,10 +582,13 @@ void frmKundfakturaBetald::KreskEndOfProcess()
 		l=i4-i3-3;
 		status = reskinrad.mid(i3+3,l);
 //		qDebug("m=%d i3=%d i4=%d l=%d status=%s",m,i3,i4,l,status.latin1());
-		item = new QListViewItem(listViewKundFakturor,faktnr,faktdatum,kundnr);
+		status=status.stripWhiteSpace();
+		if ( status == "N"){
+		    item = new QListViewItem(listViewKundFakturor,faktnr,faktdatum,kundnr);
+		}
 		m = i4 + 3;
 		i3 = i4;
-	    };
+	    }
 	}else{
 	    QMessageBox::warning( this, "KUFAKTBW", "Felaktiga data från databasen!!\n");
 	}
@@ -631,20 +783,18 @@ void frmKundfakturaBetald::FTGEndOfProcess()
     }
 }
 
-void frmKundfakturaBetald::getVernr(QString bar)
-{
-//    qDebug("Bokföringsår=%s",bar.latin1());
-    
+void frmKundfakturaBetald::getVernr(QString bokfaar)
+{    
     const char *userp = getenv("USER");
     QString usr(userp);
-
+//    qDebug("getVernr Start %s",bokfaar.latin1());
     barinrad="";
     errorrad="";
     barproc = new QProcess();
     barproc->addArgument("./STYRMAN");	// OLFIX styrprogram
     barproc->addArgument(usr);		// userid
     barproc->addArgument( "BARDSP");	// OLFIX funktion
-    barproc->addArgument(bar);
+    barproc->addArgument(bokfaar);
     
     frmKundfakturaBetald::connect( barproc, SIGNAL(readyReadStdout() ),this, SLOT(BarDataOnStdout() ) );
     frmKundfakturaBetald::connect( barproc, SIGNAL(readyReadStderr() ),this, SLOT(BarDataOnStderr() ) );
@@ -672,17 +822,28 @@ void frmKundfakturaBetald::BarDataOnStdout()
 	QString line = barproc->readStdout();
 	barinrad.append(line);
 	barinrad.append("\n");
+//	qDebug("barinrad=%s",barinrad.latin1());
     }
 }
 
 void frmKundfakturaBetald::BarEndOfProcess()
 {
+//    qDebug("BarEndOfProcess() Start %s",barinrad.latin1());
+    QString message;
     QString bokfar;					// bokföringsår
     QString arlast;
     QString ver;						// verifikationsnummer
     int vernum;
     int i,i1,m;
-    
+    message="Bokföringsåret ";
+    message.append(bar.latin1());
+    message.append("  finns inte! \n");
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+    if (i != -1)  {
+	QMessageBox::warning( this, "KUFAKTBW",message );
+	lineEditBar->setFocus();
+    }
     i = -1;
     i = barinrad.find( QRegExp("OK:"), 0 );
     if (i != -1)  {
@@ -723,4 +884,57 @@ void frmKundfakturaBetald::BarEndOfProcess()
 		}
 	}
     }
+}
+
+void frmKundfakturaBetald::updateKundFaktura( QString record )
+{
+    /**********************************************************************/
+    /*	Uppdatera databasen	  	 				*/
+    /**********************************************************************/    
+    const char *userp = getenv("USER");
+    QString usr(userp);
+    processnbr++;
+    if (processnbr>191) {
+	processnbr=1;
+    }    
+    updateinrad="";
+    updateerrorrad="";
+    updateproc[processnbr] = new QProcess();
+    updateproc[processnbr]->addArgument("./STYRMAN");	// OLFIX styrprogram
+    updateproc[processnbr]->addArgument(usr);		// userid
+    updateproc[processnbr]->addArgument( "KRESUPD");	// OLFIX funktion
+    updateproc[processnbr]->addArgument(record);
+    
+    frmKundfakturaBetald::connect( updateproc[processnbr], SIGNAL(readyReadStdout() ),this, SLOT(UpdateDataOnStdout() ) );
+    frmKundfakturaBetald::connect( updateproc[processnbr], SIGNAL(readyReadStderr() ),this, SLOT(UpdateDataOnStderr() ) );
+    frmKundfakturaBetald::connect( updateproc[processnbr], SIGNAL(processExited() ),this, SLOT(UpdateEndOfProcess() ) );
+    
+    if ( !updateproc[processnbr]->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "KUFAKTBW",
+				  "Kan inte starta STYRMAN/KRESUPD! \n" );
+	}    
+}
+
+void frmKundfakturaBetald::UpdateDataOnStderr()
+{
+    while (updateproc[processnbr]->canReadLineStderr() ) {
+	QString line = updateproc[processnbr]->readStderr();
+	updateerrorrad.append(line);
+	updateerrorrad.append("\n");
+    }
+}
+
+void frmKundfakturaBetald::UpdateDataOnStdout()
+{
+    while (updateproc[processnbr]->canReadLineStdout() ) {
+	QString line = updateproc[processnbr]->readStdout();
+	updateinrad.append(line);
+	updateinrad.append("\n");
+    }
+}
+
+void frmKundfakturaBetald::UpdateEndOfProcess()
+{
+
 }

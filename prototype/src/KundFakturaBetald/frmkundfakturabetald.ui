@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>962</width>
-            <height>315</height>
+            <height>319</height>
         </rect>
     </property>
     <property name="caption">
@@ -45,42 +45,6 @@
         </property>
         <property name="text">
             <string>Ordernr:</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditFakturaNr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>80</x>
-                <y>40</y>
-                <width>126</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditOrdernr</cstring>
-        </property>
-        <property name="enabled">
-            <bool>false</bool>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>80</x>
-                <y>65</y>
-                <width>126</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="paletteForegroundColor">
-            <color>
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-            </color>
         </property>
     </widget>
     <widget class="QLabel">
@@ -131,266 +95,26 @@
             <string>&lt;b&gt;Belopp&lt;/b&gt;</string>
         </property>
     </widget>
-    <widget class="QCheckBox">
+    <widget class="QLabel">
         <property name="name">
-            <cstring>checkBoxBokforing</cstring>
+            <cstring>textLabel1_2</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>10</x>
-                <y>120</y>
-                <width>105</width>
-                <height>16</height>
+                <x>390</x>
+                <y>10</y>
+                <width>199</width>
+                <height>24</height>
             </rect>
+        </property>
+        <property name="font">
+            <font>
+                <pointsize>14</pointsize>
+                <bold>1</bold>
+            </font>
         </property>
         <property name="text">
-            <string>Bokföring J/N</string>
-        </property>
-        <property name="checked">
-            <bool>false</bool>
-        </property>
-        <property name="tristate">
-            <bool>false</bool>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Ska fakturan bokföras Ja eller Nej.</string>
-        </property>
-    </widget>
-    <widget class="QFrame">
-        <property name="name">
-            <cstring>frameBokforing</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>145</y>
-                <width>370</width>
-                <height>126</height>
-            </rect>
-        </property>
-        <property name="frameShape">
-            <enum>StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-            <enum>Raised</enum>
-        </property>
-        <widget class="QLineEdit">
-            <property name="name">
-                <cstring>lineEditDebetKto</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>125</x>
-                    <y>65</y>
-                    <width>126</width>
-                    <height>23</height>
-                </rect>
-            </property>
-            <property name="toolTip" stdset="0">
-                <string>Konto där pengarna sätts in.</string>
-            </property>
-        </widget>
-        <widget class="QLabel">
-            <property name="name">
-                <cstring>textLabel2_2</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>5</x>
-                    <y>10</y>
-                    <width>115</width>
-                    <height>20</height>
-                </rect>
-            </property>
-            <property name="text">
-                <string>Bokföringsår:</string>
-            </property>
-        </widget>
-        <widget class="QLabel">
-            <property name="name">
-                <cstring>textLabel5</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>5</x>
-                    <y>100</y>
-                    <width>115</width>
-                    <height>16</height>
-                </rect>
-            </property>
-            <property name="text">
-                <string>Kreditkonto:</string>
-            </property>
-            <property name="toolTip" stdset="0">
-                <string>Kundfordringar.</string>
-            </property>
-        </widget>
-        <widget class="QLineEdit">
-            <property name="name">
-                <cstring>lineEditDebetBelopp</cstring>
-            </property>
-            <property name="enabled">
-                <bool>true</bool>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>255</x>
-                    <y>65</y>
-                    <width>111</width>
-                    <height>23</height>
-                </rect>
-            </property>
-            <property name="paletteForegroundColor">
-                <color>
-                    <red>0</red>
-                    <green>0</green>
-                    <blue>0</blue>
-                </color>
-            </property>
-            <property name="alignment">
-                <set>AlignRight</set>
-            </property>
-            <property name="toolTip" stdset="0">
-                <string>Fakturabelopp.</string>
-            </property>
-        </widget>
-        <widget class="QLabel">
-            <property name="name">
-                <cstring>textLabel4</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>5</x>
-                    <y>70</y>
-                    <width>115</width>
-                    <height>16</height>
-                </rect>
-            </property>
-            <property name="text">
-                <string>Debetkonto:</string>
-            </property>
-            <property name="toolTip" stdset="0">
-                <string>Kassa,Postgiro,Bankgiro,Bank</string>
-            </property>
-        </widget>
-        <widget class="QLineEdit">
-            <property name="name">
-                <cstring>lineEditKreditKto</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>125</x>
-                    <y>95</y>
-                    <width>125</width>
-                    <height>23</height>
-                </rect>
-            </property>
-            <property name="toolTip" stdset="0">
-                <string>Konto för kundfordringar</string>
-            </property>
-        </widget>
-        <widget class="QLabel">
-            <property name="name">
-                <cstring>textLabel1_3</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>5</x>
-                    <y>40</y>
-                    <width>115</width>
-                    <height>16</height>
-                </rect>
-            </property>
-            <property name="text">
-                <string>Ver.nr:</string>
-            </property>
-        </widget>
-        <widget class="QLineEdit">
-            <property name="name">
-                <cstring>lineEditBar</cstring>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>125</x>
-                    <y>5</y>
-                    <width>40</width>
-                    <height>26</height>
-                </rect>
-            </property>
-            <property name="toolTip" stdset="0">
-                <string>Två bokstäver som anger vilket bokföringsår fakturan ska bokföras på.</string>
-            </property>
-        </widget>
-        <widget class="QLineEdit">
-            <property name="name">
-                <cstring>lineEditVernr</cstring>
-            </property>
-            <property name="enabled">
-                <bool>false</bool>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>125</x>
-                    <y>35</y>
-                    <width>126</width>
-                    <height>23</height>
-                </rect>
-            </property>
-            <property name="paletteForegroundColor">
-                <color>
-                    <red>0</red>
-                    <green>0</green>
-                    <blue>0</blue>
-                </color>
-            </property>
-            <property name="alignment">
-                <set>AlignRight</set>
-            </property>
-        </widget>
-        <widget class="QLineEdit">
-            <property name="name">
-                <cstring>lineEditKreditBelopp</cstring>
-            </property>
-            <property name="enabled">
-                <bool>true</bool>
-            </property>
-            <property name="geometry">
-                <rect>
-                    <x>255</x>
-                    <y>95</y>
-                    <width>111</width>
-                    <height>23</height>
-                </rect>
-            </property>
-            <property name="paletteForegroundColor">
-                <color>
-                    <red>0</red>
-                    <green>0</green>
-                    <blue>0</blue>
-                </color>
-            </property>
-            <property name="alignment">
-                <set>AlignRight</set>
-            </property>
-            <property name="toolTip" stdset="0">
-                <string>Fakturabelopp</string>
-            </property>
-        </widget>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonHelp</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>145</x>
-                <y>5</y>
-                <width>61</width>
-                <height>26</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Hjälp</string>
+            <string>Obetalda kundfakturor</string>
         </property>
     </widget>
     <widget class="QLabel">
@@ -415,48 +139,174 @@
             <string>Betalda kundfakturor</string>
         </property>
     </widget>
-    <widget class="QLabel">
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Fakturanr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Belopp</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Kundnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Fakturadatum</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Ordernr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Betaldatum</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Bokföringsår</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Vernr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Debetkto</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Debetbelopp</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Kreditkto</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Kreditbelopp</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
         <property name="name">
-            <cstring>textLabel1_2</cstring>
+            <cstring>listViewBetalda</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>390</x>
-                <y>10</y>
-                <width>199</width>
-                <height>24</height>
+                <x>700</x>
+                <y>40</y>
+                <width>255</width>
+                <height>266</height>
             </rect>
         </property>
-        <property name="font">
-            <font>
-                <pointsize>14</pointsize>
-                <bold>1</bold>
-            </font>
+        <property name="margin">
+            <number>0</number>
         </property>
-        <property name="text">
-            <string>Obetalda kundfakturor</string>
+        <property name="itemMargin">
+            <number>1</number>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Fakturor som är betalda och ska bearbetas, plockas bort från kundreskontran.</string>
         </property>
     </widget>
     <widget class="QPushButton">
         <property name="name">
-            <cstring>pushButtonRight</cstring>
+            <cstring>pushButtonHelp</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>665</x>
-                <y>80</y>
-                <width>25</width>
-                <height>25</height>
+                <x>145</x>
+                <y>5</y>
+                <width>61</width>
+                <height>26</height>
             </rect>
         </property>
         <property name="text">
-            <string></string>
-        </property>
-        <property name="pixmap">
-            <pixmap>image0</pixmap>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Flytta faktura för bearbetning.</string>
+            <string>Hjälp</string>
         </property>
     </widget>
     <widget class="QPushButton">
@@ -475,80 +325,10 @@
             <string></string>
         </property>
         <property name="pixmap">
-            <pixmap>image1</pixmap>
+            <pixmap>image0</pixmap>
         </property>
         <property name="toolTip" stdset="0">
             <string>Tab bort faktura från bearbetning.</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditBelopp</cstring>
-        </property>
-        <property name="enabled">
-            <bool>false</bool>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>270</x>
-                <y>95</y>
-                <width>110</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="paletteForegroundColor">
-            <color>
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-            </color>
-        </property>
-        <property name="alignment">
-            <set>AlignRight</set>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonAvbryt</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>95</x>
-                <y>285</y>
-                <width>65</width>
-                <height>25</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Avbryt</string>
-        </property>
-        <property name="default">
-            <bool>false</bool>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Ingen bearbetning/uppdatering görs!</string>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonOK</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>285</y>
-                <width>76</width>
-                <height>25</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Godkänn</string>
-        </property>
-        <property name="default">
-            <bool>false</bool>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Starta bearbetning/updatering!</string>
         </property>
     </widget>
     <widget class="QListView">
@@ -597,93 +377,422 @@
             </rect>
         </property>
     </widget>
-    <widget class="QListView">
-        <column>
-            <property name="text">
-                <string>Fakturanr</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Belopp</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Kundnr</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Fakturadatum</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
+    <widget class="QCheckBox">
         <property name="name">
-            <cstring>listViewBetalda</cstring>
+            <cstring>checkBoxBokforing</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>700</x>
-                <y>40</y>
-                <width>255</width>
-                <height>266</height>
+                <x>10</x>
+                <y>120</y>
+                <width>105</width>
+                <height>16</height>
             </rect>
         </property>
-        <property name="margin">
-            <number>0</number>
+        <property name="text">
+            <string>Bokföring J/N</string>
         </property>
-        <property name="itemMargin">
-            <number>1</number>
+        <property name="checked">
+            <bool>false</bool>
+        </property>
+        <property name="tristate">
+            <bool>false</bool>
         </property>
         <property name="toolTip" stdset="0">
-            <string>Fakturor som är betalda och ska bearbetas, plockas bort från kundreskontran.</string>
+            <string>Ska fakturan bokföras Ja eller Nej.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditOrdernr</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>80</x>
+                <y>65</y>
+                <width>126</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+    </widget>
+    <widget class="QFrame">
+        <property name="name">
+            <cstring>frameBokforing</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>145</y>
+                <width>370</width>
+                <height>126</height>
+            </rect>
+        </property>
+        <property name="frameShape">
+            <enum>StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+            <enum>Raised</enum>
+        </property>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel2_2</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>5</x>
+                    <y>10</y>
+                    <width>115</width>
+                    <height>20</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>Bokföringsår:</string>
+            </property>
+        </widget>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel4</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>5</x>
+                    <y>70</y>
+                    <width>115</width>
+                    <height>16</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>Debetkonto:</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Kassa,Postgiro,Bankgiro,Bank</string>
+            </property>
+        </widget>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel1_3</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>5</x>
+                    <y>40</y>
+                    <width>115</width>
+                    <height>16</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>Ver.nr:</string>
+            </property>
+        </widget>
+        <widget class="QLabel">
+            <property name="name">
+                <cstring>textLabel5</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>5</x>
+                    <y>100</y>
+                    <width>115</width>
+                    <height>16</height>
+                </rect>
+            </property>
+            <property name="text">
+                <string>Kreditkonto:</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Kundfordringar.</string>
+            </property>
+        </widget>
+        <widget class="QLineEdit">
+            <property name="name">
+                <cstring>lineEditVernr</cstring>
+            </property>
+            <property name="enabled">
+                <bool>false</bool>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>125</x>
+                    <y>35</y>
+                    <width>126</width>
+                    <height>23</height>
+                </rect>
+            </property>
+            <property name="paletteForegroundColor">
+                <color>
+                    <red>0</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                </color>
+            </property>
+            <property name="alignment">
+                <set>AlignRight</set>
+            </property>
+        </widget>
+        <widget class="QLineEdit">
+            <property name="name">
+                <cstring>lineEditKreditKto</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>125</x>
+                    <y>95</y>
+                    <width>125</width>
+                    <height>23</height>
+                </rect>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Konto för kundfordringar</string>
+            </property>
+        </widget>
+        <widget class="QLineEdit">
+            <property name="name">
+                <cstring>lineEditKreditBelopp</cstring>
+            </property>
+            <property name="enabled">
+                <bool>true</bool>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>255</x>
+                    <y>95</y>
+                    <width>111</width>
+                    <height>23</height>
+                </rect>
+            </property>
+            <property name="paletteForegroundColor">
+                <color>
+                    <red>0</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                </color>
+            </property>
+            <property name="alignment">
+                <set>AlignRight</set>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Fakturabelopp</string>
+            </property>
+        </widget>
+        <widget class="QLineEdit">
+            <property name="name">
+                <cstring>lineEditDebetBelopp</cstring>
+            </property>
+            <property name="enabled">
+                <bool>true</bool>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>255</x>
+                    <y>65</y>
+                    <width>111</width>
+                    <height>23</height>
+                </rect>
+            </property>
+            <property name="paletteForegroundColor">
+                <color>
+                    <red>0</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                </color>
+            </property>
+            <property name="alignment">
+                <set>AlignRight</set>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Fakturabelopp.</string>
+            </property>
+        </widget>
+        <widget class="QLineEdit">
+            <property name="name">
+                <cstring>lineEditBar</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>125</x>
+                    <y>5</y>
+                    <width>40</width>
+                    <height>26</height>
+                </rect>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Två bokstäver som anger vilket bokföringsår fakturan ska bokföras på.</string>
+            </property>
+        </widget>
+        <widget class="QLineEdit">
+            <property name="name">
+                <cstring>lineEditDebetKto</cstring>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>125</x>
+                    <y>65</y>
+                    <width>126</width>
+                    <height>23</height>
+                </rect>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Konto där pengarna sätts in.</string>
+            </property>
+        </widget>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>285</y>
+                <width>76</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Godkänn</string>
+        </property>
+        <property name="autoDefault">
+            <bool>false</bool>
+        </property>
+        <property name="default">
+            <bool>false</bool>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Starta bearbetning/updatering!</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditBelopp</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>270</x>
+                <y>95</y>
+                <width>110</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="alignment">
+            <set>AlignRight</set>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonRight</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>665</x>
+                <y>80</y>
+                <width>25</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string></string>
+        </property>
+        <property name="pixmap">
+            <pixmap>image1</pixmap>
+        </property>
+        <property name="autoDefault">
+            <bool>false</bool>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Flytta faktura för bearbetning.</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonQuit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>285</y>
+                <width>65</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avbryt</string>
+        </property>
+        <property name="autoDefault">
+            <bool>false</bool>
+        </property>
+        <property name="default">
+            <bool>false</bool>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Ingen bearbetning/uppdatering görs!</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditFakturaNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>80</x>
+                <y>40</y>
+                <width>126</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="maxLength">
+            <number>50</number>
+        </property>
+        <property name="dragEnabled">
+            <bool>true</bool>
         </property>
     </widget>
 </widget>
 <images>
     <image name="image0">
-        <data format="XPM.GZ" length="253">789cd3d7528808f055d0d2e72a2e492cc94c5648ce482c52d04a29cdcdad8c8eb5ade652323453b05430523054d2e152d2534856f0cbcf4b05b195816c650330004bc1813298441353c626a60c13534606d8c49471abc3661e7e7b21eeabb5e6020011142ddd</data>
+        <data format="XPM.GZ" length="253">789cd3d7528808f055d0d2e72a2e492cc94c5648ce482c52d04a29cdcdad8c8eb5ade652323453b05430523054d2e152d2534856f0cbcf4b05b195816c650330004b8180b21e1cc0c49431c59431c5949101444c198b18367558cdc36a2faafb6aadb9000eee2ddd</data>
     </image>
     <image name="image1">
-        <data format="XPM.GZ" length="253">789cd3d7528808f055d0d2e72a2e492cc94c5648ce482c52d04a29cdcdad8c8eb5ade652323453b05430523054d2e152d2534856f0cbcf4b05b195816c650330004b8180b21e1cc0c49431c59431c5949101444c198b18367558cdc36a2faafb6aadb9000eee2ddd</data>
+        <data format="XPM.GZ" length="253">789cd3d7528808f055d0d2e72a2e492cc94c5648ce482c52d04a29cdcdad8c8eb5ade652323453b05430523054d2e152d2534856f0cbcf4b05b195816c650330004bc1813298441353c626a60c13534606d8c49471abc3661e7e7b21eeabb5e6020011142ddd</data>
     </image>
 </images>
 <connections>
     <connection>
-        <sender>pushButtonAvbryt</sender>
-        <signal>clicked()</signal>
+        <sender>lineEditFakturaNr</sender>
+        <signal>returnPressed()</signal>
         <receiver>frmKundfakturaBetald</receiver>
-        <slot>close()</slot>
+        <slot>lineEditFakturaNr_returnPressed()</slot>
     </connection>
     <connection>
-        <sender>listViewKundFakturor</sender>
-        <signal>clicked(QListViewItem*)</signal>
+        <sender>checkBoxBokforing</sender>
+        <signal>toggled(bool)</signal>
         <receiver>frmKundfakturaBetald</receiver>
-        <slot>listViewKundFakturor_clicked(QListViewItem*)</slot>
+        <slot>checkBoxBokforing_checked()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditBar</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmKundfakturaBetald</receiver>
+        <slot>lineEditBar_returnPressed()</slot>
     </connection>
     <connection>
         <sender>lineEditDebetKto</sender>
@@ -716,36 +825,6 @@
         <slot>pushButtonOK_clicked()</slot>
     </connection>
     <connection>
-        <sender>pushButtonHelp</sender>
-        <signal>clicked()</signal>
-        <receiver>frmKundfakturaBetald</receiver>
-        <slot>pushButtonHelp_clicked()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditFakturaNr</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmKundfakturaBetald</receiver>
-        <slot>lineEditFakturaNr_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>listViewKundFakturor</sender>
-        <signal>doubleClicked(QListViewItem*)</signal>
-        <receiver>frmKundfakturaBetald</receiver>
-        <slot>lineEditFakturaNr_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditBar</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmKundfakturaBetald</receiver>
-        <slot>lineEditBar_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>checkBoxBokforing</sender>
-        <signal>toggled(bool)</signal>
-        <receiver>frmKundfakturaBetald</receiver>
-        <slot>checkBoxBokforing_checked()</slot>
-    </connection>
-    <connection>
         <sender>pushButtonRight</sender>
         <signal>clicked()</signal>
         <receiver>frmKundfakturaBetald</receiver>
@@ -757,27 +836,51 @@
         <receiver>frmKundfakturaBetald</receiver>
         <slot>pushButtonLeft_clicked()</slot>
     </connection>
+    <connection>
+        <sender>listViewKundFakturor</sender>
+        <signal>clicked(QListViewItem*)</signal>
+        <receiver>frmKundfakturaBetald</receiver>
+        <slot>listViewKundFakturor_clicked(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmKundfakturaBetald</receiver>
+        <slot>pushButtonHelp_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonQuit</sender>
+        <signal>clicked()</signal>
+        <receiver>frmKundfakturaBetald</receiver>
+        <slot>close()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>lineEditFakturaNr</tabstop>
+    <tabstop>lineEditBelopp</tabstop>
+    <tabstop>pushButtonQuit</tabstop>
     <tabstop>lineEditBar</tabstop>
     <tabstop>lineEditDebetKto</tabstop>
     <tabstop>lineEditDebetBelopp</tabstop>
     <tabstop>lineEditKreditKto</tabstop>
     <tabstop>lineEditKreditBelopp</tabstop>
-    <tabstop>pushButtonOK</tabstop>
-    <tabstop>pushButtonAvbryt</tabstop>
-    <tabstop>pushButtonHelp</tabstop>
     <tabstop>listViewKundFakturor</tabstop>
-    <tabstop>lineEditVernr</tabstop>
-    <tabstop>lineEditBelopp</tabstop>
+    <tabstop>pushButtonRight</tabstop>
+    <tabstop>listViewBetalda</tabstop>
+    <tabstop>pushButtonLeft</tabstop>
+    <tabstop>checkBoxBokforing</tabstop>
+    <tabstop>pushButtonOK</tabstop>
+    <tabstop>pushButtonHelp</tabstop>
     <tabstop>lineEditOrdernr</tabstop>
+    <tabstop>lineEditVernr</tabstop>
 </tabstops>
 <includes>
     <include location="local" impldecl="in implementation">frmkundfakturabetald.ui.h</include>
 </includes>
 <slots>
+    <slot access="private" specifier="non virtual">init()</slot>
     <slot>lineEditFakturaNr_returnPressed()</slot>
+    <slot>pushButtonCancel_clicked()</slot>
     <slot>checkBoxBokforing_checked()</slot>
     <slot>lineEditBar_returnPressed()</slot>
     <slot>lineEditDebetKto_returnPressed()</slot>
@@ -803,13 +906,14 @@
     <slot>FTGDataOnStderr()</slot>
     <slot>FTGDataOnStdout()</slot>
     <slot>FTGEndOfProcess()</slot>
-    <slot>getVernr( QString bar )</slot>
+    <slot>getVernr( QString bokfaar )</slot>
     <slot>BarDataOnStderr()</slot>
     <slot>BarDataOnStdout()</slot>
     <slot>BarEndOfProcess()</slot>
+    <slot>updateKundFaktura( QString record )</slot>
+    <slot>UpdateDataOnStderr()</slot>
+    <slot>UpdateDataOnStdout()</slot>
+    <slot>UpdateEndOfProcess()</slot>
 </slots>
-<functions>
-    <function access="private" specifier="non virtual">init()</function>
-</functions>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
