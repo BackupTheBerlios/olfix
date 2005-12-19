@@ -1,45 +1,57 @@
-Changelog OLFIX 20051130
+Changelog OLFIX 20051218
 
 Blivande
 ________________________________________________________
 Ver 0.3.1.B
-2005-11-30
+2005-12-18
 		Nya program
 		OLFIXTW		Ett extra menyprogram för OLFIX.
 				Olfix meny/huvudprogram som bara visar program som användaren
 				har behörighet att använda.
-				Vid användning, Döp om OLFIXW till OLFIXWO och OLFIXTW till OLFIXW.
+				Vid användning, Döp om OLFIXW till OLFIXOW och kopiera OLFIXTW till OLFIXW.
 
 		LSTTXTW		Lista poster i TEXTREG
 		DSPTXTW		Visa en post i TEXTREG
 		SRCHARW		Söka artiklar i ARTIKELREG
+		KUFAKTBW	Registrera betalda kundfakturor (ännu bara uppdatering av kundreskontran och TRHD)
 
 		Ändrade program
 		DSPFTGW		Uppdaterad, visa flera poster.
 		CHGFTGW		Totalt omgjort.
 		DSPARW		main.cpp ändrad så anrop kan ske från andra program med artikelnummer.
 		LSTRGTW		Möjliggjort expandering av fönstret.
+		KURESKW		Möjliggjort expandering av fönstret.
 
 		Nya funktioner
 		TXTLST.c	Lista TEXTREG.
 		ARSRCH.c	Söka i ARTIKELREG
+		FAKTDSP.c	Visa data på kundfaktura.
+#		KRELST.c	Lista kundreskontra med fakturadatum. Används inte ännu.
+#		KRESCHK.c	Check av fakturor. Används inte ännu.
+
+		Ändrade funktioner
+		KRESLST.c	Ändrad och utökad sql-sats
+		Makefile	Uppdaterad				2005-12-17
 
 		Ändrade data
-		PROGRAMdata.txt. Nytt program LSTTXTW,DSPTXTW,SRCHARW.
+		PROGRAMdata.txt. Nytt program LSTTXTW,DSPTXTW,SRCHARW,KUFAKTBW.
 				 Lista texter,Visa en text,Söka artiklar.
-		TRANSIDdata.txt. Ny funktion, TXTLST, lista poster i TEXTREG
+		TRANSIDdata.txt. Nya funktioner, TXTLST,ARSRCH,FAKTDSP,KRELST,KRESUPD
 
 		Ändrade sqlfiler.
 		CreateOLFIXtemplate.sql		Uppdaterat (SRCHARW, DSPTXTW,LSTTXTW)
 		CreateOLFIX.sql			Uppdaterat (SRCHARW, DSPTXTW,LSTTXTW)
 				Korrigerat för dubbel post "ADMIN"
 
+		Ändrad tabeller
+		KURESK		Nytt fält, BETALTBELOPP
+
 		Dokumentation
 		Städat upp i path/doc
-		Usersmanual (Online)Uppdaterad (2005-11-30)
+		Usersmanual (Online)Uppdaterad (2005-12-18)
 		UserManual	Uppdaterad (2005-11-22) Version 0.36)
 
-		Teknisk Manual	Uppdaterad (2005-11-29) Version 0.57
+		Teknisk Manual	Uppdaterad (2005-12-18) Version 0.57
 		Installationsanvisningar.txt (2005-11-01)
 		Installationsanvisningar.sxw (2005-11-01)
 		Korsrelationer.sxw Uppdaterad (2005-??-??)
@@ -58,7 +70,7 @@ Ver 0.3.B
 		KRESADD.c	Ny post till tabellen KURESK. Kundreskontra
 		ORDUPD.c	För att uppdatera/ändra önskat fält i ORDERREG.Kan byggas ut.
 		ORADUPD.c	För att uppdatera FAKTURERAT (antal) i ORDERRADREG.
-		KRESLST.c	Lista kundreskontratabellen KURESK
+		KRESLST.c	Lista kundreskontratabellen KURESK med expiredatum
 
 		Ändrade funktioner
 		ORDRDSP.c	Anpassat för fältet LEVERERAT i tabellen ORDERRADREG
