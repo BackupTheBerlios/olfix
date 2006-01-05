@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>	
+  <meta http-equiv="CONTENT-TYPE"
+ content="text/html; charset=iso-8859-15">
+  <title>LINUX</title>
+  <meta name="GENERATOR" content="Quanta  (Linux)">
+  <meta name="CREATED" content="20060102;8084200">
+  <meta name="CHANGEDBY" content="Jan Pihlgren">
+  <meta name="CHANGED" content="20060105;8084200"">
+  <meta name="Linux" content="UserManual_TIPS.html">
+  <style>
+	<!--
+		A:link { color: #0000ff }
+		A:visited { color: #800080 }
+	-->
+	</style>
+</head>
+<body lang="sv-SE">
+
+<p style="margin-bottom: 0cm;">
+ 
+ <img src="UserManual_html_OLFIX_LOGGA.jpg" name="OLFIX-loggo" align="middle"
+ width="643" height="268" border="0"></p> <br>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=6 STYLE="font-size: 22pt"><B>Order/Lager/Fakturering
+f&ouml;r Linuxsystem</B></FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=6 STYLE="font-size: 22pt">Anv&auml;ndarmanual</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5 STYLE="font-size: 22pt">Kapitel
+Tips. </FONT>
+</P>
+<p align="center" style="margin-bottom: 0cm;"><font size="5"> 2006-01-05</font></p>
+<hr>
+<p style="margin-left: 3cm;">This program is free software; you can
+redistribute it and/or modify<br>
+it under the terms of the GNU General Public License as published by<br>
+the Free Software Foundation; either version 2 of the License, or<br>
+(at your option) any later version.</p>
+<P><FONT SIZE=1 STYLE="font-size: 6pt">Copyright 2006 Jan Pihlgren.</FONT></P>
+<A href="UserManual.html"><FONT SIZE=2>Tillbaka.</FONT></A>
+<hr>
+<a name="TOP"></a>
+Lite tips om hur man kan arbeta med OLFIX (och andra applikationer) på en annan dator.<br><br>
+Börja med att öppna ett konsolfönster.<br>
+<h2>Inledning</h2>
+För att skapa möjlighet för dator B att skicka information till din bildskärm (display)
+måste du första gången köra följande kommando:<br><br>
+
+<strong>[jan@datorA ~] xhost 192.168.0.102</strong><br><br>
+Detta kommando behöver bara köras engång för varje dator.<br><br>
+Mer information om <strong>xhost</strong> finns på <em>man</em>-sidan<br>
+<strong>man xhost</strong><br>
+
+<h2>Uppkoppling</h2>
+När man sedan vill köra ett program på en annan dator (i deeta exempel 192.168.0.102) körs kommandot:<br><br>
+<strong>[jan@datorA ~] ssh 192.168.0.102</strong><br>
+
+<h3>Anslutning</h3>
+Uppkopplingen frågar efter ditt password på den <strong>andra</strong> datorn.<br>
+Efter det att du loggat in med rätt password så kopplas du upp till datorB.<br><br>
+[jan@datorA ~] ssh 192.168.0.102<br>
+<strong>jan@datorA@192.168.0.102's password:</strong><br>
+[jan@datorB jan]<br>
+
+<h2>Starta en applikation</h2>
+Nu befinner du dig i datorB och kan utföra de kommandon du önskar och som kan utföras i ett konsolfönster i datorB.<br>
+Du kan starta ett grafiskt program i datorB som visas på datorAs bildskärm.<br>
+Så här startar du <strong>Konqueror</strong> - filhanteraren.<br><br>
+<strong>[jan@datorB jan] konqueror</strong><br><br>
+Konquerer kommer nu att visas på datorA's skärm.<br>
+
+<h2>Starta OLFIX.</h2>
+Om du vill start OLFIX i datorA får du göra på följande sätt:<br>
+Börja med att flytta dig till rätt mapp.<br><br>
+<strong>[jan@datorB jan]cd /opt/olfix/bin</strong><br><br>
+Sedan startar du OLFIX med kommando:<br><br><br>
+<strong>[jan@datorB bin] ./OLFIXW</strong><br><br> 
+OLFIX (på datorB) kommer nu att visas ("displayas")på datorA's skärm och man kan kan arbeta med OLFIX (datorB) som vanligt.<br>
+
+<h2>Avsluta</h2>
+Grafiska program avslutas på vanligt sätt, även OLFIX.<br>
+Sedan avslutar man kontakten (sessionen) med datorB.<br><br>
+<strong>[jan@datorB bin]exit</strong><br>
+Connection to 192.168.0.102 closed.<br>
+[jan@datorA ~]<br><br>
+Och man är tillbaka till datorA.<br><br>
+
+<a href="#TOP">Till början</a>
+</body>
+</html>

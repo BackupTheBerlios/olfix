@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-15">
+	<TITLE>UserManual</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.0.2  (Linux)">
+	<META NAME="CREATED" CONTENT="20060104;08014400">
+	<META NAME="CHANGEDBY" CONTENT="Jan Pihlgren">
+	<META NAME="CHANGED" CONTENT="20060104;08014400">
+	<STYLE>
+	<!--
+		@page { margin: 2cm }
+		P { margin-bottom: 0.21cm }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="sv-SE">
+<P STYLE="margin-bottom: 0cm"><IMG SRC="UserManual_html_OLFIX_LOGGA.jpg" NAME="Graphic1" ALIGN=MIDDLE WIDTH=643 HEIGHT=268 BORDER=0></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=6 STYLE="font-size: 22pt"><B>Order/Lager/Fakturering
+f&ouml;r Linuxsystem</B></FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=6 STYLE="font-size: 22pt">Anv&auml;ndarmanual</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=4 STYLE="font-size: 16pt">Kapitel
+Felsökning </FONT>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.1</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2006-01-04</FONT></P>
+<HR>
+<P STYLE="margin-left: 3cm">This program is free software; you can
+redistribute it and/or modify<BR>it under the terms of the GNU
+General Public License as published by<BR>the Free Software
+Foundation; either version 2 of the License, or<BR>(at your option)
+any later version.</P>
+<P><FONT SIZE=1 STYLE="font-size: 6pt">Copyright 2006 Jan Pihlgren.</FONT></P>
+<HR>
+<P ALIGN=CENTER><A NAME="TOP"></A><FONT SIZE=4 STYLE="font-size: 16pt"><B>Inneh&aring;ll</B></FONT></P>
+<P ALIGN=LEFT STYLE="margin-left: 3cm"><FONT SIZE=4>
+<A HREF="#TOMMENY">Tom huvudmeny</A><BR>
+<A HREF="#ERROR1045">Connection error 1045</A><BR>
+<A HREF="#ERROR2002">Connection error 2002.</A><BR>
+</FONT></P>
+<A href="UserManual.html"><FONT SIZE=2>Tillbaka.</FONT></A>
+<HR>
+<P STYLE="margin-bottom: 0cm">
+<A NAME="TOMMENY"></A>
+<FONT SIZE=4 STYLE="font-size: 16pt"><B>Tom huvudmeny.</B></FONT><br><br>
+<p align="center">
+<img src="UserManual_html_Tom_OLFIXW_Meny.png" name="Graphic1" align="bottom" border="0"><br>
+<p align="left">
+<FONT SIZE=3 STYLE="font-size: 12pt">
+I fall OLFIX's huvudmeny är tom vid start kan man prova:<br>
+1. Starta OLFIXW från ett konsolfänster med kommando;<br>
+<FONT SIZE=3 STYLE="font-size: 10pt">
+&nbsp;&nbsp;<strong>cd /opt/olfix/bin<br>
+&nbsp;&nbsp;./OLFIXW<br>
+</strong></FONT>
+eller<br>
+<FONT SIZE=3 STYLE="font-size: 10pt">
+&nbsp;&nbsp;<strong>/opt/olfix/bin/OLFIXW</strong><br><br>
+<FONT SIZE=3 STYLE="font-size: 12pt">
+och följande bild kan uppenbara sig.<br></FONT></p>
+<p align="center">
+ <img src="UserManual_html_Error_libmysqlclient.so.12.png" name="Graphic2" align="bottom" border="0"><br>
+</p>
+<p align="left">
+<u>Orsak:</u><br><br>
+Binären för OLFIXW är skapad med en annan version av MySQL än den som är installerad på datorn.<br><br>
+<u>Lösning:</u><br><br>
+Skapa en länk till nuvarande libmysqlclient.so.xx.<br>
+Om den nuvarande "libben" heter libmysqlclient.so.14 skapas länken med kommando:<br><br>
+<FONT SIZE=3 STYLE="font-size: 10pt">
+&nbsp;&nbsp;<strong>ln -s libmysqlclient.so.14 libmysqlclient.so.12</strong><br><br>
+</FONT>
+Mer kan läsas i  <strong>man ln</strong><br><br>
+2. Det kan också bero på att databasen olfix eller olfixtst inte är skapade.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Se installationsanvisningarna.<br>
+3. En annan orsak kan vara att databasen inte är startad.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Se anvisningarna i MySQLs manual.<br>
+<P ALIGN=LEFT>
+<P STYLE="margin-bottom: 0cm">
+<A HREF="#TOP"><FONT SIZE=2><FONT FACE="Nimbus Sans L">Till b&ouml;rjan</FONT></FONT></A></P>
+
+<hr>
+<A NAME="ERROR1045"></A>
+<FONT SIZE=4 STYLE="font-size: 16pt"><B>Connection error 1045.</B></FONT><br>
+<p align="center">
+ <img src="UserManual_html_Error_1045.png" name="Graphic3" align="bottom" border="0"><br>
+</p>
+"Connection error 1045: Access denied for user 'olfix@localhost' (Using password YES)"<br>
+Detta fel beror på felaktigt password för "<strong>olfix</strong>".<br>
+De övriga felmeddelandena är en följd av detta.<br>
+Detta fel ska normalt inte uppträda, men kan uppstå i samband med installation av OLFIX .<br>
+En åtgärd som bör vidtagas, efter rättning av password, är att starta om maskinen.<br>
+<P ALIGN=LEFT>
+<P STYLE="margin-bottom: 0cm">
+<A HREF="#TOP"><FONT SIZE=2><FONT FACE="Nimbus Sans L">Till b&ouml;rjan</FONT></FONT></A></P>
+<hr>
+<A NAME="ERROR2002"></A>
+<FONT SIZE=4 STYLE="font-size: 16pt"><B>Connection error 2002.</B></FONT><br>
+<p align="center">
+ <img src="UserManual_html_NoDatabase.png" name="Graphic4" align="bottom" border="0"><br>
+</p>
+<u>Orsak:</u><br><br>
+Databasmotorn (mysqld) är stängd, ej startad.<br><br>
+<u>Åtgärd:</u><br><br>
+Starta mysqld (databasmotorn).<br><br>
+<FONT SIZE=3 STYLE="font-size: 10pt">
+&nbsp;&nbsp;<strong>shell> /usr/bin/mysqld_safe --user=mysql &</strong><br><br>
+</FONT>
+ För versioner äldre än 4.0 av MySQL, ersätt bin/mysqld_safe med bin/safe_mysqld.<br>
+ Se MySQLs manual för mera information.
+<P ALIGN=LEFT>
+<P STYLE="margin-bottom: 0cm">
+<A HREF="#TOP"><FONT SIZE=2><FONT FACE="Nimbus Sans L">Till b&ouml;rjan</FONT></FONT></A></P>
+
+<hr>
+</BODY>
+</HTML>
