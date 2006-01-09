@@ -3,7 +3,7 @@
 ######################################################################
 
 TARGET=ADDINKW
-DESTDIR+=/home/jan/Utveckling/OLFIX/bin
+DESTDIR+=/home/jan/Development/OLFIX/bin
 TEMPLATE = app
 INCLUDEPATH += .
 

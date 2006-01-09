@@ -1862,7 +1862,7 @@ void frmAddBest::pushBtnHelp_clicked()
 //	qDebug("hjelpfil=%s",hjelpfil.latin1());
 
 	process = new QProcess();
-	process->addArgument( "OLFIXHLP" );	// OLFIX program
+	process->addArgument( "./OLFIXHLP" );	// OLFIX program
 	process->addArgument(hjelpfil);
 
 	if ( !process->start() ) {
