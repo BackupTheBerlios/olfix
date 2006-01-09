@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>frmDspOrder</class>
 <widget class="QWidget">
     <property name="name">
@@ -1446,6 +1446,12 @@
         <signal>clicked(QListViewItem*)</signal>
         <receiver>frmDspOrder</receiver>
         <slot>slotPickupOrdernr(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>pushBtnHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmDspOrder</receiver>
+        <slot>pushBtnHelp_clicked()</slot>
     </connection>
 </connections>
 <tabstops>
