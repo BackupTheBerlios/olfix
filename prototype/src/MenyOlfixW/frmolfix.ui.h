@@ -8,9 +8,9 @@
 /***************************************************************************
                           OLFIXW  -  description
                              -------------------
-		     version 0.64
-    begin                   : Tis  16 maj  2003
-    modified	: Fre   1 juli   2005
+		     version 0.65
+    begin                   : Tis    16 maj  2003
+    modified	            : Ons    4 jan   2006
     copyright            : (C) 2003 by Jan Pihlgren
     email                  : jan@pihlgren.se
  ***************************************************************************/
@@ -40,7 +40,7 @@
 	QString inrad;
 	QString errorrad;
 	QString program;
-	QString version="0.64";
+	QString version="0.65";
 
 void frmOlfix::init()
 {
@@ -443,7 +443,7 @@ void frmOlfix::slotHelp()
 	errorrad="";
 
 	process = new QProcess();
-	process->addArgument( "OLFIXHLP" );		// OLFIX program
+	process->addArgument( "./OLFIXHLP" );		// OLFIX program
 //	process->addArgument("/doc/helpfiles/usermanual/UserManual.html");
 	
 	if ( !process->start() ) {
