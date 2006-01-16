@@ -1,6 +1,35 @@
-Changelog OLFIX 20051218
+Changelog OLFIX 20060110
 
 Blivande
+Ver 0.3.2.B
+2006-01-10
+		Ändrade program
+		OLFIXW		Rättat en bugg. (OLFIXHLP)
+			main.cpp buggrättning(utökat till 100 tecken för filnamn)
+		DSPORDW		Rättat en bugg. (OLFIXHLP)
+		ADDINKW		Rättat en bugg. (OLFIXHLP)
+
+		Dokumentation
+		Usersmanual (Online)Uppdaterad (2006-01-08).Uppdatering och omorganiserad.
+			Varje html-fil innehåller ett eget kapitel.
+			UserManual_ARTIKLAR.html
+			UserManual_ADMINISTRATION.html	(Ny)
+			UserManual_DATABASER.html
+			UserManual_EKONOMI.html
+			UserManual_ERROR.html
+			UserManual_FTGADMIN.html
+			UserManual_GRUNDER.html
+			UserManual_INKOP.html	(Ny)
+			UserManual_KUNDORDER.html
+			UserManual_RAPPORTER.html
+			UserManual_TIPS.html
+
+		UserManual	Uppdaterad (2005-11-22) Version 0.36)
+		Teknisk Manual	Uppdaterad (2006-01-10) Version 0.58
+		Installationsanvisningar.txt (2005-11-01)
+		Installationsanvisningar.sxw (2005-11-01)
+		Korsrelationer.sxw Uppdaterad (2005-??-??)
+
 ________________________________________________________
 Ver 0.3.1.B
 2005-12-18
