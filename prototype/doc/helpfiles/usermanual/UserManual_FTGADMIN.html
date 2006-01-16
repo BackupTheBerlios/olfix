@@ -22,8 +22,8 @@ f&ouml;r Linuxsystem</B></FONT></P>
 <P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=4 STYLE="font-size: 16pt">Kapitel
 F&ouml;retagsadministration </FONT>
 </P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.44</FONT></P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2005-12-06</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.5</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2006-01-12</FONT></P>
 <HR>
 <P STYLE="margin-left: 3cm">This program is free software; you can
 redistribute it and/or modify<BR>it under the terms of the GNU
@@ -32,22 +32,35 @@ Foundation; either version 2 of the License, or<BR>(at your option)
 any later version.</P>
 <P><FONT SIZE=1 STYLE="font-size: 6pt">Copyright 2004 Jan Pihlgren.</FONT></P>
 <HR>
-<P ALIGN=CENTER><A NAME="TOP"></A><FONT SIZE=4 STYLE="font-size: 16pt"><B>Inneh&aring;ll</B></FONT></P>
-<P ALIGN=LEFT STYLE="margin-left: 3cm"><FONT SIZE=4><A HREF="#NEWFTGDATA">Nyuppl&auml;gg
-av f&ouml;retagsdata</A><BR><A HREF="#DSPFTGDATA">Visa
-f&ouml;retagsdata</A><BR><A HREF="#CHGFTGDATA">&Auml;ndra
-f&ouml;retagsdata.</A><BR><A HREF="#DOCRECORD">Postbeskrivning.</A></FONT></P>
+<p style="margin-bottom: 0cm;"><font face="San Serif" size="2">
+<a href="UserManual.html#TOP">Hem</a></font></p>
+
+<P ALIGN=CENTER>
+<A NAME="TOP"></A><FONT SIZE=4 STYLE="font-size: 16pt">
+<B>Inneh&aring;ll</B></FONT></P>
+<P ALIGN=LEFT STYLE="margin-left: 3cm"><FONT SIZE=4 STYLE="font-size: 12pt">
+<A HREF="#NEWFTGDATA">Nyuppl&auml;gg av f&ouml;retagsdata</A><BR>
+<A HREF="#DSPFTGDATA">Visa f&ouml;retagsdata</A><BR>
+<A HREF="#CHGFTGDATA">&Auml;ndra f&ouml;retagsdata.</A><BR>
+<A HREF="#CHGFTG">Byta företag.</A><BR>
+<A HREF="#NYTTFTG">Skapa nytt företag.</A><BR>
+<A HREF="#DOCRECORD">Postbeskrivning.</A></FONT></P>
 <HR>
-<P ALIGN=LEFT><A NAME="NEWFTGDATA"></A><FONT FACE="San Serif"><FONT SIZE=4><B>Nyuppl&auml;gg
-av f&ouml;retagsdata.</B></FONT></FONT></P>
-<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><A HREF="#TOP"><FONT SIZE=4><FONT FACE="San Serif">Till
-b&ouml;rjan</FONT></FONT></A></P>
+<!--			NYUPPLÄGG AV FÖRETAGSDATA		-->
+<P ALIGN=LEFT>
+<A NAME="NEWFTGDATA"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 12pt">
+<B>Nyuppl&auml;gg av f&ouml;retagsdata.</B></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm">
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
 <HR>
-<P ALIGN=LEFT><A NAME="DSPFTGDATA"></A><FONT FACE="San Serif"><FONT SIZE=4><B>Visa
-f&ouml;retagsdata.</B></FONT></FONT></P>
-<P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=4><IMG SRC="UserManual_html_DSPFTGW.png" NAME="DSPFTGW" ALIGN=BOTTOM WIDTH=726 HEIGHT=591 BORDER=0></FONT></FONT></P>
-<P ALIGN=LEFT><FONT FACE="San Serif">
-Informationen i tabellen FTGDATA anv&auml;nds av olika OLFIXprogram.<BR>
+<!--			VISA FÖRETAGSDATA		-->
+<P ALIGN=LEFT><A NAME="DSPFTGDATA"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 12pt">
+<B>Visa f&ouml;retagsdata.</B></FONT></FONT></P>
+<P ALIGN=CENTER><IMG SRC="UserManual_html_DSPFTGW.png" NAME="DSPFTGW" ALIGN=BOTTOM WIDTH=726 HEIGHT=591 BORDER=0></P>
+
+<P ALIGN=LEFT><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 10pt">
+Informationen i tabellen FTGDATA anv&auml;nds av olika OLFIXprogram.
 Text inom <SPAN STYLE="background: #ffff00">[&nbsp;]</SPAN> anger f&auml;ltnamn i databastabellen FTGDATA.<BR>
 <B>Momssats 1 - Momssats 5:</B> Anger momssats i % (procent). <SPAN STYLE="background: #ffff00">[MOMS1 - MOMS5]</SPAN><BR>
 <B>Momskonto, ing&aring;ende moms och Momskonto, utg&aring;ende moms:</B> Konton i redovisningen d&auml;r momsen redovisas. <SPAN STYLE="background: #ffff00">[MOMSI, MOMSU]</SPAN><BR>
@@ -58,16 +71,19 @@ Text inom <SPAN STYLE="background: #ffff00">[&nbsp;]</SPAN> anger f&auml;ltnamn 
 <B>Antal</B> kan vara 1 eller 2.<BR>
 <B>Senaste fakturanr:</B> Senast anv&auml;nda fakturanummer (normalt). <SPAN STYLE="background: #ffff00">[FAKNR]</SPAN><BR>
 <B>Senaste fakturanr serie 2:</B> Senast anv&auml;nda fakturanummer (faktoring).<SPAN STYLE="background: #ffff00">[FKNR2]</SPAN><BR>
-Se vidare <A HREF="#DOCRECORD">Postbeskrivning.</A></FONT></P>
+
+Se vidare <A HREF="#DOCRECORD">Postbeskrivning.</A></FONT></FONT></P>
 <P><BR><BR>
 </P>
-<P STYLE="margin-bottom: 0cm"><A HREF="#TOP"><FONT SIZE=4><FONT FACE="San Serif">Till
-b&ouml;rjan</FONT></FONT></A></P>
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
 <HR>
-<P ALIGN=LEFT><A NAME="CHGFTGDATA"></A><FONT FACE="San Serif"><FONT SIZE=4><B>&Auml;ndra
-f&ouml;retagsdata.</B></FONT></FONT></P>
-<P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=4><IMG SRC="UserManual_html_CHGFTGW.png" NAME="CHGFTGW" ALIGN=BOTTOM WIDTH=723 HEIGHT=592 BORDER=0></FONT></FONT></P>
-<P ALIGN=LEFT><FONT FACE="San Serif">
+<!--			ÄNDRA FÖRETAGSDATA		-->
+<P ALIGN=LEFT><A NAME="CHGFTGDATA"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 12pt">
+<B>&Auml;ndra f&ouml;retagsdata.</B></FONT></FONT></P>
+<P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=4>
+<IMG SRC="UserManual_html_CHGFTGW.png" NAME="CHGFTGW" ALIGN=BOTTOM WIDTH=723 HEIGHT=592 BORDER=0></FONT></FONT></P>
+<P ALIGN=LEFT><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 10pt">
 Informationen i tabellen FTGDATA anv&auml;nds av olika OLFIXprogram.<BR><BR>
 &Auml;ndra informationen i &ouml;nskat f&auml;lt och tryck p&aring; <B>Enter</B>.<BR>
 N&auml;r all &auml;ndring &auml;r klar klicka p&aring; <B>Uppdatera</B> f&ouml;r att spara gjorda &auml;ndringar.<BR><BR>
@@ -82,13 +98,53 @@ Text inom <SPAN STYLE="background: #ffff00">[&nbsp;]</SPAN> anger f&auml;ltnamn 
 <B>Senaste fakturanr:</B> Senast anv&auml;nda fakturanummer (normalt). <SPAN STYLE="background: #ffff00">[FAKNR]</SPAN><BR>
 <B>Senaste fakturanr serie 2:</B> Senast anv&auml;nda fakturanummer (faktoring).<SPAN STYLE="background: #ffff00">[FKNR2]</SPAN><BR>
 Se vidare <A HREF="#DOCRECORD">Postbeskrivning.</A></FONT></P>
-<P><BR><BR>
-</P>
-<P STYLE="margin-bottom: 0cm"><A HREF="#TOP"><FONT SIZE=4><FONT FACE="San Serif">Till
-b&ouml;rjan</FONT></FONT></A></P>
+
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
 <HR>
-<P ALIGN=LEFT><A NAME="DOCRECORD"></A><FONT FACE="San Serif"><FONT SIZE=4><B>Postbeskrivning.</B></FONT></FONT></P>
-<P ALIGN=LEFT><FONT FACE="Nimbus Sans L"><FONT SIZE=2>
+<!--			BYTA FÖRETAG		-->
+<P ALIGN=LEFT>
+<A NAME="CHGFTG"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 12pt">
+<B>Byta företag.</B></FONT></FONT></P>
+<P ALIGN=LEFT><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 10pt">
+OLFIX levereras med två företag/databaser, <em>olfix</em> och <em>olfixtst</em>. <em>olfix</em> är det skarpa företaget och <em>olfixtst</em> är ett testföretag för att kunna pröva olika funktioner utan att orsaka någon skada på det skarpa företaget OLFIX medger också möjlighet att arbeta med flera företag, skilda från varandra. Se Lägga upp ny databas/företag.
+<P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=4>
+<IMG SRC="UserManual_html_BYTFTGW.png" NAME="BYTFTGW" ALIGN=BOTTOM ></FONT></FONT></P>
+<P ALIGN=LEFT><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 10pt">
+I fältet <b>Önskat företag</b> anger man numret på det företag man vill skifta till. Tryck därpå på <b>Enter</b>.<br>
+Tabellen till höger visar vilka företag som finns att byta till.<br>
+För att genomföra bytet så klickar man på knappen <b>Byt</b>.<br>
+När skiftet är klart klickar man på knappen <b>Klar</b>.<br>
+Om man ångrar sig så klickar man på knappen <b>Avbryt</b>.
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
+<hr>
+<!--			SKAPA NYTT FÖRETAG		-->
+<P ALIGN=LEFT>
+<A NAME="NYTTFTG"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 12pt">
+<B>Skapa nytt företag.</B></FONT></FONT></P>
+<P ALIGN=LEFT><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 10pt">
+ADDFORW är avsedd att skapa grundförutsättningarna för att möjliggöra för användare att arbeta med flera företag. ADDFORW lägger också upp en ny fysisk databas i MySQL. 
+ADDFORW lägger även upp information i tabellen DATABAS, fälten DATABASNR och DATABASTEXT.
+Dock läggs informationen bara upp i den nya databasen samt i den databas användaren råkar vara i när funktionen används.
+
+<P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=4>
+<IMG SRC="UserManual_html_ADDFORW.png" NAME="ADDFTGW" ALIGN=BOTTOM ></FONT></FONT></P>
+<P ALIGN=LEFT><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 10pt">
+Ange vilket nr databasen ska ha samt vilket namn databasen erhöll av DBAn(Databasadministratören).
+Password ska vara det password som används för att administrera MySQLs databaser. Användaren måste också ha behörighet att skapa nya databaser.
+
+<P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=4>
+<IMG SRC="UserManual_html_ADDFORW_Varning.png" NAME="VARNING" ALIGN=BOTTOM ></FONT></FONT></P>
+
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
+
+<hr>
+<!--			POSTBESKRIVNING			-->
+<P ALIGN=LEFT><A NAME="DOCRECORD"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 12pt">
+<B>Postbeskrivning.</B></FONT></FONT></P>
+<P ALIGN=LEFT><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 10pt">
 &quot;ADR1&quot; = &quot;Postadress&quot;<BR>
 &quot;ADR2&quot; = &quot;Postnr till Postadress&quot;<BR>
 &quot;ADR3&quot; = &quot;Ort till Postadress&quot;<BR>

@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-15">
+  <title>UserManual</title>
+  <meta name="GENERATOR" content="OpenOffice.org 1.0.2  (Linux)">
+  <meta name="CREATED" content="20060109;10014400">
+  <meta name="CHANGEDBY" content="Jan Pihlgren">
+  <meta name="CHANGED" content="">
+  <style>
+	<!--
+		@page { margin: 2cm }
+		P { margin-bottom: 0.21cm }
+	-->
+	</style>
+</head>
+<body lang="sv-SE">
+<p style="margin-bottom: 0cm;"> 
+<img src="UserManual_html_OLFIX_LOGGA.jpg" name="Graphic1" align="middle" border="0" height="268" width="643">
+<br clear="left"><br>
+</p>
+<p style="margin-bottom: 0cm;" align="center"><font style="font-size: 22pt;" size="6"> 
+<b>Order/Lager/Fakturering f&ouml;r Linuxsystem</b>
+</font></p>
+<p style="margin-bottom: 0cm;" align="center"><font style="font-size: 22pt;" size="6">
+ Anv&auml;ndarmanual
+</font></p>
+<p style="margin-bottom: 0cm;" align="center"><font style="font-size: 16pt;" size="4">
+ Kapitel Inköp
+</font></p>
+<p style="margin-bottom: 0cm;" align="center"><font size="5">
+ Version 0.1
+ </font></p>
+<p style="margin-bottom: 0cm;" align="center"><font size="5">
+ 2006-01-06
+ </font></p>
+<hr>
+
+<p style="margin-left: 3cm;">This program is free software; you can
+redistribute it and/or modify<br>
+it under the terms of the GNU General Public License as published by<br>
+the Free Software Foundation; either version 2 of the License, or<br>
+(at your option) any later version.</p>
+
+<p style="border-style: none none double; border-width: medium medium 1.1pt; border-bottom: 1.1pt double rgb(128, 128, 128); padding: 0cm 0cm 0.05cm; margin-bottom: 0.5cm;"> <font style="font-size: 6pt;" size="1">
+Copyright 2004 Jan Pihlgren.</font></p>
+
+<p style="margin-bottom: 0cm;"><font face="San Serif" size="2">
+<a href="UserManual.html#TOP">Hem</a></font></p>
+
+<a name="TOP"></a>
+<p align="center">
+<!--           INNEHÅLL  -->
+<a name="INNEHALL"></a><font style="font-size: 16pt;" size="4">
+<b>Inneh&aring;ll</b></font></p>
+<p style="margin-left: 3cm;"><font face="San Serif"><font size="2">
+<a href="#INKOP">Inköp.</a><br><br>
+
+<a href="#INKOP1">Registrering av inköpsorder.</a><br>
+<a href="#BESTEXEMPEL">Exempel på beställning</a><br>
+<a href="#BESTSTOCK">Beställningsstock.</a><br>
+<p style="margin-left: 3cm;"><font face="San Serif"><font size="2">
+<a href="#BEGREPP">Begreppsförklaringar.</a><br>
+<p align="center"></p>
+<hr style="width: 100%; height: 2px;">
+<p align="center"><font style="font-size: 16pt;" size="4">
+</font></p>
+<!--          INKÖP   -->
+<p align="center">
+<b><a name="INKOP"></a></b>
+<b>INKÖP</b></p><br>
+<!--           REGISTRERING AV INKÖPSORDER  -->
+<a name="INKOP1"></a><br>
+<p align="left">
+<b>Registrering av inköpsorder.</b></p><br>
+<p align="center">
+ <img src="UserManual_html_ADDINKW.png" name="Graphic10" align="bottom" width="693" height="473" border="0"><br>
+</p>
+<p align="left">
+I alla fält du gör en förändring i måste du avsluta med att trycka <b>Enter</b>
+för att informationen ska följa med till databasen.<br>
+Börja med att markera leverantörsnummer för önskad leverantör i <span
+ style="font-weight: bold;">leverantörslistan</span> till höger.
+Leverantörsnr skrivs in i fältet <span style="font-weight: bold;">Leverantörsnr</span>.
+När du trycker på Enter så hämtas leverantörsdata och skrivs in i
+respektive fält. Dessutom hämtas ditt eget företags
+godsmottagningsuppgifter i respektivefält. I fall du önskar kan du ändra
+dessa uppgifter manuellt. Markören ställer sig sedan i fältet <span
+ style="font-weight: bold;">Godsmärke</span>. Fyll i önskad info eller
+lämna fältet blankt. Det samma gäller fälten <span
+ style="font-weight: bold;">Vår referent, Er referens, Direkttfn,
+Direktfax, Best.typ (beställningstyp), Leveransdatum, Leveransvillkor,
+Leveranssätt, Betalningsvillkor, Kommentar och Eftertext. </span><br
+ style="font-weight: bold;">
+Det finns fyra olika Besttyp:<br><span style="font-weight: bold;">
+N=Normalbeställning, D=Direktbeställning, I=Inleveransbest, L=Legobest,
+A=Avrop</span>. I fälten<span style="font-weight: bold;">
+Leveransvillkor, Leveranssätt, Bertalningsvillkor och Eftertext</span>
+anges ett nummer som refererar till respektive register. Sedan kommer
+texten(beskrivningen) att skrivas ut när beställningen skrivs ut (se
+nedanstående exempel). Markören ställer sig i fältet för <span
+ style="font-weight: bold;">Artikelnr</span>. När du fyllt i önskat
+artikelnummer hämtas <span style="font-weight: bold;">Beämning 1</span>
+och senaste inköpspris från artikelregistret och skrivs in i fältet <span
+ style="font-weight: bold;">Benämning</span> respektive fältet <span
+ style="font-weight: bold;">Pris/st</span>. Markören flyttar sig till
+fältet <span style="font-weight: bold;">Lev.vecka</span>. Formatet för
+leveransvecka är <span style="font-weight: bold;">ÅVVD</span>.
+Lev.vecka betyder att man önskar leverans av orderraden angiven vecka.
+Initialt anges innevarande vecka.<br>
+Ifall önskad leveranstid är kortare än dagens datum + artikelns ledtid
+så erhålls en varning. I fall veckonr ändras så är det det nya
+veckonumret som kommer att stå i fältet tills man ändrar på nytt. Efter
+detta så ställer sig markören i fältet <span style="font-weight: bold;">Antal</span>.
+Fyll i önskat antal, tryck Enter och markören flyttar sig till fältet <span
+ style="font-weight: bold;">Pris/st</span>. Acceptera angivet värde
+genom att trycka Enter eller ändra till önskat värde samt avsluta med
+att trycka Enter. Summa värde för orderraden skrivs ut i fältet <span
+ style="font-weight: bold;">Summa</span>. Dessutom adderas radsumman
+till ordersumman i fältet <span style="font-weight: bold;">Beställning
+totalt</span>. Knappen <span style="font-weight: bold;">Godkänna rad Ja</span>
+markeras och genom att trycka Enter eller klicka på knappen så är raden
+registrerad och flyttas ner till det stora blå fältet.
+Registreringsraden blankas ut, fältet <span style="font-weight: bold;">Radnr</span>
+ökas med 10 och markören ställer sig i fältet <span
+ style="font-weight: bold;">Artikelnr</span>. Sedan är det bara att
+registrera flera orderrader på samma sätt. När man är klar med
+orderregistreringen så godkänner man ordern genom att klicka på knappen <span
+ style="font-weight: bold;">Godkänna beställning OK</span>. Ifall man
+önskar redigera (ändra) en tidigare orderrad markerar man önskad
+orderrad, kolumn Radnr, i det stora blå fältet så flyttas orderraden
+tillbaka för registrering av orderrad. Efter redigering så trycker man
+Enter så flyttas raden ånyo ner i det stora blåa fältet.
+</p>
+
+<p style="margin-bottom: 0cm;"><a href="#TOP">Till början</a></p>
+<hr>
+<!--           BESTÄLLNINGSEXEMPEL  -->
+<p><a name="BESTEXEMPEL"></a>
+<p align="left">
+<b>Exempel på beställning.</b></p>
+<p align="center" style="">
+<img src="UserManual_html_BESTELLNING.png" name="Graphic12" align="bottom"
+ width="595" height="675" border="0"></p>
+<p align="left">
+ <a href="#TOP">Till början</a></p>
+<hr>
+<!--           BESTÄLLNINGSSTOC  -->
+<p><a name="BESTSTOCK"></a>
+
+<p><b>Beställningsstock.</b></p>
+<p align="center" style="">
+<img src="UserManual_html_LSTINKW.png" name="Graphic11" align="bottom" width="616" height="390" border="0"></p>
+<p style="margin-bottom: 0cm;">
+Genom att anropa LSTINKW erhålls en lista på alla
+inköpsorderrader som ej är färdiglevererade. Listan innehåller summa per
+rad samt totalt utestående beställningsvärde.<br>
+<br>
+<a href="#TOP">Till början</a></p>
+<hr>
+<a name="LEVERANTOR"></a>
+
+
+<!--           BEGREPPSFÖRKLARINGAR  -->
+<p align="center"><font face="San Serif">
+<a name="BEGREPP"></a> </font></p>
+<p align="center"><font face="San Serif"><b>BEGREPPSF&Ouml;RKLARINGAR</b></font></p>
+
+<p font face="San Serif" align="left">
+<b>Bokf&ouml;rings&aring;r:</b> Tv&aring;st&auml;llig bokstavskombination som anger vilket
+bokf&ouml;rings&aring;r som avses.</p>
+
+<p style="margin-bottom: 0cm;" align="left">
+<font face="San Serif">
+<a name="BEGREPP01"></a> 
+<a href="#TOP">Till b&ouml;rjan</a>
+</font></p>
+
+</body>
+</html>

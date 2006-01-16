@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>  
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-15">
+  <title>UserManual</title>
+  <meta name="GENERATOR" content="OpenOffice.org 1.0.2  (Linux)">
+  <meta name="CREATED" content="20060106;10204400">
+  <meta name="CHANGEDBY" content="Jan Pihlgren">
+  <meta name="CHANGED" content="">
+  <style>
+	<!--
+		@page { margin: 2cm }
+		P { margin-bottom: 0.21cm }
+	-->
+	</style>
+</head>
+<body lang="sv-SE">
+<p style="margin-bottom: 0cm;"> <img src="UserManual_html_OLFIX_LOGGA.jpg" name="Graphic1" align="middle" border="0" height="268" width="643"> <br clear="left">
+<br></br>
+<p style="margin-bottom: 0cm;" align="center"><font style="font-size: 22pt;" size="6"> <b>Order/Lager/Fakturering f&ouml;r Linuxsystem</b></font></p>
+<p style="margin-bottom: 0cm;" align="center"><font style="font-size: 22pt;" size="6"> Anv&auml;ndarmanual
+</font></p>
+<p style="margin-bottom: 0cm;" align="center"><font style="font-size: 16pt;" size="4">
+ Kapitel Grunder
+ </font></p>
+
+<p style="margin-bottom: 0cm;" align="center"><font size="5">
+ Version 0.1
+ </font></p>
+<p style="margin-bottom: 0cm;" align="center"><font size="5">
+ 2006-01-06
+ </font></p>
+<hr>
+<p style="margin-left: 3cm;">This program is free software; you can
+redistribute it and/or modify<br>
+it under the terms of the GNU General Public License as published by<br>
+the Free Software Foundation; either version 2 of the License, or<br>
+(at your option) any later version.</p>
+<p style="border-style: none none double; border-width: medium medium 1.1pt; border-bottom: 1.1pt double rgb(128, 128, 128); padding: 0cm 0cm 0.05cm; margin-bottom: 0.5cm;"> <font style="font-size: 6pt;" size="1">Copyright 2006 Jan Pihlgren.</font></p>
+
+<p style="margin-bottom: 0cm;"><font face="San Serif" size="2">
+<a href="UserManual.html#TOP">Hem</a></font></p>
+<a name="TOP"></a>
+<p align="center">
+<font face="San Serif"><font style="font-size: 16pt;" size="4">
+<a name="INNEHALL"></a>
+<b>
+<strong>Inneh&aring;ll</strong></font></P>
+<p align="left"><font face="San Serif" size="3"></font>
+<PRE>
+	<a href="#INNAN">Innan du börjar.</a>
+	<a href="#IGANG">Att komma igång.</a>
+	<a href="#GRUNDDATA">Grunddata.</a>
+</PRE>
+</font></P>
+<p style="margin-bottom: 0cm;" align="left">
+
+<hr>
+
+<p style="margin-bottom: 0cm;" align="left">
+<a href="TOP"></a></p>
+<!--      INNAN DU BÖRJAR                     -->
+<p align="center">
+<a href="INNAN"></a>
+<font face="San Serif" style="font-size: 16pt;" size="4"> <b>Innan du b&ouml;rjar.</b></font>
+</p>
+
+<p align="left"><font face="San Serif"><font size="3">
+F&ouml;ruts&auml;ttningen f&ouml;r att kunna anv&auml;nda OLFIX &auml;r att
+databasmotorn MySQL &auml;r installerad samt att databasdom&auml;nen &auml;r startad.
+Detta sk&ouml;ter din databasadministrat&ouml;r om. Det b&auml;sta &auml;r om databasd&auml;monen
+alltid startas s&aring; fort datorn startar. Om du arbetar i ett n&auml;rverk s&aring;
+&auml;r det administrat&ouml;rens ansvar att se till att allt fungerar.<br>
+
+Innan du f&ouml;rs&ouml;ker anv&auml;nda OLFIX ska du kontrollera att du har filen
+.olfixrc i ditt hemmabibliotek.<br>
+
+Observera att det &auml;r en punkt framf&ouml;r filnamnet, punkten &auml;r en del av
+filnamnet.<br>
+
+Inneh&aring;llet i filen ska se ut ungef&auml;r s&aring; h&auml;r:</font></p>
+
+<p align="left"><font face="San Serif" size="3">
+PATH=/opt/olfix/bin/<br>
+
+HOST=localhost<br>
+
+DATABASE=olfixtst<br>
+
+HELPFILE=/doc/helpfiles/usermanual/UserManual.html<br>
+
+REPORT=/opt/olfix/report/<br>
+
+VTMP=/tmp/<br>
+
+<br>
+</font>
+<p align="left"><font face="San Serif" size="3">
+V&auml;rdet f&ouml;r <font face="Courier, monospace">DATABASE </font>kan
+skifta. Om det st&aring;r <font face="Courier, monospace">olfixtst</font> s&aring;
+inneb&auml;r det att du arbetar med testf&ouml;retaget.<br>
+
+Om v&auml;rdet &auml;r <font face="Courier, monospace">olfix</font> s&aring; anger det
+att du arbetar med det &rdquo;skarpa&rdquo;, ordinarie f&ouml;retaget.<br>
+
+Detta &auml;r inte n&aring;got du ska &auml;ndra sj&auml;lv.<br> 
+Anv&auml;nd programmet <a href="UserManual_DATABASER.html#DATABASBYT"><strong>BYTFTGW</strong></a>
+<FONT FACE="San Serif">för att byta databas/f&ouml;retag.</font></p>
+
+<p align = "left" style="margin-bottom: 0cm;"><font face="San Serif" size="2" >
+<a href="#TOP">Till b&ouml;rjan</a></font></p>
+
+<hr>
+<!--       KOMMA IGÅNG                    -->
+<p align="center"><font face="San Serif"><font style="font-size: 16pt;" size="4">
+<a name="IGANG"></a>
+<b>Att komma ig&aring;ng</b></font></p>
+
+<p><font face="San Serif">
+Med hj&auml;lp av en filhanterare letar du upp filen
+/opt/olfix/bin/OLFIXW. Dra den filen till skrivbordet och sl&auml;pp.
+P&aring; fr&aring;gan om kopiera mm v&auml;ljer du l&auml;nka. D&auml;refter kan du klicka p&aring;
+ikonen OLFIXW p&aring; skrivbordet.</font></p>
+
+<p><font face="San Serif">Du ska f&aring; upp f&ouml;ljande bild:</font></font></font></p>
+
+<p align="center">
+<font face="San Serif"><img src="UserManual_html_OLFIX_MENU.png" name="Graphic4" align="bottom" border="0" height="411" width="408"><br>
+
+Bild 1</font></p>
+
+<p><font face="San Serif">H&auml;r kan du v&auml;lja vilka program/funktioner du &ouml;nskar anv&auml;nda.<br>
+
+Genom att klicka p&aring; enfunktion s&aring; startar detta program.<br>
+
+I bild 1 finns det +tecken och -tecken. Dessa expanderar respektive
+krymper listan med funktioner.<br>
+
+<br>
+
+Ifall du f&aring;r upp nedanst&aring;ende bild s&aring; &auml;r databasen inte ig&aring;ng/&ouml;ppen.</font></p>
+
+<p align="center">
+<font face="San Serif"><img src="UserManual_html_OLFIXW_Error1.png" name="Graphic6" align="bottom" border="0" height="132" width="643"><br>
+
+Bild 2</font></p>
+
+<p><font face="San Serif">Om du f&aring;r upp en bild som liknar Bild 3:</font></font></font></p>
+
+<p align="center">
+<font face="San Serif"><img src="UserManual_html_Behorighet.png" name="Graphic5" align="bottom" border="0" height="115" width="373"><br>
+
+Bild 3</font></p>
+
+<p><font face="San Serif">f&aring;r du v&auml;nda dig till den person som administrerar ditt
+system s&aring; f&aring;r denne ordna s&aring; du f&aring;r r&auml;tt att anv&auml;nda programmet,
+beh&ouml;righet till programmet.</font></p>
+
+<p style="margin-bottom: 0cm;">
+<font face="San Serif">
+<a href="#TOP">Till b&ouml;rjan</a></font></p>
+
+<hr>
+<!--       GRUNDDATA                     -->
+<p align="center">
+<font face="San Serif"><font style="font-size: 16pt;" size="4">
+<a name="GRUNDDATA"></a>
+<b>GRUNDDATA</b></font></p>
+
+
+<p align="left"><font face="San Serif">Det f&ouml;rsta som m&aring;ste g&ouml;ras innan man
+kan anv&auml;nda OLFIX &auml;r att mata in grunddata.<br>
+
+Grunddata &auml;r t ex f&ouml;retagsuppgifter, anv&auml;ndare, beh&ouml;righeter, kontoplan
+och r&auml;kenskaps&aring;r. Ett nytt r&auml;kenskaps&aring;r l&auml;ggs upp med ADDBARW, anv&auml;ndare
+l&auml;ggs upp med ADDUSRW, beh&ouml;righeter med ADDRGTW och kontoplan l&auml;ggs upp
+med ADDKTOW.</font></p>
+
+<p>
+<font face="San Serif">
+<a name="FLERA"></a>
+<b>Flera f&ouml;retag.</b></font></p>
+
+<p>
+<font style="font-size: 16pt;" size="4"><font face="San Serif">
+<a name="GRUNDATA2"></a></font></p>
+
+<p align="left">
+<font face="San Serif">OLFIX medger hantering av upp till 99
+olika f&ouml;retag. F&ouml;retag nr 99 &auml;r reserverat f&ouml;r testf&ouml;retaget.<br>
+
+OLFIX levereras med ett &rdquo;skarpt&rdquo; (ordinarie) f&ouml;retag (01) och ett
+testf&ouml;retag (99).</font></p>
+
+<p>
+<font face="San Serif"><b>Artiklar</b></font></p>
+
+<p>
+<font face="San Serif"><a name="GRUNDATA3"></a></font></p>
+
+<p align="left">
+<font face="San Serif">Artikeltyp 0 = Tillverkningsartikel som tillverkas mot lager.<br>
+
+Artikeltyp 1 = Tillverkningsartikel som ej tillveraks mot lager.<br>
+
+Artikeltyp 2 = K&ouml;partikel som k&ouml;ps mot lager.<br>
+
+Artikeltyp 3 = K&ouml;partikel som ej k&ouml;ps mot lager.<br>
+
+Artikeltyp 4 = Tj&auml;nst.<br>
+
+Grundv&auml;rde = 0</font></p>
+
+<p>
+<font face="San Serif"><b>Artikelstruktur</b></font></p>
+
+<p style="margin-bottom: 0cm;"></p>
+
+<p align="left">
+<font face="San Serif">Blank = ing&aring;r ej i struktur.<br>
+
+B = Bottenartikel.<br>
+
+I = Ing&aring;r "mitt" i artikel.<br>
+
+T = Toppartikel.<br>
+
+F = Fantom, ing&aring;r "mitt" i artikel, ej fysisk artikel.<br>
+
+Grundv&auml;rde = blank.<br>
+
+<br>
+
+<a href="#TOP">Till b&ouml;rjan</a></font></p>
+
+<hr>
+<p align="center">
+<font face="San Serif"><a name="ADMIN"></a>
+</font></p>
+<p style="margin-bottom: 0cm;" align="left"><font face="San Serif"><font face="San Serif"><a href="#TOP">Till b&ouml;rjan</a>
+</font></font></p>
+
+
+
+<hr>
+<p align="center">
+<font face="San Serif"><font style="font-size: 16pt;" size="4">
+<a name="BEGREPP"></a> <b>BEGREPPSF&Ouml;RKLARINGAR</b></font></p>
+<p align="left">
+<font face="San Serif"><br>
+<p align="left">
+<b>Bokföringsår:</b> Tvåställig bokstavskombination som anger vilket
+bokföringsår som avses.</p>
+<br>
+
+
+</font></p>
+<p style="margin-bottom: 0cm;" align="left">
+<font face="San Serif">
+<a href="#TOP">Till b&ouml;rjan</a>
+</font></p>
+
+
+</body>
+</html>

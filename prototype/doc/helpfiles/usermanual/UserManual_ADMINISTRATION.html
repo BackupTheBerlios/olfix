@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-15">
+	<TITLE>UserManual</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.0.2  (Linux)">
+	<META NAME="CREATED" CONTENT="20021205;10014400">
+	<META NAME="CHANGEDBY" CONTENT="Jan Pihlgren">
+	<META NAME="CHANGED" CONTENT="20050929;7382300">
+	<STYLE>
+	<!--
+		@page { margin: 2cm }
+		P { margin-bottom: 0.21cm }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="sv-SE">
+<P STYLE="margin-bottom: 0cm"><IMG SRC="UserManual_html_OLFIX_LOGGA.jpg" NAME="Graphic1" ALIGN=MIDDLE WIDTH=643 HEIGHT=268 BORDER=0>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=6 STYLE="font-size: 22pt"><B>Order/Lager/Fakturering
+f&ouml;r Linuxsystem</B></FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=6 STYLE="font-size: 22pt">Anv&auml;ndarmanual
+</FONT>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=4 STYLE="font-size: 16pt">Kapitel
+Administration</FONT>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.1 </FONT>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2006-01-10 </FONT>
+</P>
+<HR>
+<P STYLE="margin-left: 3cm">This program is free software; you can
+redistribute it and/or modify<BR>it under the terms of the GNU
+General Public License as published by<BR>the Free Software
+Foundation; either version 2 of the License, or<BR>(at your option)
+any later version.</P>
+<P STYLE="margin-bottom: 0.5cm; border-top: none; border-bottom: 1.10pt double #808080; border-left: none; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0cm; padding-right: 0cm">
+<FONT SIZE=1 STYLE="font-size: 6pt">Copyright 2004 Jan Pihlgren.</FONT></P>
+<p style="margin-bottom: 0cm;"><font face="San Serif" size="2">
+<a href="UserManual.html#TOP">Hem</a></font></p>
+<A NAME="TOP"></A>
+<!--                   INNEHÅLL                           -->
+<P ALIGN=CENTER><A NAME="INNEHALL"></A>
+<FONT SIZE=4 STYLE="font-size: 16pt"><B>Inneh&aring;ll</B></FONT></P>
+<P STYLE="font-size: 10pt">
+<pre>
+<P STYLE="font-size: 10pt">
+	<A href="#ADMIN">Administration.</A>
+		<A href="#ALLMENT">Allmännt.</A><br>
+	<A href="#USER">Användaradministration.</A>
+		<A href="#NYUSER">Ny användare.</A>
+		<a href="LISTUSER	">Lista användare.</a>
+		<A href="#DELUSER">Ta bort användare.</A><br>
+	<A href="#FUNK">Funktionsadministration.</A>
+		<A href="#NYFUNK">Ny funktion.</A><br>
+	<A href="#BEHORIG">Behörighetsadministration.</A>
+		<A href="#NYBEHORIG">Ny behörighet.</A><br></P>
+</pre>
+</FONT>
+</P>
+<HR>
+<!--                  ADMINISTRATION                           -->
+<P ALIGN=CENTER>
+<a name="ADMIN">
+<FONT SIZE=4 STYLE="font-size: 14pt"><B>Administration</B></FONT></P>
+<!--                  ALLMÄNT                          -->
+<P ALIGN=LEFT>
+<a name="ALLMENT">
+<FONT SIZE=4 STYLE="font-size: 12pt"><B>Allmänt.</B></FONT></P>
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+Att använda ett ekonomisystem lär man sig inte på en dag. Det är många saker man måste ha kännedom om.
+Bland annat behöver man lära sig metoder för backup och "köra" uppdaterings och rensningsprogram regelbundet.<br>
+OLFIX har ett eget behörighetssystem ovanpå operativsystemet (Linux). Behörighetssystemet kan hanteras av personer  som inte är speciellt utbildade på operativsystemet. En användare med  kunskaper om företagets affärsfilosofi och regler för spridning av företagets information kan enkelt handera OLFIXs behörighetssystem.<br>
+Behörighetssytemet bygger på att varje användare av OLFIX finns registrerad med sitt ordinarie loggin-ID (operativsystemets loggin-ID) samt en förteckning över vilka programmoduler vederbörande har rätt (behörighet) att använda.
+
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
+
+<hr>
+<!--                  ANVÄNDARADMINISTRATION                           -->
+<P ALIGN=CENTER>
+<a name="USER">
+<FONT SIZE=4 STYLE="font-size: 14pt"><B>Användaradministration</B></FONT></P>
+
+<!--                  NY ANVÄNDARE                           -->
+<P ALIGN=LEFT>
+<a name="NYUSER"><b>Nya användare</b></a><br><br>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+För att kunna använda OLFIX krävs att en användare finns registrerad i respektive databas.<br>
+Användaren måste dessutom finnas upplagd som användare i operativsystemet.<br>
+
+Lägga upp den nya användaren med ADDUSRW.<br>
+Administration - Användaradministration  - Ny användare.<br>
+</p>
+<p align="center">
+<img src="UserManual_html_ADDUSRW.png" name="NYUSERPICT" align="bottom"  border="0"></p>
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=3 STYLE="font-size: 10pt">
+<b>Användar_ID:</b> Ange användarens inloggnings-ID. <b>OBS!</b> <u>Maximalt <b><font size="+1">8</font></b> tecken.</u><br>
+De övriga tre fälten är bara information.<br>
+<b>Namn:</b> Fyll i användarens verkliga namn.<br>
+<b>Avd:</b> Ange var i organisationen användaren arbetar, t ex Ekonomi, Produktion<br>
+<b>Grupp:</b> Ange vilken över- eller undergrupp användaren tillhör.<br><br>
+<b>OBS!</b> Programmet ändrar automatiskt till versaler vilket är OK.<br><br>
+</FONT></p>
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
+<HR>
+<!--                  LISTA ANVÄNDARE                           -->
+<P ALIGN=LEFT>
+<a name="LISTUSER"><b>Lista användare.</b></a><br><br>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+Använd LSTUSRW för att se vilka användare som finns registrerade.<br>
+Administration - Användaradministration  - Lista användare.<br>
+<p align="center">
+<img src="UserManual_html_LSTUSRW.png" name="LSTUSERPICT" align="bottom"  border="0"></p>
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=3 STYLE="font-size: 10pt">
+Användare OLFIX är väsentlig för möjligheten att kunna lägga upp behörigheter i systemet. I övrigt bör åtminstone en egen användare finnas registrerad.<br>
+Knappen <b>Uppdatera</b> är till för att läsa in data igen.
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
+<hr>
+<P ALIGN=LEFT>
+<a name="DELUSER"><b>Ta bort användare</b></a><br><br>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+<!--                  TA BORT ANVÄNDARE                           -->
+För att ta bort en användare, med samtliga dennes rättigheter ur systemet använd DELUSRW.<br>
+Administration - Användaradministration  - Ta bort användare.<br>
+<p align="center">
+<img src="UserManual_html_DELUSRW.png" name="DELUSERPICT" align="bottom"  border="0"></p>
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=3 STYLE="font-size: 10pt">
+<b>Userid:</b> Ange användarens inloggnings-ID. Avsluta med att trycka på <b>Enter</b>.<br>
+Allternativt kan man klicka på önskad Userid i tabellen till höger. Glöm inte att trycka på <b>Enter</b> efteråt.<br>
+Klicka på knappen <b>Hämta</b> för att hämta information om användaren. 
+
+Nu kan man radera användaren samt alla rättigheter för denne genom att klicka på knappen <b>OK</b>.
+I fall man ångrar sig kan man klicka på knappen <b>Sluta</b> och programmet avbryts utan att någonradering sker.
+Även när man är klar med att ta bort användare klickar man på knappen <b>Sluta</b>.<br>
+
+<b>Varning! </b>Användaren <b>OLFIX</b> får absolut inte tagas bort! Vare sig som användare eller behörigheterna.<br>
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
+<hr>
+<!--                  BEHÖRIGHETSADMINISTRATION                           -->
+<P ALIGN=CENTER>
+<a name="BEHORIG">
+<FONT SIZE=4 STYLE="font-size: 14pt"><B>Behörighetsadministration</B></FONT></P>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+Behörighetssystemet är till för att selektera behörighet till olika delar av OLFIX.
+Det medger att någon annan än den som administrerar datorsystemet att organisera och tilldela behörigheter till OLFIX:s databaser. Behörigheterna gäller respektive databas.
+Behörighet i t ex <em>olfix</em> medger inte per automatik behörighet i <em>olfixtst</em> och vise versa.
+Databasen olfixtst levereras med fullständiga rättigheter för den som installerat OLFIX.
+När det gäller databasen olfix (den skarpa databasen) så får du själv lägga upp de rättigheter du behöver, en och en. 
+
+<P ALIGN=LEFT>
+<a name="NYBEHORIG"><b>Ny behörighet.</b></a><br><br>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+
+För att kunna använda ett program eller en funktion behövs en koppling mellan användaren och programmet. 
+I den Tekniska  Manualen anges till vilka funktioner behörighet erfordras för respektive program.
+Tilldelning av behörighet görs med programmet ADDRGTW.<br>
+Administration - Behörighetsadministration - Ny behörighet.
+<p align="center">
+<img src="UserManual_html_ADDRGTW.png" name="NYBEHORIGPICT" align="bottom"  border="0"></p>
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=3 STYLE="font-size: 10pt">
+Skriv in <b>Användar-ID</b> och tryck på <b>Enter</b>. Användar-ID ska var det samma som det user-ID som används vid inloggning till Linux. Max 8 tecken.<br>
+Fyll sedan i önskad <b>behörighet</b> och tryck på <b>Enter</b>.<br>
+Allternativt kan man klicka på önskad funktion i tabellen till höger. Glöm inte att trycka på <b>Enter</b>.<br>
+Klicka sedan på <b>OK</b>-knappen för att registrera.<br>
+Upprepa förfarandet för varje önskad behörighet. <br>
+
+Detta måste även göras för de program användaren ska ha behörighet att använda.<br>
+Lämna ADDRGTW genom att klicka på knappen <b>Avsluta</b>.
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
+
+<hr>
+<!--                   BEGREPPSFÖRKLARINGAR                           -->
+<P ALIGN=CENTER><A NAME="BEGREPP"></A><FONT FACE="San Serif">
+<B>BEGREPPSF&Ouml;RKLARINGAR</B></FONT></P>
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt" > <b>Bokf&ouml;rings&aring;r:</B>
+Tv&aring;st&auml;llig bokstavskombination som anger vilket
+bokf&ouml;rings&aring;r som avses.</FONT></P>
+<P><BR><BR>
+</P>
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></FONT></p>
+</BODY>
+</HTML>
