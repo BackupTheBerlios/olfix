@@ -32,14 +32,17 @@
 #include <qfile.h>
 #include <qregexp.h>
 #include <qdatetime.h>
+#include <qcheckbox.h>
 #define MAXSTRING 5000
 
 #include <qdir.h> 
 
     QProcess* process;
     QString inrad;
+    QString inradny;
     QString* rad;
     QString errorrad;
+    QString errorradny;
     QString hjelpfil;
     int varv=0;
 
@@ -47,6 +50,7 @@
     QString reportpath;
     QString kugarversion;
     QString kommando;
+
 
 //	Orderhuvud    
     QString ordernr;	// 01
@@ -103,6 +107,7 @@
     
 void frmChgPlKundOrder::init()
 {
+    checkBox1->setChecked( FALSE );
     frmChgPlKundOrder::listViewRader_format();
     frmChgPlKundOrder::GetReportDir();
     pushButtonOK->setEnabled(TRUE);
@@ -146,6 +151,19 @@ void frmChgPlKundOrder::pushButtonNext_clicked()
 {
     pushButtonOK->setEnabled(TRUE);
     lineEditOrderNr->setFocus();
+}
+
+void frmChgPlKundOrder::utskriftJaNej()
+{
+    qDebug("checkBox1 clickad");
+    if ( checkBox1->isChecked( )==TRUE) {
+	qDebug("checkBox1 = TRUE");
+//	checkBox1->setChecked( FALSE);
+    }else{
+	qDebug("checkBox1 = FALSE");
+//	checkBox1->setChecked( TRUE );;
+    }
+    
 }
 
 void frmChgPlKundOrder::GetOrderHeader()
@@ -890,10 +908,11 @@ void frmChgPlKundOrder::updateOrder()
 //       qDebug("ordernum=%s, radnum=%s, plockatantal=%s, restantal=%s",ordernum.latin1(),radnum.latin1(),plockatantal.latin1(),restantal.latin1());
        changeOrder(ordernum,radnum,plockatantal,restantal);
        ARregUpdate("4",artikelnr,plockatantal);	/* minska lagersaldo med plockat antal  */
-       trhddata="lagersaldo - "+plockatantal;
+       trhddata="Ordernr = "+ordernum+"artikelnr= "+artikelnr+"lagersaldo - "+plockatantal;
        TRHDregAdd(trhddata );
        ARregUpdate("2",artikelnr,plockatantal);	/* minska reserverat antal med plockat antal  */
-       trhddata="reserverat antal - "+plockatantal;
+       trhddata="Ordernr = "+ordernum+", artikelnr= "+artikelnr+", reserverat antal - "+plockatantal;
+//       qDebug("trhddata=%s",trhddata.latin1());
        TRHDregAdd(trhddata );     
        plockdata="_:_"+ordernum+"_:_"+radnum+"_:_"+kundnr+"_:_"+artikelnr+"_:_"+benamn+"_:_"+levvecka+"_:_"+bestantal+"_:_"+attleverera+"_:_"+levantal+"_:_"+plockatantal+"_:_"+restantal+"_:_"+leveransdatum+"_:_"+"ST" +"_:_"+"P"+"_:_"+plockdatum+"_:_"+"END";
 //       qDebug("plockdata=%s",plockdata.latin1());
@@ -901,6 +920,9 @@ void frmChgPlKundOrder::updateOrder()
        item=item->nextSibling ();
    }
    pushButtonOK->setEnabled(FALSE);  /* Kan inte uppdatera samma order flera gånger */
+   if (checkBox1->isChecked() == TRUE) {
+       skrivUt();
+   }  
 }
 
 void frmChgPlKundOrder::changeOrder( QString ordernum,QString radnum,QString levantal,QString restantal)
@@ -987,7 +1009,7 @@ void frmChgPlKundOrder::ARregUpdateEndOfProcess()
     } 
 }
 
-void frmChgPlKundOrder::TRHDregAdd(QString trnsdata )
+void frmChgPlKundOrder::TRHDregAdd(QString data )
 {
 	/* Uppdatera artikelregistret, TRHD, historikregistret*/
 	const char *userp = getenv("USER");
@@ -996,7 +1018,7 @@ void frmChgPlKundOrder::TRHDregAdd(QString trnsdata )
 	QDateTime dt = QDateTime::currentDateTime();
 	tidpunkt=dt.toString ( "yyyy-MM-dd hh:mm:ss" );
 	
-//	qDebug("val=%s, artikelnr=%s, data=%s",val.latin1(),artikelnr.latin1(),data.latin1());
+	qDebug("data=%s",data.latin1());
 	 
 	inrad="";
 	errorrad="";
@@ -1007,7 +1029,7 @@ void frmChgPlKundOrder::TRHDregAdd(QString trnsdata )
 	process->addArgument("AR2UPD");	// TRNSID
 	process->addArgument(tidpunkt);
 	process->addArgument(usr);
-	process->addArgument(trnsdata);
+	process->addArgument(data);
 
 	frmChgPlKundOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(DataOnStdout() ) );
 	frmChgPlKundOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(DataOnStderr() ) );
@@ -1038,18 +1060,18 @@ void frmChgPlKundOrder::PlockAdd( QString data )
     /* Lägga till en post i PLOCKLISTEREG */
             const char *userp = getenv("USER");
             QString usr(userp);
-	
+//	qDebug("PICKADD data=%s",data.latin1());
 	 
-	inrad="";
-	errorrad="";
+	inradny="";
+	errorradny="";
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// userid
 	process->addArgument( "PICKADD");	// OLFIX funktion
 	process->addArgument(data);		// data till PICKADD för PLOCKLISTEREG
-
-	frmChgPlKundOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(DataOnStdout() ) );
-	frmChgPlKundOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(DataOnStderr() ) );
+	
+	frmChgPlKundOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(PlockAddDataOnStdout() ) );
+	frmChgPlKundOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(PlockAddDataOnStderr() ) );
             frmChgPlKundOrder::connect( process, SIGNAL(processExited() ),this, SLOT(PlockAddEndOfProcess() ) );
 	    
 	if ( !process->start() ) {
@@ -1063,11 +1085,66 @@ void frmChgPlKundOrder::PlockAddEndOfProcess()
 {
     int i;
     i = -1;
-    i = errorrad.find( QRegExp("Error:"), 0 );
+    i = errorradny.find( QRegExp("Error:"), 0 );
  //   qDebug("Error:",errorrad);
     if (i != -1) {
 	QMessageBox::critical( this, "PLCHGW",
-		"ERROR!\n"+errorrad
+		"ERROR!\n"+errorradny
 	);
-    } 
+    }
+/*    i= -1;
+    i = errorradny.find( QRegExp("PICKADD"), 0);
+    if (i != -1){
+	QMessageBox::warning(this,"PLCHGW",
+			     "Information!\n"+errorradny
+	);
+    }
+*/    
+//    qDebug("inradny=%s",inradny.latin1());
+//    qDebug("errorradny=%s",errorradny.latin1());
+}
+
+void frmChgPlKundOrder::PlockAddDataOnStdout()
+{
+     while (process->canReadLineStdout() ) {
+	QString line = process->readStdout();
+	inradny.append(line);
+	inradny.append("\n");
+//	qDebug("inradny=%s",inradny.latin1());
+    }
+}
+
+void frmChgPlKundOrder::PlockAddDataOnStderr()
+{
+     while (process->canReadLineStdout() ) {
+	QString line = process->readStderr();
+	errorradny.append(line);
+	errorradny.append("\n");
+//	qDebug("errorradny=%s",errorradny.latin1());
+    }
+}
+
+void frmChgPlKundOrder::skrivUt()
+{
+//	inrad="";
+//	errorrad="";
+	process = new QProcess();
+	process->addArgument("./FSORDW");	// OLFIX program för utskrift av följesedlar
+	process->addArgument(ordernr);		// senaste ordernr
+
+	frmChgPlKundOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(DataOnStdout() ) );
+	frmChgPlKundOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(DataOnStderr() ) );
+            frmChgPlKundOrder::connect( process, SIGNAL(processExited() ),this, SLOT(skrivUtEndOfProcess() ) );
+	    
+	if ( !process->start() ) {
+		// error handling
+		QMessageBox::warning( this, "PLCHGW",
+                            "Kan inte starta FSORDW! \n" );
+	    }
+}
+
+
+void frmChgPlKundOrder::skrivUtEndOfProcess()
+{
+    qDebug("Skrivit ut order nr %s",ordernr.latin1());
 }

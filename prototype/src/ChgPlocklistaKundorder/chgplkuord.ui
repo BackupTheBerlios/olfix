@@ -817,6 +817,39 @@ antal</string>
             <string>Klicka på önskad orderrad och den flyttas upp till de separata fälten.</string>
         </property>
     </widget>
+    <widget class="QCheckBox">
+        <property name="name">
+            <cstring>checkBox1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>285</x>
+                <y>380</y>
+                <width>35</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Ja</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_6</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>265</x>
+                <y>351</y>
+                <width>70</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>&lt;font size="-4"&gt;Direkt utskrift
+av följesedel J/N&lt;/font&gt;</string>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
@@ -867,6 +900,12 @@ antal</string>
         <receiver>frmChgPlKundOrder</receiver>
         <slot>pushButtonNext_clicked()</slot>
     </connection>
+    <connection>
+        <sender>checkBox1</sender>
+        <signal>clicked()</signal>
+        <receiver>frmChgPlKundOrder</receiver>
+        <slot>utskriftJaNej()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>lineEditOrderNr</tabstop>
@@ -895,6 +934,7 @@ antal</string>
     <slot>lineEditPlockatAntal_returnPressed()</slot>
     <slot>pushButtonOK_clicked()</slot>
     <slot>pushButtonNext_clicked()</slot>
+    <slot>utskriftJaNej()</slot>
     <slot>GetOrderHeader()</slot>
     <slot>GetOrderRow()</slot>
     <slot>OrderHuvudEndOfProcess()</slot>
@@ -918,6 +958,10 @@ antal</string>
     <slot>TRHDregAddEndOfProcess()</slot>
     <slot>PlockAdd( QString data )</slot>
     <slot>PlockAddEndOfProcess()</slot>
+    <slot>PlockAddDataOnStdout()</slot>
+    <slot>PlockAddDataOnStderr()</slot>
+    <slot>skrivUt()</slot>
+    <slot>skrivUtEndOfProcess()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
