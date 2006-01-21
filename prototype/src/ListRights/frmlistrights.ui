@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
 <class>frmListRights</class>
 <widget class="QWidget">
     <property name="name">
@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>290</width>
-            <height>278</height>
+            <width>400</width>
+            <height>252</height>
         </rect>
     </property>
     <property name="sizePolicy">
@@ -28,8 +28,8 @@
     </property>
     <property name="maximumSize">
         <size>
-            <width>500</width>
-            <height>280</height>
+            <width>1500</width>
+            <height>1280</height>
         </size>
     </property>
     <property name="baseSize">
@@ -41,73 +41,71 @@
     <property name="caption">
         <string>LSTRGTW  Lista behörigheter</string>
     </property>
-    <widget class="QListView">
-        <column>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QListView" row="0" column="1" rowspan="3" colspan="1">
+            <column>
+                <property name="text">
+                    <string>Userid</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Behörighet</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <property name="name">
+                <cstring>ListView1</cstring>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="2" column="0">
+            <property name="name">
+                <cstring>PushButtonSluta</cstring>
+            </property>
             <property name="text">
-                <string>Userid</string>
+                <string>Sluta</string>
             </property>
-            <property name="clickable">
-                <bool>true</bool>
+        </widget>
+        <widget class="QPushButton" row="1" column="0">
+            <property name="name">
+                <cstring>PushButtonAgain</cstring>
             </property>
-            <property name="resizeable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
             <property name="text">
-                <string>Behörighet</string>
+                <string>Uppdatera</string>
             </property>
-            <property name="clickable">
-                <bool>true</bool>
+        </widget>
+        <spacer row="0" column="0">
+            <property name="name">
+                <cstring>spacer5</cstring>
             </property>
-            <property name="resizeable">
-                <bool>true</bool>
+            <property name="orientation">
+                <enum>Vertical</enum>
             </property>
-        </column>
-        <property name="name">
-            <cstring>ListView1</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>80</x>
-                <y>10</y>
-                <width>200</width>
-                <height>261</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonAgain</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>6</x>
-                <y>205</y>
-                <width>65</width>
-                <height>31</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Uppdatera</string>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonSluta</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>6</x>
-                <y>240</y>
-                <width>65</width>
-                <height>30</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Sluta</string>
-        </property>
-    </widget>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>16</width>
+                    <height>170</height>
+                </size>
+            </property>
+        </spacer>
+    </grid>
 </widget>
 <connections>
     <connection>

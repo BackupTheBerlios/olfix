@@ -3,7 +3,7 @@
 ######################################################################
 
 TARGET=DSPUSRW
-DESTDIR+=/home/jan/Utveckling/OLFIX/bin
+DESTDIR+=/opt/olfix/bin
 TEMPLATE = app
 INCLUDEPATH += .
 

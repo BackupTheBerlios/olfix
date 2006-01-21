@@ -3,7 +3,7 @@
 ######################################################################
 # 2005-11-29
 TARGET=OLFIXTW
-DESTDIR+=/home/jan/Utveckling/OLFIX/bin
+DESTDIR+=/opt/olfix/bin
 TEMPLATE = app
 INCLUDEPATH += .
 

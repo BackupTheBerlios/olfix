@@ -3,7 +3,7 @@
 ######################################################################
 
 TARGET=LSTARW
-DESTDIR+=/home/jan/Utveckling/OLFIX/bin
+DESTDIR+=/opt/olfix/bin
 TEMPLATE = app
 INCLUDEPATH += .
 
