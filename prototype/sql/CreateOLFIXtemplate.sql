@@ -384,6 +384,7 @@ CREATE TABLE KUNDREG (
   SENASTEKRAVDATUM date default NULL,
   SKULD decimal(10,2) default NULL,
   ORDERSTOCK decimal(10,2) default NULL,
+  PRISLISTA int NOT NULL default '0',
   PRIMARY KEY  (KUNDNR)
 ) TYPE=MyISAM;
 
@@ -680,6 +681,25 @@ CREATE TABLE PLOCKLISTEREG (
 ) TYPE=MyISAM;
 
 --
+-- Table structure for table 'PRISLISTA'
+--
+
+DROP TABLE IF EXISTS PRISLISTA;
+CREATE TABLE PRISLISTA (
+  ARTIKELNR varchar(30) NOT NULL default '',
+  PRIS1 decimal(4,3) default '0',
+  PRIS2 decimal(4,3) default '0',
+  PRIS3 decimal(4,3) default '0',
+  PRIS4 decimal(4,3) default '0',
+  PRIS5 decimal(4,3) default '0',
+  PRIMARY KEY  (ARTIKELNR)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table 'PRISLISTA'
+--
+
+--
 -- Table structure for table 'PRODUKTGRUPP'
 --
 
@@ -812,7 +832,7 @@ INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('095','E
 INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('096','Administration','Företagsdata','Lista texter i TEXTREG','LSTTXTW');
 INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('097','Administration','Företagsdata','Visa en post i TEXTREG','DSPTXTW');
 INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('098','Materialhantering','Artikeldata','Söka artikel','SRCHARW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('098','Ekonomi','Bokföring','Reg.betald kundfaktura','KUFAKTBWW');
+INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('098','Ekonomi','Bokföring','Reg.betald kundfaktura','KUFAKTBW');
 
 --
 -- Table structure for table 'RIGHTS'
