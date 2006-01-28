@@ -96,3 +96,7 @@
 "096","Administration","Företagsdata","Lista texter i TEXTREG","LSTTXTW"
 "097","Administration","Företagsdata","Visa en post i TEXTREG","DSPTXTW"
 "098","Materialhantering","Artikeldata","Söka artikel","SRCHARW"
+"099","Ekonomi","Bokföring","Reg. betald kundfaktura","KUFAKTBW"
+"100","Materialhantering","Artikeladmin.","Lista prislistor","(LSTPRISW)"
+"101","Materialhantering","Artikeladmin.","Ladda nya prislistor","(ADDPRISW)"
+"102","Materialhantering","Artikeladmin.","Ändra i prislistor","CHGPRISW"
