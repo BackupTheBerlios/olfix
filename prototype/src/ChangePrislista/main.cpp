@@ -1,7 +1,7 @@
 /****************************************************************/
-/**		main.cpp		ADDPRISW		*/
-/**		2006-01-22				*/
-/**		Jan Pihlgren	jan@pihlgren.se		*/
+/**		main.cpp		CHGPRISW		*/
+/**		2006-01-22					*/
+/**		Jan Pihlgren	jan@pihlgren.se			*/
 /****************************************************************/
 /*****************************************************************
  *					                                                 *
@@ -55,8 +55,8 @@ int main( int argc, char* argv[] )
         }
 	file.close();
     }else{
-	QMessageBox::warning( mywidget, "OLFIX - ADDPRISW",
- 	"Kan inte hitta filen $HOME/.olfixrc.\n ADDPRISW kommer inte att fungera!\n");
+	QMessageBox::warning( mywidget, "OLFIX - CHGPRISW",
+ 	"Kan inte hitta filen $HOME/.olfixrc.\n CHGPRISW kommer inte att fungera!\n");
 	qWarning( "Cannot find the $HOME/.olfixrc file" );
     }
    QDir::setCurrent ( bibl );

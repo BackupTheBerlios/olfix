@@ -1,0 +1,505 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>frmLoadPrices</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>frmLoadPrices</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>606</width>
+            <height>355</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>OLFIX - CHGPRISW Uppdatera prislistor </string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QPushButton" row="0" column="0">
+            <property name="name">
+                <cstring>pushButtonHelp</cstring>
+            </property>
+            <property name="text">
+                <string>Hjälp</string>
+            </property>
+        </widget>
+        <widget class="QLabel" row="0" column="4" rowspan="1" colspan="4">
+            <property name="name">
+                <cstring>textLabel1</cstring>
+            </property>
+            <property name="text">
+                <string>&lt;font size="+1"&gt;&lt;b&gt;Ladda prislistor med nya priser.&lt;/b&gt; &lt;/font&gt;</string>
+            </property>
+        </widget>
+        <widget class="QLabel" row="1" column="7">
+            <property name="name">
+                <cstring>textLabel2</cstring>
+            </property>
+            <property name="text">
+                <string>Prislistefilens namn och sökväg.
+T ex: /home/olle/tmp/prislista1.txt</string>
+            </property>
+        </widget>
+        <widget class="QLineEdit" row="2" column="7">
+            <property name="name">
+                <cstring>lineEditFilname</cstring>
+            </property>
+            <property name="text">
+                <string>/home/jan/tmp/NyPRISLISTA.txt</string>
+            </property>
+        </widget>
+        <widget class="QLabel" row="3" column="7">
+            <property name="name">
+                <cstring>textLabel3</cstring>
+            </property>
+            <property name="text">
+                <string>Testresultat.</string>
+            </property>
+        </widget>
+        <widget class="QListView" row="4" column="7" rowspan="3" colspan="1">
+            <column>
+                <property name="text">
+                    <string>Artikelnummer</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Försäljningspris</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Prislista 1</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Prislista 2</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Prislista 3</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Prislista 4</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Prislista 5</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <property name="name">
+                <cstring>listViewResultat</cstring>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="6" column="0">
+            <property name="name">
+                <cstring>pushButtonOK</cstring>
+            </property>
+            <property name="text">
+                <string>OK</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="6" column="1" rowspan="1" colspan="4">
+            <property name="name">
+                <cstring>pushButtonCancel</cstring>
+            </property>
+            <property name="text">
+                <string>Avbryt</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="6" column="5" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>pushButtonTest</cstring>
+            </property>
+            <property name="text">
+                <string>Test</string>
+            </property>
+            <property name="default">
+                <bool>false</bool>
+            </property>
+        </widget>
+        <widget class="QButtonGroup" row="1" column="0" rowspan="4" colspan="4">
+            <property name="name">
+                <cstring>buttonGroup1</cstring>
+            </property>
+            <property name="title">
+                <string></string>
+            </property>
+            <widget class="QRadioButton">
+                <property name="name">
+                    <cstring>radioButton2</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>15</x>
+                        <y>40</y>
+                        <width>85</width>
+                        <height>22</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>Prislista 2</string>
+                </property>
+            </widget>
+            <widget class="QRadioButton">
+                <property name="name">
+                    <cstring>radioButton3</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>15</x>
+                        <y>65</y>
+                        <width>107</width>
+                        <height>22</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>Prislista 3</string>
+                </property>
+            </widget>
+            <widget class="QRadioButton">
+                <property name="name">
+                    <cstring>radioButton4</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>15</x>
+                        <y>90</y>
+                        <width>107</width>
+                        <height>22</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>Prislista 4</string>
+                </property>
+            </widget>
+            <widget class="QRadioButton">
+                <property name="name">
+                    <cstring>radioButtonA</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>15</x>
+                        <y>140</y>
+                        <width>107</width>
+                        <height>22</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>Alla prislistor</string>
+                </property>
+            </widget>
+            <widget class="QRadioButton">
+                <property name="name">
+                    <cstring>radioButtonF</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>15</x>
+                        <y>165</y>
+                        <width>120</width>
+                        <height>22</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>Försäljningspris</string>
+                </property>
+            </widget>
+            <widget class="QRadioButton">
+                <property name="name">
+                    <cstring>radioButton5</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>15</x>
+                        <y>115</y>
+                        <width>90</width>
+                        <height>22</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>Prislista 5</string>
+                </property>
+            </widget>
+            <widget class="QRadioButton">
+                <property name="name">
+                    <cstring>radioButton1</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>15</x>
+                        <y>20</y>
+                        <width>95</width>
+                        <height>16</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>Prislista 1</string>
+                </property>
+                <property name="checked">
+                    <bool>true</bool>
+                </property>
+            </widget>
+        </widget>
+        <spacer row="0" column="1" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>spacer28</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>41</width>
+                    <height>10</height>
+                </size>
+            </property>
+        </spacer>
+        <spacer row="5" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>spacer25</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>280</width>
+                    <height>25</height>
+                </size>
+            </property>
+        </spacer>
+        <spacer row="1" column="6" rowspan="3" colspan="1">
+            <property name="name">
+                <cstring>spacer27</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>26</width>
+                    <height>95</height>
+                </size>
+            </property>
+        </spacer>
+        <spacer row="1" column="5" rowspan="4" colspan="1">
+            <property name="name">
+                <cstring>spacer29</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>16</width>
+                    <height>205</height>
+                </size>
+            </property>
+        </spacer>
+        <spacer row="4" column="6">
+            <property name="name">
+                <cstring>spacer30</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>16</width>
+                    <height>105</height>
+                </size>
+            </property>
+        </spacer>
+        <spacer row="5" column="2">
+            <property name="name">
+                <cstring>spacer32</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>10</width>
+                    <height>31</height>
+                </size>
+            </property>
+        </spacer>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>pushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>frmLoadPrices</receiver>
+        <slot>pushButtonOK_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonCancel</sender>
+        <signal>clicked()</signal>
+        <receiver>frmLoadPrices</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonTest</sender>
+        <signal>clicked()</signal>
+        <receiver>frmLoadPrices</receiver>
+        <slot>pushButtonTest_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmLoadPrices</receiver>
+        <slot>pushButtonHelp_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditFilname</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmLoadPrices</receiver>
+        <slot>lineEditFilname_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>radioButton1</sender>
+        <signal>clicked()</signal>
+        <receiver>frmLoadPrices</receiver>
+        <slot>radioButton1_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>radioButton2</sender>
+        <signal>clicked()</signal>
+        <receiver>frmLoadPrices</receiver>
+        <slot>radioButton2_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>radioButton3</sender>
+        <signal>clicked()</signal>
+        <receiver>frmLoadPrices</receiver>
+        <slot>radioButton3_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>radioButton4</sender>
+        <signal>clicked()</signal>
+        <receiver>frmLoadPrices</receiver>
+        <slot>radioButton4_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>radioButton5</sender>
+        <signal>clicked()</signal>
+        <receiver>frmLoadPrices</receiver>
+        <slot>radioButton5_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>radioButtonA</sender>
+        <signal>clicked()</signal>
+        <receiver>frmLoadPrices</receiver>
+        <slot>radioButtonA_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>radioButtonF</sender>
+        <signal>clicked()</signal>
+        <receiver>frmLoadPrices</receiver>
+        <slot>radioButtonF_clicked()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>radioButton1</tabstop>
+    <tabstop>lineEditFilname</tabstop>
+    <tabstop>pushButtonTest</tabstop>
+    <tabstop>pushButtonOK</tabstop>
+    <tabstop>pushButtonCancel</tabstop>
+    <tabstop>pushButtonHelp</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">frmloadprices.ui.h</include>
+</includes>
+<slots>
+    <slot>lineEditFilname_returnPressed()</slot>
+    <slot>pushButtonOK_clicked()</slot>
+    <slot>pushButtonCancel_clicked()</slot>
+    <slot>pushButtonTest_clicked()</slot>
+    <slot>radioButton1_clicked()</slot>
+    <slot>radioButton2_clicked()</slot>
+    <slot>radioButton3_clicked()</slot>
+    <slot>radioButton4_clicked()</slot>
+    <slot>radioButton5_clicked()</slot>
+    <slot>radioButtonA_clicked()</slot>
+    <slot>radioButtonF_clicked()</slot>
+    <slot>updatePrices()</slot>
+    <slot>getPricefile()</slot>
+    <slot>pushButtonHelp_clicked()</slot>
+    <slot>readResursFil()</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
