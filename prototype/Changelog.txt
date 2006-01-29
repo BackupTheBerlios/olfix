@@ -1,16 +1,43 @@
-Changelog OLFIX 20060110
+Changelog OLFIX 20060129
 
 Blivande
 Ver 0.3.2.B
-2006-01-10
+2006-01-29
+		Diverse
+		Påbörjat utvecklingen av installationsprogram (new_install.sh)
+		Ett script för att kompilera hela OLFIX i en sväng (kompilering.sh)
+
+		Nya program
+		CHGPRISW	Läsa in prislistor i tabellen PRISLISTA, uppdatering (påbörjad)
+
 		Ändrade program
 		OLFIXW		Rättat en bugg. (OLFIXHLP)
 			main.cpp buggrättning(utökat till 100 tecken för filnamn)
 		DSPORDW		Rättat en bugg. (OLFIXHLP)
 		ADDINKW		Rättat en bugg. (OLFIXHLP)
 
+		Nya funktioner
+		PRISUPD		Uppdatera befintliga priser
+
+		Ny tabell
+		PRISLISTA	Prislistor (kopplade till ARTIKELREG)
+
+		Nytt script
+			kompilering.sh	För att kompilera alla qt-program i /opt/olfix/src
+			new_install.sh  Installering av OLFIX-databaser
+
+		Nya sql
+		CreateTablePRISLISTA.sql
+
+		Ändrade sql
+		CreateOLFIXtemplate.sql
+		CreateTableFTGDATA.sql	Lagt till BGNR och PGNR
+
+		Ändrade data
+		PROGRAMdata.txt		Nya program CHGPRISW
+
 		Dokumentation
-		Usersmanual (Online)Uppdaterad (2006-01-08).Uppdatering och omorganiserad.
+		Usersmanual (Online)Uppdaterad (2006-01-29).Uppdatering och omorganiserad.
 			Varje html-fil innehåller ett eget kapitel.
 			UserManual_ARTIKLAR.html
 			UserManual_ADMINISTRATION.html	(Ny)
@@ -25,7 +52,7 @@ Ver 0.3.2.B
 			UserManual_TIPS.html
 
 		UserManual	Uppdaterad (2005-11-22) Version 0.36)
-		Teknisk Manual	Uppdaterad (2006-01-10) Version 0.58
+		Teknisk Manual	Uppdaterad (2006-01-29) Version 0.58
 		Installationsanvisningar.txt (2005-11-01)
 		Installationsanvisningar.sxw (2005-11-01)
 		Korsrelationer.sxw Uppdaterad (2005-??-??)
