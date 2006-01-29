@@ -19,7 +19,7 @@
         <property name="name">
             <cstring>unnamed</cstring>
         </property>
-        <widget class="QPushButton" row="0" column="0">
+        <widget class="QPushButton" row="0" column="0" rowspan="2" colspan="1">
             <property name="name">
                 <cstring>pushButtonHelp</cstring>
             </property>
@@ -27,32 +27,18 @@
                 <string>Hjälp</string>
             </property>
         </widget>
-        <widget class="QLabel" row="0" column="4" rowspan="1" colspan="4">
-            <property name="name">
-                <cstring>textLabel1</cstring>
-            </property>
-            <property name="text">
-                <string>&lt;font size="+1"&gt;&lt;b&gt;Ladda prislistor med nya priser.&lt;/b&gt; &lt;/font&gt;</string>
-            </property>
-        </widget>
-        <widget class="QLabel" row="1" column="7">
-            <property name="name">
-                <cstring>textLabel2</cstring>
-            </property>
-            <property name="text">
-                <string>Prislistefilens namn och sökväg.
-T ex: /home/olle/tmp/prislista1.txt</string>
-            </property>
-        </widget>
-        <widget class="QLineEdit" row="2" column="7">
+        <widget class="QLineEdit" row="3" column="5" rowspan="1" colspan="2">
             <property name="name">
                 <cstring>lineEditFilname</cstring>
             </property>
+            <property name="focusPolicy">
+                <enum>StrongFocus</enum>
+            </property>
             <property name="text">
-                <string>/home/jan/tmp/NyPRISLISTA.txt</string>
+                <string></string>
             </property>
         </widget>
-        <widget class="QLabel" row="3" column="7">
+        <widget class="QLabel" row="4" column="5" rowspan="1" colspan="2">
             <property name="name">
                 <cstring>textLabel3</cstring>
             </property>
@@ -60,7 +46,7 @@ T ex: /home/olle/tmp/prislista1.txt</string>
                 <string>Testresultat.</string>
             </property>
         </widget>
-        <widget class="QListView" row="4" column="7" rowspan="3" colspan="1">
+        <widget class="QListView" row="5" column="5" rowspan="4" colspan="2">
             <column>
                 <property name="text">
                     <string>Artikelnummer</string>
@@ -141,35 +127,172 @@ T ex: /home/olle/tmp/prislista1.txt</string>
             <property name="name">
                 <cstring>listViewResultat</cstring>
             </property>
+            <property name="focusPolicy">
+                <enum>NoFocus</enum>
+            </property>
         </widget>
-        <widget class="QPushButton" row="6" column="0">
+        <spacer row="1" column="1" rowspan="1" colspan="2">
             <property name="name">
-                <cstring>pushButtonOK</cstring>
+                <cstring>spacer28</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>70</width>
+                    <height>16</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QLabel" row="1" column="3" rowspan="1" colspan="3">
+            <property name="name">
+                <cstring>textLabel1</cstring>
             </property>
             <property name="text">
-                <string>OK</string>
+                <string>&lt;font size="+1"&gt;&lt;b&gt;Ladda prislistor med nya priser.&lt;/b&gt; &lt;/font&gt;</string>
             </property>
         </widget>
-        <widget class="QPushButton" row="6" column="1" rowspan="1" colspan="4">
+        <spacer row="1" column="6">
             <property name="name">
-                <cstring>pushButtonCancel</cstring>
+                <cstring>spacer15</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>161</width>
+                    <height>11</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QLabel" row="2" column="5">
+            <property name="name">
+                <cstring>textLabel2</cstring>
             </property>
             <property name="text">
-                <string>Avbryt</string>
+                <string>Prislistefilens namn och sökväg.
+T ex: prislista1.txt</string>
             </property>
         </widget>
-        <widget class="QPushButton" row="6" column="5" rowspan="1" colspan="2">
+        <spacer row="2" column="6">
+            <property name="name">
+                <cstring>spacer16</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>161</width>
+                    <height>10</height>
+                </size>
+            </property>
+        </spacer>
+        <spacer row="5" column="4">
+            <property name="name">
+                <cstring>spacer30</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>16</width>
+                    <height>90</height>
+                </size>
+            </property>
+        </spacer>
+        <spacer row="7" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>spacer25</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>115</width>
+                    <height>25</height>
+                </size>
+            </property>
+        </spacer>
+        <spacer row="7" column="2">
+            <property name="name">
+                <cstring>spacer32</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>16</width>
+                    <height>53</height>
+                </size>
+            </property>
+        </spacer>
+        <spacer row="2" column="3" rowspan="4" colspan="1">
+            <property name="name">
+                <cstring>spacer29</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>16</width>
+                    <height>190</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QPushButton" row="8" column="3" rowspan="1" colspan="2">
             <property name="name">
                 <cstring>pushButtonTest</cstring>
             </property>
             <property name="text">
                 <string>Test</string>
             </property>
+            <property name="autoDefault">
+                <bool>false</bool>
+            </property>
             <property name="default">
                 <bool>false</bool>
             </property>
         </widget>
-        <widget class="QButtonGroup" row="1" column="0" rowspan="4" colspan="4">
+        <widget class="QPushButton" row="8" column="1" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>pushButtonCancel</cstring>
+            </property>
+            <property name="text">
+                <string>Avbryt</string>
+            </property>
+            <property name="autoDefault">
+                <bool>false</bool>
+            </property>
+        </widget>
+        <widget class="QButtonGroup" row="2" column="0" rowspan="5" colspan="3">
             <property name="name">
                 <cstring>buttonGroup1</cstring>
             </property>
@@ -206,22 +329,6 @@ T ex: /home/olle/tmp/prislista1.txt</string>
                 </property>
                 <property name="text">
                     <string>Prislista 3</string>
-                </property>
-            </widget>
-            <widget class="QRadioButton">
-                <property name="name">
-                    <cstring>radioButton4</cstring>
-                </property>
-                <property name="geometry">
-                    <rect>
-                        <x>15</x>
-                        <y>90</y>
-                        <width>107</width>
-                        <height>22</height>
-                    </rect>
-                </property>
-                <property name="text">
-                    <string>Prislista 4</string>
                 </property>
             </widget>
             <widget class="QRadioButton">
@@ -291,10 +398,34 @@ T ex: /home/olle/tmp/prislista1.txt</string>
                     <bool>true</bool>
                 </property>
             </widget>
+            <widget class="QRadioButton">
+                <property name="name">
+                    <cstring>radioButton4</cstring>
+                </property>
+                <property name="geometry">
+                    <rect>
+                        <x>15</x>
+                        <y>90</y>
+                        <width>107</width>
+                        <height>22</height>
+                    </rect>
+                </property>
+                <property name="text">
+                    <string>Prislista 4</string>
+                </property>
+            </widget>
         </widget>
-        <spacer row="0" column="1" rowspan="1" colspan="3">
+        <widget class="QPushButton" row="8" column="0">
             <property name="name">
-                <cstring>spacer28</cstring>
+                <cstring>pushButtonOK</cstring>
+            </property>
+            <property name="text">
+                <string>OK</string>
+            </property>
+        </widget>
+        <spacer row="6" column="3" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>spacer14</cstring>
             </property>
             <property name="orientation">
                 <enum>Horizontal</enum>
@@ -304,29 +435,12 @@ T ex: /home/olle/tmp/prislista1.txt</string>
             </property>
             <property name="sizeHint">
                 <size>
-                    <width>41</width>
-                    <height>10</height>
+                    <width>60</width>
+                    <height>16</height>
                 </size>
             </property>
         </spacer>
-        <spacer row="5" column="0" rowspan="1" colspan="2">
-            <property name="name">
-                <cstring>spacer25</cstring>
-            </property>
-            <property name="orientation">
-                <enum>Horizontal</enum>
-            </property>
-            <property name="sizeType">
-                <enum>Expanding</enum>
-            </property>
-            <property name="sizeHint">
-                <size>
-                    <width>280</width>
-                    <height>25</height>
-                </size>
-            </property>
-        </spacer>
-        <spacer row="1" column="6" rowspan="3" colspan="1">
+        <spacer row="2" column="4" rowspan="3" colspan="1">
             <property name="name">
                 <cstring>spacer27</cstring>
             </property>
@@ -339,58 +453,24 @@ T ex: /home/olle/tmp/prislista1.txt</string>
             <property name="sizeHint">
                 <size>
                     <width>26</width>
-                    <height>95</height>
+                    <height>92</height>
                 </size>
             </property>
         </spacer>
-        <spacer row="1" column="5" rowspan="4" colspan="1">
+        <spacer row="0" column="3" rowspan="1" colspan="4">
             <property name="name">
-                <cstring>spacer29</cstring>
+                <cstring>spacer17</cstring>
             </property>
             <property name="orientation">
-                <enum>Vertical</enum>
+                <enum>Horizontal</enum>
             </property>
             <property name="sizeType">
                 <enum>Expanding</enum>
             </property>
             <property name="sizeHint">
                 <size>
-                    <width>16</width>
-                    <height>205</height>
-                </size>
-            </property>
-        </spacer>
-        <spacer row="4" column="6">
-            <property name="name">
-                <cstring>spacer30</cstring>
-            </property>
-            <property name="orientation">
-                <enum>Vertical</enum>
-            </property>
-            <property name="sizeType">
-                <enum>Expanding</enum>
-            </property>
-            <property name="sizeHint">
-                <size>
-                    <width>16</width>
-                    <height>105</height>
-                </size>
-            </property>
-        </spacer>
-        <spacer row="5" column="2">
-            <property name="name">
-                <cstring>spacer32</cstring>
-            </property>
-            <property name="orientation">
-                <enum>Vertical</enum>
-            </property>
-            <property name="sizeType">
-                <enum>Expanding</enum>
-            </property>
-            <property name="sizeHint">
-                <size>
-                    <width>10</width>
-                    <height>31</height>
+                    <width>441</width>
+                    <height>10</height>
                 </size>
             </property>
         </spacer>
@@ -420,12 +500,6 @@ T ex: /home/olle/tmp/prislista1.txt</string>
         <signal>clicked()</signal>
         <receiver>frmLoadPrices</receiver>
         <slot>pushButtonHelp_clicked()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditFilname</sender>
-        <signal>lostFocus()</signal>
-        <receiver>frmLoadPrices</receiver>
-        <slot>lineEditFilname_returnPressed()</slot>
     </connection>
     <connection>
         <sender>radioButton1</sender>
@@ -469,14 +543,21 @@ T ex: /home/olle/tmp/prislista1.txt</string>
         <receiver>frmLoadPrices</receiver>
         <slot>radioButtonF_clicked()</slot>
     </connection>
+    <connection>
+        <sender>lineEditFilname</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmLoadPrices</receiver>
+        <slot>lineEditFilname_returnPressed()</slot>
+    </connection>
 </connections>
 <tabstops>
-    <tabstop>radioButton1</tabstop>
     <tabstop>lineEditFilname</tabstop>
+    <tabstop>radioButton1</tabstop>
     <tabstop>pushButtonTest</tabstop>
     <tabstop>pushButtonOK</tabstop>
     <tabstop>pushButtonCancel</tabstop>
     <tabstop>pushButtonHelp</tabstop>
+    <tabstop>listViewResultat</tabstop>
 </tabstops>
 <includes>
     <include location="local" impldecl="in implementation">frmloadprices.ui.h</include>
@@ -493,8 +574,11 @@ T ex: /home/olle/tmp/prislista1.txt</string>
     <slot>radioButton5_clicked()</slot>
     <slot>radioButtonA_clicked()</slot>
     <slot>radioButtonF_clicked()</slot>
-    <slot>updatePrices()</slot>
     <slot>getPricefile()</slot>
+    <slot>updatePrices( QString file, QString price )</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>slotEndOfProcess()</slot>
     <slot>pushButtonHelp_clicked()</slot>
     <slot>readResursFil()</slot>
 </slots>
