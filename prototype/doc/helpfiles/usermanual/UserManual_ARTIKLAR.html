@@ -11,7 +11,7 @@
   <meta name="CREATED" content="20021205;10014400">
 
   <meta name="CHANGEDBY" content="Jan Pihlgren">
-  <meta name="CHANGED" content="20050424;06501400">
+  <meta name="CHANGED" content="20051130;14301400">
   <style>
 	<!--
 		@page { margin: 2cm }
@@ -20,7 +20,7 @@
 	</style>
 </head>
 <body lang="sv-SE">
-<p style="margin-bottom: 0cm;"> <a name="TOP"></a> <img
+<p style="margin-bottom: 0cm;"> <img
  src="UserManual_html_OLFIX_LOGGA.jpg" name="Graphic1" align="middle"
  width="643" height="268" border="0"> <br clear="left">
 <br>
@@ -35,13 +35,14 @@
  Kapitel Artiklar
  </font></p>
 <p align="center" style="margin-bottom: 0cm;"><font size="5">
- Version 0.42
+ Version 0.43
  </font></p>
 <p align="center" style="margin-bottom: 0cm;"><font size="5">
- 2005-04-16
+ 2005-11-30
  </font></p>
 <hr>
-<p style="margin-left: 3cm;">This program is free software; you can
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+<p style="margin-left: 3cm;"><FONT SIZE=1 style="font-size: 10pt;">This program is free software; you can
 redistribute it and/or modify<br>
 it under the terms of the GNU General Public License as published by<br>
 the Free Software Foundation; either version 2 of the License, or<br>
@@ -49,6 +50,7 @@ the Free Software Foundation; either version 2 of the License, or<br>
 <p
  style="border-style: none none double; border-width: medium medium 1.1pt; border-bottom: 1.1pt double rgb(128, 128, 128); padding: 0cm 0cm 0.05cm; margin-bottom: 0.5cm;"> <font
  size="1" style="font-size: 6pt;">Copyright 2004 Jan Pihlgren.</font></p>
+  <a name="TOP"></a>
 <p align="center">
 <a name="INNEHALL"></a><font size="4" style="font-size: 16pt;">
 <b>
@@ -57,21 +59,26 @@ the Free Software Foundation; either version 2 of the License, or<br>
 <p style="margin-left: 3cm;"><font face="San Serif"><font size="+1"></font>
 <!-- <a href="#FORSALJ">Försäljning</a><br> -->
 <font face="San Serif">
-<a href="#ARTIKEL01">Lägga upp en ny artikel.</a><br></font>
+<pre>
+<P STYLE="font-size: 10pt">
+	<a href="#ARTIKEL01">Lägga upp en ny artikel.</a>
+	<a href="#ARTIKELSOEK">Söka en artikel.</a><br>
+	<a href="#PRISLISTA">Prislistor.</a>
+		<a href="#PRISLISTACHG">Uppdatera priser/prislistor.</a>
+		<a href="#PRISFIL">Prisfilen.</a>
+</pre>
 <hr>
 
 <font face="San Serif">
 <a name="ARTIKEL01"></a>
-<p align="left">
+<p align="left"><FONT SIZE=1 style="font-size: 10pt;">
 <b>Lägga upp en ny artikel.</b>
 </p>
 
 <p align="center">
-<img src="UserManual_html_ADDARW.png" name="Graphic01" align="bottom"
- width="700" height="700" border="0">
- </p>
+<img src="UserManual_html_ADDARW.png" name="Graphic01" align="bottom" border="0"> </p>
 <p align="left" style="margin-bottom: 0cm;">
- <p style="margin-bottom: 0cm;">
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
  Information om en artikel finns på två ställen, dels i ARTIKELREG och dels i LAGERSTELLEREG.<br>
  ARTIKELREG innehåller grunduppgifter.<br>
  LAGERSTELLEREG innehåller kvantitetsuppgifter. Det kan finnas flera lagerställen för en artikel.<br>
@@ -103,31 +110,101 @@ Lagerplatsdata innehåller kvantitetsuppgifter som kontinuerligt förändras.<br>
 <b>ABC-kod</b> anger, A = 20% mest värdefulla artiklar, C = 20% minst värdefulla artiklarna och B övriga 60%.<br>
 <b>Kalkylpris</b> är artikelns kostnad, inköpspris + omkostnader(fraktkostnad, tull, försökring, lagerkostnad mm) .<br>
 <b>Beställningspunkt</b> är det lägsta lagersaldo en artikel ska ha så att man hinner fylla på innan lagersaldot blir 0(noll)<br>
-
 <br>
 <a href="#TOP">Till början</a>
 </p><br>
 
 <hr>
+<font face="San Serif">
+<a name="ARTIKELSOEK"></a>
+<p align="left"><FONT SIZE=1 style="font-size: 10pt;">
+<b>Söka en artikel.</b>
+</p>
+
 <p align="center">
-<a name="BEGREPP"></a> <b>BEGREPPSFÖRKLARINGAR</b></p>
-<p align="left">
-<a name="BEGREPP01"></a> <b>Artikeltyp</b><br>
-	0 = tillverkning lager, en artikel som tillverkas av det egna företaget och finns/ska finnas på lager.<br>
-	1 = tillverkning ej lager, en artikel som tillverkas av det egna företaget och <b>inte</b> ska finnas på lager.<br>
-	2 = köp lager, en artikel som köps, <b>ej</b> tillveraks av det egna företaget och finns/ska finnas på lager.<br>
-	3 = köp ej lager, en artikel som köps, <b>ej</b> tillveraks av det egna företaget och <b>inte</b> ska finnas på lager.<br>
-	4 = tjänst (för konsulter mm), en <b>icke</b> materiel "artikel", avsedd för tjänsteuppdrag mm<br>
+<img src="UserManual_html_SCRHARW.png" name="Artikelsoek" align="bottom"  border="0"></p>
 <br>
-<a name="BEGREPP02"></a> <b>Struktur</b><br>
-	Blank = ingår ej i struktur<br>
-	B = Bottenartikel<br>
-	I = Ingår "mitt" i artikel<br>
-	T = Toppartikel<br>
-	F = Fantom, ingår "mitt" i en artikel<br>
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+Börja med att välje <b>sökbegrepp</b> genom att klicka på en av knapparna.<br>
+Skriv sedan in på <b>vad</b> sökningen ska göras. <br>
+Avsluta med att klicka på <b>Sök</b>.<br><br>
+Utsökningen sker på om angivet ord finns <u>någonstans</u> i sökbegreppet. Hänsyn till versaler eller gemener tas ej.<br><br>
+Ex: ordet <u><b>linu</b></u> som finns i Linux. <br><br>
+Genom att <b>klicka på/markera</b> en artikel i listan varvis artikelnumret för den artikeln visas i
+sökrutan.<br>
+Klicka sedan på <b>Hämta</b> startas <b>DSPARW</b> (Visa artikeldata) med artikelnummer ifyllt. <br>
+Sätt fokus på det nya fönstret och tryck <b>Enter</b> och data på vald artikel visas.<br><br>
+Genom att klicka på något av kolumnnamnen får man artiklarna sorterad efter den kolummen,<br>
+ i stigande eller fallande ordning, beroende på åt vilket håll pilen pekar.<br>
+
 
 <p align="left" style="margin-bottom: 0cm;">
 <a href="#TOP">Till början</a>
 </p>
+<hr>
+<p align="center">
+<a name="PRISLISTA"></a> <b>PRISER</b></p>
+
+<a name="PRISLISTACHG"></a>
+<p align="left">
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+ <b>Uppdatera priser/prislistor</b>
+</p>
+<p align="center">
+<img src="UserManual_html_CHGPRISW.png" name="Prischg" align="bottom"  border="0"></p>
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+
+Skriv in namnet på <a href="#PRISFIL">prisfilen</a> och avsluta med att trycka på <b>TAB</b>-tangenten. Välj därefter vilken prislista du vill uppdatera <em>(default Prislista 1)</em>. <b>Prislista 1</b> - <b>Prislista 5</b> uppdaterar endast den prislistan. Alla Prislistor uppdaterar alla 5 prislistorna. Försäljningpris uppdaterar försäljningspriset i artikelregistret.
+Genom att klicka på knappen <b>Test</b> listas priserna i rutan <b>Testresultat</b>, inget mer händer. Ett klick på knappen <b>Avbryt</b> innebär att programmet avslutas.<br>
+Knappen <b>OK</b> startar och genomför uppdateringen. Knappen <b>Avbryt</b> byter namn till <b>Sluta</b>.
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+<a href="#TOP">Till början</a>
+</p>
+
+<hr>
+<a name="PRISFIL"></a>
+<p align="left">
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+ <b>Prisfilen.</b>
+</p>
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+Prisfilen <b>ska</b> ligga i hemmabiblioteket (<em>$HOME</em>). Programmet letar efter filen i hemmabiblioteket.
+Namnet på filen är valfritt. Filens skall vara en så kallad "csv-fil", komma sepparerad.
+
+<p align="center">
+<img src="UserManual_html_Prisfil.png" name="Prisfil" align="bottom"  border="0"></p>
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+Varje rad ska innehålla uppgifter (priser) för en artikel. Fälten avskiljs med kommatecken. Varje fälts värde omges av sitationstecken (<b> " </b>). Det första fältet ska innehålla artikelnummer, ett artikelnummer som <b>redan finns</b> registrerat. <br>
+Det minsta antalet fält som får förekomma är 2 st, artikelnummer och ett pris. Inget fält får vara tomt utan ska innehålla ett decimalvärde. <b>OBS! </b>Här används decimalpunkt.
+
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+<a href="#TOP">Till början</a>
+<hr>
+<p align="center">
+<a name="BEGREPP"></a> <b>BEGREPPSFÖRKLARINGAR</b></p>
+<p align="left">
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+<a name="BEGREPP01"></a> <b>Artikeltyp</b><br>
+
+<UL>
+<LI>	0 = tillverkning lager, en artikel som tillverkas av det egna företaget och finns/ska finnas på lager.<br>
+<LI>	1 = tillverkning ej lager, en artikel som tillverkas av det egna företaget och <b>inte</b> ska finnas på lager.<br>
+<LI>	2 = köp lager, en artikel som köps, <b>ej</b> tillveraks av det egna företaget och finns/ska finnas på lager.<br>
+<LI>	3 = köp ej lager, en artikel som köps, <b>ej</b> tillveraks av det egna företaget och <b>inte</b> ska finnas på lager.<br>
+<LI>	4 = tjänst (för konsulter mm), en <b>icke</b> materiel "artikel", avsedd för tjänsteuppdrag mm<br>
+</UL>
+<br>
+<a name="BEGREPP02"></a> <b>Struktur</b><br>
+<UL>
+<LI>	Blank = ingår ej i struktur<br>
+<LI>	B = Bottenartikel<br>
+<LI>	I = Ingår "mitt" i artikel<br>
+<LI>	T = Toppartikel<br>
+<LI>	F = Fantom, ingår "mitt" i en artikel<br>
+</UL>
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+<a href="#TOP">Till början</a>
+</p>
+
 </body>
 </html>
