@@ -1,12 +1,13 @@
 /***************************************************************************
                           STYRMAN.c  -  description
                              -------------------
-			     ver 0.12
+			     ver 0.13
     begin                : Mån  30 juni  2003
-    Modified		 : Tors 24 febr  2005
+    Modified		 : Tis  31 jan   2006
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
+
 /*****************************************************************************
                   INPUT:     USERID, TRNSID, trnsdata1, trnsdata2,trnsdata....
                   Function:  Dirigera dataflödet i applikationen OLFIX
@@ -14,7 +15,7 @@
                   OUTPUT:  errno, error (text)
 ****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.8 2005/02/24 10:41:58 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.9 2006/01/31 09:10:03 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -25,6 +26,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <ctype.h>
+#include <sys/types.h>		/* 20060131 */
+#include <sys/wait.h>		/* 20060131 */
 #include "mysql.h"
 #define MAXSTRING 10000
 #define FILEPATH 100
@@ -64,8 +67,8 @@ int main(int argc, char *argv[], char *envp[])
   status = find_tmp_path(envp);
   if (status != 0)
 	exit(status);
-
-/*  for (i=0; i<= argc;i++){
+/*
+  for (i=0; i<= argc;i++){
 	fprintf(stderr,"styrman arg = %d %s\n",i,argv[i]);
 	 }
 */
@@ -95,14 +98,17 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!							*/
 /* ================================================================================	*/
   /* Start 		2004-11-11		*/
+
+/*	fprintf(stderr,"argv[3]=%s\n",argv[3]);		*/
+
       strncpy(anv,argv[1],sizeof(anv));			/* 2005-02-24	*/
 /*      fprintf(stderr,"argv[1]=%s\n",argv[1]);	*/
 /*	strncpy(anv,argv[1],strlen(anv));	*/
 /*      for (i = 0;i <= 8;i++){			*/
-	for (i = 0;i <= strlen(argv[1]);i++){	/* 2004-11-11	*/
+	for (i = 0;i <= strlen(argv[1]);i++){		/* 2004-11-11	*/
 		anv[i]=toupper(anv[i]);
       }
-      anv[strlen(argv[1])+1]="\0";
+      anv[strlen(argv[1])+1]='\0';
 /*	fprintf(stderr,"anv=%s| anv= %d tecken  argv[1]=%d tecken\n",anv,strlen(anv),strlen(argv[1]));	*/
 
 	strncpy(transid,argv[2],sizeof(transid));	/* 2005-02-24	*/
@@ -144,7 +150,7 @@ int main(int argc, char *argv[], char *envp[])
 	exit (-1);
   }
   else{
-  	fprintf(stdout,"%s\n",&datastr);
+  	fprintf(stdout,"%s\n",datastr);
 /*  	fprintf(stdout,"OK: STYRMAN_main. Status: = %d  Antal argument = %d\n",status,argc);	*/
   }
   return EXIT_SUCCESS;
@@ -162,12 +168,12 @@ int do_Trans(int argnbr, char *trans[])
 	char tmp[FILEPATH]="";
 	char func[FILEPATH]="";
 
-/*	fprintf(stderr,"path=%s\n",tmpfilepath);	*/
+/*	fprintf(stderr,"\npath=%s\n",tmpfilepath);		*/
   	i=strlen(tmpfilepath);
   	strncpy(tmp,tmpfilepath,i-1);
   	strncat(tmp,trans[2],strlen(trans[2]));
   	strncpy(func,tmp,strlen(tmp));
-
+/*	fprintf(stderr,"\n\nfunc=%s\n",func);			*/
 	pid_t pid;
 /*	fprintf(stderr,"1) argnr=%d\n",argnbr);			*/
 /*	for (i=0;i<=argnbr;i++){				*/
