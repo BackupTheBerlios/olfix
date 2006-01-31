@@ -9,9 +9,9 @@
 /***************************************************************************
                           ADDKUW  -  description
                              -------------------
-		     version 0.2
+		     version 0.3
     begin                   : Lör 5 aug 2003
-    modified	: Sön 26 okt 2003
+    modified	           : Mån 30 jan 2006	prislista, orgnr, kreditkod
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -42,6 +42,7 @@
 
     QString kundid;
     QString kundnamn;
+    QString kundorgnr;
     QString kundadress;
     QString postnr;
     QString postadr;
@@ -55,6 +56,7 @@
     QString seljare;
     QString distrikt;
     QString kundkat;
+    QString kundprislista;
     QString levplats;
     QString levvillkor;
     QString levsett;
@@ -68,6 +70,7 @@
     QString fraktavg;
     QString kravbrev;
     QString kreditlimit;
+    QString kreditkod;
     QString drojmalsrenta;
     QString drofmalsfakt;
     QString fritext;
@@ -106,7 +109,7 @@ void frmAddKund::init()
     lineEditKundNr->setValidator(&validator1);
     lineEditKundNamn->setValidator(&validator3);
     lineEditKundAdress->setValidator(&validator3);
-    lineEditKundPostnr->setValidator(&validator4);
+//    lineEditKundPostnr->setValidator(&validator4);			/* 2006-01-30*/
     lineEditKundPostAdress->setValidator(&validator3);
     lineEditKundLand->setValidator(&validator3);
     lineEditKundTftnNr->setValidator(&validator5);
@@ -142,8 +145,7 @@ void frmAddKund::lineEditKundNr_returnPressed()
 {
     kundid=lineEditKundNr->text();
     if (kundid == "" ){
-    	    QMessageBox::warning( this, "ADDKUW",
-                      "KundID måste fyllas i! \n" );
+//    	    QMessageBox::warning( this, "ADDKUW", "KundID måste fyllas i! \n" );
 	    lineEditKundNr->setFocus();
 	}else{
 // Kontrollera att kundnummret inte redan finns.	    
@@ -160,10 +162,16 @@ void frmAddKund::lineEditKundNamn_returnPressed()
                       "Kundnamn måste fyllas i! \n" );
 	    lineEditKundNamn->setFocus();
 	}else{
-	    lineEditKundAdress->setFocus();
+	    lineEditKundOrgnr->setFocus();
 	}
 }
-    
+
+void frmAddKund::lineEditKundOrgnr_returnPressed()    
+{
+    kundorgnr=lineEditKundOrgnr->text();	
+    lineEditKundAdress->setFocus();
+}
+
 void frmAddKund::lineEditKundAdress_returnPressed()
 {
     kundadress=lineEditKundAdress->text();
@@ -244,7 +252,12 @@ void frmAddKund::lineEditKundDistrikt_returnPressed()
 void frmAddKund::lineEditKundKategori_returnPressed()
 {
     kundkat=lineEditKundKategori->text();
-    lineEditKundStdLevplats->setFocus();
+    lineEditKundPrislista->setFocus();
+}
+void frmAddKund::lineEditKundPrislista_returnPressed()
+{
+    kundprislista=lineEditKundPrislista->text();
+     lineEditKundStdLevplats->setFocus();
 }
 
 void frmAddKund::lineEditKundStdLevplats_returnPressed()
@@ -254,7 +267,8 @@ void frmAddKund::lineEditKundStdLevplats_returnPressed()
     if (levplats == "001" || levplats == ""){
 	lineEditKundLevvilk->setFocus();
     }else{
-	createStandardLevPlats();
+	createStandardLevPlats();	
+	lineEditKundLevvilk->setFocus();
     }
 }
 
@@ -348,10 +362,15 @@ void frmAddKund::lineEditKravbrev_returnPressed()
     lineEditKreditlimit->setFocus();
 }
 
-
 void frmAddKund::lineEditKreditlimit_returnPressed()
 {
     kreditlimit=lineEditKreditlimit->text();
+    lineEditKreditkod->setFocus();
+}
+
+void frmAddKund::lineEditKreditkod_returnPressed()
+{
+    kreditkod=lineEditKreditkod->text();
     lineEditDrojRenta->setFocus();
 }
 
@@ -382,8 +401,11 @@ void frmAddKund::pushButtonOK_clicked()
     QString skilj;
     skilj="_:_";
     kunddata=skilj;
-    kunddata.append(kundid);
+    kunddata.append(kundid);		// 1
     kunddata.append(skilj);
+    kunddata.append(kundorgnr);
+    kunddata.append(skilj);
+//    qDebug("kunddata=%s",kunddata.latin1());
     kunddata.append(kundnamn);
     kunddata.append(skilj);
     kunddata.append(kundadress);
@@ -398,7 +420,7 @@ void frmAddKund::pushButtonOK_clicked()
     kunddata.append(skilj);
     kunddata.append(faxnr);
     kunddata.append(skilj);
-    kunddata.append(email);
+    kunddata.append(email);		// 10
     kunddata.append(skilj);
     kunddata.append(erref);
     kunddata.append(skilj);
@@ -412,11 +434,13 @@ void frmAddKund::pushButtonOK_clicked()
     kunddata.append(skilj);    
     kunddata.append(kundkat);
     kunddata.append(skilj);
+    kunddata.append(kundprislista);
+    kunddata.append(skilj);
     kunddata.append(levplats);
     kunddata.append(skilj);
     kunddata.append(levvillkor);
     kunddata.append(skilj);
-    kunddata.append(levsett);
+    kunddata.append(levsett);		// 20
     kunddata.append(skilj);
     kunddata.append(betvillkor);
     kunddata.append(skilj);    
@@ -436,15 +460,17 @@ void frmAddKund::pushButtonOK_clicked()
     kunddata.append(skilj);
     kunddata.append(kravbrev);
     kunddata.append(skilj);
-    kunddata.append(kreditlimit);
+    kunddata.append(kreditlimit);	// 30
+    kunddata.append(skilj);
+    kunddata.append(kreditkod);	
     kunddata.append(skilj);
     kunddata.append(drojmalsrenta);
     kunddata.append(skilj);
     kunddata.append(drofmalsfakt);
     kunddata.append(skilj);
-    kunddata.append(fritext);
+    kunddata.append(fritext);		// 34
     kunddata.append(skilj);
-    qDebug("kunddata=%s",kunddata.latin1());    
+//    qDebug("kunddata=%s",kunddata.latin1());    
     updateKundreg();
 }
 
@@ -457,7 +483,7 @@ void frmAddKund::updateKundreg()
             QString usr(userp);
 
 	process = new QProcess();
-	process->addArgument( "STYRMAN");	// OLFIX funktion
+	process->addArgument( "./STYRMAN");	// OLFIX funktion
 	process->addArgument(usr);
 	process->addArgument("KUADD");
 	process->addArgument(kunddata);
@@ -467,9 +493,9 @@ void frmAddKund::updateKundreg()
 
 	if ( !process->start() ) {
 		// error handling
-		fprintf(stderr,"Problem starta ADDKUW!\n");
+		fprintf(stderr,"Problem starta STYRMAN/KUADD!\n");
 		QMessageBox::warning( this, "",
-                            "Kan inte starta ADDKUW! \n" );
+                            "Kan inte starta KUADD! \n" );
 	}
 }
 
@@ -493,6 +519,7 @@ void frmAddKund::slotUpdateEndOfProcess()
 	AddLevplats001();		// Registrering av leveransplats 001
 	kunddata="";
 	lineEditKundNr->clear();
+	lineEditKundOrgnr->clear();
 	lineEditKundNamn->clear();
 	lineEditKundAdress->clear();
 	lineEditKundPostnr->clear();
@@ -524,7 +551,7 @@ void frmAddKund::CheckKundnr()
             QString usr(userp);
 
 	process = new QProcess();
-	process->addArgument( "STYRMAN");	// OLFIX funktion
+	process->addArgument( "./STYRMAN");	// OLFIX funktion
 	process->addArgument(usr);
 	process->addArgument("KUCHK");
 	process->addArgument( kundid);
@@ -534,7 +561,7 @@ void frmAddKund::CheckKundnr()
 
 	if ( !process->start() ) {
 		// error handling
-		fprintf(stderr,"Problem starta ADDKUW!\n");
+		fprintf(stderr,"Problem starta STYRMAN/KUCHK!\n");
 		QMessageBox::warning( this, "",
                             "Kan inte starta ADDKUW/KUCHK! \n" );
 	}
@@ -570,7 +597,7 @@ void frmAddKund::createStandardLevPlats()
             QString usr(userp);
 
 	process = new QProcess();
-	process->addArgument( "ADDLEVPW");	// OLFIX program
+	process->addArgument( "./ADDLEVPW");	// OLFIX program
 	process->addArgument(kundid);
 	process->addArgument(levplats);
 	frmAddKund::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
@@ -612,7 +639,7 @@ void frmAddKund::AddLevplats001()
             QString usr(userp);
 
 	process = new QProcess();
-	process->addArgument( "STYRMAN");	// OLFIX funktion
+	process->addArgument( "./STYRMAN");	// OLFIX funktion
 	process->addArgument( usr);
 	process->addArgument( "SLPADD");	// OLFIX funktion
 	process->addArgument(kundid);
@@ -627,7 +654,7 @@ void frmAddKund::AddLevplats001()
 
 	if ( !process->start() ) {
 		// error handling
-		fprintf(stderr,"Problem starta STYRMAN!\n");
+		fprintf(stderr,"Problem starta STYRMAN/SLPADD!\n");
 		QMessageBox::warning( this, "",
                             "Kan inte starta STYRMAN/SLPADD! \n" );
 	}
