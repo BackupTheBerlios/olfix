@@ -1,9 +1,9 @@
 /***************************************************************************
                           KUCHG.c  -  description
                              -------------------
-    Version		 : 0.4
+    Version		 : 0.5
     begin                : Lör   4 okt  2003
-    Modified		 : Tors 24 febr 2005
+    Modified		 : Ons   1 febr 2006
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -22,7 +22,7 @@
 		09-999990_:_09-999999_:_info@test.se_:_Karl Andersson _:_09-999991_:_
 		karl.a@test.se_:_Caroline Seljare_:_KalmarSoftware_:_001_:_001_:_001_:_1_:_
 		SEK_:_sv_:_J_:_J_:_J_:_J_:_J_:_J_:_2000_:_J_:_J_:_Fritt textfält_:_
-		30_:_001_:_001_:_001_:_001_:_J_:_
+		30_:_001_:_001_:_001_:_001_:_J_:_2_:_559999-1111_:_
 
 	Fältavskiljare = _:_
 
@@ -36,7 +36,7 @@
 	FRAKTAVG="J",KRAVBREV="J",KREDITLIMIT="2000",DROJMALSRTA="J",DROJMALSFAKTURA="J",
 	FRITEXT="Fritt textfält",
 	KREDITDAGAR="30",KREDITKOD="001",EXPORTKOD="001",SKATTEKOD="001",RABATTKOD="001",
-	SAMLINGSFAKT="J"
+	SAMLINGSFAKT="J",PRISLISTA="2",KUNDORGNR="559999-1111"
 	WHERE KUNDNR="kundnr"
 	i databasen olfix
 
@@ -44,7 +44,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KUCHG.c,v 1.4 2005/02/24 06:07:32 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KUCHG.c,v 1.5 2006/02/01 14:39:38 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -55,7 +55,7 @@
 #include <string.h>
 #include "mysql.h"
 #define ANTARG 2
-#define ANTAL 37	/* antal fält = 37 inklusive kundnr	*/
+#define ANTAL 40	/* antal fält = 40 inklusive kundnr	*/
 
   MYSQL my_connection;
   MYSQL_RES *res_ptr;
@@ -123,7 +123,7 @@ int main(int argc, char *argv[], char *envp[])
   ",ORDERERKENNANDE=\"",",PLOCKLISTA=\"",",FOLJESEDEL=\"",",EXPAVGIFT=\"",
   ",FRAKTAVG=\"",",KRAVBREV=\"",",KREDITLIMIT=\"",",DROJMALSRTA=\"",
   ",DROJMALSFAKTURA=\"",",FRITEXT=\"",",KREDITDAGAR=\"",",KREDITKOD=\"",
-  ",EXPORTKOD=\"",",SKATTEKOD=\"",",RABATTKOD=\"",",SAMLINGSFAKT=\""};
+  ",EXPORTKOD=\"",",SKATTEKOD=\"",",RABATTKOD=\"",",SAMLINGSFAKT=\"",",PRISLISTA=\"",",KUNDORGNR=\""};
 
   char temp1b[]=" WHERE KUNDNR=\"";
   char temp2[]="\"";

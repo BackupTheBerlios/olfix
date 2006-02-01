@@ -1,9 +1,9 @@
 /***************************************************************************
                           KUDSP.c  -  description
                              -------------------
-    Version		 : 0.4
+    Version		 : 0.5
     begin                : Tors  2  okt	 2003
-    Modified		 : Tors 24  febr 2005
+    Modified		 : Ons   1  febr 2006
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -34,7 +34,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KUDSP.c,v 1.4 2005/02/24 06:13:56 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KUDSP.c,v 1.5 2006/02/01 14:39:54 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -189,6 +189,8 @@ int main(int argc, char *argv[], char *envp[])
 			fprintf(stdout,"39:%s  ",sqlrow[38]);
 			fprintf(stdout,"40:%s  ",sqlrow[39]);
 			fprintf(stdout,"41:%s  ",sqlrow[40]);
+			fprintf(stdout,"42:%s  ",sqlrow[41]);
+			fprintf(stdout,"END:");
 			fprintf(stdout,"\n");
 		}
 		else{

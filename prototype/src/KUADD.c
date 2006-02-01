@@ -1,9 +1,9 @@
 /***************************************************************************
                           KUADD.c  -  description
                              -------------------
-    Version		 : 0.4
+    Version		 : 0.5
     begin                : Mån   8 aug  2003
-    Modified		 : Tors 23 febr 2005
+    Modified		 : Mån  30 jan  2006 orgnr,kreditkod,prislista
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -18,20 +18,20 @@
 
 /*
 	INPUT: kunddata databas
-		format=_:_4376_:_Test AB_:_Provgatan 2_:_199 99_:_LILLEBY_:_Sverige_:_ 09-999990_:_09-999999_:_info@test.se_:_Karl Andersson _:_09-999991_:_karl.a@test.se_:_
-Caroline Seljare_:_KalmarSoftware _:_001_:_001_:_001_:_1_:_SEK_:_sv_:_J_:_J_:_J_:_J_:_J_:_J_:_2000_:_J_:_J_:_Fritt textfält_:_
+		format=_:_4376_:_559999-9999_:_Test AB_:_Provgatan 2_:_199 99_:_LILLEBY_:_Sverige_:_ 09-999990_:_09-999999_:_info@test.se_:_Karl Andersson _:_09-999991_:_karl.a@test.se_:_
+Caroline Seljare_:_KalmarSoftware_:_1 _:_001_:_001_:_001_:_1_:_SEK_:_sv_:_J_:_J_:_J_:_J_:_J_:_J_:_2000_:_JN_:_J_:_J_:_Fritt textfält_:_
 
 Fältavskiljare = _:_
 
-	Function: gör  INSERT INTO KUNDREG(KUNDNR,KUNDORGNR,NAMN,ADRESS,POSTNR,POSTADR,LAND,TFNNR,FAXNR,EMAILADR,ERREFERENT,ERREFTFNNR,ERREFEMAIL,SELJARE,DISTRIKT,KUNDKATEGORI,STDLEVPLATS,LEVVILLKOR,LEVSETT,BETALVILLKOR,VALUTA,SPRAKKOD,ORDERERKENNANDE,PLOCKLISTA,FOLJESEDEL,EXPAVGIFT,FRAKTAVG,KRAVBREV,KREDITLIMIT,DROJMALSRTA,DROJMALSFAKTURA,FRITEXT) VALUES ("2345","Kund AB","PProvgatan 33","199 99","KUNDBY","SVERIGE","09-999999","09-999998","kund@kund.se","Karl Andersson","09-999997",
+	Function: gör  INSERT INTO KUNDREG(KUNDNR,KUNDORGNR,NAMN,ADRESS,POSTNR,POSTADR,LAND,TFNNR,FAXNR,EMAILADR,ERREFERENT,ERREFTFNNR,ERREFEMAIL,SELJARE,DISTRIKT,KUNDKATEGORI,PRISLISTA,STDLEVPLATS,LEVVILLKOR,LEVSETT,BETALVILLKOR,VALUTA,SPRAKKOD,ORDERERKENNANDE,PLOCKLISTA,FOLJESEDEL,EXPAVGIFT,FRAKTAVG,KRAVBREV,KREDITLIMIT,KREDITKOD,DROJMALSRTA,DROJMALSFAKTURA,FRITEXT) VALUES ("2345","Kund AB","Provgatan 33","199 99","KUNDBY","SVERIGE","09-999999","09-999998","info@kund.se","Karl Andersson","09-999997",
 "karl.a@kund.se","Eva Seljare","Kalmar","001","001","001","001","1","SEK","sv",
-"J","J","J","J","J","J","10000","J","J","Fritt textfält")i databasen olfix
+"J","J","J","J","J","J","10000","JN","J","J","Fritt textfält")i databasen olfix
 
 	OUTPUT: errornb och error (text)
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KUADD.c,v 1.4 2005/02/24 06:04:54 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KUADD.c,v 1.5 2006/02/01 14:41:03 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -42,6 +42,7 @@ Fältavskiljare = _:_
 #include <string.h>
 #include "mysql.h"
 #define ANTARG 2
+#define ANTFIELD 34
 
   MYSQL my_connection;
   MYSQL_RES *res_ptr;
@@ -57,7 +58,7 @@ int main(int argc, char *argv[], char *envp[])
   const char *userp = getenv("USER");	// vem är inloggad?
   char usr[15];				// userid
 
-  char temp1a[]="INSERT INTO KUNDREG (KUNDNR,NAMN,ADRESS,POSTNR,POSTADR,LAND,TFNNR,FAXNR,EMAILADR,ERREFERENT,ERREFTFNNR,ERREFEMAIL,SELJARE,DISTRIKT,KUNDKATEGORI,STDLEVPLATS,LEVVILLKOR,LEVSETT,BETALVILLKOR,VALUTA,SPRAKKOD,ORDERERKENNANDE,PLOCKLISTA,FOLJESEDEL,EXPAVGIFT,FRAKTAVG,KRAVBREV,KREDITLIMIT,DROJMALSRTA,DROJMALSFAKTURA,FRITEXT) VALUES (";
+  char temp1a[]="INSERT INTO KUNDREG (KUNDNR,KUNDORGNR,NAMN,ADRESS,POSTNR,POSTADR,LAND,TFNNR,FAXNR,EMAILADR,ERREFERENT,ERREFTFNNR,ERREFEMAIL,SELJARE,DISTRIKT,KUNDKATEGORI,PRISLISTA,STDLEVPLATS,LEVVILLKOR,LEVSETT,BETALVILLKOR,VALUTA,SPRAKKOD,ORDERERKENNANDE,PLOCKLISTA,FOLJESEDEL,EXPAVGIFT,FRAKTAVG,KRAVBREV,KREDITLIMIT,KREDITKOD,DROJMALSRTA,DROJMALSFAKTURA,FRITEXT) VALUES (";
   char temp2[]="\"";
   char temp3[]=",";
   char temp4[]=")";
@@ -67,7 +68,7 @@ int main(int argc, char *argv[], char *envp[])
   char *pos1;
   char *pos2;
   int tmp,lenght,ant,i,j,k,n;
-
+fprintf(stderr,"argv[1]=%s",argv[1]);
   /* ================================================================================ */
 /* 		Val av databas, START						    */
 /* ================================================================================ */
@@ -120,7 +121,7 @@ int main(int argc, char *argv[], char *envp[])
   pos1=strstr(kunddata,"_:_")+3;
   k=3;
   n=0;
-  ant=31;		// antal fält = 32
+  ant=ANTFIELD;		// antal fält = ANTFIELD = 34
   for (i=0;i<ant;i++){
   	for (j=k;j<lenght;j++){
 /*		fprintf(stderr,"j=%d\n",j);	*/
@@ -147,7 +148,7 @@ int main(int argc, char *argv[], char *envp[])
   }
   strncat(temp5,temp4,strlen(temp4));
 
-/* fprintf(stderr,"\nKUADD: temp5 = %s\n\n",temp5);	*/
+ fprintf(stderr,"Error:\nKUADD: temp5 = %s\n\n",temp5);	
 /* exit(0);	*/
 
 
