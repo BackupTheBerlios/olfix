@@ -1186,22 +1186,6 @@
             <string>Leveransplats 002 är en extra leveransplats.</string>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundNr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>140</x>
-                <y>35</y>
-                <width>85</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Du kan använda valfritt sätt att ange KundID, siffror eller bokstäver eller en blandning av bägge.</string>
-        </property>
-    </widget>
     <widget class="QPushButton">
         <property name="name">
             <cstring>pushButtonOK</cstring>
@@ -1222,6 +1206,38 @@
         </property>
         <property name="default">
             <bool>false</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>35</y>
+                <width>85</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Du kan använda valfritt sätt att ange KundID, siffror eller bokstäver eller en blandning av bägge.</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>475</x>
+                <y>10</y>
+                <width>61</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
         </property>
     </widget>
 </widget>
@@ -1442,6 +1458,12 @@
         <receiver>frmAddKund</receiver>
         <slot>lineEditKundNr_returnPressed()</slot>
     </connection>
+    <connection>
+        <sender>pushButtonHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmAddKund</receiver>
+        <slot>pushButtonHelp_clicked()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>lineEditKundNr</tabstop>
@@ -1520,6 +1542,7 @@
     <slot>lineEditDrojRenta_returnPressed()</slot>
     <slot>lineEditDrojFaktura_returnPressed()</slot>
     <slot>lineEditFriText_returnPressed()</slot>
+    <slot>pushButtonHelp_clicked()</slot>
     <slot>pushButtonOK_clicked()</slot>
     <slot>updateKundreg()</slot>
     <slot>slotUpdateEndOfProcess()</slot>
@@ -1531,6 +1554,7 @@
     <slot>slotPlats001EndOfProcess()</slot>
     <slot>slotDataOnStderr()</slot>
     <slot>slotDataOnStdout()</slot>
+    <slot>readResursFil()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
