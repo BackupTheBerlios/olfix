@@ -9,11 +9,11 @@
 /***************************************************************************
                           CHGKUW  -  description
                              -------------------
-		     version 0.4
+		     version 0.5
     begin    	: Tors    9 okt  2003
-    modified	: Tors    6 nov 2003
+    modified	: Ons     1 febr 2006
     copyright            : (C) 2003 by Jan Pihlgren
-    email                : jan@pihlgren.se
+    email                    : jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
  *					                                                 *
@@ -32,6 +32,7 @@
 #include <qfile.h>
 #include <qregexp.h>
 #include <qvalidator.h> 		// 2003-10-27
+#include <qlistview.h>		// 2006-02-01
 #define MAXSTRING 5000
 
 
@@ -39,9 +40,11 @@
     QString inrad;
     QString* rad;
     QString errorrad;
+    QString hjelpfil;
 
     QString kundid;
     QString kundnamn;
+    QString kundorgnr;
     QString kundadress;
     QString postnr;
     QString postadr;
@@ -55,6 +58,7 @@
     QString seljare;
     QString distrikt;
     QString kundkat;
+    QString prislista;
     QString levplats;
     QString levvillkor;
     QString levsett;
@@ -81,6 +85,7 @@
     QString skuld;
     QString kravdatum;
     QString orderstock;
+//    QString prislista;
     
     QString kunddata;		// Alla ovanstående
     
@@ -117,7 +122,7 @@ void frmChgKund::init()
     lineEditKundNr->setValidator(&validator1);
     lineEditKundNamn->setValidator(&validator3);
     lineEditKundAdress->setValidator(&validator3);
-    lineEditKundPostnr->setValidator(&validator4);
+//    lineEditKundPostnr->setValidator(&validator4);	/* 2006-02-01 */
     lineEditKundPostAdress->setValidator(&validator3);
     lineEditKundLand->setValidator(&validator3);
     lineEditKundTftnNr->setValidator(&validator5);
@@ -143,7 +148,7 @@ void frmChgKund::init()
     lineEditKravbrev->setValidator(&validator11);
     lineEditKreditlimit->setValidator(&validator12);
     lineEditKreditDagar->setValidator(&validator8);
-    lineEditKreditKod->setValidator(&validator2);
+//    lineEditKreditKod->setValidator(&validator2);
     lineEditExportkod->setValidator(&validator2);
     lineEditSkattekod->setValidator(&validator2);
     lineEditRabattKod->setValidator(&validator2);
@@ -151,8 +156,8 @@ void frmChgKund::init()
     lineEditDrojFaktura->setValidator(&validator11);
     lineEditSamFaktura->setValidator(&validator11);
     lineEditFriText->setValidator(&validator13);
-    
-    lineEditKundNr->setFocus();
+    ListKund();
+   listViewKund->setFocus();
 }
 
 void frmChgKund::lineEditKundNr_returnPressed()
@@ -166,7 +171,16 @@ void frmChgKund::lineEditKundNr_returnPressed()
 	    GetKund();
     }
 }
-
+/* ================================================*/
+void frmChgKund::listViewKund_clicked( QListViewItem * )
+{
+      QListViewItem *item = listViewKund->currentItem();
+      if ( !item )
+        return;
+    item->setSelected( TRUE );
+    QString temp0=item->text(0);	// kundnr
+    lineEditKundNr->setText(temp0);
+}
 /* ================================================*/
 void frmChgKund::lineEditKundNamn_returnPressed()
 {
@@ -176,16 +190,22 @@ void frmChgKund::lineEditKundNamn_returnPressed()
                       "Kundnamn måste fyllas i! \n" );
 	    lineEditKundNamn->setFocus();
 	}else{
-	    lineEditKundAdress->setFocus();
+	    lineEditKundOrgnr->setFocus();
 	}
 }
+
     
+void frmChgKund::lineEditKundOrgnr_returnPressed()
+{
+    kundorgnr=lineEditKundOrgnr->text();
+    lineEditKundAdress->setFocus();
+}
+
 void frmChgKund::lineEditKundAdress_returnPressed()
 {
     kundadress=lineEditKundAdress->text();
     lineEditKundPostnr->setFocus();
 }
-
 
 void frmChgKund::lineEditKundPostnr_returnPressed()
 {
@@ -268,6 +288,12 @@ void frmChgKund::lineEditKundDistrikt_returnPressed()
 void frmChgKund::lineEditKundKategori_returnPressed()
 {
     kundkat=lineEditKundKategori->text();
+   lineEditKundPrislista->setFocus();
+}
+
+void frmChgKund::lineEditKundPrislista_returnPressed()
+{
+    prislista=lineEditKundPrislista->text();
     lineEditKundStdLevplats->setFocus();
 }
 
@@ -446,6 +472,30 @@ void frmChgKund::lineEditSamFaktura_returnPressed()
     lineEditFriText->setFocus();
 }
 
+void frmChgKund::pushButtonHelp_clicked()
+{
+    inrad="";				// töm inputbuffer
+    frmChgKund::readResursFil();		// Hämta path till hjälpfilen
+    int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+    hjelpfil=hjelpfil.left(i1);
+    hjelpfil=hjelpfil+"_KUNDORDER.html";
+    hjelpfil=hjelpfil+"#KUNDER";		// Lägg till position
+
+    process = new QProcess();
+    process->addArgument( "./OLFIXHLP");	// OLFIX funktion
+    process->addArgument(hjelpfil);
+	
+    frmChgKund::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+    frmChgKund::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );	
+    frmChgKund::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );	    
+ 
+    if ( !process->start() ) {
+	// error handling
+    QMessageBox::warning( this, "Start av CHGKUW ", "Kan inte starta OLFIXHLP!\n" );
+   }
+    lineEditKundNr->setFocus();
+}
+
 void frmChgKund::pushButtonOK_clicked()
 {
     QString skilj;
@@ -453,13 +503,13 @@ void frmChgKund::pushButtonOK_clicked()
     kunddata=skilj;
     kunddata.append(kundid);		// 10
     kunddata.append(skilj);
-    kunddata.append(kundnamn);		// 11
+    kunddata.append(kundnamn);	// 11
     kunddata.append(skilj);
-    kunddata.append(kundadress);		// 12
+    kunddata.append(kundadress);	// 12
     kunddata.append(skilj);
     kunddata.append(postnr);		// 13
     kunddata.append(skilj);
-    kunddata.append(postadr);		// 14
+    kunddata.append(postadr);	// 14
     kunddata.append(skilj);
     kunddata.append( land);		// 15
     kunddata.append(skilj);
@@ -471,61 +521,65 @@ void frmChgKund::pushButtonOK_clicked()
     kunddata.append(skilj);
     kunddata.append(erref);		// 19
     kunddata.append(skilj);
-    kunddata.append(erreftfnnr);		// 20
+    kunddata.append(erreftfnnr);	// 20
     kunddata.append(skilj);
-    kunddata.append( errefemail);		// 21
+    kunddata.append( errefemail);	// 21
     kunddata.append(skilj);    		
     kunddata.append(seljare);		// 22
     kunddata.append(skilj);		
     kunddata.append(distrikt);		// 23
     kunddata.append(skilj);    
-    kunddata.append(kundkat);		// 24
+    kunddata.append(kundkat);	// 24
     kunddata.append(skilj);
-    kunddata.append(levplats);		// 25
+    kunddata.append(levplats);	// 25
     kunddata.append(skilj);
-    kunddata.append(levvillkor);		// 26
+    kunddata.append(levvillkor);	// 26
     kunddata.append(skilj);
     kunddata.append(levsett);		// 27
     kunddata.append(skilj);
-    kunddata.append(betvillkor);		// 28
+    kunddata.append(betvillkor);	// 28
     kunddata.append(skilj);    
     kunddata.append(valuta);		// 29
     kunddata.append(skilj);
-    kunddata.append(sprakkod);		// 30
+    kunddata.append(sprakkod);	// 30
     kunddata.append(skilj);
-    kunddata.append(ordererk);		// 31
+    kunddata.append(ordererk);	// 31
     kunddata.append(skilj);
-    kunddata.append(plocklista);		// 32
+    kunddata.append(plocklista);	// 32
     kunddata.append(skilj);
-    kunddata.append(foljesedel);		// 33
+    kunddata.append(foljesedel);	// 33
     kunddata.append(skilj);
     kunddata.append(expavg);		// 34
     kunddata.append(skilj);    
-    kunddata.append(fraktavg);		// 35
+    kunddata.append(fraktavg);	// 35
     kunddata.append(skilj);
-    kunddata.append(kravbrev);		// 36
+    kunddata.append(kravbrev);	// 36
     kunddata.append(skilj);
-    kunddata.append(kreditlimit);		// 37
+    kunddata.append(kreditlimit);	// 37
     kunddata.append(skilj);
     kunddata.append(drojmalsrenta);	// 38
     kunddata.append(skilj);
-    kunddata.append(drofmalsfakt);		// 39
+    kunddata.append(drofmalsfakt);	// 39
     kunddata.append(skilj);
     kunddata.append(fritext);		// 40
     kunddata.append(skilj);
-    kunddata.append(kreditdagar);		// 41
+    kunddata.append(kreditdagar);	// 41
     kunddata.append(skilj);
-    kunddata.append(kreditkod);		// 42
+    kunddata.append(kreditkod);	// 42
     kunddata.append(skilj);
-    kunddata.append(exportkod);		// 43
+    kunddata.append(exportkod);	// 43
     kunddata.append(skilj);
-    kunddata.append(skattekod);		// 44
+    kunddata.append(skattekod);	// 44
     kunddata.append(skilj);
-    kunddata.append(rabattkod);		// 45
+    kunddata.append(rabattkod);	// 45
     kunddata.append(skilj);
-    kunddata.append(samfaktura);		// 46
+    kunddata.append(samfaktura);	// 46
     kunddata.append(skilj);
-    
+    kunddata.append(prislista);	// 47
+    kunddata.append(skilj);
+    kunddata.append(kundorgnr);	// 48
+    kunddata.append(skilj);
+ 
 //    qDebug("pushButtonOK_clicked::kunddata=%s",kunddata.latin1());
     updateKundreg();
 }
@@ -540,9 +594,9 @@ void frmChgKund::updateKundreg()
 /************************************************************************/
 	const char *userp = getenv("USER");
             QString usr(userp);
-
+qDebug("kunddata=%s",kunddata.latin1());
 	process = new QProcess();
-	process->addArgument( "STYRMAN");	// OLFIX funktion
+	process->addArgument( "./STYRMAN");	// OLFIX funktion
 	process->addArgument(usr);
 	process->addArgument("KUCHG");
 	process->addArgument(kunddata);
@@ -583,9 +637,9 @@ void frmChgKund::slotUpdateEndOfProcess()
 
 void frmChgKund::GetKund()
 {
-/************************************************************************/
-/*	Hämta kunddata							*/
-/************************************************************************/
+/*************************************************************************/
+/*	Hämta kunddata						*/
+/*************************************************************************/
 	const char *userp = getenv("USER");
             QString usr(userp);
 
@@ -600,9 +654,9 @@ void frmChgKund::GetKund()
 
 	if ( !process->start() ) {
 		// error handling
-		fprintf(stderr,"Problem starta DSPKUW!\n");
+		fprintf(stderr,"Problem starta CHGKUW!\n");
 		QMessageBox::warning( this, "",
-                            "Kan inte starta DSPKUW/KUDSP! \n" );
+                            "Kan inte starta CHGKUW/KUDSP! \n" );
 	}
 }
 
@@ -666,9 +720,11 @@ void frmChgKund::slotGetEndOfProcess()
 	 int i38 = inrad.find( QRegExp("38:"), 0 );
 	 int i39 = inrad.find( QRegExp("39:"), 0 );
 	 int i40 = inrad.find( QRegExp("40:"), 0 );
-	 int i41 = inrad.find( QRegExp("41:"), 0 );	 
-	 int i42 = inrad.length();
-		 
+	 int i41 = inrad.find( QRegExp("41:"), 0 );
+	 int i42 = inrad.find( QRegExp("42:"), 0 );	/* 20060201 prislista.*/
+	 int i43 = inrad.find( QRegExp("END:"),0);	/* 20060201 prislista.*/
+//	 int i44 = inrad.length();
+/*	qDebug("inrad=%s",inrad.latin1()); 	*/
 	 m=i2-i1;
 	 if (i1 != -1){
 	     kundid=inrad.mid(i1+3,m-offset);
@@ -677,7 +733,8 @@ void frmChgKund::slotGetEndOfProcess()
 
  	 m=i3-i2;
 	 if (i2 != -1){
-//	     kundorgnr=inrad.mid(i2+2,m-offset);
+	     kundorgnr=inrad.mid(i2+3,m-offset);
+	     lineEditKundOrgnr->setText(kundorgnr);
 	 }
 
 	 m=i4-i3;
@@ -851,20 +908,15 @@ void frmChgKund::slotGetEndOfProcess()
 	 
 	 m=i32-i31;
 	 if (i31 != -1){
-	     kreditdagar=inrad.mid(i31+3,m-offset);
+	    kreditdagar=inrad.mid(i31+3,m-offset);
 	    lineEditKreditDagar->setText(kreditdagar);
 	 }
 	 
 	 m=i33-i32;
 	 if (i32 != -1){
-	     kreditkod=inrad.mid(i32+3,m-offset);
-//	     qDebug("kreditkod=%s",kreditkod.latin1());
-	     n = kreditkod.find( QRegExp(NULL), 0 );
-	     if (n == 0){
-		 kreditkod="";
-	     }
+	    kreditkod=inrad.mid(i32+3,m-offset);
 	    lineEditKreditKod->setText(kreditkod);
-//  	    qDebug("kreditkod=%s n=%d",kreditkod.latin1(),n);
+//  	    qDebug("kreditkod=|%s| ",kreditkod.latin1());
 	 }
 	 
 	 m=i34-i33;
@@ -931,6 +983,13 @@ void frmChgKund::slotGetEndOfProcess()
 	 if (i41 != -1){
 	    orderstock=inrad.mid(i41+3,m-offset);
 	    lineEditOrderstock->setText(orderstock);
+	 }
+	 
+	 m=i43-i42;				/* 20060201 */
+	 if (i42 != -1){
+	    prislista=inrad.mid(i42+3,m-offset);
+//	    qDebug("prislista=|%s|",prislista.latin1());
+	    lineEditKundPrislista->setText(prislista);
 	 }
 	  
 	 inrad="";
@@ -1017,7 +1076,7 @@ void frmChgKund::KundLista_clicked()
 	process->addArgument( "./LSTKUW");	// OLFIX program
 	frmChgKund::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmChgKund::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-            frmChgKund::connect( process, SIGNAL(processExited() ),this, SLOT(slotKundlistaEndOfProcess() ) );
+                frmChgKund::connect( process, SIGNAL(processExited() ),this, SLOT(slotKundlistaEndOfProcess() ) );
 
 	if ( !process->start() ) {
 		// error handling
@@ -1041,4 +1100,152 @@ void frmChgKund::slotKundlistaEndOfProcess()
      lineEditKundNr->setFocus();
      errorrad="";
      inrad="";
+}
+
+void frmChgKund::readResursFil()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			               */
+    /* Plocka fram var hjälpfilen finns			               */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 );
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
+}
+
+void frmChgKund::slotEndOfProcess()
+{
+}
+
+void frmChgKund::ListKund()	
+{
+	const char *userp = getenv("USER");
+            QString usr(userp);
+
+	
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "KULST");	// OLFIX funktion
+	
+//	fprintf(stderr,"Starta STYRMAN/KULST! %s\n",usr);
+//	qDebug("Starta STYRMAN/KULST userid! %s\n",usr.latin1());
+	
+	frmChgKund::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+	frmChgKund::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );	
+	frmChgKund::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfListProcess() ) );	    
+ 
+	if ( !process->start() ) {
+                // error handling
+	    fprintf(stderr,"Problem starta STYRMAN/KULST!\n");
+	    QMessageBox::warning( this, "Start av KULST ",
+                            "Kan inte starta STYRMAN/KULST!\n"
+                            );
+        }
+}
+
+void frmChgKund::slotEndOfListProcess()
+{
+   QListViewItem* item;
+    int i;
+    listViewKund->setSorting(1,TRUE);
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+    if (i != -1) {
+	QMessageBox::critical( this, "CHGKUW",	"ERROR!\n"+errorrad);
+	errorrad="";
+	i = -1;
+     }	 
+    i = inrad.find( QRegExp("OK: NR_0_"), 0 );
+    
+    if (i != -1) {
+	QMessageBox::information( this, "CHGKUW","Kundregistret innehåller inga poster!\n");
+	i = -1;
+    }else{
+	QString listrad;
+	rad=&inrad;
+	inrad.latin1();
+	char *pos1;
+	char *pos2;
+	char tmp[MAXSTRING];
+	char *tmppek;
+	int j,k,l,m;
+	char antrad[6]="";
+	char kundnr[11]="";
+	char namn[61]="";
+
+	tmppek=tmp;
+	qstrcpy(tmp,inrad);
+	pos1=strstr(tmp,"OK: NR_");	// 7 tecken långt
+	pos2=strstr(tmp,"_:");
+	i=pos2-pos1;
+	m=i+2;		// startposition för första kundnr.
+    
+//    	qDebug("i=%d  m=%d",i,m);
+    
+	k=0;
+	for (j=7;j<i;j++){	// j = första positionen för antal poster,(OK: NR_4_:4377_:Kund AB_:4379_:Småkund AB_:4378_:Storkund AB_:4376_:Test AB_:)
+	    antrad[k]=tmp[j];
+	    k++;
+	}
+	i=atoi(antrad);		// i = antal poster
+    
+//    	qDebug("antrad=%s",antrad);
+    
+	for (k = 1;k <= i; k++){	// gå igenom alla raderna / posterna
+	    l=0;
+	    for(j = m; j < sizeof(kundnr) + m; j++){
+		if (tmp[j] != *("_")){
+		    kundnr[l]=tmp[j];
+		    l++;
+		}else{
+		    kundnr[l] = *("\0");
+		    j=sizeof(kundnr) + m;
+		}
+	    }
+//	     qDebug("%s  ",kundnr);
+	    m=m+l+2;	// position för namn
+	    l=0;
+	    for(j = m; j < sizeof(namn) + m; j++){
+		if (tmp[j] != *("_")){
+		    namn[l]=tmp[j];
+		    l++;
+		}else{
+		    namn[l] = *("\0");
+		    j=sizeof(namn) + m;
+		}
+	    }
+//	     qDebug("%s  ",namn);
+	    m=m+l+2;
+	    item = new QListViewItem(listViewKund,kundnr,namn);
+// 	     rensa kundnr och namn 
+	    for (l=0;l<sizeof(kundnr);l++)
+		kundnr[l]=*("\0");
+	    for (l=0;l<sizeof(namn);l++)
+		namn[l]=*("\0");
+//	 rensa listrad 
+	listrad.remove(0,80);
+         }    
+    }	 
 }
