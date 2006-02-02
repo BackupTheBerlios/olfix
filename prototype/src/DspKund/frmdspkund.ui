@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>frmDspKund</class>
 <widget class="QWidget">
     <property name="name">
@@ -622,28 +622,6 @@
             <string>Kundnamn: .............</string>
         </property>
     </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel1</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>40</y>
-                <width>125</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="frameShape">
-            <enum>NoFrame</enum>
-        </property>
-        <property name="frameShadow">
-            <enum>Plain</enum>
-        </property>
-        <property name="text">
-            <string>KundID: ..................</string>
-        </property>
-    </widget>
     <widget class="QLineEdit">
         <property name="name">
             <cstring>lineEditKundStdLevplats</cstring>
@@ -837,22 +815,6 @@
         </property>
         <property name="text">
             <string>Kreditdagar:</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundLevsett</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>495</x>
-                <y>385</y>
-                <width>36</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string></string>
         </property>
     </widget>
     <widget class="QLabel">
@@ -1079,25 +1041,6 @@
             <string></string>
         </property>
     </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonAvbryt</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>75</x>
-                <y>680</y>
-                <width>60</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Avbryt</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>textLabel5_3</cstring>
@@ -1275,6 +1218,95 @@
             </rect>
         </property>
     </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>40</y>
+                <width>125</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="frameShape">
+            <enum>NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+            <enum>Plain</enum>
+        </property>
+        <property name="text">
+            <string>KundID: ..................</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>230</x>
+                <y>40</y>
+                <width>110</width>
+                <height>17</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Organisationsnr:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundLevsett</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>495</x>
+                <y>385</y>
+                <width>36</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string></string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2_4</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>380</x>
+                <y>365</y>
+                <width>110</width>
+                <height>17</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Prislista: .............</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonAvbryt</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>75</x>
+                <y>676</y>
+                <width>60</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avbryt</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
     <widget class="QPushButton">
         <property name="name">
             <cstring>pushButtonOK</cstring>
@@ -1282,9 +1314,9 @@
         <property name="geometry">
             <rect>
                 <x>10</x>
-                <y>680</y>
+                <y>676</y>
                 <width>56</width>
-                <height>21</height>
+                <height>25</height>
             </rect>
         </property>
         <property name="text">
@@ -1292,6 +1324,51 @@
         </property>
         <property name="default">
             <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundOrgnr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>345</x>
+                <y>35</y>
+                <width>140</width>
+                <height>26</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundPrislista</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>495</x>
+                <y>360</y>
+                <width>36</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string></string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>425</x>
+                <y>5</y>
+                <width>60</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
         </property>
     </widget>
 </widget>
@@ -1313,6 +1390,12 @@
         <signal>returnPressed()</signal>
         <receiver>frmDspKund</receiver>
         <slot>lineEditKundNr_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmDspKund</receiver>
+        <slot>pushButtonHelp_clicked()</slot>
     </connection>
 </connections>
 <tabstops>
@@ -1359,6 +1442,8 @@
     <slot>slotGetEndOfProcess()</slot>
     <slot>slotDataOnStderr()</slot>
     <slot>slotDataOnStdout()</slot>
+    <slot>readResursFil()</slot>
+    <slot>pushButtonHelp_clicked()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
