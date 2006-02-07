@@ -1,14 +1,14 @@
-<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
-<class>frmDspUsr</class>
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>frmDspUser</class>
 <widget class="QWidget">
     <property name="name">
-        <cstring>frmDspUsr</cstring>
+        <cstring>frmDspUser</cstring>
     </property>
     <property name="geometry">
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>508</width>
+            <width>740</width>
             <height>265</height>
         </rect>
     </property>
@@ -79,51 +79,6 @@
             <string>Grupp:</string>
         </property>
     </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel5</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>380</x>
-                <y>10</y>
-                <width>80</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Behörigheter</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditUserid</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>60</x>
-                <y>10</y>
-                <width>61</width>
-                <height>22</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonQuit</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>80</x>
-                <y>230</y>
-                <width>61</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Sluta</string>
-        </property>
-    </widget>
     <widget class="QLineEdit">
         <property name="name">
             <cstring>LineEditNamn</cstring>
@@ -163,17 +118,20 @@
             </rect>
         </property>
     </widget>
-    <widget class="QListBox">
+    <widget class="QLabel">
         <property name="name">
-            <cstring>ListBoxBehor</cstring>
+            <cstring>TextLabel5</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>341</x>
-                <y>41</y>
-                <width>150</width>
-                <height>210</height>
+                <x>380</x>
+                <y>10</y>
+                <width>90</width>
+                <height>20</height>
             </rect>
+        </property>
+        <property name="text">
+            <string>Behörigheter</string>
         </property>
     </widget>
     <widget class="QPushButton">
@@ -183,13 +141,109 @@
         <property name="geometry">
             <rect>
                 <x>10</x>
-                <y>230</y>
+                <y>226</y>
                 <width>61</width>
-                <height>21</height>
+                <height>25</height>
             </rect>
         </property>
         <property name="text">
             <string>OK</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QListBox">
+        <property name="name">
+            <cstring>ListBoxBehor</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>350</x>
+                <y>40</y>
+                <width>150</width>
+                <height>210</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>565</x>
+                <y>10</y>
+                <width>100</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Användarlista</string>
+        </property>
+    </widget>
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Namn</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Userid</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <property name="name">
+            <cstring>listViewUser</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>515</x>
+                <y>40</y>
+                <width>215</width>
+                <height>211</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEdituserid</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>60</x>
+                <y>10</y>
+                <width>80</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonQuit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>80</x>
+                <y>226</y>
+                <width>61</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Sluta</string>
         </property>
         <property name="default">
             <bool>true</bool>
@@ -200,17 +254,17 @@
     <connection>
         <sender>PushButtonQuit</sender>
         <signal>clicked()</signal>
-        <receiver>frmDspUsr</receiver>
+        <receiver>frmDspUser</receiver>
         <slot>close()</slot>
     </connection>
     <connection>
-        <sender>LineEditUserid</sender>
+        <sender>LineEdituserid</sender>
         <signal>returnPressed()</signal>
-        <receiver>frmDspUsr</receiver>
-        <slot>slotUseridEntered()</slot>
+        <receiver>frmDspUser</receiver>
+        <slot>slotuseridEntered()</slot>
     </connection>
     <connection>
-        <sender>LineEditUserid</sender>
+        <sender>LineEdituserid</sender>
         <signal>returnPressed()</signal>
         <receiver>PushButtonOK</receiver>
         <slot>setFocus()</slot>
@@ -224,18 +278,30 @@
     <connection>
         <sender>PushButtonOK</sender>
         <signal>clicked()</signal>
-        <receiver>frmDspUsr</receiver>
+        <receiver>frmDspUser</receiver>
         <slot>slotPushButtonOK_clicked()</slot>
     </connection>
     <connection>
         <sender>PushButtonOK</sender>
         <signal>pressed()</signal>
-        <receiver>frmDspUsr</receiver>
+        <receiver>frmDspUser</receiver>
+        <slot>slotPushButtonOK_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>listViewUser</sender>
+        <signal>clicked(QListViewItem*)</signal>
+        <receiver>frmDspUser</receiver>
+        <slot>slotPickupUserID(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>LineEdituserid</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmDspUser</receiver>
         <slot>slotPushButtonOK_clicked()</slot>
     </connection>
 </connections>
 <tabstops>
-    <tabstop>LineEditUserid</tabstop>
+    <tabstop>LineEdituserid</tabstop>
     <tabstop>PushButtonOK</tabstop>
     <tabstop>PushButtonQuit</tabstop>
     <tabstop>LineEditNamn</tabstop>
@@ -247,14 +313,22 @@
     <include location="local" impldecl="in implementation">frmdspusr.ui.h</include>
 </includes>
 <slots>
+    <slot>slotuseridEntered()</slot>
     <slot>slotPushButtonOK_clicked()</slot>
     <slot>slotGetUserData()</slot>
     <slot>slotGetRightData()</slot>
-    <slot>slotUseridEntered()</slot>
     <slot>slotRightDataOnStdout()</slot>
     <slot>slotEndOfRightProcess()</slot>
     <slot>slotUsrDataOnStdout()</slot>
     <slot>slotEndOfUsrProcess()</slot>
+    <slot>listUsers()</slot>
+    <slot>slotUserDataOnStdout()</slot>
+    <slot>slotUserDataOnStderr()</slot>
+    <slot>slotUserEndOfProcess()</slot>
+    <slot>slotPickupUserID( QListViewItem * item )</slot>
 </slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

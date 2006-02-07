@@ -31,7 +31,7 @@ int main( int argc, char* argv[] )
 {
   QApplication myapp( argc, argv );
 
-  frmDspUsr* mywidget = new frmDspUsr();
+  frmDspUser* mywidget = new frmDspUser();
 
   QString rcfil;
   QString bibl;
