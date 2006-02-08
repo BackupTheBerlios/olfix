@@ -8,9 +8,9 @@
 /***************************************************************************
                           DELUSRW  -  description
                              -------------------
-		     version 0.2
+		     version 0.3
     begin     	: Sön 2 febr 2003
-    Modified	: Fre 12 nov 2004
+    Modified	: Ons 8 febr 2006
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -32,13 +32,25 @@
 #define MAXSTRING 5000
 
 	QProcess* process;
+	QProcess* processlist;
 	QString inrad;
+	QString inradlista;
+	QString errorradlista;
+	QString errorrad;
 	QString inrad_u;
 	QString listrad;
-	QString errorrad;
-            QString Userid;
-            QString EndFlag;
+                QString userid;
+                QString EndFlag;
 	QString nbrrows;
+	
+    
+
+void frmDelUsr::init()
+{
+    PushButtonGet->hide();
+    frmDelUsr::listUsers();
+    listViewUser->setFocus();
+}	
 
 void frmDelUsr::slotPushButtonGet_clicked()
 {
@@ -56,25 +68,25 @@ void frmDelUsr::slotPushButtonGet_clicked()
 void frmDelUsr::slotGetUserData()
 {
         	const char *userp = getenv("USER");
-            QString usr(userp);
+                QString usr(userp);
 
-	 inrad="";
-	 errorrad="";
-            process = new QProcess();
+	inrad="";
+	errorrad="";
+                process = new QProcess();
 	process->addArgument("./STYRMAN");
-	process->addArgument(usr.latin1());		// user OLFIX
+	process->addArgument(usr);			// user OLFIX
 	process->addArgument( "USERDSP");		// OLFIX program
-	process->addArgument( Userid.latin1() );
+	process->addArgument( userid);
 	
 	frmDelUsr::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotUsrDataOnStdout() ) );
-            frmDelUsr::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfUsrProcess() ) );
-            if ( !process->start() ) {
+	frmDelUsr::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfUsrProcess() ) );
+	if ( !process->start() ) {
                 // error handling
 	QMessageBox::warning( this, "OLFIX - USERDEL",
                             "Kan inte starta USERDSP!\n"
                             );
 	}
-// 	qWarning( "slotGetUserData: usr=%s  Userid=%s\n", usr.latin1(),Userid.latin1() );
+// 	qWarning( "slotGetUserData: usr=%s  userid=%s\n", usr.latin1(),userid.latin1() );
 
 }
 
@@ -83,7 +95,7 @@ void frmDelUsr::slotGetRightData()
     	const char *userp = getenv("USER");
             QString usr(userp);
 	    
-//	qWarning( "slotGetRightData: Userid=%s  usr=%s\n", Userid.latin1(),usr.latin1() );
+//	qWarning( "slotGetRightData: userid=%s  usr=%s\n", userid.latin1(),usr.latin1() );
 	 inrad="";
 	 errorrad="";
 
@@ -91,7 +103,7 @@ void frmDelUsr::slotGetRightData()
 	process->addArgument("./STYRMAN");
 	process->addArgument(usr.latin1());	
 	process->addArgument( "RGTDSP");	// OLFIX program
-	process->addArgument( Userid.latin1() );
+	process->addArgument( userid.latin1() );
 	frmDelUsr::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotRightDataOnStdout() ) );
             frmDelUsr::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfRightProcess() ) );
 
@@ -101,18 +113,18 @@ void frmDelUsr::slotGetRightData()
                             "Kan inte starta RGTDSP!\n"
                             );
 	}
-//	qWarning( "slotGetRightData: Userid=%s \n", Userid.latin1() );
+//	qWarning( "slotGetRightData: userid=%s \n", userid.latin1() );
 }
 
 void frmDelUsr::slotUseridEntered()
 {
-    Userid=LineEditUserid->text();
-    Userid=Userid.upper();
-    LineEditUserid->setText((Userid));
+    userid=LineEditUserid->text();
+    userid=userid.upper();
+    LineEditUserid->setText((userid));
 /****************************************************************/       
 /*	Start 		2004-11-12    				*/
 /****************************************************************/    
-    if (Userid == "OLFIX"){
+    if (userid == "OLFIX"){
 	QMessageBox::warning( this, "OLFIX - DELUSRW",
                             "Om du tar bort användaren OLFIX slutar programmet OLFIX att fungera!\n"
                             );
@@ -130,7 +142,7 @@ void frmDelUsr::slotRightDataOnStdout()
 	QString line = process->readStdout();
 	inrad.append(line);
 	inrad.append("\n");
-//	qWarning( "slotRightDataOnStdout: Userid=%s \n", inrad.latin1() );
+//	qWarning( "slotRightDataOnStdout: userid=%s \n", inrad.latin1() );
     }
 }
 
@@ -206,7 +218,7 @@ void frmDelUsr::slotUsrDataOnStdout()
 	QString line = process->readStdout();
 	inrad_u.append(line);
 	inrad_u.append("\n");
-//	qWarning( "slotUsrDataOnStdout: Userid=%s \n", inrad_u.latin1() );
+//	qWarning( "slotUsrDataOnStdout: userid=%s \n", inrad_u.latin1() );
     }
 }
 
@@ -256,7 +268,7 @@ void frmDelUsr::slotPushButtonOK_clicked()
     errorrad="";
 
     QListViewItem *item;
-    item=ListViewBehor->findItem(Userid,0,ExactMatch);
+    item=ListViewBehor->findItem(userid,0,ExactMatch);
     strcpy(user,item->key(0,TRUE));
  //   fprintf(stdout,"user=%s\n",user);
 
@@ -426,4 +438,186 @@ void frmDelUsr::slotEndOfUsrDelProcess()
 		"Uppdatering OK!\n" 
 		);
     }
+}
+
+void frmDelUsr::listUsers()	
+{
+    const char *userp = getenv("USER");
+    QString usr(userp);
+    listViewUser->clear();
+    inradlista="";
+    errorradlista="";
+	
+    processlist = new QProcess();
+    processlist->addArgument("./STYRMAN");	// OLFIX styrprogram
+    processlist->addArgument(usr);		// userid
+    processlist->addArgument( "USERLST");	// OLFIX funktion
+		
+    frmDelUsr::connect( processlist, SIGNAL(readyReadStdout() ),this, SLOT(slotUserDataOnStdout() ) );
+    frmDelUsr::connect( processlist, SIGNAL(readyReadStderr() ),this, SLOT(slotUserDataOnStderr() ) );	
+    frmDelUsr::connect( processlist, SIGNAL(processExited() ),this, SLOT(slotUserEndOfProcess() ) );	    
+ 
+    if ( !processlist->start() ) {
+    // error handling
+    QMessageBox::warning( this, "Start av USERLST ",
+	"Kan inte starta STYRMAN/USERLST!\n"
+                );
+    }
+}
+
+void frmDelUsr::slotUserDataOnStdout()
+{
+    while (processlist->canReadLineStdout() ) {
+	QString line = processlist->readStdout();
+	inradlista.append(line);
+	inradlista.append("\n");
+    }
+}
+
+void frmDelUsr::slotUserDataOnStderr()
+{
+    while (processlist->canReadLineStderr() ) {
+	QString line = processlist->readStderr();
+	errorradlista.append(line);
+	errorradlista.append("\n");
+    }
+}
+
+void frmDelUsr::slotUserEndOfProcess()
+{
+    QListViewItem* item;
+    int i;
+    listViewUser->setSorting(0,TRUE);
+    i = -1;
+    i = errorradlista.find( QRegExp("Error:"), 0 );
+         if (i != -1) {
+	QMessageBox::critical( this, "CHGUSRW",
+		"ERROR!\n"+errorradlista
+	);
+	errorradlista="";
+	i = -1;
+     }
+	 
+    i = inradlista.find( QRegExp("NR_0_"), 0 );
+         if (i != -1) {
+	QMessageBox::information( this, "CHGUSRW",
+		"Användarregistret innehåller inga poster!\n"
+	);
+	i = -1;
+     }
+	 
+//    QString listrad;
+//    rad=&inrad;
+    inradlista.latin1();
+    char *pos1;
+    char *pos2;
+    char tmp[MAXSTRING];
+    char *tmppek;
+    int j,k,l,m;
+//    int antrad;
+    char antrad[6]="";
+    char userid[9]="";
+    char namn[31]="";
+    char avd[11]="";
+    char grupp[11]="";
+
+    tmppek=tmp;
+    qstrcpy(tmp,inradlista);
+    pos1=strstr(tmp,"NR_");	//3  tecken långt
+    pos2=strstr(tmp,"_:");
+    i=pos2-pos1;
+    m=i+2;		// startposition för första userid.
+    
+//    qDebug("i=%d  m=%d",i,m);
+    
+    k=0;
+    for (j=3;j<i;j++){	                   // j = första positionen för antal poster, (NR_6_:ADMINA_:Administratör av OLFIX_:IT_:Stab_:)
+	antrad[k]=tmp[j];
+	k++;
+    };
+    i=atoi(antrad);		// i = antal poster
+    
+//    qDebug("antrad=%s",antrad);
+    
+    for (k = 1;k <= i; k++){	// gå igenom alla raderna / posterna
+	l=0;
+	for(j = m; j < sizeof(userid) + m; j++){
+	    if(tmp[j] != *("_")){
+		userid[l]=tmp[j];
+		l++;
+	    }else{
+		userid[l] = *("\0");
+		j=sizeof(userid) + m;
+	    }
+	}
+//	qDebug("%s  ",userid);
+	m=m+l+2;	// position för namn
+	l=0;
+	for(j = m; j < sizeof(namn) + m; j++){
+	    if(tmp[j] != *("_")){
+		namn[l]=tmp[j];
+		l++;
+	    }else{
+		namn[l] = *("\0");
+		j=sizeof(namn) + m;
+	    }
+	}
+//	qDebug("%s  ",namn);
+	m=m+l+2;	
+	l=0;
+	for(j = m; j < sizeof(avd) + m; j++){
+	    if(tmp[j] != *("_")){
+		avd[l]=tmp[j];
+		l++;
+	    }else{
+		avd[l] = *("\0");
+		j=sizeof(avd) + m;
+	    }
+	}
+//	qDebug("%s  ",avd);	
+	m=m+l+2;
+	l=0;
+	for(j = m; j < sizeof(grupp) + m; j++){
+	    if(tmp[j] != *("_")){
+		grupp[l]=tmp[j];
+		l++;
+	    }else{
+		grupp[l] = *("\0");
+		j=sizeof(grupp) + m;
+	    }
+	}
+//	qDebug("%s  ",grupp);	
+	m=m+l+2;
+		
+	item = new QListViewItem(listViewUser,namn,userid);
+// 	 rensa namn och userid 
+  	for (l=0;l<sizeof(userid);l++)
+		userid[l]=*("\0");
+	for (l=0;l<sizeof(namn);l++)
+	               namn[l]=*("\0");
+	for (l=0;l<sizeof(avd);l++)
+	               avd[l]=*("\0");
+	for (l=0;l<sizeof(grupp);l++)
+	               grupp[l]=*("\0");	
+//	 rensa listrad 
+//	listrad.remove(0,80);
+    }   
+}
+
+void frmDelUsr::slotPickupuserid( QListViewItem * item)
+{
+    char user[11]="";
+//    qDebug("Pickupuserid\n");
+    if(!item){
+	return;
+    }
+     listViewUser->setCurrentItem(item);
+     if(!item->key(0,TRUE)){
+	 return;
+     }
+
+     strcpy(user,item->key(1,TRUE));	// = Användar-ID
+     userid=user;
+     LineEditUserid->setText(userid);
+     LineEditUserid->setFocus();
 }
