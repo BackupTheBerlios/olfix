@@ -6,7 +6,7 @@
 	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.0.2  (Linux)">
 	<META NAME="CREATED" CONTENT="20021205;10014400">
 	<META NAME="CHANGEDBY" CONTENT="Jan Pihlgren">
-	<META NAME="CHANGED" CONTENT="20051119;10214200">
+	<META NAME="CHANGED" CONTENT="20060201;10214200">
 	<STYLE>
 	<!--
 		@page { margin: 2cm }
@@ -25,37 +25,84 @@ f&ouml;r Linuxsystem</B></FONT></P>
 <P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=4 STYLE="font-size: 16pt">Kapitel
 F&ouml;rs&auml;ljning </FONT>
 </P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.44</FONT></P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2005-11-19</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.45</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2006-02-01</FONT></P>
 <HR>
 <P STYLE="margin-left: 3cm">This program is free software; you can
 redistribute it and/or modify<BR>it under the terms of the GNU
 General Public License as published by<BR>the Free Software
 Foundation; either version 2 of the License, or<BR>(at your option)
 any later version.</P>
-<P STYLE="margin-bottom: 0.5cm; border-top: none; border-bottom: 1.10pt double #808080; border-left: none; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0cm; padding-right: 0cm">
+
+<P>
 <FONT SIZE=1 STYLE="font-size: 6pt">Copyright 2004 Jan Pihlgren.</FONT></P>
 <p style="margin-bottom: 0cm;"><font face="San Serif" size="2">
-<a href="UserManual_INNEHALL.html#TOP">Hem</a></font></p>
-<P ALIGN=CENTER><A NAME="TOP"></A><A NAME="INNEHALL"></A><FONT SIZE=4 STYLE="font-size: 16pt"><B><!---- <P STYLE="margin-top: 0.42cm; page-break-before: always; page-break-after: avoid">
-<!---->Inneh&aring;ll</B></FONT></P>
-<P STYLE="margin-left: 3cm"><A NAME="FORSALJ1"></A><!-- <a href="#FORSALJ">Försäljning</a><br> --><FONT FACE="San Serif">
-<A HREF="#FORSALJ1">Registrering av kundorder</A><BR>
-<A HREF="#PLOCKLISTA">Utskrift av plocklista.</A><BR>
-<A HREF="#PLOCK2">Registrera plockat antal.</A><BR>
-<A HREF="#FAKTURA">Fakturera.</A><BR>
-<A HREF="#LISTORDER">Lista kundorder.</A><BR>
-<A href="#FAKTURABETALD">Registrera betalda fakturor.</A><br>
-<A HREF="#LEVPLATS">Registrering av standardleveransplats<!-- <a name="FORSALJ"></a>
-<p align="center">
-<!-- <b>FÖRSÄLJNING</b></p> --></A></FONT></P>
-<P ALIGN=LEFT><FONT FACE="San Serif"><B>Registrering av kundorder.</B>
+<hr>
+<a href="UserManual.html#TOP">Hem</a></font></p>
+<P ALIGN=CENTER><A NAME="TOP"></A>
+<A name="FORSALJ"></a><P align="center"><FONT SIZE=4 STYLE="font-size: 16pt"><b>FÖRSÄLJNING</b> </A></FONT><br>
+<A NAME="INNEHALL"></A><FONT SIZE=4 STYLE="font-size: 14pt"><B>Inneh&aring;ll</B></FONT></P>
+<pre>
+<P STYLE="margin-left: 3cm"><A NAME="FORSALJ0"></A><FONT FACE="San Serif" FONT STYLE="font-size: 10pt">
+		<A HREF="#KUNDER">Registrering av nya kunder</A>
+		<A HREF="#KUNDER2">Ändra kunddata</A>
+		<A HREF="#FORSALJ1">Registrering av kundorder</A>
+		<A HREF="#PLOCKLISTA">Utskrift av plocklista.</A>
+		<A HREF="#PLOCK2">Registrera plockat antal.</A>
+		<A HREF="#FAKTURA">Fakturera.</A>
+		<A HREF="#LISTORDER">Lista kundorder.</A>
+		<A href="#FAKTURABETALD">Registrera betalda fakturor.</A>
+		<A HREF="#LEVPLATS">Registrering av standardleveransplats</A><br>
+		<A href="#BEGREPP">Begreppsförklaringar.</A>
+</P>
+</pre>
+ <hr>
+<P ALIGN=LEFT><A NAME="KUNDER"></A><FONT FACE="San Serif" FONT STYLE="font-size: 12pt"><B>Registrering av nya kunder.</B>
+</FONT>
+<P ALIGN=CENTER><FONT FACE="San Serif"><IMG SRC="UserManual_html_ADDKUW.png" NAME="NyKund" ALIGN=BOTTOM  BORDER=0>
 </FONT>
 </P>
+<FONT FACE="San Serif" FONT STYLE="font-size: 10pt">
+Förflyttning till nytt fält sker med <b>TAB</b>-tangenten <br>
+I fältet <b><A HREF="UserManual_ARTIKLAR.html#PRISLISTA">Prislista</b></A> anges någon av siffrorna 0 - 5 för att ange vilken prislista som gäller för denna kund. I fall siffran 0 eller blankt anges, så gäller det <A HREF="UserManual_ARTIKLAR.html#ARTIKEL01">försäljningspris </A>som finns registrerat för artikeln i ARTIKELREG.<br> I fall en artikel inte finns registrerad i prislistorna gäller försäljningspriset i ARTIKELREG.<br>
+<b>Kreditkod</b> (3 tecken) kan användas fritt. Ex på användning:<br>
+ NN, JN, JJ, NJ<br>
+Kan då tolkas som;<br>
+NN = Kreditkontrollerad Nej, Spärrad Nej.<br>
+JN = Kreditkontrollerad Ja, Spärrad Nej. <br>
+JJ = Kreditkontrollerad Ja, Spärrad Ja.<br>
+NJ = Kreditkontrollerad Nej, Spärrad Ja.<br><br>
+
+<b>Fri text</b> kan användas för särskilda anteckningar om kunden.<br>
+När alla uppgifter är ifyllda klicka på <b>OK</b>-knappen.<br>
+
+
+<br><FONT FACE="San Serif" FONT ="font-size: 8pt"><A HREF="#TOP">Till
+b&ouml;rjan</A> </FONT></P>
+<hr>
+<P ALIGN=LEFT>
+<A NAME="KUNDER2"></A><FONT FACE="San Serif" FONT STYLE="font-size: 12pt"><B>Ändring av kunddata.</B>
+</FONT>
+<P ALIGN=CENTER><FONT FACE="San Serif"><IMG SRC="UserManual_html_CHGKUW.png" NAME="ChgKund" ALIGN=BOTTOM  BORDER=0>
+</FONT>
+</P>
+Förflyttning till nytt fält sker med <b>TAB</b>-tangenten <br>
+Genom att klicka på önskat <b>Kundnr</b> i Kundlistan kopieras kundnumret till fältet <b>KundID</b>.<br>
+Sedan "tabbar" man sig till fältet KunID alternativt flyttar markören (cursorn) till fältet. När man sedan lämnar fältet hämtas data från databasen.<br>
+När man klar med ändringarna klickar man på knappen <b>Uppdatera</b>.<br>
+
+<br><FONT FACE="San Serif" FONT ="font-size: 8pt"><A HREF="#TOP">Till
+b&ouml;rjan</A> </FONT></P>
+<hr>
+<P ALIGN=LEFT>
+<A NAME="FORSALJ1"></A><FONT FACE="San Serif" FONT STYLE="font-size: 12pt"><B>Registrering av kundorder.</B>
+</FONT>
 <P ALIGN=CENTER><FONT FACE="San Serif"><IMG SRC="UserManual_html_ADDORDW.png" NAME="Graphic10" ALIGN=BOTTOM WIDTH=693 HEIGHT=473 BORDER=0>
 </FONT>
 </P>
-<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><A NAME="FORSALJ1B"></A><FONT FACE="San Serif"><SPAN STYLE="background: #ffff00"><B>OBS!</B>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm">
+
+<A NAME="FORSALJ1B"></A><FONT FACE="San Serif" FONT STYLE="font-size: 10pt"> <SPAN STYLE="background: #ffff00"><B>OBS!</B>
 </SPAN>I alla f&auml;lt du g&ouml;r en f&ouml;r&auml;ndring i m&aring;ste
 du avsluta med att trycka <SPAN STYLE="background: #ffff00"><B>Enter
 </B></SPAN>f&ouml;r att informationen ska f&ouml;lja med till
@@ -65,13 +112,11 @@ h&auml;mtas en lista med kunder upp s&aring; att man l&auml;tt kan
 hitta en kunds kundnummer. &Auml;ven f&auml;ltet <B>&Ouml;nskad
 leveranstid </B>fylls i med<B> </B>dagens datum. Ocks&aring; f&auml;ltet
 Leveransvecka fylls i med inevarande veckas sista dag enlig utseendet
-<B>&Aring;VVD.</B> </FONT>
-</P>
-<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="San Serif">Genom
-att klicka p&aring; &ouml;nskad rad av kunder s&aring; matas
-kundnumret in i f&auml;ltet <B>Kundnr</B>.</FONT></P>
-<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="San Serif">Det
-g&aring;r ocks&aring; att skriva in kundnumret direkt ifall man kan
+<B>&Aring;VVD.</B> <br>
+
+Genom att klicka p&aring; &ouml;nskad rad av kunder s&aring; matas
+kundnumret in i f&auml;ltet <B>Kundnr</B>.<br>
+Det g&aring;r ocks&aring; att skriva in kundnumret direkt ifall man kan
 det i huvudet. N&auml;r man tryckt p&aring; &rdquo;Enter&rdquo; s&aring;
 h&auml;mtas kundens data och fylls i f&auml;lten. I fall det inte
 finns n&aring;gon s&auml;rskild leveransadress angiven f&ouml;r
@@ -80,8 +125,8 @@ leveransadress. Samtidigt anges i detta fall 000 in i f&auml;ltet
 <B>Leveransplats</B> f&ouml;r att markera att det inte finns n&aring;gon
 s&auml;rskild leveransplats registrerad p&aring; kunden. F&ouml;rst
 kommer det dock upp en varning och meddelar att leveransplats saknas.
-I detta fall klicka bara p&aring; knappen m&auml;rkt OK.</FONT></P>
-<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="San Serif">N&auml;r
+I detta fall klicka bara p&aring; knappen m&auml;rkt OK.<br>
+N&auml;r
 detta &auml;r klart st&auml;ller sig mark&ouml;ren i f&auml;ltet
 <B>Artikelnr</B>. Fyll i artikelnummer och tryck &rdquo;Enter&rdquo;
 varvid <B>Ben&auml;mning</B> fylls i. Acceptera ben&auml;mningen
@@ -91,8 +136,7 @@ i och kan accepteras eller &auml;ndras. Sedan &auml;r det dags att
 ange vilket <B>Antal</B> som ska levereras. V&auml;rdet i f&auml;ltet
 <B>Pris/st</B> &auml;r ifyllt. N&auml;r det accepterats eller &auml;ndrats
 och avslutats med &rdquo;Enter&rdquo; s&aring; ber&auml;knas <B>Summa</B>
-och <B>Moms.</B></FONT></P>
-<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="San Serif">Momsen
+och <B>Moms.</B><br>Momsen
 ber&auml;knas utifr&aring;n den momssats som &aring;sats den
 produktklass artikeln tillh&ouml;r. Mark&ouml;ren st&auml;ller sig p&aring;
 knappen <B>Godk&auml;nn rad Ja</B>. N&auml;r man klickar p&aring;
@@ -100,33 +144,31 @@ knappen s&aring; flyttas radens v&auml;rden ner i det underliggande
 f&auml;ltet och alla f&auml;lt, Radnr, Artikelnr, Ben&auml;mning,
 Antal, Pris/st, Summa och Moms, blankas ut och mark&ouml;ren st&auml;ller
 sig &aring;nyo i f&auml;ltet Artikelnr. F&auml;ltet Leveransvecka
-blankas inte ut.</FONT></P>
-<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="San Serif">I
-fall man uppt&auml;cker att en tidigare orderrad &auml;r felaktig kan
+blankas inte ut.<br>
+I fall man uppt&auml;cker att en tidigare orderrad &auml;r felaktig kan
 den &auml;ndras genom att klicka p&aring; den i det stora f&auml;ltet
 varp&aring; den flyttas upp p&aring; raden f&ouml;r radregistrering.
 N&auml;r &auml;ndringen &auml;r klar och godk&auml;nd flyttas den
-tillbaka till det stora f&auml;ltet.</FONT></P>
-<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="San Serif">N&auml;r
-man &auml;r f&auml;rdig med radregistreringen f&aring;r man sj&auml;lv
+tillbaka till det stora f&auml;ltet.<br><br>
+N&auml;r man &auml;r f&auml;rdig med radregistreringen f&aring;r man sj&auml;lv
 flytta mark&ouml;ren till f&auml;ltet <B>Frakt</B>. Man fyller i
 beloppet och trycker &rdquo;Enter&rdquo; varp&aring; f&auml;ltet
 l&aring;ses. F&auml;ltet <B>Fraktmoms</B> ber&auml;knas efter den
 moms som finns angiven i f&auml;ltet <B>Moms</B> (under f&auml;ltet
 <B>Valuta</B>). F&auml;ltet <B>Summa moms</B> &auml;r summan av
 momsen f&ouml;r varje rad och Fraktmoms. F&auml;ltet <B>Order Total</B>
-anger orderns totalbelopp inklusive moms.</FONT></P>
-<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="San Serif">OBS!
+anger orderns totalbelopp inklusive moms.<br>OBS!
 I och med att <B>Frakt</B> accepteras kan ordern inte &auml;ndras.
 Valet st&aring;r mellan att acceptera ordern, <B>Order klar!</B>
-eller <B>Avbryt. </B></FONT>
-</P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till
+eller <B>Avbryt. </B><br><br>
+<FONT FACE="San Serif" FONT ="font-size: 8pt"><A HREF="#TOP">Till
 b&ouml;rjan</A> </FONT>
 </P>
-<P><A NAME="FORSALJ11"></A><FONT FACE="San Serif"><BR><B>Registrering
-av en ny kund samtidigt som man registrerar en kundorder.</B><BR><BR>Ange
-0 (noll) i f&auml;ltet <B>Kundnr</B> s&aring; f&aring;r man manuellt
+<hr>
+<P><A NAME="FORSALJ11"></A><FONT FACE="San Serif" FONT STYLE="font-size: 12pt"><BR><B>Registrering
+av en ny kund samtidigt som man registrerar en kundorder.</B><BR><BR>
+<FONT FACE="San Serif" FONT STYLE="font-size: 10pt"> 
+Ange 0 (noll) i f&auml;ltet <B>Kundnr</B> s&aring; f&aring;r man manuellt
 fylla i alla uppgifter om kunden. Programmet plockar upp <B>n&auml;sta
 kundnr</B>.<BR>Ifall kunden inte har en s&auml;rskild leveransadress
 kan uppgifterna kopieras fr&aring;n postadressen genom att skriva 0
@@ -145,14 +187,14 @@ J<BR>Plocklista = J<BR>F&ouml;ljesedel = J<BR>Expeditionsavgift =
 J<BR>Fraktavgift = J<BR>Kravbrev = J<BR>Kreditlimit =
 1000.00<BR>Dr&ouml;jm&aring;lsr&auml;nta = J<BR>Dr&ouml;jm&aring;lsfaktura
 = J</FONT></P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#FORSALJ1B">&Aring;ter
-till kundregistrering</A> </FONT>
-</P>
-<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif"><A HREF="#TOP">Till
-b&ouml;rjan</A> </FONT>
-</P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="San Serif" FONT STYLE="font-size: 10pt"> 
+<A HREF="#FORSALJ1B">&Aring;ter till kundorderregistrering</A> <br>
+
+<FONT FACE="San Serif" FONT ="font-size: 8pt"><A HREF="#TOP">Till
+b&ouml;rjan</A> </FONT></P>
 <HR>
-<P ALIGN=LEFT><A NAME="FAKTURA"></A><FONT FACE="San Serif"><B>Fakturering.</B>
+<P ALIGN=LEFT>
+<A NAME="FAKTURA"></A><FONT FACE="San Serif" FONT STYLE="font-size: 12pt"><B>Fakturering.</B>
 </FONT>
 </P>
 <P ALIGN=LEFT><FONT FACE="San Serif"><IMG SRC="UserManual_html_KUFAKTW.png" NAME="Graphic8" ALIGN=BOTTOM WIDTH=900 HEIGHT=600 BORDER=0></FONT></P>
@@ -281,11 +323,12 @@ f&ouml;r varje kund.</FONT></P>
 <P ALIGN=LEFT><A NAME="LEVPLATS1"></A><FONT FACE="San Serif"><B>Ny
 standardleveransplats.</B></FONT></P>
 <P ALIGN=CENTER><FONT FACE="San Serif"><IMG SRC="UserManual_html_ADDLEVPW.png" NAME="Graphic8" ALIGN=BOTTOM WIDTH=454 HEIGHT=267 BORDER=0></FONT></P>
-<P ALIGN=LEFT><FONT FACE="San Serif">F&ouml;r varje leveransadress
+<P ALIGN=LEFT>
+<FONT FACE="San Serif" FONT STYLE="font-size: 10pt">F&ouml;r varje leveransadress
 registreras KundID, Platsnummer, Leveransadress, Postnummer,
 Postadress samt Land. Ifall land utel&auml;mnas registreras ett &ndash;
-(minustecken).</FONT></P>
-<P><FONT FACE="San Serif">I samband med registrering av en ny kund
+(minustecken).
+I samband med registrering av en ny kund
 l&auml;ggs standardleveransplats 001 och 002 upp.<BR>Leveransplats
 001 &auml;r lika med ordinarie postadress.<BR>KundID kan inneh&aring;lla
 upp till 10 bokst&auml;ver och/eller siffror.<BR>Platsnummer kan
@@ -300,13 +343,28 @@ skrivas i enf&ouml;ljd.<BR>F&auml;lt som &auml;r markerade med <FONT COLOR="#ff0
 b&ouml;rjan</A> </FONT>
 </P>
 <HR>
-<P ALIGN=CENTER><A NAME="BEGREPP"></A><FONT FACE="San Serif"><B>BEGREPPSF&Ouml;RKLARINGAR</B></FONT></P>
+<!--			BEGREPPSFÖRKLARINGAR			-->
+<P ALIGN=CENTER>
+<A NAME="BEGREPP"></A><FONT FACE="San Serif"><B>BEGREPPSF&Ouml;RKLARINGAR</B></FONT></P>
+</P>
+<FONT FACE="San Serif" FONT STYLE="font-size: 10pt">
 <P ALIGN=LEFT><FONT FACE="San Serif"><B>Bokf&ouml;rings&aring;r:</B>
 Tv&aring;st&auml;llig bokstavskombination som anger vilket
 bokf&ouml;rings&aring;r/redovisnings&aring;r som avses.</FONT></P>
-<P ALIGN=LEFT><A NAME="STATUS"></A><FONT FACE="San Serif"><B>Orderstatus:</B><BR>A
-= Order under arbete<BR>N = Normal status<BR>F = Frisl&auml;ppt<BR>B
-= Slutbehandlad, ska plockas port</FONT></P>
+
+<P ALIGN=LEFT><A NAME="PRISER"></A><FONT FACE="San Serif"><B>Priser/prislista:</B><BR>
+Försäljningspris = Det pris som finns angivet i ARTIKELREG, fält ARFPRIS.<br>
+Prislista 1 = Det pris som finns angivet i PRISLISTA, fält PRIS1.<br>
+Prislista 2 = Det pris som finns angivet i PRISLISTA, fält PRIS2.<br>
+Prislista 3 = Det pris som finns angivet i PRISLISTA, fält PRIS3.<br>
+Prislista 4 = Det pris som finns angivet i PRISLISTA, fält PRIS4.<br>
+Prislista 5 = Det pris som finns angivet i PRISLISTA, fält PRIS5.<br>
+
+<P ALIGN=LEFT><A NAME="STATUS"></A><FONT FACE="San Serif"><B>Orderstatus:</B><BR>
+A = Order under arbete<BR>
+N = Normal status<BR>
+F = Frisl&auml;ppt<BR>
+B = Slutbehandlad, ska plockas port</FONT></P>
 <P ALIGN=LEFT STYLE="margin-bottom: 0cm"><A HREF="#TOP">Till b&ouml;rjan</A>
 </P>
 </BODY>

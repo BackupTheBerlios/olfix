@@ -27,7 +27,7 @@ Administration</FONT>
 </P>
 <P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.1 </FONT>
 </P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2006-01-10 </FONT>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2006-02-06 </FONT>
 </P>
 <HR>
 <P STYLE="margin-left: 3cm">This program is free software; you can
@@ -37,9 +37,9 @@ Foundation; either version 2 of the License, or<BR>(at your option)
 any later version.</P>
 <P STYLE="margin-bottom: 0.5cm; border-top: none; border-bottom: 1.10pt double #808080; border-left: none; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0cm; padding-right: 0cm">
 <FONT SIZE=1 STYLE="font-size: 6pt">Copyright 2004 Jan Pihlgren.</FONT></P>
+<A NAME="TOP"></A>
 <p style="margin-bottom: 0cm;"><font face="San Serif" size="2">
 <a href="UserManual.html#TOP">Hem</a></font></p>
-<A NAME="TOP"></A>
 <!--                   INNEHÅLL                           -->
 <P ALIGN=CENTER><A NAME="INNEHALL"></A>
 <FONT SIZE=4 STYLE="font-size: 16pt"><B>Inneh&aring;ll</B></FONT></P>
@@ -50,8 +50,10 @@ any later version.</P>
 		<A href="#ALLMENT">Allmännt.</A><br>
 	<A href="#USER">Användaradministration.</A>
 		<A href="#NYUSER">Ny användare.</A>
+		<A href="#DSPUSER">Visa användardata.</A>
 		<a href="LISTUSER	">Lista användare.</a>
-		<A href="#DELUSER">Ta bort användare.</A><br>
+		<A href="#DELUSER">Ta bort användare.</A>
+		<A href="#CHGUSER">Ändra användardata.</A><br>
 	<A href="#FUNK">Funktionsadministration.</A>
 		<A href="#NYFUNK">Ny funktion.</A><br>
 	<A href="#BEHORIG">Behörighetsadministration.</A>
@@ -106,6 +108,20 @@ De övriga tre fälten är bara information.<br>
 <p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
 <a href="#TOP">Till början</a></p></FONT>
 <HR>
+<!--                  VISA ANVÄNDARDATA                           -->
+<P ALIGN=LEFT>
+<a name="DSPUSER"><b>Visa användardata.</b></a><br><br>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+Använd DSPUSRW för att se vilka behörigheter en användare erhållit.<br>
+Administration - Användaradministration  - Visa en användare.<br>
+<p align="center">
+<img src="UserManual_html_DSPUSRW.png" name="DSPUSERPICT" align="bottom"  border="0"></p>
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=3 STYLE="font-size: 10pt">
+Man kan antingen skriva in <b>Userid</b> direkt  eller så kan man klicka på önskat namn i <b>Användarlista</b>. Avsluta med <b>Enter</b> eller <b>TAB</b>
+
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
+<hr>
 <!--                  LISTA ANVÄNDARE                           -->
 <P ALIGN=LEFT>
 <a name="LISTUSER"><b>Lista användare.</b></a><br><br>
@@ -120,6 +136,21 @@ Knappen <b>Uppdatera</b> är till för att läsa in data igen.
 <p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
 <a href="#TOP">Till början</a></p></FONT>
 <hr>
+<!--                  ÄNDRA ANVÄNDARDATA                           -->
+<P ALIGN=LEFT>
+<a name="CHGUSER"><b>Ändra användardata</b></a><br><br>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+<p align="center">
+<img src="UserManual_html_CHGUSRW.png" name="CHGUSERPICT" align="bottom"  border="0"></p>
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=3 STYLE="font-size: 10pt">
+Genom att klicka på önskad användare i <b>Användarlista</b> kopieras användarens userid till fältet  <b>Användar-ID</b>.
+Man kan även skriva in vederbörandes userid direkt.
+När man sedan flyttar sig från fältet (med TAB eller Enter) så hämtas användarens aktuella data och skrivs in i respektive fält.
+Därefter kan man ändra de data man önskar.När man är klar med ändringarna så klickar man på knappen <b>Uppdatera</b>. Databasen uppdateras, fälten blankas ut och Användarlistan uppdateras.
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
+
+<hr>
 <P ALIGN=LEFT>
 <a name="DELUSER"><b>Ta bort användare</b></a><br><br>
 <p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
@@ -129,12 +160,11 @@ Administration - Användaradministration  - Ta bort användare.<br>
 <p align="center">
 <img src="UserManual_html_DELUSRW.png" name="DELUSERPICT" align="bottom"  border="0"></p>
 <p align="left" style="margin-bottom: 0cm;"><FONT SIZE=3 STYLE="font-size: 10pt">
-<b>Userid:</b> Ange användarens inloggnings-ID. Avsluta med att trycka på <b>Enter</b>.<br>
-Allternativt kan man klicka på önskad Userid i tabellen till höger. Glöm inte att trycka på <b>Enter</b> efteråt.<br>
-Klicka på knappen <b>Hämta</b> för att hämta information om användaren. 
+<b>Userid:</b> Ange användarens inloggnings-ID. Avsluta med att trycka på <b>Enter</b> eller <b>TAB</b>.<br>
+Allternativt kan man klicka på önskad Userid i tabellen <b>Användare</b> till höger. 
 
-Nu kan man radera användaren samt alla rättigheter för denne genom att klicka på knappen <b>OK</b>.
-I fall man ångrar sig kan man klicka på knappen <b>Sluta</b> och programmet avbryts utan att någonradering sker.
+Nu kan man radera användaren samt alla rättigheter för denne genom att klicka på knappen <b>RADERA!</b>.
+I fall man ångrar sig kan man klicka på knappen <b>Sluta</b> och programmet avbryts utan att någon radering sker.
 Även när man är klar med att ta bort användare klickar man på knappen <b>Sluta</b>.<br>
 
 <b>Varning! </b>Användaren <b>OLFIX</b> får absolut inte tagas bort! Vare sig som användare eller behörigheterna.<br>
