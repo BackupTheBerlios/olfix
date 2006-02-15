@@ -239,10 +239,10 @@ void frmListKundorder::PushButtonHjelp_clicked()
 	hjelpfil=hjelpfil.left(i1);
 	hjelpfil=hjelpfil+"_KUNDORDER.html";
 	hjelpfil=hjelpfil+"#LISTORDER";		// Lägg till position
-//	qDebug("hjelpfil=%s",hjelpfil.latin1());
+	qDebug("hjelpfil=%s",hjelpfil.latin1());
 
 	process = new QProcess();
-	process->addArgument( "OLFIXHLP" );	// OLFIX program
+	process->addArgument( "./OLFIXHLP" );		// OLFIX program
 	process->addArgument(hjelpfil);
 
 	if ( !process->start() ) {
