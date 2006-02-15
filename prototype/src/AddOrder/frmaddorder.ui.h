@@ -10,18 +10,18 @@
                           ADDORDW  -  description
 	         Registrering av kundorder med möjlighet att registrera en ny kund.
                              -------------------
-		     version 0.5
+		     version 0.5.1
     begin   	: Sö      12 okt    2003
-    Updated	: Fre      3 febr   2006
+    Updated	: Tis     14 febr   2006
     copyright	: (C) 2003 by Jan Pihlgren
     email     	: jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
- *					                                                 *
+ *					                                            *
  *   This program is free software; you can redistribute it and/or modify 	 *
- *   it under the terms of the GNU General Public License as published by       *
+ *   it under the terms of the GNU General Public License as published by       	 *
  *   the Free Software Foundation; either version 2 of the License, or     	 *
- *   (at your option) any later version.                                   		 *
+ *   (at your option) any later version.                                   		 	 *
  *                                                                         				 *
  *********************************************** *****************/
 #include <qmessagebox.h>
@@ -357,16 +357,17 @@ void frmAddOrder::lineEditGodsmarke_returnPressed()
 void frmAddOrder::lineEditArtikelNr_returnPressed()
 {
     orderartikelnr=lineEditArtikelNr->text();
-    if (orderartikelnr==""){
+/*    if (orderartikelnr==""){
 	if (! avbryt){
 	    QMessageBox::warning( this, "ADDORDW",
 			      "Artikelnummer måste anges!\n" );
 	    lineEditArtikelNr->setFocus();
 	}
     }else{
+*/
 	frmAddOrder::getArtikeldata();
 //	lineEditBenamn->setFocus();
-    }
+//    }
 }
 
 void frmAddOrder::lineEditBenamn_returnPressed()
@@ -440,6 +441,17 @@ void frmAddOrder::pushBtnOKRad_clicked()
     QString radmomsbelopp;
     QListViewItem * item;
     int i;
+    
+    /*	Är artikelnummer ifyllt? 	*/
+    if (orderartikelnr==""){
+	if (! avbryt){
+	    QMessageBox::warning( this, "ADDORDW",
+		      "Artikelnummer måste anges!\n" );
+	    lineEditArtikelNr->setFocus();
+	}
+    }
+    
+    
     radmomsbelopp=lineEditRadMoms->text();    
     item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,radleveransvecka,orderantal,orderradpris,radbelopp,radmomsbelopp);
 //    item->setText(8,orderbenamn);
@@ -478,7 +490,7 @@ void frmAddOrder::pushBtnOKRad_clicked()
     orderantal="";
     orderradpris="";
     radbelopp="";
-    lineEditArtikelNr->setFocus();
+//    lineEditArtikelNr->setFocus();
 }
 
 void frmAddOrder::pushBtnRadNej_clicked()
@@ -556,7 +568,7 @@ void frmAddOrder::lineEditOrderFrakt_returnPressed()
     lineEditOrderFrakt->setText(fraktbelopp);
     fraktsumma = fraktbelopp.toDouble(); 
     
-    lineEditOrderFrakt->setDisabled(TRUE);
+//    lineEditOrderFrakt->setDisabled(TRUE);		/* 2006-02-14 */
     lineEditOrderFrakt->setPaletteForegroundColor(black);
     
        /*  Beräkna fraktmomsen	*/      
@@ -580,7 +592,7 @@ void frmAddOrder::lineEditOrderFrakt_returnPressed()
 void frmAddOrder::pushBtnOrderKlar_clicked()
 {
 //    lineEditOrderFrakt->setEnabled("FALSE");
-    pushButtonOK->setFocus();			/* Spara ordern. */
+//    pushButtonOK->setFocus();	/* 2006-02-14 */		/* Spara ordern. */
 }
 
 void frmAddOrder::slotBtnOK_clicked()
@@ -2472,11 +2484,11 @@ void frmAddOrder::choosePris()
     int prislistenr=0;
     double pris=0;
     
-   qDebug("choosePris:: Start! ");
+//   qDebug("choosePris:: Start! ");
     
     prislistenr=prislista.toInt();			// på kunden angiven prislista (1 - 5 )
     
-    qDebug("choosePris:: prislistenr=%d prislista=5%s ",prislistenr,prislista.latin1());
+//    qDebug("choosePris:: prislistenr=%d prislista=5%s ",prislistenr,prislista.latin1());
     
     switch (prislistenr) {
     case 0:
@@ -2527,7 +2539,7 @@ void frmAddOrder::choosePris()
 	orderradpris=fpris;			// försäljningspris enligt ARTIKELREG
 	break;
    }  
-    qDebug("choosePris:: orderradpris=%s, prislista5=%s pris=%f fpris=%s",orderradpris.latin1(),prislista5.latin1(),pris,fpris.latin1());
+//    qDebug("choosePris:: orderradpris=%s, prislista5=%s pris=%f fpris=%s",orderradpris.latin1(),prislista5.latin1(),pris,fpris.latin1());
     lineEditAPris->setText(orderradpris);
 }
 
