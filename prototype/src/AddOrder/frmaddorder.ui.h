@@ -10,11 +10,11 @@
                           ADDORDW  -  description
 	         Registrering av kundorder med möjlighet att registrera en ny kund.
                              -------------------
-		     version 0.5.1
-    begin   	: Sö      12 okt    2003
-    Updated	: Tis     14 febr   2006
-    copyright	: (C) 2003 by Jan Pihlgren
-    email     	: jan@pihlgren.se
+		     version 0.5.2
+    begin   	: 	Sön    12 okt    2003
+    Updated	: 	Tis     17 febr   2006
+    copyright:	 (C) 2003 by Jan Pihlgren
+    email     	:	 jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
  *					                                            *
@@ -357,17 +357,9 @@ void frmAddOrder::lineEditGodsmarke_returnPressed()
 void frmAddOrder::lineEditArtikelNr_returnPressed()
 {
     orderartikelnr=lineEditArtikelNr->text();
-/*    if (orderartikelnr==""){
-	if (! avbryt){
-	    QMessageBox::warning( this, "ADDORDW",
-			      "Artikelnummer måste anges!\n" );
-	    lineEditArtikelNr->setFocus();
-	}
-    }else{
-*/
+    if (orderartikelnr!=""){
 	frmAddOrder::getArtikeldata();
-//	lineEditBenamn->setFocus();
-//    }
+   }
 }
 
 void frmAddOrder::lineEditBenamn_returnPressed()
@@ -490,7 +482,7 @@ void frmAddOrder::pushBtnOKRad_clicked()
     orderantal="";
     orderradpris="";
     radbelopp="";
-//    lineEditArtikelNr->setFocus();
+    lineEditArtikelNr->setFocus();
 }
 
 void frmAddOrder::pushBtnRadNej_clicked()
@@ -592,7 +584,7 @@ void frmAddOrder::lineEditOrderFrakt_returnPressed()
 void frmAddOrder::pushBtnOrderKlar_clicked()
 {
 //    lineEditOrderFrakt->setEnabled("FALSE");
-//    pushButtonOK->setFocus();	/* 2006-02-14 */		/* Spara ordern. */
+    pushButtonOK->setFocus();	/* 2006-02-14, 17 */		/* Spara ordern. */
 }
 
 void frmAddOrder::slotBtnOK_clicked()
@@ -600,7 +592,6 @@ void frmAddOrder::slotBtnOK_clicked()
     frmAddOrder::CreateOrderHuvud();
 // Och lägg upp orderhuvud i ORDERREG
 }
-
 
 void frmAddOrder::slotAddOrder()
 {
@@ -628,7 +619,7 @@ void frmAddOrder::slotAddOrder()
 	
 	frmAddOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmAddOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-            frmAddOrder::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
+                frmAddOrder::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
 	    
 	if (orderhuvuddata == "" ){
     	    QMessageBox::warning( this, "ADDORDW",
@@ -1965,10 +1956,9 @@ void frmAddOrder::createOrderrad(QString tmp0,QString tmp1,QString tmp2,QString 
     orderraddata.append(skilj);    
     orderraddata.append("END");	
 
-//    qDebug("orderraddat=%s",orderraddata.latin1());
-    frmAddOrder::AddOrderRad();				// parallell bearbetning
+//    qDebug("orderraddata=%s",orderraddata.latin1());
+    frmAddOrder::AddOrderRad();			// parallell bearbetning
     frmAddOrder::updateReserveratAntal(tmp1,tmp4);  	// parallell bearbetning
-
 }
 
 void frmAddOrder::AddOrderRad()
@@ -2056,7 +2046,7 @@ void frmAddOrder::updateReserveratAntal(QString artnr,QString antal)
     process = new QProcess();
     process->addArgument("./STYRMAN");	// OLFIX styrprogram
     process->addArgument(usr);		// userid
-    process->addArgument( "AR2UPD");	// OLFIX funktion
+    process->addArgument( "AR2UPD");		// OLFIX funktion
     process->addArgument(val);
     process->addArgument(artnr);
     process->addArgument(antal);

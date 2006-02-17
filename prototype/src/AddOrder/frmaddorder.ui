@@ -1192,26 +1192,6 @@
             <string>Godkänn rad</string>
         </property>
     </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel2_3</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>610</y>
-                <width>73</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="font">
-            <font>
-            </font>
-        </property>
-        <property name="text">
-            <string>Spara ordern.</string>
-        </property>
-    </widget>
     <widget class="QPushButton">
         <property name="name">
             <cstring>pushBtnHelp</cstring>
@@ -1230,52 +1210,6 @@
         </property>
         <property name="text">
             <string>Hjälp</string>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushBtnOrderKlar</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>700</x>
-                <y>610</y>
-                <width>70</width>
-                <height>30</height>
-            </rect>
-        </property>
-        <property name="font">
-            <font>
-            </font>
-        </property>
-        <property name="text">
-            <string>Order klar!</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonOK</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>626</y>
-                <width>56</width>
-                <height>30</height>
-            </rect>
-        </property>
-        <property name="font">
-            <font>
-            </font>
-        </property>
-        <property name="text">
-            <string>OK</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
         </property>
     </widget>
     <widget class="QLabel">
@@ -1894,32 +1828,6 @@
     </widget>
     <widget class="QLineEdit">
         <property name="name">
-            <cstring>lineEditArtikelNr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>55</x>
-                <y>355</y>
-                <width>180</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="font">
-            <font>
-            </font>
-        </property>
-        <property name="focusPolicy">
-            <enum>TabFocus</enum>
-        </property>
-        <property name="text">
-            <string></string>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Max 30 tecken</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
             <cstring>lineEditGodsmarke</cstring>
         </property>
         <property name="geometry">
@@ -2037,6 +1945,121 @@
             </font>
         </property>
     </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_8</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>695</x>
+                <y>585</y>
+                <width>106</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Inga fler orderrader.</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushBtnOrderKlar</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>700</x>
+                <y>610</y>
+                <width>70</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+            </font>
+        </property>
+        <property name="text">
+            <string>Order klar!</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Inga fler orderrader att registrera.</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>865</x>
+                <y>610</y>
+                <width>56</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+                <bold>1</bold>
+            </font>
+        </property>
+        <property name="text">
+            <string>OK</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Order registyreras i databasen.</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2_3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>850</x>
+                <y>585</y>
+                <width>95</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+            </font>
+        </property>
+        <property name="text">
+            <string>Registrera ordern!</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditArtikelNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>55</x>
+                <y>355</y>
+                <width>180</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+            </font>
+        </property>
+        <property name="focusPolicy">
+            <enum>StrongFocus</enum>
+        </property>
+        <property name="text">
+            <string></string>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Max 30 tecken</string>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
@@ -2049,7 +2072,7 @@
         <sender>pushButtonOK</sender>
         <signal>clicked()</signal>
         <receiver>frmAddOrder</receiver>
-        <slot>close()</slot>
+        <slot>pushBtnOrderKlar_clicked()</slot>
     </connection>
     <connection>
         <sender>lineEditOrderNbr</sender>
