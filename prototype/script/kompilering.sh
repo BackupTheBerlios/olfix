@@ -232,6 +232,13 @@ qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
 
+echo "===== ChangeOrder, CHGORDW" >> $LOGGFILE
+cd $WORKDIR/ChangeOrder
+qmake -project "TARGET=CHGORDW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake >> $LOGGFILE
+make >> $LOGGFILE 2>> $LOGGFILE
+make clean >> $LOGGFILE
+
 echo "===== ChangeUser, CHGUSRW" >> $LOGGFILE
 cd $WORKDIR/ChangeUser
 qmake -project "TARGET=CHGUSRW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
