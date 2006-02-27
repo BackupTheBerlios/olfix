@@ -1,6 +1,53 @@
-Changelog OLFIX 20060129
+Changelog OLFIX 20060227
 
-Blivande
+
+________________________________________________________
+Ver 0.4.0.B
+2006-02-27
+		Diverse
+		Modifierat/rättat kompileringsscriptet (kompilering.sh )
+		Slutar distribuera Makefile, den skapas med kommando 'qmake' i respektive katalog,
+		och *.pro (project-file), den skapas med 'qmake -project' i respektive katalog,
+		för grafikprogrammen.
+
+		Från och med denna version behövs MySQL version xxx
+		
+		Nya program
+		CHGORDW		Ändra kundorder 
+
+		Ändrade program
+		ADDKUW		Prislistor,organisationsnr,kreditkod, Hjälpknapp,buggrättning
+		CHGKUW		Prislistor,organisationsnr,kundlista,Hjälpknapp,buggrättning
+		DSPKUW		Prislistor,organisationsnr,Hjälpknapp
+		ADDORDW		Prislistor,buggrättning
+		LSTORDW		Buggrättning
+		CHGUSRW		Tillfört lista av användare att plocka Användar-ID från.
+		DSPUSRW		Tillfört lista av användare att plocka Användar-ID från.
+		DELUSRW		Tillfört lista av användare att plocka Användar-ID från.
+		Makefile	Tillägg av PRISDSP, ORDCHG, ORDRCHG
+
+		Nya funktioner
+		PRISDSP.c	Hämta prislistor för angiven artikel.
+		ORDCHG.c	Ändra orderhuvud på kundorder. (UPDATE...)
+		ORDRCHG.c	Ändra orderrad på kundorder. (REPLACe INTO....)
+
+		Ändrade funktioner
+		KUADD.c		Prislistor,organisationsnr,kreditkod
+		KUCHG.c		Prislistor,organisationsnr
+		KUDSP.c		Prislistor
+		STYRMAN.c	Buggrättning
+
+		Ändra datafiler
+		TRANSIDdata.txt	Lagt till nya funktioner.
+		PROGRAMdata.txt Redigerat.
+
+		Dokumentation
+			UserManual.html		  	(2006-02-23)
+			UserManual_ARTIKLAR.html  	(2006-02-01)
+			UserManual_KUNDORDER.html 	(2006-02-27) Bl a Begreppsförklaringar och CHGORDW.
+			UserManual_ADMINISTRATION.html	(2006-02-08)
+		Teknisk Manual	Uppdaterad (2006-02-27) Version 0.59
+________________________________________________________
 Ver 0.3.2.B
 2006-01-29
 		Diverse
@@ -8,7 +55,7 @@ Ver 0.3.2.B
 		Ett script för att kompilera hela OLFIX i en sväng (kompilering.sh)
 
 		Nya program
-		CHGPRISW	Läsa in prislistor i tabellen PRISLISTA, uppdatering (påbörjad)
+		CHGPRISW	Läsa in prislistor i tabellen PRISLISTA, uppdatering 
 
 		Ändrade program
 		OLFIXW		Rättat en bugg. (OLFIXHLP)
