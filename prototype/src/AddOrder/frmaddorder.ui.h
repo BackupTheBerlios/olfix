@@ -10,9 +10,9 @@
                           ADDORDW  -  description
 	         Registrering av kundorder med mˆjlighet att registrera en ny kund.
                              -------------------
-		     version 0.5.2
+		     version 0.6
     begin   	: 	Sˆn    12 okt    2003
-    Updated	: 	Tis     17 febr   2006
+    Updated	: 	Tis       1 mars  2006
     copyright:	 (C) 2003 by Jan Pihlgren
     email     	:	 jan@pihlgren.se
  ***************************************************************************/
@@ -337,7 +337,31 @@ void frmAddOrder::lineEditSeljare_returnPressed()
 
 void frmAddOrder::lineOrderLeveranstid_returnPressed()
 {
-    orderleveranstid=lineOrderLeveranstid->text();
+    int vecka;
+    int year;
+   int dag;
+    QString dagnummer;
+    QString veckonr;
+    QString artal;
+    
+    orderleveranstid=lineOrderLeveranstid->text();	/* ≈≈≈≈-MM-DD*/
+        /****  Ber‰kning av leveransvecka , Start ****/
+    int tmp1=orderleveranstid.mid(0,4).toInt();		/* ≈rtal, ≈≈≈≈*/
+    int tmp2=orderleveranstid.mid(5,2).toInt();		/* MÂnad, MM */
+    int tmp3=orderleveranstid.mid(8,2).toInt();		/* Dag, DD */
+    vecka= QDate(tmp1,tmp2,tmp3).weekNumber(&year);
+    dag= QDate(tmp1,tmp2,tmp3).dayOfWeek();
+    qDebug("vecka=%d",vecka);
+    veckonr=QString::number(vecka,10);
+    dagnummer=QString::number(dag,10);
+    if (veckonr.length() < 2){
+	veckonr.prepend("0");
+    }
+    artal=QString::number(year,10);
+    radleveransvecka=artal.mid(3,1) + veckonr + dagnummer;	// ≈VVD
+
+//    radleveransvecka
+    lineEditLeveransvecka->setText(radleveransvecka);			/* ≈VVD */
 }
 
 void frmAddOrder::lineEditGodsmarke_returnPressed()
@@ -524,10 +548,11 @@ void frmAddOrder::listViewRader_clicked( QListViewItem * )
     orderradnr=temp0;
     lineEditArtikelNr->setText(temp1);
     lineEditBenamn->setText(temp2);
-    lineEditAntal->setText(temp3);
-    lineEditAPris->setText(temp4);
-    lineEditRadSumma->setText(temp5);    
-    lineEditRadMoms->setText(temp6);
+    lineEditLeveransvecka->setText(temp3);
+    lineEditAntal->setText(temp4);
+    lineEditAPris->setText(temp5);
+    lineEditRadSumma->setText(temp6);    
+    lineEditRadMoms->setText(temp7);
     radsumma=temp5.toDouble();
     tmpordersumma=ordersumma.toDouble();
     tmpordersumma=tmpordersumma-radsumma;
@@ -2538,4 +2563,39 @@ void frmAddOrder::pushButtonAvbryt_clicked()
 {
     avbryt=TRUE;
     close();
+}
+
+void frmAddOrder::pushButtonSoek_click()
+{
+/*   Sˆka efter artikel */
+    const char *userp = getenv("USER");
+    QString usr(userp);
+	
+    inrad="";
+    errorrad="";
+	
+    process = new QProcess();
+//    process->addArgument("./STYRMAN");	// OLFIX styrprogram
+//    process->addArgument(usr);		// userid
+    process->addArgument( "./SRCHARW");	// OLFIX program, sˆka artikel	
+	
+    frmAddOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+    frmAddOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+    frmAddOrder::connect( process, SIGNAL(processExited() ),this, SLOT(SoekArtikelEndOfProcess() ) );
+	    
+    if ( !process->start() ) {
+	// error handling
+	QMessageBox::warning( this, "ADDORDW",
+                           "Kan inte starta STYRMAN/SRCHARW. \n" );
+    }
+}
+
+void frmAddOrder::SoekArtikelEndOfProcess()
+{
+    QString artnr;
+    qDebug("inrad=%s",inrad.latin1());
+    artnr=inrad;
+    artnr=artnr.stripWhiteSpace();
+//     QString s = string.stripWhiteSpace();
+    lineEditArtikelNr->setText(artnr);
 }

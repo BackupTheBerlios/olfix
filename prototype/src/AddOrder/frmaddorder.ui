@@ -629,26 +629,6 @@
     </widget>
     <widget class="QLineEdit">
         <property name="name">
-            <cstring>lineEditAntal</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>615</x>
-                <y>355</y>
-                <width>65</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="font">
-            <font>
-            </font>
-        </property>
-        <property name="alignment">
-            <set>AlignRight</set>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
             <cstring>lineEditBenamn</cstring>
         </property>
         <property name="geometry">
@@ -791,26 +771,6 @@
             <string>Kundnr: ...............</string>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditLeveransvecka</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>530</x>
-                <y>355</y>
-                <width>81</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="font">
-            <font>
-            </font>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Önskad leveranstid för orderraden.</string>
-        </property>
-    </widget>
     <widget class="Line">
         <property name="name">
             <cstring>line1</cstring>
@@ -861,29 +821,6 @@
         </property>
         <property name="toolTip" stdset="0">
             <string>3 tecken. Se LSTLEVVW.</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineOrderLeveranstid</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>495</x>
-                <y>250</y>
-                <width>80</width>
-                <height>25</height>
-            </rect>
-        </property>
-        <property name="font">
-            <font>
-            </font>
-        </property>
-        <property name="text">
-            <string>2002-01-01</string>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Önskad leveranstid för ordern.</string>
         </property>
     </widget>
     <widget class="QLineEdit">
@@ -1784,48 +1721,6 @@
             <bool>true</bool>
         </property>
     </widget>
-    <widget class="QListView">
-        <column>
-            <property name="text">
-                <string>Kundnr</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>false</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Kundnamn</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <property name="name">
-            <cstring>listViewKund</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>760</x>
-                <y>5</y>
-                <width>226</width>
-                <height>240</height>
-            </rect>
-        </property>
-        <property name="font">
-            <font>
-            </font>
-        </property>
-        <property name="showSortIndicator">
-            <bool>true</bool>
-        </property>
-    </widget>
     <widget class="QLineEdit">
         <property name="name">
             <cstring>lineEditGodsmarke</cstring>
@@ -2032,6 +1927,130 @@
         </property>
         <property name="text">
             <string>Registrera ordern!</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineOrderLeveranstid</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>495</x>
+                <y>250</y>
+                <width>80</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+            </font>
+        </property>
+        <property name="text">
+            <string>2002-01-01</string>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Önskad leveranstid för ordern.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditLeveransvecka</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>530</x>
+                <y>355</y>
+                <width>81</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+            </font>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Önskad leveranstid för orderraden.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditAntal</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>615</x>
+                <y>355</y>
+                <width>65</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+            </font>
+        </property>
+        <property name="text">
+            <string>1</string>
+        </property>
+        <property name="alignment">
+            <set>AlignRight</set>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonSoek</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>151</x>
+                <y>326</y>
+                <width>65</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Artikelsök.</string>
+        </property>
+    </widget>
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Kundnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>false</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Kundnamn</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <property name="name">
+            <cstring>listViewKund</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>760</x>
+                <y>5</y>
+                <width>226</width>
+                <height>240</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+            </font>
+        </property>
+        <property name="showSortIndicator">
+            <bool>true</bool>
         </property>
     </widget>
     <widget class="QLineEdit">
@@ -2416,6 +2435,12 @@
         <receiver>frmAddOrder</receiver>
         <slot>pushBtnRadNej_clicked()</slot>
     </connection>
+    <connection>
+        <sender>pushButtonSoek</sender>
+        <signal>clicked()</signal>
+        <receiver>frmAddOrder</receiver>
+        <slot>pushButtonSoek_click()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>listViewKund</tabstop>
@@ -2554,6 +2579,8 @@
     <slot>UpdateKundNr()</slot>
     <slot>NyttKundNrUpdateEndOfProcess()</slot>
     <slot>pushButtonAvbryt_clicked()</slot>
+    <slot>pushButtonSoek_click()</slot>
+    <slot>SoekArtikelEndOfProcess()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
