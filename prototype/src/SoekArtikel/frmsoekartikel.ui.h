@@ -8,11 +8,11 @@
 /***************************************************************************
                           SCRHARW  -  description
                              -------------------
-		     version 0.2
-    begin    	: Sön 28 nov 2005
-    modified	: 
-    copyright 	: (C) 2005 by Jan Pihlgren
-    email                : jan@pihlgren.se
+		     version 0.3
+    begin    	  : Sön 28 nov   2005
+    modified	  : Ons   1 Mars 2006
+    copyright : (C) 2005 by Jan Pihlgren
+    email         : jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
  *					                                                 *
@@ -162,7 +162,7 @@ void frmSoekArtikel::slotEndOfProcess()
 	    m = j - (i+2);
 	    benemn2=inrad.mid(i+2,m);   
 //	    qDebug("benemn2=%s",benemn2.latin1());
-	    item = new QListViewItem(ListView1,artikelnr,benemn1,benemn2);	    
+	    item = new QListViewItem(listViewArtikel,artikelnr,benemn1,benemn2);	    
 	}
     }
 }
@@ -187,7 +187,7 @@ void frmSoekArtikel::slotDataOnStderr()
 
 void frmSoekArtikel::slotReloadArtikel()
 {
-    ListView1->clear();
+    listViewArtikel->clear();
     inrad="";
     frmSoekArtikel::GetArtikel();
 }
@@ -200,7 +200,7 @@ void frmSoekArtikel::PickupArtikelnr(QListViewItem * item)
     if(!item){
 	return;
     }
-     ListView1->setCurrentItem(item);
+     listViewArtikel->setCurrentItem(item);
      if(!item->key(0,TRUE)){
 	 return;
      }
@@ -214,7 +214,7 @@ void frmSoekArtikel::PickupArtikelnr(QListViewItem * item)
 
 void frmSoekArtikel::lineEditSoek_returnPressed()
 {
-    ListView1->clear();
+    listViewArtikel->clear();
     soekord=lineEditSoek->text();
 //    qDebug("soekord=%s",soekord.latin1());
     PushButtonSoek->setFocus();
@@ -253,9 +253,9 @@ void frmSoekArtikel::radioButton4_selected()
 }
 
 
-void frmSoekArtikel::ListView1_clicked(QListViewItem * )
+void frmSoekArtikel::listViewArtikel_clicked(QListViewItem * )
 {
-    QListViewItem *item =  ListView1->currentItem();
+    QListViewItem *item =  listViewArtikel->currentItem();
     if ( !item )
 	return;
     item->setSelected( TRUE );
@@ -267,7 +267,7 @@ void frmSoekArtikel::ListView1_clicked(QListViewItem * )
 
 void frmSoekArtikel::PushButtonSoek_clicked()
 {
-    ListView1->clear();
+    listViewArtikel->clear();
    frmSoekArtikel::GetArtikel();
 }
 
@@ -355,5 +355,23 @@ void frmSoekArtikel::readResursFil()
         }
     }
     f1.close();
+}
+
+void frmSoekArtikel::getArtikelnr( QListViewItem * item)
+{
+    char artikelnummer[31]="";
+//    qDebug("getArtikelnr\n");
+    if(!item){
+	return;
+    }
+     listViewArtikel->setCurrentItem(item);
+     if(!item->key(0,TRUE)){
+	 return;
+     }
+     strcpy(artikelnummer,item->key(0,TRUE));
+     QString artnr=artikelnummer;
+//     qDebug("artikelnummer =%s",artnr.latin1());
+     fprintf(stdout,"%s\n",artikelnummer);
+     exit(0);
 }
 

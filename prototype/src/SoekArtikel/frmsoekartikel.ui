@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>frmSoekArtikel</class>
 <widget class="QWidget">
     <property name="name">
@@ -209,7 +209,7 @@
                 </property>
             </column>
             <property name="name">
-                <cstring>ListView1</cstring>
+                <cstring>listViewArtikel</cstring>
             </property>
             <property name="sizePolicy">
                 <sizepolicy>
@@ -304,10 +304,10 @@
         <slot>radioButton4_selected()</slot>
     </connection>
     <connection>
-        <sender>ListView1</sender>
+        <sender>listViewArtikel</sender>
         <signal>clicked(QListViewItem*)</signal>
         <receiver>frmSoekArtikel</receiver>
-        <slot>ListView1_clicked(QListViewItem*)</slot>
+        <slot>listViewArtikel_clicked(QListViewItem*)</slot>
     </connection>
     <connection>
         <sender>pushButtonGetData</sender>
@@ -320,6 +320,18 @@
         <signal>clicked()</signal>
         <receiver>frmSoekArtikel</receiver>
         <slot>pushButtonHelp_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditSoek</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmSoekArtikel</receiver>
+        <slot>lineEditSoek_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>listViewArtikel</sender>
+        <signal>doubleClicked(QListViewItem*)</signal>
+        <receiver>frmSoekArtikel</receiver>
+        <slot>getArtikelnr(QListViewItem*)</slot>
     </connection>
 </connections>
 <includes>
@@ -337,11 +349,12 @@
     <slot>radioButton2_selected()</slot>
     <slot>radioButton3_selected()</slot>
     <slot>radioButton4_selected()</slot>
-    <slot>ListView1_clicked( QListViewItem * )</slot>
+    <slot>listViewArtikel_clicked( QListViewItem * )</slot>
     <slot>PushButtonSoek_clicked()</slot>
     <slot>pushButtonGetData_clicked()</slot>
     <slot>pushButtonHelp_clicked()</slot>
     <slot>readResursFil()</slot>
+    <slot>getArtikelnr( QListViewItem * item )</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
