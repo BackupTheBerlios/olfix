@@ -1,6 +1,21 @@
-Changelog OLFIX 20060227
+Changelog OLFIX 20060305
 
+________________________________________________________
+Ver 0.4.1.B
+2006-03-05
+		Ändrade program
+		ADDORDW		Buggrättning,modifiering av leveransvecka, sökning på artikel(SRCHARW).
+		SRCHARW		Buggrättning,modifiering, sökning kan ske från annat program (ADDORDW)
 
+		Ändrad sql
+		CreateOLFIX.sql	Uppdaterad (olfixtst)
+
+		Dokumentation
+		Installationsanvisningar.txt (2006-03-02)
+		Installationsanvisningar.sxw (2006-03-02)
+		Installation.html (2006-03-02)
+		UserManual_KUNDORDER.html     (2006-03-03) Ändrat registrera kundorder
+		Teknisk Manual	Uppdaterad (2006-03-04) Version 0.60
 ________________________________________________________
 Ver 0.4.0.B
 2006-02-27
