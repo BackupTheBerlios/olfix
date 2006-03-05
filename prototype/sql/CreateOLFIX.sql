@@ -1,3044 +1,2148 @@
--- MySQL dump 9.07
+-- MySQL dump 10.9
 --
 -- Host: localhost    Database: olfix
----------------------------------------------------------
--- Server version	4.0.11a-gamma
+-- ------------------------------------------------------
+-- Server version	4.1.12
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Current Database: `olfix`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `olfix` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `olfix`;
+
+--
+-- Table structure for table `ARTIKELREG`
+--
+
+DROP TABLE IF EXISTS `ARTIKELREG`;
+CREATE TABLE `ARTIKELREG` (
+  `ARTIKELNR` varchar(30) NOT NULL default '',
+  `ARBENEMNING1` varchar(30) NOT NULL default '',
+  `ARBENEMNING2` varchar(30) default NULL,
+  `ARENHET` varchar(5) default NULL,
+  `ARFPRIS` decimal(10,2) default NULL,
+  `ARLEDTID` char(3) default NULL,
+  `ARPRODKLASS` varchar(5) default NULL,
+  `ARPRODKTO` varchar(5) default NULL,
+  `ARLEVNR1` varchar(10) default NULL,
+  `ARLEVNR2` varchar(10) default NULL,
+  `ARLEVNR3` varchar(10) default NULL,
+  `ARNETTOVIKT` decimal(10,2) default NULL,
+  `ARARTTYP` enum('0','1','2','3','4') default '0',
+  `ARSTRUKT` enum('','B','I','T','F') default '',
+  `ARURBENEMNING` varchar(30) default NULL,
+  `ARURLAND` varchar(30) default NULL,
+  `ARURARTNR` varchar(30) default NULL,
+  `ARTULLTAX` varchar(10) default NULL,
+  `ARVOLYM` decimal(4,3) default NULL,
+  `AROMRFAKTOR` int(11) NOT NULL default '1',
+  PRIMARY KEY  (`ARTIKELNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ARTIKELREG`
+--
+
+
+/*!40000 ALTER TABLE `ARTIKELREG` DISABLE KEYS */;
+LOCK TABLES `ARTIKELREG` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `ARTIKELREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `BETVILKOR`
+--
+
+DROP TABLE IF EXISTS `BETVILKOR`;
+CREATE TABLE `BETVILKOR` (
+  `BETVILKOR` char(3) NOT NULL default '',
+  `DAGAR` char(3) default NULL,
+  `BESKRIVNING` varchar(40) NOT NULL default '',
+  PRIMARY KEY  (`BETVILKOR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `BETVILKOR`
+--
+
+
+/*!40000 ALTER TABLE `BETVILKOR` DISABLE KEYS */;
+LOCK TABLES `BETVILKOR` WRITE;
+INSERT INTO `BETVILKOR` (`BETVILKOR`, `DAGAR`, `BESKRIVNING`) VALUES ('1','30','30 dagar netto'),('2','20','20 dagar netto'),('3','10','10 dagar netto'),('4','0','Kontantk√∂p'),('5','15','Postf√∂rskott');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `BETVILKOR` ENABLE KEYS */;
+
+--
+-- Table structure for table `BOKFAR`
+--
+
+DROP TABLE IF EXISTS `BOKFAR`;
+CREATE TABLE `BOKFAR` (
+  `ARID` char(2) NOT NULL default '',
+  `BENAMNING` varchar(25) default NULL,
+  `ARSTART` date default NULL,
+  `ARSLUT` date default NULL,
+  `ARLAST` enum('J','N') default 'N',
+  `SENVERDAT` date default NULL,
+  `VERNR` int(11) default NULL,
+  `KONTOPLAN` varchar(15) default NULL,
+  `BESKATTNINGSAR` varchar(4) default NULL,
+  PRIMARY KEY  (`ARID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `BOKFAR`
+--
+
+
+/*!40000 ALTER TABLE `BOKFAR` DISABLE KEYS */;
+LOCK TABLES `BOKFAR` WRITE;
+INSERT INTO `BOKFAR` (`ARID`, `BENAMNING`, `ARSTART`, `ARSLUT`, `ARLAST`, `SENVERDAT`, `VERNR`, `KONTOPLAN`, `BESKATTNINGSAR`) VALUES ('XX','2003-01-01--2003-12-31','2003-01-01','2003-12-31','N','2003-09-11',26,'EUBAS97','2003');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `BOKFAR` ENABLE KEYS */;
+
+--
+-- Table structure for table `DATABAS`
+--
+
+DROP TABLE IF EXISTS `DATABAS`;
+CREATE TABLE `DATABAS` (
+  `DATABASNR` char(3) NOT NULL default '',
+  `DATABASTEXT` varchar(15) NOT NULL default '',
+  PRIMARY KEY  (`DATABASNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `DATABAS`
+--
+
+
+/*!40000 ALTER TABLE `DATABAS` DISABLE KEYS */;
+LOCK TABLES `DATABAS` WRITE;
+INSERT INTO `DATABAS` (`DATABASNR`, `DATABASTEXT`) VALUES ('01','olfix'),('99','olfixtst');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `DATABAS` ENABLE KEYS */;
+
+--
+-- Table structure for table `FTGDATA`
+--
+
+DROP TABLE IF EXISTS `FTGDATA`;
+CREATE TABLE `FTGDATA` (
+  `POSTTYP` varchar(5) NOT NULL default '',
+  `POSTBESKR` varchar(60) default NULL,
+  `FDATA` text,
+  PRIMARY KEY  (`POSTTYP`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `FTGDATA`
+--
+
+
+/*!40000 ALTER TABLE `FTGDATA` DISABLE KEYS */;
+LOCK TABLES `FTGDATA` WRITE;
+INSERT INTO `FTGDATA` (`POSTTYP`, `POSTBESKR`, `FDATA`) VALUES ('FNAMN','F√∂retagsnamn','PROGRAM AB'),('FTGNR','F√∂retagsnummer','991199-1991'),('ADR1','Postadress','Box 70'),('ADR2','Postnummer till Postadress','199 98'),('ADR3','Ort till Postadress','PROGSTAD'),('ADR4','Bes√∂ksadress','Syntaxv√§gen 99'),('ADR5','Postnr till Bes√∂ksadress','199 98'),('ADR6','Ort till Bes√∂ksadress','PROGSTAD'),('ADR7','Godsadress','Verktygsgatan 11'),('ADR8','Postnr till Godsadress','199 97'),('ADR9','Ort till Godsadress','PROGSTAD'),('TFNVX','Telefonnummer till vx','09-199300'),('TFN1','Telefonnummer','09-199300'),('TFN2','Mobiltelefonnummer','070-98765411'),('TFNMB','Mobiltelefonnummer','070-98765411'),('TFAX','Telefaxnummer','09-199397'),('TELEX','Telexnummer','12345'),('EML1','E-mailadress','jan@pihlgren.se'),('MOMSI','Momskonto, ing√•ende moms','2641'),('MOMSU','Momskonto, utg√•ende moms','2611'),('MOMS1','Momssats 1','25'),('MOMS2','Momssats 2','12'),('MOMS3','Momssats 3','6'),('MOMS4','Momssats 4',' '),('MOMS5','Momssats 5',' '),('AUTOK','Automatkontering J/N','N'),('KORNR','Senast anv√§nda kundordernr','0'),('BF1','Bokf√∂ringsperiod 1','Januari'),('BF2','Bokf√∂ringsperiod 2','Februari'),('BF3','Bokf√∂ringsperiod 3','Mars'),('BF4','Bokf√∂ringsperiod 4','April'),('BF5','Bokf√∂ringsperiod 5','Maj'),('BF6','Bokf√∂ringsperiod 6','Juni'),('BF7','Bokf√∂ringsperiod 7','Juli'),('BF8','Bokf√∂ringsperiod 8','Augusti'),('BF9','Bokf√∂ringsperiod 9','September'),('BF10','Bokf√∂ringsperiod 10','Oktober'),('BF11','Bokf√∂ringsperiod 11','Novemper'),('BF12','Bokf√∂ringsperiod 12','December'),('BF13','Bokf√∂ringsperiod 13','Januari'),('INKNR','Senast anv√§nda ink√∂psordernr','28'),('SNIKD','Branschtillh√∂righet','82301'),('WKUNR','Senaste anv√§nda webbkundnummer','4379'),('FAKNR','Senaste fakturanr p√• kundorder','0'),('FKNR2','Senaste fakturanr p√• kundorder,serie 2','100000'),('FKNRS','Antal fakturanrserier, default = 1','1'),('PGNR','Plusgironummer','9999999-9'),('BGNR','Bankgironummer','9999-9999');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `FTGDATA` ENABLE KEYS */;
+
+--
+-- Table structure for table `INKRADREG`
+--
+
+DROP TABLE IF EXISTS `INKRADREG`;
+CREATE TABLE `INKRADREG` (
+  `INKORDNR` varchar(10) NOT NULL default '',
+  `INKORDRADNR` int(4) NOT NULL default '0',
+  `ARTIKELNR` varchar(30) default NULL,
+  `BENEMNING` varchar(30) default NULL,
+  `LEVARTIKELNR` varchar(30) default NULL,
+  `LEVBENEMNING` varchar(30) default NULL,
+  `ENHET` varchar(5) default NULL,
+  `BESTANTAL` decimal(10,2) default NULL,
+  `LEVERERAT` decimal(10,2) default NULL,
+  `RESTNOTERAT` decimal(10,2) default NULL,
+  `INKPRIS` decimal(10,2) default NULL,
+  `LEVVECKA` varchar(5) default NULL,
+  `TORDNR` int(6) default NULL,
+  `OPNR` int(6) default NULL,
+  PRIMARY KEY  (`INKORDNR`,`INKORDRADNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `INKRADREG`
+--
+
+
+/*!40000 ALTER TABLE `INKRADREG` DISABLE KEYS */;
+LOCK TABLES `INKRADREG` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `INKRADREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `INKREG`
+--
+
+DROP TABLE IF EXISTS `INKREG`;
+CREATE TABLE `INKREG` (
+  `INKORDNR` varchar(10) NOT NULL default '',
+  `BESTTYP` enum('N','D','I','L','A') default NULL,
+  `ORDERDATUM` date default NULL,
+  `LEVNR` varchar(10) default NULL,
+  `LEVNAMN` varchar(30) default NULL,
+  `LEVADRESS` varchar(30) default NULL,
+  `LEVPOSTNR` varchar(6) default NULL,
+  `LEVPOSTADR` varchar(30) default NULL,
+  `LEVLAND` varchar(30) default NULL,
+  `LEVVALUTA` char(3) default NULL,
+  `LEVBETVILLKOR` varchar(50) default NULL,
+  `LEVVILLKOR` varchar(150) default NULL,
+  `LEVSETT` varchar(150) default NULL,
+  `GODSMERKE` varchar(30) default NULL,
+  `KOMMENTAR` varchar(250) default NULL,
+  `BESTTEXT` text,
+  `VARREF` varchar(30) default NULL,
+  `VARREFTFN` varchar(15) default NULL,
+  `VARREFFAX` varchar(15) default NULL,
+  `ERREF` varchar(20) default NULL,
+  `LEVDATUM` date default NULL,
+  `KUNDNR` varchar(30) default NULL,
+  `FTGNAMN` varchar(30) default NULL,
+  `FTGADR` varchar(30) default NULL,
+  `FTGPOSTNR` varchar(6) default NULL,
+  `FTGPOSTADR` varchar(30) default NULL,
+  `SPRAKKOD` char(3) default 'sv',
+  `BEKREFTKOD` enum('H','D','E') default 'E',
+  `ORDERSTATUS` enum('N','F','B','M') default 'N',
+  `UTSKRIFTSKOD` enum('J','N') default 'J',
+  `ORDERSUMMA` decimal(10,2) default NULL,
+  PRIMARY KEY  (`INKORDNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `INKREG`
+--
+
+
+/*!40000 ALTER TABLE `INKREG` DISABLE KEYS */;
+LOCK TABLES `INKREG` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `INKREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `KSTALLE`
+--
+
+DROP TABLE IF EXISTS `KSTALLE`;
+CREATE TABLE `KSTALLE` (
+  `ARID` char(2) NOT NULL default '',
+  `KSTALLE` varchar(4) NOT NULL default '',
+  `BENAMNING` varchar(100) default NULL,
+  PRIMARY KEY  (`ARID`,`KSTALLE`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `KSTALLE`
+--
+
+
+/*!40000 ALTER TABLE `KSTALLE` DISABLE KEYS */;
+LOCK TABLES `KSTALLE` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `KSTALLE` ENABLE KEYS */;
+
+--
+-- Table structure for table `KTOPLAN`
+--
+
+DROP TABLE IF EXISTS `KTOPLAN`;
+CREATE TABLE `KTOPLAN` (
+  `ARID` char(2) NOT NULL default '',
+  `KTONR` varchar(4) NOT NULL default '',
+  `BENAMNING` varchar(100) default NULL,
+  `MANUELL` enum('J','N') default 'J',
+  `MOMSKOD` varchar(4) default NULL,
+  `SRUNR` int(3) default NULL,
+  `KSTALLE` varchar(4) default NULL,
+  `PROJEKT` varchar(4) default NULL,
+  `SUBKTO` varchar(4) default NULL,
+  `KTOPLAN` varchar(15) default NULL,
+  `IB` decimal(10,2) default NULL,
+  `UB` decimal(10,2) default NULL,
+  PRIMARY KEY  (`KTONR`,`ARID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `KTOPLAN`
+--
+
+
+/*!40000 ALTER TABLE `KTOPLAN` DISABLE KEYS */;
+LOCK TABLES `KTOPLAN` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `KTOPLAN` ENABLE KEYS */;
+
+--
+-- Table structure for table `KUNDKATEGORI`
+--
+
+DROP TABLE IF EXISTS `KUNDKATEGORI`;
+CREATE TABLE `KUNDKATEGORI` (
+  `KATEGORINR` char(3) NOT NULL default '',
+  `BESKRIVNING` varchar(40) NOT NULL default '',
+  PRIMARY KEY  (`KATEGORINR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `KUNDKATEGORI`
+--
+
+
+/*!40000 ALTER TABLE `KUNDKATEGORI` DISABLE KEYS */;
+LOCK TABLES `KUNDKATEGORI` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `KUNDKATEGORI` ENABLE KEYS */;
+
+--
+-- Table structure for table `KUNDREG`
+--
+
+DROP TABLE IF EXISTS `KUNDREG`;
+CREATE TABLE `KUNDREG` (
+  `KUNDNR` varchar(10) NOT NULL default '',
+  `KUNDORGNR` varchar(12) default NULL,
+  `NAMN` varchar(60) NOT NULL default '',
+  `ADRESS` varchar(30) default NULL,
+  `POSTNR` varchar(6) default NULL,
+  `POSTADR` varchar(30) default NULL,
+  `LAND` varchar(30) default NULL,
+  `TFNNR` varchar(15) default NULL,
+  `EMAILADR` varchar(30) default NULL,
+  `FAXNR` varchar(15) default NULL,
+  `ERREFERENT` varchar(30) default NULL,
+  `ERREFTFNNR` varchar(15) default NULL,
+  `ERREFEMAIL` varchar(60) default NULL,
+  `SELJARE` varchar(20) default NULL,
+  `FRITEXT` varchar(100) default NULL,
+  `VALUTA` char(3) default NULL,
+  `BETALVILLKOR` char(3) default NULL,
+  `LEVVILLKOR` char(3) default NULL,
+  `LEVSETT` char(3) default NULL,
+  `DISTRIKT` char(3) default NULL,
+  `KUNDKATEGORI` char(3) default NULL,
+  `STDLEVPLATS` char(3) default '001',
+  `ORDERERKENNANDE` enum('J','N') default 'J',
+  `PLOCKLISTA` enum('J','N') default 'J',
+  `FOLJESEDEL` enum('J','N') default 'J',
+  `KRAVBREV` enum('J','N') default 'J',
+  `SPRAKKOD` char(3) default NULL,
+  `EXPAVGIFT` enum('J','N') default 'J',
+  `FRAKTAVG` enum('J','N') default 'J',
+  `KREDITLIMIT` decimal(10,2) default NULL,
+  `KREDITDAGAR` int(11) default NULL,
+  `KREDITKOD` char(3) default NULL,
+  `EXPORTKOD` char(3) default NULL,
+  `SKATTEKOD` char(3) default NULL,
+  `RABATTKOD` char(3) default NULL,
+  `DROJMALSRTA` enum('J','N') default 'J',
+  `DROJMALSFAKTURA` enum('J','N') default 'J',
+  `SAMLINGSFAKT` enum('J','N') default 'J',
+  `SENASTEKRAVDATUM` date default NULL,
+  `SKULD` decimal(10,2) default NULL,
+  `ORDERSTOCK` decimal(10,2) default NULL,
+  `PRISLISTA` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`KUNDNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `KUNDREG`
+--
+
+
+/*!40000 ALTER TABLE `KUNDREG` DISABLE KEYS */;
+LOCK TABLES `KUNDREG` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `KUNDREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `KURESK`
+--
+
+DROP TABLE IF EXISTS `KURESK`;
+CREATE TABLE `KURESK` (
+  `ORDERNR` varchar(10) NOT NULL default '',
+  `FAKTURANR` varchar(20) NOT NULL default '',
+  `KUNDNR` varchar(10) NOT NULL default '',
+  `FAKTURADATUM` date default NULL,
+  `EXPIREDATUM` date default NULL,
+  `NETTOBELOPP` decimal(10,2) default NULL,
+  `MOMSBELOPP` decimal(10,2) default NULL,
+  `FAKTURABELOPP` decimal(10,2) default NULL,
+  `BETALD` enum('J','N') NOT NULL default 'N',
+  `BETALDATUM` date default NULL,
+  `USERID` varchar(8) default NULL,
+  `VALUTA` char(3) default 'SEK',
+  `VALUTAKURS` decimal(10,2) NOT NULL default '1.00',
+  `VALUTABELOPP` decimal(10,2) default '0.00',
+  `BAR` char(2) default NULL,
+  `VERNR` int(11) default NULL,
+  `MOMSKTONR` varchar(4) default NULL,
+  `KTONR` varchar(4) default NULL,
+  `DEBETBELOPP` decimal(10,2) default NULL,
+  PRIMARY KEY  (`ORDERNR`,`FAKTURANR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `KURESK`
+--
+
+
+/*!40000 ALTER TABLE `KURESK` DISABLE KEYS */;
+LOCK TABLES `KURESK` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `KURESK` ENABLE KEYS */;
+
+--
+-- Table structure for table `LAGERSTELLEREG`
+--
+
+DROP TABLE IF EXISTS `LAGERSTELLEREG`;
+CREATE TABLE `LAGERSTELLEREG` (
+  `ARLAGST` char(1) NOT NULL default '',
+  `ARTIKELNR` varchar(30) NOT NULL default '',
+  `ARLAGHYLLA` varchar(10) default NULL,
+  `ARLAGSALDO` decimal(10,2) default NULL,
+  `ARINVGRP` char(3) default NULL,
+  `ARABC` char(2) default NULL,
+  `ARVALUTA` char(3) default NULL,
+  `ARIPRIS` decimal(10,2) default '0.00',
+  `ARIKVANT0` decimal(10,2) default '0.00',
+  `ARIKVANT1` decimal(10,2) default '0.00',
+  `ARIKVANT2` decimal(10,2) default '0.00',
+  `ARKALKPRIS` decimal(10,2) default '0.00',
+  `ARPLANKPRIS` decimal(10,2) default '0.00',
+  `ARFRYSTKPRIS` decimal(10,2) default '0.00',
+  `ARBESTKVANT` decimal(10,2) default '0.00',
+  `ARBESTPUNKT` decimal(10,2) default '0.00',
+  `AROMKOST` decimal(10,2) default '0.00',
+  `RESERVERAT` decimal(10,2) default NULL,
+  PRIMARY KEY  (`ARTIKELNR`,`ARLAGST`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `LAGERSTELLEREG`
+--
+
+
+/*!40000 ALTER TABLE `LAGERSTELLEREG` DISABLE KEYS */;
+LOCK TABLES `LAGERSTELLEREG` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `LAGERSTELLEREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `LEVREG`
+--
+
+DROP TABLE IF EXISTS `LEVREG`;
+CREATE TABLE `LEVREG` (
+  `LEVNR` varchar(10) NOT NULL default '',
+  `LEVORGNR` varchar(12) default NULL,
+  `LEVNAMN` varchar(30) NOT NULL default '',
+  `LEVADRESS` varchar(30) default NULL,
+  `LEVPOSTNR` varchar(6) default NULL,
+  `LEVPOSTADR` varchar(30) default NULL,
+  `LEVLAND` varchar(30) default NULL,
+  `LEVTFNNR` varchar(15) default NULL,
+  `LEVFAXNR` varchar(15) default NULL,
+  `LEVTELEX` varchar(10) default NULL,
+  `LEVEMAIL` varchar(30) default NULL,
+  `LEVPOSTGIRONR` varchar(10) default NULL,
+  `LEVBANKGIRONR` varchar(10) default NULL,
+  `LEVREFERENT` varchar(20) default NULL,
+  `LEVREFTFN` varchar(15) default NULL,
+  `LEVMOMSKOD` char(1) default '1',
+  `LEVSKULD` decimal(10,2) default NULL,
+  `LEVKONTO` varchar(4) default NULL,
+  `LEVKUNDNR` varchar(30) default NULL,
+  `LEVVALUTA` char(3) default NULL,
+  `BETALVILKOR` char(3) default NULL,
+  PRIMARY KEY  (`LEVNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `LEVREG`
+--
+
+
+/*!40000 ALTER TABLE `LEVREG` DISABLE KEYS */;
+LOCK TABLES `LEVREG` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `LEVREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `LEVRESK`
+--
+
+DROP TABLE IF EXISTS `LEVRESK`;
+CREATE TABLE `LEVRESK` (
+  `LEVNR` varchar(10) NOT NULL default '',
+  `FAKTURANR` varchar(20) NOT NULL default '',
+  `REGDATUM` date default NULL,
+  `FAKTDATUM` date default NULL,
+  `EXPIREDATUM` date default NULL,
+  `FAKTTEXT` varchar(100) default NULL,
+  `BAR` char(2) default NULL,
+  `MOMSPROCENT` decimal(3,2) default NULL,
+  `VALUTA` char(3) default NULL,
+  `VALUTAKURS` decimal(3,2) default NULL,
+  `VALUTABELOPP` decimal(10,2) default NULL,
+  `LEVKTONR` varchar(4) default NULL,
+  `FAKTBELOPP` decimal(10,2) default NULL,
+  `MOMSKTONR` varchar(4) default NULL,
+  `MOMSBELOPP` decimal(10,2) default NULL,
+  `DEBETKONTONR` varchar(4) default NULL,
+  `DEBETBELOPP` decimal(10,2) default NULL,
+  `USERID` varchar(8) default NULL,
+  `VERNR` int(11) default NULL,
+  `BETALD` enum('J','N') default 'N',
+  `BETALDDATUM` date default NULL,
+  `OCRNR` varchar(20) default NULL,
+  PRIMARY KEY  (`LEVNR`,`FAKTURANR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `LEVRESK`
+--
+
+
+/*!40000 ALTER TABLE `LEVRESK` DISABLE KEYS */;
+LOCK TABLES `LEVRESK` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `LEVRESK` ENABLE KEYS */;
+
+--
+-- Table structure for table `LEVSETT`
+--
+
+DROP TABLE IF EXISTS `LEVSETT`;
+CREATE TABLE `LEVSETT` (
+  `LEVSETTNR` char(3) NOT NULL default '',
+  `LEVSETTTEXT` varchar(150) NOT NULL default '',
+  PRIMARY KEY  (`LEVSETTNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `LEVSETT`
+--
+
+
+/*!40000 ALTER TABLE `LEVSETT` DISABLE KEYS */;
+LOCK TABLES `LEVSETT` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `LEVSETT` ENABLE KEYS */;
+
+--
+-- Table structure for table `LEVVILLKOR`
+--
+
+DROP TABLE IF EXISTS `LEVVILLKOR`;
+CREATE TABLE `LEVVILLKOR` (
+  `VILLKORSNR` char(3) NOT NULL default '',
+  `VILLKORSTEXT` varchar(150) NOT NULL default '',
+  PRIMARY KEY  (`VILLKORSNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `LEVVILLKOR`
+--
+
+
+/*!40000 ALTER TABLE `LEVVILLKOR` DISABLE KEYS */;
+LOCK TABLES `LEVVILLKOR` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `LEVVILLKOR` ENABLE KEYS */;
+
+--
+-- Table structure for table `ORDERRADREG`
+--
+
+DROP TABLE IF EXISTS `ORDERRADREG`;
+CREATE TABLE `ORDERRADREG` (
+  `ORDERNR` varchar(10) NOT NULL default '',
+  `ORDERRAD` int(4) NOT NULL default '0',
+  `KUNDNR` varchar(10) NOT NULL default '',
+  `RADORDERTYP` enum('N','D') default 'N',
+  `ARTIKELNR` varchar(30) NOT NULL default '',
+  `BENEMNING` varchar(60) default NULL,
+  `LEVERANSVECKA` varchar(5) default NULL,
+  `BESTELLT` decimal(10,2) NOT NULL default '0.00',
+  `APRIS` decimal(10,2) NOT NULL default '0.00',
+  `SUMMA` decimal(10,2) NOT NULL default '0.00',
+  `MOMSKR` decimal(10,2) NOT NULL default '0.00',
+  `LEVERERAT` decimal(10,2) default NULL,
+  `RESTNOTERAT` decimal(10,2) default NULL,
+  `RADRABATT` decimal(2,1) default NULL,
+  `KALKYLPRIS` decimal(10,2) default NULL,
+  `LEVDATUM` date default NULL,
+  `ENHET` varchar(4) default 'ST',
+  `FAKTURERAT` decimal(10,2) default NULL,
+  PRIMARY KEY  (`ORDERNR`,`ORDERRAD`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ORDERRADREG`
+--
+
+
+/*!40000 ALTER TABLE `ORDERRADREG` DISABLE KEYS */;
+LOCK TABLES `ORDERRADREG` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `ORDERRADREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `ORDERREG`
+--
+
+DROP TABLE IF EXISTS `ORDERREG`;
+CREATE TABLE `ORDERREG` (
+  `ORDERNR` varchar(10) NOT NULL default '',
+  `KUNDNR` varchar(10) NOT NULL default '',
+  `ORDERTYP` enum('N','D','E','F') default 'N',
+  `ORDERSTATUS` enum('A','N','F','B') default 'A',
+  `ORDERDATUM` date default NULL,
+  `LEVDATUM` date default NULL,
+  `KUNDNAMN` varchar(60) default NULL,
+  `KUNDADRESS` varchar(30) default NULL,
+  `KUNDPOSTNR` varchar(6) default NULL,
+  `KUNDPOSTADR` varchar(30) default NULL,
+  `KUNDLAND` varchar(30) default NULL,
+  `ERREF` varchar(20) default NULL,
+  `LEVADRESS` varchar(30) default NULL,
+  `LEVPOSTNR` varchar(6) default NULL,
+  `LEVPOSTADR` varchar(30) default NULL,
+  `LEVLAND` varchar(30) default NULL,
+  `VARREF` varchar(20) default NULL,
+  `SELJARE` varchar(20) default NULL,
+  `GODSMERKE` varchar(100) default NULL,
+  `BETVILLKTYP` enum('F','P','K') NOT NULL default 'F',
+  `BETVILLKOR` char(3) default '001',
+  `LEVVILLKOR` char(3) default '001',
+  `LEVSETT` char(3) default '001',
+  `PLOCKLISTA` enum('J','N') default 'J',
+  `FOLJESEDEL` enum('J','N') default 'J',
+  `FRAKTAVG` enum('J','N') default 'J',
+  `SKATTEKOD` char(3) NOT NULL default '001',
+  `MOMS` decimal(3,2) default NULL,
+  `VALUTA` char(3) default 'SEK',
+  `EXPORTKOD` char(3) default '001',
+  `SPRAKKOD` char(3) default 'sv',
+  `ORDERSUMMA` decimal(10,2) default NULL,
+  `FRAKTSUMMA` decimal(10,2) default NULL,
+  `FRAKTMOMSKR` decimal(10,2) default NULL,
+  `ORDERMOMS` decimal(10,2) default NULL,
+  `ORDERTOTAL` decimal(10,2) default NULL,
+  PRIMARY KEY  (`ORDERNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ORDERREG`
+--
+
+
+/*!40000 ALTER TABLE `ORDERREG` DISABLE KEYS */;
+LOCK TABLES `ORDERREG` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `ORDERREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `PASSW`
+--
+
+DROP TABLE IF EXISTS `PASSW`;
+CREATE TABLE `PASSW` (
+  `KUNDNR` varchar(10) NOT NULL default '',
+  `PASSW` varchar(16) NOT NULL default '',
+  PRIMARY KEY  (`KUNDNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `PASSW`
+--
+
+
+/*!40000 ALTER TABLE `PASSW` DISABLE KEYS */;
+LOCK TABLES `PASSW` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `PASSW` ENABLE KEYS */;
+
+--
+-- Table structure for table `PLOCKLISTEREG`
+--
+
+DROP TABLE IF EXISTS `PLOCKLISTEREG`;
+CREATE TABLE `PLOCKLISTEREG` (
+  `PLOCKNR` int(11) NOT NULL auto_increment,
+  `ORDERNR` varchar(10) NOT NULL default '',
+  `ORDERRAD` int(4) NOT NULL default '0',
+  `KUNDNR` varchar(10) NOT NULL default '',
+  `ARTIKELNR` varchar(30) NOT NULL default '',
+  `BENEMNING` varchar(60) default NULL,
+  `LEVERANSVECKA` varchar(5) default NULL,
+  `BESTELLT` decimal(10,2) NOT NULL default '0.00',
+  `ATTLEVERERA` decimal(10,2) NOT NULL default '0.00',
+  `LEVERERAT` decimal(10,2) NOT NULL default '0.00',
+  `PLOCKAT` decimal(10,2) NOT NULL default '0.00',
+  `RESTNOTERAT` decimal(10,2) NOT NULL default '0.00',
+  `LEVDATUM` date default NULL,
+  `ENHET` varchar(4) default NULL,
+  `PLOCKSTATUS` enum('P','U','B') default 'P',
+  `PLOCKDATUM` date NOT NULL default '0000-00-00',
+  PRIMARY KEY  (`PLOCKNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `PLOCKLISTEREG`
+--
+
+
+/*!40000 ALTER TABLE `PLOCKLISTEREG` DISABLE KEYS */;
+LOCK TABLES `PLOCKLISTEREG` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `PLOCKLISTEREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `PRISLISTA`
+--
+
+DROP TABLE IF EXISTS `PRISLISTA`;
+CREATE TABLE `PRISLISTA` (
+  `ARTIKELNR` varchar(30) NOT NULL default '',
+  `PRIS1` decimal(10,2) default '0.00',
+  `PRIS2` decimal(10,2) default '0.00',
+  `PRIS3` decimal(10,2) default '0.00',
+  `PRIS4` decimal(10,2) default '0.00',
+  `PRIS5` decimal(10,2) default '0.00',
+  PRIMARY KEY  (`ARTIKELNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `PRISLISTA`
+--
+
+
+/*!40000 ALTER TABLE `PRISLISTA` DISABLE KEYS */;
+LOCK TABLES `PRISLISTA` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `PRISLISTA` ENABLE KEYS */;
+
+--
+-- Table structure for table `PRODUKTGRUPP`
+--
+
+DROP TABLE IF EXISTS `PRODUKTGRUPP`;
+CREATE TABLE `PRODUKTGRUPP` (
+  `PRODKLASS` varchar(5) NOT NULL default '',
+  `BESKRIVNING` varchar(30) default NULL,
+  `MOMSKOD` varchar(5) default NULL,
+  PRIMARY KEY  (`PRODKLASS`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `PRODUKTGRUPP`
+--
+
+
+/*!40000 ALTER TABLE `PRODUKTGRUPP` DISABLE KEYS */;
+LOCK TABLES `PRODUKTGRUPP` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `PRODUKTGRUPP` ENABLE KEYS */;
+
+--
+-- Table structure for table `PROGRAM`
+--
+
+DROP TABLE IF EXISTS `PROGRAM`;
+CREATE TABLE `PROGRAM` (
+  `PRGNR` char(3) NOT NULL default '',
+  `MENYAVD` varchar(20) default NULL,
+  `MENYGRP` varchar(30) default NULL,
+  `MENYTXT` varchar(30) default NULL,
+  `PROGRAM` varchar(8) default NULL,
+  PRIMARY KEY  (`PRGNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `PROGRAM`
+--
+
+
+/*!40000 ALTER TABLE `PROGRAM` DISABLE KEYS */;
+LOCK TABLES `PROGRAM` WRITE;
+INSERT INTO `PROGRAM` (`PRGNR`, `MENYAVD`, `MENYGRP`, `MENYTXT`, `PROGRAM`) VALUES ('026','Ekonomi','Valutaadministration','√Ñndra valuta','CHGVALW'),('025','Ekonomi','Valutaadministration','Ny valuta','ADDVALW'),('024','Ekonomi','Kostnadst√§lleadministration','Lista kostnadsst√§llen','LSTKSTW'),('023','Ekonomi','Kostnadst√§lleadministration','Visa ett kostnadsst√§lle','DSPKSTW'),('022','Ekonomi','Kostnadst√§lleadministration','Ta bort kostnadst√§lle',''),('021','Ekonomi','Kostnadst√§lleadministration','√Ñndra kostnadst√§lle',''),('020','Ekonomi','Kostnadst√§lleadministration','Nytt kostnadst√§lle','ADDKSTW'),('019','Ekonomi','Kontoadministration','Lista konton','LSTKTOW'),('018','Ekonomi','Kontoadministration','Visa konto','DSPKTOW'),('017','Ekonomi','Kontoadministration','Ta bort konto',''),('016','Ekonomi','Kontoadministration','√Ñndra konto','CHGKTOW'),('015','Ekonomi','Kontoadministration','Nytt konto','ADDKTOW'),('013','Ekonomi','Bokf√∂ring','Registrera verifikation','BOKFORSW'),('012','Administration','Funktionsadministration','Lista funktioner','LSTFNCW'),('011','Administration','Funktionsadministration','Ny funktion','ADDFNCW'),('010','Administration','Beh√∂righetsadministration','Lista beh√∂righeter','LSTRGTW'),('009','Administration','Beh√∂righetsadministration','Visa beh√∂righet',''),('007','Administration','Beh√∂righetsadministration','√Ñndra beh√∂righet',''),('006','Administration','Beh√∂righetsadministration','Ny beh√∂righet','ADDRGTW'),('003','Administration','Anv√§ndaradministration','Ta bort anv√§ndare','DELUSRW'),('005','Administration','Anv√§ndaradministration','Lista anv√§ndare','LSTUSRW'),('002','Administration','Anv√§ndaradministration','√Ñndra anv√§ndarinfo','CHGUSRW'),('014','Ekonomi','Bokf√∂ring','Registrera ver. standard','BOKFORSW'),('008','Administration','Beh√∂righetsadministration','Ta bort beh√∂righet','DELRGTW'),('004','Administration','Anv√§ndaradministration','Visa en anv√§ndare','DSPUSRW'),('001','Administration','Anv√§ndaradministration','Ny anv√§ndare','ADDUSRW'),('027','Ekonomi','Valutaadministration','Ta bort valuta','DELVALW'),('028','Ekonomi','Valutaadministration','Visa valuta','DSPVALW'),('029','Ekonomi','Valutaadministration','Lista valutor','LSTVALW'),('030','Ekonomi','Rapporter','Kontorapport','RPTKTOW'),('031','Ekonomi','Rapporter','Rapportgenerator','RPTGENW'),('032','Ekonomi','R√§kenskaps√•r','Nytt bokf√∂rings√•r','ADDBARW'),('033','Ekonomi','R√§kenskaps√•r','√Ñndra bokf√∂rings√•rsdata','CHGBARW'),('034','Administration','F√∂retagsdata','Ny post','ADDFTGW'),('035','Administration','F√∂retagsdata','√Ñndra post','CHGFTGW'),('036','Administration','F√∂retagsdata','Visa f√∂retagsdata','DSPFTGW'),('037','F√∂rs√§ljning','Kunddata','Ny kund','ADDKUW'),('038','F√∂rs√§ljning','Kunddata','Ny leveransadress f√∂r kund','ADDLEVPW'),('039','Ink√∂p','Leverant√∂rsdata','Ny leverant√∂r','ADDLEVW'),('040','Ink√∂p','Leverant√∂rsdata','Visa en leverant√∂r','DSPLEVW'),('041','Ink√∂p','Leverant√∂rsdata','√Ñndra leverant√∂rsdata','CHGLEVW'),('042','Ekonomi','Bokf√∂ring','Reg. leverant√∂rsfaktura','LEVFAKTW'),('043','Ekonomi','Rapporter','Leverant√∂rsreskontra','LEVRESKW'),('054','Administration','Betalningsvillkor','Lista betalningsvillkor','LSTBETVW'),('044','Ekonomi','Rapporter','F√∂rfallna levfakturor','ATTBETW'),('045','Ekonomi','Rapporter','Saldolista','SDOLISW'),('046','F√∂rs√§ljning','Kunddata','Visa kunddata','DSPKUW'),('047','F√∂rs√§ljning','Kunddata','√Ñndra kunddata','CHGKUW'),('048','F√∂rs√§ljning','Kunddata','Lista kunder','LSTKUW'),('049','Administration','F√∂retagsdata','Byta f√∂retag','BYTFTGW'),('050','Materialhantering','Artikeldata','Ny artikel','ADDARW'),('051','Materialhantering','Artikeldata','Visa grunddata f√∂r en artikel','DSPARW'),('052','Materialhantering','Artikeldata','Visa en artikels ekonomidata','DSPAREW'),('053','Materialhantering','Artikeldata','√Ñndra artikeldata','CHGARW'),('055','Administration','Betalningsvillkor','Nya betalningsvillkor','ADDBETVW'),('056','Materialhantering','Artikeldata','Lista artiklar','LSTARW'),('057','Administration','Betalningsvillkor','√Ñndra betalningsvillkor','CHGBETVW'),('058','Ink√∂p','Best√§llningar','Registrera ink√∂psorder','ADDINKW'),('059','Ink√∂p','Best√§llningar','(√Ñndra best√§llning)','CHGINKW'),('060','Ink√∂p','Best√§llningar','(Annulera best√§llning)','DELINKW'),('061','Ink√∂p','Best√§llningar','Visa best√§llning','DSPINKW'),('062','Ink√∂p','Best√§llningar','Best√§llningsstock','LSTINKW'),('063','Ink√∂p','Best√§llningar','Skriv ut best√§llning','PRTINKW'),('064','Ink√∂p','Best√§llningar','(Avprickning f√∂ljesedel)','UPDINKW'),('065','F√∂rs√§ljning','Kundorder','Registrera kundorder','ADDORDW'),('066','F√∂rs√§ljning','Kundorder','√Ñndra kundorder','CHGORDW'),('067','F√∂rs√§ljning','Kundorder','(Makulera kundorder)','DELORDW'),('068','F√∂rs√§ljning','Kundorder','Visa en kundorder','DSPORDW'),('069','F√∂rs√§ljning','Kundorder','Lista kundorder','LSTORDW'),('070','F√∂rs√§ljning','Kundorder','Skriva ut plocklista','PLORDW'),('071','F√∂rs√§ljning','Kundorder','(Skriva ut f√∂ljesedel)','FSORDW'),('072','F√∂rs√§ljning','Kundorder','Fakturera kundorder','KUFAKTW'),('074','Administration','F√∂retagsdata','Ny text i textregistret','ADDTXTW'),('073','Ink√∂p','Leverant√∂rsdata','Lista leverant√∂rer','LSTLEVW'),('076','Administration','Leveransvillkor','Nya leveransvillkor','ADDLEVVW'),('075','Administration','F√∂retagsdata','Radera post i textregistret','DELTXTW'),('077','Administration','Leveransvillkor','Lista leveransvillkor','LSTLEVVW'),('078','Administration','Leveranss√§tt','Nya leveranss√§tt','ADDLEVSW'),('079','Administration','Leveranss√§tt','Lista leveranss√§tt','LSTLEVSW'),('080','Ekonomi','Rapporter','Balansr√§kning','BALRPTW'),('081','Ekonomi','Rapporter','Huvudbok','HUVBOKW'),('082','Ekonomi','Rapporter','Dagbok','DAGBOKW'),('083','F√∂rs√§ljning','Kunddata','Lista kunders leveransplatser','LSTLEVPW'),('084','Administration','F√∂retagsdata','Ny databasregistrering','ADDFORW'),('085','Administration','F√∂retagsdata','Lista databaser','LSTFORW'),('086','Materialhantering','Artikeladmin.','Ny produktklass/produktgrupp','ADDPKDW'),('087','Materialhantering','Artikeladmin.','Lista produktklass/produktgrup','LSTPKDW'),('088','Ekonomi','R√§kenskaps√•r','Visa bokf√∂rings√•r','DSPBARW'),('089','Administration','F√∂retagsdata','Lista f√∂retagsdata','LSTFTGW'),('090','Ekonomi','Rapporter','Resultatrapport','RESRPTW'),('091','Ekonomi','R√§kenskaps√•r','Lista alla r√§kenskaps√•r','LSTBARW'),('092','F√∂rs√§ljning','Kunddata','S√∂ka kunder','SRCHKUW'),('093','Ekonomi','Rapporter','Skapa SIE-fil','RPTSIEW'),('094','F√∂rs√§ljning','Kundorder','Pricka av plocklista','PLCHGW'),('095','Ekonomi','Rapporter','Kundreskontra','KURESKW'),('096','Administration','F√∂retagsdata','Lista texter i TEXTREG','LSTTXTW'),('097','Administration','F√∂retagsdata','Visa en post i TEXTREG','DSPTXTW'),('099','Ekonomi','Bokf√∂ring','Reg. betald kundfaktura','KUFAKTBW'),('100','Materialhantering','Artikeladmin.','Lista prislistor','LSTPRISW'),('101','Materialhantering','Artikeladmin.','Ladda nya prislistor','ADDPRISW'),('102','Materialhantering','Artikeladmin.','√Ñndra i prislistor','CHGPRISW'),('103','Materialhantering','Artikeldata','S√∂ka artikel','SRCHARW'),('098','Materialhantering','Artikeldata','S√∂ka artikel','SRCHARW');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `PROGRAM` ENABLE KEYS */;
+
+--
+-- Table structure for table `RIGHTS`
+--
+
+DROP TABLE IF EXISTS `RIGHTS`;
+CREATE TABLE `RIGHTS` (
+  `USERID` varchar(8) NOT NULL default '',
+  `TRNSID` varchar(8) NOT NULL default '',
+  PRIMARY KEY  (`USERID`,`TRNSID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `RIGHTS`
+--
+
+
+/*!40000 ALTER TABLE `RIGHTS` DISABLE KEYS */;
+LOCK TABLES `RIGHTS` WRITE;
+INSERT INTO `RIGHTS` (`USERID`, `TRNSID`) VALUES ('ADMIN','BYTFTGW'),('ADMIN','PRGLST'),('OLFIX','ADDRGTW'),('OLFIX','ARICHK'),('OLFIX','BARDSP'),('OLFIX','KTOCHK'),('OLFIX','KTOLST'),('OLFIX','KTOVIEW'),('OLFIX','PRGLST'),('OLFIX','RGTADD'),('OLFIX','RGTCHK'),('OLFIX','RGTDEL'),('OLFIX','RGTLST'),('OLFIX','TRHDADD'),('OLFIX','TRNSADD'),('OLFIX','TRNSDEL'),('OLFIX','USERADD'),('OLFIX','USERLST'),('OLFIX','VERUPD'),('TESTARE','LSTUSRW'),('TESTARE','PRGLST'),('TESTARE','RGTCHK'),('TESTARE','USERADD'),('TESTARE','USERDSP'),('TESTARE','USERLST');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `RIGHTS` ENABLE KEYS */;
+
+--
+-- Table structure for table `STDLEVPLATS`
+--
+
+DROP TABLE IF EXISTS `STDLEVPLATS`;
+CREATE TABLE `STDLEVPLATS` (
+  `STDLEVPLATS` char(3) NOT NULL default '',
+  `KUNDNR` varchar(10) NOT NULL default '',
+  `ADRESS` varchar(30) NOT NULL default '',
+  `POSTNR` varchar(6) NOT NULL default '',
+  `POSTADR` varchar(30) NOT NULL default '',
+  `LAND` varchar(30) default NULL,
+  PRIMARY KEY  (`STDLEVPLATS`,`KUNDNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `STDLEVPLATS`
+--
+
+
+/*!40000 ALTER TABLE `STDLEVPLATS` DISABLE KEYS */;
+LOCK TABLES `STDLEVPLATS` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `STDLEVPLATS` ENABLE KEYS */;
+
+--
+-- Table structure for table `TEXTREG`
+--
+
+DROP TABLE IF EXISTS `TEXTREG`;
+CREATE TABLE `TEXTREG` (
+  `TEXTNR` char(3) NOT NULL default '',
+  `TXT` text,
+  PRIMARY KEY  (`TEXTNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `TEXTREG`
+--
+
+
+/*!40000 ALTER TABLE `TEXTREG` DISABLE KEYS */;
+LOCK TABLES `TEXTREG` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `TEXTREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `TRANSID`
+--
+
+DROP TABLE IF EXISTS `TRANSID`;
+CREATE TABLE `TRANSID` (
+  `TRNSID` varchar(8) NOT NULL default '',
+  `TRNSTXT` varchar(60) default NULL,
+  PRIMARY KEY  (`TRNSID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `TRANSID`
+--
+
+
+/*!40000 ALTER TABLE `TRANSID` DISABLE KEYS */;
+LOCK TABLES `TRANSID` WRITE;
+INSERT INTO `TRANSID` (`TRNSID`, `TRNSTXT`) VALUES ('ARICHK','Kontrollera om visst bokf√∂rings√•r finns'),('BARDSP','H√§mta data f√∂r angivet bokf√∂rings√•r'),('BARCHK','Kontrollera om visst bokf√∂rings√•r finns'),('BOKF','Bokf√∂ringsprogram'),('FORDSP','Visa info om databas nr x'),('FTGUPD','Uppdatera f√∂retagsdata'),('KSTADD','Nyuppl√§gg av kostnadsst√§lle'),('KSTCHK','Kontrollera om visst kostnadst√§lle finns'),('KSTDSP','Visa info f√∂r ett kostnadst√§lle'),('KSTLST','Lista kostnadsst√§llen p√• sk√§rm'),('KTOADD','L√§gga till en ny post i konto'),('KTOCHG','√Ñndra info f√∂r ett kontonr'),('KTOCHK','Kontrollera om visst konto finns'),('KTODEL','Ta bort post i konto (endast utan transaktioner)'),('KTODSP','Visa info p√• ett konto'),('KTOLST','Lista alla konton, nr och text'),('KTORPT','Lista alla poster i tabellen VERRAD'),('KTOUPD','Uppdatera konto med antingen debet eller kredit'),('KTOVIEW','Visa kontonr och ben√§mning p√• sk√§rm'),('PRGLST','Lista program'),('RGTADD','L√§gga till beh√∂righet till transaktioner'),('RGTCHK','Kontrolera anv√§ndares beh√∂righet'),('RGTDEL','Ta bort beh√∂righet till transaktioner'),('RGTDSP','Visa beh√∂righeter f√∂r en anv√§ndare'),('RGTLST','Lista alla beh√∂righeter'),('TRHDADD','L√§gga till ny loggpost i TRHD'),('TRNSADD','Ny post i TRANSID'),('TRNSCHG','√Ñndra post i TRANSID'),('TRNSDEL','Ta bort post i TRANSID'),('TRNSDSP','Visa enstaka TRANSID'),('TRNSLST','Lista alla TRANSID'),('USERADD','Ny post i USER'),('USERCHG','√Ñndra post i USER'),('USERDEL','Ta bort post i USER'),('USERDSP','Visa en anv√§ndare'),('USERLST','Lista alla anv√§ndare'),('VALLST','Lista valutor'),('VALADD','L√§gga upp en ny valuta'),('VALCHG','√Ñndra valutainformation'),('VALDEL','Ta bort en valuta'),('VALDSP','Visa en valuta'),('VERUPD','Nyuppl√§ggning av verifikat'),('VERDSP','Visa enstaka verifikation'),('VRDADD','Ny detaljpost f√∂r verifikation till VERD'),('VRHADD','Ny huvudpost f√∂r verifikation till VERH'),('WRREC','Skriva post till tempfilen /tmp/vernr.txt'),('ATTBET','Lista leverant√∂rsfakturor att betala'),('BARADD','L√§gga upp nytt bokf√∂rings√•r'),('BARCHG','√Ñndra data f√∂r angivet bokf√∂rings√•r'),('BARFND','Hitta bokf√∂rings√•r f√∂r angivet datum'),('BETDSP','Visa ett betalningsvillkor'),('FTGADD','L√§gga upp en ny f√∂retagspost'),('FTGDSP','Visa f√∂retagsdata'),('FTGLST','Lista posttyper f√∂r f√∂retagsdata'),('FTGLIS','Lista f√∂retagsdata'),('KUADD','Registrera nya kunder'),('KUCHG','√Ñndra kunddata'),('KUCHK','Kontrollera om kundnr finns'),('KUDSP','Visa kunddata'),('KULST','Lista kunder, kundnr och namn'),('LEVADD','L√§gga upp en ny leverant√∂r'),('LEVCHG','√Ñndra leverant√∂rsdata'),('LEVDSP','Visa en leverant√∂r'),('LEVLST','Lista leverant√∂rer,nr och namn'),('LRESRPT','Lista alla obetalda poster i tabellen LEVRESK'),('LRESADD','Ny post i leverant√∂rsreskontran'),('RPTCRE','Rapportgenerator. Skapa rapporter'),('SLPADD','Standardleveransplats'),('TRNTST','Detta √§r en testfunktion'),('ARCHK','Kontrollera om artikelnummer finns'),('ARADD','L√§gga upp en ny artikel'),('AR2ADD','L√§gga upp ny artikel i lagerst√§lleregister'),('ARDSP','Visa grunddata f√∂r en artikel'),('ARDSPL','Visa lagerdata f√∂r en artikel'),('ARCHG','√Ñndra grunddata f√∂r en artikel'),('ARCHGL','√Ñndra lagerst√§lledata f√∂r en artikel'),('BETLST','Lista betalningsvillkor'),('BETADD','L√§gga upp ett nytt betalningsvillkor'),('ARLST','Lista artiklar(artikelnr,ben√§mn1,ben√§mn2)'),('BETCHG','√Ñndra data f√∂r betalningsvillkor'),('TXTDSP','Visa texter ur TEXTREG'),('TXTADD','L√§gg upp en ny post i TEXTREG'),('INKADD','L√§gga upp en ny ink√∂psorder'),('INKRADD','L√§gga upp en ny ink√∂psorderrad'),('TXTDEL','Radera post i TEXTREG'),('INKRLST','Lista alla rader p√• angiven ink√∂psorder'),('INKHDSP','Visa orderhuvud f√∂r angiven ink√∂psorder'),('INKLST','Best√§llningsstock'),('LEVVDSP','Visa ett leveransvillkor'),('LEVSDSP','Visa ett leveranss√§tt'),('LEVVADD','L√§gga upp ett nytt leveransvillkor'),('LEVSADD','L√§gga upp ett nytt leveranss√§tt'),('LEVVLST','Lista leveransvillkor'),('LEVSLST','Lista leveranss√§tt'),('VERHDSP','H√§mta mindatum och maxdatum f√∂r angivet bokf.√•r'),('VERHLST','Lista verifikationers huvudposter f√∂r √∂nskat bokf√∂rings√•r'),('HBOKRPT','Huvudboksrapport'),('DBOKRPT','Dagboksrapport'),('PRTAPI','Utskriftsinterface'),('LEVPLST','Lista kunders leveransadresser'),('FORCHK','Kontr. om databas finns i tabell DATABAS'),('FORADD','Ny databas i tabellen DATABAS'),('FORLST','Lista databaser i tabell DATABAS'),('PKDADD','Ny produktgrupp/produktkod/produktklass'),('PKDLST','Lista produktgrupper/produktkoder/produktklasser'),('WKUDSP','Visa begr√§nsade kunddata f√∂r webbkund'),('ARLSTL','Lista artiklar med lagersaldo'),('ARLIS','Lista artiklar f√∂r angiven produktklass'),('ARLSPK','Lista artiklar f√∂r angiven produktkod'),('AR2UPD','Uppdatera artikelpost i LAGERSTELLEREG'),('BARLST','Lista bokf√∂rings√•r'),('KUSRCH','S√∂ka kunder p√• namn, postnr, tfnnr eller postadr'),('LEVPDSP','Visa en standardleveransplats'),('ORDADD','Nyuppl√§gg av kundorderhuvud'),('ORDCHK','Kontrollera diverse uppgifter p√• kundorder'),('ORDDSP','Visa en kundorders huvudpost'),('ORDRDSP','Visa en kundorders orderrader'),('PKDDSP','Visa en produktgrupp/produktkod/produktklass'),('SIEEXPK','SIE-export av kontoplan'),('SIEEXPR','SIE-export av resultat'),('SIEEXPV','SIE-export av verifikat'),('DBCHK','Lista databaser registrerade i databasen mysql'),('ORDLST2','Lista kundorder med begr√§nsad information'),('ORDLST','Lista kundorder'),('PICKADD','Nytt plock av kundorderrad'),('PICKDSP','Visa plockade men ej utskrivna plock'),('PICKLST','Lista avprickade kundorderrader'),('KRESADD','Ny post till kundreskontran'),('ORADUPD','Uppdatera √∂nskat f√§lt i ORDERRADREG'),('ORDRUPD','Uppdatera ORDERRADREG'),('ORDUPD','Uppdatera √∂nskat f√§lt i ORDERREG'),('ARLSPK2','Lista artiklar/produktkod med saldo'),('KRESLST','Lista poster i kundreskontran'),('ORDRADD','L√§gga upp ny rad p√• kundorder');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `TRANSID` ENABLE KEYS */;
+
+--
+-- Table structure for table `TRHD`
+--
+
+DROP TABLE IF EXISTS `TRHD`;
+CREATE TABLE `TRHD` (
+  `TRNSNR` int(11) NOT NULL auto_increment,
+  `TRNSID` varchar(8) NOT NULL default '',
+  `TID` varchar(20) NOT NULL default '',
+  `USERID` varchar(8) NOT NULL default '',
+  `TRNSDATA` varchar(255) default NULL,
+  PRIMARY KEY  (`TRNSNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `TRHD`
+--
+
+
+/*!40000 ALTER TABLE `TRHD` DISABLE KEYS */;
+LOCK TABLES `TRHD` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `TRHD` ENABLE KEYS */;
+
+--
+-- Table structure for table `USR`
+--
+
+DROP TABLE IF EXISTS `USR`;
+CREATE TABLE `USR` (
+  `USERID` varchar(8) NOT NULL default '',
+  `NAMN` varchar(30) default NULL,
+  `AVD` varchar(10) default NULL,
+  `GRUPP` varchar(10) default NULL,
+  PRIMARY KEY  (`USERID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `USR`
+--
+
+
+/*!40000 ALTER TABLE `USR` DISABLE KEYS */;
+LOCK TABLES `USR` WRITE;
+INSERT INTO `USR` (`USERID`, `NAMN`, `AVD`, `GRUPP`) VALUES ('OLFIX','Olfix Superuser','IT','Stab'),('TESTARE','Testare Test','Prov','Utv'),('ADMINA','Admin Adminstrat√∂r','IT','Stab'),('ADMIN','Jan Olfixsson','Ekonomi','Stab');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `USR` ENABLE KEYS */;
+
+--
+-- Table structure for table `VALUTA`
+--
+
+DROP TABLE IF EXISTS `VALUTA`;
+CREATE TABLE `VALUTA` (
+  `VALUTAID` char(3) NOT NULL default '',
+  `LAND` varchar(15) default NULL,
+  `SALJ` decimal(3,2) default NULL,
+  `KOP` decimal(3,2) default NULL,
+  `BETECKNING` varchar(15) default NULL,
+  PRIMARY KEY  (`VALUTAID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `VALUTA`
+--
+
+
+/*!40000 ALTER TABLE `VALUTA` DISABLE KEYS */;
+LOCK TABLES `VALUTA` WRITE;
+INSERT INTO `VALUTA` (`VALUTAID`, `LAND`, `SALJ`, `KOP`, `BETECKNING`) VALUES ('DKK','Danmark','1.22','1.22','Kronor'),('NOK','Norge','1.23','1.23','Kronor'),('NYZ','Nya Zeeland','4.45','4.45','Dollar'),('SAR','Saudiarabien','2.40','2.40','Riyal'),('HKD','Honkong','0.00','0.00','Dollar'),('MYR','Malaysia','2.36','2.36','Ringgit'),('SGD','Singapore','5.08','5.08','Dollar'),('CAD','Kanada','5.66','5.66','Dollar'),('AUD','Australien','5.03','5.03','Dollar'),('USD','USA','8.97','8.97','Dollar'),('JPY','Japan','7.38','7.38','Yen'),('GBP','Storbritanien','14.26','14.26','Pund'),('EUR','Europa','9.08','9.08','Euro'),('CHF','Schweiz','0.00','0.00','France'),('SEK','Sverige','0.99','0.99','Kronor'),('EEK','Estland','0.59','0.57','Kronor');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `VALUTA` ENABLE KEYS */;
+
+--
+-- Table structure for table `VERHUVUD`
+--
+
+DROP TABLE IF EXISTS `VERHUVUD`;
+CREATE TABLE `VERHUVUD` (
+  `VERNR` int(11) NOT NULL default '0',
+  `ARID` char(2) NOT NULL default '',
+  `VERDATUM` date default NULL,
+  `REGDAT` date default NULL,
+  `DEBET` decimal(10,2) default NULL,
+  `KREDIT` decimal(10,2) default NULL,
+  `VERTEXT` varchar(60) default NULL,
+  `KORRIGERAR` int(11) default NULL,
+  `KORRIGERAD` int(11) default NULL,
+  `USERID` varchar(8) default NULL,
+  PRIMARY KEY  (`VERNR`,`ARID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `VERHUVUD`
+--
+
+
+/*!40000 ALTER TABLE `VERHUVUD` DISABLE KEYS */;
+LOCK TABLES `VERHUVUD` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `VERHUVUD` ENABLE KEYS */;
+
+--
+-- Table structure for table `VERRAD`
+--
+
+DROP TABLE IF EXISTS `VERRAD`;
+CREATE TABLE `VERRAD` (
+  `VERNR` int(11) NOT NULL default '0',
+  `RADNR` smallint(6) NOT NULL default '0',
+  `ARID` char(2) NOT NULL default '',
+  `KTONR` varchar(4) default NULL,
+  `BELOPP` decimal(10,2) default NULL,
+  `DK` enum('D','K') default NULL,
+  `KSTALLE` varchar(4) default NULL,
+  `PROJEKT` varchar(4) default NULL,
+  `SUBKTO` varchar(4) default NULL,
+  `DEFINITIV` enum('J','N') default 'N',
+  `STRUKEN` enum('J','N') default 'N',
+  PRIMARY KEY  (`VERNR`,`RADNR`,`ARID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `VERRAD`
+--
+
+
+/*!40000 ALTER TABLE `VERRAD` DISABLE KEYS */;
+LOCK TABLES `VERRAD` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `VERRAD` ENABLE KEYS */;
+
+--
+-- Table structure for table `WEBBKUND`
+--
+
+DROP TABLE IF EXISTS `WEBBKUND`;
+CREATE TABLE `WEBBKUND` (
+  `KUNDNR` varchar(10) NOT NULL default '',
+  `NAMN` varchar(60) NOT NULL default '',
+  `ADRESS` varchar(30) default NULL,
+  `POSTNR` varchar(6) default NULL,
+  `POSTADR` varchar(30) default NULL,
+  `LAND` varchar(30) default NULL,
+  `ADRESS2` varchar(30) default NULL,
+  `POSTNR2` varchar(6) default NULL,
+  `POSTADR2` varchar(30) default NULL,
+  `LAND2` varchar(30) default NULL,
+  `TFNNR` varchar(15) default NULL,
+  `EMAILADR` varchar(30) default NULL,
+  `BETALVILLKOR` char(3) default NULL,
+  `LEVVILLKOR` char(3) default NULL,
+  `LEVSETT` char(3) default NULL,
+  `ORDERERKENNANDE` enum('J','N') default 'J',
+  `PLOCKLISTA` enum('J','N') default 'J',
+  `FOLJESEDEL` enum('J','N') default 'J',
+  `KRAVBREV` enum('J','N') default 'J',
+  `EXPAVGIFT` enum('J','N') default 'J',
+  `FRAKTAVG` enum('J','N') default 'J',
+  `KREDITLIMIT` decimal(10,2) default NULL,
+  `KREDITDAGAR` int(11) default NULL,
+  `DROJMALSRTA` enum('J','N') default 'J',
+  `DROJMALSFAKTURA` enum('J','N') default 'J',
+  `SENASTEKRAVDATUM` date default NULL,
+  `SKULD` decimal(10,2) default NULL,
+  `ORDERSTOCK` decimal(10,2) default NULL,
+  `PASSWORD` varchar(16) NOT NULL default '',
+  PRIMARY KEY  (`KUNDNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `WEBBKUND`
+--
+
+
+/*!40000 ALTER TABLE `WEBBKUND` DISABLE KEYS */;
+LOCK TABLES `WEBBKUND` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `WEBBKUND` ENABLE KEYS */;
+
+--
+-- Current Database: `olfixtst`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `olfixtst` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `olfixtst`;
+
+--
+-- Table structure for table `ARTIKELREG`
+--
+
+DROP TABLE IF EXISTS `ARTIKELREG`;
+CREATE TABLE `ARTIKELREG` (
+  `ARTIKELNR` varchar(30) NOT NULL default '',
+  `ARBENEMNING1` varchar(60) NOT NULL default '',
+  `ARBENEMNING2` varchar(60) default NULL,
+  `ARENHET` varchar(5) default NULL,
+  `ARFPRIS` decimal(10,2) default NULL,
+  `ARLEDTID` char(3) default NULL,
+  `ARPRODKLASS` varchar(5) default NULL,
+  `ARPRODKTO` varchar(5) default NULL,
+  `ARLEVNR1` varchar(10) default NULL,
+  `ARLEVNR2` varchar(10) default NULL,
+  `ARLEVNR3` varchar(10) default NULL,
+  `ARNETTOVIKT` decimal(10,2) default NULL,
+  `ARARTTYP` enum('0','1','2','3','4') default '0',
+  `ARSTRUKT` enum('','B','I','T','F') default '',
+  `ARURBENEMNING` varchar(60) default NULL,
+  `ARURLAND` varchar(30) default NULL,
+  `ARURARTNR` varchar(30) default NULL,
+  `ARTULLTAX` varchar(10) default NULL,
+  `ARVOLYM` decimal(4,3) default NULL,
+  `AROMRFAKTOR` int(11) NOT NULL default '1',
+  PRIMARY KEY  (`ARTIKELNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ARTIKELREG`
+--
+
+
+/*!40000 ALTER TABLE `ARTIKELREG` DISABLE KEYS */;
+LOCK TABLES `ARTIKELREG` WRITE;
+INSERT INTO `ARTIKELREG` (`ARTIKELNR`, `ARBENEMNING1`, `ARBENEMNING2`, `ARENHET`, `ARFPRIS`, `ARLEDTID`, `ARPRODKLASS`, `ARPRODKTO`, `ARLEVNR1`, `ARLEVNR2`, `ARLEVNR3`, `ARNETTOVIKT`, `ARARTTYP`, `ARSTRUKT`, `ARURBENEMNING`, `ARURLAND`, `ARURARTNR`, `ARTULLTAX`, `ARVOLYM`, `AROMRFAKTOR`) VALUES ('1000-1001','Att anv√§nda GNU/LINUX','Linus Walleij','ST','120.00','7','1000','','100','200','300','0.00','2','','Att anv√§nda GNU/LINUX','Sverige','ISBN 91-44-03400-8','','0.000',1),('1000-1002','Linux MAGNUM','Jack Tacket,Jr och Steven Burn','ST','117.00','7','1000','','100','200','300','0.00','2','','Linux MAGNUM','Sverige','ISBN 0-7645-2508-5','','0.000',1),('1000-1003','Linux P√• egen hand','Steve Oualline och Eric Foster','ST','117.00','7','1000','','100','200','300','0.00','2','','Linux P√• egen hand','Sverige','ISBN 013-019716-5','','0.000',1),('1000-1004','C++ programmering','Stephen Prata','ST','117.00','7','1001','','100','200','300','0.00','2','','Linux P√• egen hand','Sverige','ISBN 91-86201-34-4','','0.000',1),('1000-1005','Programming with Qt','Matthias Kalle Dalheimer','ST','117.00','7','1002','','100','200','300','0.00','2','','Programming with Qt','Sverige','ISBN 0-596-00064-2','','0.000',1),('1000-1006','The C Programming language','Brian W Kernighan och Dennis M','ST','117.00','7','1003','','100','200','300','0.00','2','','The C Programming language','USA','ISBN 91-970296-45','','0.000',1),('1000-1007','The C Programming lang.Facit','Clovis Tondo,Scott Gimpel','ST','117.00','7','1003','','100','200','300','0.00','2','','The C Programming lang.Facit','USA','ISBN 91-970296-88','','0.000',1),('1000-1008','V√§gen till C','Ulf Bilting,Jan Skansholm','ST','117.00','7','1003','','100','200','300','0.00','2','','V√§gen till C','Sverige','ISBN 91-44-26732-0','','0.000',1),('1000-1009','Arbeta med C','J A Illik','ST','117.00','7','1003','','100','200','300','0.00','2','','Arbeta med C','Sverige','ISBN 91-86200-40-2','','0.000',1),('1000-1010','Nyckeln till C','Alan C Plantz','ST','117.00','7','1003','','100','200','300','0.00','2','','Nyckeln till C','Sverige','ISBN 91-86200-75-5','','0.000',1),('1000-1011','Professional Linux Programming','Neil Mattew and Richard Stones','ST','117.00','7','1000','','100','200','300','0.00','2','','Professional Linux Programming','USA','ISBN 1861003013','','0.000',1),('1000-1012','Qt Programming in 24 Hours','Daniel Solin','ST','117.00','7','1002','','100','200','300','0.00','2','','Qt Programming in 24 Hours','USA','ISBN 0-672-31869-5','','0.000',1),('1000-1013','C++ GUI Programming with Qt 3','Jasmine Blanchette, Mark Summerfield','ST','117.00','7','1002','','100','200','300','0.00','2','','C++ GUI programming with Qt 3','USA','ISBN 0-13-124072-2','','0.000',1),('1000-1014','Practical Qt','Mattias Kalle Dalheimer,Jesper Pedersen','ST','117.00','7','1002','','100','200','300','0.00','2','','Practical Qt','Tyskland','ISBN 3-89864-260-1','','0.000',1);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `ARTIKELREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `BETVILKOR`
+--
+
+DROP TABLE IF EXISTS `BETVILKOR`;
+CREATE TABLE `BETVILKOR` (
+  `BETVILKOR` char(3) NOT NULL default '',
+  `DAGAR` char(3) default NULL,
+  `BESKRIVNING` varchar(40) NOT NULL default '',
+  PRIMARY KEY  (`BETVILKOR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `BETVILKOR`
+--
+
+
+/*!40000 ALTER TABLE `BETVILKOR` DISABLE KEYS */;
+LOCK TABLES `BETVILKOR` WRITE;
+INSERT INTO `BETVILKOR` (`BETVILKOR`, `DAGAR`, `BESKRIVNING`) VALUES ('1','30','30 dagar netto'),('2','20','20 dagar netto'),('3','10','10 dagar netto'),('4','0','Kontantk√∂p'),('5','30','Postf√∂rskott'),('6','60','60 dagar netto'),('001','30','30 dagar netto'),('002','20','20 dagar netto'),('003','10','10 dagar netto'),('004','0','Kontantk√∂p'),('005','30','Postf√∂rskott'),('006','60','60 dagar netto');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `BETVILKOR` ENABLE KEYS */;
+
+--
+-- Table structure for table `BOKFAR`
+--
+
+DROP TABLE IF EXISTS `BOKFAR`;
+CREATE TABLE `BOKFAR` (
+  `ARID` char(2) NOT NULL default '',
+  `BENAMNING` varchar(25) default NULL,
+  `ARSTART` date default NULL,
+  `ARSLUT` date default NULL,
+  `ARLAST` enum('J','N') default 'N',
+  `SENVERDAT` date default NULL,
+  `VERNR` int(11) default NULL,
+  `KONTOPLAN` varchar(15) default NULL,
+  `BESKATTNINGSAR` varchar(4) default NULL,
+  PRIMARY KEY  (`ARID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `BOKFAR`
+--
+
+
+/*!40000 ALTER TABLE `BOKFAR` DISABLE KEYS */;
+LOCK TABLES `BOKFAR` WRITE;
+INSERT INTO `BOKFAR` (`ARID`, `BENAMNING`, `ARSTART`, `ARSLUT`, `ARLAST`, `SENVERDAT`, `VERNR`, `KONTOPLAN`, `BESKATTNINGSAR`) VALUES ('SS','2003-01-01--2003-12-31','2003-01-01','2003-12-31','N','0000-00-00',987124,'EUBAS2003','2003'),('ST','2003-01-01--2003-12-31','2003-01-01','2003-12-31','N','0000-00-00',987124,'EUBAS2003','2003'),('AD','2003-01-01--2003-12-31','2003-01-01','2003-12-31','N','2004-01-02',101,'EUBAS97','2003'),('AE','2005-01-01--2005-12-31','2005-01-01','2005-12-31','N','0000-00-00',1,'EUBAS2003','2005');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `BOKFAR` ENABLE KEYS */;
+
+--
+-- Table structure for table `DATABAS`
+--
+
+DROP TABLE IF EXISTS `DATABAS`;
+CREATE TABLE `DATABAS` (
+  `DATABASNR` char(3) NOT NULL default '',
+  `DATABASTEXT` varchar(15) NOT NULL default '',
+  PRIMARY KEY  (`DATABASNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `DATABAS`
+--
+
+
+/*!40000 ALTER TABLE `DATABAS` DISABLE KEYS */;
+LOCK TABLES `DATABAS` WRITE;
+INSERT INTO `DATABAS` (`DATABASNR`, `DATABASTEXT`) VALUES ('99','olfixtst'),('01','olfix'),('02','olfixweb');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `DATABAS` ENABLE KEYS */;
+
+--
+-- Table structure for table `FTGDATA`
+--
+
+DROP TABLE IF EXISTS `FTGDATA`;
+CREATE TABLE `FTGDATA` (
+  `POSTTYP` varchar(5) NOT NULL default '',
+  `POSTBESKR` varchar(60) default NULL,
+  `FDATA` text,
+  PRIMARY KEY  (`POSTTYP`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `FTGDATA`
+--
+
+
+/*!40000 ALTER TABLE `FTGDATA` DISABLE KEYS */;
+LOCK TABLES `FTGDATA` WRITE;
+INSERT INTO `FTGDATA` (`POSTTYP`, `POSTBESKR`, `FDATA`) VALUES ('FNAMN','F√∂retagsnamn','PROGRAM AB'),('FTGNR','F√∂retagsnummer','991199-1991'),('ADR1','Postadress','Box 70'),('ADR2','Postnummer till Postadress','199 98'),('ADR3','Ort till Postadress','PROGSTAD'),('ADR4','Bes√∂ksadress','Syntaxv√§gen 99'),('ADR5','Postnr till Bes√∂ksadress','199 98'),('ADR6','Ort till Bes√∂ksadress','PROGSTAD'),('ADR7','Godsadress','Verktygsgatan 11'),('ADR8','Postnr till Godsadress','199 97'),('ADR9','Ort till Godsadress','PROGSTAD'),('TFNVX','Telefonnummer till vx','09-199300'),('TFN1','Telefonnummer','09-199300'),('TFN2','Mobiltelefonnummer','070-98765411'),('TFNMB','Mobiltelefonnummer','070-98765411'),('TFAX','Telefaxnummer','09-199397'),('TELEX','Telexnummer','12345'),('EML1','E-mailadress','jan@pihlgren.se'),('MOMSI','Momskonto, ing√•ende moms','2641'),('MOMSU','Momskonto, utg√•ende moms','2611'),('MOMS1','Momssats 1','25'),('MOMS2','Momssats 2','12'),('MOMS3','Momssats 3','6'),('MOMS4','Momssats 4',' '),('MOMS5','Momssats 5',' '),('AUTOK','Automatkontering J/N','N'),('KORNR','Senast anv√§nda kundordernr','23'),('BF1','Bokf√∂ringsperiod 1','Januari'),('BF2','Bokf√∂ringsperiod 2','Februari'),('BF3','Bokf√∂ringsperiod 3','Mars'),('BF4','Bokf√∂ringsperiod 4','April'),('BF5','Bokf√∂ringsperiod 5','Maj'),('BF6','Bokf√∂ringsperiod 6','Juni'),('BF7','Bokf√∂ringsperiod 7','Juli'),('BF8','Bokf√∂ringsperiod 8','Augusti'),('BF9','Bokf√∂ringsperiod 9','September'),('BF10','Bokf√∂ringsperiod 10','Oktober'),('BF11','Bokf√∂ringsperiod 11','Novemper'),('BF12','Bokf√∂ringsperiod 12','December'),('BF13','Bokf√∂ringsperiod 13','Januari'),('INKNR','Senast anv√§nda ink√∂psordernr','28'),('SNIKD','Branschtillh√∂righet','82301'),('WKUNR','Senaste anv√§nda webbkundnummer','4379'),('FAKNR','Senaste fakturanr p√• kundorder','0'),('FKNR2','Senaste fakturanr p√• kundorder,serie 2','100000'),('FKNRS','Antal fakturanrserier, default = 1','1'),('PGNR','Plusgironummer','9999999-9'),('BGNR','Bankgironummer','9999-9999'),('SKUNR','Senaste anv√§nda kundnummer','4383');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `FTGDATA` ENABLE KEYS */;
+
+--
+-- Table structure for table `INKRADREG`
+--
+
+DROP TABLE IF EXISTS `INKRADREG`;
+CREATE TABLE `INKRADREG` (
+  `INKORDNR` varchar(10) NOT NULL default '',
+  `INKORDRADNR` int(4) NOT NULL default '0',
+  `ARTIKELNR` varchar(30) default NULL,
+  `BENEMNING` varchar(30) default NULL,
+  `LEVARTIKELNR` varchar(30) default NULL,
+  `LEVBENEMNING` varchar(30) default NULL,
+  `ENHET` varchar(5) default NULL,
+  `BESTANTAL` decimal(10,2) default NULL,
+  `LEVERERAT` decimal(10,2) default NULL,
+  `RESTNOTERAT` decimal(10,2) default NULL,
+  `INKPRIS` decimal(10,2) default NULL,
+  `LEVVECKA` varchar(5) default NULL,
+  `TORDNR` int(6) default NULL,
+  `OPNR` int(6) default NULL,
+  PRIMARY KEY  (`INKORDNR`,`INKORDRADNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `INKRADREG`
+--
+
+
+/*!40000 ALTER TABLE `INKRADREG` DISABLE KEYS */;
+LOCK TABLES `INKRADREG` WRITE;
+INSERT INTO `INKRADREG` (`INKORDNR`, `INKORDRADNR`, `ARTIKELNR`, `BENEMNING`, `LEVARTIKELNR`, `LEVBENEMNING`, `ENHET`, `BESTANTAL`, `LEVERERAT`, `RESTNOTERAT`, `INKPRIS`, `LEVVECKA`, `TORDNR`, `OPNR`) VALUES ('6712',10,'1173-1445','D/A Omvandlare 12-bit','DAC1220LCN','D/A Omvandlare 12-bit','ST','25.00','0.00','25.00','95.00','351',0,0),('23',10,'1173-1175','Sp√§nningsregulator positiv',NULL,NULL,'uA78H','0.00','0.00','100.00','0.00','100',30,4084),('19',40,'1173-7513','Microprocessor','SY6502','','ST','20.00','5.00','15.00','63.00','402',0,0),('19',30,'1173-7300','1024x1 bit static RAM','21022DC','','ST','20.00','0.00','20.00','10.05','402',0,0),('19',20,'1173-7300','1024x1 bit static RAM','21022DC','','ST','20.00','10.00','10.00','10.05','401',0,0),('19',10,'1173-7206','Dual Monostable Multivibrator','SN74LS123N','','ST','20.00','0.00','20.00','4.75','402',0,0),('18',10,'1173-0911','Sp√§nningsregulator positiv','uA7805AWC','','ST','10.00','0.00','10.00','1.50','402',0,0),('18',30,'1173-1175','Sp√§nningsregulator positiv','uA78H05ASC','Voltage regulator 5V','ST','10.00','0.00','10.00','30.00','402',0,0),('18',50,'1173-1447','Timerkrets','ICM7555','Timer','ST','10.00','0.00','10.00','5.45','402',0,0),('18',20,'1173-0963','Sp√§nningsregulator negativ','uA79M05AUC','','ST','10.00','10.00','0.00','5.50','402',0,0),('18',40,'1173-1445','D/A Omvandlare 12-bit','DAC1220LCN','D/A Omvandlare 12-bit','ST','10.00','0.00','10.00','95.00','402',0,0),('18',60,'1173-6910','Quadruple 2input NAND gate','SN74LS00N','Quadruple 2input NAND gate','ST','10.00','0.00','10.00','1.45','402',0,0),('27',10,'1173-1175','Sp√§nningsregulator positiv','uA78H05ASC','Voltage regulator 5V','','100.00','0.00','100.00','30.00','4093',0,0),('26',20,'1173-1445','D/A Omvandlare 12-bit','DAC1220LCN','','','100.00','0.00','100.00','95.00','4074',0,0),('26',10,'1173-1175','Sp√§nningsregulator positiv','uA78H05ASC','Voltage regulator 5V','','100.00','0.00','100.00','30.00','4074',0,0),('25',10,'1173-1175','Sp√§nningsregulator positiv','uA78H05ASC','Voltage regulator 5V','','100.00','0.00','100.00','30.00','4074',0,0),('25',20,'1173-1445','D/A Omvandlare 12-bit','DAC1220LCN','','','100.00','0.00','100.00','95.00','4074',0,0),('27',20,'1173-1445','D/A Omvandlare 12-bit','DAC1220LCN','','','100.00','0.00','100.00','95.00','4093',0,0),('27',30,'1173-1447','Timerkrets','ICM7555','Timer','','100.00','0.00','100.00','5.45','4093',0,0),('28',10,'1173-7300','1024x1 bit statiskt RAM','2102 2DC','','','100.00','0.00','100.00','10.05','4094',0,0),('28',20,'1173-7701','Quad 2-input NOR Gate','MC14000BCP','','','100.00','0.00','100.00','1.45','4101',0,0),('28',30,'1173-7802','4-Bit Aritmetic Logic Unit','MC14581BCP','','','100.00','0.00','100.00','20.00','4101',0,0);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `INKRADREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `INKREG`
+--
+
+DROP TABLE IF EXISTS `INKREG`;
+CREATE TABLE `INKREG` (
+  `INKORDNR` varchar(10) NOT NULL default '',
+  `BESTTYP` enum('N','D','I','L','A') default NULL,
+  `ORDERDATUM` date default NULL,
+  `LEVNR` varchar(10) default NULL,
+  `LEVNAMN` varchar(30) default NULL,
+  `LEVADRESS` varchar(30) default NULL,
+  `LEVPOSTNR` varchar(6) default NULL,
+  `LEVPOSTADR` varchar(30) default NULL,
+  `LEVLAND` varchar(30) default NULL,
+  `LEVVALUTA` char(3) default NULL,
+  `LEVBETVILLKOR` varchar(50) default NULL,
+  `LEVVILLKOR` varchar(150) default NULL,
+  `LEVSETT` varchar(150) default NULL,
+  `GODSMERKE` varchar(30) default NULL,
+  `KOMMENTAR` varchar(250) default NULL,
+  `BESTTEXT` text,
+  `VARREF` varchar(30) default NULL,
+  `VARREFTFN` varchar(15) default NULL,
+  `VARREFFAX` varchar(15) default NULL,
+  `ERREF` varchar(20) default NULL,
+  `LEVDATUM` date default NULL,
+  `KUNDNR` varchar(30) default NULL,
+  `FTGNAMN` varchar(30) default NULL,
+  `FTGADR` varchar(30) default NULL,
+  `FTGPOSTNR` varchar(6) default NULL,
+  `FTGPOSTADR` varchar(30) default NULL,
+  `SPRAKKOD` char(3) default 'sv',
+  `BEKREFTKOD` enum('H','D','E') default 'E',
+  `ORDERSTATUS` enum('N','F','B','M') default 'N',
+  `UTSKRIFTSKOD` enum('J','N') default 'J',
+  `ORDERSUMMA` decimal(10,2) default NULL,
+  PRIMARY KEY  (`INKORDNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `INKREG`
+--
+
+
+/*!40000 ALTER TABLE `INKREG` DISABLE KEYS */;
+LOCK TABLES `INKREG` WRITE;
+INSERT INTO `INKREG` (`INKORDNR`, `BESTTYP`, `ORDERDATUM`, `LEVNR`, `LEVNAMN`, `LEVADRESS`, `LEVPOSTNR`, `LEVPOSTADR`, `LEVLAND`, `LEVVALUTA`, `LEVBETVILLKOR`, `LEVVILLKOR`, `LEVSETT`, `GODSMERKE`, `KOMMENTAR`, `BESTTEXT`, `VARREF`, `VARREFTFN`, `VARREFFAX`, `ERREF`, `LEVDATUM`, `KUNDNR`, `FTGNAMN`, `FTGADR`, `FTGPOSTNR`, `FTGPOSTADR`, `SPRAKKOD`, `BEKREFTKOD`, `ORDERSTATUS`, `UTSKRIFTSKOD`, `ORDERSUMMA`) VALUES ('6712','N','2003-12-13','9999','Testleverant√∂r AB','Delivery Street 1C','199 99','LEVSTAD','Sverige','SEK','60 dagar netto','EXW','ASG kundnr:99901111','Godsm√§re','Kommentar','Endast komplett order f√•r levereras\nLevereras med ASG','Jan Pihlgren','09-199311','09-199312','Caroline Seljare','2003-12-15','98765','PROGRAM AB','Verktygsgatan 11','199 97','PROGSTAD','sv','E','N','J',NULL),('18','N','2003-12-24','9999','Testleverant√∂r AB','Delivery Street 1C','199 99','LEVSTAD','Sverige','SEK','30 dagar netto','EXW','ASG kundnr:99901111','P-order','Kommentar','Ordererk√§nnande √∂nskas inom 3 arbetsdagar (om ej redan bekr√§ftats)\nAnge alltid v√•rt artikelnummer p√• f√∂ljesedel och faktura.','Jan Pihlgren','09-199321','09-199322','Caroline Seljare','2004-01-10','98765','PROGRAM AB','Verktygsgatan 11','199 97','PROGSTAD','sv','E','N','J','1389.00'),('19','N','2003-12-24','9999','Testleverant√∂r AB','Delivery Street 1C','199 99','LEVSTAD','Sverige','SEK','20 dagar netto','QWOUTA','ASG','Godsm√§rke','Kommentar','Best√§llningseftertext','Jan Pihlgren','09-199341','09-199342','Caroline Seljare','2004-01-10','98765','PROGRAM AB','Verktygsgatan 11','199 97','PROGSTAD','sv','E','N','J','1757.00'),('27','N','2004-02-05','126','Dataspecialisten AB','Storgatan 1','199 11','STORSTAD','Sverige','SEK',' 30 dagar netto',' EXW',' Schenker kundnr:11105232','PELLE','Direkt','Ordererk√§nnande √∂nskas inom 3 arbetsdagar (om ej redan bekr√§ftats)\nAnge alltid v√•rt artikelnummer p√• f√∂ljesedel och faktura.\n  \n\n\n\n','Jan Pihlgren','09-112233','09112239','Ola Norman','2004-02-25','567891','PROGRAM AB','Verktygsgatan 11','199 97','PROGSTAD','sv','E','N','J','13045.00'),('26','N','2004-02-05','123','Leverant√∂r AB','Postgatan 33','199 99','DATABY','SVERIGE','SEK',' 20 dagar netto',' EXW',' Schenker kundnr:11105232','KALLE PALL 26','Detta √§r en kommentar','Ordererk√§nnande √∂nskas inom 3 arbetsdagar (om ej redan bekr√§ftats)\nAnge alltid v√•rt artikelnummer p√• f√∂ljesedel och faktura.\n  \n\n\n\n','Jan Pihlgren','08-59112449','09-112233','Per Josefsson','2004-02-15','12345678','PROGRAM AB','Verktygsgatan 11','199 97','PROGSTAD','sv','E','N','J','12500.00'),('25','N','2004-02-05','124','Distribut√∂r AB','Brevgatan 1A','199 99','DATABY','SVERIGE','EUR',' 30 dagar netto','','','','','','Jan Pihlgren','','','Lena Bertils','2004-02-05','12345678','PROGRAM AB','Verktygsgatan 11','199 97','PROGSTAD','sv','E','N','J','12500.00'),('28','N','2004-02-16','124','Distribut√∂r AB','Brevgatan 1A','199 99','DATABY','SVERIGE','EUR',' 30 dagar netto',' EXW',' Schenker kundnr:11105232','Godsm√§rke f√∂r best√§llning nr 2','','Ordererk√§nnande √∂nskas inom 3 arbetsdagar (om ej redan bekr√§ftats)\nAnge alltid v√•rt artikelnummer p√• f√∂ljesedel och faktura.\n  \n\n\n\n','Jan Pihlgren','','','Lena Bertils','2004-02-26','12345678','PROGRAM AB','Verktygsgatan 11','199 97','PROGSTAD','sv','E','N','J','3150.00');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `INKREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `KSTALLE`
+--
+
+DROP TABLE IF EXISTS `KSTALLE`;
+CREATE TABLE `KSTALLE` (
+  `ARID` char(2) NOT NULL default '',
+  `KSTALLE` varchar(4) NOT NULL default '',
+  `BENAMNING` varchar(100) default NULL,
+  PRIMARY KEY  (`ARID`,`KSTALLE`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `KSTALLE`
+--
+
+
+/*!40000 ALTER TABLE `KSTALLE` DISABLE KEYS */;
+LOCK TABLES `KSTALLE` WRITE;
+INSERT INTO `KSTALLE` (`ARID`, `KSTALLE`, `BENAMNING`) VALUES ('SS','9999','Project Mercury');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `KSTALLE` ENABLE KEYS */;
+
+--
+-- Table structure for table `KTOPLAN`
+--
+
+DROP TABLE IF EXISTS `KTOPLAN`;
+CREATE TABLE `KTOPLAN` (
+  `ARID` char(2) NOT NULL default '',
+  `KTONR` varchar(4) NOT NULL default '',
+  `BENAMNING` varchar(100) default NULL,
+  `MANUELL` enum('J','N') default 'J',
+  `MOMSKOD` varchar(4) default NULL,
+  `SRUNR` int(3) default NULL,
+  `KSTALLE` varchar(4) default NULL,
+  `PROJEKT` varchar(4) default NULL,
+  `SUBKTO` varchar(4) default NULL,
+  `KTOPLAN` varchar(15) default NULL,
+  `IB` decimal(10,2) default NULL,
+  `UB` decimal(10,2) default NULL,
+  PRIMARY KEY  (`KTONR`,`ARID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `KTOPLAN`
+--
+
+
+/*!40000 ALTER TABLE `KTOPLAN` DISABLE KEYS */;
+LOCK TABLES `KTOPLAN` WRITE;
+INSERT INTO `KTOPLAN` (`ARID`, `KTONR`, `BENAMNING`, `MANUELL`, `MOMSKOD`, `SRUNR`, `KSTALLE`, `PROJEKT`, `SUBKTO`, `KTOPLAN`, `IB`, `UB`) VALUES ('AC','1010','Kassa','J','',0,'','','','BAS90','0.00','0.00'),('AC','1020','Postgiro','J','',0,'','','','BAS90','0.00','0.00'),('AC','1040','Checkkonto','J','',0,'','','','BAS90','0.00','0.00'),('AC','1050','Bank','J','',0,'','','','BAS90','0.00','0.00'),('AC','1120','Aktier och andelar','J','',0,'','','','BAS90','0.00','0.00'),('AC','1210','Kundfodringar','J','',0,'','','','BAS90','0.00','0.00'),('AC','1230','Bel√•nade kundfodringar (factoring)','J','',0,'','','','BAS90','0.00','0.00'),('AC','1310','F√∂rutbetalda hyreskostnader','J','',0,'','','','BAS90','0.00','0.00'),('AC','1330','F√∂rutbetalda f√∂rs√§kringskostnader','J','',0,'','','','BAS90','0.00','0.00'),('AC','1350','Upplupna hyresint√§kter','J','',0,'','','','BAS90','0.00','0.00'),('AC','1360','Upplupna r√§nteint√§kter','J','',0,'','','','BAS90','0.00','0.00'),('AC','1410','Fordringar hos anst√§llda','J','',0,'','','','BAS90','0.00','0.00'),('AC','1430','Fordringar hos leverant√∂rer','J','',0,'','','','BAS90','0.00','0.00'),('AC','1450','Skattefordringar','J','',0,'','','','BAS90','0.00','0.00'),('AC','1470','Ing√•endemervardesskatt (moms)','J','',0,'','','','BAS90','0.00','0.00'),('AC','1510','Lager','J','',0,'','','','BAS90','0.00','0.00'),('AC','1530','Produkter i arbete (PIA)','J','',0,'','','','BAS90','0.00','0.00'),('AC','1560','F√∂rn√∂denheter','J','',0,'','','','BAS90','0.00','0.00'),('AC','1580','F√∂rskott till leverant√∂rer','J','',0,'','','','BAS90','0.00','0.00'),('AC','1620','Aktier och andelar','J','',0,'','','','BAS90','0.00','0.00'),('AC','1710','Patent','J','',0,'','','','BAS90','0.00','0.00'),('AC','1730','Goodwill','J','',0,'','','','BAS90','0.00','0.00'),('AC','1810','Arbetsmaskiner','J','',0,'','','','BAS90','0.00','0.00'),('AC','1819','V√§rdeminskning inventarier','J','',0,'','','','BAS90','0.00','0.00'),('AC','1820','Inventarier','J','',0,'','','','BAS90','0.00','0.00'),('AC','1840','Bilar','J','',0,'','','','BAS90','0.00','0.00'),('AC','1849','V√§rdeminskning bilar','J','',0,'','','','BAS90','0.00','0.00'),('AC','1910','Byggnader','J','',0,'','','','BAS90','0.00','0.00'),('AC','1919','V√§rdeminskning byggnader','J','',0,'','','','BAS90','0.00','0.00'),('AC','2010','Skulder under indrivning','J','',0,'','','','BAS90','0.00','0.00'),('AC','2110','Leverant√∂rsskulder','J','',0,'','','','BAS90','0.00','0.00'),('AC','2210','Skatteskulder','J','',0,'','','','BAS90','0.00','0.00'),('AC','2250','Skuld prelimin√§rskatt','J','',0,'','','','BAS90','0.00','0.00'),('AC','2310','Upplupna l√∂ner','J','',0,'','','','BAS90','0.00','0.00'),('AC','2320','Upplupna semesterl√∂ner','J','',0,'','','','BAS90','0.00','0.00'),('AC','2330','Upplupna sociala avgifter','J','',0,'','','','BAS90','0.00','0.00'),('AC','2340','Upplupna r√§ntekostnader','J','',0,'','','','BAS90','0.00','0.00'),('AC','2410','Utg√•ende merv√§rdesskatt (moms)','J','',0,'','','','BAS90','0.00','0.00'),('AC','2480','Merv√§rdesskatt, redovisningskonto','J','',0,'','','','BAS90','0.00','0.00'),('AC','2510','Personalens k√§llskatt','J','',0,'','','','BAS90','0.00','0.00'),('AC','2530','Inf√∂rsel','J','',0,'','','','BAS90','0.00','0.00'),('AC','2560','Fackf√∂reningsavgifter','J','',0,'','','','BAS90','0.00','0.00'),('AC','2590','√ñvriga l√∂neavdrag','J','',0,'','','','BAS90','0.00','0.00'),('AC','2610','F√∂rskott fr√•n kunder','J','',0,'','','','BAS90','0.00','0.00'),('AC','2620','Skulder till personal','J','',0,'','','','BAS90','0.00','0.00'),('AC','2630','Avr√§kning, factoring','J','',0,'','','','BAS90','0.00','0.00'),('AC','2640','L√•neskulder','J','',0,'','','','BAS90','0.00','0.00'),('AC','2720','Checkkredit','J','',0,'','','','BAS90','0.00','0.00'),('AC','2790','√ñvriga l√•ngfristiga skulder','J','',0,'','','','BAS90','0.00','0.00'),('AC','2810','Lagerreserv','J','',0,'','','','BAS90','0.00','0.00'),('AC','2880','Obeskattade int√§kter','J','',0,'','','','BAS90','0.00','0.00'),('AC','2910','Eget kapital','J','',0,'','','','BAS90','0.00','0.00'),('AC','3010','F√∂rs√§ljning','J','',0,'','','','BAS90','0.00','0.00'),('AC','3082','Bonus','J','',0,'','','','BAS90','0.00','0.00'),('AC','3512','F√∂rs√§ljning skrot','J','',0,'','','','BAS90','0.00','0.00'),('AC','3610','Fakturerat emballage','J','',0,'','','','BAS90','0.00','0.00'),('AC','3640','Faktureringskostnader','J','',0,'','','','BAS90','0.00','0.00'),('AC','3770','√Ötervunna kundf√∂rluster','J','',0,'','','','BAS90','0.00','0.00'),('AC','3780','√ñresutj√§mning','J','',0,'','','','BAS90','0.00','0.00'),('AC','3810','Hyresint√§kter','J','',0,'','','','BAS90','0.00','0.00'),('AC','3910','Erh√•llna statliga bidrag','J','',0,'','','','BAS90','0.00','0.00'),('AC','4010','Ink√∂p av varor och material','J','',0,'','','','BAS90','0.00','0.00'),('AC','4610','Legoarbeten','J','',0,'','','','BAS90','0.00','0.00'),('AC','4910','F√∂r√§ndring lager','J','',0,'','','','BAS90','0.00','0.00'),('AC','4930','F√∂r√§ndring av material i produktion (PIA)','J','',0,'','','','BAS90','0.00','0.00'),('AC','5010','L√∂ner till personal','J','',0,'','','','BAS90','0.00','0.00'),('AC','5310','L√∂ner till f√∂retagsledare','J','',0,'','','','BAS90','0.00','0.00'),('AC','5220','L√∂ner till tj√§nstem√§n','J','',0,'','','','BAS90','0.00','0.00'),('AC','5340','Erss√§ttning f√∂r m√•ltidskostnader','J','',0,'','','','BAS90','0.00','0.00'),('AC','5450','Kostnader f√∂r bil','J','',0,'','','','BAS90','0.00','0.00'),('AC','5520','Traktamenten vid tj√§nsteresa','J','',0,'','','','BAS90','0.00','0.00'),('AC','5530','Bilers√§ttningar','J','',0,'','','','BAS90','0.00','0.00'),('AC','5610','Lagstadgade arbetsgivaravgifter','J','',0,'','','','BAS90','0.00','0.00'),('AC','5620','Egenavgifter','J','',0,'','','','BAS90','0.00','0.00'),('AC','5630','L√∂neskatt','J','',0,'','','','BAS90','0.00','0.00'),('AC','5710','Pensionsf√∂rs√§kringsavgifter','J','',0,'','','','BAS90','0.00','0.00'),('AC','5810','Utbildning','J','',0,'','','','BAS90','0.00','0.00'),('AC','6010','Lokalhyra','J','',0,'','','','BAS90','0.00','0.00'),('AC','6050','Elektricitet','J','',0,'','','','BAS90','0.00','0.00'),('AC','6070','St√§dning av lokaler','J','',0,'','','','BAS90','0.00','0.00'),('AC','6110','Hyra arbetsmaskiner','J','',0,'','','','BAS90','0.00','0.00'),('AC','6210','Elektricitet','J','',0,'','','','BAS90','0.00','0.00'),('AC','6230','Eldningsolja','J','',0,'','','','BAS90','0.00','0.00'),('AC','6260','Bensin mm','J','',0,'','','','BAS90','0.00','0.00'),('AC','6410','F√∂rbrukningsinventarier','J','',0,'','','','BAS90','0.00','0.00'),('AC','6460','F√∂rbrukningsmateriel','J','',0,'','','','BAS90','0.00','0.00'),('AC','6510','Kontorsmateriel','J','',0,'','','','BAS90','0.00','0.00'),('AC','6730','Redovisningskostnader','J','',0,'','','','BAS90','0.00','0.00'),('AC','6740','ADB-tj√§nster','J','',0,'','','','BAS90','0.00','0.00'),('AC','6750','Konsultarvoden f√∂r speciella utredningar','J','',0,'','','','BAS90','0.00','0.00'),('AC','6780','Advokatkostnader','J','',0,'','','','BAS90','0.00','0.00'),('AC','6810','Telefon och telegram','J','',0,'','','','BAS90','0.00','0.00'),('AC','6830','Datakommunikation','J','',0,'','','','BAS90','0.00','0.00'),('AC','6850','Porto','J','',0,'','','','BAS90','0.00','0.00'),('AC','6911','Personbilar,drivmedel','J','',0,'','','','BAS90','0.00','0.00'),('AC','6912','Personbilar,f√∂rs√§kring och skatt','J','',0,'','','','BAS90','0.00','0.00'),('AC','6913','Personbilar,reparationer','J','',0,'','','','BAS90','0.00','0.00'),('AC','6915','Personbilar,leasing','J','',0,'','','','BAS90','0.00','0.00'),('AC','6919','Personbilar,√∂vrigt','J','',0,'','','','BAS90','0.00','0.00'),('AC','7010','Frakter,transporter mm','J','',0,'','','','BAS90','0.00','0.00'),('AC','7050','Resekostnader','J','',0,'','','','BAS90','0.00','0.00'),('AC','7150','F√∂rs√§ljningsprovisioner','J','',0,'','','','BAS90','0.00','0.00'),('AC','7210','Annonsering','J','',0,'','','','BAS90','0.00','0.00'),('AC','7310','F√∂retagsf√∂rs√§kringar','J','',0,'','','','BAS90','0.00','0.00'),('AC','7350','Kundf√∂rluster','J','',0,'','','','BAS90','0.00','0.00'),('AC','7410','Styrelsearvoden','J','',0,'','','','BAS90','0.00','0.00'),('AC','7620','Patentkostnader f√∂r egna patent','J','',0,'','','','BAS90','0.00','0.00'),('AC','7670','Tidningar,tidskrifter,facklitteratur','J','',0,'','','','BAS90','0.00','0.00'),('AC','7710','Vatten och avlopp','J','',0,'','','','BAS90','0.00','0.00'),('AC','7720','Br√§nsle','J','',0,'','','','BAS90','0.00','0.00'),('AC','7810','Resultat vid avyttring av maskiner och inventarier','J','',0,'','','','BAS90','0.00','0.00'),('AC','7815','Bokf√∂rt v√§rde p√• maskiner och inventarier','J','',0,'','','','BAS90','0.00','0.00'),('AC','7911','Avskrivning av maskiner','J','',0,'','','','BAS90','0.00','0.00'),('AC','7912','Avskrivning av inventarier','J','',0,'','','','BAS90','0.00','0.00'),('AC','7914','Avskrivning av bilar mm','J','',0,'','','','BAS90','0.00','0.00'),('AC','8010','Utdelning p√• aktier och andelar','J','',0,'','','','BAS90','0.00','0.00'),('AC','8020','R√§nteint√§kter','J','',0,'','','','BAS90','0.00','0.00'),('AC','8050','R√§nteint√§kter p√• kundfodringar','J','',0,'','','','BAS90','0.00','0.00'),('AC','8120','R√§ntekostnader','J','',0,'','','','BAS90','0.00','0.00'),('AC','8150','R√§ntekostnader f√∂r leverant√∂rsskulder','J','',0,'','','','BAS90','0.00','0.00'),('AC','8170','Bankkostnader','J','',0,'','','','BAS90','0.00','0.00'),('AC','8910','√Örets skattekostnad','J','',0,'','','','BAS90','0.00','0.00'),('AC','8980','Egenavgifter','J','',0,'','','','BAS90','0.00','0.00'),('AC','8999','Redovisat resultat','J','',0,'','','','BAS90','0.00','0.00'),('AD','1210','Maskiner','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','1219','Ack avskrivningar maskiner','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','1220','Inventarier','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','1229','Ack avskrivningar inventarier','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','1409','Ber√§knad f√∂r√§ndring lager','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','1510','Kundfordringar','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','1613','√ñvriga f√∂rskott anst√§llda','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','1650','Momsfordran','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','1710','F√∂rutbetalda hyresutgifter','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','1790','√ñvriga internfordringar','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','1910','Kassa','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','1920','Postgiro','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','2081','Aktiekapital','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','2330','Checkr√§kningskredit','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','2350','Bankl√•n','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','2440','Leverant√∂rsskulder','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','2611','Utg√•ende moms','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','2615','Utg√•ende moms EU-f√∂rv√§rv','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','2641','Ing√•ende moms','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','2645','Ing√•ende moms utland','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','2710','K√§llskatt (A-skatt)','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','2920','Upplupna semesterl√∂ner','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','2941','Upplupna arbetsgivaravgifter','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','3041','F√∂rs√§ljning Jonaid','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','3051','F√∂rs√§ljning Zuhaib','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','3960','Kursvinst r√∂relsen','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','3990','√ñvriga int√§kter','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','4010','Materialkostnad','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','4056','Varuink√∂p EU','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','5010','Lokalhyra','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','5090','√ñvriga lokalkostnader','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','5830','Kost och logi','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','5900','Reklam och PR','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','6071','Representation, avdragsgill','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','6110','Kontorsmateriel','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','6200','Telefon och Post','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','6310','F√∂retagsf√∂rs√§kringar','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','6970','Tidningar, facklitteratur','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','6992','√ñvriga kostnader, ej avdragsgilla','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','7010','L√∂ner anst√§llda','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','7082','Semesterl√∂n','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','7221','L√∂n Yasar','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','7231','L√∂n Anila','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','7321','Skattefria traktamenten','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','7331','Skattefri bilers√§ttning','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','7384','Arbetskl√§der','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','7510','Arbetsgivaravgifter','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','7570','AMF','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','7620','Sjuk- och h√§lsov√•rd','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','7690','√ñvriga personalkostnader','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','7831','Avskrivningar maskiner','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','7832','Avskrivningar inventarier','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','7960','Kursf√∂rlust r√∂relsen','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','8400','R√§ntekostnader','J','',0,'','','','EUBAS97','0.00','0.00'),('AD','8490','√ñvriga finansiella kostnader','J','',0,'','','','EUBAS97','0.00','0.00'),('SS','9999','Testkonto3','J','1',100,'2000','3000','4000','EUBAS97','0.00','0.00');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `KTOPLAN` ENABLE KEYS */;
+
+--
+-- Table structure for table `KUNDKATEGORI`
+--
+
+DROP TABLE IF EXISTS `KUNDKATEGORI`;
+CREATE TABLE `KUNDKATEGORI` (
+  `KATEGORINR` char(3) NOT NULL default '',
+  `BESKRIVNING` varchar(40) NOT NULL default '',
+  PRIMARY KEY  (`KATEGORINR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `KUNDKATEGORI`
+--
+
+
+/*!40000 ALTER TABLE `KUNDKATEGORI` DISABLE KEYS */;
+LOCK TABLES `KUNDKATEGORI` WRITE;
+INSERT INTO `KUNDKATEGORI` (`KATEGORINR`, `BESKRIVNING`) VALUES ('003','Webbkund'),('001','Normalkund');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `KUNDKATEGORI` ENABLE KEYS */;
+
+--
+-- Table structure for table `KUNDREG`
+--
+
+DROP TABLE IF EXISTS `KUNDREG`;
+CREATE TABLE `KUNDREG` (
+  `KUNDNR` varchar(10) NOT NULL default '',
+  `KUNDORGNR` varchar(15) default NULL,
+  `NAMN` varchar(60) NOT NULL default '',
+  `ADRESS` varchar(30) default NULL,
+  `POSTNR` varchar(6) default NULL,
+  `POSTADR` varchar(30) default NULL,
+  `LAND` varchar(30) default NULL,
+  `TFNNR` varchar(15) default NULL,
+  `EMAILADR` varchar(30) default NULL,
+  `FAXNR` varchar(15) default NULL,
+  `ERREFERENT` varchar(30) default NULL,
+  `ERREFTFNNR` varchar(15) default NULL,
+  `ERREFEMAIL` varchar(60) default NULL,
+  `SELJARE` varchar(20) default NULL,
+  `FRITEXT` varchar(100) default NULL,
+  `VALUTA` char(3) default NULL,
+  `BETALVILLKOR` char(3) default NULL,
+  `LEVVILLKOR` char(3) default NULL,
+  `LEVSETT` char(3) default NULL,
+  `DISTRIKT` char(3) default NULL,
+  `KUNDKATEGORI` char(3) default NULL,
+  `STDLEVPLATS` char(3) default '001',
+  `ORDERERKENNANDE` enum('J','N') default 'J',
+  `PLOCKLISTA` enum('J','N') default 'J',
+  `FOLJESEDEL` enum('J','N') default 'J',
+  `KRAVBREV` enum('J','N') default 'J',
+  `SPRAKKOD` char(3) default NULL,
+  `EXPAVGIFT` enum('J','N') default 'J',
+  `FRAKTAVG` enum('J','N') default 'J',
+  `KREDITLIMIT` decimal(10,2) default NULL,
+  `KREDITDAGAR` int(11) default NULL,
+  `KREDITKOD` char(3) default NULL,
+  `EXPORTKOD` char(3) default NULL,
+  `SKATTEKOD` char(3) default NULL,
+  `RABATTKOD` char(3) default NULL,
+  `DROJMALSRTA` enum('J','N') default 'J',
+  `DROJMALSFAKTURA` enum('J','N') default 'J',
+  `SAMLINGSFAKT` enum('J','N') default 'J',
+  `SENASTEKRAVDATUM` date default NULL,
+  `SKULD` decimal(10,2) default NULL,
+  `ORDERSTOCK` decimal(10,2) default NULL,
+  `PRISLISTA` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`KUNDNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `KUNDREG`
+--
+
+
+/*!40000 ALTER TABLE `KUNDREG` DISABLE KEYS */;
+LOCK TABLES `KUNDREG` WRITE;
+INSERT INTO `KUNDREG` (`KUNDNR`, `KUNDORGNR`, `NAMN`, `ADRESS`, `POSTNR`, `POSTADR`, `LAND`, `TFNNR`, `EMAILADR`, `FAXNR`, `ERREFERENT`, `ERREFTFNNR`, `ERREFEMAIL`, `SELJARE`, `FRITEXT`, `VALUTA`, `BETALVILLKOR`, `LEVVILLKOR`, `LEVSETT`, `DISTRIKT`, `KUNDKATEGORI`, `STDLEVPLATS`, `ORDERERKENNANDE`, `PLOCKLISTA`, `FOLJESEDEL`, `KRAVBREV`, `SPRAKKOD`, `EXPAVGIFT`, `FRAKTAVG`, `KREDITLIMIT`, `KREDITDAGAR`, `KREDITKOD`, `EXPORTKOD`, `SKATTEKOD`, `RABATTKOD`, `DROJMALSRTA`, `DROJMALSFAKTURA`, `SAMLINGSFAKT`, `SENASTEKRAVDATUM`, `SKULD`, `ORDERSTOCK`, `PRISLISTA`) VALUES ('4376','[NULL]','Nya Test AB','Provgatan 2','199 99','LILLEBY','Sverige','09-999990','info@test.se','09-999999','Karl Andersson','09-999991','karl.a@test.se','Caroline Seljare','Fritt textf√§lt','SEK','1','001','001','Kal','Sof','002','J','J','J','J','sv','J','J','2000.00',0,'[NU','[NU','[NU','[NU','J','J','J','0000-00-00','0.00','0.00',0),('4377','[NULL]','Nya Kund AB','Provgatan 23','199 97','LILLEBY','Sverige','09-999190','info@kund.se','09-999199','Per Karlsson','09-999191','per.k@kund.se','Josef Seljare','V√•r nya kund','SEK','1','001','001','√ñre','Sof','001','J','J','J','J','sv','J','J','2000.00',0,'','011','001','001','J','J','J','0000-00-00','0.00','0.00',0),('4378','[NULL]','Nya Storkund AB','Fina gatan 2','100 01','LYXBY','Sverige','09-109990','info@storkund.se','09-109999','Carl von Petersen','09-109991','c.p@storkund.se','Carolina Seljare','Detta √§r en stor kund','sv','SEK','001','1','LYX','001','001','J','J','J','N','J','J','J','0.00',45,'001','001','001','001','J','J','J','0000-00-00','0.00','0.00',0),('4379','[NULL]','Nya Sm√•kund AB','Myrstigen 32','199 02','SM√ÖSTAD','Sverige','09-129990','info@smakund.se','09-129999','Lillemor Andr√©n','09-129991','lillemor.a@smakund.se','Caroline Seljare','Den lilla kunden','SEK','1','001','001','√ñre','Sft','002','J','J','J','J','sv','J','J','5000.00',30,'001','001','001','001','J','J','J','0000-00-00','0.00','0.00',0),('4375',NULL,'Lilla Kunden Eftr AB','Bakgatan 1C','199 09','SM√ÖSTAD','Sverige','09-390000','info@lillakundeneftr.se','09-390009','Lillemor Andr√©n','09-390001','lillemor@lillakundeneftr.se','Lilleman Karlsson','Byte av f√∂retagsnamn Testf√∂retaget','SEK','1','001','001','003','003','002','J','J','J','J','sv','J','J','13500.00',0,'001','001','001','001','J','J','J',NULL,NULL,NULL,0),('4380','559999-9999','Testkund AB','Testv√§gen 34','199 89','LYXSTAD','Sverige','09-999980','info@testkund.se','09-999989','Tessie Testdottir','09-999971','tessi.t@testkund.se','Caroline Seljare','Ingen text','SEK','004','002','003','21','10','001','J','J','J','J','sv','J','J','25000.00',NULL,'JN',NULL,NULL,NULL,'J','J','J',NULL,NULL,NULL,1),('4381','559999-9999','Testbolaget AB','Storgatan 33','199 11','LILLEBY','Sverige','09-999910','info@testbolaget.se','09-999919','Lars Andersson','09-999911','l.andersson@testbolaget.se','Caroline Seljare','B√§sta kunden','SEK','1','001','001','TST','ST','001','J','J','J','J','sv','J','J','100000.00',NULL,'',NULL,NULL,NULL,'J','J','J',NULL,NULL,NULL,0),('4383','559999-3333','Government Inc','Downing Street 10','G23KB1','LONDON','Great Brittain','4480010000','info@goverment.uk','4480010079','Tony Blair','4480010001','tony.b@goverment.uk','Tessie Snowdown','Premi√§rminister','GBP','1','001','001','GB','PR','001','J','J','J','J','uk','J','J','1000000.00',0,'JN','','','','J','J','J',NULL,NULL,'25000.00',5);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `KUNDREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `KURESK`
+--
+
+DROP TABLE IF EXISTS `KURESK`;
+CREATE TABLE `KURESK` (
+  `ORDERNR` varchar(10) NOT NULL default '',
+  `FAKTURANR` varchar(20) NOT NULL default '',
+  `KUNDNR` varchar(10) NOT NULL default '',
+  `FAKTURADATUM` date default NULL,
+  `EXPIREDATUM` date default NULL,
+  `NETTOBELOPP` decimal(10,2) default NULL,
+  `MOMSBELOPP` decimal(10,2) default NULL,
+  `FAKTURABELOPP` decimal(10,2) default NULL,
+  `BETALD` enum('J','N') NOT NULL default 'N',
+  `BETALDATUM` date default NULL,
+  `USERID` varchar(8) default NULL,
+  `VALUTA` char(3) default 'SEK',
+  `VALUTAKURS` decimal(10,2) NOT NULL default '1.00',
+  `VALUTABELOPP` decimal(10,2) default '0.00',
+  `BAR` char(2) default NULL,
+  `VERNR` int(11) default NULL,
+  `MOMSKTONR` varchar(4) default NULL,
+  `KTONR` varchar(4) default NULL,
+  `DEBETBELOPP` decimal(10,2) default NULL,
+  PRIMARY KEY  (`ORDERNR`,`FAKTURANR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `KURESK`
 --
--- Current Database: olfix
+
+
+/*!40000 ALTER TABLE `KURESK` DISABLE KEYS */;
+LOCK TABLES `KURESK` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `KURESK` ENABLE KEYS */;
+
+--
+-- Table structure for table `LAGERSTELLEREG`
+--
+
+DROP TABLE IF EXISTS `LAGERSTELLEREG`;
+CREATE TABLE `LAGERSTELLEREG` (
+  `ARLAGST` char(1) NOT NULL default '',
+  `ARTIKELNR` varchar(30) NOT NULL default '',
+  `ARLAGHYLLA` varchar(10) default NULL,
+  `ARLAGSALDO` decimal(10,2) default NULL,
+  `ARINVGRP` char(3) default NULL,
+  `ARABC` char(2) default NULL,
+  `ARVALUTA` char(3) default NULL,
+  `ARIPRIS` decimal(10,2) default '0.00',
+  `ARIKVANT0` decimal(10,2) default '0.00',
+  `ARIKVANT1` decimal(10,2) default '0.00',
+  `ARIKVANT2` decimal(10,2) default '0.00',
+  `ARKALKPRIS` decimal(10,2) default '0.00',
+  `ARPLANKPRIS` decimal(10,2) default '0.00',
+  `ARFRYSTKPRIS` decimal(10,2) default '0.00',
+  `ARBESTKVANT` decimal(10,2) default '0.00',
+  `ARBESTPUNKT` decimal(10,2) default '0.00',
+  `AROMKOST` decimal(10,2) default '0.00',
+  `RESERVERAT` decimal(10,2) default NULL,
+  PRIMARY KEY  (`ARTIKELNR`,`ARLAGST`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `LAGERSTELLEREG`
+--
+
+
+/*!40000 ALTER TABLE `LAGERSTELLEREG` DISABLE KEYS */;
+LOCK TABLES `LAGERSTELLEREG` WRITE;
+INSERT INTO `LAGERSTELLEREG` (`ARLAGST`, `ARTIKELNR`, `ARLAGHYLLA`, `ARLAGSALDO`, `ARINVGRP`, `ARABC`, `ARVALUTA`, `ARIPRIS`, `ARIKVANT0`, `ARIKVANT1`, `ARIKVANT2`, `ARKALKPRIS`, `ARPLANKPRIS`, `ARFRYSTKPRIS`, `ARBESTKVANT`, `ARBESTPUNKT`, `AROMKOST`, `RESERVERAT`) VALUES ('1','1000-1001','ABC002','103.00','001','A','SEK','125.50','60.00','75.00','50.00','160.00','202.50','160.00','62.00','125.00','34.50',NULL),('1','1000-1002','AAA001','126.00','1','A','SEK','30.00','0.00','0.00','0.00','35.00','0.00','0.00','0.00','100.00','0.00',NULL),('1','1000-1003','AAA001','75.00','1','A','SEK','1.50','0.00','0.00','0.00','1.60','0.00','0.00','0.00','100.00','0.00',NULL),('1','1000-1004','AAA001','10.00','1','A','SEK','5.50','0.00','0.00','0.00','6.65','0.00','0.00','0.00','50.00','0.00',NULL),('1','1000-1005','AAA002','27.00','1','A','SEK','95.00','0.00','0.00','0.00','100.00','0.00','0.00','0.00','25.00','0.00',NULL),('1','1000-1006','AAA002','536.00','2','A','SEK','5.45','0.00','0.00','0.00','6.85','0.00','0.00','0.00','150.00','0.00',NULL),('1','1000-1007','AAA003','243.00','2','A','SEK','1.45','0.00','0.00','0.00','1.65','0.00','0.00','0.00','200.00','0.00',NULL),('1','1000-1008','AAA003','263.00','2','A','SEK','4.75','0.00','0.00','0.00','5.15','0.00','0.00','0.00','100.00','0.00',NULL),('1','1000-1009','AAB001','458.00','2','A','SEK','10.05','0.00','0.00','0.00','11.65','0.00','0.00','0.00','350.00','0.00',NULL),('1','1000-1010','AAB001','27.00','1','A','SEK','45.45','0.00','0.00','0.00','50.35','0.00','0.00','0.00','30.00','0.00',NULL),('1','1000-1011','AAC001','11.00','1','A','SEK','98.00','0.00','0.00','0.00','103.00','0.00','0.00','0.00','65.00','5.00',NULL),('1','1000-1012','AAA004','34.00','1','A','SEK','1.45','0.00','0.00','0.00','2.05','0.00','0.00','0.00','50.00','0.00',NULL),('1','1000-1013','AAA005','32.00','1','A','SEK','20.00','0.00','0.00','0.00','23.00','0.00','0.00','0.00','30.00','0.00',NULL),('1','1000-1014','AAB001','6.00','2','A','SEK','55.00','0.00','0.00','0.00','70.00','0.00','0.00','0.00','10.00','0.00',NULL);
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `LAGERSTELLEREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `LEVREG`
+--
+
+DROP TABLE IF EXISTS `LEVREG`;
+CREATE TABLE `LEVREG` (
+  `LEVNR` varchar(10) NOT NULL default '',
+  `LEVORGNR` varchar(12) default NULL,
+  `LEVNAMN` varchar(30) NOT NULL default '',
+  `LEVADRESS` varchar(30) default NULL,
+  `LEVPOSTNR` varchar(6) default NULL,
+  `LEVPOSTADR` varchar(30) default NULL,
+  `LEVLAND` varchar(30) default NULL,
+  `LEVTFNNR` varchar(15) default NULL,
+  `LEVFAXNR` varchar(15) default NULL,
+  `LEVTELEX` varchar(10) default NULL,
+  `LEVEMAIL` varchar(30) default NULL,
+  `LEVPOSTGIRONR` varchar(10) default NULL,
+  `LEVBANKGIRONR` varchar(10) default NULL,
+  `LEVREFERENT` varchar(20) default NULL,
+  `LEVREFTFN` varchar(15) default NULL,
+  `LEVMOMSKOD` char(1) default '1',
+  `LEVSKULD` decimal(10,2) default NULL,
+  `LEVKONTO` varchar(4) default NULL,
+  `LEVKUNDNR` varchar(30) default NULL,
+  `LEVVALUTA` char(3) default NULL,
+  `BETALVILKOR` char(3) default NULL,
+  PRIMARY KEY  (`LEVNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `LEVREG`
+--
+
+
+/*!40000 ALTER TABLE `LEVREG` DISABLE KEYS */;
+LOCK TABLES `LEVREG` WRITE;
+INSERT INTO `LEVREG` (`LEVNR`, `LEVORGNR`, `LEVNAMN`, `LEVADRESS`, `LEVPOSTNR`, `LEVPOSTADR`, `LEVLAND`, `LEVTFNNR`, `LEVFAXNR`, `LEVTELEX`, `LEVEMAIL`, `LEVPOSTGIRONR`, `LEVBANKGIRONR`, `LEVREFERENT`, `LEVREFTFN`, `LEVMOMSKOD`, `LEVSKULD`, `LEVKONTO`, `LEVKUNDNR`, `LEVVALUTA`, `BETALVILKOR`) VALUES ('9999','666667-9997','Testleverant√∂r AB','Delivery Street 1C','199 99','LEVSTAD','Sverige','09-919191','09-919192','88888','kundtj@testlev.se','5559998-8','5998-9998','Lars Andersson','09-919193','1','0.00','2121','98765','SEK','1'),('1000','','ICA Stj√§rnk√∂p','','','M√ÑRSTA','','020-833333','','',' kundkontakt@ica.se','','','','','1','0.00','','','SEK','1'),('2001','','Carlsberg','','','','Sverige','020-788020','','','','','','','','1','0.00','','','SEK','1'),('123','559999-9999','Leverant√∂r AB','Postgatan 33','199 99','DATABY','SVERIGE','09-999999','09-999998','99999','kundtj@leverantor.se','4559999-9','5999-9999','Per Josefsson','09-999997','1','0.00','2440','12345678','SEK','2'),('124','559988-9999','Distribut√∂r AB','Brevgatan 1A','199 99','DATABY','SVERIGE','09-999199','09-999198','19999','kundtj@distributor.se','4559988-9','5988-9999','Lena Bertils','09-999997','1','0.00','2440','12345678','EUR','1'),('125','559955-5599','F√∂rs√§ljning AB','S√§ljgatan 3','199 11','BY','Sverige','09-119910','09-119919','11119','info@forsaljning.se','454511-1','4545-1111','Karl S√§ljare','09-119915','1','0.00','2110','98765','SEK','1'),('126','550101-5555','Dataspecialisten AB','Storgatan 1','199 11','STORSTAD','Sverige','09-112250','09-112259','22229','info@dataspecialisten.se','4512323-3','4512-5566','Ola Norman','09-112255','1','0.00','2110','567891','SEK','1'),('100','559901-9991','Bokf√∂rlag AB','Bokgatan 1','198 01','BOKBY','Sverige','09-909090','09-909010','99991','kundtj@bokforlag.se','5599999-9','5900-2222','Linda Bokman','09-909011','1','0.00','2110','33331','SEK','1'),('200','559902-9992','Stora Bokf√∂rlaget AB','F√∂rlagsgatan 11','198 02','F√ñRLAGSSTAD','Sverige','09-919190','09-919111','22222','kundtj@storaforlag.se','559998-2','5900-3333','Philip King','09-919196','1','0.00','2110','44440','SEK','1'),('300','559899-5559','Lilla F√∂rlaget HB','Bokgr√§nd 23','198 03','BOKBY','Sverige','09-808080','09-808081','89992','Kundtj@lillaforlaget.se','558800-8','5900-4444','Kerstin Bokare','09-808089','1','0.00','2110','55550','SEK','1');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `LEVREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `LEVRESK`
+--
+
+DROP TABLE IF EXISTS `LEVRESK`;
+CREATE TABLE `LEVRESK` (
+  `LEVNR` varchar(10) NOT NULL default '',
+  `FAKTURANR` varchar(20) NOT NULL default '',
+  `REGDATUM` date default NULL,
+  `FAKTDATUM` date default NULL,
+  `EXPIREDATUM` date default NULL,
+  `FAKTTEXT` varchar(100) default NULL,
+  `BAR` char(2) default NULL,
+  `MOMSPROCENT` decimal(3,2) default NULL,
+  `VALUTA` char(3) default NULL,
+  `VALUTAKURS` decimal(3,2) default NULL,
+  `VALUTABELOPP` decimal(10,2) default NULL,
+  `LEVKTONR` varchar(4) default NULL,
+  `FAKTBELOPP` decimal(10,2) default NULL,
+  `MOMSKTONR` varchar(4) default NULL,
+  `MOMSBELOPP` decimal(10,2) default NULL,
+  `DEBETKONTONR` varchar(4) default NULL,
+  `DEBETBELOPP` decimal(10,2) default NULL,
+  `USERID` varchar(8) default NULL,
+  `VERNR` int(11) default NULL,
+  `BETALD` enum('J','N') default 'N',
+  `BETALDDATUM` date default NULL,
+  `OCRNR` varchar(20) default NULL,
+  PRIMARY KEY  (`LEVNR`,`FAKTURANR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `LEVRESK`
+--
+
+
+/*!40000 ALTER TABLE `LEVRESK` DISABLE KEYS */;
+LOCK TABLES `LEVRESK` WRITE;
+INSERT INTO `LEVRESK` (`LEVNR`, `FAKTURANR`, `REGDATUM`, `FAKTDATUM`, `EXPIREDATUM`, `FAKTTEXT`, `BAR`, `MOMSPROCENT`, `VALUTA`, `VALUTAKURS`, `VALUTABELOPP`, `LEVKTONR`, `FAKTBELOPP`, `MOMSKTONR`, `MOMSBELOPP`, `DEBETKONTONR`, `DEBETBELOPP`, `USERID`, `VERNR`, `BETALD`, `BETALDDATUM`, `OCRNR`) VALUES ('123','1238866','2003-11-07','2003-11-04','2003-12-07','Ink√∂p av bokhylla','AC','25.00','SEK','1.00','1100.00','2110','1100.00','1470','275.00','1810','825.00','ADMIN',22,'N',NULL,'76598234');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `LEVRESK` ENABLE KEYS */;
+
+--
+-- Table structure for table `LEVSETT`
+--
+
+DROP TABLE IF EXISTS `LEVSETT`;
+CREATE TABLE `LEVSETT` (
+  `LEVSETTNR` char(3) NOT NULL default '',
+  `LEVSETTTEXT` varchar(150) NOT NULL default '',
+  PRIMARY KEY  (`LEVSETTNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `LEVSETT`
+--
+
+
+/*!40000 ALTER TABLE `LEVSETT` DISABLE KEYS */;
+LOCK TABLES `LEVSETT` WRITE;
+INSERT INTO `LEVSETT` (`LEVSETTNR`, `LEVSETTTEXT`) VALUES ('001','Schenker kundnr:11105232'),('002','ASG. Kundnr 111111'),('003','Post');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `LEVSETT` ENABLE KEYS */;
+
+--
+-- Table structure for table `LEVVILLKOR`
+--
+
+DROP TABLE IF EXISTS `LEVVILLKOR`;
+CREATE TABLE `LEVVILLKOR` (
+  `VILLKORSNR` char(3) NOT NULL default '',
+  `VILLKORSTEXT` varchar(150) NOT NULL default '',
+  PRIMARY KEY  (`VILLKORSNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `LEVVILLKOR`
+--
+
+
+/*!40000 ALTER TABLE `LEVVILLKOR` DISABLE KEYS */;
+LOCK TABLES `LEVVILLKOR` WRITE;
+INSERT INTO `LEVVILLKOR` (`VILLKORSNR`, `VILLKORSTEXT`) VALUES ('001','EXW'),('002','EYW'),('003','');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `LEVVILLKOR` ENABLE KEYS */;
+
+--
+-- Table structure for table `ORDERRADREG`
+--
+
+DROP TABLE IF EXISTS `ORDERRADREG`;
+CREATE TABLE `ORDERRADREG` (
+  `ORDERNR` varchar(10) NOT NULL default '',
+  `ORDERRAD` int(4) NOT NULL default '0',
+  `KUNDNR` varchar(10) NOT NULL default '',
+  `RADORDERTYP` enum('N','D') default 'N',
+  `ARTIKELNR` varchar(30) NOT NULL default '',
+  `BENEMNING` varchar(60) default NULL,
+  `LEVERANSVECKA` varchar(5) default NULL,
+  `BESTELLT` decimal(10,2) NOT NULL default '0.00',
+  `APRIS` decimal(10,2) NOT NULL default '0.00',
+  `SUMMA` decimal(10,2) NOT NULL default '0.00',
+  `MOMSKR` decimal(10,2) NOT NULL default '0.00',
+  `LEVERERAT` decimal(10,2) default NULL,
+  `RESTNOTERAT` decimal(10,2) default NULL,
+  `RADRABATT` decimal(2,1) default NULL,
+  `KALKYLPRIS` decimal(10,2) default NULL,
+  `LEVDATUM` date default NULL,
+  `ENHET` varchar(4) default 'ST',
+  `FAKTURERAT` decimal(10,2) default NULL,
+  PRIMARY KEY  (`ORDERNR`,`ORDERRAD`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ORDERRADREG`
+--
+
+
+/*!40000 ALTER TABLE `ORDERRADREG` DISABLE KEYS */;
+LOCK TABLES `ORDERRADREG` WRITE;
+INSERT INTO `ORDERRADREG` (`ORDERNR`, `ORDERRAD`, `KUNDNR`, `RADORDERTYP`, `ARTIKELNR`, `BENEMNING`, `LEVERANSVECKA`, `BESTELLT`, `APRIS`, `SUMMA`, `MOMSKR`, `LEVERERAT`, `RESTNOTERAT`, `RADRABATT`, `KALKYLPRIS`, `LEVDATUM`, `ENHET`, `FAKTURERAT`) VALUES ('22',20,'4383','N','1000-1002','Linux MAGNUM','6087','10.00','117.00','1240.20','70.20','0.00','0.00','0.0','0.00','0000-00-00','ST','0.00'),('22',10,'4383','','1000-1001','Att anv√§nda GNU/LINUX','6087','6.00','120.00','763.20','43.20','0.00','0.00','0.0','0.00','0000-00-00','','0.00'),('23',10,'4375','N','1000-1011','Professional Linux Programming','6095','10.00','117.00','1240.20','70.20','0.00','0.00','0.0','0.00','0000-00-00','ST','0.00'),('1',10,'4376','D','1000-1016','Seagate Baracuda 7200+7 160GB','6113','4.00','650.00','2600.00','650.00','2.00','13.00','14.0','15.00','2006-02-20','ST','1.00'),('23',20,'4375','','1000-1009','Arbeta med C','6095','5.00','117.00','620.10','35.10','0.00','0.00','0.0','0.00','0000-00-00','','0.00');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `ORDERRADREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `ORDERREG`
+--
+
+DROP TABLE IF EXISTS `ORDERREG`;
+CREATE TABLE `ORDERREG` (
+  `ORDERNR` varchar(10) NOT NULL default '',
+  `KUNDNR` varchar(10) NOT NULL default '',
+  `ORDERTYP` enum('N','D','E','F') default 'N',
+  `ORDERSTATUS` enum('A','N','F','B') default 'A',
+  `ORDERDATUM` date default NULL,
+  `LEVDATUM` date default NULL,
+  `KUNDNAMN` varchar(60) default NULL,
+  `KUNDADRESS` varchar(30) default NULL,
+  `KUNDPOSTNR` varchar(6) default NULL,
+  `KUNDPOSTADR` varchar(30) default NULL,
+  `KUNDLAND` varchar(30) default NULL,
+  `ERREF` varchar(20) default NULL,
+  `LEVADRESS` varchar(30) default NULL,
+  `LEVPOSTNR` varchar(6) default NULL,
+  `LEVPOSTADR` varchar(30) default NULL,
+  `LEVLAND` varchar(30) default NULL,
+  `VARREF` varchar(20) default NULL,
+  `SELJARE` varchar(20) default NULL,
+  `GODSMERKE` varchar(100) default NULL,
+  `BETVILLKTYP` enum('F','P','K') NOT NULL default 'F',
+  `BETVILLKOR` char(3) default '001',
+  `LEVVILLKOR` char(3) default '001',
+  `LEVSETT` char(3) default '001',
+  `PLOCKLISTA` enum('J','N') default 'J',
+  `FOLJESEDEL` enum('J','N') default 'J',
+  `FRAKTAVG` enum('J','N') default 'J',
+  `SKATTEKOD` char(3) NOT NULL default '001',
+  `MOMS` decimal(3,2) default NULL,
+  `VALUTA` char(3) default 'SEK',
+  `EXPORTKOD` char(3) default '001',
+  `SPRAKKOD` char(3) default 'sv',
+  `ORDERSUMMA` decimal(10,2) default NULL,
+  `FRAKTSUMMA` decimal(10,2) default NULL,
+  `FRAKTMOMSKR` decimal(10,2) default NULL,
+  `ORDERMOMS` decimal(10,2) default NULL,
+  `ORDERTOTAL` decimal(10,2) default NULL,
+  PRIMARY KEY  (`ORDERNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ORDERREG`
+--
+
+
+/*!40000 ALTER TABLE `ORDERREG` DISABLE KEYS */;
+LOCK TABLES `ORDERREG` WRITE;
+INSERT INTO `ORDERREG` (`ORDERNR`, `KUNDNR`, `ORDERTYP`, `ORDERSTATUS`, `ORDERDATUM`, `LEVDATUM`, `KUNDNAMN`, `KUNDADRESS`, `KUNDPOSTNR`, `KUNDPOSTADR`, `KUNDLAND`, `ERREF`, `LEVADRESS`, `LEVPOSTNR`, `LEVPOSTADR`, `LEVLAND`, `VARREF`, `SELJARE`, `GODSMERKE`, `BETVILLKTYP`, `BETVILLKOR`, `LEVVILLKOR`, `LEVSETT`, `PLOCKLISTA`, `FOLJESEDEL`, `FRAKTAVG`, `SKATTEKOD`, `MOMS`, `VALUTA`, `EXPORTKOD`, `SPRAKKOD`, `ORDERSUMMA`, `FRAKTSUMMA`, `FRAKTMOMSKR`, `ORDERMOMS`, `ORDERTOTAL`) VALUES ('2','4376','N','A','2005-03-12','2005-03-10','Nya Test AB','Provgatan 2','199 99','LILLEBY','Sverige','Pelle Persson','Bokh√•llargatan 3','199 19','LILLEBY','Sverige',NULL,'Carina S√§ljare','Godsm√§rke','F','1','001','002','J','J','J','001','25.00','SEK','001','sv','5117.00','90.00','22.50','1279.52','6509.02'),('1','4376','N','F','2005-03-12','2005-03-15','Nya Test AB','Provgatan 2','199 99','LILLEBY','Sverige','Karl Andersson','Bokh√•llargatan 3','199 19','LILLEBY','',NULL,'Lars Seller','Godsm√§rke','F','1','001','002','J','J','J','001','25.00','SEK','001','sv','5117.00','90.00','22.50','1279.52','6509.02'),('23','4375','N','A','2006-02-17','2006-02-17','Lilla Kunden Eftr AB','Bakgatan 1C','199 09','SM√ÖSTAD','Sverige','Lillemor Andr√©n','Bakgatan 1D','199 09','SM√ÖSTAD','',NULL,'Jan Pihlgren','Godsm√§rke jan','F','1','001','002','J','J','J','001','25.00','SEK','001','sv','1755.00','90.00','22.50','127.80','1995.30'),('22','4383','N','A','2006-02-17','2006-02-17','Government Inc','Downing Street 10','G23KB1','LONDON','Great Brittain','Tony Blair','Downing Streat 10','123 45','LONDON','',NULL,'Jan Pihlgren 2','','F','1','001','001','J','J','J','001','25.00','GBP','001','sv','1890.00','90.00','22.50','135.90','2025.90');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `ORDERREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `PASSW`
+--
+
+DROP TABLE IF EXISTS `PASSW`;
+CREATE TABLE `PASSW` (
+  `KUNDNR` varchar(10) NOT NULL default '',
+  `PASSW` varchar(16) NOT NULL default '',
+  PRIMARY KEY  (`KUNDNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `PASSW`
+--
+
+
+/*!40000 ALTER TABLE `PASSW` DISABLE KEYS */;
+LOCK TABLES `PASSW` WRITE;
+INSERT INTO `PASSW` (`KUNDNR`, `PASSW`) VALUES ('4376','webbson'),('4375','webbman');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `PASSW` ENABLE KEYS */;
+
+--
+-- Table structure for table `PLOCKLISTEREG`
+--
+
+DROP TABLE IF EXISTS `PLOCKLISTEREG`;
+CREATE TABLE `PLOCKLISTEREG` (
+  `PLOCKNR` int(11) NOT NULL auto_increment,
+  `ORDERNR` varchar(10) NOT NULL default '',
+  `ORDERRAD` int(4) NOT NULL default '0',
+  `KUNDNR` varchar(10) NOT NULL default '',
+  `ARTIKELNR` varchar(30) NOT NULL default '',
+  `BENEMNING` varchar(60) default NULL,
+  `LEVERANSVECKA` varchar(5) default NULL,
+  `BESTELLT` decimal(10,2) NOT NULL default '0.00',
+  `ATTLEVERERA` decimal(10,2) NOT NULL default '0.00',
+  `LEVERERAT` decimal(10,2) NOT NULL default '0.00',
+  `PLOCKAT` decimal(10,2) NOT NULL default '0.00',
+  `RESTNOTERAT` decimal(10,2) NOT NULL default '0.00',
+  `LEVDATUM` date default NULL,
+  `ENHET` varchar(4) default NULL,
+  `PLOCKSTATUS` enum('P','B') default 'P',
+  `PLOCKDATUM` date NOT NULL default '0000-00-00',
+  PRIMARY KEY  (`PLOCKNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `PLOCKLISTEREG`
+--
+
+
+/*!40000 ALTER TABLE `PLOCKLISTEREG` DISABLE KEYS */;
+LOCK TABLES `PLOCKLISTEREG` WRITE;
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `PLOCKLISTEREG` ENABLE KEYS */;
+
+--
+-- Table structure for table `PRISLISTA`
+--
+
+DROP TABLE IF EXISTS `PRISLISTA`;
+CREATE TABLE `PRISLISTA` (
+  `ARTIKELNR` varchar(30) NOT NULL default '',
+  `PRIS1` decimal(10,2) default '0.00',
+  `PRIS2` decimal(10,2) default '0.00',
+  `PRIS3` decimal(10,2) default '0.00',
+  `PRIS4` decimal(10,2) default '0.00',
+  `PRIS5` decimal(10,2) default '0.00',
+  PRIMARY KEY  (`ARTIKELNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `PRISLISTA`
+--
+
+
+/*!40000 ALTER TABLE `PRISLISTA` DISABLE KEYS */;
+LOCK TABLES `PRISLISTA` WRITE;
+INSERT INTO `PRISLISTA` (`ARTIKELNR`, `PRIS1`, `PRIS2`, `PRIS3`, `PRIS4`, `PRIS5`) VALUES ('1000-1001','120.00','110.00','105.00','0.00','5.50'),('1000-1002','320.00','300.00','0.00','0.00','0.00'),('1000-1003','305.00','295.00','0.00','0.00','0.00'),('1000-1004','335.00','320.00','0.00','0.00','0.00'),('1000-1005','250.00','220.00','200.00','0.00','0.00'),('1000-1006','195.00','0.00','0.00','0.00','0.00'),('1000-1007','85.00','0.00','0.00','0.00','0.00'),('1000-1008','205.00','0.00','0.00','0.00','0.00'),('1000-1012','435.00','415.00','0.00','0.00','0.00'),('1000-1014','385.00','375.00','0.00','0.00','0.00'),('1000-1009','0.00','0.00','0.00','0.00','0.00'),('1000-1010','0.00','0.00','0.00','0.00','0.00'),('1000-1011','0.00','0.00','0.00','0.00','0.00');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `PRISLISTA` ENABLE KEYS */;
+
+--
+-- Table structure for table `PRODUKTGRUPP`
+--
+
+DROP TABLE IF EXISTS `PRODUKTGRUPP`;
+CREATE TABLE `PRODUKTGRUPP` (
+  `PRODKLASS` varchar(5) NOT NULL default '',
+  `BESKRIVNING` varchar(30) default NULL,
+  `MOMSKOD` varchar(5) default NULL,
+  PRIMARY KEY  (`PRODKLASS`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `PRODUKTGRUPP`
+--
+
+
+/*!40000 ALTER TABLE `PRODUKTGRUPP` DISABLE KEYS */;
+LOCK TABLES `PRODUKTGRUPP` WRITE;
+INSERT INTO `PRODUKTGRUPP` (`PRODKLASS`, `BESKRIVNING`, `MOMSKOD`) VALUES ('2200','H√•rddiskar','MOMS1'),('2500','Bildsk√§rmar','MOMS1'),('2300','Tangentbord','MOMS1'),('2400','Routers','MOMS1'),('2100','Switchar','MOMS1'),('1001','C++-programmering','MOMS3'),('1002','Qt-b√∂cker','MOMS3'),('1003','C-programmering','MOMS3'),('1000','Linuxb√∂cker','MOMS3');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `PRODUKTGRUPP` ENABLE KEYS */;
+
+--
+-- Table structure for table `PROGRAM`
+--
+
+DROP TABLE IF EXISTS `PROGRAM`;
+CREATE TABLE `PROGRAM` (
+  `PRGNR` varchar(5) NOT NULL default '',
+  `MENYAVD` varchar(20) default NULL,
+  `MENYGRP` varchar(30) default NULL,
+  `MENYTXT` varchar(30) default NULL,
+  `PROGRAM` varchar(8) default NULL,
+  PRIMARY KEY  (`PRGNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `PROGRAM`
+--
+
+
+/*!40000 ALTER TABLE `PROGRAM` DISABLE KEYS */;
+LOCK TABLES `PROGRAM` WRITE;
+INSERT INTO `PROGRAM` (`PRGNR`, `MENYAVD`, `MENYGRP`, `MENYTXT`, `PROGRAM`) VALUES ('001','Administration','Anv√§ndaradministration','Ny anv√§ndare','ADDUSRW'),('002','Administration','Anv√§ndaradministration','√Ñndra anv√§ndarinfo','CHGUSRW'),('003','Administration','Anv√§ndaradministration','Ta bort anv√§ndare','DELUSRW'),('004','Administration','Anv√§ndaradministration','Visa en anv√§ndare','DSPUSRW'),('005','Administration','Anv√§ndaradministration','Lista anv√§ndare','LSTUSRW'),('006','Administration','Beh√∂righetsadministration','Ny beh√∂righet','ADDRGTW'),('007','Administration','Beh√∂righetsadministration','√Ñndra beh√∂righet',''),('008','Administration','Beh√∂righetsadministration','Ta bort beh√∂righet','DELRGTW'),('009','Administration','Beh√∂righetsadministration','Visa beh√∂righet',''),('010','Administration','Beh√∂righetsadministration','Lista beh√∂righeter','LSTRGTW'),('011','Administration','Funktionsadministration','Ny funktion','ADDFNCW'),('012','Administration','Funktionsadministration','Lista funktioner','LSTFNCW'),('013','Ekonomi','Bokf√∂ring','Registrera verifikation','BOKFORSW'),('014','Ekonomi','Bokf√∂ring','Registrera ver. standard','BOKFORSW'),('015','Ekonomi','Kontoadministration','Nytt konto','ADDKTOW'),('016','Ekonomi','Kontoadministration','√Ñndra konto','CHGKTOW'),('017','Ekonomi','Kontoadministration','Ta bort konto',''),('018','Ekonomi','Kontoadministration','Visa konto','DSPKTOW'),('019','Ekonomi','Kontoadministration','Lista konton','LSTKTOW'),('020','Ekonomi','Kostnadst√§lleadministration','Nytt kostnadst√§lle','ADDKSTW'),('021','Ekonomi','Kostnadst√§lleadministration','√Ñndra kostnadst√§lle',''),('022','Ekonomi','Kostnadst√§lleadministration','Ta bort kostnadst√§lle',''),('023','Ekonomi','Kostnadst√§lleadministration','Visa ett kostnadsst√§lle','DSPKSTW'),('024','Ekonomi','Kostnadst√§lleadministration','Lista kostnadsst√§llen','LSTKSTW'),('025','Ekonomi','Valutaadministration','Ny valuta','ADDVALW'),('026','Ekonomi','Valutaadministration','√Ñndra valuta','CHGVALW'),('027','Ekonomi','Valutaadministration','Ta bort valuta','DELVALW'),('028','Ekonomi','Valutaadministration','Visa valuta','DSPVALW'),('029','Ekonomi','Valutaadministration','Lista valutor','LSTVALW'),('030','Ekonomi','Rapporter','Kontorapport','RPTKTOW'),('031','Ekonomi','Rapporter','Rapportgenerator','RPTGENW'),('032','Ekonomi','R√§kenskaps√•r','Nytt bokf√∂rings√•r','ADDBARW'),('033','Ekonomi','R√§kenskaps√•r','√Ñndra bokf√∂rings√•rsdata','CHGBARW'),('034','Administration','F√∂retagsdata','Ny post','ADDFTGW'),('035','Administration','F√∂retagsdata','√Ñndra post','CHGFTGW'),('036','Administration','F√∂retagsdata','Visa f√∂retagsdata','DSPFTGW'),('037','F√∂rs√§ljning','Kunddata','Ny kund','ADDKUW'),('038','F√∂rs√§ljning','Kunddata','Ny leveransadress f√∂r kund','ADDLEVPW'),('039','Ink√∂p','Leverant√∂rsdata','Ny leverant√∂r','ADDLEVW'),('040','Ink√∂p','Leverant√∂rsdata','Visa en leverant√∂r','DSPLEVW'),('041','Ink√∂p','Leverant√∂rsdata','√Ñndra leverant√∂rsdata','CHGLEVW'),('042','Ekonomi','Bokf√∂ring','Reg. leverant√∂rsfaktura','LEVFAKTW'),('043','Ekonomi','Rapporter','Leverant√∂rsreskontra','LEVRESKW'),('044','Ekonomi','Rapporter','F√∂rfallna levfakturor','ATTBETW'),('045','Ekonomi','Rapporter','Saldolista','SDOLISW'),('046','F√∂rs√§ljning','Kunddata','Visa kunddata','DSPKUW'),('047','F√∂rs√§ljning','Kunddata','√Ñndra kunddata','CHGKUW'),('048','F√∂rs√§ljning','Kunddata','Lista kunder','LSTKUW'),('049','Administration','F√∂retagsdata','Byta f√∂retag','BYTFTGW'),('050','Materialhantering','Artikeldata','Ny artikel','ADDARW'),('051','Materialhantering','Artikeldata','Visa grunddata f√∂r en artikel','DSPARW'),('052','Materialhantering','Artikeldata','Visa en artikels ekonomidata','DSPAREW'),('053','Materialhantering','Artikeldata','√Ñndra artikeldata','CHGARW'),('054','Administration','Betalningsvillkor','Lista betalningsvillkor','LSTBETVW'),('055','Administration','Betalningsvillkor','Nya betalningsvillkor','ADDBETVW'),('056','Materialhantering','Artikeldata','Lista artiklar','LSTARW'),('057','Administration','Betalningsvillkor','√Ñndra betalningsvillkor','CHGBETVW'),('058','Ink√∂p','Best√§llningar','Registrera ink√∂psorder','ADDINKW'),('059','Ink√∂p','Best√§llningar','(√Ñndra best√§llning)','CHGINKW'),('060','Ink√∂p','Best√§llningar','(Annulera best√§llning)','DELINKW'),('061','Ink√∂p','Best√§llningar','Visa best√§llning','DSPINKW'),('062','Ink√∂p','Best√§llningar','Best√§llningsstock','LSTINKW'),('063','Ink√∂p','Best√§llningar','Skriv ut best√§llning','PRTINKW'),('064','Ink√∂p','Best√§llningar','(Avprickning f√∂ljesedel)','UPDINKW'),('065','F√∂rs√§ljning','Kundorder','Registrera kundorder','ADDORDW'),('066','F√∂rs√§ljning','Kundorder','√Ñndra kundorder','CHGORDW'),('067','F√∂rs√§ljning','Kundorder','(Makulera kundorder)','DELORDW'),('068','F√∂rs√§ljning','Kundorder','Visa en kundorder','DSPORDW'),('069','F√∂rs√§ljning','Kundorder','Lista kundorder','LSTORDW'),('070','F√∂rs√§ljning','Kundorder','Skriva ut plocklista','PLORDW'),('071','F√∂rs√§ljning','Kundorder','(Skriva ut f√∂ljesedel)','FSORDW'),('072','F√∂rs√§ljning','Kundorder','Fakturera kundorder','KUFAKTW'),('074','Administration','F√∂retagsdata','Ny text i textregistret','ADDTXTW'),('073','Ink√∂p','Leverant√∂rsdata','Lista leverant√∂rer','LSTLEVW'),('076','Administration','Leveransvillkor','Nya leveransvillkor','ADDLEVVW'),('075','Administration','F√∂retagsdata','Radera post i textregistret','DELTXTW'),('077','Administration','Leveransvillkor','Lista leveransvillkor','LSTLEVVW'),('078','Administration','Leveranss√§tt','Nya leveranss√§tt','ADDLEVSW'),('079','Administration','Leveranss√§tt','Lista leveranss√§tt','LSTLEVSW'),('080','Ekonomi','Rapporter','Balansr√§kning','BALRPTW'),('081','Ekonomi','Rapporter','Huvudbok','HUVBOKW'),('082','Ekonomi','Rapporter','Dagbok','DAGBOKW'),('083','F√∂rs√§ljning','Kunddata','Lista kunders leveransplatser','LSTLEVPW'),('084','Administration','F√∂retagsdata','Ny databasregistrering','ADDFORW'),('085','Administration','F√∂retagsdata','Lista databaser','LSTFORW'),('086','Materialhantering','Artikeladmin.','Ny produktklass/produktgrupp','ADDPKDW'),('087','Materialhantering','Artikeladmin.','Lista produktklass/produktgrup','LSTPKDW'),('088','Ekonomi','R√§kenskaps√•r','Visa bokf√∂rings√•r','DSPBARW'),('089','Administration','F√∂retagsdata','Lista f√∂retagsdata','LSTFTGW'),('090','Ekonomi','Rapporter','Resultatrapport','RESRPTW'),('091','Ekonomi','R√§kenskaps√•r','Lista alla r√§kenskaps√•r','LSTBARW'),('092','F√∂rs√§ljning','Kunddata','S√∂ka kunder','SRCHKUW'),('093','Ekonomi','Rapporter','Skapa SIE-fil','RPTSIEW'),('094','F√∂rs√§ljning','Kundorder','Pricka av plocklista','PLCHGW'),('095','Ekonomi','Rapporter','Kundreskontra','KURESKW'),('096','Administration','F√∂retagsdata','Lista texter i TEXTREG','LSTTXTW'),('097','Administration','F√∂retagsdata','Visa en post i TEXTREG','DSPTXTW'),('099','Ekonomi','Bokf√∂ring','Reg. betald kundfaktura','KUFAKTBW'),('100','Materialhantering','Artikeladmin.','Lista prislistor','LSTPRISW'),('101','Materialhantering','Artikeladmin.','Ladda nya prislistor','ADDPRISW'),('102','Materialhantering','Artikeladmin.','√Ñndra i prislistor','CHGPRISW'),('103','Materialhantering','Artikeldata','S√∂ka artikel','SRCHARW'),('098','Materialhantering','Artikeldata','S√∂ka artikel','SRCHARW');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `PROGRAM` ENABLE KEYS */;
+
+--
+-- Table structure for table `RIGHTS`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ olfix;
+DROP TABLE IF EXISTS `RIGHTS`;
+CREATE TABLE `RIGHTS` (
+  `USERID` varchar(8) NOT NULL default '',
+  `TRNSID` varchar(8) NOT NULL default '',
+  PRIMARY KEY  (`USERID`,`TRNSID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-USE olfix;
+--
+-- Dumping data for table `RIGHTS`
+--
+
+
+/*!40000 ALTER TABLE `RIGHTS` DISABLE KEYS */;
+LOCK TABLES `RIGHTS` WRITE;
+INSERT INTO `RIGHTS` (`USERID`, `TRNSID`) VALUES ('GUEST','ARLIS'),('GUEST','ARLSPK'),('GUEST','ARLST'),('GUEST','ARLSTL'),('GUEST','VALDSP'),('GUEST','VALLST'),('GUEST','WKUDSP'),('ADMIN','ADDARW'),('ADMIN','ADDBARW'),('ADMIN','ADDBETVW'),('ADMIN','ADDFNCW'),('ADMIN','ADDFORW'),('ADMIN','ADDFTGW'),('ADMIN','ADDINKW'),('ADMIN','ADDKSTW'),('ADMIN','ADDKTOW'),('ADMIN','ADDKUW'),('ADMIN','ADDLEVPW'),('ADMIN','ADDLEVSW'),('ADMIN','ADDLEVVW'),('ADMIN','ADDLEVW'),('ADMIN','ADDORDW'),('ADMIN','ADDPKDW'),('ADMIN','ADDPRISW'),('ADMIN','ADDRGTW'),('ADMIN','ADDTXTW'),('ADMIN','ADDUSRW'),('ADMIN','ADDVALW'),('ADMIN','AR2ADD'),('ADMIN','AR2UPD'),('ADMIN','ARADD'),('ADMIN','ARCHG'),('ADMIN','ARCHGL'),('ADMIN','ARCHK'),('ADMIN','ARDSP'),('ADMIN','ARDSPL'),('ADMIN','ARLST'),('ADMIN','ARSRCH'),('ADMIN','ATTBET'),('ADMIN','ATTBETW'),('ADMIN','BALRPTW'),('ADMIN','BARADD'),('ADMIN','BARCHG'),('ADMIN','BARCHK'),('ADMIN','BARDSP'),('ADMIN','BARFND'),('ADMIN','BETADD'),('ADMIN','BETCHG'),('ADMIN','BETDSP'),('ADMIN','BETLST'),('ADMIN','BOKF'),('ADMIN','BOKFORSW'),('ADMIN','BOKFORW'),('ADMIN','BYTFTGW'),('ADMIN','CHGARW'),('ADMIN','CHGBARW'),('ADMIN','CHGBETVW'),('ADMIN','CHGFTGW'),('ADMIN','CHGKUW'),('ADMIN','CHGLEVW'),('ADMIN','CHGORDW'),('ADMIN','CHGPRISW'),('ADMIN','CHGUSRW'),('ADMIN','CHGVALW'),('ADMIN','DAGBOKW'),('ADMIN','DBCHK'),('ADMIN','DBOKRPT'),('ADMIN','DELRGTW'),('ADMIN','DELTXTW'),('ADMIN','DELUSRW'),('ADMIN','DELVALW'),('ADMIN','DSPAREW'),('ADMIN','DSPARW'),('ADMIN','DSPBARW'),('ADMIN','DSPFTGW'),('ADMIN','DSPINKW'),('ADMIN','DSPKSTW'),('ADMIN','DSPKTOW'),('ADMIN','DSPKUW'),('ADMIN','DSPLEVVW'),('ADMIN','DSPLEVW'),('ADMIN','DSPORDW'),('ADMIN','DSPUSRW'),('ADMIN','DSPVALW'),('ADMIN','FORADD'),('ADMIN','FORCHK'),('ADMIN','FORDSP'),('ADMIN','FORLST'),('ADMIN','FTGDSP'),('ADMIN','FTGLIS'),('ADMIN','FTGLST'),('ADMIN','FTGUPD'),('ADMIN','HBOKRPT'),('ADMIN','HUVBOKW'),('ADMIN','INKADD'),('ADMIN','INKHDSP'),('ADMIN','INKLST'),('ADMIN','INKRADD'),('ADMIN','INKRLST'),('ADMIN','KSTADD'),('ADMIN','KSTCHK'),('ADMIN','KSTDSP'),('ADMIN','KSTLST'),('ADMIN','KTOADD'),('ADMIN','KTOCHG'),('ADMIN','KTOCHK'),('ADMIN','KTODSP'),('ADMIN','KTORPT'),('ADMIN','KTORPT2'),('ADMIN','KTOVIEW'),('ADMIN','KUADD'),('ADMIN','KUCHG'),('ADMIN','KUCHK'),('ADMIN','KUDSP'),('ADMIN','KULST'),('ADMIN','LEVADD'),('ADMIN','LEVCHG'),('ADMIN','LEVDSP'),('ADMIN','LEVFAKTW'),('ADMIN','LEVLST'),('ADMIN','LEVPDSP'),('ADMIN','LEVPLST'),('ADMIN','LEVRESKW'),('ADMIN','LEVSADD'),('ADMIN','LEVSDSP'),('ADMIN','LEVSLST'),('ADMIN','LEVVADD'),('ADMIN','LEVVDSP'),('ADMIN','LEVVLST'),('ADMIN','LRESADD'),('ADMIN','LRESRPT'),('ADMIN','LSTARW'),('ADMIN','LSTBETVW'),('ADMIN','LSTFNCW'),('ADMIN','LSTFORW'),('ADMIN','LSTFTGW'),('ADMIN','LSTINKW'),('ADMIN','LSTKSTW'),('ADMIN','LSTKTOW'),('ADMIN','LSTKUW'),('ADMIN','LSTLEVPW'),('ADMIN','LSTLEVSW'),('ADMIN','LSTLEVVW'),('ADMIN','LSTLEVW'),('ADMIN','LSTORDW'),('ADMIN','LSTPKDW'),('ADMIN','LSTRGTW'),('ADMIN','LSTUSRW'),('ADMIN','LSTVALW'),('ADMIN','ORDADD'),('ADMIN','ORDCHG'),('ADMIN','ORDDSP'),('ADMIN','ORDLST2'),('ADMIN','ORDRADD'),('ADMIN','ORDRCHG'),('ADMIN','ORDRDSP'),('ADMIN','PKDADD'),('ADMIN','PKDDSP'),('ADMIN','PKDLST'),('ADMIN','PRGLST'),('ADMIN','PRISDSP'),('ADMIN','PRISUPD'),('ADMIN','PRTINKW'),('ADMIN','RESRPTW'),('ADMIN','RGTADD'),('ADMIN','RGTCHK'),('ADMIN','RGTDEL'),('ADMIN','RGTDSP'),('ADMIN','RGTLST'),('ADMIN','RPTCRE'),('ADMIN','RPTGENW'),('ADMIN','RPTKTOW'),('ADMIN','SDOLISW'),('ADMIN','SLPADD'),('ADMIN','SRCHARW'),('ADMIN','TRNSADD'),('ADMIN','TRNSLST'),('ADMIN','TXTADD'),('ADMIN','TXTDSP'),('ADMIN','USERADD'),('ADMIN','USERCHG'),('ADMIN','USERDEL'),('ADMIN','USERDSP'),('ADMIN','USERLST'),('ADMIN','VALADD'),('ADMIN','VALCHG'),('ADMIN','VALDEL'),('ADMIN','VALDSP'),('ADMIN','VALLST'),('ADMIN','VERHDSP'),('ADMIN','VERHLST'),('ADMIN','VERUPD'),('JAPI','TSTFNC'),('OLFIX','ADDRGTW'),('OLFIX','ARICHK'),('OLFIX','BARDSP'),('OLFIX','KTOCHK'),('OLFIX','KTOLST'),('OLFIX','KTOVIEW'),('OLFIX','PRGLST'),('OLFIX','RGTADD'),('OLFIX','RGTCHK'),('OLFIX','RGTDEL'),('OLFIX','RGTLST'),('OLFIX','TRHDADD'),('OLFIX','TRNSADD'),('OLFIX','TRNSDEL'),('OLFIX','USERADD'),('OLFIX','USERLST'),('OLFIX','VERUPD'),('TESTARE','KUCHK'),('TESTARE','LSTUSRW'),('TESTARE','PRGLST'),('TESTARE','RGTCHK'),('TESTARE','USERADD'),('TESTARE','USERDSP'),('TESTARE','USERLST');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `RIGHTS` ENABLE KEYS */;
 
 --
--- Table structure for table 'ARTIKELREG'
+-- Table structure for table `STDLEVPLATS`
 --
 
-DROP TABLE IF EXISTS ARTIKELREG;
-CREATE TABLE ARTIKELREG (
-  ARTIKELNR varchar(30) NOT NULL default '',
-  ARBENEMNING1 varchar(30) NOT NULL default '',
-  ARBENEMNING2 varchar(30) default NULL,
-  ARENHET varchar(5) default NULL,
-  ARFPRIS decimal(10,2) default NULL,
-  ARLEDTID char(3) default NULL,
-  ARPRODKLASS varchar(5) default NULL,
-  ARPRODKTO varchar(5) default NULL,
-  ARLEVNR1 varchar(10) default NULL,
-  ARLEVNR2 varchar(10) default NULL,
-  ARLEVNR3 varchar(10) default NULL,
-  ARNETTOVIKT decimal(10,2) default NULL,
-  ARARTTYP enum('0','1','2','3','4') default '0',
-  ARSTRUKT enum('','B','I','T','F') default '',
-  ARURBENEMNING varchar(30) default NULL,
-  ARURLAND varchar(30) default NULL,
-  ARURARTNR varchar(30) default NULL,
-  ARTULLTAX varchar(10) default NULL,
-  ARVOLYM decimal(4,3) default NULL,
-  AROMRFAKTOR int(11) NOT NULL default '1',
-  PRIMARY KEY  (ARTIKELNR)
-) TYPE=MyISAM;
+DROP TABLE IF EXISTS `STDLEVPLATS`;
+CREATE TABLE `STDLEVPLATS` (
+  `STDLEVPLATS` char(3) NOT NULL default '',
+  `KUNDNR` varchar(10) NOT NULL default '',
+  `ADRESS` varchar(30) NOT NULL default '',
+  `POSTNR` varchar(6) NOT NULL default '',
+  `POSTADR` varchar(30) NOT NULL default '',
+  `LAND` varchar(30) default NULL,
+  PRIMARY KEY  (`STDLEVPLATS`,`KUNDNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table 'ARTIKELREG'
+-- Dumping data for table `STDLEVPLATS`
 --
 
 
+/*!40000 ALTER TABLE `STDLEVPLATS` DISABLE KEYS */;
+LOCK TABLES `STDLEVPLATS` WRITE;
+INSERT INTO `STDLEVPLATS` (`STDLEVPLATS`, `KUNDNR`, `ADRESS`, `POSTNR`, `POSTADR`, `LAND`) VALUES ('002','4375','Bakgatan 1D','199 09','SM√ÖSTAD','-'),('001','4375','Bakgatan 1C','199 09','SM√ÖSTAD','Sverige'),('555','4375','Testgatan 3','199 02','PROVSTAD','Sverige'),('001','4376','Industrigatan 13','199 21','LILLEBY','Sverige'),('002','4376','Bokh√•llargatan 3','199 19','LILLEBY','Sverige'),('001','4381','Downing Street 10','10000','Box 1','Storbrittanien'),('001','4382','Downig Street','000 00','LONDON','England'),('001','4383','Downing Streat 10','123 45','LONDON','England'),('001','4384','gatan 1','111 11','STADEN','UTLANDET');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `STDLEVPLATS` ENABLE KEYS */;
+
 --
--- Table structure for table 'BETVILKOR'
+-- Table structure for table `TEXTREG`
 --
 
-DROP TABLE IF EXISTS BETVILKOR;
-CREATE TABLE BETVILKOR (
-  BETVILKOR char(3) NOT NULL default '',
-  DAGAR char(3) default NULL,
-  BESKRIVNING varchar(40) NOT NULL default '',
-  PRIMARY KEY  (BETVILKOR)
-) TYPE=MyISAM;
+DROP TABLE IF EXISTS `TEXTREG`;
+CREATE TABLE `TEXTREG` (
+  `TEXTNR` char(3) NOT NULL default '',
+  `TXT` text,
+  PRIMARY KEY  (`TEXTNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table 'BETVILKOR'
+-- Dumping data for table `TEXTREG`
 --
+
 
-INSERT INTO BETVILKOR (BETVILKOR, DAGAR, BESKRIVNING) VALUES ('1','30','30 dagar netto');
-INSERT INTO BETVILKOR (BETVILKOR, DAGAR, BESKRIVNING) VALUES ('2','20','20 dagar netto');
-INSERT INTO BETVILKOR (BETVILKOR, DAGAR, BESKRIVNING) VALUES ('3','10','10 dagar netto');
-INSERT INTO BETVILKOR (BETVILKOR, DAGAR, BESKRIVNING) VALUES ('4','0','Kontantkˆp');
-INSERT INTO BETVILKOR (BETVILKOR, DAGAR, BESKRIVNING) VALUES ('5','15','Postfˆrskott');
+/*!40000 ALTER TABLE `TEXTREG` DISABLE KEYS */;
+LOCK TABLES `TEXTREG` WRITE;
+INSERT INTO `TEXTREG` (`TEXTNR`, `TXT`) VALUES ('002','Endast komplett order f√•r levereras.\nLeverans ska ske med Danzas/ASG.\nV√•rt kundnr hos Danzas/ASG √§r 991145.'),('003','Detta √§r ytterligare ett test med textregistret.\nMed radnr 2.\nOch med rad nr 3.\n'),('001','Ordererk√§nnande √∂nskas inom 3 arbetsdagar (om ej redan bekr√§ftats)\nAnge alltid v√•rt artikelnummer p√• f√∂ljesedel och faktura.\n');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `TEXTREG` ENABLE KEYS */;
 
 --
--- Table structure for table 'BOKFAR'
+-- Table structure for table `TRANSID`
 --
 
-DROP TABLE IF EXISTS BOKFAR;
-CREATE TABLE BOKFAR (
-  ARID char(2) NOT NULL default '',
-  BENAMNING varchar(25) default NULL,
-  ARSTART date default NULL,
-  ARSLUT date default NULL,
-  ARLAST enum('J','N') default 'N',
-  SENVERDAT date default NULL,
-  VERNR int(11) default NULL,
-  KONTOPLAN varchar(15) default NULL,
-  BESKATTNINGSAR varchar(4) default NULL,
-  PRIMARY KEY  (ARID)
-) TYPE=MyISAM;
+DROP TABLE IF EXISTS `TRANSID`;
+CREATE TABLE `TRANSID` (
+  `TRNSID` varchar(8) NOT NULL default '',
+  `TRNSTXT` varchar(60) default NULL,
+  PRIMARY KEY  (`TRNSID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table 'BOKFAR'
+-- Dumping data for table `TRANSID`
 --
 
-INSERT INTO BOKFAR (ARID, BENAMNING, ARSTART, ARSLUT, ARLAST, SENVERDAT, VERNR, KONTOPLAN, BESKATTNINGSAR) VALUES ('XX','2003-01-01--2003-12-31','2003-01-01','2003-12-31','N','2003-09-11',26,'EUBAS97','2003');
 
+/*!40000 ALTER TABLE `TRANSID` DISABLE KEYS */;
+LOCK TABLES `TRANSID` WRITE;
+INSERT INTO `TRANSID` (`TRNSID`, `TRNSTXT`) VALUES ('ARICHK','Kontrollera om visst bokf√∂rings√•r finns'),('BARDSP','H√§mta data f√∂r angivet bokf√∂rings√•r'),('BARCHK','Kontrollera om visst bokf√∂rings√•r finns'),('BOKF','Bokf√∂ringsprogram'),('FORDSP','Visa info om databas nr x'),('FTGUPD','Uppdatera f√∂retagsdata'),('KSTADD','Nyuppl√§gg av kostnadsst√§lle'),('KSTCHK','Kontrollera om visst kostnadst√§lle finns'),('KSTDSP','Visa info f√∂r ett kostnadst√§lle'),('KSTLST','Lista kostnadsst√§llen p√• sk√§rm'),('KTOADD','L√§gga till en ny post i konto'),('KTOCHG','√Ñndra info f√∂r ett kontonr'),('KTOCHK','Kontrollera om visst konto finns'),('KTODEL','Ta bort post i konto (endast utan transaktioner)'),('KTODSP','Visa info p√• ett konto'),('KTOLST','Lista alla konton, nr och text'),('KTORPT','Lista alla poster i tabellen VERRAD'),('KTOUPD','Uppdatera konto med antingen debet eller kredit'),('KTOVIEW','Visa kontonr och ben√§mning p√• sk√§rm'),('PRGLST','Lista program'),('RGTADD','L√§gga till beh√∂righet till transaktioner'),('RGTCHK','Kontrolera anv√§ndares beh√∂righet'),('RGTDEL','Ta bort beh√∂righet till transaktioner'),('RGTDSP','Visa beh√∂righeter f√∂r en anv√§ndare'),('RGTLST','Lista alla beh√∂righeter'),('TRHDADD','L√§gga till ny loggpost i TRHD'),('TRNSADD','Ny post i TRANSID'),('TRNSCHG','√Ñndra post i TRANSID'),('TRNSDEL','Ta bort post i TRANSID'),('TRNSDSP','Visa enstaka TRANSID'),('TRNSLST','Lista alla TRANSID'),('USERADD','Ny post i USER'),('USERCHG','√Ñndra post i USER'),('USERDEL','Ta bort post i USER'),('USERDSP','Visa en anv√§ndare'),('USERLST','Lista alla anv√§ndare'),('VALLST','Lista valutor'),('VALADD','L√§gga upp en ny valuta'),('VALCHG','√Ñndra valutainformation'),('VALDEL','Ta bort en valuta'),('VALDSP','Visa en valuta'),('VERUPD','Nyuppl√§ggning av verifikat'),('VERDSP','Visa enstaka verifikation'),('VRDADD','Ny detaljpost f√∂r verifikation till VERD'),('VRHADD','Ny huvudpost f√∂r verifikation till VERH'),('WRREC','Skriva post till tempfilen /tmp/vernr.txt'),('ATTBET','Lista leverant√∂rsfakturor att betala'),('BARADD','L√§gga upp nytt bokf√∂rings√•r'),('BARCHG','√Ñndra data f√∂r angivet bokf√∂rings√•r'),('BARFND','Hitta bokf√∂rings√•r f√∂r angivet datum'),('BETDSP','Visa ett betalningsvillkor'),('FTGADD','L√§gga upp en ny f√∂retagspost'),('FTGDSP','Visa f√∂retagsdata'),('FTGLST','Lista posttyper f√∂r f√∂retagsdata'),('FTGLIS','Lista f√∂retagsdata'),('KUADD','Registrera nya kunder'),('KUCHG','√Ñndra kunddata'),('KUCHK','Kontrollera om kundnr finns'),('KUDSP','Visa kunddata'),('KULST','Lista kunder, kundnr och namn'),('LEVADD','L√§gga upp en ny leverant√∂r'),('LEVCHG','√Ñndra leverant√∂rsdata'),('LEVDSP','Visa en leverant√∂r'),('LEVLST','Lista leverant√∂rer,nr och namn'),('LRESRPT','Lista alla obetalda poster i tabellen LEVRESK'),('LRESADD','Ny post i leverant√∂rsreskontran'),('RPTCRE','Rapportgenerator. Skapa rapporter'),('SLPADD','Standardleveransplats'),('TRNTST','Detta √§r en testfunktion'),('ARCHK','Kontrollera om artikelnummer finns'),('ARADD','L√§gga upp en ny artikel'),('AR2ADD','L√§gga upp ny artikel i lagerst√§lleregister'),('ARDSP','Visa grunddata f√∂r en artikel'),('ARDSPL','Visa lagerdata f√∂r en artikel'),('ARCHG','√Ñndra grunddata f√∂r en artikel'),('ARCHGL','√Ñndra lagerst√§lledata f√∂r en artikel'),('BETLST','Lista betalningsvillkor'),('BETADD','L√§gga upp ett nytt betalningsvillkor'),('ARLST','Lista artiklar(artikelnr,ben√§mn1,ben√§mn2)'),('BETCHG','√Ñndra data f√∂r betalningsvillkor'),('TXTDSP','Visa texter ur TEXTREG'),('TXTADD','L√§gg upp en ny post i TEXTREG'),('INKADD','L√§gga upp en ny ink√∂psorder'),('INKRADD','L√§gga upp en ny ink√∂psorderrad'),('TXTDEL','Radera post i TEXTREG'),('INKRLST','Lista alla rader p√• angiven ink√∂psorder'),('INKHDSP','Visa orderhuvud f√∂r angiven ink√∂psorder'),('INKLST','Best√§llningsstock'),('LEVVDSP','Visa ett leveransvillkor'),('LEVSDSP','Visa ett leveranss√§tt'),('LEVVADD','L√§gga upp ett nytt leveransvillkor'),('LEVSADD','L√§gga upp ett nytt leveranss√§tt'),('LEVVLST','Lista leveransvillkor'),('LEVSLST','Lista leveranss√§tt'),('VERHDSP','H√§mta mindatum och maxdatum f√∂r angivet bokf.√•r'),('VERHLST','Lista verifikationers huvudposter f√∂r √∂nskat bokf√∂rings√•r'),('HBOKRPT','Huvudboksrapport'),('DBOKRPT','Dagboksrapport'),('PRTAPI','Utskriftsinterface'),('LEVPLST','Lista kunders leveransadresser'),('FORCHK','Kontr. om databas finns i tabell DATABAS'),('FORADD','Ny databas i tabellen DATABAS'),('FORLST','Lista databaser i tabell DATABAS'),('PKDADD','Ny produktgrupp/produktkod/produktklass'),('PKDLST','Lista produktgrupper/produktkoder/produktklasser'),('WKUDSP','Visa begr√§nsade kunddata f√∂r webbkund'),('ARLSTL','Lista artiklar med lagersaldo'),('ARLIS','Lista artiklar f√∂r angiven produktklass'),('ARLSPK','Lista artiklar f√∂r angiven produktkod'),('AR2UPD','Uppdatera artikelpost i LAGERSTELLEREG'),('BARLST','Lista bokf√∂rings√•r'),('KUSRCH','S√∂ka kunder p√• namn, postnr, tfnnr eller postadr'),('LEVPDSP','Visa en standardleveransplats'),('ORDADD','Nyuppl√§gg av kundorderhuvud'),('ORDCHK','Kontrollera diverse uppgifter p√• kundorder'),('ORDDSP','Visa en kundorders huvudpost'),('ORDRDSP','Visa en kundorders orderrader'),('PKDDSP','Visa en produktgrupp/produktkod/produktklass'),('SIEEXPK','SIE-export av kontoplan'),('SIEEXPR','SIE-export av resultat'),('SIEEXPV','SIE-export av verifikat'),('DBCHK','Lista databaser registrerade i databasen mysql'),('ORDLST2','Lista kundorder med begr√§nsad information'),('ORDLST','Lista kundorder'),('PICKADD','Nytt plock av kundorderrad'),('PICKDSP','Visa plockade men ej utskrivna plock'),('PICKLST','Lista avprickade kundorderrader'),('KRESADD','Ny post till kundreskontran'),('ORADUPD','Uppdatera √∂nskat f√§lt i ORDERRADREG'),('ORDRUPD','Uppdatera ORDERRADREG'),('ORDUPD','Uppdatera √∂nskat f√§lt i ORDERREG'),('ARLSPK2','Lista artiklar/produktkod med saldo'),('KRESLST','Lista poster i kundreskontran'),('ORDRADD','L√§gga upp ny rad p√• kundorder'),('PRISUPD','Uppdatering av priser i prislistor.'),('PRISDSP','Visa prislisteuppgifter p√• en artikel.'),('ORDCHG','√Ñndra orderhuvud'),('ORDRCHG','√Ñndra orderrad'),('ARSRCH','S√∂ka artiklar');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `TRANSID` ENABLE KEYS */;
+
 --
--- Table structure for table 'DATABAS'
+-- Table structure for table `TRHD`
 --
+
+DROP TABLE IF EXISTS `TRHD`;
+CREATE TABLE `TRHD` (
+  `TRNSNR` int(11) NOT NULL auto_increment,
+  `TRNSID` varchar(8) NOT NULL default '',
+  `TID` varchar(20) NOT NULL default '',
+  `USERID` varchar(8) NOT NULL default '',
+  `TRNSDATA` varchar(255) default NULL,
+  PRIMARY KEY  (`TRNSNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS DATABAS;
-CREATE TABLE DATABAS (
-  DATABASNR char(3) NOT NULL default '',
-  DATABASTEXT varchar(15) NOT NULL default '',
-  PRIMARY KEY  (DATABASNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'DATABAS'
---
-
-INSERT INTO DATABAS (DATABASNR, DATABASTEXT) VALUES ('01','olfix');
-INSERT INTO DATABAS (DATABASNR, DATABASTEXT) VALUES ('99','olfixtst');
-
---
--- Table structure for table 'FTGDATA'
---
-
-DROP TABLE IF EXISTS FTGDATA;
-CREATE TABLE FTGDATA (
-  POSTTYP varchar(5) NOT NULL default '',
-  POSTBESKR varchar(60) default NULL,
-  FDATA text,
-  PRIMARY KEY  (POSTTYP)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'FTGDATA'
---
-
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('FNAMN','Fˆretagsnamn','PROGRAM AB');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('FTGNR','Fˆretagsnummer','991199-1991');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('ADR1','Postadress','Box 70');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('ADR2','Postnummer till Postadress','199 98');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('ADR3','Ort till Postadress','PROGSTAD');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('ADR4','Besˆksadress','Syntaxv‰gen 99');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('ADR5','Postnr till Besˆksadress','199 98');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('ADR6','Ort till Besˆksadress','PROGSTAD');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('ADR7','Godsadress','Verktygsgatan 11');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('ADR8','Postnr till Godsadress','199 97');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('ADR9','Ort till Godsadress','PROGSTAD');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('TFNVX','Telefonnummer till vx','09-199300');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('TFN1','Telefonnummer','09-199300');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('TFN2','Mobiltelefonnummer','070-98765411');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('TFNMB','Mobiltelefonnummer','070-98765411');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('TFAX','Telefaxnummer','09-199397');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('TELEX','Telexnummer','12345');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('EML1','E-mailadress','jan@pihlgren.se');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMSI','Momskonto, ingÂende moms','2641');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMSU','Momskonto, utgÂende moms','2611');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMS1','Momssats 1','25');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMS2','Momssats 2','12');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMS3','Momssats 3','6');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMS4','Momssats 4',' ');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMS5','Momssats 5',' ');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('AUTOK','Automatkontering J/N','N');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('KORNR','Senast anv‰nda kundordernr','0');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF1','Bokfˆringsperiod 1','Januari');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF2','Bokfˆringsperiod 2','Februari');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF3','Bokfˆringsperiod 3','Mars');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF4','Bokfˆringsperiod 4','April');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF5','Bokfˆringsperiod 5','Maj');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF6','Bokfˆringsperiod 6','Juni');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF7','Bokfˆringsperiod 7','Juli');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF8','Bokfˆringsperiod 8','Augusti');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF9','Bokfˆringsperiod 9','September');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF10','Bokfˆringsperiod 10','Oktober');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF11','Bokfˆringsperiod 11','Novemper');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF12','Bokfˆringsperiod 12','December');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF13','Bokfˆringsperiod 13','Januari');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('INKNR','Senast anv‰nda inkˆpsordernr','28');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('SNIKD','Branschtillhˆrighet','82301');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('WKUNR','Senaste anv‰nda webbkundnummer','4379');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('FAKNR','Senaste fakturanr pÂ kundorder','0');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('FKNR2','Senaste fakturanr pÂ kundorder,serie 2','0');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('FKNRS','Antal fakturanrserier, default = 1','1');
-
---
--- Table structure for table 'INKRADREG'
---
-
-DROP TABLE IF EXISTS INKRADREG;
-CREATE TABLE INKRADREG (
-  INKORDNR varchar(10) NOT NULL default '',
-  INKORDRADNR int(4) NOT NULL default '0',
-  ARTIKELNR varchar(30) default NULL,
-  BENEMNING varchar(30) default NULL,
-  LEVARTIKELNR varchar(30) default NULL,
-  LEVBENEMNING varchar(30) default NULL,
-  ENHET varchar(5) default NULL,
-  BESTANTAL decimal(10,2) default NULL,
-  LEVERERAT decimal(10,2) default NULL,
-  RESTNOTERAT decimal(10,2) default NULL,
-  INKPRIS decimal(10,2) default NULL,
-  LEVVECKA varchar(5) default NULL,
-  TORDNR int(6) default NULL,
-  OPNR int(6) default NULL,
-  PRIMARY KEY  (INKORDNR,INKORDRADNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'INKRADREG'
---
-
-
 --
--- Table structure for table 'INKREG'
+-- Dumping data for table `TRHD`
 --
 
-DROP TABLE IF EXISTS INKREG;
-CREATE TABLE INKREG (
-  INKORDNR varchar(10) NOT NULL default '',
-  BESTTYP enum('N','D','I','L','A') default NULL,
-  ORDERDATUM date default NULL,
-  LEVNR varchar(10) default NULL,
-  LEVNAMN varchar(30) default NULL,
-  LEVADRESS varchar(30) default NULL,
-  LEVPOSTNR varchar(6) default NULL,
-  LEVPOSTADR varchar(30) default NULL,
-  LEVLAND varchar(30) default NULL,
-  LEVVALUTA char(3) default NULL,
-  LEVBETVILLKOR varchar(50) default NULL,
-  LEVVILLKOR varchar(150) default NULL,
-  LEVSETT varchar(150) default NULL,
-  GODSMERKE varchar(30) default NULL,
-  KOMMENTAR varchar(250) default NULL,
-  BESTTEXT text,
-  VARREF varchar(30) default NULL,
-  VARREFTFN varchar(15) default NULL,
-  VARREFFAX varchar(15) default NULL,
-  ERREF varchar(20) default NULL,
-  LEVDATUM date default NULL,
-  KUNDNR varchar(30) default NULL,
-  FTGNAMN varchar(30) default NULL,
-  FTGADR varchar(30) default NULL,
-  FTGPOSTNR varchar(6) default NULL,
-  FTGPOSTADR varchar(30) default NULL,
-  SPRAKKOD char(3) default 'sv',
-  BEKREFTKOD enum('H','D','E') default 'E',
-  ORDERSTATUS enum('N','F','B','M') default 'N',
-  UTSKRIFTSKOD enum('J','N') default 'J',
-  ORDERSUMMA decimal(10,2) default NULL,
-  PRIMARY KEY  (INKORDNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'INKREG'
---
-
-
---
--- Table structure for table 'KSTALLE'
---
-
-DROP TABLE IF EXISTS KSTALLE;
-CREATE TABLE KSTALLE (
-  ARID char(2) NOT NULL default '',
-  KSTALLE varchar(4) NOT NULL default '',
-  BENAMNING varchar(100) default NULL,
-  PRIMARY KEY  (ARID,KSTALLE)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'KSTALLE'
---
-
-
---
--- Table structure for table 'KTOPLAN'
---
-
-DROP TABLE IF EXISTS KTOPLAN;
-CREATE TABLE KTOPLAN (
-  ARID char(2) NOT NULL default '',
-  KTONR varchar(4) NOT NULL default '',
-  BENAMNING varchar(100) default NULL,
-  MANUELL enum('J','N') default 'J',
-  MOMSKOD varchar(4) default NULL,
-  SRUNR int(3) default NULL,
-  KSTALLE varchar(4) default NULL,
-  PROJEKT varchar(4) default NULL,
-  SUBKTO varchar(4) default NULL,
-  KTOPLAN varchar(15) default NULL,
-  IB decimal(10,2) default NULL,
-  UB decimal(10,2) default NULL,
-  PRIMARY KEY  (KTONR,ARID)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'KTOPLAN'
---
-
-
---
--- Table structure for table 'KUNDKATEGORI'
---
-
-DROP TABLE IF EXISTS KUNDKATEGORI;
-CREATE TABLE KUNDKATEGORI (
-  KATEGORINR char(3) NOT NULL default '',
-  BESKRIVNING varchar(40) NOT NULL default '',
-  PRIMARY KEY  (KATEGORINR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'KUNDKATEGORI'
---
-
-
---
--- Table structure for table 'KUNDREG'
---
-
-DROP TABLE IF EXISTS KUNDREG;
-CREATE TABLE KUNDREG (
-  KUNDNR varchar(10) NOT NULL default '',
-  KUNDORGNR varchar(12) default NULL,
-  NAMN varchar(60) NOT NULL default '',
-  ADRESS varchar(30) default NULL,
-  POSTNR varchar(6) default NULL,
-  POSTADR varchar(30) default NULL,
-  LAND varchar(30) default NULL,
-  TFNNR varchar(15) default NULL,
-  EMAILADR varchar(30) default NULL,
-  FAXNR varchar(15) default NULL,
-  ERREFERENT varchar(30) default NULL,
-  ERREFTFNNR varchar(15) default NULL,
-  ERREFEMAIL varchar(60) default NULL,
-  SELJARE varchar(20) default NULL,
-  FRITEXT varchar(100) default NULL,
-  VALUTA char(3) default NULL,
-  BETALVILLKOR char(3) default NULL,
-  LEVVILLKOR char(3) default NULL,
-  LEVSETT char(3) default NULL,
-  DISTRIKT char(3) default NULL,
-  KUNDKATEGORI char(3) default NULL,
-  STDLEVPLATS char(3) default '001',
-  ORDERERKENNANDE enum('J','N') default 'J',
-  PLOCKLISTA enum('J','N') default 'J',
-  FOLJESEDEL enum('J','N') default 'J',
-  KRAVBREV enum('J','N') default 'J',
-  SPRAKKOD char(3) default NULL,
-  EXPAVGIFT enum('J','N') default 'J',
-  FRAKTAVG enum('J','N') default 'J',
-  KREDITLIMIT decimal(10,2) default NULL,
-  KREDITDAGAR int(11) default NULL,
-  KREDITKOD char(3) default NULL,
-  EXPORTKOD char(3) default NULL,
-  SKATTEKOD char(3) default NULL,
-  RABATTKOD char(3) default NULL,
-  DROJMALSRTA enum('J','N') default 'J',
-  DROJMALSFAKTURA enum('J','N') default 'J',
-  SAMLINGSFAKT enum('J','N') default 'J',
-  SENASTEKRAVDATUM date default NULL,
-  SKULD decimal(10,2) default NULL,
-  ORDERSTOCK decimal(10,2) default NULL,
-  PRIMARY KEY  (KUNDNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'KUNDREG'
---
-
-
---
--- Table structure for table 'KURESK'
---
-
-DROP TABLE IF EXISTS KURESK;
-CREATE TABLE KURESK (
-  ORDERNR varchar(10) NOT NULL default '',
-  FAKTURANR varchar(20) NOT NULL default '',
-  KUNDNR varchar(10) NOT NULL default '',
-  FAKTURADATUM date default NULL,
-  EXPIREDATUM date default NULL,
-  NETTOBELOPP decimal(10,2) default NULL,
-  MOMSBELOPP decimal(10,2) default NULL,
-  FAKTURABELOPP decimal(10,2) default NULL,
-  BETALD enum('J','N') NOT NULL default 'N',
-  BETALDATUM date default NULL,
-  USERID varchar(8) default NULL,
-  VALUTA char(3) default 'SEK',
-  VALUTAKURS decimal(10,2) NOT NULL default '1.00',
-  VALUTABELOPP decimal(10,2) default '0.00',
-  BAR char(2) default NULL,
-  VERNR int(11) default NULL,
-  MOMSKTONR varchar(4) default NULL,
-  KTONR varchar(4) default NULL,
-  DEBETBELOPP decimal(10,2) default NULL,
-  PRIMARY KEY  (ORDERNR,FAKTURANR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'KURESK'
---
-
-
---
--- Table structure for table 'LAGERSTELLEREG'
---
-
-DROP TABLE IF EXISTS LAGERSTELLEREG;
-CREATE TABLE LAGERSTELLEREG (
-  ARLAGST char(1) NOT NULL default '',
-  ARTIKELNR varchar(30) NOT NULL default '',
-  ARLAGHYLLA varchar(10) default NULL,
-  ARLAGSALDO decimal(10,2) default NULL,
-  ARINVGRP char(3) default NULL,
-  ARABC char(2) default NULL,
-  ARVALUTA char(3) default NULL,
-  ARIPRIS decimal(10,2) default '0.00',
-  ARIKVANT0 decimal(10,2) default '0.00',
-  ARIKVANT1 decimal(10,2) default '0.00',
-  ARIKVANT2 decimal(10,2) default '0.00',
-  ARKALKPRIS decimal(10,2) default '0.00',
-  ARPLANKPRIS decimal(10,2) default '0.00',
-  ARFRYSTKPRIS decimal(10,2) default '0.00',
-  ARBESTKVANT decimal(10,2) default '0.00',
-  ARBESTPUNKT decimal(10,2) default '0.00',
-  AROMKOST decimal(10,2) default '0.00',
-  RESERVERAT decimal(10,2) default NULL,
-  PRIMARY KEY  (ARTIKELNR,ARLAGST)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'LAGERSTELLEREG'
---
-
 
+/*!40000 ALTER TABLE `TRHD` DISABLE KEYS */;
+LOCK TABLES `TRHD` WRITE;
+INSERT INTO `TRHD` (`TRNSNR`, `TRNSID`, `TID`, `USERID`, `TRNSDATA`) VALUES (1,'VERADD','2003-1','JAPI','1120 -:- K -:- 1980'),(2,'VERADD','2003-1','JAPI','1120 -:- K -:- 1980'),(3,'VERADD','2003-1','JAPI','1120 -:- K -:- 1980'),(4,'VERADD','2003-11-09_08:34:45','JAPI','1120 -:- K -:- 1980'),(5,'VERADD','2003-11-09_08:34:45','JAPI','1120 -:- K -:- 1980'),(6,'VERADD','2003-11-09_08:48:45','ADMIN','1120 -:- K -:- 1980'),(7,'ARCHGW','2003-11-18_07:05:41','ADMIN','_:_1_:_Test1_:_ABC002_:_100_:_001_:_A_:_SEK_:_125.50_:_50_:_75_:_50_:_198.00_:_202.50_:_195.00_:_62_:_125_:_26.50_:_'),(8,'ARCHGL','2003-11-18_07:10:49','ADMIN','_:_1_:_Test1_:_ABC002_:_100_:_001_:_A_:_SEK_:_125.50_:_50_:_75_:_50_:_198.00_:_202.50_:_195.00_:_62_:_125_:_27.50_:_'),(9,'CHGARW','2003-11-18_07:34:25','ADMIN','_:_1_:_Test1_:_ABC002_:_100.00_:_001_:_A_:_SEK_:_125.50_:_50.00_:_75.00_:_50.00_:_155.00_:_202.50_:_155.00_:_62.00_:_125.00_:_27.50_:_'),(10,'CHGARW','2003-11-18_07:38:32','ADMIN','_:_1_:_Test1_:_ABC002_:_100.00_:_001_:_A_:_SEK_:_125.50_:_50.00_:_75.00_:_50.00_:_160.00_:_202.50_:_160.00_:_62.00_:_125.00_:_27.5_:_'),(11,'CHGARW','2003-11-18_07:51:01','ADMIN','_:_1_:_Test1_:_ABC002_:_100.00_:_001_:_A_:_SEK_:_125.50_:_50.00_:_75.00_:_50.00_:_160.00_:_202.50_:_160.00_:_62.00_:_125.00_:_34.50_:_'),(12,'CHGARW','2003-11-18_12:00:34','ADMIN','_:_1_:_Test1_:_ABC002_:_101.00_:_001_:_A_:_SEK_:_125.50_:_50.00_:_75.00_:_50.00_:_160.00_:_202.50_:_160.00_:_62.00_:_125.00_:_34.50_:_'),(13,'CHGARW','2003-11-18_12:04:40','ADMIN','_:_1_:_Test1_:_ABC002_:_102.00_:_001_:_A_:_SEK_:_125.50_:_50.00_:_75.00_:_50.00_:_160.00_:_202.50_:_160.00_:_62.00_:_125.00_:_34.50_:_'),(14,'CHGARW','2003-11-18_12:08:29','ADMIN','_:_1_:_Test1_:_ABC002_:_102.00_:_001_:_A_:_SEK_:_125.50_:_60.00_:_75.00_:_50.00_:_160.00_:_202.50_:_160.00_:_62.00_:_125.00_:_34.50_:_'),(15,'CHGARW','2003-11-18_12:12:36','ADMIN','_:_1_:_Test1_:_ABC002_:_103.00_:_001_:_A_:_SEK_:_125.50_:_60.00_:_75.00_:_50.00_:_160.00_:_202.50_:_160.00_:_62.00_:_125.00_:_34.50_:_'),(16,'CHGARW','2003-11-24_05:45:08','ADMIN','_:_1_:_1173-7540_:_AAC001_:_11.00_:_1_:_A_:_SEK_:_98.00_:_0.00_:_0.00_:_0.00_:_103.00_:_0.00_:_103.00_:_0.00_:_65.00_:_5.00_:_'),(17,'CHGARW','2003-11-24_06:39:57','ADMIN','_:_1_:_1173-7540_:_AAC001_:_11.00_:_1_:_A_:_SEK_:_98.00_:_0.00_:_0.00_:_0.00_:_103.00_:_0.00_:_103.00_:_0.00_:_65.00_:_5.00_:_'),(18,'CHGARW','2003-11-24_06:52:13','ADMIN','_:_1_:_1173-7540_:_AAC001_:_11.00_:_1_:_A_:_SEK_:_98.00_:_0.00_:_0.00_:_0.00_:_103.00_:_0.00_:_103.00_:_0.00_:_65.00_:_5.00_:_'),(19,'CHGARW','2003-11-24_07:00:22','ADMIN','_:_1_:_1173-7540_:_AAC001_:_11.00_:_1_:_A_:_SEK_:_98.00_:_0.00_:_0.00_:_0.00_:_103.00_:_0.00_:_0.00_:_0.00_:_65.00_:_5.00_:_'),(20,'CHGARW','2003-11-24_07:01:10','ADMIN','_:_1_:_1173-1445_:_AAA002_:_27.00_:_1_:_A_:_SEK_:_95.00_:_0.00_:_0.00_:_0.00_:_100.00_:_0.00_:_0.00_:_0.00_:_25.00_:_0.00_:_'),(21,'CHGARW','2003-12-07_04:40:48','ADMIN','_:_1_:_7310070059208_:_1_:_2.00_:_1_:_A_:_SEK_:_10.90_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_'),(22,'CHGARW','2003-12-07_04:53:24','ADMIN','_:_1_:_7310070125002_:_1_:_3.00_:_1_:_A_:_SEK_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_'),(23,'BOKFOR','2004-01-02_13:26:43','ADMIN','H AD 00000100 001 2440 D     10000.00           2004-01-02 jan      test nr 100                                                                                                  \n'),(24,'BOKFOR','2004-01-02_13:26:43','ADMIN','D AD 00000100 002 2611 K      2500.00                                                                                                                              l             \n'),(25,'BOKFOR','2004-01-02_13:26:43','ADMIN','D AD 00000100 003 4010 K      7500.00                                                                                                                              l             \n');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `TRHD` ENABLE KEYS */;
+
 --
--- Table structure for table 'LEVREG'
+-- Table structure for table `USR`
 --
+
+DROP TABLE IF EXISTS `USR`;
+CREATE TABLE `USR` (
+  `USERID` varchar(8) NOT NULL default '',
+  `NAMN` varchar(30) default NULL,
+  `AVD` varchar(10) default NULL,
+  `GRUPP` varchar(10) default NULL,
+  PRIMARY KEY  (`USERID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS LEVREG;
-CREATE TABLE LEVREG (
-  LEVNR varchar(10) NOT NULL default '',
-  LEVORGNR varchar(12) default NULL,
-  LEVNAMN varchar(30) NOT NULL default '',
-  LEVADRESS varchar(30) default NULL,
-  LEVPOSTNR varchar(6) default NULL,
-  LEVPOSTADR varchar(30) default NULL,
-  LEVLAND varchar(30) default NULL,
-  LEVTFNNR varchar(15) default NULL,
-  LEVFAXNR varchar(15) default NULL,
-  LEVTELEX varchar(10) default NULL,
-  LEVEMAIL varchar(30) default NULL,
-  LEVPOSTGIRONR varchar(10) default NULL,
-  LEVBANKGIRONR varchar(10) default NULL,
-  LEVREFERENT varchar(20) default NULL,
-  LEVREFTFN varchar(15) default NULL,
-  LEVMOMSKOD char(1) default '1',
-  LEVSKULD decimal(10,2) default NULL,
-  LEVKONTO varchar(4) default NULL,
-  LEVKUNDNR varchar(30) default NULL,
-  LEVVALUTA char(3) default NULL,
-  BETALVILKOR char(3) default NULL,
-  PRIMARY KEY  (LEVNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'LEVREG'
 --
+-- Dumping data for table `USR`
+--
+
 
+/*!40000 ALTER TABLE `USR` DISABLE KEYS */;
+LOCK TABLES `USR` WRITE;
+INSERT INTO `USR` (`USERID`, `NAMN`, `AVD`, `GRUPP`) VALUES ('OLFIX','Olfix Superuser','IT','Stab'),('ADMIN','Jan Pihlgren 2','IT','Stab'),('TESTARE','Testare Test','IT','Stab'),('CARRO','Caroline Ink√∂pare','Ink√∂p','Prod'),('ADMINA','Administrat√∂r av OLFIX','IT','Stab'),('GUEST','Guest Apache','Apache','Webb');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `USR` ENABLE KEYS */;
 
 --
--- Table structure for table 'LEVRESK'
+-- Table structure for table `VALUTA`
 --
 
-DROP TABLE IF EXISTS LEVRESK;
-CREATE TABLE LEVRESK (
-  LEVNR varchar(10) NOT NULL default '',
-  FAKTURANR varchar(20) NOT NULL default '',
-  REGDATUM date default NULL,
-  FAKTDATUM date default NULL,
-  EXPIREDATUM date default NULL,
-  FAKTTEXT varchar(100) default NULL,
-  BAR char(2) default NULL,
-  MOMSPROCENT decimal(3,2) default NULL,
-  VALUTA char(3) default NULL,
-  VALUTAKURS decimal(3,2) default NULL,
-  VALUTABELOPP decimal(10,2) default NULL,
-  LEVKTONR varchar(4) default NULL,
-  FAKTBELOPP decimal(10,2) default NULL,
-  MOMSKTONR varchar(4) default NULL,
-  MOMSBELOPP decimal(10,2) default NULL,
-  DEBETKONTONR varchar(4) default NULL,
-  DEBETBELOPP decimal(10,2) default NULL,
-  USERID varchar(8) default NULL,
-  VERNR int(11) default NULL,
-  BETALD enum('J','N') default 'N',
-  BETALDDATUM date default NULL,
-  OCRNR varchar(20) default NULL,
-  PRIMARY KEY  (LEVNR,FAKTURANR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'LEVRESK'
---
-
-
---
--- Table structure for table 'LEVSETT'
---
-
-DROP TABLE IF EXISTS LEVSETT;
-CREATE TABLE LEVSETT (
-  LEVSETTNR char(3) NOT NULL default '',
-  LEVSETTTEXT varchar(150) NOT NULL default '',
-  PRIMARY KEY  (LEVSETTNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'LEVSETT'
---
-
-
---
--- Table structure for table 'LEVVILLKOR'
---
-
-DROP TABLE IF EXISTS LEVVILLKOR;
-CREATE TABLE LEVVILLKOR (
-  VILLKORSNR char(3) NOT NULL default '',
-  VILLKORSTEXT varchar(150) NOT NULL default '',
-  PRIMARY KEY  (VILLKORSNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'LEVVILLKOR'
+DROP TABLE IF EXISTS `VALUTA`;
+CREATE TABLE `VALUTA` (
+  `VALUTAID` char(3) NOT NULL default '',
+  `LAND` varchar(15) default NULL,
+  `SALJ` decimal(3,2) default NULL,
+  `KOP` decimal(3,2) default NULL,
+  `BETECKNING` varchar(15) default NULL,
+  PRIMARY KEY  (`VALUTAID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `VALUTA`
 --
 
 
+/*!40000 ALTER TABLE `VALUTA` DISABLE KEYS */;
+LOCK TABLES `VALUTA` WRITE;
+INSERT INTO `VALUTA` (`VALUTAID`, `LAND`, `SALJ`, `KOP`, `BETECKNING`) VALUES ('DKK','Danmark','1.22','1.22','Kronor'),('NOK','Norge','1.23','1.23','Kronor'),('NYZ','Nya Zeeland','4.45','4.45','Dollar'),('SAR','Saudiarabien','2.40','2.40','Riyal'),('HKD','Honkong','0.00','0.00','Dollar'),('MYR','Malaysia','2.36','2.36','Ringgit'),('SGD','Singapore','5.08','5.08','Dollar'),('CAD','Kanada','5.66','5.66','Dollar'),('AUD','Australien','5.03','5.03','Dollar'),('USD','USA','8.97','8.97','Dollar'),('JPY','Japan','7.38','7.38','Yen'),('GBP','Storbritanien','14.26','14.26','Pund'),('EUR','Europa','9.08','9.08','Euro'),('CHF','Schweiz','0.00','0.00','France'),('SEK','Sverige','1.00','1.00','Kronor'),('SEC','TestSverige','1.99','1.98','Kroner');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `VALUTA` ENABLE KEYS */;
+
 --
--- Table structure for table 'ORDERRADREG'
+-- Table structure for table `VERHUVUD`
 --
 
-DROP TABLE IF EXISTS ORDERRADREG;
-CREATE TABLE ORDERRADREG (
-  ORDERNR varchar(10) NOT NULL default '',
-  ORDERRAD int(4) NOT NULL default '0',
-  KUNDNR varchar(10) NOT NULL default '',
-  RADORDERTYP enum('N','D') default 'N',
-  ARTIKELNR varchar(30) NOT NULL default '',
-  BENEMNING varchar(60) default NULL,
-  LEVERANSVECKA varchar(5) default NULL,
-  BESTELLT decimal(10,2) NOT NULL default '0.00',
-  APRIS decimal(10,2) NOT NULL default '0.00',
-  SUMMA decimal(10,2) NOT NULL default '0.00',
-  MOMSKR decimal(10,2) NOT NULL default '0.00',
-  LEVERERAT decimal(10,2) default NULL,
-  RESTNOTERAT decimal(10,2) default NULL,
-  RADRABATT decimal(2,1) default NULL,
-  KALKYLPRIS decimal(10,2) default NULL,
-  LEVDATUM date default NULL,
-  ENHET varchar(4) default 'ST',
-  FAKTURERAT decimal(10,2) default NULL,
-  PRIMARY KEY  (ORDERNR,ORDERRAD)
-) TYPE=MyISAM;
+DROP TABLE IF EXISTS `VERHUVUD`;
+CREATE TABLE `VERHUVUD` (
+  `VERNR` int(11) NOT NULL default '0',
+  `ARID` char(2) NOT NULL default '',
+  `VERDATUM` date default NULL,
+  `REGDAT` date default NULL,
+  `DEBET` decimal(10,2) default NULL,
+  `KREDIT` decimal(10,2) default NULL,
+  `VERTEXT` varchar(60) default NULL,
+  `KORRIGERAR` int(11) default NULL,
+  `KORRIGERAD` int(11) default NULL,
+  `USERID` varchar(8) default NULL,
+  PRIMARY KEY  (`VERNR`,`ARID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table 'ORDERRADREG'
+-- Dumping data for table `VERHUVUD`
 --
 
 
+/*!40000 ALTER TABLE `VERHUVUD` DISABLE KEYS */;
+LOCK TABLES `VERHUVUD` WRITE;
+INSERT INTO `VERHUVUD` (`VERNR`, `ARID`, `VERDATUM`, `REGDAT`, `DEBET`, `KREDIT`, `VERTEXT`, `KORRIGERAR`, `KORRIGERAD`, `USERID`) VALUES (8,'AC','2003-06-27','2003-06-27','3000.00','0.00','Test av hela LEVFAKTW',0,0,'ADMIN'),(4,'AC','2003-06-03','2003-06-03','2000.00','0.00','Ink√∂p av skrivbord',0,0,'ADMIN'),(7,'AC','2003-06-26','2003-06-26','10000.00','0.00','test WRREC',0,0,'ADMIN'),(3,'AC','2003-05-20','2003-05-20','10000.00','0.00','Bokhylla',0,0,'ADMIN'),(2,'AC','2003-05-20','2003-05-20','1000.00','0.00','test nr 2',0,0,'ADMIN'),(1,'AC','2003-05-20','2003-05-20','1000.00','0.00','Test av sortering och DK +-',0,0,'ADMIN'),(9,'AC','2003-06-27','2003-06-27','5000.00','0.00','totaltest nr 2 av LEVFAKTW',0,0,'ADMIN'),(10,'AC','2003-06-27','2003-06-27','5800.00','0.00','Soffgrupp',0,0,'ADMIN'),(11,'AC','2003-07-01','2003-07-01','0.00','0.00','',0,0,'ADMIN'),(12,'AC','2003-07-01','2003-07-01','100.00','0.00','test',0,0,'ADMIN'),(13,'AC','2003-07-02','2003-07-02','4540.00','0.00','test valuta',0,0,'ADMIN'),(14,'AC','2003-07-02','2003-07-02','1500.00','0.00','Ink√∂p av m√∂bler',0,0,'ADMIN'),(15,'AC','2003-07-02','2003-07-02','4540.00','0.00','ink√∂p material',0,0,'ADMIN'),(16,'AC','2003-07-02','2003-07-02','3632.00','0.00','Ink√∂p av material',0,0,'ADMIN'),(17,'AC','2003-07-03','2003-07-03','3139.50','0.00','test',0,0,'ADMIN'),(18,'AC','2003-07-09','2003-07-09','1000.00','0.00','test ocrnummer',0,0,'ADMIN'),(19,'AC','2003-07-09','2003-07-09','3000.00','0.00','test nr 2 av OCR',0,0,'ADMIN'),(20,'AC','2003-07-09','2003-07-09','36320.00','0.00','Ink√∂p av st√•lbalk',0,0,'ADMIN'),(21,'AC','2003-07-10','2003-07-10','5000.00','0.00','Test av vernr',0,0,'ADMIN'),(22,'AC','2003-07-10','2003-07-10','1000.00','0.00','test',0,0,'ADMIN'),(23,'AC','2003-07-09','2003-07-09','2000.00','0.00','test',0,0,'ADMIN'),(24,'AC','2003-07-10','2003-07-10','9080.00','0.00','test av OCR',0,0,'ADMIN'),(1,'AD','2003-07-30','2003-07-30','300000.00','0.00','L√•n eget kapital',0,0,'ADMIN'),(2,'AD','2003-07-30','2003-07-30','499450.00','0.00','Ins√§ttning checkr√§kningskredit',0,0,'ADMIN'),(3,'AD','2003-07-30','2003-07-30','0.00','60000.00','Lokalhyra 1.a kv 2003',0,0,'ADMIN'),(7,'AD','2003-08-01','2003-08-01','0.00','2000.00','M√§ssingpl√•t. 1 mm. 0,5 m3',0,0,'ADMIN'),(8,'AD','2003-08-02','2003-08-02','0.00','2000.00','Al-pl√•t. 1 mm. 1 m3',0,0,'ADMIN'),(9,'AD','2003-08-03','2003-08-03','0.00','3000.00','J√§rnpl√•t. 1 mm. 1 m3',0,0,'ADMIN'),(10,'AD','2003-08-04','2003-08-04','0.00','3000.00','J√§rnpl√•t. 0,6 mm. 1,5 m3',0,0,'ADMIN'),(11,'AD','2003-08-05','2003-08-05','0.00','3000.00','J√§rnpl√•t. 0,3 mm. 3 m3.',0,0,'ADMIN'),(12,'AD','2003-08-06','2003-08-06','0.00','3000.00','Al-pl√•t 0,75 mm. 2 m3.',0,0,'ADMIN'),(13,'AD','2003-08-07','2003-08-07','0.00','1000.00','Alpl√•t 0,5 mm 1m3',0,0,'ADMIN'),(14,'AD','2003-08-08','2003-08-08','0.00','1000.00','Al-pl√•t 1 m3',0,0,'ADMIN'),(15,'AD','2003-08-09','2003-08-09','0.00','36320.00','U-balk. Al. 5 m.',0,0,'ADMIN'),(16,'AD','2003-08-10','2003-08-10','0.00','1000.00','J√§rnpl√•t. 0,3 mm. 1 m3',0,0,'ADMIN'),(17,'AD','2003-08-11','2003-08-11','0.00','5000.00','I-balk',0,0,'ADMIN'),(18,'AD','2003-08-11','2003-08-11','0.00','2500.00','J√§rnpl√•t. 1 mm. 1 m3',0,0,'ADMIN'),(19,'AD','2003-08-12','2003-08-12','0.00','50000.00','U-balk aluminium. 7 m.',0,0,'ADMIN'),(20,'AD','2003-08-12','2003-08-12','0.00','2000.00','J√§rnpl√•t. 0,6mm. 1 m3',0,0,'ADMIN'),(21,'AD','2003-08-13','2003-08-13','0.00','1000.00','Aluminiumpl√•t. 1 m3',0,0,'ADMIN'),(22,'AD','2003-08-13','2003-08-13','0.00','4000.00','Printerpapper',0,0,'ADMIN'),(23,'AD','2003-08-13','2003-08-13','0.00','5000.00','P√§rmar,Kollegieblock,Kopieringspapper',0,0,'ADMIN'),(25,'AC','2003-08-13','2003-08-13','0.00','54480.00','test',0,0,'ADMIN'),(24,'AD','2003-08-16','2003-08-16','0.00','25000.00','Bokhyllor',0,0,'ADMIN'),(25,'AD','2003-09-11','2003-09-11','0.00','40860.00','Aluminiumprofil U',0,0,'ADMIN');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `VERHUVUD` ENABLE KEYS */;
+
 --
--- Table structure for table 'ORDERREG'
+-- Table structure for table `VERRAD`
 --
 
-DROP TABLE IF EXISTS ORDERREG;
-CREATE TABLE ORDERREG (
-  ORDERNR varchar(10) NOT NULL default '',
-  KUNDNR varchar(10) NOT NULL default '',
-  ORDERTYP enum('N','D','E','F') default 'N',
-  ORDERSTATUS enum('A','N','F','B') default 'A',
-  ORDERDATUM date default NULL,
-  LEVDATUM date default NULL,
-  KUNDNAMN varchar(60) default NULL,
-  KUNDADRESS varchar(30) default NULL,
-  KUNDPOSTNR varchar(6) default NULL,
-  KUNDPOSTADR varchar(30) default NULL,
-  KUNDLAND varchar(30) default NULL,
-  ERREF varchar(20) default NULL,
-  LEVADRESS varchar(30) default NULL,
-  LEVPOSTNR varchar(6) default NULL,
-  LEVPOSTADR varchar(30) default NULL,
-  LEVLAND varchar(30) default NULL,
-  VARREF varchar(20) default NULL,
-  SELJARE varchar(20) default NULL,
-  GODSMERKE varchar(100) default NULL,
-  BETVILLKTYP enum('F','P','K') NOT NULL default 'F',
-  BETVILLKOR char(3) default '001',
-  LEVVILLKOR char(3) default '001',
-  LEVSETT char(3) default '001',
-  PLOCKLISTA enum('J','N') default 'J',
-  FOLJESEDEL enum('J','N') default 'J',
-  FRAKTAVG enum('J','N') default 'J',
-  SKATTEKOD char(3) NOT NULL default '001',
-  MOMS decimal(3,2) default NULL,
-  VALUTA char(3) default 'SEK',
-  EXPORTKOD char(3) default '001',
-  SPRAKKOD char(3) default 'sv',
-  ORDERSUMMA decimal(10,2) default NULL,
-  FRAKTSUMMA decimal(10,2) default NULL,
-  FRAKTMOMSKR decimal(10,2) default NULL,
-  ORDERMOMS decimal(10,2) default NULL,
-  ORDERTOTAL decimal(10,2) default NULL,
-  PRIMARY KEY  (ORDERNR)
-) TYPE=MyISAM;
+DROP TABLE IF EXISTS `VERRAD`;
+CREATE TABLE `VERRAD` (
+  `VERNR` int(11) NOT NULL default '0',
+  `RADNR` smallint(6) NOT NULL default '0',
+  `ARID` char(2) NOT NULL default '',
+  `KTONR` varchar(4) default NULL,
+  `BELOPP` decimal(10,2) default NULL,
+  `DK` enum('D','K') default NULL,
+  `KSTALLE` varchar(4) default NULL,
+  `PROJEKT` varchar(4) default NULL,
+  `SUBKTO` varchar(4) default NULL,
+  `DEFINITIV` enum('J','N') default 'N',
+  `STRUKEN` enum('J','N') default 'N',
+  PRIMARY KEY  (`VERNR`,`RADNR`,`ARID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table 'ORDERREG'
+-- Dumping data for table `VERRAD`
 --
+
 
+/*!40000 ALTER TABLE `VERRAD` DISABLE KEYS */;
+LOCK TABLES `VERRAD` WRITE;
+INSERT INTO `VERRAD` (`VERNR`, `RADNR`, `ARID`, `KTONR`, `BELOPP`, `DK`, `KSTALLE`, `PROJEKT`, `SUBKTO`, `DEFINITIV`, `STRUKEN`) VALUES (4,3,'AC','1820','1500.00','K','','','','N','N'),(7,1,'AC','2110','10000.00','D','','','','N','N'),(7,2,'AC','1470','1200.00','K','','','','N','N'),(4,2,'AC','1470','500.00','K','','','','N','N'),(4,1,'AC','2110','2000.00','D','','','','N','N'),(3,3,'AC','1820','7500.00','K','','','','N','N'),(3,2,'AC','1470','2500.00','K','','','','N','N'),(3,1,'AC','2110','10000.00','D','','','','N','N'),(2,3,'AC','1470','250.00','K','','','','N','N'),(2,2,'AC','1510','750.00','K','','','','N','N'),(2,1,'AC','2110','1000.00','D','','','','N','N'),(1,1,'AC','1510','1000.00','D','','','','N','N'),(1,2,'AC','1470','250.00','K','','','','N','N'),(1,3,'AC','1510','750.00','K','','','','N','N'),(7,3,'AC','1810','8800.00','K','','','','N','N'),(8,1,'AC','2110','3000.00','D','','','','N','N'),(8,2,'AC','1470','750.00','K','','','','N','N'),(8,3,'AC','1810','2250.00','K','','','','N','N'),(9,1,'AC','2110','5000.00','D','','','','N','N'),(9,2,'AC','1470','1250.00','K','','','','N','N'),(9,3,'AC','1810','3750.00','K','','','','N','N'),(10,1,'AC','2110','5800.00','D','','','','N','N'),(10,2,'AC','1470','1450.00','K','','','','N','N'),(10,3,'AC','1810','4350.00','K','','','','N','N'),(11,1,'AC','2110','0.00','D','','','','N','N'),(11,2,'AC','1470','0.00','K','','','','N','N'),(11,3,'AC','1810','0.00','K','','','','N','N'),(12,1,'AC','2110','100.00','D','','','','N','N'),(12,2,'AC','1470','25.00','K','','','','N','N'),(12,3,'AC','4010','75.00','K','','','','N','N'),(13,1,'AC','2110','4540.00','D','','','','N','N'),(13,2,'AC','1470','1135.00','K','','','','N','N'),(13,3,'AC','4010','3405.00','K','','','','N','N'),(14,1,'AC','2110','1500.00','D','','','','N','N'),(14,2,'AC','1470','375.00','K','','','','N','N'),(14,3,'AC','1810','1125.00','K','','','','N','N'),(15,1,'AC','2110','4540.00','D','','','','N','N'),(15,2,'AC','1470','1135.00','K','','','','N','N'),(15,3,'AC','4010','3405.00','K','','','','N','N'),(16,1,'AC','2110','3632.00','D','','','','N','N'),(16,2,'AC','1470','908.00','K','','','','N','N'),(16,3,'AC','4010','2724.00','K','','','','N','N'),(17,1,'AC','2110','3139.50','D','','','','N','N'),(17,3,'AC','4010','2354.62','K','','','','N','N'),(17,2,'AC','1470','784.88','K','','','','N','N'),(18,1,'AC','2110','1000.00','D','','','','N','N'),(18,2,'AC','1470','250.00','K','','','','N','N'),(18,3,'AC','4010','750.00','K','','','','N','N'),(19,1,'AC','2110','3000.00','D','','','','N','N'),(19,2,'AC','1470','750.00','K','','','','N','N'),(19,3,'AC','4010','2250.00','K','','','','N','N'),(20,1,'AC','2110','36320.00','D','','','','N','N'),(20,2,'AC','1470','9080.00','K','','','','N','N'),(20,3,'AC','4010','27240.00','K','','','','N','N'),(21,1,'AC','2110','5000.00','D','','','','N','N'),(21,2,'AC','1470','1250.00','K','','','','N','N'),(21,3,'AC','4010','3750.00','K','','','','N','N'),(22,1,'AC','2110','1000.00','D','','','','N','N'),(22,2,'AC','1470','250.00','K','','','','N','N'),(22,3,'AC','4010','750.00','K','','','','N','N'),(23,1,'AC','2110','2000.00','D','','','','N','N'),(23,2,'AC','1470','500.00','K','','','','N','N'),(23,3,'AC','4010','1500.00','K','','','','N','N'),(24,1,'AC','2110','9080.00','D','','','','N','N'),(24,2,'AC','1470','2270.00','K','','','','N','N'),(24,3,'AC','4010','6810.00','K','','','','N','N'),(1,2,'AD','2081','300000.00','K','','','','N','N'),(1,1,'AD','2330','300000.00','D','','','','N','N'),(2,1,'AD','2330','499450.00','D','','','','N','N'),(2,2,'AD','2350','500000.00','K','','','','N','N'),(2,3,'AD','8490','550.00','D','','','','N','N'),(3,1,'AD','2330','60000.00','K','','','','N','N'),(3,2,'AD','2641','12000.00','D','','','','N','N'),(3,3,'AD','5010','48000.00','D','','','','N','N'),(7,2,'AD','2641','500.00','D','','','','N','N'),(7,1,'AD','2440','2000.00','K','','','','N','N'),(8,1,'AD','2440','2000.00','K','','','','N','N'),(7,3,'AD','4010','1500.00','D','','','','N','N'),(8,2,'AD','2641','500.00','D','','','','N','N'),(8,3,'AD','4010','1500.00','D','','','','N','N'),(9,1,'AD','2440','3000.00','K','','','','N','N'),(9,2,'AD','2641','750.00','D','','','','N','N'),(9,3,'AD','4010','2250.00','D','','','','N','N'),(10,1,'AD','2440','3000.00','K','','','','N','N'),(10,2,'AD','2641','750.00','D','','','','N','N'),(10,3,'AD','4010','2250.00','D','','','','N','N'),(11,1,'AD','2440','3000.00','K','','','','N','N'),(11,2,'AD','2641','750.00','D','','','','N','N'),(11,3,'AD','4010','2250.00','D','','','','N','N'),(12,1,'AD','2440','3000.00','K','','','','N','N'),(12,2,'AD','2641','750.00','D','','','','N','N'),(12,3,'AD','4010','2250.00','D','','','','N','N'),(13,1,'AD','2440','1000.00','K','','','','N','N'),(13,2,'AD','2641','250.00','D','','','','N','N'),(13,3,'AD','4010','750.00','D','','','','N','N'),(14,1,'AD','2440','1000.00','K','','','','N','N'),(14,2,'AD','2641','250.00','D','','','','N','N'),(14,3,'AD','4010','750.00','D','','','','N','N'),(15,1,'AD','2440','36320.00','K','','','','N','N'),(15,2,'AD','2641','9080.00','D','','','','N','N'),(15,3,'AD','4010','27240.00','D','','','','N','N'),(16,1,'AD','2440','1000.00','K','','','','N','N'),(16,2,'AD','2641','250.00','D','','','','N','N'),(16,3,'AD','4010','750.00','D','','','','N','N'),(17,1,'AD','2440','5000.00','K','','','','N','N'),(17,2,'AD','2641','1250.00','D','','','','N','N'),(17,3,'AD','4010','3750.00','D','','','','N','N'),(18,1,'AD','2440','2500.00','K','','','','N','N'),(18,2,'AD','2641','625.00','D','','','','N','N'),(18,3,'AD','4010','1875.00','D','','','','N','N'),(19,1,'AD','2440','50000.00','K','','','','N','N'),(19,2,'AD','2641','12500.00','D','','','','N','N'),(19,3,'AD','4010','37500.00','D','','','','N','N'),(20,1,'AD','2440','2000.00','K','','','','N','N'),(20,2,'AD','2641','500.00','D','','','','N','N'),(20,3,'AD','4010','1500.00','D','','','','N','N'),(21,1,'AD','2440','1000.00','K','','','','N','N'),(21,2,'AD','2641','250.00','D','','','','N','N'),(21,3,'AD','4010','750.00','D','','','','N','N'),(22,1,'AD','2440','4000.00','K','','','','N','N'),(22,2,'AD','2641','1000.00','D','','','','N','N'),(22,3,'AD','6110','3000.00','D','','','','N','N'),(23,1,'AD','2440','5000.00','K','','','','N','N'),(23,2,'AD','2641','1250.00','D','','','','N','N'),(23,3,'AD','6110','3750.00','D','','','','N','N'),(25,1,'AC','2110','54480.00','K','','','','N','N'),(25,2,'AC','1470','13620.00','D','','','','N','N'),(25,3,'AC','4010','40860.00','D','','','','N','N'),(24,1,'AD','2440','25000.00','K','','','','N','N'),(24,2,'AD','2641','6250.00','D','','','','N','N'),(24,3,'AD','1220','18750.00','D','','','','N','N'),(25,1,'AD','2440','40860.00','K','','','','N','N'),(25,2,'AD','2611','10215.00','D','','','','N','N'),(25,3,'AD','4010','30645.00','D','','','','N','N');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `VERRAD` ENABLE KEYS */;
 
 --
--- Table structure for table 'PASSW'
+-- Table structure for table `WEBBKUND`
 --
 
-DROP TABLE IF EXISTS PASSW;
-CREATE TABLE PASSW (
-  KUNDNR varchar(10) NOT NULL default '',
-  PASSW varchar(16) NOT NULL default '',
-  PRIMARY KEY  (KUNDNR)
-) TYPE=MyISAM;
+DROP TABLE IF EXISTS `WEBBKUND`;
+CREATE TABLE `WEBBKUND` (
+  `KUNDNR` varchar(10) NOT NULL default '',
+  `NAMN` varchar(60) NOT NULL default '',
+  `ADRESS` varchar(30) default NULL,
+  `POSTNR` varchar(6) default NULL,
+  `POSTADR` varchar(30) default NULL,
+  `LAND` varchar(30) default NULL,
+  `ADRESS2` varchar(30) default NULL,
+  `POSTNR2` varchar(6) default NULL,
+  `POSTADR2` varchar(30) default NULL,
+  `LAND2` varchar(30) default NULL,
+  `TFNNR` varchar(15) default NULL,
+  `EMAILADR` varchar(30) default NULL,
+  `BETALVILLKOR` char(3) default NULL,
+  `LEVVILLKOR` char(3) default NULL,
+  `LEVSETT` char(3) default NULL,
+  `ORDERERKENNANDE` enum('J','N') default 'J',
+  `PLOCKLISTA` enum('J','N') default 'J',
+  `FOLJESEDEL` enum('J','N') default 'J',
+  `KRAVBREV` enum('J','N') default 'J',
+  `EXPAVGIFT` enum('J','N') default 'J',
+  `FRAKTAVG` enum('J','N') default 'J',
+  `KREDITLIMIT` decimal(10,2) default NULL,
+  `KREDITDAGAR` int(11) default NULL,
+  `DROJMALSRTA` enum('J','N') default 'J',
+  `DROJMALSFAKTURA` enum('J','N') default 'J',
+  `SENASTEKRAVDATUM` date default NULL,
+  `SKULD` decimal(10,2) default NULL,
+  `ORDERSTOCK` decimal(10,2) default NULL,
+  `PASSWORD` varchar(16) NOT NULL default '',
+  PRIMARY KEY  (`KUNDNR`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table 'PASSW'
+-- Dumping data for table `WEBBKUND`
 --
 
 
---
--- Table structure for table 'PLOCKLISTEREG'
---
-
-DROP TABLE IF EXISTS PLOCKLISTEREG;
-CREATE TABLE PLOCKLISTEREG (
-  PLOCKNR int(11) NOT NULL auto_increment,
-  ORDERNR varchar(10) NOT NULL default '',
-  ORDERRAD int(4) NOT NULL default '0',
-  KUNDNR varchar(10) NOT NULL default '',
-  ARTIKELNR varchar(30) NOT NULL default '',
-  BENEMNING varchar(60) default NULL,
-  LEVERANSVECKA varchar(5) default NULL,
-  BESTELLT decimal(10,2) NOT NULL default '0.00',
-  ATTLEVERERA decimal(10,2) NOT NULL default '0.00',
-  LEVERERAT decimal(10,2) NOT NULL default '0.00',
-  PLOCKAT decimal(10,2) NOT NULL default '0.00',
-  RESTNOTERAT decimal(10,2) NOT NULL default '0.00',
-  LEVDATUM date default NULL,
-  ENHET varchar(4) default NULL,
-  PLOCKSTATUS enum('P','U','B') default 'P',
-  PLOCKDATUM date NOT NULL default '0000-00-00',
-  PRIMARY KEY  (PLOCKNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'PLOCKLISTEREG'
---
-
-
---
--- Table structure for table 'PRODUKTGRUPP'
---
-
-DROP TABLE IF EXISTS PRODUKTGRUPP;
-CREATE TABLE PRODUKTGRUPP (
-  PRODKLASS varchar(5) NOT NULL default '',
-  BESKRIVNING varchar(30) default NULL,
-  MOMSKOD varchar(5) default NULL,
-  PRIMARY KEY  (PRODKLASS)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'PRODUKTGRUPP'
---
-
-
---
--- Table structure for table 'PROGRAM'
---
-
-DROP TABLE IF EXISTS PROGRAM;
-CREATE TABLE PROGRAM (
-  PRGNR char(3) NOT NULL default '',
-  MENYAVD varchar(20) default NULL,
-  MENYGRP varchar(30) default NULL,
-  MENYTXT varchar(30) default NULL,
-  PROGRAM varchar(8) default NULL,
-  PRIMARY KEY  (PRGNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'PROGRAM'
---
-
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('026','Ekonomi','Valutaadministration','ƒndra valuta','CHGVALW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('025','Ekonomi','Valutaadministration','Ny valuta','ADDVALW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('024','Ekonomi','Kostnadst‰lleadministration','Lista kostnadsst‰llen','LSTKSTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('023','Ekonomi','Kostnadst‰lleadministration','Visa ett kostnadsst‰lle','DSPKSTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('022','Ekonomi','Kostnadst‰lleadministration','Ta bort kostnadst‰lle','');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('021','Ekonomi','Kostnadst‰lleadministration','ƒndra kostnadst‰lle','');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('020','Ekonomi','Kostnadst‰lleadministration','Nytt kostnadst‰lle','ADDKSTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('019','Ekonomi','Kontoadministration','Lista konton','LSTKTOW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('018','Ekonomi','Kontoadministration','Visa konto','DSPKTOW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('017','Ekonomi','Kontoadministration','Ta bort konto','');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('016','Ekonomi','Kontoadministration','ƒndra konto','CHGKTOW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('015','Ekonomi','Kontoadministration','Nytt konto','ADDKTOW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('013','Ekonomi','Bokfˆring','Registrera verifikation','');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('012','Administration','Funktionsadministration','Lista funktioner','LSTFNCW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('011','Administration','Funktionsadministration','Ny funktion','ADDFNCW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('010','Administration','Behˆrighetsadministration','Lista behˆrigheter','LSTRGTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('009','Administration','Behˆrighetsadministration','Visa behˆrighet','');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('007','Administration','Behˆrighetsadministration','ƒndra behˆrighet','');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('006','Administration','Behˆrighetsadministration','Ny behˆrighet','ADDRGTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('003','Administration','Anv‰ndaradministration','Ta bort anv‰ndare','DELUSRW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('005','Administration','Anv‰ndaradministration','Lista anv‰ndare','LSTUSRW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('002','Administration','Anv‰ndaradministration','ƒndra anv‰ndarinfo','CHGUSRW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('014','Ekonomi','Bokfˆring','Registrera ver. standard','BOKFORSW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('008','Administration','Behˆrighetsadministration','Ta bort behˆrighet','DELRGTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('004','Administration','Anv‰ndaradministration','Visa en anv‰ndare','DSPUSRW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('001','Administration','Anv‰ndaradministration','Ny anv‰ndare','ADDUSRW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('027','Ekonomi','Valutaadministration','Ta bort valuta','DELVALW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('028','Ekonomi','Valutaadministration','Visa valuta','DSPVALW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('029','Ekonomi','Valutaadministration','Lista valutor','LSTVALW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('030','Ekonomi','Rapporter','Kontorapport','RPTKTOW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('031','Ekonomi','Rapporter','Rapportgenerator','RPTGENW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('032','Ekonomi','R‰kenskapsÂr','Nytt bokfˆringsÂr','ADDBARW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('033','Ekonomi','R‰kenskapsÂr','ƒndra bokfˆringsÂrsdata','CHGBARW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('034','Administration','Fˆretagsdata','Ny post','ADDFTGW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('035','Administration','Fˆretagsdata','ƒndra post','CHGFTGW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('036','Administration','Fˆretagsdata','Visa fˆretagsdata','DSPFTGW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('037','Fˆrs‰ljning','Kunddata','Ny kund','ADDKUW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('038','Fˆrs‰ljning','Kunddata','Ny leveransadress fˆr kund','ADDLEVPW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('039','Inkˆp','Leverantˆrsdata','Ny leverantˆr','ADDLEVW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('040','Inkˆp','Leverantˆrsdata','Visa en leverantˆr','DSPLEVW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('041','Inkˆp','Leverantˆrsdata','ƒndra leverantˆrsdata','CHGLEVW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('042','Ekonomi','Bokfˆring','Reg. leverantˆrsfaktura','LEVFAKTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('043','Ekonomi','Rapporter','Leverantˆrsreskontra','LEVRESKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('054','Administration','Betalningsvillkor','Lista betalningsvillkor','LSTBETVW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('044','Ekonomi','Rapporter','Fˆrfallna levfakturor','ATTBETW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('045','Ekonomi','Rapporter','Saldolista','SDOLISW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('046','Fˆrs‰ljning','Kunddata','Visa kunddata','DSPKUW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('047','Fˆrs‰ljning','Kunddata','ƒndra kunddata','CHGKUW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('048','Fˆrs‰ljning','Kunddata','Lista kunder','LSTKUW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('049','Administration','Fˆretagsdata','Byta fˆretag','BYTFTGW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('050','Materialhantering','Artikeldata','Ny artikel','ADDARW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('051','Materialhantering','Artikeldata','Visa grunddata fˆr en artikel','DSPARW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('052','Materialhantering','Artikeldata','Visa en artikels ekonomidata','DSPAREW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('053','Materialhantering','Artikeldata','ƒndra artikeldata','CHGARW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('055','Administration','Betalningsvillkor','Nya betalningsvillkor','ADDBETVW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('056','Materialhantering','Artikeldata','Lista artiklar','LSTARW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('057','Administration','Betalningsvillkor','ƒndra betalningsvillkor','CHGBETVW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('058','Inkˆp','Best‰llningar','Registrera inkˆpsorder','ADDINKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('059','Inkˆp','Best‰llningar','(ƒndra best‰llning)','CHGINKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('060','Inkˆp','Best‰llningar','(Annulera best‰llning)','DELINKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('061','Inkˆp','Best‰llningar','Visa best‰llning','DSPINKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('062','Inkˆp','Best‰llningar','Best‰llningsstock','LSTINKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('063','Inkˆp','Best‰llningar','Skriv ut best‰llning','PRTINKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('064','Inkˆp','Best‰llningar','(Avprickning fˆljesedel)','UPDINKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('065','Fˆrs‰ljning','Kundorder','Registrera kundorder','ADDORDW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('066','Fˆrs‰ljning','Kundorder','(ƒndra kundorder)','CHGORDW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('067','Fˆrs‰ljning','Kundorder','(Makulera kundorder)','DELORDW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('068','Fˆrs‰ljning','Kundorder','Visa en kundorder','DSPORDW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('069','Fˆrs‰ljning','Kundorder','Lista kundorder','LSTORDW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('070','Fˆrs‰ljning','Kundorder','Skriva ut plocklista','PLORDW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('071','Fˆrs‰ljning','Kundorder','(Skriva ut fˆljesedel)','FSORDW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('072','Fˆrs‰ljning','Kundorder','Fakturera kundorder','KUFAKTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('074','Administration','Fˆretagsdata','Ny text i textregistret','ADDTXTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('073','Inkˆp','Leverantˆrsdata','Lista leverantˆrer','LSTLEVW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('076','Administration','Leveransvillkor','Nya leveransvillkor','ADDLEVVW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('075','Administration','Fˆretagsdata','Radera post i textregistret','DELTXTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('077','Administration','Leveransvillkor','Lista leveransvillkor','LSTLEVVW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('078','Administration','Leveranss‰tt','Nya leveranss‰tt','ADDLEVSW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('079','Administration','Leveranss‰tt','Lista leveranss‰tt','LSTLEVSW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('080','Ekonomi','Rapporter','Balansr‰kning','BALRPTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('081','Ekonomi','Rapporter','Huvudbok','HUVBOKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('082','Ekonomi','Rapporter','Dagbok','DAGBOKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('083','Fˆrs‰ljning','Kunddata','Lista kunders leveransplatser','LSTLEVPW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('084','Administration','Fˆretagsdata','Ny databasregistrering','ADDFORW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('085','Administration','Fˆretagsdata','Lista databaser','LSTFORW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('086','Materialhantering','Artikeladmin.','Ny produktklass/produktgrupp','ADDPKDW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('087','Materialhantering','Artikeladmin.','Lista produktklass/produktgrup','LSTPKDW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('088','Ekonomi','R‰kenskapsÂr','Visa bokfˆringsÂr','DSPBARW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('089','Administration','Fˆretagsdata','Lista fˆretagsdata','LSTFTGW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('090','Ekonomi','Rapporter','Resultatrapport','RESRPTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('091','Ekonomi','R‰kenskapsÂr','Lista alla r‰kenskapsÂr','LSTBARW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('092','Fˆrs‰ljning','Kunddata','Sˆka kunder','SRCHKUW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('093','Ekonomi','Rapporter','Skapa SIE-fil','RPTSIEW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('094','Fˆrs‰ljning','Kundorder','Pricka av plocklista','PLCHGW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('095','Ekonomi','Rapporter','Kundreskontra','KURESKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('096','Administration','Fˆretagsdata','Lista texter i TEXTREG','LSTTXTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('097','Administration','Fˆretagsdata','Visa en post i TEXTREG','DSPTXTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('098','Materialhantering','Artikeldata','Sˆka artikel','SRCHARW');
-
---
--- Table structure for table 'RIGHTS'
---
-
-DROP TABLE IF EXISTS RIGHTS;
-CREATE TABLE RIGHTS (
-  USERID varchar(8) NOT NULL default '',
-  TRNSID varchar(8) NOT NULL default '',
-  PRIMARY KEY  (USERID,TRNSID)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'RIGHTS'
---
-
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','BYTFTGW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','PRGLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','ADDRGTW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','ARICHK');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','BARDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','KTOCHK');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','KTOLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','KTOVIEW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','PRGLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','RGTADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','RGTCHK');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','RGTDEL');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','RGTLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','TRHDADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','TRNSADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','TRNSDEL');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','USERADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','USERLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','VERUPD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('TESTARE','LSTUSRW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('TESTARE','PRGLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('TESTARE','RGTCHK');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('TESTARE','USERADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('TESTARE','USERDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('TESTARE','USERLST');
-
---
--- Table structure for table 'STDLEVPLATS'
---
-
-DROP TABLE IF EXISTS STDLEVPLATS;
-CREATE TABLE STDLEVPLATS (
-  STDLEVPLATS char(3) NOT NULL default '',
-  KUNDNR varchar(10) NOT NULL default '',
-  ADRESS varchar(30) NOT NULL default '',
-  POSTNR varchar(6) NOT NULL default '',
-  POSTADR varchar(30) NOT NULL default '',
-  LAND varchar(30) default NULL,
-  PRIMARY KEY  (STDLEVPLATS,KUNDNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'STDLEVPLATS'
---
-
-
---
--- Table structure for table 'TEXTREG'
---
-
-DROP TABLE IF EXISTS TEXTREG;
-CREATE TABLE TEXTREG (
-  TEXTNR char(3) NOT NULL default '',
-  TXT text,
-  PRIMARY KEY  (TEXTNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'TEXTREG'
---
-
-
---
--- Table structure for table 'TRANSID'
---
-
-DROP TABLE IF EXISTS TRANSID;
-CREATE TABLE TRANSID (
-  TRNSID varchar(8) NOT NULL default '',
-  TRNSTXT varchar(60) default NULL,
-  PRIMARY KEY  (TRNSID)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'TRANSID'
---
-
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARICHK','Kontrollera om visst bokfˆringsÂr finns');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARDSP','H‰mta data fˆr angivet bokfˆringsÂr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARCHK','Kontrollera om visst bokfˆringsÂr finns');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BOKF','Bokfˆringsprogram');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FORDSP','Visa info om databas nr x');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FTGUPD','Uppdatera fˆretagsdata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KSTADD','Nyuppl‰gg av kostnadsst‰lle');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KSTCHK','Kontrollera om visst kostnadst‰lle finns');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KSTDSP','Visa info fˆr ett kostnadst‰lle');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KSTLST','Lista kostnadsst‰llen pÂ sk‰rm');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTOADD','L‰gga till en ny post i konto');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTOCHG','ƒndra info fˆr ett kontonr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTOCHK','Kontrollera om visst konto finns');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTODEL','Ta bort post i konto (endast utan transaktioner)');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTODSP','Visa info pÂ ett konto');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTOLST','Lista alla konton, nr och text');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTORPT','Lista alla poster i tabellen VERRAD');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTOUPD','Uppdatera konto med antingen debet eller kredit');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTOVIEW','Visa kontonr och ben‰mning pÂ sk‰rm');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PRGLST','Lista program');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('RGTADD','L‰gga till behˆrighet till transaktioner');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('RGTCHK','Kontrolera anv‰ndares behˆrighet');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('RGTDEL','Ta bort behˆrighet till transaktioner');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('RGTDSP','Visa behˆrigheter fˆr en anv‰ndare');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('RGTLST','Lista alla behˆrigheter');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRHDADD','L‰gga till ny loggpost i TRHD');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNSADD','Ny post i TRANSID');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNSCHG','ƒndra post i TRANSID');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNSDEL','Ta bort post i TRANSID');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNSDSP','Visa enstaka TRANSID');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNSLST','Lista alla TRANSID');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('USERADD','Ny post i USER');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('USERCHG','ƒndra post i USER');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('USERDEL','Ta bort post i USER');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('USERDSP','Visa en anv‰ndare');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('USERLST','Lista alla anv‰ndare');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VALLST','Lista valutor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VALADD','L‰gga upp en ny valuta');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VALCHG','ƒndra valutainformation');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VALDEL','Ta bort en valuta');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VALDSP','Visa en valuta');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VERUPD','Nyuppl‰ggning av verifikat');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VERDSP','Visa enstaka verifikation');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VRDADD','Ny detaljpost fˆr verifikation till VERD');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VRHADD','Ny huvudpost fˆr verifikation till VERH');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('WRREC','Skriva post till tempfilen /tmp/vernr.txt');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ATTBET','Lista leverantˆrsfakturor att betala');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARADD','L‰gga upp nytt bokfˆringsÂr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARCHG','ƒndra data fˆr angivet bokfˆringsÂr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARFND','Hitta bokfˆringsÂr fˆr angivet datum');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BETDSP','Visa ett betalningsvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FTGADD','L‰gga upp en ny fˆretagspost');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FTGDSP','Visa fˆretagsdata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FTGLST','Lista posttyper fˆr fˆretagsdata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FTGLIS','Lista fˆretagsdata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KUADD','Registrera nya kunder');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KUCHG','ƒndra kunddata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KUCHK','Kontrollera om kundnr finns');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KUDSP','Visa kunddata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KULST','Lista kunder, kundnr och namn');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVADD','L‰gga upp en ny leverantˆr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVCHG','ƒndra leverantˆrsdata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVDSP','Visa en leverantˆr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVLST','Lista leverantˆrer,nr och namn');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LRESRPT','Lista alla obetalda poster i tabellen LEVRESK');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LRESADD','Ny post i leverantˆrsreskontran');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('RPTCRE','Rapportgenerator. Skapa rapporter');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('SLPADD','Standardleveransplats');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNTST','Detta ‰r en testfunktion');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARCHK','Kontrollera om artikelnummer finns');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARADD','L‰gga upp en ny artikel');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('AR2ADD','L‰gga upp ny artikel i lagerst‰lleregister');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARDSP','Visa grunddata fˆr en artikel');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARDSPL','Visa lagerdata fˆr en artikel');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARCHG','ƒndra grunddata fˆr en artikel');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARCHGL','ƒndra lagerst‰lledata fˆr en artikel');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BETLST','Lista betalningsvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BETADD','L‰gga upp ett nytt betalningsvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLST','Lista artiklar(artikelnr,ben‰mn1,ben‰mn2)');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BETCHG','ƒndra data fˆr betalningsvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TXTDSP','Visa texter ur TEXTREG');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TXTADD','L‰gg upp en ny post i TEXTREG');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('INKADD','L‰gga upp en ny inkˆpsorder');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('INKRADD','L‰gga upp en ny inkˆpsorderrad');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TXTDEL','Radera post i TEXTREG');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('INKRLST','Lista alla rader pÂ angiven inkˆpsorder');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('INKHDSP','Visa orderhuvud fˆr angiven inkˆpsorder');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('INKLST','Best‰llningsstock');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVVDSP','Visa ett leveransvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVSDSP','Visa ett leveranss‰tt');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVVADD','L‰gga upp ett nytt leveransvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVSADD','L‰gga upp ett nytt leveranss‰tt');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVVLST','Lista leveransvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVSLST','Lista leveranss‰tt');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VERHDSP','H‰mta mindatum och maxdatum fˆr angivet bokf.Âr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VERHLST','Lista verifikationers huvudposter fˆr ˆnskat bokfˆringsÂr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('HBOKRPT','Huvudboksrapport');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('DBOKRPT','Dagboksrapport');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PRTAPI','Utskriftsinterface');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVPLST','Lista kunders leveransadresser');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FORCHK','Kontr. om databas finns i tabell DATABAS');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FORADD','Ny databas i tabellen DATABAS');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FORLST','Lista databaser i tabell DATABAS');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PKDADD','Ny produktgrupp/produktkod/produktklass');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PKDLST','Lista produktgrupper/produktkoder/produktklasser');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('WKUDSP','Visa begr‰nsade kunddata fˆr webbkund');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLSTL','Lista artiklar med lagersaldo');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLIS','Lista artiklar fˆr angiven produktklass');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLSPK','Lista artiklar fˆr angiven produktkod');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('AR2UPD','Uppdatera artikelpost i LAGERSTELLEREG');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARLST','Lista bokfˆringsÂr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KUSRCH','Sˆka kunder pÂ namn, postnr, tfnnr eller postadr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVPDSP','Visa en standardleveransplats');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDADD','Nyuppl‰gg av kundorderhuvud');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDCHK','Kontrollera diverse uppgifter pÂ kundorder');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDDSP','Visa en kundorders huvudpost');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDRDSP','Visa en kundorders orderrader');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PKDDSP','Visa en produktgrupp/produktkod/produktklass');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('SIEEXPK','SIE-export av kontoplan');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('SIEEXPR','SIE-export av resultat');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('SIEEXPV','SIE-export av verifikat');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('DBCHK','Lista databaser registrerade i databasen mysql');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDLST2','Lista kundorder med begr‰nsad information');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDLST','Lista kundorder');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKADD','Nytt plock av kundorderrad');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKDSP','Visa plockade men ej utskrivna plock');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKLST','Lista avprickade kundorderrader');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KRESADD','Ny post till kundreskontran');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORADUPD','Uppdatera ˆnskat f‰lt i ORDERRADREG');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDRUPD','Uppdatera ORDERRADREG');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDUPD','Uppdatera ˆnskat f‰lt i ORDERREG');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLSPK2','Lista artiklar/produktkod med saldo');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KRESLST','Lista poster i kundreskontran');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDRADD','L‰gga upp ny rad pÂ kundorder');
-
---
--- Table structure for table 'TRHD'
---
-
-DROP TABLE IF EXISTS TRHD;
-CREATE TABLE TRHD (
-  TRNSNR int(11) NOT NULL auto_increment,
-  TRNSID varchar(8) NOT NULL default '',
-  TID varchar(20) NOT NULL default '',
-  USERID varchar(8) NOT NULL default '',
-  TRNSDATA varchar(255) default NULL,
-  PRIMARY KEY  (TRNSNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'TRHD'
---
-
-
---
--- Table structure for table 'USR'
---
-
-DROP TABLE IF EXISTS USR;
-CREATE TABLE USR (
-  USERID varchar(8) NOT NULL default '',
-  NAMN varchar(30) default NULL,
-  AVD varchar(10) default NULL,
-  GRUPP varchar(10) default NULL,
-  PRIMARY KEY  (USERID)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'USR'
---
-
-INSERT INTO USR (USERID, NAMN, AVD, GRUPP) VALUES ('OLFIX','Olfix Superuser','IT','Stab');
-INSERT INTO USR (USERID, NAMN, AVD, GRUPP) VALUES ('TESTARE','Testare Test','Prov','Utv');
-INSERT INTO USR (USERID, NAMN, AVD, GRUPP) VALUES ('ADMINA','Admin Adminstratˆr','IT','Stab');
-INSERT INTO USR (USERID, NAMN, AVD, GRUPP) VALUES ('ADMIN','Jan Olfixsson','Ekonomi','Stab');
-
---
--- Table structure for table 'VALUTA'
---
-
-DROP TABLE IF EXISTS VALUTA;
-CREATE TABLE VALUTA (
-  VALUTAID char(3) NOT NULL default '',
-  LAND varchar(15) default NULL,
-  SALJ decimal(3,2) default NULL,
-  KOP decimal(3,2) default NULL,
-  BETECKNING varchar(15) default NULL,
-  PRIMARY KEY  (VALUTAID)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'VALUTA'
---
-
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('DKK','Danmark',1.22,1.22,'Kronor');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('NOK','Norge',1.23,1.23,'Kronor');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('NYZ','Nya Zeeland',4.45,4.45,'Dollar');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('SAR','Saudiarabien',2.40,2.40,'Riyal');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('HKD','Honkong',0.00,0.00,'Dollar');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('MYR','Malaysia',2.36,2.36,'Ringgit');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('SGD','Singapore',5.08,5.08,'Dollar');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('CAD','Kanada',5.66,5.66,'Dollar');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('AUD','Australien',5.03,5.03,'Dollar');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('USD','USA',8.97,8.97,'Dollar');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('JPY','Japan',7.38,7.38,'Yen');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('GBP','Storbritanien',14.26,14.26,'Pund');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('EUR','Europa',9.08,9.08,'Euro');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('CHF','Schweiz',0.00,0.00,'France');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('SEK','Sverige',0.99,0.99,'Kronor');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('EEK','Estland',0.59,0.57,'Kronor');
-
---
--- Table structure for table 'VERHUVUD'
---
-
-DROP TABLE IF EXISTS VERHUVUD;
-CREATE TABLE VERHUVUD (
-  VERNR int(11) NOT NULL default '0',
-  ARID char(2) NOT NULL default '',
-  VERDATUM date default NULL,
-  REGDAT date default NULL,
-  DEBET decimal(10,2) default NULL,
-  KREDIT decimal(10,2) default NULL,
-  VERTEXT varchar(60) default NULL,
-  KORRIGERAR int(11) default NULL,
-  KORRIGERAD int(11) default NULL,
-  USERID varchar(8) default NULL,
-  PRIMARY KEY  (VERNR,ARID)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'VERHUVUD'
---
-
-
---
--- Table structure for table 'VERRAD'
---
-
-DROP TABLE IF EXISTS VERRAD;
-CREATE TABLE VERRAD (
-  VERNR int(11) NOT NULL default '0',
-  RADNR smallint(6) NOT NULL default '0',
-  ARID char(2) NOT NULL default '',
-  KTONR varchar(4) default NULL,
-  BELOPP decimal(10,2) default NULL,
-  DK enum('D','K') default NULL,
-  KSTALLE varchar(4) default NULL,
-  PROJEKT varchar(4) default NULL,
-  SUBKTO varchar(4) default NULL,
-  DEFINITIV enum('J','N') default 'N',
-  STRUKEN enum('J','N') default 'N',
-  PRIMARY KEY  (VERNR,RADNR,ARID)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'VERRAD'
---
-
-
---
--- Table structure for table 'WEBBKUND'
---
-
-DROP TABLE IF EXISTS WEBBKUND;
-CREATE TABLE WEBBKUND (
-  KUNDNR varchar(10) NOT NULL default '',
-  NAMN varchar(60) NOT NULL default '',
-  ADRESS varchar(30) default NULL,
-  POSTNR varchar(6) default NULL,
-  POSTADR varchar(30) default NULL,
-  LAND varchar(30) default NULL,
-  ADRESS2 varchar(30) default NULL,
-  POSTNR2 varchar(6) default NULL,
-  POSTADR2 varchar(30) default NULL,
-  LAND2 varchar(30) default NULL,
-  TFNNR varchar(15) default NULL,
-  EMAILADR varchar(30) default NULL,
-  BETALVILLKOR char(3) default NULL,
-  LEVVILLKOR char(3) default NULL,
-  LEVSETT char(3) default NULL,
-  ORDERERKENNANDE enum('J','N') default 'J',
-  PLOCKLISTA enum('J','N') default 'J',
-  FOLJESEDEL enum('J','N') default 'J',
-  KRAVBREV enum('J','N') default 'J',
-  EXPAVGIFT enum('J','N') default 'J',
-  FRAKTAVG enum('J','N') default 'J',
-  KREDITLIMIT decimal(10,2) default NULL,
-  KREDITDAGAR int(11) default NULL,
-  DROJMALSRTA enum('J','N') default 'J',
-  DROJMALSFAKTURA enum('J','N') default 'J',
-  SENASTEKRAVDATUM date default NULL,
-  SKULD decimal(10,2) default NULL,
-  ORDERSTOCK decimal(10,2) default NULL,
-  PASSWORD varchar(16) NOT NULL default '',
-  PRIMARY KEY  (KUNDNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'WEBBKUND'
---
-
-
---
--- Current Database: olfixtst
---
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ olfixtst;
-
-USE olfixtst;
-
---
--- Table structure for table 'ARTIKELREG'
---
-
-DROP TABLE IF EXISTS ARTIKELREG;
-CREATE TABLE ARTIKELREG (
-  ARTIKELNR varchar(30) NOT NULL default '',
-  ARBENEMNING1 varchar(60) NOT NULL default '',
-  ARBENEMNING2 varchar(60) default NULL,
-  ARENHET varchar(5) default NULL,
-  ARFPRIS decimal(10,2) default NULL,
-  ARLEDTID char(3) default NULL,
-  ARPRODKLASS varchar(5) default NULL,
-  ARPRODKTO varchar(5) default NULL,
-  ARLEVNR1 varchar(10) default NULL,
-  ARLEVNR2 varchar(10) default NULL,
-  ARLEVNR3 varchar(10) default NULL,
-  ARNETTOVIKT decimal(10,2) default NULL,
-  ARARTTYP enum('0','1','2','3','4') default '0',
-  ARSTRUKT enum('','B','I','T','F') default '',
-  ARURBENEMNING varchar(60) default NULL,
-  ARURLAND varchar(30) default NULL,
-  ARURARTNR varchar(30) default NULL,
-  ARTULLTAX varchar(10) default NULL,
-  ARVOLYM decimal(4,3) default NULL,
-  AROMRFAKTOR int(11) NOT NULL default '1',
-  PRIMARY KEY  (ARTIKELNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'ARTIKELREG'
---
-
-INSERT INTO ARTIKELREG (ARTIKELNR, ARBENEMNING1, ARBENEMNING2, ARENHET, ARFPRIS, ARLEDTID, ARPRODKLASS, ARPRODKTO, ARLEVNR1, ARLEVNR2, ARLEVNR3, ARNETTOVIKT, ARARTTYP, ARSTRUKT, ARURBENEMNING, ARURLAND, ARURARTNR, ARTULLTAX, ARVOLYM, AROMRFAKTOR) VALUES ('1000-1001','Att anv‰nda GNU/LINUX','Linus Walleij','ST',117.00,'7','1000','','100','200','300',0.00,'2','','Att anv‰nda GNU/LINUX','Sverige','ISBN 91-44-03400-8','',0.000,1);
-INSERT INTO ARTIKELREG (ARTIKELNR, ARBENEMNING1, ARBENEMNING2, ARENHET, ARFPRIS, ARLEDTID, ARPRODKLASS, ARPRODKTO, ARLEVNR1, ARLEVNR2, ARLEVNR3, ARNETTOVIKT, ARARTTYP, ARSTRUKT, ARURBENEMNING, ARURLAND, ARURARTNR, ARTULLTAX, ARVOLYM, AROMRFAKTOR) VALUES ('1000-1002','Linux MAGNUM','Jack Tacket,Jr och Steven Burn','ST',117.00,'7','1000','','100','200','300',0.00,'2','','Linux MAGNUM','Sverige','ISBN 0-7645-2508-5','',0.000,1);
-INSERT INTO ARTIKELREG (ARTIKELNR, ARBENEMNING1, ARBENEMNING2, ARENHET, ARFPRIS, ARLEDTID, ARPRODKLASS, ARPRODKTO, ARLEVNR1, ARLEVNR2, ARLEVNR3, ARNETTOVIKT, ARARTTYP, ARSTRUKT, ARURBENEMNING, ARURLAND, ARURARTNR, ARTULLTAX, ARVOLYM, AROMRFAKTOR) VALUES ('1000-1003','Linux PÂ egen hand','Steve Oualline och Eric Foster','ST',117.00,'7','1000','','100','200','300',0.00,'2','','Linux PÂ egen hand','Sverige','ISBN 013-019716-5','',0.000,1);
-INSERT INTO ARTIKELREG (ARTIKELNR, ARBENEMNING1, ARBENEMNING2, ARENHET, ARFPRIS, ARLEDTID, ARPRODKLASS, ARPRODKTO, ARLEVNR1, ARLEVNR2, ARLEVNR3, ARNETTOVIKT, ARARTTYP, ARSTRUKT, ARURBENEMNING, ARURLAND, ARURARTNR, ARTULLTAX, ARVOLYM, AROMRFAKTOR) VALUES ('1000-1004','C++ programmering','Stephen Prata','ST',117.00,'7','1001','','100','200','300',0.00,'2','','Linux PÂ egen hand','Sverige','ISBN 91-86201-34-4','',0.000,1);
-INSERT INTO ARTIKELREG (ARTIKELNR, ARBENEMNING1, ARBENEMNING2, ARENHET, ARFPRIS, ARLEDTID, ARPRODKLASS, ARPRODKTO, ARLEVNR1, ARLEVNR2, ARLEVNR3, ARNETTOVIKT, ARARTTYP, ARSTRUKT, ARURBENEMNING, ARURLAND, ARURARTNR, ARTULLTAX, ARVOLYM, AROMRFAKTOR) VALUES ('1000-1005','Programming with Qt','Matthias Kalle Dalheimer','ST',117.00,'7','1002','','100','200','300',0.00,'2','','Programming with Qt','Sverige','ISBN 0-596-00064-2','',0.000,1);
-INSERT INTO ARTIKELREG (ARTIKELNR, ARBENEMNING1, ARBENEMNING2, ARENHET, ARFPRIS, ARLEDTID, ARPRODKLASS, ARPRODKTO, ARLEVNR1, ARLEVNR2, ARLEVNR3, ARNETTOVIKT, ARARTTYP, ARSTRUKT, ARURBENEMNING, ARURLAND, ARURARTNR, ARTULLTAX, ARVOLYM, AROMRFAKTOR) VALUES ('1000-1006','The C Programming language','Brian W Kernighan och Dennis M','ST',117.00,'7','1003','','100','200','300',0.00,'2','','The C Programming language','USA','ISBN 91-970296-45','',0.000,1);
-INSERT INTO ARTIKELREG (ARTIKELNR, ARBENEMNING1, ARBENEMNING2, ARENHET, ARFPRIS, ARLEDTID, ARPRODKLASS, ARPRODKTO, ARLEVNR1, ARLEVNR2, ARLEVNR3, ARNETTOVIKT, ARARTTYP, ARSTRUKT, ARURBENEMNING, ARURLAND, ARURARTNR, ARTULLTAX, ARVOLYM, AROMRFAKTOR) VALUES ('1000-1007','The C Programming lang.Facit','Clovis Tondo,Scott Gimpel','ST',117.00,'7','1003','','100','200','300',0.00,'2','','The C Programming lang.Facit','USA','ISBN 91-970296-88','',0.000,1);
-INSERT INTO ARTIKELREG (ARTIKELNR, ARBENEMNING1, ARBENEMNING2, ARENHET, ARFPRIS, ARLEDTID, ARPRODKLASS, ARPRODKTO, ARLEVNR1, ARLEVNR2, ARLEVNR3, ARNETTOVIKT, ARARTTYP, ARSTRUKT, ARURBENEMNING, ARURLAND, ARURARTNR, ARTULLTAX, ARVOLYM, AROMRFAKTOR) VALUES ('1000-1008','V‰gen till C','Ulf Bilting,Jan Skansholm','ST',117.00,'7','1003','','100','200','300',0.00,'2','','V‰gen till C','Sverige','ISBN 91-44-26732-0','',0.000,1);
-INSERT INTO ARTIKELREG (ARTIKELNR, ARBENEMNING1, ARBENEMNING2, ARENHET, ARFPRIS, ARLEDTID, ARPRODKLASS, ARPRODKTO, ARLEVNR1, ARLEVNR2, ARLEVNR3, ARNETTOVIKT, ARARTTYP, ARSTRUKT, ARURBENEMNING, ARURLAND, ARURARTNR, ARTULLTAX, ARVOLYM, AROMRFAKTOR) VALUES ('1000-1009','Arbeta med C','J A Illik','ST',117.00,'7','1003','','100','200','300',0.00,'2','','Arbeta med C','Sverige','ISBN 91-86200-40-2','',0.000,1);
-INSERT INTO ARTIKELREG (ARTIKELNR, ARBENEMNING1, ARBENEMNING2, ARENHET, ARFPRIS, ARLEDTID, ARPRODKLASS, ARPRODKTO, ARLEVNR1, ARLEVNR2, ARLEVNR3, ARNETTOVIKT, ARARTTYP, ARSTRUKT, ARURBENEMNING, ARURLAND, ARURARTNR, ARTULLTAX, ARVOLYM, AROMRFAKTOR) VALUES ('1000-1010','Nyckeln till C','Alan C Plantz','ST',117.00,'7','1003','','100','200','300',0.00,'2','','Nyckeln till C','Sverige','ISBN 91-86200-75-5','',0.000,1);
-INSERT INTO ARTIKELREG (ARTIKELNR, ARBENEMNING1, ARBENEMNING2, ARENHET, ARFPRIS, ARLEDTID, ARPRODKLASS, ARPRODKTO, ARLEVNR1, ARLEVNR2, ARLEVNR3, ARNETTOVIKT, ARARTTYP, ARSTRUKT, ARURBENEMNING, ARURLAND, ARURARTNR, ARTULLTAX, ARVOLYM, AROMRFAKTOR) VALUES ('1000-1011','Professional Linux Programming','Neil Mattew and Richard Stones','ST',117.00,'7','1000','','100','200','300',0.00,'2','','Professional Linux Programming','USA','ISBN 1861003013','',0.000,1);
-INSERT INTO ARTIKELREG (ARTIKELNR, ARBENEMNING1, ARBENEMNING2, ARENHET, ARFPRIS, ARLEDTID, ARPRODKLASS, ARPRODKTO, ARLEVNR1, ARLEVNR2, ARLEVNR3, ARNETTOVIKT, ARARTTYP, ARSTRUKT, ARURBENEMNING, ARURLAND, ARURARTNR, ARTULLTAX, ARVOLYM, AROMRFAKTOR) VALUES ('1000-1012','Qt Programming in 24 Hours','Daniel Solin','ST',117.00,'7','1002','','100','200','300',0.00,'2','','Qt Programming in 24 Hours','USA','ISBN 0-672-31869-5','',0.000,1);
-INSERT INTO ARTIKELREG (ARTIKELNR, ARBENEMNING1, ARBENEMNING2, ARENHET, ARFPRIS, ARLEDTID, ARPRODKLASS, ARPRODKTO, ARLEVNR1, ARLEVNR2, ARLEVNR3, ARNETTOVIKT, ARARTTYP, ARSTRUKT, ARURBENEMNING, ARURLAND, ARURARTNR, ARTULLTAX, ARVOLYM, AROMRFAKTOR) VALUES ('1000-1013','C++ GUI Programming with Qt 3','Jasmine Blanchette, Mark Summerfield','ST',117.00,'7','1002','','100','200','300',0.00,'2','','C++ GUI programming with Qt 3','USA','ISBN 0-13-124072-2','',0.000,1);
-INSERT INTO ARTIKELREG (ARTIKELNR, ARBENEMNING1, ARBENEMNING2, ARENHET, ARFPRIS, ARLEDTID, ARPRODKLASS, ARPRODKTO, ARLEVNR1, ARLEVNR2, ARLEVNR3, ARNETTOVIKT, ARARTTYP, ARSTRUKT, ARURBENEMNING, ARURLAND, ARURARTNR, ARTULLTAX, ARVOLYM, AROMRFAKTOR) VALUES ('1000-1014','Practical Qt','Mattias Kalle Dalheimer,Jesper Pedersen','ST',117.00,'7','1002','','100','200','300',0.00,'2','','Practical Qt','Tyskland','ISBN 3-89864-260-1','',0.000,1);
-
---
--- Table structure for table 'BETVILKOR'
---
-
-DROP TABLE IF EXISTS BETVILKOR;
-CREATE TABLE BETVILKOR (
-  BETVILKOR char(3) NOT NULL default '',
-  DAGAR char(3) default NULL,
-  BESKRIVNING varchar(40) NOT NULL default '',
-  PRIMARY KEY  (BETVILKOR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'BETVILKOR'
---
-
-INSERT INTO BETVILKOR (BETVILKOR, DAGAR, BESKRIVNING) VALUES ('1','30','30 dagar netto');
-INSERT INTO BETVILKOR (BETVILKOR, DAGAR, BESKRIVNING) VALUES ('2','20','20 dagar netto');
-INSERT INTO BETVILKOR (BETVILKOR, DAGAR, BESKRIVNING) VALUES ('3','10','10 dagar netto');
-INSERT INTO BETVILKOR (BETVILKOR, DAGAR, BESKRIVNING) VALUES ('4','0','Kontantkˆp');
-INSERT INTO BETVILKOR (BETVILKOR, DAGAR, BESKRIVNING) VALUES ('5','30','Postfˆrskott');
-INSERT INTO BETVILKOR (BETVILKOR, DAGAR, BESKRIVNING) VALUES ('6','60','60 dagar netto');
-INSERT INTO BETVILKOR (BETVILKOR, DAGAR, BESKRIVNING) VALUES ('001','30','30 dagar netto');
-INSERT INTO BETVILKOR (BETVILKOR, DAGAR, BESKRIVNING) VALUES ('002','20','20 dagar netto');
-INSERT INTO BETVILKOR (BETVILKOR, DAGAR, BESKRIVNING) VALUES ('003','10','10 dagar netto');
-INSERT INTO BETVILKOR (BETVILKOR, DAGAR, BESKRIVNING) VALUES ('004','0','Kontantkˆp');
-INSERT INTO BETVILKOR (BETVILKOR, DAGAR, BESKRIVNING) VALUES ('005','30','Postfˆrskott');
-INSERT INTO BETVILKOR (BETVILKOR, DAGAR, BESKRIVNING) VALUES ('006','60','60 dagar netto');
-
---
--- Table structure for table 'BOKFAR'
---
-
-DROP TABLE IF EXISTS BOKFAR;
-CREATE TABLE BOKFAR (
-  ARID char(2) NOT NULL default '',
-  BENAMNING varchar(25) default NULL,
-  ARSTART date default NULL,
-  ARSLUT date default NULL,
-  ARLAST enum('J','N') default 'N',
-  SENVERDAT date default NULL,
-  VERNR int(11) default NULL,
-  KONTOPLAN varchar(15) default NULL,
-  BESKATTNINGSAR varchar(4) default NULL,
-  PRIMARY KEY  (ARID)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'BOKFAR'
---
-
-INSERT INTO BOKFAR (ARID, BENAMNING, ARSTART, ARSLUT, ARLAST, SENVERDAT, VERNR, KONTOPLAN, BESKATTNINGSAR) VALUES ('SS','2003-01-01--2003-12-31','2003-01-01','2003-12-31','N','0000-00-00',987124,'EUBAS2003','2003');
-INSERT INTO BOKFAR (ARID, BENAMNING, ARSTART, ARSLUT, ARLAST, SENVERDAT, VERNR, KONTOPLAN, BESKATTNINGSAR) VALUES ('ST','2003-01-01--2003-12-31','2003-01-01','2003-12-31','N','0000-00-00',987124,'EUBAS2003','2003');
-INSERT INTO BOKFAR (ARID, BENAMNING, ARSTART, ARSLUT, ARLAST, SENVERDAT, VERNR, KONTOPLAN, BESKATTNINGSAR) VALUES ('AD','2003-01-01--2003-12-31','2003-01-01','2003-12-31','N','2004-01-02',101,'EUBAS97','2003');
-INSERT INTO BOKFAR (ARID, BENAMNING, ARSTART, ARSLUT, ARLAST, SENVERDAT, VERNR, KONTOPLAN, BESKATTNINGSAR) VALUES ('AE','2005-01-01--2005-12-31','2005-01-01','2005-12-31','N','0000-00-00',1,'EUBAS2003','2005');
-
---
--- Table structure for table 'DATABAS'
---
-
-DROP TABLE IF EXISTS DATABAS;
-CREATE TABLE DATABAS (
-  DATABASNR char(3) NOT NULL default '',
-  DATABASTEXT varchar(15) NOT NULL default '',
-  PRIMARY KEY  (DATABASNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'DATABAS'
---
-
-INSERT INTO DATABAS (DATABASNR, DATABASTEXT) VALUES ('99','olfixtst');
-INSERT INTO DATABAS (DATABASNR, DATABASTEXT) VALUES ('01','olfix');
-INSERT INTO DATABAS (DATABASNR, DATABASTEXT) VALUES ('02','olfixweb');
-
---
--- Table structure for table 'FTGDATA'
---
-
-DROP TABLE IF EXISTS FTGDATA;
-CREATE TABLE FTGDATA (
-  POSTTYP varchar(5) NOT NULL default '',
-  POSTBESKR varchar(60) default NULL,
-  FDATA text,
-  PRIMARY KEY  (POSTTYP)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'FTGDATA'
---
-
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('FNAMN','Fˆretagsnamn','PROGRAM AB');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('FTGNR','Fˆretagsnummer','991199-1991');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('ADR1','Postadress','Box 70');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('ADR2','Postnummer till Postadress','199 98');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('ADR3','Ort till Postadress','PROGSTAD');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('ADR4','Besˆksadress','Syntaxv‰gen 99');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('ADR5','Postnr till Besˆksadress','199 98');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('ADR6','Ort till Besˆksadress','PROGSTAD');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('ADR7','Godsadress','Verktygsgatan 11');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('ADR8','Postnr till Godsadress','199 97');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('ADR9','Ort till Godsadress','PROGSTAD');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('TFNVX','Telefonnummer till vx','09-199300');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('TFN1','Telefonnummer','09-199300');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('TFN2','Mobiltelefonnummer','070-98765411');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('TFNMB','Mobiltelefonnummer','070-98765411');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('TFAX','Telefaxnummer','09-199397');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('TELEX','Telexnummer','12345');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('EML1','E-mailadress','jan@pihlgren.se');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMSI','Momskonto, ingÂende moms','2641');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMSU','Momskonto, utgÂende moms','2611');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMS1','Momssats 1','25');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMS2','Momssats 2','12');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMS3','Momssats 3','6');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMS4','Momssats 4',' ');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMS5','Momssats 5',' ');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('AUTOK','Automatkontering J/N','N');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('KORNR','Senast anv‰nda kundordernr','0');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF1','Bokfˆringsperiod 1','Januari');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF2','Bokfˆringsperiod 2','Februari');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF3','Bokfˆringsperiod 3','Mars');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF4','Bokfˆringsperiod 4','April');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF5','Bokfˆringsperiod 5','Maj');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF6','Bokfˆringsperiod 6','Juni');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF7','Bokfˆringsperiod 7','Juli');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF8','Bokfˆringsperiod 8','Augusti');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF9','Bokfˆringsperiod 9','September');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF10','Bokfˆringsperiod 10','Oktober');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF11','Bokfˆringsperiod 11','Novemper');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF12','Bokfˆringsperiod 12','December');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF13','Bokfˆringsperiod 13','Januari');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('INKNR','Senast anv‰nda inkˆpsordernr','28');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('SNIKD','Branschtillhˆrighet','82301');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('WKUNR','Senaste anv‰nda webbkundnummer','4379');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('FAKNR','Senaste fakturanr pÂ kundorder','0');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('FKNR2','Senaste fakturanr pÂ kundorder,serie 2','100000');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('FKNRS','Antal fakturanrserier, default = 1','1');
-
---
--- Table structure for table 'INKRADREG'
---
-
-DROP TABLE IF EXISTS INKRADREG;
-CREATE TABLE INKRADREG (
-  INKORDNR varchar(10) NOT NULL default '',
-  INKORDRADNR int(4) NOT NULL default '0',
-  ARTIKELNR varchar(30) default NULL,
-  BENEMNING varchar(30) default NULL,
-  LEVARTIKELNR varchar(30) default NULL,
-  LEVBENEMNING varchar(30) default NULL,
-  ENHET varchar(5) default NULL,
-  BESTANTAL decimal(10,2) default NULL,
-  LEVERERAT decimal(10,2) default NULL,
-  RESTNOTERAT decimal(10,2) default NULL,
-  INKPRIS decimal(10,2) default NULL,
-  LEVVECKA varchar(5) default NULL,
-  TORDNR int(6) default NULL,
-  OPNR int(6) default NULL,
-  PRIMARY KEY  (INKORDNR,INKORDRADNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'INKRADREG'
---
-
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('6712',10,'1173-1445','D/A Omvandlare 12-bit','DAC1220LCN','D/A Omvandlare 12-bit','ST',25.00,0.00,25.00,95.00,'351',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('23',10,'1173-1175','Sp‰nningsregulator positiv',NULL,NULL,'uA78H',0.00,0.00,100.00,0.00,'100',30,4084);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('19',40,'1173-7513','Microprocessor','SY6502','','ST',20.00,5.00,15.00,63.00,'402',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('19',30,'1173-7300','1024x1 bit static RAM','21022DC','','ST',20.00,0.00,20.00,10.05,'402',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('19',20,'1173-7300','1024x1 bit static RAM','21022DC','','ST',20.00,10.00,10.00,10.05,'401',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('19',10,'1173-7206','Dual Monostable Multivibrator','SN74LS123N','','ST',20.00,0.00,20.00,4.75,'402',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('18',10,'1173-0911','Sp‰nningsregulator positiv','uA7805AWC','','ST',10.00,0.00,10.00,1.50,'402',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('18',30,'1173-1175','Sp‰nningsregulator positiv','uA78H05ASC','Voltage regulator 5V','ST',10.00,0.00,10.00,30.00,'402',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('18',50,'1173-1447','Timerkrets','ICM7555','Timer','ST',10.00,0.00,10.00,5.45,'402',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('18',20,'1173-0963','Sp‰nningsregulator negativ','uA79M05AUC','','ST',10.00,10.00,0.00,5.50,'402',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('18',40,'1173-1445','D/A Omvandlare 12-bit','DAC1220LCN','D/A Omvandlare 12-bit','ST',10.00,0.00,10.00,95.00,'402',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('18',60,'1173-6910','Quadruple 2input NAND gate','SN74LS00N','Quadruple 2input NAND gate','ST',10.00,0.00,10.00,1.45,'402',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('27',10,'1173-1175','Sp‰nningsregulator positiv','uA78H05ASC','Voltage regulator 5V','',100.00,0.00,100.00,30.00,'4093',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('26',20,'1173-1445','D/A Omvandlare 12-bit','DAC1220LCN','','',100.00,0.00,100.00,95.00,'4074',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('26',10,'1173-1175','Sp‰nningsregulator positiv','uA78H05ASC','Voltage regulator 5V','',100.00,0.00,100.00,30.00,'4074',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('25',10,'1173-1175','Sp‰nningsregulator positiv','uA78H05ASC','Voltage regulator 5V','',100.00,0.00,100.00,30.00,'4074',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('25',20,'1173-1445','D/A Omvandlare 12-bit','DAC1220LCN','','',100.00,0.00,100.00,95.00,'4074',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('27',20,'1173-1445','D/A Omvandlare 12-bit','DAC1220LCN','','',100.00,0.00,100.00,95.00,'4093',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('27',30,'1173-1447','Timerkrets','ICM7555','Timer','',100.00,0.00,100.00,5.45,'4093',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('28',10,'1173-7300','1024x1 bit statiskt RAM','2102 2DC','','',100.00,0.00,100.00,10.05,'4094',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('28',20,'1173-7701','Quad 2-input NOR Gate','MC14000BCP','','',100.00,0.00,100.00,1.45,'4101',0,0);
-INSERT INTO INKRADREG (INKORDNR, INKORDRADNR, ARTIKELNR, BENEMNING, LEVARTIKELNR, LEVBENEMNING, ENHET, BESTANTAL, LEVERERAT, RESTNOTERAT, INKPRIS, LEVVECKA, TORDNR, OPNR) VALUES ('28',30,'1173-7802','4-Bit Aritmetic Logic Unit','MC14581BCP','','',100.00,0.00,100.00,20.00,'4101',0,0);
-
---
--- Table structure for table 'INKREG'
---
-
-DROP TABLE IF EXISTS INKREG;
-CREATE TABLE INKREG (
-  INKORDNR varchar(10) NOT NULL default '',
-  BESTTYP enum('N','D','I','L','A') default NULL,
-  ORDERDATUM date default NULL,
-  LEVNR varchar(10) default NULL,
-  LEVNAMN varchar(30) default NULL,
-  LEVADRESS varchar(30) default NULL,
-  LEVPOSTNR varchar(6) default NULL,
-  LEVPOSTADR varchar(30) default NULL,
-  LEVLAND varchar(30) default NULL,
-  LEVVALUTA char(3) default NULL,
-  LEVBETVILLKOR varchar(50) default NULL,
-  LEVVILLKOR varchar(150) default NULL,
-  LEVSETT varchar(150) default NULL,
-  GODSMERKE varchar(30) default NULL,
-  KOMMENTAR varchar(250) default NULL,
-  BESTTEXT text,
-  VARREF varchar(30) default NULL,
-  VARREFTFN varchar(15) default NULL,
-  VARREFFAX varchar(15) default NULL,
-  ERREF varchar(20) default NULL,
-  LEVDATUM date default NULL,
-  KUNDNR varchar(30) default NULL,
-  FTGNAMN varchar(30) default NULL,
-  FTGADR varchar(30) default NULL,
-  FTGPOSTNR varchar(6) default NULL,
-  FTGPOSTADR varchar(30) default NULL,
-  SPRAKKOD char(3) default 'sv',
-  BEKREFTKOD enum('H','D','E') default 'E',
-  ORDERSTATUS enum('N','F','B','M') default 'N',
-  UTSKRIFTSKOD enum('J','N') default 'J',
-  ORDERSUMMA decimal(10,2) default NULL,
-  PRIMARY KEY  (INKORDNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'INKREG'
---
-
-INSERT INTO INKREG (INKORDNR, BESTTYP, ORDERDATUM, LEVNR, LEVNAMN, LEVADRESS, LEVPOSTNR, LEVPOSTADR, LEVLAND, LEVVALUTA, LEVBETVILLKOR, LEVVILLKOR, LEVSETT, GODSMERKE, KOMMENTAR, BESTTEXT, VARREF, VARREFTFN, VARREFFAX, ERREF, LEVDATUM, KUNDNR, FTGNAMN, FTGADR, FTGPOSTNR, FTGPOSTADR, SPRAKKOD, BEKREFTKOD, ORDERSTATUS, UTSKRIFTSKOD, ORDERSUMMA) VALUES ('6712','N','2003-12-13','9999','Testleverantˆr AB','Delivery Street 1C','199 99','LEVSTAD','Sverige','SEK','60 dagar netto','EXW','ASG kundnr:99901111','Godsm‰re','Kommentar','Endast komplett order fÂr levereras\nLevereras med ASG','Jan Pihlgren','09-199311','09-199312','Caroline Seljare','2003-12-15','98765','PROGRAM AB','Verktygsgatan 11','199 97','PROGSTAD','sv','E','N','J',NULL);
-INSERT INTO INKREG (INKORDNR, BESTTYP, ORDERDATUM, LEVNR, LEVNAMN, LEVADRESS, LEVPOSTNR, LEVPOSTADR, LEVLAND, LEVVALUTA, LEVBETVILLKOR, LEVVILLKOR, LEVSETT, GODSMERKE, KOMMENTAR, BESTTEXT, VARREF, VARREFTFN, VARREFFAX, ERREF, LEVDATUM, KUNDNR, FTGNAMN, FTGADR, FTGPOSTNR, FTGPOSTADR, SPRAKKOD, BEKREFTKOD, ORDERSTATUS, UTSKRIFTSKOD, ORDERSUMMA) VALUES ('18','N','2003-12-24','9999','Testleverantˆr AB','Delivery Street 1C','199 99','LEVSTAD','Sverige','SEK','30 dagar netto','EXW','ASG kundnr:99901111','P-order','Kommentar','Ordererk‰nnande ˆnskas inom 3 arbetsdagar (om ej redan bekr‰ftats)\nAnge alltid vÂrt artikelnummer pÂ fˆljesedel och faktura.','Jan Pihlgren','09-199321','09-199322','Caroline Seljare','2004-01-10','98765','PROGRAM AB','Verktygsgatan 11','199 97','PROGSTAD','sv','E','N','J',1389.00);
-INSERT INTO INKREG (INKORDNR, BESTTYP, ORDERDATUM, LEVNR, LEVNAMN, LEVADRESS, LEVPOSTNR, LEVPOSTADR, LEVLAND, LEVVALUTA, LEVBETVILLKOR, LEVVILLKOR, LEVSETT, GODSMERKE, KOMMENTAR, BESTTEXT, VARREF, VARREFTFN, VARREFFAX, ERREF, LEVDATUM, KUNDNR, FTGNAMN, FTGADR, FTGPOSTNR, FTGPOSTADR, SPRAKKOD, BEKREFTKOD, ORDERSTATUS, UTSKRIFTSKOD, ORDERSUMMA) VALUES ('19','N','2003-12-24','9999','Testleverantˆr AB','Delivery Street 1C','199 99','LEVSTAD','Sverige','SEK','20 dagar netto','QWOUTA','ASG','Godsm‰rke','Kommentar','Best‰llningseftertext','Jan Pihlgren','09-199341','09-199342','Caroline Seljare','2004-01-10','98765','PROGRAM AB','Verktygsgatan 11','199 97','PROGSTAD','sv','E','N','J',1757.00);
-INSERT INTO INKREG (INKORDNR, BESTTYP, ORDERDATUM, LEVNR, LEVNAMN, LEVADRESS, LEVPOSTNR, LEVPOSTADR, LEVLAND, LEVVALUTA, LEVBETVILLKOR, LEVVILLKOR, LEVSETT, GODSMERKE, KOMMENTAR, BESTTEXT, VARREF, VARREFTFN, VARREFFAX, ERREF, LEVDATUM, KUNDNR, FTGNAMN, FTGADR, FTGPOSTNR, FTGPOSTADR, SPRAKKOD, BEKREFTKOD, ORDERSTATUS, UTSKRIFTSKOD, ORDERSUMMA) VALUES ('27','N','2004-02-05','126','Dataspecialisten AB','Storgatan 1','199 11','STORSTAD','Sverige','SEK',' 30 dagar netto',' EXW',' Schenker kundnr:11105232','PELLE','Direkt','Ordererk‰nnande ˆnskas inom 3 arbetsdagar (om ej redan bekr‰ftats)\nAnge alltid vÂrt artikelnummer pÂ fˆljesedel och faktura.\n  \n\n\n\n','Jan Pihlgren','09-112233','09112239','Ola Norman','2004-02-25','567891','PROGRAM AB','Verktygsgatan 11','199 97','PROGSTAD','sv','E','N','J',13045.00);
-INSERT INTO INKREG (INKORDNR, BESTTYP, ORDERDATUM, LEVNR, LEVNAMN, LEVADRESS, LEVPOSTNR, LEVPOSTADR, LEVLAND, LEVVALUTA, LEVBETVILLKOR, LEVVILLKOR, LEVSETT, GODSMERKE, KOMMENTAR, BESTTEXT, VARREF, VARREFTFN, VARREFFAX, ERREF, LEVDATUM, KUNDNR, FTGNAMN, FTGADR, FTGPOSTNR, FTGPOSTADR, SPRAKKOD, BEKREFTKOD, ORDERSTATUS, UTSKRIFTSKOD, ORDERSUMMA) VALUES ('26','N','2004-02-05','123','Leverantˆr AB','Postgatan 33','199 99','DATABY','SVERIGE','SEK',' 20 dagar netto',' EXW',' Schenker kundnr:11105232','KALLE PALL 26','Detta ‰r en kommentar','Ordererk‰nnande ˆnskas inom 3 arbetsdagar (om ej redan bekr‰ftats)\nAnge alltid vÂrt artikelnummer pÂ fˆljesedel och faktura.\n  \n\n\n\n','Jan Pihlgren','08-59112449','09-112233','Per Josefsson','2004-02-15','12345678','PROGRAM AB','Verktygsgatan 11','199 97','PROGSTAD','sv','E','N','J',12500.00);
-INSERT INTO INKREG (INKORDNR, BESTTYP, ORDERDATUM, LEVNR, LEVNAMN, LEVADRESS, LEVPOSTNR, LEVPOSTADR, LEVLAND, LEVVALUTA, LEVBETVILLKOR, LEVVILLKOR, LEVSETT, GODSMERKE, KOMMENTAR, BESTTEXT, VARREF, VARREFTFN, VARREFFAX, ERREF, LEVDATUM, KUNDNR, FTGNAMN, FTGADR, FTGPOSTNR, FTGPOSTADR, SPRAKKOD, BEKREFTKOD, ORDERSTATUS, UTSKRIFTSKOD, ORDERSUMMA) VALUES ('25','N','2004-02-05','124','Distributˆr AB','Brevgatan 1A','199 99','DATABY','SVERIGE','EUR',' 30 dagar netto','','','','','','Jan Pihlgren','','','Lena Bertils','2004-02-05','12345678','PROGRAM AB','Verktygsgatan 11','199 97','PROGSTAD','sv','E','N','J',12500.00);
-INSERT INTO INKREG (INKORDNR, BESTTYP, ORDERDATUM, LEVNR, LEVNAMN, LEVADRESS, LEVPOSTNR, LEVPOSTADR, LEVLAND, LEVVALUTA, LEVBETVILLKOR, LEVVILLKOR, LEVSETT, GODSMERKE, KOMMENTAR, BESTTEXT, VARREF, VARREFTFN, VARREFFAX, ERREF, LEVDATUM, KUNDNR, FTGNAMN, FTGADR, FTGPOSTNR, FTGPOSTADR, SPRAKKOD, BEKREFTKOD, ORDERSTATUS, UTSKRIFTSKOD, ORDERSUMMA) VALUES ('28','N','2004-02-16','124','Distributˆr AB','Brevgatan 1A','199 99','DATABY','SVERIGE','EUR',' 30 dagar netto',' EXW',' Schenker kundnr:11105232','Godsm‰rke fˆr best‰llning nr 2','','Ordererk‰nnande ˆnskas inom 3 arbetsdagar (om ej redan bekr‰ftats)\nAnge alltid vÂrt artikelnummer pÂ fˆljesedel och faktura.\n  \n\n\n\n','Jan Pihlgren','','','Lena Bertils','2004-02-26','12345678','PROGRAM AB','Verktygsgatan 11','199 97','PROGSTAD','sv','E','N','J',3150.00);
-
---
--- Table structure for table 'KSTALLE'
---
-
-DROP TABLE IF EXISTS KSTALLE;
-CREATE TABLE KSTALLE (
-  ARID char(2) NOT NULL default '',
-  KSTALLE varchar(4) NOT NULL default '',
-  BENAMNING varchar(100) default NULL,
-  PRIMARY KEY  (ARID,KSTALLE)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'KSTALLE'
---
-
-INSERT INTO KSTALLE (ARID, KSTALLE, BENAMNING) VALUES ('SS','9999','Project Mercury');
-
---
--- Table structure for table 'KTOPLAN'
---
-
-DROP TABLE IF EXISTS KTOPLAN;
-CREATE TABLE KTOPLAN (
-  ARID char(2) NOT NULL default '',
-  KTONR varchar(4) NOT NULL default '',
-  BENAMNING varchar(100) default NULL,
-  MANUELL enum('J','N') default 'J',
-  MOMSKOD varchar(4) default NULL,
-  SRUNR int(3) default NULL,
-  KSTALLE varchar(4) default NULL,
-  PROJEKT varchar(4) default NULL,
-  SUBKTO varchar(4) default NULL,
-  KTOPLAN varchar(15) default NULL,
-  IB decimal(10,2) default NULL,
-  UB decimal(10,2) default NULL,
-  PRIMARY KEY  (KTONR,ARID)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'KTOPLAN'
---
-
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1010','Kassa','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1020','Postgiro','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1040','Checkkonto','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1050','Bank','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1120','Aktier och andelar','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1210','Kundfodringar','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1230','BelÂnade kundfodringar (factoring)','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1310','Fˆrutbetalda hyreskostnader','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1330','Fˆrutbetalda fˆrs‰kringskostnader','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1350','Upplupna hyresint‰kter','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1360','Upplupna r‰nteint‰kter','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1410','Fordringar hos anst‰llda','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1430','Fordringar hos leverantˆrer','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1450','Skattefordringar','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1470','IngÂendemervardesskatt (moms)','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1510','Lager','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1530','Produkter i arbete (PIA)','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1560','Fˆrnˆdenheter','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1580','Fˆrskott till leverantˆrer','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1620','Aktier och andelar','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1710','Patent','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1730','Goodwill','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1810','Arbetsmaskiner','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1819','V‰rdeminskning inventarier','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1820','Inventarier','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1840','Bilar','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1849','V‰rdeminskning bilar','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1910','Byggnader','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','1919','V‰rdeminskning byggnader','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2010','Skulder under indrivning','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2110','Leverantˆrsskulder','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2210','Skatteskulder','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2250','Skuld prelimin‰rskatt','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2310','Upplupna lˆner','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2320','Upplupna semesterlˆner','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2330','Upplupna sociala avgifter','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2340','Upplupna r‰ntekostnader','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2410','UtgÂende merv‰rdesskatt (moms)','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2480','Merv‰rdesskatt, redovisningskonto','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2510','Personalens k‰llskatt','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2530','Infˆrsel','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2560','Fackfˆreningsavgifter','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2590','÷vriga lˆneavdrag','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2610','Fˆrskott frÂn kunder','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2620','Skulder till personal','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2630','Avr‰kning, factoring','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2640','LÂneskulder','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2720','Checkkredit','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2790','÷vriga lÂngfristiga skulder','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2810','Lagerreserv','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2880','Obeskattade int‰kter','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','2910','Eget kapital','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','3010','Fˆrs‰ljning','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','3082','Bonus','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','3512','Fˆrs‰ljning skrot','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','3610','Fakturerat emballage','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','3640','Faktureringskostnader','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','3770','≈tervunna kundfˆrluster','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','3780','÷resutj‰mning','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','3810','Hyresint‰kter','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','3910','ErhÂllna statliga bidrag','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','4010','Inkˆp av varor och material','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','4610','Legoarbeten','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','4910','Fˆr‰ndring lager','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','4930','Fˆr‰ndring av material i produktion (PIA)','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','5010','Lˆner till personal','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','5310','Lˆner till fˆretagsledare','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','5220','Lˆner till tj‰nstem‰n','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','5340','Erss‰ttning fˆr mÂltidskostnader','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','5450','Kostnader fˆr bil','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','5520','Traktamenten vid tj‰nsteresa','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','5530','Bilers‰ttningar','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','5610','Lagstadgade arbetsgivaravgifter','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','5620','Egenavgifter','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','5630','Lˆneskatt','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','5710','Pensionsfˆrs‰kringsavgifter','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','5810','Utbildning','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6010','Lokalhyra','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6050','Elektricitet','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6070','St‰dning av lokaler','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6110','Hyra arbetsmaskiner','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6210','Elektricitet','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6230','Eldningsolja','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6260','Bensin mm','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6410','Fˆrbrukningsinventarier','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6460','Fˆrbrukningsmateriel','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6510','Kontorsmateriel','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6730','Redovisningskostnader','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6740','ADB-tj‰nster','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6750','Konsultarvoden fˆr speciella utredningar','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6780','Advokatkostnader','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6810','Telefon och telegram','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6830','Datakommunikation','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6850','Porto','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6911','Personbilar,drivmedel','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6912','Personbilar,fˆrs‰kring och skatt','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6913','Personbilar,reparationer','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6915','Personbilar,leasing','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','6919','Personbilar,ˆvrigt','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','7010','Frakter,transporter mm','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','7050','Resekostnader','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','7150','Fˆrs‰ljningsprovisioner','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','7210','Annonsering','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','7310','Fˆretagsfˆrs‰kringar','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','7350','Kundfˆrluster','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','7410','Styrelsearvoden','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','7620','Patentkostnader fˆr egna patent','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','7670','Tidningar,tidskrifter,facklitteratur','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','7710','Vatten och avlopp','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','7720','Br‰nsle','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','7810','Resultat vid avyttring av maskiner och inventarier','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','7815','Bokfˆrt v‰rde pÂ maskiner och inventarier','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','7911','Avskrivning av maskiner','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','7912','Avskrivning av inventarier','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','7914','Avskrivning av bilar mm','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','8010','Utdelning pÂ aktier och andelar','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','8020','R‰nteint‰kter','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','8050','R‰nteint‰kter pÂ kundfodringar','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','8120','R‰ntekostnader','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','8150','R‰ntekostnader fˆr leverantˆrsskulder','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','8170','Bankkostnader','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','8910','≈rets skattekostnad','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','8980','Egenavgifter','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AC','8999','Redovisat resultat','J','',0,'','','','BAS90',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','1210','Maskiner','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','1219','Ack avskrivningar maskiner','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','1220','Inventarier','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','1229','Ack avskrivningar inventarier','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','1409','Ber‰knad fˆr‰ndring lager','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','1510','Kundfordringar','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','1613','÷vriga fˆrskott anst‰llda','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','1650','Momsfordran','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','1710','Fˆrutbetalda hyresutgifter','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','1790','÷vriga internfordringar','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','1910','Kassa','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','1920','Postgiro','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','2081','Aktiekapital','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','2330','Checkr‰kningskredit','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','2350','BanklÂn','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','2440','Leverantˆrsskulder','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','2611','UtgÂende moms','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','2615','UtgÂende moms EU-fˆrv‰rv','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','2641','IngÂende moms','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','2645','IngÂende moms utland','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','2710','K‰llskatt (A-skatt)','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','2920','Upplupna semesterlˆner','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','2941','Upplupna arbetsgivaravgifter','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','3041','Fˆrs‰ljning Jonaid','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','3051','Fˆrs‰ljning Zuhaib','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','3960','Kursvinst rˆrelsen','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','3990','÷vriga int‰kter','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','4010','Materialkostnad','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','4056','Varuinkˆp EU','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','5010','Lokalhyra','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','5090','÷vriga lokalkostnader','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','5830','Kost och logi','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','5900','Reklam och PR','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','6071','Representation, avdragsgill','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','6110','Kontorsmateriel','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','6200','Telefon och Post','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','6310','Fˆretagsfˆrs‰kringar','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','6970','Tidningar, facklitteratur','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','6992','÷vriga kostnader, ej avdragsgilla','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','7010','Lˆner anst‰llda','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','7082','Semesterlˆn','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','7221','Lˆn Yasar','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','7231','Lˆn Anila','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','7321','Skattefria traktamenten','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','7331','Skattefri bilers‰ttning','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','7384','Arbetskl‰der','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','7510','Arbetsgivaravgifter','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','7570','AMF','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','7620','Sjuk- och h‰lsovÂrd','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','7690','÷vriga personalkostnader','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','7831','Avskrivningar maskiner','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','7832','Avskrivningar inventarier','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','7960','Kursfˆrlust rˆrelsen','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','8400','R‰ntekostnader','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('AD','8490','÷vriga finansiella kostnader','J','',0,'','','','EUBAS97',0.00,0.00);
-INSERT INTO KTOPLAN (ARID, KTONR, BENAMNING, MANUELL, MOMSKOD, SRUNR, KSTALLE, PROJEKT, SUBKTO, KTOPLAN, IB, UB) VALUES ('SS','9999','Testkonto3','J','1',100,'2000','3000','4000','EUBAS97',0.00,0.00);
-
---
--- Table structure for table 'KUNDKATEGORI'
---
-
-DROP TABLE IF EXISTS KUNDKATEGORI;
-CREATE TABLE KUNDKATEGORI (
-  KATEGORINR char(3) NOT NULL default '',
-  BESKRIVNING varchar(40) NOT NULL default '',
-  PRIMARY KEY  (KATEGORINR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'KUNDKATEGORI'
---
-
-INSERT INTO KUNDKATEGORI (KATEGORINR, BESKRIVNING) VALUES ('003','Webbkund');
-INSERT INTO KUNDKATEGORI (KATEGORINR, BESKRIVNING) VALUES ('001','Normalkund');
-
---
--- Table structure for table 'KUNDREG'
---
-
-DROP TABLE IF EXISTS KUNDREG;
-CREATE TABLE KUNDREG (
-  KUNDNR varchar(10) NOT NULL default '',
-  KUNDORGNR varchar(12) default NULL,
-  NAMN varchar(60) NOT NULL default '',
-  ADRESS varchar(30) default NULL,
-  POSTNR varchar(6) default NULL,
-  POSTADR varchar(30) default NULL,
-  LAND varchar(30) default NULL,
-  TFNNR varchar(15) default NULL,
-  EMAILADR varchar(30) default NULL,
-  FAXNR varchar(15) default NULL,
-  ERREFERENT varchar(30) default NULL,
-  ERREFTFNNR varchar(15) default NULL,
-  ERREFEMAIL varchar(60) default NULL,
-  SELJARE varchar(20) default NULL,
-  FRITEXT varchar(100) default NULL,
-  VALUTA char(3) default NULL,
-  BETALVILLKOR char(3) default NULL,
-  LEVVILLKOR char(3) default NULL,
-  LEVSETT char(3) default NULL,
-  DISTRIKT char(3) default NULL,
-  KUNDKATEGORI char(3) default NULL,
-  STDLEVPLATS char(3) default '001',
-  ORDERERKENNANDE enum('J','N') default 'J',
-  PLOCKLISTA enum('J','N') default 'J',
-  FOLJESEDEL enum('J','N') default 'J',
-  KRAVBREV enum('J','N') default 'J',
-  SPRAKKOD char(3) default NULL,
-  EXPAVGIFT enum('J','N') default 'J',
-  FRAKTAVG enum('J','N') default 'J',
-  KREDITLIMIT decimal(10,2) default NULL,
-  KREDITDAGAR int(11) default NULL,
-  KREDITKOD char(3) default NULL,
-  EXPORTKOD char(3) default NULL,
-  SKATTEKOD char(3) default NULL,
-  RABATTKOD char(3) default NULL,
-  DROJMALSRTA enum('J','N') default 'J',
-  DROJMALSFAKTURA enum('J','N') default 'J',
-  SAMLINGSFAKT enum('J','N') default 'J',
-  SENASTEKRAVDATUM date default NULL,
-  SKULD decimal(10,2) default NULL,
-  ORDERSTOCK decimal(10,2) default NULL,
-  PRIMARY KEY  (KUNDNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'KUNDREG'
---
-
-INSERT INTO KUNDREG (KUNDNR, KUNDORGNR, NAMN, ADRESS, POSTNR, POSTADR, LAND, TFNNR, EMAILADR, FAXNR, ERREFERENT, ERREFTFNNR, ERREFEMAIL, SELJARE, FRITEXT, VALUTA, BETALVILLKOR, LEVVILLKOR, LEVSETT, DISTRIKT, KUNDKATEGORI, STDLEVPLATS, ORDERERKENNANDE, PLOCKLISTA, FOLJESEDEL, KRAVBREV, SPRAKKOD, EXPAVGIFT, FRAKTAVG, KREDITLIMIT, KREDITDAGAR, KREDITKOD, EXPORTKOD, SKATTEKOD, RABATTKOD, DROJMALSRTA, DROJMALSFAKTURA, SAMLINGSFAKT, SENASTEKRAVDATUM, SKULD, ORDERSTOCK) VALUES ('4376','[NULL]','Nya Test AB','Provgatan 2','199 99','LILLEBY','Sverige','09-999990','info@test.se','09-999999','Karl Andersson','09-999991','karl.a@test.se','Caroline Seljare','Fritt textf‰lt','SEK','1','001','001','Kal','Sof','002','J','J','J','J','sv','J','J',2000.00,0,'[NU','[NU','[NU','[NU','J','J','J','0000-00-00',0.00,0.00);
-INSERT INTO KUNDREG (KUNDNR, KUNDORGNR, NAMN, ADRESS, POSTNR, POSTADR, LAND, TFNNR, EMAILADR, FAXNR, ERREFERENT, ERREFTFNNR, ERREFEMAIL, SELJARE, FRITEXT, VALUTA, BETALVILLKOR, LEVVILLKOR, LEVSETT, DISTRIKT, KUNDKATEGORI, STDLEVPLATS, ORDERERKENNANDE, PLOCKLISTA, FOLJESEDEL, KRAVBREV, SPRAKKOD, EXPAVGIFT, FRAKTAVG, KREDITLIMIT, KREDITDAGAR, KREDITKOD, EXPORTKOD, SKATTEKOD, RABATTKOD, DROJMALSRTA, DROJMALSFAKTURA, SAMLINGSFAKT, SENASTEKRAVDATUM, SKULD, ORDERSTOCK) VALUES ('4377','[NULL]','Nya Kund AB','Provgatan 23','199 97','LILLEBY','Sverige','09-999190','info@kund.se','09-999199','Per Karlsson','09-999191','per.k@kund.se','Josef Seljare','VÂr nya kund','SEK','1','001','001','÷re','Sof','001','J','J','J','J','sv','J','J',2000.00,0,'','011','001','001','J','J','J','0000-00-00',0.00,0.00);
-INSERT INTO KUNDREG (KUNDNR, KUNDORGNR, NAMN, ADRESS, POSTNR, POSTADR, LAND, TFNNR, EMAILADR, FAXNR, ERREFERENT, ERREFTFNNR, ERREFEMAIL, SELJARE, FRITEXT, VALUTA, BETALVILLKOR, LEVVILLKOR, LEVSETT, DISTRIKT, KUNDKATEGORI, STDLEVPLATS, ORDERERKENNANDE, PLOCKLISTA, FOLJESEDEL, KRAVBREV, SPRAKKOD, EXPAVGIFT, FRAKTAVG, KREDITLIMIT, KREDITDAGAR, KREDITKOD, EXPORTKOD, SKATTEKOD, RABATTKOD, DROJMALSRTA, DROJMALSFAKTURA, SAMLINGSFAKT, SENASTEKRAVDATUM, SKULD, ORDERSTOCK) VALUES ('4378','[NULL]','Nya Storkund AB','Fina gatan 2','100 01','LYXBY','Sverige','09-109990','info@storkund.se','09-109999','Carl von Petersen','09-109991','c.p@storkund.se','Carolina Seljare','Detta ‰r en stor kund','sv','SEK','001','1','LYX','001','001','J','J','J','N','J','J','J',0.00,45,'001','001','001','001','J','J','J','0000-00-00',0.00,0.00);
-INSERT INTO KUNDREG (KUNDNR, KUNDORGNR, NAMN, ADRESS, POSTNR, POSTADR, LAND, TFNNR, EMAILADR, FAXNR, ERREFERENT, ERREFTFNNR, ERREFEMAIL, SELJARE, FRITEXT, VALUTA, BETALVILLKOR, LEVVILLKOR, LEVSETT, DISTRIKT, KUNDKATEGORI, STDLEVPLATS, ORDERERKENNANDE, PLOCKLISTA, FOLJESEDEL, KRAVBREV, SPRAKKOD, EXPAVGIFT, FRAKTAVG, KREDITLIMIT, KREDITDAGAR, KREDITKOD, EXPORTKOD, SKATTEKOD, RABATTKOD, DROJMALSRTA, DROJMALSFAKTURA, SAMLINGSFAKT, SENASTEKRAVDATUM, SKULD, ORDERSTOCK) VALUES ('4379','[NULL]','Nya SmÂkund AB','Myrstigen 32','199 02','SM≈STAD','Sverige','09-129990','info@smakund.se','09-129999','Lillemor AndrÈn','09-129991','lillemor.a@smakund.se','Caroline Seljare','Den lilla kunden','SEK','1','001','001','÷re','Sft','002','J','J','J','J','sv','J','J',5000.00,30,'001','001','001','001','J','J','J','0000-00-00',0.00,0.00);
-INSERT INTO KUNDREG (KUNDNR, KUNDORGNR, NAMN, ADRESS, POSTNR, POSTADR, LAND, TFNNR, EMAILADR, FAXNR, ERREFERENT, ERREFTFNNR, ERREFEMAIL, SELJARE, FRITEXT, VALUTA, BETALVILLKOR, LEVVILLKOR, LEVSETT, DISTRIKT, KUNDKATEGORI, STDLEVPLATS, ORDERERKENNANDE, PLOCKLISTA, FOLJESEDEL, KRAVBREV, SPRAKKOD, EXPAVGIFT, FRAKTAVG, KREDITLIMIT, KREDITDAGAR, KREDITKOD, EXPORTKOD, SKATTEKOD, RABATTKOD, DROJMALSRTA, DROJMALSFAKTURA, SAMLINGSFAKT, SENASTEKRAVDATUM, SKULD, ORDERSTOCK) VALUES ('4375',NULL,'Lilla Kunden Eftr AB','Bakgatan 1C','199 09','SM≈STAD','Sverige','09-390000','info@lillakundeneftr.se','09-390009','Lillemor AndrÈn','09-390001','lillemor@lillakundeneftr.se','Lilleman Karlsson','Byte av fˆretagsnamn Testfˆretaget','SEK','1','001','001','003','003','002','J','J','J','J','sv','J','J',13500.00,0,'001','001','001','001','J','J','J',NULL,NULL,NULL);
-
---
--- Table structure for table 'KURESK'
---
-
-DROP TABLE IF EXISTS KURESK;
-CREATE TABLE KURESK (
-  ORDERNR varchar(10) NOT NULL default '',
-  FAKTURANR varchar(20) NOT NULL default '',
-  KUNDNR varchar(10) NOT NULL default '',
-  FAKTURADATUM date default NULL,
-  EXPIREDATUM date default NULL,
-  NETTOBELOPP decimal(10,2) default NULL,
-  MOMSBELOPP decimal(10,2) default NULL,
-  FAKTURABELOPP decimal(10,2) default NULL,
-  BETALD enum('J','N') NOT NULL default 'N',
-  BETALDATUM date default NULL,
-  USERID varchar(8) default NULL,
-  VALUTA char(3) default 'SEK',
-  VALUTAKURS decimal(10,2) NOT NULL default '1.00',
-  VALUTABELOPP decimal(10,2) default '0.00',
-  BAR char(2) default NULL,
-  VERNR int(11) default NULL,
-  MOMSKTONR varchar(4) default NULL,
-  KTONR varchar(4) default NULL,
-  DEBETBELOPP decimal(10,2) default NULL,
-  PRIMARY KEY  (ORDERNR,FAKTURANR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'KURESK'
---
-
-
---
--- Table structure for table 'LAGERSTELLEREG'
---
-
-DROP TABLE IF EXISTS LAGERSTELLEREG;
-CREATE TABLE LAGERSTELLEREG (
-  ARLAGST char(1) NOT NULL default '',
-  ARTIKELNR varchar(30) NOT NULL default '',
-  ARLAGHYLLA varchar(10) default NULL,
-  ARLAGSALDO decimal(10,2) default NULL,
-  ARINVGRP char(3) default NULL,
-  ARABC char(2) default NULL,
-  ARVALUTA char(3) default NULL,
-  ARIPRIS decimal(10,2) default '0.00',
-  ARIKVANT0 decimal(10,2) default '0.00',
-  ARIKVANT1 decimal(10,2) default '0.00',
-  ARIKVANT2 decimal(10,2) default '0.00',
-  ARKALKPRIS decimal(10,2) default '0.00',
-  ARPLANKPRIS decimal(10,2) default '0.00',
-  ARFRYSTKPRIS decimal(10,2) default '0.00',
-  ARBESTKVANT decimal(10,2) default '0.00',
-  ARBESTPUNKT decimal(10,2) default '0.00',
-  AROMKOST decimal(10,2) default '0.00',
-  RESERVERAT decimal(10,2) default NULL,
-  PRIMARY KEY  (ARTIKELNR,ARLAGST)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'LAGERSTELLEREG'
---
-
-INSERT INTO LAGERSTELLEREG (ARLAGST, ARTIKELNR, ARLAGHYLLA, ARLAGSALDO, ARINVGRP, ARABC, ARVALUTA, ARIPRIS, ARIKVANT0, ARIKVANT1, ARIKVANT2, ARKALKPRIS, ARPLANKPRIS, ARFRYSTKPRIS, ARBESTKVANT, ARBESTPUNKT, AROMKOST, RESERVERAT) VALUES ('1','1000-1001','ABC002',103.00,'001','A','SEK',125.50,60.00,75.00,50.00,160.00,202.50,160.00,62.00,125.00,34.50,NULL);
-INSERT INTO LAGERSTELLEREG (ARLAGST, ARTIKELNR, ARLAGHYLLA, ARLAGSALDO, ARINVGRP, ARABC, ARVALUTA, ARIPRIS, ARIKVANT0, ARIKVANT1, ARIKVANT2, ARKALKPRIS, ARPLANKPRIS, ARFRYSTKPRIS, ARBESTKVANT, ARBESTPUNKT, AROMKOST, RESERVERAT) VALUES ('1','1000-1002','AAA001',126.00,'1','A','SEK',30.00,0.00,0.00,0.00,35.00,0.00,0.00,0.00,100.00,0.00,NULL);
-INSERT INTO LAGERSTELLEREG (ARLAGST, ARTIKELNR, ARLAGHYLLA, ARLAGSALDO, ARINVGRP, ARABC, ARVALUTA, ARIPRIS, ARIKVANT0, ARIKVANT1, ARIKVANT2, ARKALKPRIS, ARPLANKPRIS, ARFRYSTKPRIS, ARBESTKVANT, ARBESTPUNKT, AROMKOST, RESERVERAT) VALUES ('1','1000-1003','AAA001',75.00,'1','A','SEK',1.50,0.00,0.00,0.00,1.60,0.00,0.00,0.00,100.00,0.00,NULL);
-INSERT INTO LAGERSTELLEREG (ARLAGST, ARTIKELNR, ARLAGHYLLA, ARLAGSALDO, ARINVGRP, ARABC, ARVALUTA, ARIPRIS, ARIKVANT0, ARIKVANT1, ARIKVANT2, ARKALKPRIS, ARPLANKPRIS, ARFRYSTKPRIS, ARBESTKVANT, ARBESTPUNKT, AROMKOST, RESERVERAT) VALUES ('1','1000-1004','AAA001',10.00,'1','A','SEK',5.50,0.00,0.00,0.00,6.65,0.00,0.00,0.00,50.00,0.00,NULL);
-INSERT INTO LAGERSTELLEREG (ARLAGST, ARTIKELNR, ARLAGHYLLA, ARLAGSALDO, ARINVGRP, ARABC, ARVALUTA, ARIPRIS, ARIKVANT0, ARIKVANT1, ARIKVANT2, ARKALKPRIS, ARPLANKPRIS, ARFRYSTKPRIS, ARBESTKVANT, ARBESTPUNKT, AROMKOST, RESERVERAT) VALUES ('1','1000-1005','AAA002',27.00,'1','A','SEK',95.00,0.00,0.00,0.00,100.00,0.00,0.00,0.00,25.00,0.00,NULL);
-INSERT INTO LAGERSTELLEREG (ARLAGST, ARTIKELNR, ARLAGHYLLA, ARLAGSALDO, ARINVGRP, ARABC, ARVALUTA, ARIPRIS, ARIKVANT0, ARIKVANT1, ARIKVANT2, ARKALKPRIS, ARPLANKPRIS, ARFRYSTKPRIS, ARBESTKVANT, ARBESTPUNKT, AROMKOST, RESERVERAT) VALUES ('1','1000-1006','AAA002',536.00,'2','A','SEK',5.45,0.00,0.00,0.00,6.85,0.00,0.00,0.00,150.00,0.00,NULL);
-INSERT INTO LAGERSTELLEREG (ARLAGST, ARTIKELNR, ARLAGHYLLA, ARLAGSALDO, ARINVGRP, ARABC, ARVALUTA, ARIPRIS, ARIKVANT0, ARIKVANT1, ARIKVANT2, ARKALKPRIS, ARPLANKPRIS, ARFRYSTKPRIS, ARBESTKVANT, ARBESTPUNKT, AROMKOST, RESERVERAT) VALUES ('1','1000-1007','AAA003',243.00,'2','A','SEK',1.45,0.00,0.00,0.00,1.65,0.00,0.00,0.00,200.00,0.00,NULL);
-INSERT INTO LAGERSTELLEREG (ARLAGST, ARTIKELNR, ARLAGHYLLA, ARLAGSALDO, ARINVGRP, ARABC, ARVALUTA, ARIPRIS, ARIKVANT0, ARIKVANT1, ARIKVANT2, ARKALKPRIS, ARPLANKPRIS, ARFRYSTKPRIS, ARBESTKVANT, ARBESTPUNKT, AROMKOST, RESERVERAT) VALUES ('1','1000-1008','AAA003',263.00,'2','A','SEK',4.75,0.00,0.00,0.00,5.15,0.00,0.00,0.00,100.00,0.00,NULL);
-INSERT INTO LAGERSTELLEREG (ARLAGST, ARTIKELNR, ARLAGHYLLA, ARLAGSALDO, ARINVGRP, ARABC, ARVALUTA, ARIPRIS, ARIKVANT0, ARIKVANT1, ARIKVANT2, ARKALKPRIS, ARPLANKPRIS, ARFRYSTKPRIS, ARBESTKVANT, ARBESTPUNKT, AROMKOST, RESERVERAT) VALUES ('1','1000-1009','AAB001',458.00,'2','A','SEK',10.05,0.00,0.00,0.00,11.65,0.00,0.00,0.00,350.00,0.00,NULL);
-INSERT INTO LAGERSTELLEREG (ARLAGST, ARTIKELNR, ARLAGHYLLA, ARLAGSALDO, ARINVGRP, ARABC, ARVALUTA, ARIPRIS, ARIKVANT0, ARIKVANT1, ARIKVANT2, ARKALKPRIS, ARPLANKPRIS, ARFRYSTKPRIS, ARBESTKVANT, ARBESTPUNKT, AROMKOST, RESERVERAT) VALUES ('1','1000-1010','AAB001',27.00,'1','A','SEK',45.45,0.00,0.00,0.00,50.35,0.00,0.00,0.00,30.00,0.00,NULL);
-INSERT INTO LAGERSTELLEREG (ARLAGST, ARTIKELNR, ARLAGHYLLA, ARLAGSALDO, ARINVGRP, ARABC, ARVALUTA, ARIPRIS, ARIKVANT0, ARIKVANT1, ARIKVANT2, ARKALKPRIS, ARPLANKPRIS, ARFRYSTKPRIS, ARBESTKVANT, ARBESTPUNKT, AROMKOST, RESERVERAT) VALUES ('1','1000-1011','AAC001',11.00,'1','A','SEK',98.00,0.00,0.00,0.00,103.00,0.00,0.00,0.00,65.00,5.00,NULL);
-INSERT INTO LAGERSTELLEREG (ARLAGST, ARTIKELNR, ARLAGHYLLA, ARLAGSALDO, ARINVGRP, ARABC, ARVALUTA, ARIPRIS, ARIKVANT0, ARIKVANT1, ARIKVANT2, ARKALKPRIS, ARPLANKPRIS, ARFRYSTKPRIS, ARBESTKVANT, ARBESTPUNKT, AROMKOST, RESERVERAT) VALUES ('1','1000-1012','AAA004',34.00,'1','A','SEK',1.45,0.00,0.00,0.00,2.05,0.00,0.00,0.00,50.00,0.00,NULL);
-INSERT INTO LAGERSTELLEREG (ARLAGST, ARTIKELNR, ARLAGHYLLA, ARLAGSALDO, ARINVGRP, ARABC, ARVALUTA, ARIPRIS, ARIKVANT0, ARIKVANT1, ARIKVANT2, ARKALKPRIS, ARPLANKPRIS, ARFRYSTKPRIS, ARBESTKVANT, ARBESTPUNKT, AROMKOST, RESERVERAT) VALUES ('1','1000-1013','AAA005',32.00,'1','A','SEK',20.00,0.00,0.00,0.00,23.00,0.00,0.00,0.00,30.00,0.00,NULL);
-INSERT INTO LAGERSTELLEREG (ARLAGST, ARTIKELNR, ARLAGHYLLA, ARLAGSALDO, ARINVGRP, ARABC, ARVALUTA, ARIPRIS, ARIKVANT0, ARIKVANT1, ARIKVANT2, ARKALKPRIS, ARPLANKPRIS, ARFRYSTKPRIS, ARBESTKVANT, ARBESTPUNKT, AROMKOST, RESERVERAT) VALUES ('1','1000-1014','AAB001',6.00,'2','A','SEK',55.00,0.00,0.00,0.00,70.00,0.00,0.00,0.00,10.00,0.00,NULL);
-
---
--- Table structure for table 'LEVREG'
---
-
-DROP TABLE IF EXISTS LEVREG;
-CREATE TABLE LEVREG (
-  LEVNR varchar(10) NOT NULL default '',
-  LEVORGNR varchar(12) default NULL,
-  LEVNAMN varchar(30) NOT NULL default '',
-  LEVADRESS varchar(30) default NULL,
-  LEVPOSTNR varchar(6) default NULL,
-  LEVPOSTADR varchar(30) default NULL,
-  LEVLAND varchar(30) default NULL,
-  LEVTFNNR varchar(15) default NULL,
-  LEVFAXNR varchar(15) default NULL,
-  LEVTELEX varchar(10) default NULL,
-  LEVEMAIL varchar(30) default NULL,
-  LEVPOSTGIRONR varchar(10) default NULL,
-  LEVBANKGIRONR varchar(10) default NULL,
-  LEVREFERENT varchar(20) default NULL,
-  LEVREFTFN varchar(15) default NULL,
-  LEVMOMSKOD char(1) default '1',
-  LEVSKULD decimal(10,2) default NULL,
-  LEVKONTO varchar(4) default NULL,
-  LEVKUNDNR varchar(30) default NULL,
-  LEVVALUTA char(3) default NULL,
-  BETALVILKOR char(3) default NULL,
-  PRIMARY KEY  (LEVNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'LEVREG'
---
-
-INSERT INTO LEVREG (LEVNR, LEVORGNR, LEVNAMN, LEVADRESS, LEVPOSTNR, LEVPOSTADR, LEVLAND, LEVTFNNR, LEVFAXNR, LEVTELEX, LEVEMAIL, LEVPOSTGIRONR, LEVBANKGIRONR, LEVREFERENT, LEVREFTFN, LEVMOMSKOD, LEVSKULD, LEVKONTO, LEVKUNDNR, LEVVALUTA, BETALVILKOR) VALUES ('9999','666667-9997','Testleverantˆr AB','Delivery Street 1C','199 99','LEVSTAD','Sverige','09-919191','09-919192','88888','kundtj@testlev.se','5559998-8','5998-9998','Lars Andersson','09-919193','1',0.00,'2121','98765','SEK','1');
-INSERT INTO LEVREG (LEVNR, LEVORGNR, LEVNAMN, LEVADRESS, LEVPOSTNR, LEVPOSTADR, LEVLAND, LEVTFNNR, LEVFAXNR, LEVTELEX, LEVEMAIL, LEVPOSTGIRONR, LEVBANKGIRONR, LEVREFERENT, LEVREFTFN, LEVMOMSKOD, LEVSKULD, LEVKONTO, LEVKUNDNR, LEVVALUTA, BETALVILKOR) VALUES ('1000','','ICA Stj‰rnkˆp','','','MƒRSTA','','020-833333','','',' kundkontakt@ica.se','','','','','1',0.00,'','','SEK','1');
-INSERT INTO LEVREG (LEVNR, LEVORGNR, LEVNAMN, LEVADRESS, LEVPOSTNR, LEVPOSTADR, LEVLAND, LEVTFNNR, LEVFAXNR, LEVTELEX, LEVEMAIL, LEVPOSTGIRONR, LEVBANKGIRONR, LEVREFERENT, LEVREFTFN, LEVMOMSKOD, LEVSKULD, LEVKONTO, LEVKUNDNR, LEVVALUTA, BETALVILKOR) VALUES ('2001','','Carlsberg','','','','Sverige','020-788020','','','','','','','','1',0.00,'','','SEK','1');
-INSERT INTO LEVREG (LEVNR, LEVORGNR, LEVNAMN, LEVADRESS, LEVPOSTNR, LEVPOSTADR, LEVLAND, LEVTFNNR, LEVFAXNR, LEVTELEX, LEVEMAIL, LEVPOSTGIRONR, LEVBANKGIRONR, LEVREFERENT, LEVREFTFN, LEVMOMSKOD, LEVSKULD, LEVKONTO, LEVKUNDNR, LEVVALUTA, BETALVILKOR) VALUES ('123','559999-9999','Leverantˆr AB','Postgatan 33','199 99','DATABY','SVERIGE','09-999999','09-999998','99999','kundtj@leverantor.se','4559999-9','5999-9999','Per Josefsson','09-999997','1',0.00,'2440','12345678','SEK','2');
-INSERT INTO LEVREG (LEVNR, LEVORGNR, LEVNAMN, LEVADRESS, LEVPOSTNR, LEVPOSTADR, LEVLAND, LEVTFNNR, LEVFAXNR, LEVTELEX, LEVEMAIL, LEVPOSTGIRONR, LEVBANKGIRONR, LEVREFERENT, LEVREFTFN, LEVMOMSKOD, LEVSKULD, LEVKONTO, LEVKUNDNR, LEVVALUTA, BETALVILKOR) VALUES ('124','559988-9999','Distributˆr AB','Brevgatan 1A','199 99','DATABY','SVERIGE','09-999199','09-999198','19999','kundtj@distributor.se','4559988-9','5988-9999','Lena Bertils','09-999997','1',0.00,'2440','12345678','EUR','1');
-INSERT INTO LEVREG (LEVNR, LEVORGNR, LEVNAMN, LEVADRESS, LEVPOSTNR, LEVPOSTADR, LEVLAND, LEVTFNNR, LEVFAXNR, LEVTELEX, LEVEMAIL, LEVPOSTGIRONR, LEVBANKGIRONR, LEVREFERENT, LEVREFTFN, LEVMOMSKOD, LEVSKULD, LEVKONTO, LEVKUNDNR, LEVVALUTA, BETALVILKOR) VALUES ('125','559955-5599','Fˆrs‰ljning AB','S‰ljgatan 3','199 11','BY','Sverige','09-119910','09-119919','11119','info@forsaljning.se','454511-1','4545-1111','Karl S‰ljare','09-119915','1',0.00,'2110','98765','SEK','1');
-INSERT INTO LEVREG (LEVNR, LEVORGNR, LEVNAMN, LEVADRESS, LEVPOSTNR, LEVPOSTADR, LEVLAND, LEVTFNNR, LEVFAXNR, LEVTELEX, LEVEMAIL, LEVPOSTGIRONR, LEVBANKGIRONR, LEVREFERENT, LEVREFTFN, LEVMOMSKOD, LEVSKULD, LEVKONTO, LEVKUNDNR, LEVVALUTA, BETALVILKOR) VALUES ('126','550101-5555','Dataspecialisten AB','Storgatan 1','199 11','STORSTAD','Sverige','09-112250','09-112259','22229','info@dataspecialisten.se','4512323-3','4512-5566','Ola Norman','09-112255','1',0.00,'2110','567891','SEK','1');
-INSERT INTO LEVREG (LEVNR, LEVORGNR, LEVNAMN, LEVADRESS, LEVPOSTNR, LEVPOSTADR, LEVLAND, LEVTFNNR, LEVFAXNR, LEVTELEX, LEVEMAIL, LEVPOSTGIRONR, LEVBANKGIRONR, LEVREFERENT, LEVREFTFN, LEVMOMSKOD, LEVSKULD, LEVKONTO, LEVKUNDNR, LEVVALUTA, BETALVILKOR) VALUES ('100','559901-9991','Bokfˆrlag AB','Bokgatan 1','198 01','BOKBY','Sverige','09-909090','09-909010','99991','kundtj@bokforlag.se','5599999-9','5900-2222','Linda Bokman','09-909011','1',0.00,'2110','33331','SEK','1');
-INSERT INTO LEVREG (LEVNR, LEVORGNR, LEVNAMN, LEVADRESS, LEVPOSTNR, LEVPOSTADR, LEVLAND, LEVTFNNR, LEVFAXNR, LEVTELEX, LEVEMAIL, LEVPOSTGIRONR, LEVBANKGIRONR, LEVREFERENT, LEVREFTFN, LEVMOMSKOD, LEVSKULD, LEVKONTO, LEVKUNDNR, LEVVALUTA, BETALVILKOR) VALUES ('200','559902-9992','Stora Bokfˆrlaget AB','Fˆrlagsgatan 11','198 02','F÷RLAGSSTAD','Sverige','09-919190','09-919111','22222','kundtj@storaforlag.se','559998-2','5900-3333','Philip King','09-919196','1',0.00,'2110','44440','SEK','1');
-INSERT INTO LEVREG (LEVNR, LEVORGNR, LEVNAMN, LEVADRESS, LEVPOSTNR, LEVPOSTADR, LEVLAND, LEVTFNNR, LEVFAXNR, LEVTELEX, LEVEMAIL, LEVPOSTGIRONR, LEVBANKGIRONR, LEVREFERENT, LEVREFTFN, LEVMOMSKOD, LEVSKULD, LEVKONTO, LEVKUNDNR, LEVVALUTA, BETALVILKOR) VALUES ('300','559899-5559','Lilla Fˆrlaget HB','Bokgr‰nd 23','198 03','BOKBY','Sverige','09-808080','09-808081','89992','Kundtj@lillaforlaget.se','558800-8','5900-4444','Kerstin Bokare','09-808089','1',0.00,'2110','55550','SEK','1');
-
---
--- Table structure for table 'LEVRESK'
---
-
-DROP TABLE IF EXISTS LEVRESK;
-CREATE TABLE LEVRESK (
-  LEVNR varchar(10) NOT NULL default '',
-  FAKTURANR varchar(20) NOT NULL default '',
-  REGDATUM date default NULL,
-  FAKTDATUM date default NULL,
-  EXPIREDATUM date default NULL,
-  FAKTTEXT varchar(100) default NULL,
-  BAR char(2) default NULL,
-  MOMSPROCENT decimal(3,2) default NULL,
-  VALUTA char(3) default NULL,
-  VALUTAKURS decimal(3,2) default NULL,
-  VALUTABELOPP decimal(10,2) default NULL,
-  LEVKTONR varchar(4) default NULL,
-  FAKTBELOPP decimal(10,2) default NULL,
-  MOMSKTONR varchar(4) default NULL,
-  MOMSBELOPP decimal(10,2) default NULL,
-  DEBETKONTONR varchar(4) default NULL,
-  DEBETBELOPP decimal(10,2) default NULL,
-  USERID varchar(8) default NULL,
-  VERNR int(11) default NULL,
-  BETALD enum('J','N') default 'N',
-  BETALDDATUM date default NULL,
-  OCRNR varchar(20) default NULL,
-  PRIMARY KEY  (LEVNR,FAKTURANR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'LEVRESK'
---
-
-INSERT INTO LEVRESK (LEVNR, FAKTURANR, REGDATUM, FAKTDATUM, EXPIREDATUM, FAKTTEXT, BAR, MOMSPROCENT, VALUTA, VALUTAKURS, VALUTABELOPP, LEVKTONR, FAKTBELOPP, MOMSKTONR, MOMSBELOPP, DEBETKONTONR, DEBETBELOPP, USERID, VERNR, BETALD, BETALDDATUM, OCRNR) VALUES ('123','1238866','2003-11-07','2003-11-04','2003-12-07','Inkˆp av bokhylla','AC',25.00,'SEK',1.00,1100.00,'2110',1100.00,'1470',275.00,'1810',825.00,'ADMIN',22,'N',NULL,'76598234');
-
---
--- Table structure for table 'LEVSETT'
---
-
-DROP TABLE IF EXISTS LEVSETT;
-CREATE TABLE LEVSETT (
-  LEVSETTNR char(3) NOT NULL default '',
-  LEVSETTTEXT varchar(150) NOT NULL default '',
-  PRIMARY KEY  (LEVSETTNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'LEVSETT'
---
-
-INSERT INTO LEVSETT (LEVSETTNR, LEVSETTTEXT) VALUES ('001','Schenker kundnr:11105232');
-INSERT INTO LEVSETT (LEVSETTNR, LEVSETTTEXT) VALUES ('002','ASG. Kundnr 111111');
-INSERT INTO LEVSETT (LEVSETTNR, LEVSETTTEXT) VALUES ('003','Post');
-
---
--- Table structure for table 'LEVVILLKOR'
---
-
-DROP TABLE IF EXISTS LEVVILLKOR;
-CREATE TABLE LEVVILLKOR (
-  VILLKORSNR char(3) NOT NULL default '',
-  VILLKORSTEXT varchar(150) NOT NULL default '',
-  PRIMARY KEY  (VILLKORSNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'LEVVILLKOR'
---
-
-INSERT INTO LEVVILLKOR (VILLKORSNR, VILLKORSTEXT) VALUES ('001','EXW');
-INSERT INTO LEVVILLKOR (VILLKORSNR, VILLKORSTEXT) VALUES ('002','EYW');
-INSERT INTO LEVVILLKOR (VILLKORSNR, VILLKORSTEXT) VALUES ('003','');
-
---
--- Table structure for table 'ORDERRADREG'
---
-
-DROP TABLE IF EXISTS ORDERRADREG;
-CREATE TABLE ORDERRADREG (
-  ORDERNR varchar(10) NOT NULL default '',
-  ORDERRAD int(4) NOT NULL default '0',
-  KUNDNR varchar(10) NOT NULL default '',
-  RADORDERTYP enum('N','D') default 'N',
-  ARTIKELNR varchar(30) NOT NULL default '',
-  BENEMNING varchar(60) default NULL,
-  LEVERANSVECKA varchar(5) default NULL,
-  BESTELLT decimal(10,2) NOT NULL default '0.00',
-  APRIS decimal(10,2) NOT NULL default '0.00',
-  SUMMA decimal(10,2) NOT NULL default '0.00',
-  MOMSKR decimal(10,2) NOT NULL default '0.00',
-  LEVERERAT decimal(10,2) default NULL,
-  RESTNOTERAT decimal(10,2) default NULL,
-  RADRABATT decimal(2,1) default NULL,
-  KALKYLPRIS decimal(10,2) default NULL,
-  LEVDATUM date default NULL,
-  ENHET varchar(4) default 'ST',
-  FAKTURERAT decimal(10,2) default NULL,
-  PRIMARY KEY  (ORDERNR,ORDERRAD)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'ORDERRADREG'
---
-
-
---
--- Table structure for table 'ORDERREG'
---
-
-DROP TABLE IF EXISTS ORDERREG;
-CREATE TABLE ORDERREG (
-  ORDERNR varchar(10) NOT NULL default '',
-  KUNDNR varchar(10) NOT NULL default '',
-  ORDERTYP enum('N','D','E','F') default 'N',
-  ORDERSTATUS enum('A','N','F','B') default 'A',
-  ORDERDATUM date default NULL,
-  LEVDATUM date default NULL,
-  KUNDNAMN varchar(60) default NULL,
-  KUNDADRESS varchar(30) default NULL,
-  KUNDPOSTNR varchar(6) default NULL,
-  KUNDPOSTADR varchar(30) default NULL,
-  KUNDLAND varchar(30) default NULL,
-  ERREF varchar(20) default NULL,
-  LEVADRESS varchar(30) default NULL,
-  LEVPOSTNR varchar(6) default NULL,
-  LEVPOSTADR varchar(30) default NULL,
-  LEVLAND varchar(30) default NULL,
-  VARREF varchar(20) default NULL,
-  SELJARE varchar(20) default NULL,
-  GODSMERKE varchar(100) default NULL,
-  BETVILLKTYP enum('F','P','K') NOT NULL default 'F',
-  BETVILLKOR char(3) default '001',
-  LEVVILLKOR char(3) default '001',
-  LEVSETT char(3) default '001',
-  PLOCKLISTA enum('J','N') default 'J',
-  FOLJESEDEL enum('J','N') default 'J',
-  FRAKTAVG enum('J','N') default 'J',
-  SKATTEKOD char(3) NOT NULL default '001',
-  MOMS decimal(3,2) default NULL,
-  VALUTA char(3) default 'SEK',
-  EXPORTKOD char(3) default '001',
-  SPRAKKOD char(3) default 'sv',
-  ORDERSUMMA decimal(10,2) default NULL,
-  FRAKTSUMMA decimal(10,2) default NULL,
-  FRAKTMOMSKR decimal(10,2) default NULL,
-  ORDERMOMS decimal(10,2) default NULL,
-  ORDERTOTAL decimal(10,2) default NULL,
-  PRIMARY KEY  (ORDERNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'ORDERREG'
---
-
-
---
--- Table structure for table 'PASSW'
---
-
-DROP TABLE IF EXISTS PASSW;
-CREATE TABLE PASSW (
-  KUNDNR varchar(10) NOT NULL default '',
-  PASSW varchar(16) NOT NULL default '',
-  PRIMARY KEY  (KUNDNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'PASSW'
---
-
-INSERT INTO PASSW (KUNDNR, PASSW) VALUES ('4376','webbson');
-INSERT INTO PASSW (KUNDNR, PASSW) VALUES ('4375','webbman');
-
---
--- Table structure for table 'PLOCKLISTEREG'
---
-
-DROP TABLE IF EXISTS PLOCKLISTEREG;
-CREATE TABLE PLOCKLISTEREG (
-  PLOCKNR int(11) NOT NULL auto_increment,
-  ORDERNR varchar(10) NOT NULL default '',
-  ORDERRAD int(4) NOT NULL default '0',
-  KUNDNR varchar(10) NOT NULL default '',
-  ARTIKELNR varchar(30) NOT NULL default '',
-  BENEMNING varchar(60) default NULL,
-  LEVERANSVECKA varchar(5) default NULL,
-  BESTELLT decimal(10,2) NOT NULL default '0.00',
-  ATTLEVERERA decimal(10,2) NOT NULL default '0.00',
-  LEVERERAT decimal(10,2) NOT NULL default '0.00',
-  PLOCKAT decimal(10,2) NOT NULL default '0.00',
-  RESTNOTERAT decimal(10,2) NOT NULL default '0.00',
-  LEVDATUM date default NULL,
-  ENHET varchar(4) default NULL,
-  PLOCKSTATUS enum('P','B') default 'P',
-  PLOCKDATUM date NOT NULL default '0000-00-00',
-  PRIMARY KEY  (PLOCKNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'PLOCKLISTEREG'
---
-
-
---
--- Table structure for table 'PRODUKTGRUPP'
---
-
-DROP TABLE IF EXISTS PRODUKTGRUPP;
-CREATE TABLE PRODUKTGRUPP (
-  PRODKLASS varchar(5) NOT NULL default '',
-  BESKRIVNING varchar(30) default NULL,
-  MOMSKOD varchar(5) default NULL,
-  PRIMARY KEY  (PRODKLASS)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'PRODUKTGRUPP'
---
-
-INSERT INTO PRODUKTGRUPP (PRODKLASS, BESKRIVNING, MOMSKOD) VALUES ('2200','HÂrddiskar','MOMS1');
-INSERT INTO PRODUKTGRUPP (PRODKLASS, BESKRIVNING, MOMSKOD) VALUES ('2500','Bildsk‰rmar','MOMS1');
-INSERT INTO PRODUKTGRUPP (PRODKLASS, BESKRIVNING, MOMSKOD) VALUES ('2300','Tangentbord','MOMS1');
-INSERT INTO PRODUKTGRUPP (PRODKLASS, BESKRIVNING, MOMSKOD) VALUES ('2400','Routers','MOMS1');
-INSERT INTO PRODUKTGRUPP (PRODKLASS, BESKRIVNING, MOMSKOD) VALUES ('2100','Switchar','MOMS1');
-INSERT INTO PRODUKTGRUPP (PRODKLASS, BESKRIVNING, MOMSKOD) VALUES ('1001','C++-programmering','MOMS3');
-INSERT INTO PRODUKTGRUPP (PRODKLASS, BESKRIVNING, MOMSKOD) VALUES ('1002','Qt-bˆcker','MOMS3');
-INSERT INTO PRODUKTGRUPP (PRODKLASS, BESKRIVNING, MOMSKOD) VALUES ('1003','C-programmering','MOMS3');
-
---
--- Table structure for table 'PROGRAM'
---
-
-DROP TABLE IF EXISTS PROGRAM;
-CREATE TABLE PROGRAM (
-  PRGNR char(3) NOT NULL default '',
-  MENYAVD varchar(20) default NULL,
-  MENYGRP varchar(30) default NULL,
-  MENYTXT varchar(30) default NULL,
-  PROGRAM varchar(8) default NULL,
-  PRIMARY KEY  (PRGNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'PROGRAM'
---
-
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('001','Administration','Anv‰ndaradministration','Ny anv‰ndare','ADDUSRW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('002','Administration','Anv‰ndaradministration','ƒndra anv‰ndarinfo','CHGUSRW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('003','Administration','Anv‰ndaradministration','Ta bort anv‰ndare','DELUSRW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('004','Administration','Anv‰ndaradministration','Visa en anv‰ndare','DSPUSRW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('005','Administration','Anv‰ndaradministration','Lista anv‰ndare','LSTUSRW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('006','Administration','Behˆrighetsadministration','Ny behˆrighet','ADDRGTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('007','Administration','Behˆrighetsadministration','ƒndra behˆrighet','');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('008','Administration','Behˆrighetsadministration','Ta bort behˆrighet','DELRGTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('009','Administration','Behˆrighetsadministration','Visa behˆrighet','');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('010','Administration','Behˆrighetsadministration','Lista behˆrigheter','LSTRGTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('011','Administration','Funktionsadministration','Ny funktion','ADDFNCW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('012','Administration','Funktionsadministration','Lista funktioner','LSTFNCW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('013','Ekonomi','Bokfˆring','Registrera verifikation','');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('014','Ekonomi','Bokfˆring','Registrera ver. standard','BOKFORSW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('015','Ekonomi','Kontoadministration','Nytt konto','ADDKTOW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('016','Ekonomi','Kontoadministration','ƒndra konto','CHGKTOW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('017','Ekonomi','Kontoadministration','Ta bort konto','');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('018','Ekonomi','Kontoadministration','Visa konto','DSPKTOW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('019','Ekonomi','Kontoadministration','Lista konton','LSTKTOW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('020','Ekonomi','Kostnadst‰lleadministration','Nytt kostnadst‰lle','ADDKSTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('021','Ekonomi','Kostnadst‰lleadministration','ƒndra kostnadst‰lle','');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('022','Ekonomi','Kostnadst‰lleadministration','Ta bort kostnadst‰lle','');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('023','Ekonomi','Kostnadst‰lleadministration','Visa ett kostnadsst‰lle','DSPKSTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('024','Ekonomi','Kostnadst‰lleadministration','Lista kostnadsst‰llen','LSTKSTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('025','Ekonomi','Valutaadministration','Ny valuta','ADDVALW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('026','Ekonomi','Valutaadministration','ƒndra valuta','CHGVALW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('027','Ekonomi','Valutaadministration','Ta bort valuta','DELVALW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('028','Ekonomi','Valutaadministration','Visa valuta','DSPVALW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('029','Ekonomi','Valutaadministration','Lista valutor','LSTVALW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('030','Ekonomi','Rapporter','Kontorapport','RPTKTOW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('031','Ekonomi','Rapporter','Rapportgenerator','RPTGENW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('032','Ekonomi','R‰kenskapsÂr','Nytt bokfˆringsÂr','ADDBARW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('033','Ekonomi','R‰kenskapsÂr','ƒndra bokfˆringsÂrsdata','CHGBARW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('034','Administration','Fˆretagsdata','Ny post','ADDFTGW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('035','Administration','Fˆretagsdata','ƒndra post','CHGFTGW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('036','Administration','Fˆretagsdata','Visa fˆretagsdata','DSPFTGW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('037','Fˆrs‰ljning','Kunddata','Ny kund','ADDKUW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('038','Fˆrs‰ljning','Kunddata','Ny leveransadress fˆr kund','ADDLEVPW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('039','Inkˆp','Leverantˆrsdata','Ny leverantˆr','ADDLEVW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('040','Inkˆp','Leverantˆrsdata','Visa en leverantˆr','DSPLEVW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('041','Inkˆp','Leverantˆrsdata','ƒndra leverantˆrsdata','CHGLEVW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('042','Ekonomi','Bokfˆring','Reg. leverantˆrsfaktura','LEVFAKTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('043','Ekonomi','Rapporter','Leverantˆrsreskontra','LEVRESKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('044','Ekonomi','Rapporter','Fˆrfallna levfakturor','ATTBETW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('045','Ekonomi','Rapporter','Saldolista','SDOLISW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('046','Fˆrs‰ljning','Kunddata','Visa kunddata','DSPKUW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('047','Fˆrs‰ljning','Kunddata','ƒndra kunddata','CHGKUW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('048','Fˆrs‰ljning','Kunddata','Lista kunder','LSTKUW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('049','Administration','Fˆretagsdata','Byta fˆretag','BYTFTGW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('050','Materialhantering','Artikeldata','Ny artikel','ADDARW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('051','Materialhantering','Artikeldata','Visa grunddata fˆr en artikel','DSPARW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('052','Materialhantering','Artikeldata','Visa en artikels ekonomidata','DSPAREW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('053','Materialhantering','Artikeldata','ƒndra artikeldata','CHGARW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('054','Administration','Betalningsvillkor','Lista betalningsvillkor','LSTBETVW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('055','Administration','Betalningsvillkor','Nya betalningsvillkor','ADDBETVW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('056','Materialhantering','Artikeldata','Lista artiklar','LSTARW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('057','Administration','Betalningsvillkor','ƒndra betalningsvillkor','CHGBETVW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('058','Inkˆp','Best‰llningar','Registrera inkˆpsorder','ADDINKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('059','Inkˆp','Best‰llningar','(ƒndra best‰llning)','CHGINKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('060','Inkˆp','Best‰llningar','(Annulera best‰llning)','DELINKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('061','Inkˆp','Best‰llningar','Visa best‰llning','DSPINKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('062','Inkˆp','Best‰llningar','Best‰llningsstock','LSTINKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('063','Inkˆp','Best‰llningar','Skriv ut best‰llning','PRTINKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('064','Inkˆp','Best‰llningar','(Avprickning fˆljesedel)','UPDINKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('065','Fˆrs‰ljning','Kundorder','Registrera kundorder','ADDORDW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('066','Fˆrs‰ljning','Kundorder','(ƒndra kundorder)','CHGORDW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('067','Fˆrs‰ljning','Kundorder','(Makulera kundorder)','DELORDW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('068','Fˆrs‰ljning','Kundorder','Visa en kundorder','DSPORDW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('069','Fˆrs‰ljning','Kundorder','Lista kundorder','LSTORDW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('070','Fˆrs‰ljning','Kundorder','Skriva ut plocklista','PLORDW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('071','Fˆrs‰ljning','Kundorder','(Skriva ut fˆljesedel)','FSORDW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('072','Fˆrs‰ljning','Kundorder','Fakturera kundorder','KUFAKTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('074','Administration','Fˆretagsdata','Ny text i textregistret','ADDTXTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('073','Inkˆp','Leverantˆrsdata','Lista leverantˆrer','LSTLEVW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('076','Administration','Leveransvillkor','Nya leveransvillkor','ADDLEVVW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('075','Administration','Fˆretagsdata','Radera post i textregistret','DELTXTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('077','Administration','Leveransvillkor','Lista leveransvillkor','LSTLEVVW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('078','Administration','Leveranss‰tt','Nya leveranss‰tt','ADDLEVSW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('079','Administration','Leveranss‰tt','Lista leveranss‰tt','LSTLEVSW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('080','Ekonomi','Rapporter','Balansr‰kning','BALRPTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('081','Ekonomi','Rapporter','Huvudbok','HUVBOKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('082','Ekonomi','Rapporter','Dagbok','DAGBOKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('083','Fˆrs‰ljning','Kunddata','Lista kunders leveransplatser','LSTLEVPW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('084','Administration','Fˆretagsdata','Ny databasregistrering','ADDFORW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('085','Administration','Fˆretagsdata','Lista databaser','LSTFORW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('086','Materialhantering','Artikeladmin.','Ny produktklass/produktgrupp','ADDPKDW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('087','Materialhantering','Artikeladmin.','Lista produktklass/produktgrup','LSTPKDW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('088','Ekonomi','R‰kenskapsÂr','Visa bokfˆringsÂr','DSPBARW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('089','Administration','Fˆretagsdata','Lista fˆretagsdata','LSTFTGW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('090','Ekonomi','Rapporter','Resultatrapport','RESRPTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('091','Ekonomi','R‰kenskapsÂr','Lista alla r‰kenskapsÂr','LSTBARW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('092','Fˆrs‰ljning','Kunddata','Sˆka kunder','SRCHKUW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('093','Ekonomi','Rapporter','Skapa SIE-fil','RPTSIEW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('094','Fˆrs‰ljning','Kundorder','Pricka av plocklista','PLCHGW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('095','Ekonomi','Rapporter','Kundreskontra','KURESKW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('096','Administration','Fˆretagsdata','Lista texter i TEXTREG','LSTTXTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('097','Administration','Fˆretagsdata','Visa en post i TEXTREG','DSPTXTW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('098','Materialhantering','Artikeldata','Sˆka artikel','SRCHARW');
-
---
--- Table structure for table 'RIGHTS'
---
-
-DROP TABLE IF EXISTS RIGHTS;
-CREATE TABLE RIGHTS (
-  USERID varchar(8) NOT NULL default '',
-  TRNSID varchar(8) NOT NULL default '',
-  PRIMARY KEY  (USERID,TRNSID)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'RIGHTS'
---
-
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('GUEST','ARLIS');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('GUEST','ARLSPK');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('GUEST','ARLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('GUEST','ARLSTL');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('GUEST','VALDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('GUEST','VALLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('GUEST','WKUDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDARW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDBARW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDBETVW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDFNCW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDFORW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDFTGW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDINKW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDKSTW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDKTOW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDKUW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDLEVPW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDLEVSW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDLEVVW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDLEVW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDORDW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDPKDW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDRGTW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDTXTW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDUSRW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ADDVALW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','AR2ADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ARADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ARCHG');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ARCHGL');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ARCHK');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ARDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ARDSPL');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ARLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ATTBET');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ATTBETW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','BALRPTW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','BARADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','BARCHG');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','BARCHK');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','BARDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','BARFND');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','BETADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','BETCHG');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','BETDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','BETLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','BOKF');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','BOKFORSW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','BOKFORW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','BYTFTGW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','CHGARW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','CHGBARW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','CHGBETVW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','CHGFTGW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','CHGKUW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','CHGLEVW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','CHGUSRW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','CHGVALW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DAGBOKW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DBCHK');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DBOKRPT');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DELRGTW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DELTXTW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DELUSRW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DELVALW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DSPAREW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DSPARW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DSPBARW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DSPFTGW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DSPINKW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DSPKSTW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DSPKTOW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DSPKUW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DSPLEVVW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DSPLEVW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DSPUSRW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','DSPVALW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','FORADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','FORCHK');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','FORDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','FORLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','FTGDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','FTGLIS');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','FTGLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','FTGUPD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','HBOKRPT');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','HUVBOKW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','INKADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','INKHDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','INKLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','INKRADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','INKRLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','KSTADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','KSTCHK');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','KSTDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','KSTLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','KTOADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','KTOCHG');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','KTOCHK');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','KTODSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','KTORPT');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','KTORPT2');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','KTOVIEW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','KUADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','KUCHG');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','KUCHK');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','KUDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','KULST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LEVADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LEVCHG');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LEVDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LEVFAKTW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LEVLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LEVPLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LEVRESKW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LEVSADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LEVSDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LEVSLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LEVVADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LEVVDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LEVVLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LRESADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LRESRPT');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LSTARW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LSTBETVW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LSTFNCW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LSTFORW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LSTFTGW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LSTINKW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LSTKSTW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LSTKTOW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LSTKUW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LSTLEVPW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LSTLEVSW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LSTLEVVW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LSTLEVW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LSTORDW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LSTPKDW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LSTRGTW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LSTUSRW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','LSTVALW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','ORDLST2');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','PKDADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','PKDLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','PRGLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','PRTINKW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','RESRPTW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','RGTADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','RGTCHK');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','RGTDEL');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','RGTDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','RGTLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','RPTCRE');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','RPTGENW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','RPTKTOW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','SDOLISW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','SLPADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','TRNSADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','TRNSLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','TXTADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','TXTDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','USERADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','USERCHG');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','USERDEL');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','USERDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','USERLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','VALADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','VALCHG');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','VALDEL');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','VALDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','VALLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','VERHDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','VERHLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('ADMIN','VERUPD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('JAPI','TSTFNC');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','ADDRGTW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','ARICHK');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','BARDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','KTOCHK');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','KTOLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','KTOVIEW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','PRGLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','RGTADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','RGTCHK');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','RGTDEL');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','RGTLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','TRHDADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','TRNSADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','TRNSDEL');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','USERADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','USERLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('OLFIX','VERUPD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('TESTARE','KUCHK');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('TESTARE','LSTUSRW');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('TESTARE','PRGLST');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('TESTARE','RGTCHK');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('TESTARE','USERADD');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('TESTARE','USERDSP');
-INSERT INTO RIGHTS (USERID, TRNSID) VALUES ('TESTARE','USERLST');
-
---
--- Table structure for table 'STDLEVPLATS'
---
-
-DROP TABLE IF EXISTS STDLEVPLATS;
-CREATE TABLE STDLEVPLATS (
-  STDLEVPLATS char(3) NOT NULL default '',
-  KUNDNR varchar(10) NOT NULL default '',
-  ADRESS varchar(30) NOT NULL default '',
-  POSTNR varchar(6) NOT NULL default '',
-  POSTADR varchar(30) NOT NULL default '',
-  LAND varchar(30) default NULL,
-  PRIMARY KEY  (STDLEVPLATS,KUNDNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'STDLEVPLATS'
---
-
-INSERT INTO STDLEVPLATS (STDLEVPLATS, KUNDNR, ADRESS, POSTNR, POSTADR, LAND) VALUES ('002','4375','Bakgatan 1D','199 09','SM≈STAD','-');
-INSERT INTO STDLEVPLATS (STDLEVPLATS, KUNDNR, ADRESS, POSTNR, POSTADR, LAND) VALUES ('001','4375','Bakgatan 1C','199 09','SM≈STAD','Sverige');
-INSERT INTO STDLEVPLATS (STDLEVPLATS, KUNDNR, ADRESS, POSTNR, POSTADR, LAND) VALUES ('555','4375','Testgatan 3','199 02','PROVSTAD','Sverige');
-INSERT INTO STDLEVPLATS (STDLEVPLATS, KUNDNR, ADRESS, POSTNR, POSTADR, LAND) VALUES ('001','4376','Industrigatan 13','199 21','LILLEBY','Sverige');
-INSERT INTO STDLEVPLATS (STDLEVPLATS, KUNDNR, ADRESS, POSTNR, POSTADR, LAND) VALUES ('002','4376','BokhÂllargatan 3','199 19','LILLEBY','Sverige');
-
---
--- Table structure for table 'TEXTREG'
---
-
-DROP TABLE IF EXISTS TEXTREG;
-CREATE TABLE TEXTREG (
-  TEXTNR char(3) NOT NULL default '',
-  TXT text,
-  PRIMARY KEY  (TEXTNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'TEXTREG'
---
-
-INSERT INTO TEXTREG (TEXTNR, TXT) VALUES ('002','Endast komplett order fÂr levereras.\nLeverans ska ske med Danzas/ASG.\nVÂrt kundnr hos Danzas/ASG ‰r 991145.');
-INSERT INTO TEXTREG (TEXTNR, TXT) VALUES ('003','Detta ‰r ytterligare ett test med textregistret.\nMed radnr 2.\nOch med rad nr 3.\n');
-INSERT INTO TEXTREG (TEXTNR, TXT) VALUES ('001','Ordererk‰nnande ˆnskas inom 3 arbetsdagar (om ej redan bekr‰ftats)\nAnge alltid vÂrt artikelnummer pÂ fˆljesedel och faktura.\n');
-
---
--- Table structure for table 'TRANSID'
---
-
-DROP TABLE IF EXISTS TRANSID;
-CREATE TABLE TRANSID (
-  TRNSID varchar(8) NOT NULL default '',
-  TRNSTXT varchar(60) default NULL,
-  PRIMARY KEY  (TRNSID)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'TRANSID'
---
-
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARICHK','Kontrollera om visst bokfˆringsÂr finns');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARDSP','H‰mta data fˆr angivet bokfˆringsÂr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARCHK','Kontrollera om visst bokfˆringsÂr finns');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BOKF','Bokfˆringsprogram');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FORDSP','Visa info om databas nr x');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FTGUPD','Uppdatera fˆretagsdata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KSTADD','Nyuppl‰gg av kostnadsst‰lle');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KSTCHK','Kontrollera om visst kostnadst‰lle finns');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KSTDSP','Visa info fˆr ett kostnadst‰lle');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KSTLST','Lista kostnadsst‰llen pÂ sk‰rm');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTOADD','L‰gga till en ny post i konto');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTOCHG','ƒndra info fˆr ett kontonr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTOCHK','Kontrollera om visst konto finns');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTODEL','Ta bort post i konto (endast utan transaktioner)');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTODSP','Visa info pÂ ett konto');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTOLST','Lista alla konton, nr och text');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTORPT','Lista alla poster i tabellen VERRAD');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTOUPD','Uppdatera konto med antingen debet eller kredit');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTOVIEW','Visa kontonr och ben‰mning pÂ sk‰rm');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PRGLST','Lista program');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('RGTADD','L‰gga till behˆrighet till transaktioner');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('RGTCHK','Kontrolera anv‰ndares behˆrighet');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('RGTDEL','Ta bort behˆrighet till transaktioner');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('RGTDSP','Visa behˆrigheter fˆr en anv‰ndare');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('RGTLST','Lista alla behˆrigheter');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRHDADD','L‰gga till ny loggpost i TRHD');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNSADD','Ny post i TRANSID');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNSCHG','ƒndra post i TRANSID');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNSDEL','Ta bort post i TRANSID');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNSDSP','Visa enstaka TRANSID');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNSLST','Lista alla TRANSID');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('USERADD','Ny post i USER');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('USERCHG','ƒndra post i USER');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('USERDEL','Ta bort post i USER');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('USERDSP','Visa en anv‰ndare');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('USERLST','Lista alla anv‰ndare');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VALLST','Lista valutor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VALADD','L‰gga upp en ny valuta');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VALCHG','ƒndra valutainformation');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VALDEL','Ta bort en valuta');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VALDSP','Visa en valuta');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VERUPD','Nyuppl‰ggning av verifikat');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VERDSP','Visa enstaka verifikation');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VRDADD','Ny detaljpost fˆr verifikation till VERD');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VRHADD','Ny huvudpost fˆr verifikation till VERH');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('WRREC','Skriva post till tempfilen /tmp/vernr.txt');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ATTBET','Lista leverantˆrsfakturor att betala');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARADD','L‰gga upp nytt bokfˆringsÂr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARCHG','ƒndra data fˆr angivet bokfˆringsÂr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARFND','Hitta bokfˆringsÂr fˆr angivet datum');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BETDSP','Visa ett betalningsvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FTGADD','L‰gga upp en ny fˆretagspost');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FTGDSP','Visa fˆretagsdata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FTGLST','Lista posttyper fˆr fˆretagsdata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FTGLIS','Lista fˆretagsdata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KUADD','Registrera nya kunder');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KUCHG','ƒndra kunddata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KUCHK','Kontrollera om kundnr finns');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KUDSP','Visa kunddata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KULST','Lista kunder, kundnr och namn');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVADD','L‰gga upp en ny leverantˆr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVCHG','ƒndra leverantˆrsdata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVDSP','Visa en leverantˆr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVLST','Lista leverantˆrer,nr och namn');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LRESRPT','Lista alla obetalda poster i tabellen LEVRESK');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LRESADD','Ny post i leverantˆrsreskontran');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('RPTCRE','Rapportgenerator. Skapa rapporter');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('SLPADD','Standardleveransplats');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNTST','Detta ‰r en testfunktion');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARCHK','Kontrollera om artikelnummer finns');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARADD','L‰gga upp en ny artikel');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('AR2ADD','L‰gga upp ny artikel i lagerst‰lleregister');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARDSP','Visa grunddata fˆr en artikel');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARDSPL','Visa lagerdata fˆr en artikel');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARCHG','ƒndra grunddata fˆr en artikel');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARCHGL','ƒndra lagerst‰lledata fˆr en artikel');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BETLST','Lista betalningsvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BETADD','L‰gga upp ett nytt betalningsvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLST','Lista artiklar(artikelnr,ben‰mn1,ben‰mn2)');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BETCHG','ƒndra data fˆr betalningsvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TXTDSP','Visa texter ur TEXTREG');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TXTADD','L‰gg upp en ny post i TEXTREG');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('INKADD','L‰gga upp en ny inkˆpsorder');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('INKRADD','L‰gga upp en ny inkˆpsorderrad');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TXTDEL','Radera post i TEXTREG');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('INKRLST','Lista alla rader pÂ angiven inkˆpsorder');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('INKHDSP','Visa orderhuvud fˆr angiven inkˆpsorder');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('INKLST','Best‰llningsstock');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVVDSP','Visa ett leveransvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVSDSP','Visa ett leveranss‰tt');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVVADD','L‰gga upp ett nytt leveransvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVSADD','L‰gga upp ett nytt leveranss‰tt');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVVLST','Lista leveransvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVSLST','Lista leveranss‰tt');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VERHDSP','H‰mta mindatum och maxdatum fˆr angivet bokf.Âr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VERHLST','Lista verifikationers huvudposter fˆr ˆnskat bokfˆringsÂr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('HBOKRPT','Huvudboksrapport');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('DBOKRPT','Dagboksrapport');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PRTAPI','Utskriftsinterface');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVPLST','Lista kunders leveransadresser');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FORCHK','Kontr. om databas finns i tabell DATABAS');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FORADD','Ny databas i tabellen DATABAS');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FORLST','Lista databaser i tabell DATABAS');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PKDADD','Ny produktgrupp/produktkod/produktklass');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PKDLST','Lista produktgrupper/produktkoder/produktklasser');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('WKUDSP','Visa begr‰nsade kunddata fˆr webbkund');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLSTL','Lista artiklar med lagersaldo');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLIS','Lista artiklar fˆr angiven produktklass');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLSPK','Lista artiklar fˆr angiven produktkod');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('AR2UPD','Uppdatera artikelpost i LAGERSTELLEREG');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARLST','Lista bokfˆringsÂr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KUSRCH','Sˆka kunder pÂ namn, postnr, tfnnr eller postadr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVPDSP','Visa en standardleveransplats');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDADD','Nyuppl‰gg av kundorderhuvud');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDCHK','Kontrollera diverse uppgifter pÂ kundorder');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDDSP','Visa en kundorders huvudpost');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDRDSP','Visa en kundorders orderrader');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PKDDSP','Visa en produktgrupp/produktkod/produktklass');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('SIEEXPK','SIE-export av kontoplan');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('SIEEXPR','SIE-export av resultat');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('SIEEXPV','SIE-export av verifikat');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('DBCHK','Lista databaser registrerade i databasen mysql');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDLST2','Lista kundorder med begr‰nsad information');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDLST','Lista kundorder');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKADD','Nytt plock av kundorderrad');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKDSP','Visa plockade men ej utskrivna plock');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKLST','Lista avprickade kundorderrader');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KRESADD','Ny post till kundreskontran');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORADUPD','Uppdatera ˆnskat f‰lt i ORDERRADREG');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDRUPD','Uppdatera ORDERRADREG');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDUPD','Uppdatera ˆnskat f‰lt i ORDERREG');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLSPK2','Lista artiklar/produktkod med saldo');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KRESLST','Lista poster i kundreskontran');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDRADD','L‰gga upp ny rad pÂ kundorder');
-
---
--- Table structure for table 'TRHD'
---
-
-DROP TABLE IF EXISTS TRHD;
-CREATE TABLE TRHD (
-  TRNSNR int(11) NOT NULL auto_increment,
-  TRNSID varchar(8) NOT NULL default '',
-  TID varchar(20) NOT NULL default '',
-  USERID varchar(8) NOT NULL default '',
-  TRNSDATA varchar(255) default NULL,
-  PRIMARY KEY  (TRNSNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'TRHD'
---
-
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (1,'VERADD','2003-1','JAPI','1120 -:- K -:- 1980');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (2,'VERADD','2003-1','JAPI','1120 -:- K -:- 1980');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (3,'VERADD','2003-1','JAPI','1120 -:- K -:- 1980');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (4,'VERADD','2003-11-09_08:34:45','JAPI','1120 -:- K -:- 1980');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (5,'VERADD','2003-11-09_08:34:45','JAPI','1120 -:- K -:- 1980');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (6,'VERADD','2003-11-09_08:48:45','ADMIN','1120 -:- K -:- 1980');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (7,'ARCHGW','2003-11-18_07:05:41','ADMIN','_:_1_:_Test1_:_ABC002_:_100_:_001_:_A_:_SEK_:_125.50_:_50_:_75_:_50_:_198.00_:_202.50_:_195.00_:_62_:_125_:_26.50_:_');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (8,'ARCHGL','2003-11-18_07:10:49','ADMIN','_:_1_:_Test1_:_ABC002_:_100_:_001_:_A_:_SEK_:_125.50_:_50_:_75_:_50_:_198.00_:_202.50_:_195.00_:_62_:_125_:_27.50_:_');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (9,'CHGARW','2003-11-18_07:34:25','ADMIN','_:_1_:_Test1_:_ABC002_:_100.00_:_001_:_A_:_SEK_:_125.50_:_50.00_:_75.00_:_50.00_:_155.00_:_202.50_:_155.00_:_62.00_:_125.00_:_27.50_:_');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (10,'CHGARW','2003-11-18_07:38:32','ADMIN','_:_1_:_Test1_:_ABC002_:_100.00_:_001_:_A_:_SEK_:_125.50_:_50.00_:_75.00_:_50.00_:_160.00_:_202.50_:_160.00_:_62.00_:_125.00_:_27.5_:_');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (11,'CHGARW','2003-11-18_07:51:01','ADMIN','_:_1_:_Test1_:_ABC002_:_100.00_:_001_:_A_:_SEK_:_125.50_:_50.00_:_75.00_:_50.00_:_160.00_:_202.50_:_160.00_:_62.00_:_125.00_:_34.50_:_');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (12,'CHGARW','2003-11-18_12:00:34','ADMIN','_:_1_:_Test1_:_ABC002_:_101.00_:_001_:_A_:_SEK_:_125.50_:_50.00_:_75.00_:_50.00_:_160.00_:_202.50_:_160.00_:_62.00_:_125.00_:_34.50_:_');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (13,'CHGARW','2003-11-18_12:04:40','ADMIN','_:_1_:_Test1_:_ABC002_:_102.00_:_001_:_A_:_SEK_:_125.50_:_50.00_:_75.00_:_50.00_:_160.00_:_202.50_:_160.00_:_62.00_:_125.00_:_34.50_:_');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (14,'CHGARW','2003-11-18_12:08:29','ADMIN','_:_1_:_Test1_:_ABC002_:_102.00_:_001_:_A_:_SEK_:_125.50_:_60.00_:_75.00_:_50.00_:_160.00_:_202.50_:_160.00_:_62.00_:_125.00_:_34.50_:_');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (15,'CHGARW','2003-11-18_12:12:36','ADMIN','_:_1_:_Test1_:_ABC002_:_103.00_:_001_:_A_:_SEK_:_125.50_:_60.00_:_75.00_:_50.00_:_160.00_:_202.50_:_160.00_:_62.00_:_125.00_:_34.50_:_');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (16,'CHGARW','2003-11-24_05:45:08','ADMIN','_:_1_:_1173-7540_:_AAC001_:_11.00_:_1_:_A_:_SEK_:_98.00_:_0.00_:_0.00_:_0.00_:_103.00_:_0.00_:_103.00_:_0.00_:_65.00_:_5.00_:_');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (17,'CHGARW','2003-11-24_06:39:57','ADMIN','_:_1_:_1173-7540_:_AAC001_:_11.00_:_1_:_A_:_SEK_:_98.00_:_0.00_:_0.00_:_0.00_:_103.00_:_0.00_:_103.00_:_0.00_:_65.00_:_5.00_:_');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (18,'CHGARW','2003-11-24_06:52:13','ADMIN','_:_1_:_1173-7540_:_AAC001_:_11.00_:_1_:_A_:_SEK_:_98.00_:_0.00_:_0.00_:_0.00_:_103.00_:_0.00_:_103.00_:_0.00_:_65.00_:_5.00_:_');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (19,'CHGARW','2003-11-24_07:00:22','ADMIN','_:_1_:_1173-7540_:_AAC001_:_11.00_:_1_:_A_:_SEK_:_98.00_:_0.00_:_0.00_:_0.00_:_103.00_:_0.00_:_0.00_:_0.00_:_65.00_:_5.00_:_');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (20,'CHGARW','2003-11-24_07:01:10','ADMIN','_:_1_:_1173-1445_:_AAA002_:_27.00_:_1_:_A_:_SEK_:_95.00_:_0.00_:_0.00_:_0.00_:_100.00_:_0.00_:_0.00_:_0.00_:_25.00_:_0.00_:_');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (21,'CHGARW','2003-12-07_04:40:48','ADMIN','_:_1_:_7310070059208_:_1_:_2.00_:_1_:_A_:_SEK_:_10.90_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (22,'CHGARW','2003-12-07_04:53:24','ADMIN','_:_1_:_7310070125002_:_1_:_3.00_:_1_:_A_:_SEK_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_0.00_:_');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (23,'BOKFOR','2004-01-02_13:26:43','ADMIN','H AD 00000100 001 2440 D     10000.00           2004-01-02 jan      test nr 100                                                                                                  \n');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (24,'BOKFOR','2004-01-02_13:26:43','ADMIN','D AD 00000100 002 2611 K      2500.00                                                                                                                              l             \n');
-INSERT INTO TRHD (TRNSNR, TRNSID, TID, USERID, TRNSDATA) VALUES (25,'BOKFOR','2004-01-02_13:26:43','ADMIN','D AD 00000100 003 4010 K      7500.00                                                                                                                              l             \n');
-
---
--- Table structure for table 'USR'
---
-
-DROP TABLE IF EXISTS USR;
-CREATE TABLE USR (
-  USERID varchar(8) NOT NULL default '',
-  NAMN varchar(30) default NULL,
-  AVD varchar(10) default NULL,
-  GRUPP varchar(10) default NULL,
-  PRIMARY KEY  (USERID)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'USR'
---
-
-INSERT INTO USR (USERID, NAMN, AVD, GRUPP) VALUES ('OLFIX','Olfix Superuser','IT','Stab');
-INSERT INTO USR (USERID, NAMN, AVD, GRUPP) VALUES ('ADMIN','Jan Pihlgren','IT','Stab');
-INSERT INTO USR (USERID, NAMN, AVD, GRUPP) VALUES ('TESTARE','Testare Test','IT','Stab');
-INSERT INTO USR (USERID, NAMN, AVD, GRUPP) VALUES ('CARRO','Caroline Inkˆpare','Inkˆp','Prod');
-INSERT INTO USR (USERID, NAMN, AVD, GRUPP) VALUES ('ADMINA','Administratˆr av OLFIX','IT','Stab');
-INSERT INTO USR (USERID, NAMN, AVD, GRUPP) VALUES ('GUEST','Guest Apache','Apache','Webb');
-
---
--- Table structure for table 'VALUTA'
---
-
-DROP TABLE IF EXISTS VALUTA;
-CREATE TABLE VALUTA (
-  VALUTAID char(3) NOT NULL default '',
-  LAND varchar(15) default NULL,
-  SALJ decimal(3,2) default NULL,
-  KOP decimal(3,2) default NULL,
-  BETECKNING varchar(15) default NULL,
-  PRIMARY KEY  (VALUTAID)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'VALUTA'
---
-
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('DKK','Danmark',1.22,1.22,'Kronor');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('NOK','Norge',1.23,1.23,'Kronor');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('NYZ','Nya Zeeland',4.45,4.45,'Dollar');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('SAR','Saudiarabien',2.40,2.40,'Riyal');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('HKD','Honkong',0.00,0.00,'Dollar');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('MYR','Malaysia',2.36,2.36,'Ringgit');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('SGD','Singapore',5.08,5.08,'Dollar');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('CAD','Kanada',5.66,5.66,'Dollar');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('AUD','Australien',5.03,5.03,'Dollar');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('USD','USA',8.97,8.97,'Dollar');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('JPY','Japan',7.38,7.38,'Yen');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('GBP','Storbritanien',14.26,14.26,'Pund');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('EUR','Europa',9.08,9.08,'Euro');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('CHF','Schweiz',0.00,0.00,'France');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('SEK','Sverige',1.00,1.00,'Kronor');
-INSERT INTO VALUTA (VALUTAID, LAND, SALJ, KOP, BETECKNING) VALUES ('SEC','TestSverige',1.99,1.98,'Kroner');
-
---
--- Table structure for table 'VERHUVUD'
---
-
-DROP TABLE IF EXISTS VERHUVUD;
-CREATE TABLE VERHUVUD (
-  VERNR int(11) NOT NULL default '0',
-  ARID char(2) NOT NULL default '',
-  VERDATUM date default NULL,
-  REGDAT date default NULL,
-  DEBET decimal(10,2) default NULL,
-  KREDIT decimal(10,2) default NULL,
-  VERTEXT varchar(60) default NULL,
-  KORRIGERAR int(11) default NULL,
-  KORRIGERAD int(11) default NULL,
-  USERID varchar(8) default NULL,
-  PRIMARY KEY  (VERNR,ARID)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'VERHUVUD'
---
-
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (8,'AC','2003-06-27','2003-06-27',3000.00,0.00,'Test av hela LEVFAKTW',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (4,'AC','2003-06-03','2003-06-03',2000.00,0.00,'Inkˆp av skrivbord',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (7,'AC','2003-06-26','2003-06-26',10000.00,0.00,'test WRREC',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (3,'AC','2003-05-20','2003-05-20',10000.00,0.00,'Bokhylla',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (2,'AC','2003-05-20','2003-05-20',1000.00,0.00,'test nr 2',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (1,'AC','2003-05-20','2003-05-20',1000.00,0.00,'Test av sortering och DK +-',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (9,'AC','2003-06-27','2003-06-27',5000.00,0.00,'totaltest nr 2 av LEVFAKTW',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (10,'AC','2003-06-27','2003-06-27',5800.00,0.00,'Soffgrupp',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (11,'AC','2003-07-01','2003-07-01',0.00,0.00,'',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (12,'AC','2003-07-01','2003-07-01',100.00,0.00,'test',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (13,'AC','2003-07-02','2003-07-02',4540.00,0.00,'test valuta',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (14,'AC','2003-07-02','2003-07-02',1500.00,0.00,'Inkˆp av mˆbler',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (15,'AC','2003-07-02','2003-07-02',4540.00,0.00,'inkˆp material',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (16,'AC','2003-07-02','2003-07-02',3632.00,0.00,'Inkˆp av material',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (17,'AC','2003-07-03','2003-07-03',3139.50,0.00,'test',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (18,'AC','2003-07-09','2003-07-09',1000.00,0.00,'test ocrnummer',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (19,'AC','2003-07-09','2003-07-09',3000.00,0.00,'test nr 2 av OCR',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (20,'AC','2003-07-09','2003-07-09',36320.00,0.00,'Inkˆp av stÂlbalk',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (21,'AC','2003-07-10','2003-07-10',5000.00,0.00,'Test av vernr',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (22,'AC','2003-07-10','2003-07-10',1000.00,0.00,'test',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (23,'AC','2003-07-09','2003-07-09',2000.00,0.00,'test',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (24,'AC','2003-07-10','2003-07-10',9080.00,0.00,'test av OCR',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (1,'AD','2003-07-30','2003-07-30',300000.00,0.00,'LÂn eget kapital',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (2,'AD','2003-07-30','2003-07-30',499450.00,0.00,'Ins‰ttning checkr‰kningskredit',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (3,'AD','2003-07-30','2003-07-30',0.00,60000.00,'Lokalhyra 1.a kv 2003',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (7,'AD','2003-08-01','2003-08-01',0.00,2000.00,'M‰ssingplÂt. 1 mm. 0,5 m3',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (8,'AD','2003-08-02','2003-08-02',0.00,2000.00,'Al-plÂt. 1 mm. 1 m3',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (9,'AD','2003-08-03','2003-08-03',0.00,3000.00,'J‰rnplÂt. 1 mm. 1 m3',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (10,'AD','2003-08-04','2003-08-04',0.00,3000.00,'J‰rnplÂt. 0,6 mm. 1,5 m3',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (11,'AD','2003-08-05','2003-08-05',0.00,3000.00,'J‰rnplÂt. 0,3 mm. 3 m3.',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (12,'AD','2003-08-06','2003-08-06',0.00,3000.00,'Al-plÂt 0,75 mm. 2 m3.',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (13,'AD','2003-08-07','2003-08-07',0.00,1000.00,'AlplÂt 0,5 mm 1m3',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (14,'AD','2003-08-08','2003-08-08',0.00,1000.00,'Al-plÂt 1 m3',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (15,'AD','2003-08-09','2003-08-09',0.00,36320.00,'U-balk. Al. 5 m.',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (16,'AD','2003-08-10','2003-08-10',0.00,1000.00,'J‰rnplÂt. 0,3 mm. 1 m3',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (17,'AD','2003-08-11','2003-08-11',0.00,5000.00,'I-balk',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (18,'AD','2003-08-11','2003-08-11',0.00,2500.00,'J‰rnplÂt. 1 mm. 1 m3',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (19,'AD','2003-08-12','2003-08-12',0.00,50000.00,'U-balk aluminium. 7 m.',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (20,'AD','2003-08-12','2003-08-12',0.00,2000.00,'J‰rnplÂt. 0,6mm. 1 m3',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (21,'AD','2003-08-13','2003-08-13',0.00,1000.00,'AluminiumplÂt. 1 m3',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (22,'AD','2003-08-13','2003-08-13',0.00,4000.00,'Printerpapper',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (23,'AD','2003-08-13','2003-08-13',0.00,5000.00,'P‰rmar,Kollegieblock,Kopieringspapper',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (25,'AC','2003-08-13','2003-08-13',0.00,54480.00,'test',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (24,'AD','2003-08-16','2003-08-16',0.00,25000.00,'Bokhyllor',0,0,'ADMIN');
-INSERT INTO VERHUVUD (VERNR, ARID, VERDATUM, REGDAT, DEBET, KREDIT, VERTEXT, KORRIGERAR, KORRIGERAD, USERID) VALUES (25,'AD','2003-09-11','2003-09-11',0.00,40860.00,'Aluminiumprofil U',0,0,'ADMIN');
-
---
--- Table structure for table 'VERRAD'
---
-
-DROP TABLE IF EXISTS VERRAD;
-CREATE TABLE VERRAD (
-  VERNR int(11) NOT NULL default '0',
-  RADNR smallint(6) NOT NULL default '0',
-  ARID char(2) NOT NULL default '',
-  KTONR varchar(4) default NULL,
-  BELOPP decimal(10,2) default NULL,
-  DK enum('D','K') default NULL,
-  KSTALLE varchar(4) default NULL,
-  PROJEKT varchar(4) default NULL,
-  SUBKTO varchar(4) default NULL,
-  DEFINITIV enum('J','N') default 'N',
-  STRUKEN enum('J','N') default 'N',
-  PRIMARY KEY  (VERNR,RADNR,ARID)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'VERRAD'
---
-
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (4,3,'AC','1820',1500.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (7,1,'AC','2110',10000.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (7,2,'AC','1470',1200.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (4,2,'AC','1470',500.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (4,1,'AC','2110',2000.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (3,3,'AC','1820',7500.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (3,2,'AC','1470',2500.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (3,1,'AC','2110',10000.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (2,3,'AC','1470',250.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (2,2,'AC','1510',750.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (2,1,'AC','2110',1000.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (1,1,'AC','1510',1000.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (1,2,'AC','1470',250.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (1,3,'AC','1510',750.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (7,3,'AC','1810',8800.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (8,1,'AC','2110',3000.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (8,2,'AC','1470',750.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (8,3,'AC','1810',2250.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (9,1,'AC','2110',5000.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (9,2,'AC','1470',1250.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (9,3,'AC','1810',3750.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (10,1,'AC','2110',5800.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (10,2,'AC','1470',1450.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (10,3,'AC','1810',4350.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (11,1,'AC','2110',0.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (11,2,'AC','1470',0.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (11,3,'AC','1810',0.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (12,1,'AC','2110',100.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (12,2,'AC','1470',25.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (12,3,'AC','4010',75.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (13,1,'AC','2110',4540.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (13,2,'AC','1470',1135.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (13,3,'AC','4010',3405.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (14,1,'AC','2110',1500.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (14,2,'AC','1470',375.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (14,3,'AC','1810',1125.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (15,1,'AC','2110',4540.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (15,2,'AC','1470',1135.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (15,3,'AC','4010',3405.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (16,1,'AC','2110',3632.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (16,2,'AC','1470',908.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (16,3,'AC','4010',2724.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (17,1,'AC','2110',3139.50,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (17,3,'AC','4010',2354.62,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (17,2,'AC','1470',784.88,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (18,1,'AC','2110',1000.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (18,2,'AC','1470',250.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (18,3,'AC','4010',750.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (19,1,'AC','2110',3000.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (19,2,'AC','1470',750.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (19,3,'AC','4010',2250.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (20,1,'AC','2110',36320.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (20,2,'AC','1470',9080.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (20,3,'AC','4010',27240.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (21,1,'AC','2110',5000.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (21,2,'AC','1470',1250.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (21,3,'AC','4010',3750.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (22,1,'AC','2110',1000.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (22,2,'AC','1470',250.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (22,3,'AC','4010',750.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (23,1,'AC','2110',2000.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (23,2,'AC','1470',500.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (23,3,'AC','4010',1500.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (24,1,'AC','2110',9080.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (24,2,'AC','1470',2270.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (24,3,'AC','4010',6810.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (1,2,'AD','2081',300000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (1,1,'AD','2330',300000.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (2,1,'AD','2330',499450.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (2,2,'AD','2350',500000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (2,3,'AD','8490',550.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (3,1,'AD','2330',60000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (3,2,'AD','2641',12000.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (3,3,'AD','5010',48000.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (7,2,'AD','2641',500.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (7,1,'AD','2440',2000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (8,1,'AD','2440',2000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (7,3,'AD','4010',1500.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (8,2,'AD','2641',500.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (8,3,'AD','4010',1500.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (9,1,'AD','2440',3000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (9,2,'AD','2641',750.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (9,3,'AD','4010',2250.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (10,1,'AD','2440',3000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (10,2,'AD','2641',750.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (10,3,'AD','4010',2250.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (11,1,'AD','2440',3000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (11,2,'AD','2641',750.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (11,3,'AD','4010',2250.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (12,1,'AD','2440',3000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (12,2,'AD','2641',750.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (12,3,'AD','4010',2250.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (13,1,'AD','2440',1000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (13,2,'AD','2641',250.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (13,3,'AD','4010',750.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (14,1,'AD','2440',1000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (14,2,'AD','2641',250.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (14,3,'AD','4010',750.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (15,1,'AD','2440',36320.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (15,2,'AD','2641',9080.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (15,3,'AD','4010',27240.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (16,1,'AD','2440',1000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (16,2,'AD','2641',250.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (16,3,'AD','4010',750.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (17,1,'AD','2440',5000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (17,2,'AD','2641',1250.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (17,3,'AD','4010',3750.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (18,1,'AD','2440',2500.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (18,2,'AD','2641',625.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (18,3,'AD','4010',1875.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (19,1,'AD','2440',50000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (19,2,'AD','2641',12500.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (19,3,'AD','4010',37500.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (20,1,'AD','2440',2000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (20,2,'AD','2641',500.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (20,3,'AD','4010',1500.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (21,1,'AD','2440',1000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (21,2,'AD','2641',250.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (21,3,'AD','4010',750.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (22,1,'AD','2440',4000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (22,2,'AD','2641',1000.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (22,3,'AD','6110',3000.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (23,1,'AD','2440',5000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (23,2,'AD','2641',1250.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (23,3,'AD','6110',3750.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (25,1,'AC','2110',54480.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (25,2,'AC','1470',13620.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (25,3,'AC','4010',40860.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (24,1,'AD','2440',25000.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (24,2,'AD','2641',6250.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (24,3,'AD','1220',18750.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (25,1,'AD','2440',40860.00,'K','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (25,2,'AD','2611',10215.00,'D','','','','N','N');
-INSERT INTO VERRAD (VERNR, RADNR, ARID, KTONR, BELOPP, DK, KSTALLE, PROJEKT, SUBKTO, DEFINITIV, STRUKEN) VALUES (25,3,'AD','4010',30645.00,'D','','','','N','N');
-
---
--- Table structure for table 'WEBBKUND'
---
-
-DROP TABLE IF EXISTS WEBBKUND;
-CREATE TABLE WEBBKUND (
-  KUNDNR varchar(10) NOT NULL default '',
-  NAMN varchar(60) NOT NULL default '',
-  ADRESS varchar(30) default NULL,
-  POSTNR varchar(6) default NULL,
-  POSTADR varchar(30) default NULL,
-  LAND varchar(30) default NULL,
-  ADRESS2 varchar(30) default NULL,
-  POSTNR2 varchar(6) default NULL,
-  POSTADR2 varchar(30) default NULL,
-  LAND2 varchar(30) default NULL,
-  TFNNR varchar(15) default NULL,
-  EMAILADR varchar(30) default NULL,
-  BETALVILLKOR char(3) default NULL,
-  LEVVILLKOR char(3) default NULL,
-  LEVSETT char(3) default NULL,
-  ORDERERKENNANDE enum('J','N') default 'J',
-  PLOCKLISTA enum('J','N') default 'J',
-  FOLJESEDEL enum('J','N') default 'J',
-  KRAVBREV enum('J','N') default 'J',
-  EXPAVGIFT enum('J','N') default 'J',
-  FRAKTAVG enum('J','N') default 'J',
-  KREDITLIMIT decimal(10,2) default NULL,
-  KREDITDAGAR int(11) default NULL,
-  DROJMALSRTA enum('J','N') default 'J',
-  DROJMALSFAKTURA enum('J','N') default 'J',
-  SENASTEKRAVDATUM date default NULL,
-  SKULD decimal(10,2) default NULL,
-  ORDERSTOCK decimal(10,2) default NULL,
-  PASSWORD varchar(16) NOT NULL default '',
-  PRIMARY KEY  (KUNDNR)
-) TYPE=MyISAM;
-
---
--- Dumping data for table 'WEBBKUND'
---
-
-INSERT INTO WEBBKUND (KUNDNR, NAMN, ADRESS, POSTNR, POSTADR, LAND, ADRESS2, POSTNR2, POSTADR2, LAND2, TFNNR, EMAILADR, BETALVILLKOR, LEVVILLKOR, LEVSETT, ORDERERKENNANDE, PLOCKLISTA, FOLJESEDEL, KRAVBREV, EXPAVGIFT, FRAKTAVG, KREDITLIMIT, KREDITDAGAR, DROJMALSRTA, DROJMALSFAKTURA, SENASTEKRAVDATUM, SKULD, ORDERSTOCK, PASSWORD) VALUES ('100001','Karl-Oskar Webbsson','Box 99','199 99','AVLIDEN',NULL,'Itgatan 31','199 97','AVLIDEN',NULL,'09-990011','ko.webbsson@prog.net','5','001','003','J','J','J','J','J','J',5000.00,30,'J','J',NULL,0.00,0.00,'webbsson');
+/*!40000 ALTER TABLE `WEBBKUND` DISABLE KEYS */;
+LOCK TABLES `WEBBKUND` WRITE;
+INSERT INTO `WEBBKUND` (`KUNDNR`, `NAMN`, `ADRESS`, `POSTNR`, `POSTADR`, `LAND`, `ADRESS2`, `POSTNR2`, `POSTADR2`, `LAND2`, `TFNNR`, `EMAILADR`, `BETALVILLKOR`, `LEVVILLKOR`, `LEVSETT`, `ORDERERKENNANDE`, `PLOCKLISTA`, `FOLJESEDEL`, `KRAVBREV`, `EXPAVGIFT`, `FRAKTAVG`, `KREDITLIMIT`, `KREDITDAGAR`, `DROJMALSRTA`, `DROJMALSFAKTURA`, `SENASTEKRAVDATUM`, `SKULD`, `ORDERSTOCK`, `PASSWORD`) VALUES ('100001','Karl-Oskar Webbsson','Box 99','199 99','AVLIDEN',NULL,'Itgatan 31','199 97','AVLIDEN',NULL,'09-990011','ko.webbsson@prog.net','5','001','003','J','J','J','J','J','J','5000.00',30,'J','J',NULL,'0.00','0.00','webbsson');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `WEBBKUND` ENABLE KEYS */;
 
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 use mysql;
 INSERT INTO user
 (
@@ -3063,8 +2167,8 @@ Alter_priv
 VALUES
 (
 "localhost",
-"olfix",
-PASSWORD("olfix"),
+"DittNamn",
+PASSWORD("DittPassword"),
 "Y",
 "Y",
 "Y",
@@ -3081,3 +2185,4 @@ PASSWORD("olfix"),
 "Y"
 );
 FLUSH PRIVILEGES;
+
