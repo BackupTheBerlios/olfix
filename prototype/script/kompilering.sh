@@ -677,5 +677,10 @@ qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
 
+echo "===== C-program" >> $LOGGFILE
+cd $WORKDIR/C
+make clean >> $LOGGFILE
+make >> $LOGGFILE 2>> $LOGGFILE
+
 date > $LOGGFILE
 echo "***** KLART *****"
