@@ -1,210 +1,120 @@
-2004-11-07
-Installation för utvecklingsarbete
-Innehåll
-Installation för utvecklingsarbete	1
-Installation:	1
-Alternativ installation med kompilering	2
-Bibliotek.	2
-Installation av MySQL 	3
-MySQL Navigator	4
+Installationsanvisningar.
 
+(2006-03-02)
 
+Förutsättningen för att kunna installera OLFIX är att MySQL och Qt finns installerad på datorn. Har du KDE som grafiskt interface så är Qt installerat.
 
-Förutsättningen för att kunna installera OLFIX är att MySQL  och Qt finns installerad på datorn.
+OBS! Exempel på installation av MySQL sist i detta dokument.
+     För Slackware 10 finns en HOWTO här http://insyte.atspace.com/servers.html#mysql
 OBS! MySQL skall vara startad. Det bästa är att ordna det så att MySQL startas när datorn startas.
 
-Installation:
-Se till att du är ?root?.
+Installation av programvara(första gången):
+I fall du har en tidigare version av OLFIX installerad, installera då OLFIX på samma plats som den tidigare versionen.
+
+
 shell> cd /opt
 shell> gunzip < /path/to/OLFIX-VERSION.tar.gz | tar xvf -
-shell> chown -R olfix olfix
-shell> chgrp -R olfix olfix
-shell> cd /opt/olfix/bin
-shell> chmod 0010 *
-shell> chmod 2111 OLFIXW
-shell> cp /opt/olfix/util/.olfixrc $HOME/.olfixrc
+shell> cd /opt/olfix/script
+shell> cp /opt/olfix/script/.olfixrc $HOME/.olfixrc
 shell> cd $HOME
 shell> chown DittNamn .olfixrc
 shell> chgrp DittNamn .olfixrc
 shell> chmod 766 .olfixrc
-shell> chown DittNamn start_olfix
-shell> chgrp DittNamn start_olfix
-shell> chmod 766 start_olfix
-
 shell> cd /opt/olfix/sql
 
-Att skapa databasen olfix:
+För att skapa och ladda databasen:
+OBS! Gör detta bara första gången du installerar OLFIX.
+Editera filen /opt/olfix/sql/CreateOLFIX.sql
+DittNamn i nästa rad skall vara ditt loginID med versaler (stora bokstäver).
+Byt ut alla förekomster av 'ADMIN' till 'DittNamn' (OBS! apostroferna ska vara med)
 
-1.Editera *.sql-filerna för att passa dig.
-       Framför allt sökvägar som finns i LoadAll.sql, se pkt 8.
-2.Lägg upp user olfix i operativsystemet (annars funkar inte anropen till databasen olfix).
-3.Se till att bli root
-4.Editera filen /opt/olfix/sql/add_user_dittnamn.sql
-Leta reda på detta avsnitt;
-	)
-	VALUES
-	(
-	"localhost",
-	"ditt_userid",
-	PASSWORD("ditt_password"),
-	"Y",
-	"Y",
-	"Y",
-Skriv in ditt eget userid, med gemener (små bokstäver), och ditt eget password.
-Password kommer i detta fall att ligga i klartext i databasen.
-Jag förordar att du utelämnar password och går in i databasen och ändrar password
-vilket då kommer att bli krypterat.
-Detta kan göras med följande procedur:
-	shell>mysql -u root
-	shell>use mysql
-	shell>update user set password=PASSWORD('DittPassword') where User=?DittUserid?;
-	shell>FLUSH PRIVILEGES;
+T ex använda sed:
+shell> sed "s/'ADMIN'/'JAN'/" /opt/olfix/sql/CreateOLFIX.sql > /opt/olfix/CreateOLFIXNy.tmp
+mv /opt/olfix/CreateOLFIXNy.tmp /opt/olfix/sql/CreateOLFIX.sql
+Kör
+shell> mysql -u root -p < /opt/olfix/sql/CreateOLFIX.sql > $HOME/tmp/mysql.log
 
-5.Shell> cd /opt/olfix/data
-6.Editera filen USRdata.txt
-	"OLFIX","Olfix Superuser","IT","Stab"
-	"USERID","Ditt Namn","Avd","Sektion"
-	Byt ut USERID till det userid du använder när du loggar in på datorn.
-	OBS! USERID ska skrivas med versaler (stora bokstäver).
-	Byt ut Ditt Namn till ditt eget fullständiga namn och ändra Avd och Sektion tillhör
-	aktuell benaämning på din avdelnin g och din sektion.
-7.Editera filen MinimumRIGHTSdata.txt
-"userid","ADDRGTW"
-"userid","LSTRGTW"
-"userid","PRGLST"
-"userid","RGTADD"
+Bibliotek.
 
-Byt ut ordet userid mot ditt userid för olfix (USRdata.txt).
-OBS! Userid ska skrivas med versaler (stora bokstäver).
+OLFIX har följande bibliotek:
+/opt/olfix
+/opt/olfix/bin (Här ska alla binärfiler läggas efter kompilering)
+/opt/olfix/data
+/opt/olfix/doc
+/opt/olfix/doc/image
+/opt/olfix/doc/helpfiles
+/opt/olfix/include
+/opt/olfix/lib
+/opt/olfix/report
+/opt/olfix/script
+/opt/olfix/sql
+/opt/olfix/src
+/opt/olfix/util
 
-8.Kör  shell> mysql -h  localhost -u root -p < add_user_DittNamn.sql > mysql.out
-9.Kör  shell> mysql -h  localhost -u root -p < add_user_olfix.sql > mysql.out
-10.Kör  shell> mysql -h localhost -u root -p < CreateAll.sql> mysql.out
-11.Kör  shell> mysql -h localhost -u root -p < LoadAll.sql> mysql.out
-12.Kör  shell> mysql -h localhost -u root -p <LoadUSR.sql> mysql.out
-13.Kör  shell> mysql -h localhost -u root -p <LoadMinimumRights.sql> mysql.out
+Kopiera filen /opt/olfix/script/.olfixrc till $HOME/.olfixrc och editera den så den passar dig. .olfixrc måste finnas i
+$HOME hos alla användare som ska köra OLFIX.
+OBS! VTMP=/tmp/ får inte avslutas med ett returntecken. Måste ligga sist i filen.
+.olficrc bör se ut ungefär så här:
 
-Här kan du fortsätta till pkt 14.
+PATH=/opt/olfix/bin/
+HOST=localhost
+DATABASE=olfixtst
+HELPFILE=/doc/helpfiles/usermanual/UserManual.html
+REPORT=/opt/olfix/report/
+VTMP=/tmp/
+
+Start av OLFIX
+Alternativ 1:
+Använd KDE Konqueror och flytta dig till mappen /opt/olfix/bin
+Klicka på OLFIXW
+OLFIXW kommer att starta. Klicka på önskat program, rad för program, så kommer programmet upp i ett eget fönster.
+
+Alternativ 2:
+Öppna ett konsolfönster.
+Gå till mappen /opt/olfix/bin.
+Skriv;
+shell>$ ./OLFIXW
+och tryck Enter.
+
+I Mandrakelinux
+Start -> Flera Program -> Ekonomi -> OLFIXW (klicka)
+
+Error:
+Om huvudfönstret/meny är tomt/blankt
+och/eller du får följande felmeddelande;
+./STYRMAN: error while loading shared libraries: libmysqlclient.so.12: cannot open shared object: No such file or directory
+Åtgärd:
+Länka enligt följande som root;
+
+För MandrivaLinux 2006.
+# cd /usr/lib/
+# ln -s libmysqlclient.so.14 libmysqlclient.so.12
+
+För Fedora Core 4
+# cd /usr/lib/
+# ln -s ./mysql/libmysqlclient.so.14 libmysqlclient.so.12
 
 
-Alternativ installation med kompilering
-
-	Bibliotek.
-
-Skapa följande bibliotek:
-	/opt/olfix
-	/opt/olfix/bin	(Här ska alla binärfiler läggas efter kompilering)
-	/opt/olfix/data
-	/opt/olfix/doc
-	/opt/olfix/doc/image
-	/opt/olfix/include
-	/opt/olfix/lib
-	/opt/olfix/sql
-	/opt/olfix/src
-	/opt/olfix/util
-
-Följande behörigheter bör du ha:
-bin   se nedan
-data  chmod +rw *
-doc  chmod +rw *
-sql   chmod +rw *
-src   chmod +rwx *
-util  chmod +rwx *
-
-13.Kompilera programmen:
-  Börja med att editera alla  ?make_FUNKTION.txt? filer så att de passar dig.
-  Framförallt se till så att du får rätt path.
-	Med hjälp av alla make_FUNKTION.txt kan programmen kompileras.
-	Det finns också en make_ALL.txt som kompilerar alla programmen.
-	Binärfilerna, de exekverbara programmen ska hamna i biblioteket /opt/olfix/bin
-	Man kan naturligtvis kompilera programmen på sitt eget vis.
-	Här gäller det att både  make_FUNKTION.txt och källkodsfilerna finns i samma
-	bibliotek, /opt/olfix/src.
-
-Slut på alternativ kompilering.
-
-14.Kopiera filen .olixrc till $HOME och editera den så den passar dig. .olfixrc måste finnas i
-     $HOME hos alla användare som ska köra OLFIX.
-     OBS! VTMP=/tmp/ får inte avslutas med ett returntecken. Måste ligga sist i filen.
-
-16.Det första man behöver göra är att se till att behörigheterna för användarna till de olika funktionerna
-     sätts.
-Installationen innehåller bara de allra nödvändigaste behörigheterna för användaren olfix.
-
-17.Flytta alla binärfiler till /opt/olfix/bin.
-
-Punkt 18 är inte nödvändig.
----------------------------
-18.Behörigheterna på filerna ska göras enligt följande:
-     Sätt uid=olfix och gid=olfix
-chown olfix *
-chgrp olfix *
-Programmet OLFIXW
-chmod 2111 OLFIXW
----x--s--x 1 olfix olfix 68637 feb 10 15:12 OLFIXW
-
-Övriga program
-chmod 0010 program
-------x--- 1 olfix olfix 58239 jan 29 05:09 program
-
-19. Installation av MySQL
-
+Installation av MySQL
 The basic commands you must execute to install and use a MySQL binary distribution are:
 shell> groupadd mysql
 shell> useradd -g mysql mysql
-shell> cd /usr/local
-shell> gunzip < /path/to/mysql.VERSION-OS.tar.gz  | tar xvf -
+shell> cd /opt
+shell> gunzip < /path/to/mysql.VERSION-OS.tar.gz | tar xvf -
 shell> ln -s mysql.VERSION-OS mysql
 shell> cd mysql
 shell> scripts/mysql_install_db
-shell> chown -R root /usr/local/mysql
-shell> chown -R mysql /usr/local/mysql/data
-shell> chgrp -R mysql /usr/local/mysql
-shell> chown -R root /usr/local/mysql/bin
+shell> chown -R root /opt/mysql
+shell> chown -R mysql /opt/mysql/data
+shell> chgrp -R mysql /opt/mysql
+shell> chown -R root /opt/mysql/bin
 shell> bin/safe_mysqld ?user=mysql &
 
 Se till att mysqld startas automatiskt vid start av datorn.
 För mera information se MySQLReferenseManual, http://www.mysql.com/documentation/
 
-För att kunna kompilera C-programmen måste även biblioteket
-/usr/include/mysql finnas
+Installation av mysqlcc
+shell> cd /usr/local
+shell> gunzip < /path/to/mysqlcc.VERSION.tar.gz | tar xvf -
+mysqlcc.VERSION.tar.gz får inte finnas i /usr/local när kommandot ovan körs.
 
-20.Installation av MySQLCC
-
-MySQLCC = grafiskt gränssnitt till MySQL
-MySQLCC kan hämtas från:
-http://www.mysql.com/downloads/mysqlcc.html
-Inkluderrat i leveransen finns
-/opt/olfix/mysqlcc-0.9.4-linux-glibc23.tar.gz
-==============================================================================
-
-Linux Binary Installation
-To install a binary distribution, follow the steps below:
-
-   1. Obtain a distribution file from one of the sites listed in *Note Getting MySQL: Getting MySQL.
-
-      MySQL Control Center binary distributions are provided as compressed `tar' archives and have names like `mysqlcc-VERSION-OS.tar.gz', where `VERSION' is a number (for example, `0.8.6'), and `OS' indicates the type of operating system for which the distribution is intended (for example, `linux').
-
-   2. Pick the directory under which you want to unpack the distribution, and move into it. In the example below, we unpack the distribution under `/usr/local' and create a directory `/usr/local/mysqlcc' into which MySQL Control Center is installed. (The following instructions therefore assume you have permission to create files in `/usr/local'. If that directory is protected, you will need to perform the installation as `root'.)
-
-   3. Change into the intended installation directory:
-
-          shell> cd /usr/local
-
-   4. Unpack the distribution and create the installation directory:
-
-          shell> tar xvzf /path/to/mysqlcc-VERSION-OS.tar.gz
-          shell> ln -s mysqlcc-VERSION-OS mysqlcc
-
-      The first command creates a directory named `mysqlcc-VERSION-OS'. The second command makes a symbolic link to that directory. This lets you refer more easily to the installation directory as `/usr/local/mysqlcc'.
-
-   5. Change into the installation directory: shell> cd mysqlcc
-
-After everything has been unpacked and installed, you should now be able to execute MySQL Control Center and test your distribution.
-
-You can start MySQL Control Center with the following command:
-
-    shell> /usr/local/mysqlcc/mysqlcc
-
-NOTE: MySQL Control Center is a Graphical GUI Client. This means you will need to be running in an X environment before starting MySQL Control Center with the above command.
-==============================================================================
