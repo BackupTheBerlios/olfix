@@ -100,3 +100,4 @@
 "100","Materialhantering","Artikeladmin.","Lista prislistor","LSTPRISW"
 "101","Materialhantering","Artikeladmin.","Ladda nya prislistor","ADDPRISW"
 "102","Materialhantering","Artikeladmin.","Ändra i prislistor","CHGPRISW"
+"103","Administration","Funktionsadministration","Lista program/moduler","LSTPGMW"
