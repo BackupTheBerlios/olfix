@@ -1,5 +1,41 @@
-Changelog OLFIX 20060305
+Changelog OLFIX 20060326
 
+Blivande
+________________________________________________________
+Ver 0.4.2.B
+2006-03-26
+		Diverse
+		Modiferat Makefile för C-programmen, lagt till 'make clean'
+	
+		Nya program
+		LSTPGMW	Lista program
+
+		Ny tabell
+		Skapat tabellen LEVPRISER, leverantörernas prislistor
+		Kommer förmodligen att ersätta tabellen PRISLISTA
+
+		Ändra tabell
+		Tabellen PASSW borttagen i databasen olfix,olfixtst
+		Tabellen WEBBKUND borttagen i databasen olfix,olfixtst
+		Kompleterat tabellen FTGDATA med saknade POSTTYPer, INKTO, KFKTO, SKUNR
+
+		Ny sql
+		CreateTableLEVPRISER.SQL
+
+		Ändrade sql
+		CreateOLFIX.sql "Rätt" teckenuppsättning
+
+		Script
+		kompilering.sh. Lagt till kompilering av C-programmen
+
+		Ändra datafiler
+		PROGRAMdata.txt Tillägg av LSTPGMW
+		FTGDATAdata.txt Lagt till saknade POSTTYPER (funktioner)
+
+		Dokumentation
+		Uppdaterat Installationsanvisningarna
+		UserManual_ADMINISTRATION.html     (2006-03-22) Lagt till funktionsadministration
+		Teknisk Manual	Uppdaterad (2006-03-22) Version 0.61
 ________________________________________________________
 Ver 0.4.1.B
 2006-03-05
