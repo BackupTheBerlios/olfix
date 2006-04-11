@@ -1,8 +1,9 @@
 /****************************************************************/
 /**		CHGBARW					*/
-/**		2003-06-06					*/
-/**		Version: 0.02					*/
-/**		Jan Pihlgren	jan@pihlgren.se			*/
+/**		2003-06-06				*/
+/**		Version: 0.4.3				*/
+/**		Modifierad: 2006-04-11			*/
+/**		Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
  *					                                                 *
@@ -41,7 +42,7 @@
     QString vernr;		// Nästa verifikationsnummer, default 1
     QString ktoplan;
 
-    
+    QString hjelpfil;
     
 void frmChgBar::init()
 {
@@ -55,13 +56,11 @@ void frmChgBar::LineEditBar_returnPressed()
     arid=LineEditBar->text();
     arid=arid.upper();
     LineEditBar->setText((arid));
-    if (arid==""){
-	QMessageBox::warning( this, "CHGBARW",
-                      "Bokföringsår måste fyllas i! \n" );
+    if(arid!=""){
+	frmChgBar::slotGetBar();
+    }else{
 	LineEditBar->setFocus();
-	    }
-    frmChgBar::slotGetBar();
-    LineEditBenamn->setFocus();
+    }
 }
     
 void frmChgBar::slotChgBar()
@@ -246,7 +245,7 @@ void frmChgBar::slotEndOfProcess()
 void frmChgBar::slotGetBar()
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
+                QString usr(userp);
 	inrad=""; 		    
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
@@ -256,7 +255,7 @@ void frmChgBar::slotGetBar()
 	
 	frmChgBar::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotGetDataOnStderr() ) );
 	frmChgBar::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotGetDataOnStdout() ) );
-            frmChgBar::connect( process, SIGNAL(processExited() ),this, SLOT(slotGetEndOfProcess() ) );	   
+                frmChgBar::connect( process, SIGNAL(processExited() ),this, SLOT(slotGetEndOfProcess() ) );	   
 	    
 	if (arid == "" ){
     	    QMessageBox::warning( this, "CHGBARW",
@@ -303,6 +302,7 @@ void frmChgBar::slotGetEndOfProcess()
 		);
 	            errorrad="";
 		i = -1;
+		LineEditBar->setFocus();
      }
      i = inrad.find(QRegExp("OK:"),0);
      if (i == 0){
@@ -342,3 +342,60 @@ void frmChgBar::slotGetEndOfProcess()
 	 LineEditBeskattAr->setText(beskattar);
 	 }
 }
+
+
+void frmChgBar::pushBtnHelp_clicked()
+{
+	inrad="";
+	frmChgBar::readResursFil();		// Hämta path till hjälpfilen
+	
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+//	int i2 = hjelpfil.length();
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_EKONOMI.html";
+	hjelpfil=hjelpfil+"#ENDRABAR";		// Lägg till position
+	qDebug("hjelpfil=%s",hjelpfil.latin1());
+
+	process = new QProcess();
+	process->addArgument( "./OLFIXHLP" );	// OLFIX program
+	process->addArgument(hjelpfil);
+
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
+	}
+	LineEditBar->setFocus();
+}
+
+void frmChgBar::readResursFil()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			               */
+    /* Plocka fram var hjälpfilen finns			               */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 );
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
+}
+
