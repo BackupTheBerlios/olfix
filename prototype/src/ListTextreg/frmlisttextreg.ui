@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>frmListTextReg</class>
 <widget class="QWidget">
     <property name="name">
@@ -98,7 +98,7 @@
                 <cstring>PushButtonSluta</cstring>
             </property>
             <property name="text">
-                <string>Sluta</string>
+                <string>Avbryt</string>
             </property>
             <property name="default">
                 <bool>true</bool>
@@ -110,6 +110,9 @@
             </property>
             <property name="text">
                 <string>Uppdatera</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>Ladda in textregistret på nytt.</string>
             </property>
         </widget>
         <spacer row="1" column="0">

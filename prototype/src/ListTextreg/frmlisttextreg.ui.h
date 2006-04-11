@@ -165,12 +165,12 @@ void frmListTextReg::PushButtonHjelp_clicked()
 
 	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
 	hjelpfil=hjelpfil.left(i1);
-	hjelpfil=hjelpfil+"_ADMIN.html";
+	hjelpfil=hjelpfil+"_FTGADMIN.html";
 	hjelpfil=hjelpfil+"#LISTTEXTER";		// Lägg till position
-//	qDebug("hjelpfil=%s",hjelpfil.latin1());
+	qDebug("hjelpfil=%s",hjelpfil.latin1());
 
 	process = new QProcess();
-	process->addArgument( "OLFIXHLP" );	// OLFIX program
+	process->addArgument( "./OLFIXHLP" );	// OLFIX program
 	process->addArgument(hjelpfil);
 
 	if ( !process->start() ) {
@@ -184,8 +184,8 @@ void frmListTextReg::PushButtonHjelp_clicked()
 void frmListTextReg::readResursFil()
 {
     /*****************************************************/
-    /*  Läs in .olfixrc filen här			               */
-    /* Plocka fram var hjälpfilen finns			               */
+    /*  Läs in .olfixrc filen här			                     */
+    /* Plocka fram var hjälpfilen finns		                     */
     /*****************************************************/
 
     QStringList lines;
