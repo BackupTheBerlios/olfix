@@ -11,16 +11,16 @@
                              -------------------
 		     version 0.3
     begin                : Tors 2 okt  2003
-    Modified	         : Tors 2 febr 2006
+    Modified	         : Ons 12 april 2006
     copyright         : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
- *					                                                 *
+ *					                                            *
  *   This program is free software; you can redistribute it and/or modify 	 *
- *   it under the terms of the GNU General Public License as published by       *
+ *   it under the terms of the GNU General Public License as published by       	 *
  *   the Free Software Foundation; either version 2 of the License, or     	 *
- *   (at your option) any later version.                                   		 *
+ *   (at your option) any later version.                                   		 	 *
  *                                                                         				 *
  *****************************************************************/
 
@@ -161,8 +161,8 @@ void frmDspKund::slotGetEndOfProcess()
 	 int i13 = inrad.find( QRegExp("13:"), 0 );
 	 int i14 = inrad.find( QRegExp("14:"), 0 );
 	 int i15 = inrad.find( QRegExp("15:"), 0 );
-	 int i16 = inrad.find( QRegExp("16:"), 0 );
-	 int i17 = inrad.find( QRegExp("17:"), 0 );
+	 int i16 = inrad.find( QRegExp("16:"), 0 );	// språkkod
+	 int i17 = inrad.find( QRegExp("17:"), 0 );	// valuta
 	 int i18 = inrad.find( QRegExp("18:"), 0 );
 	 int i19 = inrad.find( QRegExp("19:"), 0 );
 	 int i20 = inrad.find( QRegExp("20:"), 0 );
