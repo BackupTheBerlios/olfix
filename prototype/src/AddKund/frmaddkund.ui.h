@@ -9,11 +9,11 @@
 /***************************************************************************
                           ADDKUW  -  description
                              -------------------
-		     version 0.3
-    begin                   : Lör 5 aug 2003
-    modified	           : Mån 30 jan 2006	prislista, orgnr, kreditkod
-    copyright            : (C) 2003 by Jan Pihlgren
-    email                : jan@pihlgren.se
+		     version 0.4.3
+    begin                  : Lör 5 aug 2003
+    modified	           : Tors 13 april 2006	
+    copyright           : (C) 2003 by Jan Pihlgren
+    email                  : jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
  *					                                                 *
@@ -411,7 +411,7 @@ void frmAddKund::pushButtonHelp_clicked()
 	process->addArgument(hjelpfil);
 	
 	frmAddKund::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-	frmAddKund::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );	
+	frmAddKund::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmAddKund::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );	    
  
 	if ( !process->start() ) {
@@ -420,6 +420,10 @@ void frmAddKund::pushButtonHelp_clicked()
 	}
 	lineEditKundNr->setFocus();
 }
+void frmAddKund::slotEndOfProcess()
+{
+}
+
 
 void frmAddKund::pushButtonOK_clicked()
 {
