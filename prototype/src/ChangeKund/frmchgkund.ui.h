@@ -11,7 +11,7 @@
                              -------------------
 		     version 0.5
     begin    	: Tors    9 okt  2003
-    modified	: Ons     1 febr 2006
+    modified	: Tors  13 april 2006
     copyright            : (C) 2003 by Jan Pihlgren
     email                    : jan@pihlgren.se
  ***************************************************************************/
