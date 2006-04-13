@@ -1,16 +1,16 @@
 /****************************************************************/
 /**		ADDBARW					*/
-/**		2003-05-28					*/
-/**		Ver 0.3                                                                                    */
-/**    Modified:	2005-02-28					*/
-/**   Copyright	Jan Pihlgren	jan@pihlgren.se			*/
+/**		2003-05-28				*/
+/**		Ver 0.4.3                                                                                          */
+/**    Modified:	2006-04-13				*/
+/**   Copyright	Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
- *					                                                 *
+ *					                                            *
  *   This program is free software; you can redistribute it and/or modify 	 *
- *   it under the terms of the GNU General Public License as published by       *
+ *   it under the terms of the GNU General Public License as published by       	 *
  *   the Free Software Foundation; either version 2 of the License, or     	 *
- *   (at your option) any later version.                                   		 *
+ *   (at your option) any later version.                                   		 	 *
  *                                                                         				 *
  *********************************************** *****************/
 /****************************************************************************
@@ -27,12 +27,12 @@
 #include <qstring.h>		
 #include <qfile.h>
 #include <qregexp.h> 
-#define VERSION "0.3\n  2005-02-28"
+#define VERSION "0.4.3\n  2006-04-13"
 #define MAXSTRING 5000
 
     QProcess* process;
     QString inrad;
-    QString errorrad;	// 2005-02-28
+    QString errorrad;		// 2005-02-28
     QString arid;
     QString benamn;
     QString arstart;
@@ -43,7 +43,7 @@
     QString vernr;		// Nästa verifikationsnummer, default 1
     QString ktoplan;
 
-    QString hjelpfil;	// 2005-02-28
+    QString hjelpfil;		// 2005-02-28
     
 void frmAddBar::init()	// 2005-02-28
 {
@@ -276,11 +276,14 @@ void frmAddBar::slotHelp()
 //	errorrad="";
 
 	frmAddBar::readResursFil();		// Hämta path till hjälpfilen
-	hjelpfil=hjelpfil+"#NYTTBAR";		// Lägg till position
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_EKONOMI.html";
+	hjelpfil=hjelpfil+"#NYTTREKENSKAPSAR";		// Lägg till position
 //	qDebug("hjelpfil=%s",hjelpfil.latin1());
 	
 	process = new QProcess();
-	process->addArgument( "OLFIXHLP" );	// OLFIX program
+	process->addArgument( "./OLFIXHLP" );	// OLFIX program
 	process->addArgument(hjelpfil);
 
 	if ( !process->start() ) {
