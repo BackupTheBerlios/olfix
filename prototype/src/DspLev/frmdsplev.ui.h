@@ -9,17 +9,18 @@
 /***************************************************************************
                           DSPLEVW  -  description
                              -------------------
-		     version 0.3
-    begin                : Tis 1 juli 2003
-    copyright            : (C) 2003 by Jan Pihlgren
+		     version 0.4.3
+    begin                : Tis     1 juli   2003
+    Modified	         : Fre 14 april 2006
+    copyright         : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
- *					                                                 *
+ *					                                            *
  *   This program is free software; you can redistribute it and/or modify 	 *
- *   it under the terms of the GNU General Public License as published by       *
+ *   it under the terms of the GNU General Public License as published by       	 *
  *   the Free Software Foundation; either version 2 of the License, or     	 *
- *   (at your option) any later version.                                   		 *
+ *   (at your option) any later version.                                   		 	 *
  *                                                                         				 *
  *********************************************** *****************/
 #include <qmessagebox.h>
@@ -63,6 +64,7 @@
 
 void frmDspLev::init()
 {
+    pushButtonGet->hide();
     lineditLevNr->setFocus();
 }
 
@@ -91,7 +93,7 @@ void frmDspLev::slotGetLev()
 
 	frmDspLev::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmDspLev::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-            frmDspLev::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
+                frmDspLev::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
 
 	if (levnr == ""){
     	    QMessageBox::warning( this, "DSPLEVW",
@@ -328,19 +330,21 @@ void frmDspLev::slotEndOfProcess()
 void frmDspLev::slotGetBetvilkorData(QString betvilk)
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
-
+                QString usr(userp);
+	betvilk = betvilk.stripWhiteSpace();
+	
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// userid
 	process->addArgument( "BETDSP");	// OLFIX funktion
 	process->addArgument(betvilk);
 //	qDebug("betvilk=%s",betvilk.latin1());
+	
 	frmDspLev::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmDspLev::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-            frmDspLev::connect( process, SIGNAL(processExited() ),this, SLOT(slotBetvilkEndOfProcess() ) );
+                frmDspLev::connect( process, SIGNAL(processExited() ),this, SLOT(slotBetvilkEndOfProcess() ) );
 
-            if ( !process->start() ) {
+	if ( !process->start() ) {
 		// error handling
 		fprintf(stderr,"Problem starta STYRMAN/BETDSP!\n");
 		QMessageBox::warning( this, "DSPLEVW",
