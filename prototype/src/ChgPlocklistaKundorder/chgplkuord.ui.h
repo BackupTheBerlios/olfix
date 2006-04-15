@@ -10,18 +10,18 @@
                           PLCHGW  -  Skapa plocklista för kundorder
                          ChgPlocklistaKundorder
                              -------------------
-		     version 0.1
-    begin     	: Mån  25 april 2005
-    modified	: 
-    copyright            : (C) 2005 by Jan Pihlgren
-    email                : jan@pihlgren.se
+		     version 0.4.3
+    begin     		: Mån  25 april 2005
+    modified		: Lör    15 april 2006
+    copyright            	: (C) 2005 by Jan Pihlgren
+    email               	: jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
- *					                                                 *
+ *					                                            *
  *   This program is free software; you can redistribute it and/or modify 	 *
- *   it under the terms of the GNU General Public License as published by       *
+ *   it under the terms of the GNU General Public License as published by       	 *
  *   the Free Software Foundation; either version 2 of the License, or     	 *
- *   (at your option) any later version.                                   		 *
+ *   (at your option) any later version.                                   			 *
  *                                                                         				 *
  *********************************************** *****************/
 #include <qmessagebox.h>
@@ -53,13 +53,13 @@
 
 
 //	Orderhuvud    
-    QString ordernr;	// 01
-    QString ordertyp;	// 02
+    QString ordernr;		// 01
+    QString ordertyp;		// 02
     QString orderdatum;	// 03
     QString leveransdatum;
-    QString kundnr;	// 04
+    QString kundnr;		// 04
     QString kundnamn;	// 05
-    QString kundadr;	// 06
+    QString kundadr;		// 06
     QString kundpostnr;	// 07
     QString kundpostadr;	// 08
     QString kundland;	// 09
@@ -68,20 +68,20 @@
     QString leveranspostnr;
     QString leveranspostadress;
     QString leveransland;
-    QString valuta;	// 10
+    QString valuta;		// 10
     QString betvillkor;	// 11
     QString levvillkor;	// 12
-    QString levsett;	// 13
+    QString levsett;		// 13
     QString godsmerke;	// 14
-    QString besttext;	// 16
-    QString varref;	// 17
+    QString besttext;		// 16
+    QString varref;		// 17
     QString seljare;
     QString exportkod;
     QString moms;
     QString levdatum;	// 21
     QString kundnum;	// 22
-    QString ftgnamn;	// 23
-    QString ftgadr;	// 24
+    QString ftgnamn;		// 23
+    QString ftgadr;		// 24
     QString ftgpostnr;	// 25
     QString ftgpostadr;	// 26
     QString sprakkod;	// 27
@@ -118,16 +118,13 @@ void frmChgPlKundOrder::lineEditOrderNr_returnPressed()
 {
     listViewRader->clear();
     kundordernr=lineEditOrderNr->text();
-    if (kundordernr == ""){
-        QMessageBox::warning( this, "PLCHGW",
-                     "Kundorder saknas! \n" );
-	lineEditOrderNr->setFocus();
-    }else{
+    if (kundordernr != ""){
 	frmChgPlKundOrder::checkStatus();
-//	GetOrderHeader();
 	listViewRader->setFocus();
 	listViewRader->firstChild ();
 	listViewRader->setSelected(listViewRader->firstChild (),TRUE);
+    }else{
+	lineEditOrderNr->setFocus();
     }
 }
 
@@ -139,11 +136,11 @@ void frmChgPlKundOrder::lineEditPlockatAntal_returnPressed()
 
 void frmChgPlKundOrder::pushButtonOK_clicked()
 {
-/*****************************************/    
-/*                        Godkänn plockningen 	 */
-/*   Uppdataera kundorder och artikelregister      */    
+/***********************************************/    
+/*                        Godkänn plockningen 		 */
+/*   Uppdataera kundorder och artikelregister     	 */    
 /*   Skapa följesedel            			*/     
-/*****************************************/     
+/**********************************************/     
     frmChgPlKundOrder::updateOrder();
 }
 
@@ -667,7 +664,12 @@ void frmChgPlKundOrder::checkStatus()
 /*	Kontrollera vilken staus en order har	 				*/
 /************************************************************************/
 	const char *userp = getenv("USER");
-            QString usr(userp);
+                QString usr(userp);
+	if (kundordernr == ""){
+	    QMessageBox::warning( this, "PLCHGW",
+				  "Kundorder saknas! \n" );
+	 lineEditOrderNr->setFocus();
+	}		
 
 	inrad="";
 	errorrad="";
@@ -680,7 +682,7 @@ void frmChgPlKundOrder::checkStatus()
 
 	frmChgPlKundOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(DataOnStdout() ) );
 	frmChgPlKundOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(DataOnStderr() ) );
-            frmChgPlKundOrder::connect( process, SIGNAL(processExited() ),this, SLOT(CheckOrderEndOfProcess() ) );
+	frmChgPlKundOrder::connect( process, SIGNAL(processExited() ),this, SLOT(CheckOrderEndOfProcess() ) );
 	    
 	if (kundordernr == ""){
     	    QMessageBox::warning( this, "PLCHGW",
@@ -732,13 +734,13 @@ void frmChgPlKundOrder::CheckOrderEndOfProcess()
 
 void frmChgPlKundOrder::listViewRader_format()
 {
-    listViewRader->setColumnWidth(0,44);		// Radnr
+    listViewRader->setColumnWidth(0,35);		// Radnr
     listViewRader->setColumnWidth(1,180);		// Artikelnr
     listViewRader->setColumnWidth(2,295);		// Benämning
-    listViewRader->setColumnWidth(3,100);		// Leveransvecka
-    listViewRader->setColumnWidth(4,90);		// Beställt antal
+    listViewRader->setColumnWidth(3,60);		// Leveransvecka
+    listViewRader->setColumnWidth(4,75);		// Beställt antal
     listViewRader->setColumnWidth(5,75);		// Antal att leverera
-    listViewRader->setColumnWidth(6,86);		// Plockat antal
+    listViewRader->setColumnWidth(6,75);		// Plockat antal
 //    listViewRader->setColumnWidth(7,86);		// Moms
 }
 
@@ -825,7 +827,7 @@ void frmChgPlKundOrder::pushBtnHelp_clicked()
 //	qDebug("hjelpfil=%s",hjelpfil.latin1());
 
 	process = new QProcess();
-	process->addArgument( "OLFIXHLP" );	// OLFIX program
+	process->addArgument( "./OLFIXHLP" );	// OLFIX program
 	process->addArgument(hjelpfil);
 
 	if ( !process->start() ) {
