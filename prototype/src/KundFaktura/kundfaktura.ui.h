@@ -10,18 +10,18 @@
 			  KUFAKTW  -  Fakturera kundorder
 			 KundFaktura
 			     -------------------
-		     version 0.1
-    begin     	: Mån  30 okt 2005
-    modified	: 
-    copyright            : (C) 2005 by Jan Pihlgren
-    email                : jan@pihlgren.se
+		     version 0.4.3
+    begin     		: Mån  30 okt     2005
+    modified		: Sön   16 april 2006
+    copyright            	: (C) 2005 by Jan Pihlgren
+    email                	: jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
- *					                                                 *
+ *					                                            *
  *   This program is free software; you can redistribute it and/or modify 	 *
- *   it under the terms of the GNU General Public License as published by       *
+ *   it under the terms of the GNU General Public License as published by       	 *
  *   the Free Software Foundation; either version 2 of the License, or     	 *
- *   (at your option) any later version.                                   		 *
+ *   (at your option) any later version.                                   		 	 *
  *                                                                         				 *
  *********************************************** *****************/
 #include <qmessagebox.h>
@@ -173,16 +173,19 @@ void frmKundFaktura::lineEditOrderNr_returnPressed()
 {
     listViewRader->clear();
     kundordernr=lineEditOrderNr->text();
-    if (kundordernr == ""){
-	QMessageBox::warning( this, "KUFAKTW",
+    if (kundordernr != ""){
+/*	QMessageBox::warning( this, "KUFAKTW",
 			      "Kundorder saknas! \n" );
 	lineEditOrderNr->setFocus();
     }else{
-	frmKundFaktura::checkStatus();
+*/    
+	frmKundFaktura::checkStatus();	//  Kontrollera status och hämta ordern.
 	listViewRader->setFocus();
 	listViewRader->firstChild ();
 	listViewRader->setSelected(listViewRader->firstChild (),TRUE);
 	pushButtonOK->setEnabled(TRUE);
+    }else{
+	lineEditOrderNr->setFocus();
     }
 }
 
@@ -1149,15 +1152,15 @@ void frmKundFaktura::CheckOrderEndOfProcess()
 
 void frmKundFaktura::listViewRader_format()
 {
-    listViewRader->setColumnWidth(0,44);		// Radnr
+    listViewRader->setColumnWidth(0,35);		// Radnr
     listViewRader->setColumnWidth(1,180);		// Artikelnr
     listViewRader->setColumnWidth(2,295);		// Benämning
     listViewRader->setColumnWidth(3,60);		// Antal
     listViewRader->setColumnWidth(4,60);		// Rest
-    listViewRader->setColumnWidth(5,75);		// Pris / st
-    listViewRader->setColumnWidth(6,50);		// Moms %
-    listViewRader->setColumnWidth(7,75);		// Moms Kr  
-    listViewRader->setColumnWidth(8,90);		// Radtotal
+    listViewRader->setColumnWidth(5,60);		// Pris / st
+    listViewRader->setColumnWidth(6,45);		// Moms %
+    listViewRader->setColumnWidth(7,80);		// Moms Kr  
+    listViewRader->setColumnWidth(8,80);		// Radtotal
 }
 
 void frmKundFaktura::listViewRader_clicked( QListViewItem * )
@@ -1926,25 +1929,29 @@ void frmKundFaktura::ListaKundordrarEndOfProcess()
     int tmp5,tmp6,tmp7;
     
     m=0;
-    i1=listinrad.find( QRegExp("OK: NR_0_"), m); 		// startposition 
+    i1=listinrad.find( QRegExp("OK: NR_"), m); 		// startposition  = 0
     i2=listinrad.find( QRegExp("_:"), m );			// slutposition för antal rader
-    l=i2-(i1+8);
-    antalrader=listinrad.mid(i1+8,l);
+    l=i2-(i1+7);
+    antalrader=listinrad.mid(i1+7,l);
+//    qDebug("i1=%d i2=%d l=%d antalrader=%s",i1,i2,l,antalrader.latin1());
     antrad=antalrader.toInt();
-//    qDebug("antalrader=%s antrad=%d",antalrader.latin1(),antrad);    
+//   qDebug("antalrader=%s antrad=%d",antalrader.latin1(),antrad);    
     // i2 + 2  = startposition för ordernr
     tmp7=i2;
-    m=m+(i1+10);
+    m=m+(i1+9);
+//    qDebug("listinrad=%s",listinrad.latin1());
+//    qDebug("1. m=%d i1=%d i2=%d",m,i1,i2);
     for (i=0;i<antrad;i++){
 	i3=listinrad.find( QRegExp("_:"), m+1);		// slutposition for ordernr
 	l=i3-(tmp7+2);
-	ordernr=listinrad.mid(m+2,l);
+//	qDebug("2. m=%d i3=%d l=%d tmp7=%d",m,i3,l,tmp7);	
+	ordernr=listinrad.mid(m+1,l);
 //	qDebug("ordernr=%s",ordernr.latin1());	
 	m=m+2+l;  
 	i4=listinrad.find( QRegExp("_:"), m+1);		// slutposition för kundnr
 	l=i4-(i3+2);
 //	qDebug("l=%d  i1=%d m=%d i2=%d i3=%d i4=%d",l,i1,m,i2,i3,i4);
-	kundnr=listinrad.mid(m+2,l);
+	kundnr=listinrad.mid(m+1,l);
 //	qDebug("kundnr=%s",kundnr.latin1());
 	m=m+2+l;
 	tmp5=listinrad.find( QRegExp("_:"), m+1);
