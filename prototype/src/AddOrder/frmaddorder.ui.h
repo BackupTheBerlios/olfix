@@ -10,9 +10,9 @@
                           ADDORDW  -  description
 	         Registrering av kundorder med möjlighet att registrera en ny kund.
                              -------------------
-		     version 0.6
+		     version 0.7
     begin   	: 	Sön    12 okt    2003
-    Updated	: 	Tis       1 mars  2006
+    Updated	: 	Mån  17 april  2006
     copyright:	 (C) 2003 by Jan Pihlgren
     email     	:	 jan@pihlgren.se
  ***************************************************************************/
@@ -32,11 +32,14 @@
 #include <qfile.h>
 #include <qregexp.h>
 #define MAXSTRING 5000
+#define MAXPROCESS 200
 
     int ganger=0;
+    int processnbr=0;
     QProcess* process;
     QProcess* processpris;
     QProcess* processartikel;
+    QProcess* radproc[MAXPROCESS];
     QString inrad;
     QString inrad2;
     QString inrad3;    
@@ -153,6 +156,9 @@ void frmAddOrder::init()
     frmAddOrder::getKundLista();
     listViewKund->setFocus();
 //    lineEditOrderKundNr->setFocus();
+    
+    textLabel1_8->hide();
+    pushBtnOrderKlar->hide();
 }
 
 void frmAddOrder::slotKundNr_returnPressed()
@@ -606,12 +612,14 @@ void frmAddOrder::lineEditOrderFrakt_returnPressed()
     pushBtnOrderKlar->setFocus();
 }
 
+/*
 void frmAddOrder::pushBtnOrderKlar_clicked()
 {
 //    lineEditOrderFrakt->setEnabled("FALSE");
-    pushButtonOK->setFocus();	/* 2006-02-14, 17 */		/* Spara ordern. */
+    pushButtonOK->setFocus();	 2006-02-14, 17 		 Spara ordern. 
 }
-
+*/
+    
 void frmAddOrder::slotBtnOK_clicked()
 {
     frmAddOrder::CreateOrderHuvud();
@@ -1417,14 +1425,14 @@ void frmAddOrder::slotgetUDataOnStderr()
 
 void frmAddOrder::listViewRader_format()
 {
-    listViewRader->setColumnWidth(0,44);		// Radnr
+    listViewRader->setColumnWidth(0,35);		// Radnr
     listViewRader->setColumnWidth(1,180);		// Artikelnr
     listViewRader->setColumnWidth(2,295);		// Benämning
-    listViewRader->setColumnWidth(3,86);		// Leveransvecka
-    listViewRader->setColumnWidth(4,65);		// Antal
-    listViewRader->setColumnWidth(5,66);		// Pris
+    listViewRader->setColumnWidth(3,60);		// Leveransvecka
+    listViewRader->setColumnWidth(4,55);		// Antal
+    listViewRader->setColumnWidth(5,55);		// Pris
     listViewRader->setColumnWidth(6,86);		// Summa
-    listViewRader->setColumnWidth(7,86);		// Moms
+    listViewRader->setColumnWidth(7,70);		// Moms
 }
 
 void frmAddOrder::getArtikeldata()
@@ -1887,7 +1895,7 @@ void frmAddOrder::CreateOrderHuvud()
 
     orderhuvuddata.append("END");
 //    qDebug("orderhuvuddata=%s",orderhuvuddata.latin1());
-    slotAddOrder();					/* Spara orderhuvud */
+    frmAddOrder::slotAddOrder();			/* Spara orderhuvud */
 }
 
 void frmAddOrder::UpdateKundOrderNr()
@@ -1993,25 +2001,30 @@ void frmAddOrder::AddOrderRad()
     /************************************************************************/
     const char *userp = getenv("USER");
     QString usr(userp);
+    processnbr++;
+    if (processnbr > 195){
+	processnbr=1;
+    }
 //    qDebug("artnr=%s ant=%s",artnr.latin1(),ant.latin1());
     inrad2="";
     errorrad2="";
  
-    process = new QProcess();
-    process->addArgument("./STYRMAN");	// OLFIX styrprogram
-    process->addArgument(usr);		// userid
-    process->addArgument( "ORDRADD");	// OLFIX funktion
-    process->addArgument(orderraddata);
-
-    frmAddOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotOrderradDataOnStdout() ) );
-    frmAddOrder::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotOrderadDataOnStderr() ) );
-    frmAddOrder::connect( process, SIGNAL(processExited() ),this, SLOT(slotOrderadEndOfProcess() ) );
+    radproc[processnbr] = new QProcess();
+    radproc[processnbr]->addArgument("./STYRMAN");	// OLFIX styrprogram
+    radproc[processnbr]->addArgument(usr);		// userid
+    radproc[processnbr]->addArgument( "ORDRADD");	// OLFIX funktion
+    radproc[processnbr]->addArgument(orderraddata);
+    
+    frmAddOrder::connect( radproc[processnbr], SIGNAL(readyReadStdout() ),this, SLOT(slotOrderradDataOnStdout() ) );
+     frmAddOrder::connect( radproc[processnbr], SIGNAL(readyReadStderr() ),this, SLOT(slotOrderadDataOnStderr() ) );
+    frmAddOrder::connect( radproc[processnbr], SIGNAL(processExited() ),this, SLOT(slotOrderadEndOfProcess() ) );
 
     if (orderraddata == ""){
 	QMessageBox::warning( this, "ADDORDW",
 			      "Orderrad saknas \n" );
+	return;
     }else{
-	if ( !process->start() ) {
+	if ( !radproc[processnbr]->start() ) {
 	    // error handling
 	    QMessageBox::critical( this, "ADDORDW",
 				  "Kan inte starta STYRMAN/ORDRADD! \n" );
@@ -2041,8 +2054,8 @@ void frmAddOrder::slotOrderadEndOfProcess()
 
 void frmAddOrder::slotOrderadDataOnStderr()
 {
-      while (process->canReadLineStderr() ) {
-	QString line = process->readStderr();
+      while (radproc[processnbr]->canReadLineStderr() ) {
+	QString line = radproc[processnbr]->readStderr();
 	errorrad2.append(line);
 	errorrad2.append("\n");
     }
@@ -2050,8 +2063,8 @@ void frmAddOrder::slotOrderadDataOnStderr()
 
 void frmAddOrder::slotOrderradDataOnStdout()
 {
-    while (process->canReadLineStdout() ) {
-	QString line = process->readStdout();
+    while (radproc[processnbr]->canReadLineStdout() ) {
+	QString line = radproc[processnbr]->readStdout();
 	inrad2.append(line);
 	inrad2.append("\n");
     }   
@@ -2558,11 +2571,10 @@ void frmAddOrder::choosePris()
     lineEditAPris->setText(orderradpris);
 }
 
-
 void frmAddOrder::pushButtonAvbryt_clicked()
 {
     avbryt=TRUE;
-    close();
+    frmAddOrder::close();
 }
 
 void frmAddOrder::pushButtonSoek_click()
@@ -2575,8 +2587,6 @@ void frmAddOrder::pushButtonSoek_click()
     errorrad="";
 	
     process = new QProcess();
-//    process->addArgument("./STYRMAN");	// OLFIX styrprogram
-//    process->addArgument(usr);		// userid
     process->addArgument( "./SRCHARW");	// OLFIX program, söka artikel	
 	
     frmAddOrder::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
@@ -2596,6 +2606,6 @@ void frmAddOrder::SoekArtikelEndOfProcess()
     qDebug("inrad=%s",inrad.latin1());
     artnr=inrad;
     artnr=artnr.stripWhiteSpace();
-//     QString s = string.stripWhiteSpace();
     lineEditArtikelNr->setText(artnr);
+    lineEditArtikelNr->setFocus();
 }
