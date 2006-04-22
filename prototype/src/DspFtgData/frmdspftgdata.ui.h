@@ -1,16 +1,16 @@
 /****************************************************************/
 /**		DSPFTGW					*/
-/**		Version: 0.6 					*/
-/**		20003-08-14					*/
-/**		Modifierad: 2005-12-06				*/
-/**		Jan Pihlgren	jan@pihlgren.se			*/
+/**		Version: 0.7 				*/
+/**		20003-08-14				*/
+/**		Modifierad: 2006-04-22			*/
+/**		Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
- *					                                                 *
+ *					                                            *
  *   This program is free software; you can redistribute it and/or modify 	 *
- *   it under the terms of the GNU General Public License as published by       *
+ *   it under the terms of the GNU General Public License as published by       	 *
  *   the Free Software Foundation; either version 2 of the License, or     	 *
- *   (at your option) any later version.                                   		 *
+ *   (at your option) any later version.                                   		 	 *
  *                                                                         				 *
  *********************************************** *****************/
 
@@ -268,7 +268,10 @@ void frmDspFtgData::slotEndOfProcess()
     if (i != -1){
 	slotGetINKTO();
     } 
-    
+     i = posttyp.find( QRegExp("OFFNR"), 0 );
+    if (i != -1){
+	slotGetOFFNR();
+    }    
 }
 
 void frmDspFtgData::slotGetFNAMN()
@@ -949,6 +952,26 @@ void frmDspFtgData::slotGetINKTO()
     m = inrad.length();
     inkto = inrad.mid(k+2,m-2);
     lineEditINKTO->setText(inkto);   
+    inrad="";
+    slotGetFtgData("OFFNR");    
+}
+
+void frmDspFtgData::slotGetOFFNR()
+{
+//	Senast använda offertnummer, standard
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString offnr;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    offnr = inrad.mid(k+2,m-2);
+    lineEditOFFERTNR->setText(offnr);   
     inrad="";
 //    slotGetFtgData("INKTO");    
 }
