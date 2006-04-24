@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>frmChgFtgData</class>
 <widget class="QWidget">
     <property name="name">
@@ -12,47 +12,14 @@
             <height>565</height>
         </rect>
     </property>
+    <property name="font">
+        <font>
+            <pointsize>9</pointsize>
+        </font>
+    </property>
     <property name="caption">
         <string>CHGFTGW - Ändra företagsdata</string>
     </property>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonOK</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>535</y>
-                <width>70</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Avbryt</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonUpdate</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>90</x>
-                <y>535</y>
-                <width>70</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Uppdatera</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
     <widget class="QLineEdit">
         <property name="name">
             <cstring>LineEditPostAdress</cstring>
@@ -107,22 +74,6 @@
         <property name="text">
             <string>Senaste fakturanr:
 Serie 2</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKtonrInbet</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>365</x>
-                <y>380</y>
-                <width>96</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Konto som normalt används för att reistrera inbetalningar</string>
         </property>
     </widget>
     <widget class="Line">
@@ -183,19 +134,6 @@ Serie 2</string>
                 <y>440</y>
                 <width>95</width>
                 <height>25</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKtonrKundfordr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>145</x>
-                <y>375</y>
-                <width>90</width>
-                <height>26</height>
             </rect>
         </property>
     </widget>
@@ -316,22 +254,6 @@ Serie 2</string>
     </widget>
     <widget class="QLabel">
         <property name="name">
-            <cstring>textLabel4</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>220</x>
-                <y>445</y>
-                <width>141</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Senaste inköpsordernr:</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
             <cstring>textLabel1</cstring>
         </property>
         <property name="geometry">
@@ -380,35 +302,6 @@ Serie 2</string>
     </widget>
     <widget class="QLineEdit">
         <property name="name">
-            <cstring>lineEditAutokont</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>145</x>
-                <y>344</y>
-                <width>26</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel2_3</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>241</x>
-                <y>375</y>
-                <width>120</width>
-                <height>25</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Kontonr inbetalning:</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
             <cstring>LineEditBranschkod</cstring>
         </property>
         <property name="geometry">
@@ -430,19 +323,6 @@ Serie 2</string>
                 <y>269</y>
                 <width>50</width>
                 <height>23</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditFKNRS</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>145</x>
-                <y>408</y>
-                <width>26</width>
-                <height>25</height>
             </rect>
         </property>
     </widget>
@@ -475,22 +355,6 @@ Serie 2</string>
             </rect>
         </property>
     </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel5</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>220</x>
-                <y>475</y>
-                <width>141</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Senaste kundordernr:</string>
-        </property>
-    </widget>
     <widget class="QLineEdit">
         <property name="name">
             <cstring>lineEditFKNR2</cstring>
@@ -501,19 +365,6 @@ Serie 2</string>
                 <y>410</y>
                 <width>111</width>
                 <height>26</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKORNR</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>365</x>
-                <y>470</y>
-                <width>95</width>
-                <height>25</height>
             </rect>
         </property>
     </widget>
@@ -617,19 +468,6 @@ Serie 2</string>
             </rect>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditFAKNR</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>365</x>
-                <y>410</y>
-                <width>95</width>
-                <height>25</height>
-            </rect>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>TextLabel12</cstring>
@@ -644,35 +482,6 @@ Serie 2</string>
         </property>
         <property name="text">
             <string>Momssats 1:</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditSKUNR</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>121</x>
-                <y>468</y>
-                <width>95</width>
-                <height>25</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel3</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>5</x>
-                <y>410</y>
-                <width>135</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Antal fakturnrserier:</string>
         </property>
     </widget>
     <widget class="QLabel">
@@ -796,22 +605,6 @@ Serie 2</string>
     </widget>
     <widget class="QLabel">
         <property name="name">
-            <cstring>textLabel1_4</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>250</x>
-                <y>410</y>
-                <width>115</width>
-                <height>25</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Senaste fakturanr:</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
             <cstring>textLabel1_3</cstring>
         </property>
         <property name="geometry">
@@ -863,22 +656,6 @@ Serie 2</string>
                 <width>46</width>
                 <height>22</height>
             </rect>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel6</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>5</x>
-                <y>475</y>
-                <width>115</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Senaste kundnr:</string>
         </property>
     </widget>
     <widget class="QLabel">
@@ -952,38 +729,6 @@ Serie 2</string>
             </rect>
         </property>
     </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel2</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>5</x>
-                <y>349</y>
-                <width>138</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Automatkontering J/N :</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel1_5</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>5</x>
-                <y>375</y>
-                <width>139</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Kontonr kundfodringar:</string>
-        </property>
-    </widget>
     <widget class="Line">
         <property name="name">
             <cstring>Line1_3</cstring>
@@ -1051,22 +796,6 @@ Serie 2</string>
             </rect>
         </property>
     </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonHelp</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>405</x>
-                <y>5</y>
-                <width>70</width>
-                <height>25</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Hjälp</string>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>TextLabel3</cstring>
@@ -1096,16 +825,321 @@ Serie 2</string>
             </rect>
         </property>
     </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel4</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>230</x>
+                <y>445</y>
+                <width>135</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Senaste inköpsordernr:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel5</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>230</x>
+                <y>475</y>
+                <width>135</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Senaste kundordernr:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditOFFERTNR</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>365</x>
+                <y>500</y>
+                <width>95</width>
+                <height>25</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditFAKNR</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>365</x>
+                <y>410</y>
+                <width>95</width>
+                <height>25</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKtonrInbet</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>365</x>
+                <y>380</y>
+                <width>95</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Konto som normalt används för att reistrera inbetalningar</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_4</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>255</x>
+                <y>415</y>
+                <width>110</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Senaste fakturanr:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_6</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>230</x>
+                <y>505</y>
+                <width>135</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Senaste offertnummer:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2_3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>250</x>
+                <y>385</y>
+                <width>115</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Kontonr inbetalning:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>415</y>
+                <width>135</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Antal fakturnrserier:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditFKNRS</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>410</y>
+                <width>26</width>
+                <height>25</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditSKUNR</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>121</x>
+                <y>468</y>
+                <width>95</width>
+                <height>25</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel6</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>475</y>
+                <width>115</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Senaste kundnr:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKORNR</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>365</x>
+                <y>470</y>
+                <width>95</width>
+                <height>25</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>405</x>
+                <y>5</y>
+                <width>70</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKtonrKundfordr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>380</y>
+                <width>90</width>
+                <height>25</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_5</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>385</y>
+                <width>135</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Kontonr kundfodringar:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditAutokont</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>140</x>
+                <y>350</y>
+                <width>26</width>
+                <height>25</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>355</y>
+                <width>135</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Automatkontering J/N :</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonAvbryt</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>531</y>
+                <width>70</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avbryt</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>90</x>
+                <y>531</y>
+                <width>70</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>OK</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
-        <sender>PushButtonOK</sender>
+        <sender>PushButtonAvbryt</sender>
         <signal>clicked()</signal>
         <receiver>frmChgFtgData</receiver>
         <slot>close()</slot>
     </connection>
     <connection>
-        <sender>PushButtonUpdate</sender>
+        <sender>PushButtonOK</sender>
         <signal>clicked()</signal>
         <receiver>frmChgFtgData</receiver>
         <slot>PushButtonUpdate_clicked()</slot>
@@ -1139,7 +1173,22 @@ Serie 2</string>
     <tabstop>LineEditMoms3</tabstop>
     <tabstop>LineEditMoms4</tabstop>
     <tabstop>LineEditMoms5</tabstop>
+    <tabstop>lineEditMomktoIng</tabstop>
+    <tabstop>lineEditMomktoUtg</tabstop>
+    <tabstop>lineEditAutokont</tabstop>
+    <tabstop>lineEditKtonrKundfordr</tabstop>
+    <tabstop>lineEditKtonrInbet</tabstop>
+    <tabstop>lineEditFKNRS</tabstop>
+    <tabstop>lineEditFAKNR</tabstop>
+    <tabstop>lineEditFKNR2</tabstop>
+    <tabstop>lineEditINKNR</tabstop>
+    <tabstop>lineEditSKUNR</tabstop>
+    <tabstop>lineEditKORNR</tabstop>
+    <tabstop>lineEditOFFERTNR</tabstop>
+    <tabstop>PushButtonAvbryt</tabstop>
+    <tabstop>LineEditBranschkod</tabstop>
     <tabstop>PushButtonOK</tabstop>
+    <tabstop>pushButtonHelp</tabstop>
 </tabstops>
 <includes>
     <include location="local" impldecl="in implementation">frmchgftgdata.ui.h</include>
@@ -1184,6 +1233,7 @@ Serie 2</string>
     <slot>slotGetKORNR()</slot>
     <slot>slotGetKFKTO()</slot>
     <slot>slotGetINKTO()</slot>
+    <slot>slotGetOFFNR()</slot>
     <slot>changeFtgData()</slot>
     <slot>updateFtgData( QString posttyp, QString data )</slot>
     <slot>pushBtnHelp_clicked()</slot>

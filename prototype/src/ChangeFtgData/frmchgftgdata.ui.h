@@ -1,9 +1,9 @@
 /****************************************************************/
 /**		CHGFTGW					*/
-/**		Version: 0.1 					*/
-/**		2005-12-05					*/
-/**		Modifierad: 	 				*/
-/**		Jan Pihlgren	jan@pihlgren.se			*/
+/**		Version: 0.4.3				*/
+/**		2005-12-05				*/
+/**		Modifierad:  2006-04-24 			*/
+/**		Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
  *					                                                 *
@@ -272,7 +272,10 @@ void frmChgFtgData::slotEndOfProcess()
     if (i != -1){
 	slotGetINKTO();
     } 
-  
+    i = posttyp.find( QRegExp("OFFNR"), 0 );
+    if (i != -1){
+	slotGetOFFNR();
+    } 
 }
 
 void frmChgFtgData::slotGetFNAMN()
@@ -980,16 +983,37 @@ void frmChgFtgData::slotGetINKTO()
 //    qDebug("moms5=%s",moms5.latin1());
     lineEditKtonrInbet->setText(inkto);    
     inrad="";
-//    slotGetFtgData("INKTO");
+    slotGetFtgData("OFFNR");
+}
+
+void frmChgFtgData::slotGetOFFNR()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString offnr;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    offnr = inrad.mid(k+2,m-2);
+//    qDebug("moms5=%s",moms5.latin1());
+    lineEditOFFERTNR->setText(offnr);    
+    inrad="";
+//    slotGetFtgData("OFFNR");
 }
 
 void frmChgFtgData::changeFtgData()
 {
-    QString ftgnamn=LineEditFtgNamn->text();		// FNAMN
+    QString ftgnamn=LineEditFtgNamn->text();			// FNAMN
     if ( LineEditFtgNamn->edited() ) {
 	frmChgFtgData::updateFtgData( "FNAMN", ftgnamn );
     }
-    QString ftgnr=LineEditFtgNr->text();			// FTGNR
+    QString ftgnr=LineEditFtgNr->text();				// FTGNR
     if ( LineEditFtgNr->edited() ) {
 	frmChgFtgData::updateFtgData( "FTGNR", ftgnr );
     }
@@ -997,7 +1021,7 @@ void frmChgFtgData::changeFtgData()
     if ( LineEditBranschkod->edited() ) {
 	frmChgFtgData::updateFtgData( "SNIKD", branchkod );
     }
-    QString postadr=LineEditPostAdress->text();		// ADR1
+    QString postadr=LineEditPostAdress->text();			// ADR1
     if ( LineEditPostAdress->edited() ) {
 	frmChgFtgData::updateFtgData( "ADR1", postadr );
     }
@@ -1009,7 +1033,7 @@ void frmChgFtgData::changeFtgData()
     if ( LineEditPostOrt->edited() ) {
 	frmChgFtgData::updateFtgData( "ADR3", postort );
     }
-    QString besoksadr=LineEditBesoksAdress->text();	// ADR4
+    QString besoksadr=LineEditBesoksAdress->text();		// ADR4
     if ( LineEditBesoksAdress->edited() ) {
 	frmChgFtgData::updateFtgData( "ADR4", besoksadr );
     }
@@ -1017,11 +1041,11 @@ void frmChgFtgData::changeFtgData()
     if ( LineEditPostnr2->edited() ) {
 	frmChgFtgData::updateFtgData( "ADR5", postnr2 );
     }
-    QString besoksort=LineEditBesoksOrt->text();		// ADR6
+    QString besoksort=LineEditBesoksOrt->text();			// ADR6
     if ( LineEditBesoksOrt->edited() ) {
 	frmChgFtgData::updateFtgData( "ADR6", besoksort );
     }
-    QString godsadr=LineEditGodsAdress->text();		// ADR7
+    QString godsadr=LineEditGodsAdress->text();			// ADR7
     if ( LineEditGodsAdress->edited() ) {
 	frmChgFtgData::updateFtgData( "ADR7", godsadr );
     }
@@ -1029,16 +1053,16 @@ void frmChgFtgData::changeFtgData()
     if ( LineEditPostnr3->edited() ) {
 	frmChgFtgData::updateFtgData( "ADR8", postnr3 );
     }
-    QString godsort=LineEditGodsOrt->text();		// ADR9
+    QString godsort=LineEditGodsOrt->text();			// ADR9
     if ( LineEditGodsOrt->edited() ) {
 	frmChgFtgData::updateFtgData( "ADR9", godsort );
     }
-    QString tfnnr=LineEditTfnnr->text();			// TFN1
+    QString tfnnr=LineEditTfnnr->text();				// TFN1
     tfnnr=tfnnr.stripWhiteSpace();
     if ( LineEditTfnnr->edited() ) {
 	frmChgFtgData::updateFtgData( "TFN1", tfnnr );
     }
-    QString mobiltfn=LineEditMobilTfn->text();		// TFNMB
+    QString mobiltfn=LineEditMobilTfn->text();			// TFNMB
     mobiltfn=mobiltfn.stripWhiteSpace();
     if ( LineEditMobilTfn->edited() ) {
 	frmChgFtgData::updateFtgData( "TFNMB", mobiltfn );
@@ -1048,7 +1072,7 @@ void frmChgFtgData::changeFtgData()
     if ( LineEditTelefax->edited() ) {
 	frmChgFtgData::updateFtgData( "TFAX", telefax );
     }
-    QString email=LineEditemailadress->text();		// EML1
+    QString email=LineEditemailadress->text();			// EML1
     email=email.stripWhiteSpace();
     if ( LineEditemailadress->edited() ) {
 	frmChgFtgData::updateFtgData( "EML1", email );
@@ -1083,39 +1107,39 @@ void frmChgFtgData::changeFtgData()
     if ( LineEditMoms5->edited() ) {
 	frmChgFtgData::updateFtgData( "MOMS5", moms5 );
     }
-    QString inmoms=lineEditMomktoIng->text();		// MOMSI
+    QString inmoms=lineEditMomktoIng->text();			// MOMSI
     inmoms=inmoms.stripWhiteSpace();
     if ( lineEditMomktoIng->edited() ) {
 	frmChgFtgData::updateFtgData( "MOMSI", inmoms );
     }
-    QString utmoms=lineEditMomktoUtg->text();		// MOMSU
+    QString utmoms=lineEditMomktoUtg->text();			// MOMSU
     utmoms=utmoms.stripWhiteSpace();
     if ( lineEditMomktoUtg->edited() ) {
 	frmChgFtgData::updateFtgData( "MOMSU", utmoms );
     }
-    QString autokont=lineEditAutokont->text();		// AUTOK
+    QString autokont=lineEditAutokont->text();			// AUTOK
     autokont=autokont.stripWhiteSpace();
     if ( lineEditAutokont->edited() ) {
 	frmChgFtgData::updateFtgData( "AUTOK", autokont );
     }
-    QString fknrs=lineEditFKNRS->text();			// FKNRS
+    QString fknrs=lineEditFKNRS->text();				// FKNRS
     if ( lineEditFKNRS->edited() ) {
 	fknrs=fknrs.stripWhiteSpace();
 	frmChgFtgData::updateFtgData( "FKNRS", fknrs );
     }
-    QString faknr=lineEditFAKNR->text();			// FAKNR
+    QString faknr=lineEditFAKNR->text();				// FAKNR
     faknr=faknr.stripWhiteSpace();
     if ( lineEditFAKNR->edited() ) {
 	frmChgFtgData::updateFtgData( "FAKNR", faknr );
     }
     if (fknrs != "1"){
-	QString fknr2=lineEditFKNR2->text();		// FKNR2
+	QString fknr2=lineEditFKNR2->text();			// FKNR2
 	fknr2=fknr2.stripWhiteSpace();
 	if ( lineEditFKNR2->edited() ) {
 	    frmChgFtgData::updateFtgData( "FKNR2", fknr2 );
 	}
     }
-    QString inknr=lineEditINKNR->text();			// INKNR
+    QString inknr=lineEditINKNR->text();				// INKNR
     inknr=inknr.stripWhiteSpace();
     if ( lineEditINKNR->edited() ) {
 	frmChgFtgData::updateFtgData( "INKNR", inknr );
@@ -1130,18 +1154,22 @@ void frmChgFtgData::changeFtgData()
     if ( lineEditKORNR->edited() ) {
 	frmChgFtgData::updateFtgData( "KORNR",kornr );
     }
-    QString kfkto=lineEditKtonrKundfordr->text();		// KFKTO
+    QString kfkto=lineEditKtonrKundfordr->text();			// KFKTO
     kfkto=kfkto.stripWhiteSpace();
     if ( lineEditKtonrKundfordr->edited() ) {
 	frmChgFtgData::updateFtgData( "KFKTO",kfkto );
     }
-    QString inbetkto=lineEditKtonrInbet->text();		// INKTO
+    QString inbetkto=lineEditKtonrInbet->text();			// INKTO
     inbetkto=inbetkto.stripWhiteSpace();
     if ( lineEditKtonrInbet->edited() ) {
 	frmChgFtgData::updateFtgData( "INKTO",inbetkto );
     }
-
-    slotGetFtgData("FNAMN");
+    QString offnr=lineEditOFFERTNR->text();			// OFFNR
+    offnr=offnr.stripWhiteSpace();
+    if ( lineEditOFFERTNR->edited() ) {
+	frmChgFtgData::updateFtgData( "OFFNR",offnr );
+    }
+    slotGetFtgData("FNAMN");					// läs in data igen, från början(FNAMN) .
     PushButtonOK->setFocus(); 
     QMessageBox::information( this, "CHGFTGW","Företagsdata uppdaterat! \n" );
 }
@@ -1149,18 +1177,18 @@ void frmChgFtgData::changeFtgData()
 void frmChgFtgData::updateFtgData( QString posttyp,QString data )
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
-	    processnr++;
+	QString usr(userp);
+	processnr++;
 	process[processnr]  = new QProcess();
 	process[processnr] ->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process[processnr] ->addArgument(usr);		// userid
-	process[processnr] ->addArgument( "FTGUPD");	// OLFIX funktion
+	process[processnr] ->addArgument( "FTGUPD");		// OLFIX funktion
 	process[processnr] ->addArgument(posttyp);
 	process[processnr] ->addArgument(data);
 	
 	frmChgFtgData::connect( process[processnr] , SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmChgFtgData::connect( process[processnr] , SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-            frmChgFtgData::connect( process[processnr] , SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
+                frmChgFtgData::connect( process[processnr] , SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
 
 	 if ( !process[processnr] ->start() ) {
 		// error handling
@@ -1194,8 +1222,8 @@ void frmChgFtgData::pushBtnHelp_clicked()
 void frmChgFtgData::readResursFil()
 {
     /*****************************************************/
-    /*  Läs in .olfixrc filen här			               */
-    /* Plocka fram var hjälpfilen finns			               */
+    /*  Läs in .olfixrc filen här			                     */
+    /* Plocka fram var hjälpfilen finns			*/
     /*****************************************************/
 
     QStringList lines;
@@ -1209,7 +1237,7 @@ void frmChgFtgData::readResursFil()
 	QString line;
 	int rad = -1;
 	while ( !stream.eof() ) {
-	    line = stream.readLine(); /* line of text excluding '\n'	*/
+	    line = stream.readLine(); 			/* line of text excluding '\n'	*/
 	    rad=line.find( QRegExp("HELPFILE="), 0 );
 	    if(rad == 0){
 		hjelpfil=line;
