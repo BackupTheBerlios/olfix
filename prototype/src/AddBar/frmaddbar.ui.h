@@ -2,7 +2,7 @@
 /**		ADDBARW					*/
 /**		2003-05-28				*/
 /**		Ver 0.4.3                                                                                          */
-/**    Modified:	2006-04-13				*/
+/**    Modified:	2006-04-25				*/
 /**   Copyright	Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
@@ -27,7 +27,8 @@
 #include <qstring.h>		
 #include <qfile.h>
 #include <qregexp.h> 
-#define VERSION "0.4.3\n  2006-04-13"
+#include <qvalidator.h> 		/* 2006-04-25*/
+#define VERSION "0.4.3\n  2006-04-25"
 #define MAXSTRING 5000
 
     QProcess* process;
@@ -44,9 +45,12 @@
     QString ktoplan;
 
     QString hjelpfil;		// 2005-02-28
+    QRegExp rx1( "[A-Za-z0-9ÅÄÖåäö-]{1,22}" );	// 2006-04-25 Max antal tecken = 22
+    QRegExpValidator validator1( rx1, 0 );
     
 void frmAddBar::init()	// 2005-02-28
 {
+    LineEditBenamn->setValidator(&validator1);
     LineEditBar->setFocus();
 }   
 
@@ -88,7 +92,7 @@ void frmAddBar::slotAddBar()
 /*	Uppdatera databasen						*/
 /************************************************************************/
 	const char *userp = getenv("USER");
-            QString usr(userp);
+                QString usr(userp);
 	 arlast.append("N");
 	
 //	 qDebug("Utgående data\n %s\n %s\n %s\n %s\n %s\n %s\n %s\n %s\n %s\n",arid.latin1(),benamn.latin1(),arstart.latin1(),arslut.latin1(),arlast.latin1(),beskattar.latin1(),senverdat.latin1(),vernr.latin1(),ktoplan.latin1());
@@ -137,7 +141,7 @@ void frmAddBar::LineEditBar_returnPressed()
     arid=arid.upper();
     LineEditBar->setText((arid));
 /*    if (arid==""){
-	QMessageBox::warning( this, "ADDKTOW",
+	QMessageBox::warning( this, "ADDBARW",
                       "Bokföringsår måste fyllas i! \n" );
 	LineEditBar->setFocus();
 	    } */
@@ -147,7 +151,13 @@ void frmAddBar::LineEditBar_returnPressed()
 void frmAddBar::LineEditBenamn_returnPressed()
 {
     benamn=LineEditBenamn->text();
-    LineEditStartdatum->setFocus();
+    if (benamn.length() > 22){
+	QMessageBox::warning( this, "ADDBARW",
+                      "För många tecken! Antal tecken får vara max 22! \n" );
+	LineEditBenamn->setFocus();
+    }else{
+	LineEditStartdatum->setFocus();
+    }
 }
 
 void frmAddBar::LineEditStartdatum_returnPressed()
