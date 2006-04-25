@@ -2,8 +2,8 @@
                           BARADD.c  -  description
                              -------------------
     Version		 : 0.3
-    begin                : Tors 16 jan 2003
-    modified		 : Ons  23 feb 2005
+    begin                : Tors 16 jan   2003
+    modified		 : Tis  25 april 2006
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -27,7 +27,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BARADD.c,v 1.3 2005/02/23 11:06:43 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/BARADD.c,v 1.4 2006/04/25 12:53:00 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -50,7 +50,7 @@ void display_row();
 
 int main(int argc, char *argv[], char *envp[])
 {
-/* int i;	*/
+// int i;
   int res;
   int status;
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
@@ -73,10 +73,11 @@ int main(int argc, char *argv[], char *envp[])
   char vernr[12];
   char ktoplan[16];
 
-/*  fprintf(stderr,"BARADD: argc = %d\n",argc);
-  for (i=0;i<=argc;i++){
+/*  fprintf(stderr,"BARADD: argc = %d\n",argc);	*/
+/*  for (i=0;i<=argc;i++){
 	fprintf(stderr,"argv%d = %s\n",i,argv[i]);
-	}	*/
+	}	
+*/
 /*  fprintf(stderr,"ANTARG=%d,argv[ANTARG]=%s\n",ANTARG,argv[ANTARG]);	*/
 
 /* ================================================================================ */
@@ -116,23 +117,30 @@ int main(int argc, char *argv[], char *envp[])
 /* ================================================================================ */
 
   if (argv[1] != NULL){
-  	strncpy(arid,argv[1],sizeof(arid));	/* 2005-02-23	*/
+  	strncpy(arid,argv[1],sizeof(arid));		/* 2005-02-23	*/
   }
   else{
   	fprintf(stderr,"Error: BARADD: Ange årtal!\n");
 	exit(-1);
   }
+/*  fprintf(stderr,"BARADD: arid=%s\n",arid);		*/
 
-  strncpy(benamn,argv[2],sizeof(benamn));		/* 2005-02-23	*/
+  strncpy(benamn,argv[2],22);				/* 2006-04-25	*/
+/*  fprintf(stderr,"BARADD: benamn=%s ant tecken=%d\n",benamn,strlen(benamn));	*/
   strncpy(arstart,argv[3],sizeof(arstart));		/* 2005-02-23	*/
+/*  fprintf(stderr,"BARADD: arstart=%s\n",arstart);	*/
   strncpy(arslut,argv[4],sizeof(arslut));		/* 2005-02-23	*/
-  strncpy(arlast,argv[5],strlen(arlast));		/* 2005-02-23	*/
+/*  fprintf(stderr,"BARADD: arslut=%s\n",arslut);	*/
+  strncpy(arlast,argv[5],sizeof(arlast));		/* 2005-02-23	*/
+/*  fprintf(stderr,"BARADD: arlast=%s\n",arlast);	*/
   strncpy(beskattar,argv[6],sizeof(beskattar));		/* 2005-02-23	*/
   strncpy(senverdat,argv[7],sizeof(senverdat));		/* 2005-02-23	*/
   strncpy(vernr,argv[8],sizeof(vernr));			/* 2005-02-23	*/
+/*  fprintf(stderr,"BARADD: vernr=%s\n",vernr);		*/
   strncpy(ktoplan,argv[9],sizeof(ktoplan));		/* 2005-02-23	*/
 
   strncpy(temp5,temp1a,strlen(temp1a));
+/*  fprintf(stderr,"BARADD: temp5=%s\n",temp5);		*/
 /* INSERT INTO BOKFAR(ARID,BENAMNING,ARSTART,ARSLUT,ARLAST,BESKATTNINGSAR,SENVERDAT,VERNR,KONTOPLAN) VALUES (   */
   strncat(temp5,temp2,strlen(temp2));
 /* INSERT INTO BOKFAR(ARID,BENAMNING,ARSTART,ARSLUT,ARLAST,BESKATTNINGSAR,SENVERDAT,VERNR,KONTOPLAN) VALUES ("  */
@@ -192,7 +200,7 @@ int main(int argc, char *argv[], char *envp[])
 /* INSERT INTO BOKFAR(ARID,BENAMNING,ARSTART,ARSLUT,ARLAST,BESKATTNINGSAR,SENVERDAT,VERNR,KONTOPLAN) VALUES ("AC","2003-01-01--2003-12-31",
 "2003-01-01","2003-12-31","N","2003","0000-00-00","987124","EUBAS97" */
 
-/*  fprintf(stderr,"BARADDmain: temp5 = %s\n",temp5);	*/
+  fprintf(stderr,"BARADDmain: temp5 = %s\n",temp5);	
 
   mysql_init(&my_connection);
   if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
