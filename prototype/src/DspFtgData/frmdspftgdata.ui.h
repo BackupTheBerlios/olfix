@@ -2,7 +2,7 @@
 /**		DSPFTGW					*/
 /**		Version: 0.7 				*/
 /**		20003-08-14				*/
-/**		Modifierad: 2006-04-22			*/
+/**		Modifierad: 2006-04-29			*/
 /**		Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
@@ -50,7 +50,7 @@ void frmDspFtgData::init()
 void frmDspFtgData::slotGetFtgData(QString posttyp)
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
+	QString usr(userp);
 
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
@@ -271,7 +271,15 @@ void frmDspFtgData::slotEndOfProcess()
      i = posttyp.find( QRegExp("OFFNR"), 0 );
     if (i != -1){
 	slotGetOFFNR();
+    }
+    i = posttyp.find( QRegExp("BGNR"), 0 );
+    if (i != -1){
+	slotGetBGNR();
     }    
+    i = posttyp.find( QRegExp("PGNR"), 0 );
+    if (i != -1){
+	slotGetPGNR();
+    }        
 }
 
 void frmDspFtgData::slotGetFNAMN()
@@ -973,5 +981,45 @@ void frmDspFtgData::slotGetOFFNR()
     offnr = inrad.mid(k+2,m-2);
     lineEditOFFERTNR->setText(offnr);   
     inrad="";
-//    slotGetFtgData("INKTO");    
+    slotGetFtgData("BGNR");    
+}
+
+void frmDspFtgData::slotGetBGNR()
+{
+//	Bankgironummer
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString bgnr;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    bgnr = inrad.mid(k+2,m-2);
+    LineEditBankgironr->setText(bgnr);   
+    inrad="";
+    slotGetFtgData("PGNR");    
+}
+
+void frmDspFtgData::slotGetPGNR()
+{
+//	Postgironummer
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString pgnr;	
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+    m = inrad.length();
+    pgnr = inrad.mid(k+2,m-2);
+    LineEditPostgironr->setText(pgnr);   
+    inrad="";
+//    slotGetFtgData("PGNR");    
 }

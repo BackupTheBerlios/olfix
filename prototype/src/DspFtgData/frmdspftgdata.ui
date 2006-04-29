@@ -20,64 +20,6 @@
     <property name="caption">
         <string>DSPFTGW - Visa företagsdata</string>
     </property>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditFtgNamn</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>100</x>
-                <y>10</y>
-                <width>290</width>
-                <height>25</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel1</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>5</x>
-                <y>15</y>
-                <width>93</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Företagsnamn:</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel11</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>402</x>
-                <y>15</y>
-                <width>107</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Organisationsnr:</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditFtgNr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>515</x>
-                <y>10</y>
-                <width>191</width>
-                <height>25</height>
-            </rect>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>TextLabel12</cstring>
@@ -107,19 +49,6 @@
             </rect>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditPostAdress</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>100</x>
-                <y>70</y>
-                <width>211</width>
-                <height>25</height>
-            </rect>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>textLabel1</cstring>
@@ -138,19 +67,6 @@
     </widget>
     <widget class="QLineEdit">
         <property name="name">
-            <cstring>LineEditGodsOrt</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>515</x>
-                <y>129</y>
-                <width>191</width>
-                <height>25</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
             <cstring>LineEditMoms4</cstring>
         </property>
         <property name="geometry">
@@ -160,51 +76,6 @@
                 <width>46</width>
                 <height>22</height>
             </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditPostnr3</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>396</x>
-                <y>129</y>
-                <width>80</width>
-                <height>25</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel6</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>485</x>
-                <y>74</y>
-                <width>25</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Ort:</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel4_2</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>315</x>
-                <y>104</y>
-                <width>74</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Postnummer:</string>
         </property>
     </widget>
     <widget class="QLineEdit">
@@ -290,51 +161,6 @@
             <enum>Horizontal</enum>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditTfnnr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>100</x>
-                <y>169</y>
-                <width>116</width>
-                <height>26</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel3</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>3</x>
-                <y>104</y>
-                <width>95</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Besöksadress:</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel5</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>5</x>
-                <y>130</y>
-                <width>90</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Godsadress:</string>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>TextLabel15</cstring>
@@ -351,19 +177,6 @@
             <string>Momssats 4:</string>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEdit1Telex</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>590</x>
-                <y>199</y>
-                <width>116</width>
-                <height>26</height>
-            </rect>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>textLabel2</cstring>
@@ -378,35 +191,6 @@
         </property>
         <property name="text">
             <string>Automatkontering J/N :</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditGodsAdress</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>100</x>
-                <y>129</y>
-                <width>211</width>
-                <height>25</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel4_3</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>315</x>
-                <y>134</y>
-                <width>74</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Postnummer:</string>
         </property>
     </widget>
     <widget class="QLabel">
@@ -427,48 +211,6 @@
     </widget>
     <widget class="QLabel">
         <property name="name">
-            <cstring>TextLabel6_3</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>485</x>
-                <y>134</y>
-                <width>25</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Ort:</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditTelefax</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>590</x>
-                <y>169</y>
-                <width>116</width>
-                <height>26</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditBesoksAdress</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>100</x>
-                <y>99</y>
-                <width>211</width>
-                <height>25</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
             <cstring>textLabel1_2</cstring>
         </property>
         <property name="geometry">
@@ -481,54 +223,6 @@
         </property>
         <property name="text">
             <string>Momskonto, utgående moms: .......</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel9</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>5</x>
-                <y>204</y>
-                <width>90</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>e-mailadress:</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel8</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>225</x>
-                <y>170</y>
-                <width>75</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Mobiltelefon:</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel10</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>530</x>
-                <y>204</y>
-                <width>55</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Telex:</string>
         </property>
     </widget>
     <widget class="QLineEdit">
@@ -546,19 +240,6 @@
     </widget>
     <widget class="QLineEdit">
         <property name="name">
-            <cstring>LineEditMobilTfn</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>305</x>
-                <y>169</y>
-                <width>125</width>
-                <height>26</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
             <cstring>LineEditMoms2</cstring>
         </property>
         <property name="geometry">
@@ -567,19 +248,6 @@
                 <y>244</y>
                 <width>46</width>
                 <height>22</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditemailadress</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>100</x>
-                <y>199</y>
-                <width>330</width>
-                <height>25</height>
             </rect>
         </property>
     </widget>
@@ -599,112 +267,6 @@
             <string>Momssats 2:</string>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditBesoksOrt</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>515</x>
-                <y>99</y>
-                <width>191</width>
-                <height>25</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditPostOrt</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>515</x>
-                <y>69</y>
-                <width>191</width>
-                <height>25</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel7</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>3</x>
-                <y>170</y>
-                <width>98</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Telefonnummer:</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditPostnr1</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>396</x>
-                <y>70</y>
-                <width>80</width>
-                <height>25</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="Line">
-        <property name="name">
-            <cstring>Line1</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>159</y>
-                <width>696</width>
-                <height>10</height>
-            </rect>
-        </property>
-        <property name="frameShape">
-            <enum>HLine</enum>
-        </property>
-        <property name="frameShadow">
-            <enum>Sunken</enum>
-        </property>
-        <property name="orientation">
-            <enum>Horizontal</enum>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel2</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>5</x>
-                <y>74</y>
-                <width>90</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Postadress:</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditPostnr2</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>396</x>
-                <y>99</y>
-                <width>80</width>
-                <height>25</height>
-            </rect>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>TextLabel14</cstring>
@@ -719,83 +281,6 @@
         </property>
         <property name="text">
             <string>Momssats 3:</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel8_2</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>530</x>
-                <y>174</y>
-                <width>55</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Telefax:</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel6_2</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>485</x>
-                <y>104</y>
-                <width>25</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Ort:</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel4</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>315</x>
-                <y>70</y>
-                <width>74</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Postnummer:</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditBranschkod</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>515</x>
-                <y>40</y>
-                <width>191</width>
-                <height>25</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel1_3</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>405</x>
-                <y>45</y>
-                <width>105</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Branschkod: </string>
         </property>
     </widget>
     <widget class="QLabel">
@@ -1111,6 +596,579 @@ Serie 2</string>
             </rect>
         </property>
     </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>15</y>
+                <width>93</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Företagsnamn:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditFtgNamn</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>10</y>
+                <width>290</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel11</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>402</x>
+                <y>15</y>
+                <width>107</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Organisationsnr:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditFtgNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>515</x>
+                <y>10</y>
+                <width>191</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditBranschkod</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>515</x>
+                <y>30</y>
+                <width>191</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>405</x>
+                <y>35</y>
+                <width>105</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Branschkod: </string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditPostOrt</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>515</x>
+                <y>50</y>
+                <width>191</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel6</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>485</x>
+                <y>55</y>
+                <width>25</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Ort:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditPostnr1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>395</x>
+                <y>50</y>
+                <width>80</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditPostAdress</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>50</y>
+                <width>211</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>55</y>
+                <width>90</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Postadress:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditBesoksOrt</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>515</x>
+                <y>70</y>
+                <width>191</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel6_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>485</x>
+                <y>75</y>
+                <width>25</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Ort:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditPostnr2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>395</x>
+                <y>70</y>
+                <width>80</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditPostnr3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>395</x>
+                <y>90</y>
+                <width>80</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel4_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>315</x>
+                <y>75</y>
+                <width>76</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Postnummer:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel4</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>315</x>
+                <y>55</y>
+                <width>76</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Postnummer:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel4_3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>315</x>
+                <y>95</y>
+                <width>76</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Postnummer:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditGodsOrt</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>515</x>
+                <y>90</y>
+                <width>191</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel6_3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>485</x>
+                <y>95</y>
+                <width>25</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Ort:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditBesoksAdress</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>70</y>
+                <width>211</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>75</y>
+                <width>95</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Besöksadress:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditGodsAdress</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>90</y>
+                <width>211</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel5</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>95</y>
+                <width>90</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Godsadress:</string>
+        </property>
+    </widget>
+    <widget class="Line">
+        <property name="name">
+            <cstring>Line1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>115</y>
+                <width>696</width>
+                <height>10</height>
+            </rect>
+        </property>
+        <property name="frameShape">
+            <enum>HLine</enum>
+        </property>
+        <property name="frameShadow">
+            <enum>Sunken</enum>
+        </property>
+        <property name="orientation">
+            <enum>Horizontal</enum>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditMobilTfn</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>305</x>
+                <y>125</y>
+                <width>125</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel8</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>225</x>
+                <y>130</y>
+                <width>75</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Mobiltelefon:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel7</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>130</y>
+                <width>98</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Telefonnummer:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditemailadress</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>105</x>
+                <y>145</y>
+                <width>325</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel9</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>150</y>
+                <width>90</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>e-mailadress:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditTfnnr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>105</x>
+                <y>125</y>
+                <width>116</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1_7</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>180</y>
+                <width>96</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Bankgironummer:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2_4</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>200</y>
+                <width>101</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Postgironummer:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditBankgironr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>105</x>
+                <y>175</y>
+                <width>116</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditPostgironr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>105</x>
+                <y>195</y>
+                <width>116</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditTelefax</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>590</x>
+                <y>125</y>
+                <width>116</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEdit1Telex</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>590</x>
+                <y>145</y>
+                <width>116</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel8_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>530</x>
+                <y>130</y>
+                <width>55</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Telefax:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel10</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>530</x>
+                <y>150</y>
+                <width>55</width>
+                <height>15</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Telex:</string>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
@@ -1193,6 +1251,8 @@ Serie 2</string>
     <slot>slotGetKFKTO()</slot>
     <slot>slotGetINKTO()</slot>
     <slot>slotGetOFFNR()</slot>
+    <slot>slotGetBGNR()</slot>
+    <slot>slotGetPGNR()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
