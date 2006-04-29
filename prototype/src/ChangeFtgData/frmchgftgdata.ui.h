@@ -276,6 +276,14 @@ void frmChgFtgData::slotEndOfProcess()
     if (i != -1){
 	slotGetOFFNR();
     } 
+    i = posttyp.find( QRegExp("BGNR"), 0 );
+    if (i != -1){
+	slotGetBGNR();
+    } 
+    i = posttyp.find( QRegExp("PGNR"), 0 );
+    if (i != -1){
+	slotGetPGNR();
+    } 
 }
 
 void frmChgFtgData::slotGetFNAMN()
@@ -1001,10 +1009,50 @@ void frmChgFtgData::slotGetOFFNR()
 //    qDebug("posttyp=%s",posttyp.latin1());   
     m = inrad.length();
     offnr = inrad.mid(k+2,m-2);
-//    qDebug("moms5=%s",moms5.latin1());
     lineEditOFFERTNR->setText(offnr);    
     inrad="";
-//    slotGetFtgData("OFFNR");
+    slotGetFtgData("BGNR");
+}
+
+void frmChgFtgData::slotGetBGNR()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString bgnr;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    bgnr = inrad.mid(k+2,m-2);
+    LineEditBankgiro->setText(bgnr);    
+    inrad="";
+    slotGetFtgData("PGNR");
+}
+
+void frmChgFtgData::slotGetPGNR()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString pgnr;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    pgnr = inrad.mid(k+2,m-2);
+//    qDebug("moms5=%s",moms5.latin1());
+    LineEditPostgiro->setText(pgnr);    
+    inrad="";
+//    slotGetFtgData("PGNR");
 }
 
 void frmChgFtgData::changeFtgData()
@@ -1168,6 +1216,16 @@ void frmChgFtgData::changeFtgData()
     offnr=offnr.stripWhiteSpace();
     if ( lineEditOFFERTNR->edited() ) {
 	frmChgFtgData::updateFtgData( "OFFNR",offnr );
+    }
+    QString bgnr=LineEditBankgiro->text();			// OFFNR
+    bgnr=bgnr.stripWhiteSpace();
+    if ( LineEditBankgiro->edited() ) {
+	frmChgFtgData::updateFtgData( "BGNR",bgnr );
+    }
+    QString pgnr=LineEditPostgiro->text();			// OFFNR
+    pgnr=pgnr.stripWhiteSpace();
+    if ( LineEditPostgiro->edited() ) {
+	frmChgFtgData::updateFtgData( "PGNR",bgnr );
     }
     slotGetFtgData("FNAMN");					// läs in data igen, från början(FNAMN) .
     PushButtonOK->setFocus(); 

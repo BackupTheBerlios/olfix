@@ -10,6 +10,8 @@
 "ADR8","Postnr till Godsadress"
 "ADR9","Ort till Godsadress"
 "AUTOK","Automatkontering J/N?
+"BGNR","Bankgironummer"
+"PGNR","Postgironummer"
 "TFNVX","Telefonnummer till vx"
 "TFN1","Telefonnummer"
 "TFN2","Mobiltelefonnummer"
@@ -33,7 +35,7 @@
 "KFKTO","Konto för kundfordringar"
 "SNIKD","Branschtillhörighet"
 "SKUNR","Senast använda kundnummer"
-"WKUNR","Senast använda webbkundnummer"
+"OFFNR","Senast använda offertnummer"
 "BF1","Bokföringsperiod 1"
 "BF2","Bokföringsperiod 2"
 "BF3","Bokföringsperiod 3"
