@@ -8,17 +8,18 @@
 /***************************************************************************
                           CHGKTOW  -  description
                              -------------------
-		     version 0.02
-    begin                : Lör 7 juni 2003
-    copyright            : (C) 2003 by Jan Pihlgren
-    email                : jan@pihlgren.se
+		     version 0.4.3
+    begin                	: Lör 7 juni 2003
+    Modified		: Sön 30 april 2006
+    copyright            	: (C) 2003 by Jan Pihlgren
+    email                	: jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
- *					                                                 *
+ *					                                            *
  *   This program is free software; you can redistribute it and/or modify 	 *
- *   it under the terms of the GNU General Public License as published by       *
+ *   it under the terms of the GNU General Public License as published by       	 *
  *   the Free Software Foundation; either version 2 of the License, or     	 *
- *   (at your option) any later version.                                   		 *
+ *   (at your option) any later version.                                   		 	 *
  *                                                                         				 *
  *********************************************** *****************/
 #include <qmessagebox.h>
@@ -51,7 +52,7 @@ void frmChgKonto::slotChgKonto()
 /*	Uppdatera databasen						*/
 /************************************************************************/
 	const char *userp = getenv("USER");
-            QString usr(userp);
+	QString usr(userp);
 
 	inrad="";
 	errorrad="";
@@ -73,7 +74,7 @@ void frmChgKonto::slotChgKonto()
 	
 	frmChgKonto::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotPutDataOnStderr() ) );
 	frmChgKonto::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotPutDataOnStdout() ) );
-            frmChgKonto::connect( process, SIGNAL(processExited() ),this, SLOT(slotPutEndOfProcess() ) );	   
+	frmChgKonto::connect( process, SIGNAL(processExited() ),this, SLOT(slotPutEndOfProcess() ) );	   
 
 	if (manuell == ""){
 	    manuell.append("J");
@@ -88,7 +89,6 @@ void frmChgKonto::slotChgKonto()
 //	    qWarning(" Startar Addkonto 2");
 	    if ( !process->start() ) {
 		// error handling
-		fprintf(stderr,"Problem starta STYRMAN/KTOCHG!\n");
 		QMessageBox::warning( this, "CHGKTOW",
                             "Kan inte starta STYRMAN/KTOCHG! \n" );
 	    }
@@ -100,29 +100,27 @@ void frmChgKonto::LineEditBar_returnPressed()
     arid=LineEditBar->text();
     arid=arid.upper();
     LineEditBar->setText((arid));
-    if (arid==""){
-	QMessageBox::warning( this, "CHGKTOW",
-                      "Bokföringsår måste fyllas i! \n" );
-	LineEditBar->setFocus();
-	    }
+    LineEditKontoNr->setFocus();
 }
 
 void frmChgKonto::LineEditKontoNr_returnPressed()
 {
     ktonr=LineEditKontoNr->text();
-    if (ktonr != ""){
-            PushButtonGet->setFocus();
-    }
-    else{
+    if (arid != "" && ktonr != ""){
+	frmChgKonto::slotGetKonto();
+	LineEditBenamn->setFocus();
+    }else{
 	QMessageBox::warning( this, "CHGKTOW",
-                      "Kontonummer måste fyllas i! \n" );
-	LineEditKontoNr->setFocus();
-	    }
+                      "Både Bokföringsår och Kontonummer måste fyllas i! \n" );
+	LineEditBar->setFocus();
+	return;
+    }
 }
 
 void frmChgKonto::LineEditBenamn_returnPressed()
 {
     benamn=LineEditBenamn->text();
+    LineEditManuell->setFocus();
 }
 
 void frmChgKonto::LineEditManuell_returnPressed()
@@ -131,7 +129,9 @@ void frmChgKonto::LineEditManuell_returnPressed()
     if (manuell == ""){
 	manuell.append("J");
 	LineEditManuell->setText((manuell));
+	return;
      }
+    LineEditMomskod->setFocus();
 }
 
 void frmChgKonto::LineEditMomskod_returnPressed()
@@ -141,8 +141,9 @@ void frmChgKonto::LineEditMomskod_returnPressed()
 	QMessageBox::warning( this, "CHGKTOW",
                       "Momskod måste fyllas i! \n" );
 	LineEditMomskod->setFocus();
-	    }
-
+	return;
+    }
+    LineEditSRU->setFocus();
 }
 
 void frmChgKonto::LineEditSRU_returnPressed()
@@ -152,18 +153,21 @@ void frmChgKonto::LineEditSRU_returnPressed()
 	QMessageBox::warning( this, "CHGKTOW",
                       "SRUnummer måste fyllas i! \n" );
 	LineEditSRU->setFocus();
-	    }    
-
+	return;
+    }    
+    LineEditKst->setFocus();
 }
 
 void frmChgKonto::LineEditKst_returnPressed()
 {
     kst=LineEditKst->text();
+    LineEditProjekt->setFocus();
 }
 
 void frmChgKonto::LineEditProjekt_returnPressed()
 {
     projekt=LineEditProjekt->text();
+    LineEditSubkonto->setFocus();
 }
 
 void frmChgKonto::LineEditSubkonto_returnPressed()
@@ -178,8 +182,9 @@ void frmChgKonto::LineEditKontoplan_returnPressed()
 	QMessageBox::warning( this, "CHGKTOW",
                       "Kontoplan måste fyllas i! \n" );
 	LineEditKontoplan->setFocus();
-	    }
-
+	return;
+    }
+   PushButtonOK->setFocus();
 }
 
 void frmChgKonto::PushButtonOK_clicked()
@@ -391,7 +396,7 @@ void frmChgKonto::slotGetKonto()
 /*	Hämta uppgifter från databasen					*/
 /************************************************************************/
 	const char *userp = getenv("USER");
-            QString usr(userp);
+	QString usr(userp);
 
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
@@ -420,7 +425,6 @@ void frmChgKonto::slotGetKonto()
 
 }
 
-
 void frmChgKonto::PushButtonGet_clicked()
 {
     arid=LineEditBar->text();
@@ -431,7 +435,6 @@ void frmChgKonto::PushButtonGet_clicked()
     LineEditKontoNr->setEnabled(FALSE);
     frmChgKonto::slotGetKonto();
 }
-
 
 void frmChgKonto::PushButtonGet_returnPressed()
 {
