@@ -1,9 +1,9 @@
 /***************************************************************************
                           KTOVIEW.c  -  description
                              -------------------
-    Version		 : 0.2
+    Version		 : 0.4.3
     begin                : Tors 28 nov  2002
-    modified		 : Tors 24 febr 2005
+    modified		 : Sönd 30 april 2006
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -25,7 +25,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTOVIEW.c,v 1.3 2005/02/24 05:43:30 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KTOVIEW.c,v 1.4 2006/04/30 05:47:50 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -129,7 +129,7 @@ int main(int argc, char *argv[], char *envp[])
 
   if (res){
 	fprintf(stderr,"Error: KTOVIEW SELECT error: %s\n",mysql_error(&my_connection));
-        }else{
+  }else{
 	res_ptr=mysql_store_result(&my_connection);
 	if (res_ptr){
 		i=1;
@@ -141,9 +141,12 @@ int main(int argc, char *argv[], char *envp[])
 				display_row();
 				i++;
 			}
-		}
-		else{
-			fprintf(stderr,"Error: KTOVIEW Felaktigt årtal!\n");
+		}else{
+			if ((unsigned long)mysql_num_rows(res_ptr) == 0){
+				fprintf(stdout,"VARNING: KTOVIEW. Det finns inga poster!\n");
+			}else{
+				fprintf(stderr,"Error: KTOVIEW Felaktigt årtal!\n");
+			}
 		}
 
 	if (mysql_errno(&my_connection))  {
