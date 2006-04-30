@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>frmListKonto</class>
 <widget class="QWidget">
     <property name="name">
@@ -41,22 +41,6 @@
     <property name="caption">
         <string>LSTKTOW  Lista konton</string>
     </property>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonSluta</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>240</y>
-                <width>70</width>
-                <height>30</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Sluta</string>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>TextLabel1</cstring>
@@ -111,8 +95,35 @@
                 <height>30</height>
             </rect>
         </property>
+        <property name="font">
+            <font>
+                <pointsize>9</pointsize>
+            </font>
+        </property>
         <property name="text">
             <string>Uppdatera</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonSluta</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>240</y>
+                <width>70</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avbryt</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
         </property>
     </widget>
     <widget class="QPushButton">
@@ -166,18 +177,29 @@
         <receiver>frmListKonto</receiver>
         <slot>slotReloadKonto()</slot>
     </connection>
+    <connection>
+        <sender>LineEditBar</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmListKonto</receiver>
+        <slot>slotLineEditBarEntered()</slot>
+    </connection>
 </connections>
 <includes>
     <include location="local" impldecl="in implementation">frmlistkonto.ui.h</include>
 </includes>
 <slots>
+    <slot>slotLineEditBarEntered()</slot>
     <slot>PushButtonLista_clicked()</slot>
+    <slot>getLista()</slot>
     <slot>slotDataOnStdout()</slot>
     <slot>slotEndOfProcess()</slot>
-    <slot>slotLineEditBarEntered()</slot>
-    <slot access="protected">init()</slot>
     <slot>slotDataOnStderr()</slot>
     <slot>slotReloadKonto()</slot>
+    <slot>checkBokforar()</slot>
+    <slot>slotEndOfBarcheckProcess()</slot>
 </slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
