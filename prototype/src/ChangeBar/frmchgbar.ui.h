@@ -2,7 +2,7 @@
 /**		CHGBARW					*/
 /**		2003-06-06				*/
 /**		Version: 0.4.3				*/
-/**		Modifierad: 2006-04-11			*/
+/**		Modifierad: 2006-04-30			*/
 /**		Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
@@ -54,9 +54,10 @@ void frmChgBar::LineEditBar_returnPressed()
 {
     arid="";
     arid=LineEditBar->text();
+    arid=arid.stripWhiteSpace();
     arid=arid.upper();
     LineEditBar->setText((arid));
-    if(arid!=""){
+    if(arid != ""){
 	frmChgBar::slotGetBar();
     }else{
 	LineEditBar->setFocus();
@@ -69,7 +70,7 @@ void frmChgBar::slotChgBar()
 /*	Uppdatera databasen						*/
 /************************************************************************/
 	const char *userp = getenv("USER");
-            QString usr(userp);
+	QString usr(userp);
 	 arlast.append("N");
 	 
 //	 qDebug("Utgående data\n %s\n %s\n %s\n %s\n %s\n %s\n %s\n %s\n %s\n",arid.latin1(),benamn.latin1(),arstart.latin1(),arslut.latin1(),arlast.latin1(),beskattar.latin1(),senverdat.latin1(),vernr.latin1(),ktoplan.latin1());
@@ -90,7 +91,7 @@ void frmChgBar::slotChgBar()
 	
 	frmChgBar::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmChgBar::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-            frmChgBar::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );	   
+	frmChgBar::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );	   
 
 	if (vernr == ""){
 	    vernr.append("1");
@@ -202,43 +203,44 @@ void frmChgBar::slotEndOfProcess()
     int i=-1;
     int j=-1;
     
-    qDebug("inrad=%s",inrad.latin1());
-            i = -1;
-            i = errorrad.find( QRegExp("Error:"), 0 );
-	qDebug("frmChgBar-inrad=%s i=%d\n",errorrad.latin1(),i);
-            if (i == 0) {
-		QMessageBox::critical( this, "OLFIX - BARCHG",
-			"ERROR!\n"+errorrad 
-		);
-	            errorrad="";
-		i = -1;
-	    }
+//    qDebug("inrad=%s",inrad.latin1());
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+//	qDebug("frmChgBar-inrad=%s i=%d\n",errorrad.latin1(),i);
+    if (i == 0) {
+	QMessageBox::critical( this, "OLFIX - BARCHG",
+		"ERROR!\n"+errorrad 
+	);
+	errorrad="";
+	i = -1;
+    }
+    j = -1;
+    j = errorrad.find( QRegExp("BARCHG INSERT error:"), 0 );
+    if(j == 0){
+	QMessageBox::information( this, "BARCHG - Error!",
+		"Felaktigt  bokföringsår \n" 
+	);
+	errorrad="";
 	j = -1;
-	j = errorrad.find( QRegExp("BARCHG INSERT error:"), 0 );
-            if(j == 0){
-		QMessageBox::information( this, "BARCHG - Error!",
-			"Felaktigt  bokföringsår \n" 
-		);
-		errorrad="";
-		j = -1;
-	    }
-            i = -1;
-	i = inrad.find( QRegExp("OK:"), 0 );  
-            if(i == 0){
-		QMessageBox::information( this, "BARCHG",
-			"Uppdatering OK!\n" 
-		);
-	    LineEditBar->clear();
-	    LineEditBenamn->clear();
-	    LineEditStartdatum->clear();
-	    LineEditSlutdatum->clear();
-	    LineEditBeskattAr->clear();
+    }
+    i = -1;
+    i = inrad.find( QRegExp("OK:"), 0 );  
+    if(i == 0){
+	QMessageBox::information( this, "BARCHG",
+		"Uppdatering OK!\n" 
+	);
+    LineEditBar->clear();
+    LineEditBenamn->clear();
+    LineEditStartdatum->clear();
+    LineEditSlutdatum->clear();
+    LineEditBeskattAr->clear();
 //	    LineEditNestaVerNr->clear();
-	    LineEditKontoplan->clear();
-	    arlast=("");
-	    inrad="";
-	    i = -1;
-    	    }
+    LineEditKontoplan->clear();
+    arlast=("");
+    inrad="";
+    i = -1;
+   }
+    PushButtonQuit->setFocus();
 }
 
 
