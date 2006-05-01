@@ -1,16 +1,16 @@
 /****************************************************************/
 /**		ADDFTGW					*/
-/**		2003-08-15					*/
-/**		Version: 0.2					*/
-/**		Modifierad: 2004-11-18				*/
-/**		Jan Pihlgren	jan@pihlgren.se			*/
+/**		2003-08-15				*/
+/**		Version: 0.4.3				*/
+/**		Modifierad: 2006-05-01			*/
+/**		Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
- *					                                                 *
+ *					                                            *
  *   This program is free software; you can redistribute it and/or modify 	 *
- *   it under the terms of the GNU General Public License as published by       *
+ *   it under the terms of the GNU General Public License as published by       	 *
  *   the Free Software Foundation; either version 2 of the License, or     	 *
- *   (at your option) any later version.                                   		 *
+ *   (at your option) any later version.                                   		 	 *
  *                                                                         				 *
  *********************************************** *****************/
 
@@ -54,6 +54,7 @@
     QString telefax;
     QString email;
     QString telex;
+    QString momsnr;		// 2006-05-01
     QString moms1;
     QString moms2;
     QString moms3;
@@ -62,6 +63,8 @@
     QString momsin;
     QString momsut;
     QString autokonto;	// automatkontering J/N
+    QString bgnr;		// 2006-05-01
+    QString pgnr;		// 2006-05-01
 
 void frmAddFtgData::init()
 {
@@ -204,6 +207,12 @@ void frmAddFtgData::slotLineEditMoms5_returnPressed()
 void frmAddFtgData::slotlineEditMomsKtoIng_returnPressed()
 {
     momsin = lineEditMomsKtoIng->text();
+    LineEditMomsnr->setFocus();
+}
+
+void frmAddFtgData::slotLineEditMomsnr_returnPressed()
+{
+    momsnr = LineEditMomsnr->text();
     lineEditMomsKtoUtg->setFocus();
 }
 
@@ -218,6 +227,18 @@ void frmAddFtgData::slotlineEditAutokonto_returnPressed()
     autokonto = lineEditAutokonto->text();
     autokonto=autokonto.upper();
     lineEditAutokonto->setText((autokonto));
+    lineEditBgnr->setFocus();
+}
+
+void frmAddFtgData::slotlineEditBgnr_returnPressed()
+{
+    bgnr = lineEditBgnr->text();
+    lineEditPgnr->setFocus();
+}
+
+void frmAddFtgData::slotlineEditPgnr_returnPressed()
+{
+    pgnr = lineEditPgnr->text();
     PushButtonOK->setFocus();
 }
 
@@ -243,6 +264,7 @@ void frmAddFtgData::slotPushButtonOK_clicked()
     slotUpdateFtgdata("TELEX",telex);
     slotUpdateFtgdata("EML1",email);
     
+    slotUpdateFtgdata("MNR",momsnr);		//2006-05-01
     slotUpdateFtgdata("MOMS1",moms1);
     slotUpdateFtgdata("MOMS2",moms2);
     slotUpdateFtgdata("MOMS3",moms3);
@@ -273,7 +295,7 @@ void frmAddFtgData::slotUpdateFtgdata(QString posttyp, QString ftgdata)
 
 	frmAddFtgData::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmAddFtgData::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-            frmAddFtgData::connect( process, SIGNAL(processExited() ),this, SLOT(slotUpdateEndOfProcess() ) );
+	frmAddFtgData::connect( process, SIGNAL(processExited() ),this, SLOT(slotUpdateEndOfProcess() ) );
 	if (posttyp == "" ){
     	    QMessageBox::warning( this, "ADDFTGW",
                       "Posttyp saknas! \n" );
@@ -281,7 +303,6 @@ void frmAddFtgData::slotUpdateFtgdata(QString posttyp, QString ftgdata)
 	else {
 	    if ( !process->start() ) {
 		// error handling
-		fprintf(stderr,"Problem starta STYRMAN/FTGUPD!\n");
 		QMessageBox::warning( this, "ADDFTGW",
                             "Kan inte starta STYRMAN/FTGUPD! \n" );
 	    }
@@ -347,8 +368,8 @@ void frmAddFtgData::slotGetFtgdata()
 
 	frmAddFtgData::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmAddFtgData::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-            frmAddFtgData::connect( process, SIGNAL(processExited() ),this, SLOT(slotGetEndOfProcess() ) );
-            if ( !process->start() ) {
+	frmAddFtgData::connect( process, SIGNAL(processExited() ),this, SLOT(slotGetEndOfProcess() ) );
+	if ( !process->start() ) {
 		// error handling
 		fprintf(stderr,"Problem starta STYRMAN/FTGLIS!\n");
 		QMessageBox::warning( this, "ADDFTGW",
@@ -505,6 +526,13 @@ void frmAddFtgData::slotGetEndOfProcess()
 		telex = inrad.mid(i+7,m);
 		LineEditTelex->setText((telex));
 	    }
+	    i = inrad.find( QRegExp("MNR_:"), 0 );
+	    if (i != -1) {
+		j = inrad.find( QRegExp("_:"), i+7 );
+		m = j - (i + 7);
+		momsnr = inrad.mid(i+7,m);
+		LineEditMomsnr->setText((momsnr));
+	    }	    
 	    i = inrad.find( QRegExp("MOMS1_:"), 0 );
 	    if (i != -1) {
 		j = inrad.find( QRegExp("_:"), i+7 );
@@ -560,7 +588,22 @@ void frmAddFtgData::slotGetEndOfProcess()
 		m = j - (i + 7);
 		autokonto = inrad.mid(i+7,m);
 		lineEditAutokonto->setText((autokonto));
+	    }
+	    i = inrad.find( QRegExp("BGNR_:"), 0 );
+	    if (i != -1) {
+		j = inrad.find( QRegExp("_:"), i+7 );
+		m = j - (i + 7);
+		bgnr = inrad.mid(i+7,m);
+		lineEditBgnr->setText((bgnr));
 	    }	    
+	    i = inrad.find( QRegExp("PGNR_:"), 0 );
+	    if (i != -1) {
+		j = inrad.find( QRegExp("_:"), i+7 );
+		m = j - (i + 7);
+		pgnr = inrad.mid(i+7,m);
+		lineEditPgnr->setText((pgnr));
+	    }	    
+	    
 	    inrad="";
 	    errorrad="";
 	}    
