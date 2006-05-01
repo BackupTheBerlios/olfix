@@ -1,9 +1,74 @@
-Changelog OLFIX 20060326
+Changelog OLFIX 20060501
 
-Blivande
+________________________________________________________
+Ver 0.4.3.B
+2006-05-01
+		Allmännt
+		Med denna version påbörjas utveckling av offerthantering.
+		Den är långtifrån klar. Dokumentationen ha inte hunits med.
+		En hel del jobb har behövt läggas ner på buggrättning. :-)
+
+		Nya program
+		ADDOFFW	Registrera offert.
+		DSPOFFW	Visa en offert.
+
+		Nya funktioner
+		OFFADD.c	Nytt offerthuvud
+		OFFRADD.c	Ny offertrad
+		OFFDSP.c	Visa en offert, offerthuvud
+		OFFRDSP.c	Visa en offert, offertrader
+		OFFLST.c	Lista offerter.
+
+		Ändrad funktion
+		BARADD.c	Begränsat antal tecken i Benämning till 22
+		KTOVIEW.c	Ändrat felmeddelande.				(0027)
+
+		Ny tabell
+		OFFERTREG	Avsedd för ny funktion, offerthantering
+		OFFERTRADREG	Avsedd för ny funktion, offerthantering
+
+		Ändrade tabeller
+		KUNDREG	Fältet POSTNR utökat från 6 till 10 tecken.	(0030)
+		KUNDREG Lagt till fältet PRISLISTA	(0029)
+
+		Ändrade program
+		LSTTXTW Rättat hjälpknappen samt uppdaterat hjälpinfo.(0011)
+		CHGBARW Lagt till Hjälpknapp samt uppdaterat hjälpinfo. (0012)
+			Lagt till bortskalande av ev mellanslag i "Bokföringsår"(arid)(0026)
+			Tagit bort tabordning till Hjälpknappen			      (0026)
+		ADDFNC	Lagt till Hjälpknapp samt uppdaterat hjälpinfo.(0013)
+			Lagt in TAB-funktion.
+		DSPKUW	Ändrat fontstorlek från 10 pkt till 9 pkt. (0014)
+		ADDBARW	Buggrättning mm (0016)
+		CHGKUW	Ändrat fontstorlek från 10 pkt till 9 pkt. (0017)
+		ADDKUW	Ändrat fontstorlek från 10 pkt till 9 pkt och buggrättning. (0018)
+		ADDKUW	Buggrättning.						    (0030)
+		DSPLEVW Ändrat fontstorlek från 10 pkt till 9 pkt och buggrättning. (0019)
+		KUFAKTW Ändrat fontstorlek från 10 pkt till 9 pkt och buggrättning. (0020)
+		PLCHGW	Ändrat fontstorlek från 10 pkt till 9 pkt och buggrättning. (0021)
+		ADDORDW Ändrat fontstorlek från 10 pkt till 9 pkt och buggrättning. (0022)
+		DSPFTGW Lagt till offertnummer.
+		DSPFTGW Lagt till Bankgironummer,Postgironummer 		    (0025)
+		CHGFTGW Lagt till offertnummer.
+		CHGFTGW Buggrättning, lagt till Bankgironummer,Postgironummer 	    (0025).
+		LSTKTOW	Buggrättning, utveckling,check om bokföringsår finns.	    (0027)
+		CHGKTOW	Justeringar.Lagt in TAB-funktion			    (0028)
+		ADDARW	Ändrat fontstorlek från 10 pkt till 9 pkt.Lagt in TAB-funktion (0029)
+		ADDLEVPW Lagt in TAB-funktion. Utökat postnummer fältet till 10 tecken (0030)
+
+		Ändrad data
+		FTGDATAdata.txt Lagt till OFFNR(offertnr),BGNR,PGNR. Tagit bort WKUNR.
+		TRANSIDdata.txt Tagit bort WKUDSP.Lagt till OFFADD, OFFRADD,OFFDSP,OFFLST
+		PROGRAMdata.txt	Lagt till ADDOFFW, DSPOFFW
+
+		Dokumentation
+		UserManual_ADMINISTRATION.html     (2006-04-11) 
+		UserManual_EKONOMI.html		   (2006-04-11)
+		UserManual_FTGADMIN.html	   (2006-04-11)
+
 ________________________________________________________
 Ver 0.4.2.B
-2006-03-26
+2006-04-02
 		Diverse
 		Modiferat Makefile för C-programmen, lagt till 'make clean'
 	
