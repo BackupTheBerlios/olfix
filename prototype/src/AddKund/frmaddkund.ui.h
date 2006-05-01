@@ -90,6 +90,7 @@
     QRegExp rx11( "[J,N]");
     QRegExp rx12( "\\d{1,10}" );
     QRegExp rx13( "[A-Za-z0-9ÅÄÖåäö ]{1,99}" );
+    QRegExp rx14("[A-Za-z0-9 ]{1,10}");
     
     QRegExpValidator validator1( rx1, 0 );
     QRegExpValidator validator2( rx2, 0 );
@@ -104,13 +105,14 @@
     QRegExpValidator validator11( rx11, 0 );
     QRegExpValidator validator12( rx12, 0 );
     QRegExpValidator validator13( rx13, 0 );
+    QRegExpValidator validator14( rx14, 0 );		/* 2006-05-01*/
     
 void frmAddKund::init()
 {
     lineEditKundNr->setValidator(&validator1);
     lineEditKundNamn->setValidator(&validator3);
     lineEditKundAdress->setValidator(&validator3);
-//    lineEditKundPostnr->setValidator(&validator4);			/* 2006-01-30*/
+    lineEditKundPostnr->setValidator(&validator14);	/* 2006-05-01*/
     lineEditKundPostAdress->setValidator(&validator3);
     lineEditKundLand->setValidator(&validator3);
     lineEditKundTftnNr->setValidator(&validator5);
@@ -420,6 +422,7 @@ void frmAddKund::pushButtonHelp_clicked()
 	}
 	lineEditKundNr->setFocus();
 }
+
 void frmAddKund::slotEndOfProcess()
 {
 }
@@ -509,7 +512,7 @@ void frmAddKund::updateKundreg()
 /*	Uppdatera databasen med den nya kunden.				*/
 /************************************************************************/
 	const char *userp = getenv("USER");
-            QString usr(userp);
+	QString usr(userp);
 
 	process = new QProcess();
 	process->addArgument( "./STYRMAN");	// OLFIX funktion
@@ -518,7 +521,7 @@ void frmAddKund::updateKundreg()
 	process->addArgument(kunddata);
 	frmAddKund::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmAddKund::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-            frmAddKund::connect( process, SIGNAL(processExited() ),this, SLOT(slotUpdateEndOfProcess() ) );
+	frmAddKund::connect( process, SIGNAL(processExited() ),this, SLOT(slotUpdateEndOfProcess() ) );
 
 	if ( !process->start() ) {
 		// error handling
@@ -577,7 +580,7 @@ void frmAddKund::CheckKundnr()
 /*	Kontrollera om kundnr redan finns					*/
 /************************************************************************/
 	const char *userp = getenv("USER");
-            QString usr(userp);
+	QString usr(userp);
 
 	process = new QProcess();
 	process->addArgument( "./STYRMAN");	// OLFIX funktion
@@ -586,7 +589,7 @@ void frmAddKund::CheckKundnr()
 	process->addArgument( kundid);
 	frmAddKund::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmAddKund::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-            frmAddKund::connect( process, SIGNAL(processExited() ),this, SLOT(slotCheckEndOfProcess() ) );
+	frmAddKund::connect( process, SIGNAL(processExited() ),this, SLOT(slotCheckEndOfProcess() ) );
 
 	if ( !process->start() ) {
 		// error handling
@@ -623,7 +626,7 @@ void frmAddKund::createStandardLevPlats()
 /*	Skapa leveransplats 002, en andra leveransadressen för en kund.		*/
 /************************************************************************/
 	const char *userp = getenv("USER");
-            QString usr(userp);
+	QString usr(userp);
 
 	process = new QProcess();
 	process->addArgument( "./ADDLEVPW");	// OLFIX program
@@ -631,7 +634,7 @@ void frmAddKund::createStandardLevPlats()
 	process->addArgument(levplats);
 	frmAddKund::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmAddKund::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-            frmAddKund::connect( process, SIGNAL(processExited() ),this, SLOT(slotPlatsEndOfProcess() ) );
+	frmAddKund::connect( process, SIGNAL(processExited() ),this, SLOT(slotPlatsEndOfProcess() ) );
 
 	if ( !process->start() ) {
 		// error handling
@@ -640,7 +643,6 @@ void frmAddKund::createStandardLevPlats()
                             "Kan inte starta ADDLEVPW! \n" );
 	}
 }
-
 
 void frmAddKund::slotPlatsEndOfProcess()
 {
@@ -665,21 +667,21 @@ void frmAddKund::slotPlatsEndOfProcess()
 void frmAddKund::AddLevplats001()
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
+	QString usr(userp);
 
 	process = new QProcess();
 	process->addArgument( "./STYRMAN");	// OLFIX funktion
 	process->addArgument( usr);
 	process->addArgument( "SLPADD");	// OLFIX funktion
 	process->addArgument(kundid);
-	process->addArgument("001");		// leveransadress nr 001
+	process->addArgument("001");	// leveransadress nr 001
 	process->addArgument(kundadress);
 	process->addArgument(postnr);
 	process->addArgument(postadr);
 	process->addArgument(land);
 	frmAddKund::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmAddKund::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-            frmAddKund::connect( process, SIGNAL(processExited() ),this, SLOT(slotPlats001EndOfProcess() ) );
+	frmAddKund::connect( process, SIGNAL(processExited() ),this, SLOT(slotPlats001EndOfProcess() ) );
 
 	if ( !process->start() ) {
 		// error handling

@@ -220,19 +220,6 @@
             <string>Org.nr:</string>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditKundPostnr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>120</x>
-                <y>95</y>
-                <width>75</width>
-                <height>20</height>
-            </rect>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>textLabel4</cstring>
@@ -1159,22 +1146,6 @@
             <string>Fri text (100 tkn): ....</string>
         </property>
     </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonHelp</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>405</x>
-                <y>10</y>
-                <width>61</width>
-                <height>30</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Hjälp</string>
-        </property>
-    </widget>
     <widget class="QLineEdit">
         <property name="name">
             <cstring>lineEditFriText</cstring>
@@ -1204,6 +1175,19 @@
             </rect>
         </property>
     </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditKundPostnr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>120</x>
+                <y>95</y>
+                <width>75</width>
+                <height>20</height>
+            </rect>
+        </property>
+    </widget>
     <widget class="QPushButton">
         <property name="name">
             <cstring>pushButtonOK</cstring>
@@ -1223,7 +1207,7 @@
             <string>OK</string>
         </property>
         <property name="default">
-            <bool>false</bool>
+            <bool>true</bool>
         </property>
     </widget>
     <widget class="QPushButton">
@@ -1240,6 +1224,28 @@
         </property>
         <property name="text">
             <string>Avbryt</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>405</x>
+                <y>10</y>
+                <width>61</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property name="focusPolicy">
+            <enum>NoFocus</enum>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
         </property>
         <property name="default">
             <bool>true</bool>
