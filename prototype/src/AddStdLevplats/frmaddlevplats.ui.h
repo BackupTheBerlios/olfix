@@ -9,9 +9,9 @@
 /***************************************************************************
                           ADDLEVPW  -  description
                              -------------------
-		     version 0.3
-    begin                : Sön 7 aug 2003
-    Modified         : Tis 20 okt 2003
+		     version 0.4.3
+    begin                : Sön   7 aug 2003
+    Modified         : Mån  1 maj 2006
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -51,19 +51,21 @@
     QRegExp rx2( "[0-9]\\d{2}" );
     QRegExp rx3( "[A-Za-z0-9ÅÄÖåäö ]{1,29}" );    
     QRegExp rx4( "[1-9]\\d{4}" );
+    QRegExp rx14("[A-Za-z0-9 ]{1,10}");		// 2003-10-21
     
     QRegExpValidator validator1( rx1, 0 );
     QRegExpValidator validator2( rx2, 0 );
     QRegExpValidator validator3( rx3, 0 );    
     QRegExpValidator validator4( rx4, 0 );
-    
+    QRegExpValidator validator14( rx14, 0 );	// 2003-10-21
 
+    
 void frmAddLevplats::init()
 {
     lineEditKundID->setValidator(&validator1);
     lineEditLevPlatsNr->setValidator(&validator2);
     lineEditLevAdress->setValidator(&validator3);
-    lineEditPostnr->setValidator(&validator4);
+    lineEditPostnr->setValidator(&validator14);
     lineEditPostAdress->setValidator(&validator3);
     lineEditLand->setValidator(&validator3);
 
@@ -78,38 +80,37 @@ void frmAddLevplats::init()
 void frmAddLevplats::lineEditKundID_returnPressed()
 {
     kundid=lineEditKundID->text();
-    lineEditLevPlatsNr->setFocus();
+//    lineEditLevPlatsNr->setFocus();
 }
 
 void frmAddLevplats::lineEditLevPlatsNr_returnPressed()
 {
     levplatsnr=lineEditLevPlatsNr->text();
-    lineEditLevAdress->setFocus();
+//    lineEditLevAdress->setFocus();
 }
 
 void frmAddLevplats::lineEditLevAdress_returnPressed()
 {
     levadress=lineEditLevAdress->text();
-    lineEditPostnr->setFocus();
+//    lineEditPostnr->setFocus();
 }
 
 void frmAddLevplats::lineEditPostnr_returnPressed()
 {
-    QString temp;
+//    QString temp;
     postnr=lineEditPostnr->text();
-    lineEditPostAdress->setFocus();
-    temp=postnr.mid(0,3);
-    temp.append(" ");
-    temp.append(postnr.mid(3,2));
-    postnr=temp;
+//    temp=postnr.mid(0,3);
+//    temp.append(" ");
+//    temp.append(postnr.mid(3,2));
+//    postnr=temp;
 //	qDebug("postnr=%s\n",postnr.latin1());
-    lineEditPostnr->setText(postnr);
+//    lineEditPostnr->setText(postnr);
 }
 
 void frmAddLevplats::lineEditPostAdress_returnPressed()
 {
     postadr=lineEditPostAdress->text();
-    lineEditLand->setFocus();
+//    lineEditLand->setFocus();
 }
 
 void frmAddLevplats::lineEditLand_returnPressed()
@@ -158,11 +159,11 @@ void frmAddLevplats::pushButtonOK_clicked()
 
 void frmAddLevplats::AddStandardLevPlats()
 {
-/************************************************************************/
-/*	Skapa leveransplats 001, den första leveransadressen för en kund.		*/
-/************************************************************************/
+/**************************************************************************/
+/*	Skapa leveransplats 001, den första leveransadressen för en kund.	           	 */
+/**************************************************************************/
 	const char *userp = getenv("USER");
-            QString usr(userp);
+	QString usr(userp);
 	 
 	if (land==""){
 	    land="-";
@@ -228,7 +229,7 @@ void frmAddLevplats::slotDataOnStdout()
     }
     qDebug("inrad=%s",inrad.latin1());
 }
-
+ 
 void frmAddLevplats::slotDataOnStderr()
 {
     while (process->canReadLineStderr() ) {
