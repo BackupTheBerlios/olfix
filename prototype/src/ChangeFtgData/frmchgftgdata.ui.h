@@ -1,16 +1,16 @@
 /****************************************************************/
 /**		CHGFTGW					*/
-/**		Version: 0.4.3				*/
+/**		Version: 0.4.4				*/
 /**		2005-12-05				*/
-/**		Modifierad:  2006-04-24 			*/
+/**		Modifierad:  2006-05-02 			*/
 /**		Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
- *					                                                 *
+ *					                                            *
  *   This program is free software; you can redistribute it and/or modify 	 *
- *   it under the terms of the GNU General Public License as published by       *
+ *   it under the terms of the GNU General Public License as published by       	 *
  *   the Free Software Foundation; either version 2 of the License, or     	 *
- *   (at your option) any later version.                                   		 *
+ *   (at your option) any later version.                                   		 	 *
  *                                                                         				 *
  *********************************************** *****************/
 
@@ -61,7 +61,7 @@ void frmChgFtgData::slotGetFtgData(QString posttyp)
 	process[processnr] = new QProcess();
 	process[processnr] ->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process[processnr] ->addArgument(usr);		// userid
-	process[processnr] ->addArgument( "FTGDSP");	// OLFIX funktion
+	process[processnr] ->addArgument( "FTGDSP");		// OLFIX funktion
 	process[processnr] ->addArgument(posttyp);
 	
 	frmChgFtgData::connect( process[processnr] , SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
@@ -231,6 +231,11 @@ void frmChgFtgData::slotEndOfProcess()
     if (i != -1){
 	slotGetMOMSU();
     } 
+    i = -1;
+    i = posttyp.find( QRegExp("MNR"), 0 );		// Momsnummer
+    if (i != -1){
+	slotGetMNR();
+    }     
     i = -1;
     i = posttyp.find( QRegExp("AUTOK"), 0 );
     if (i != -1){
@@ -770,6 +775,28 @@ void frmChgFtgData::slotGetMOMSU()
 //    qDebug("momsu=%s",momsu.latin1());
     lineEditMomktoUtg->setText(momsu);   
     inrad="";
+    slotGetFtgData("MNR");
+}
+
+void frmChgFtgData::slotGetMNR()
+{
+   int i,j,k,m;
+   QString posttyp;
+   QString adr;
+   QString momsnr;
+   
+    i = inrad.find( QRegExp("OK:"), 0 );
+    j = inrad.find(QRegExp("1:"),0);
+    k = inrad.find( QRegExp("2:"), 0 );
+    m = k - j;
+    posttyp = inrad.mid(j+2,m-2);
+//    qDebug("posttyp=%s",posttyp.latin1());   
+    m = inrad.length();
+    momsnr = inrad.mid(k+2,m-2);
+    momsnr=momsnr.stripWhiteSpace();
+//    qDebug("momsnr=%s",momsnr.latin1());
+    lineEditMomsnr->setText(momsnr);   
+    inrad="";
     slotGetFtgData("AUTOK");
 }
 
@@ -1165,6 +1192,11 @@ void frmChgFtgData::changeFtgData()
     if ( lineEditMomktoUtg->edited() ) {
 	frmChgFtgData::updateFtgData( "MOMSU", utmoms );
     }
+    QString momsnr=lineEditMomsnr->text();			// MNR, momsnummer
+    momsnr=momsnr.stripWhiteSpace();
+    if ( lineEditMomsnr->edited() ) {
+	frmChgFtgData::updateFtgData( "MNR", momsnr );
+    }
     QString autokont=lineEditAutokont->text();			// AUTOK
     autokont=autokont.stripWhiteSpace();
     if ( lineEditAutokont->edited() ) {
@@ -1217,12 +1249,12 @@ void frmChgFtgData::changeFtgData()
     if ( lineEditOFFERTNR->edited() ) {
 	frmChgFtgData::updateFtgData( "OFFNR",offnr );
     }
-    QString bgnr=LineEditBankgiro->text();			// OFFNR
+    QString bgnr=LineEditBankgiro->text();			// BGNR
     bgnr=bgnr.stripWhiteSpace();
     if ( LineEditBankgiro->edited() ) {
 	frmChgFtgData::updateFtgData( "BGNR",bgnr );
     }
-    QString pgnr=LineEditPostgiro->text();			// OFFNR
+    QString pgnr=LineEditPostgiro->text();			// PGNR
     pgnr=pgnr.stripWhiteSpace();
     if ( LineEditPostgiro->edited() ) {
 	frmChgFtgData::updateFtgData( "PGNR",bgnr );
