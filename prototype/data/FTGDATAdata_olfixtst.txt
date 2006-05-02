@@ -22,6 +22,7 @@
 "FAKNR","Senaste fakturanr på kundorder","50"
 "FKNR2","Senaste fakturanr p kundorder,serie 2","100075"
 "FKNRS","Antal fakturanummerserier,default = 1","1"
+"MNR","Momsregistreringsnummer","599999-9999-03"
 "MOMSI","Momskonto, ingående moms","2641"
 "MOMSU","Momskonto, utgående moms","2611"
 "MOMS1","Momssats 1","25"

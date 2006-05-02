@@ -22,6 +22,7 @@
 "FAKNR","Senaste fakturanr på kundorder"
 "FKNR2","Senaste fakturanr p kundorder,serie 2"
 "FKNRS","Antal fakturanummerserier,default = 1"
+"MNR","Momsregistreringsnummer"
 "MOMSI","Momskonto, ingående moms"
 "MOMSU","Momskonto, utgående moms"
 "MOMS1","Momssats 1"
