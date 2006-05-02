@@ -9,18 +9,18 @@
 /***************************************************************************
                           ADDARW  -  description
                              -------------------
-		     version 0.4.3
+		     version 0.4.4
     begin                	: Tis 28 okt    2003
-    modified		: Mån 1 maj 2006
+    modified		: Mån 2 maj 2006
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
- *					                                                 *
+ *					                                            *
  *   This program is free software; you can redistribute it and/or modify 	 *
- *   it under the terms of the GNU General Public License as published by       *
+ *   it under the terms of the GNU General Public License as published by       	 *
  *   the Free Software Foundation; either version 2 of the License, or     	 *
- *   (at your option) any later version.                                   		 *
+ *   (at your option) any later version.                                   		 	 *
  *                                                                         				 *
  *****************************************************************/
 
@@ -348,7 +348,7 @@ void frmAddArtikel::pushBtnHelp_clicked()
 //	qDebug("hjelpfil=%s",hjelpfil.latin1());
 
 	process = new QProcess();
-	process->addArgument( "OLFIXHLP" );	// OLFIX program
+	process->addArgument( "./OLFIXHLP" );	// OLFIX program
 	process->addArgument(hjelpfil);
 
 	if ( !process->start() ) {
