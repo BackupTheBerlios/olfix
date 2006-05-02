@@ -9,18 +9,18 @@
 /***************************************************************************
                           CHGARW  -  description
                              -------------------
-    Version 	: 0.4
+    Version 		: 0.4.4
     begin                	: Sön 16 nov 2003
-    modified	: Sön  7 dec 2003
-    copyright             : (C) 2003 by Jan Pihlgren
-    email    	: jan@pihlgren.se
+    modified		: Tis  2 april 2006
+    copyright            	 : (C) 2003 by Jan Pihlgren
+    email    		: jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
- *					                                                 *
+ *					                                            *
  *   This program is free software; you can redistribute it and/or modify 	 *
- *   it under the terms of the GNU General Public License as published by       *
+ *   it under the terms of the GNU General Public License as published by       	 *
  *   the Free Software Foundation; either version 2 of the License, or     	 *
- *   (at your option) any later version.                                   		 *
+ *   (at your option) any later version.                                   		 	 *
  *                                                                         				 *
  *****************************************************************/
 
@@ -38,6 +38,7 @@
     QProcess* process;
     QString inrad;
     QString errorrad;
+    QString hjelpfil;
 
     // Artikelgrunddata
     QString artikelnr;
@@ -91,7 +92,7 @@
     QRegExp rx5( "\\w{0,5}" );
     QRegExp rx6( "[0-9,.]{0,12}" );
     QRegExp rx7( "[A-Za-z0-9ÅÄÖåäö]{0,10}" );
-    QRegExp rx8( "[0-3]{1}" );
+    QRegExp rx8( "[0-4]{1}" );				// 2006-05-02
     QRegExp rx9( "[BFIT ]{0,1}" );
     QRegExp rx10( "\\d{0,7}" );
     QRegExp rx11( "[A-Za-z0-9ÅÄÖåäö/_ -]{1,29}" );
@@ -140,7 +141,7 @@ void frmChgArtikel::lineEditArtikelNr_returnPressed()
 {
     artikelnr=lineEditArtikelNr->text();
     frmChgArtikel::getGrunddata();
-    lineEditBenamning1->setFocus();
+//    lineEditBenamning1->setFocus();
 }
 
 void frmChgArtikel::lineEditBenamning1_returnPressed()
@@ -149,7 +150,7 @@ void frmChgArtikel::lineEditBenamning1_returnPressed()
 	changeflagG=0;
     }
     benamn1=lineEditBenamning1->text();
-    lineEditBenamning2->setFocus();
+//    lineEditBenamning2->setFocus();
 }
 
 void frmChgArtikel::lineEditBenamning2_returnPressed()
@@ -161,7 +162,7 @@ void frmChgArtikel::lineEditBenamning2_returnPressed()
     if (benamn2==""){
 	benamn2=" ";
     }
-    lineEditEnhet->setFocus();
+//    lineEditEnhet->setFocus();
 }
 
 void frmChgArtikel::lineEditEnhet_returnPressed()
@@ -174,7 +175,7 @@ void frmChgArtikel::lineEditEnhet_returnPressed()
 	enhet="ST";
 	lineEditEnhet->setText(enhet);
     }
-    lineEditOmrFaktor->setFocus();
+//    lineEditOmrFaktor->setFocus();
 }
 
 void frmChgArtikel::lineEditOmrFaktor_returnPressed()
@@ -187,7 +188,7 @@ void frmChgArtikel::lineEditOmrFaktor_returnPressed()
 	omrfaktor="1";
 	lineEditOmrFaktor->setText(omrfaktor);
     }
-    lineEditFpris->setFocus();
+//    lineEditFpris->setFocus();
 }
 
 void frmChgArtikel::lineEditFpris_returnPressed()
@@ -207,7 +208,7 @@ void frmChgArtikel::lineEditFpris_returnPressed()
      }    
     lineEditFpris->setText(fpris);
 //    qDebug("Fpris=%s",fpris.latin1());
-    lineEditNettovikt->setFocus();
+//    lineEditNettovikt->setFocus();
 }
 
 void frmChgArtikel::lineEditNettovikt_returnPressed()
@@ -225,9 +226,9 @@ void frmChgArtikel::lineEditNettovikt_returnPressed()
     if (i != -1){
 	 nettovikt.replace( QChar(','), "." );
      }    
-    lineEditNettovikt->setText(nettovikt);
+//    lineEditNettovikt->setText(nettovikt);
 //    qDebug("Nettovikt=%s",nettovikt.latin1());
-    lineEditVolym->setFocus();
+//    lineEditVolym->setFocus();
 }
 
 void frmChgArtikel::lineEditVolym_returnPressed()
@@ -247,7 +248,7 @@ void frmChgArtikel::lineEditVolym_returnPressed()
      }    
     lineEditVolym->setText(volym);
 //    qDebug("Volym=%s",volym.latin1());
-    lineEditLedtid->setFocus();
+//    lineEditLedtid->setFocus();
 }
 
 void frmChgArtikel::lineEditLedtid_returnPressed()
@@ -260,7 +261,7 @@ void frmChgArtikel::lineEditLedtid_returnPressed()
 	ledtid="0";
 	lineEditLedtid->setText(ledtid);
     }
-    lineEditProdklass->setFocus();
+//    lineEditProdklass->setFocus();
 }
 
 void frmChgArtikel::lineEditProdklass_returnPressed()
@@ -272,7 +273,7 @@ void frmChgArtikel::lineEditProdklass_returnPressed()
     if (prodklass==""){
 	prodklass=" ";
     }
-    lineEditProdkonto->setFocus();
+//    lineEditProdkonto->setFocus();
 }
 
 void frmChgArtikel::lineEditProdkonto_returnPressed()
@@ -284,7 +285,7 @@ void frmChgArtikel::lineEditProdkonto_returnPressed()
     if (prodkto==""){
 	prodkto=" ";
     }
-    lineEditArtikeltyp->setFocus();
+//    lineEditArtikeltyp->setFocus();
 }
 
 void frmChgArtikel::lineEditArtikeltyp_returnPressed()
@@ -297,7 +298,7 @@ void frmChgArtikel::lineEditArtikeltyp_returnPressed()
 	artikeltyp="2";
 	lineEditArtikeltyp->setText(artikeltyp);
     }
-    lineEditStruktur->setFocus();
+//    lineEditStruktur->setFocus();
 }
 
 void frmChgArtikel::lineEditStruktur_returnPressed()
@@ -309,7 +310,7 @@ void frmChgArtikel::lineEditStruktur_returnPressed()
     if (struktur==""){
 	struktur=" ";
     }
-    lineEditTulltaxenr->setFocus();
+//    lineEditTulltaxenr->setFocus();
 }
 
 void frmChgArtikel::lineEditTulltaxenr_returnPressed()
@@ -321,7 +322,7 @@ void frmChgArtikel::lineEditTulltaxenr_returnPressed()
     if (tulltaxenr==""){
 	tulltaxenr=" ";
     }
-    lineEditLev1->setFocus();
+//    lineEditLev1->setFocus();
 }
 
 void frmChgArtikel::lineEditLev1_returnPressed()
@@ -333,7 +334,7 @@ void frmChgArtikel::lineEditLev1_returnPressed()
     if (lev1==""){
 	lev1=" ";
     }
-    lineEditLev2->setFocus();
+//    lineEditLev2->setFocus();
 }
 
 void frmChgArtikel::lineEditLev2_returnPressed()
@@ -345,7 +346,7 @@ void frmChgArtikel::lineEditLev2_returnPressed()
     if (lev2==""){
 	lev2=" ";
     }
-    lineEditLev3->setFocus();
+//    lineEditLev3->setFocus();
 }
 
 void frmChgArtikel::lineEditLev3_returnPressed()
@@ -357,7 +358,7 @@ void frmChgArtikel::lineEditLev3_returnPressed()
     if (lev3==""){
 	lev3=" ";
     }
-    lineEditUrBenamning->setFocus();
+//    lineEditUrBenamning->setFocus();
 }
 
 void frmChgArtikel::lineEditUrBenamning_returnPressed()
@@ -369,7 +370,7 @@ void frmChgArtikel::lineEditUrBenamning_returnPressed()
     if (urbenamn==""){
 	urbenamn=" ";
     }
-    lineEditUrsprungsland->setFocus();
+//    lineEditUrsprungsland->setFocus();
 }
 
 void frmChgArtikel::lineEditUrsprungsland_returnPressed()
@@ -381,7 +382,7 @@ void frmChgArtikel::lineEditUrsprungsland_returnPressed()
     if (urland==""){
 	urland=" ";
     }
-    lineEditUrArtikelnr->setFocus();
+//    lineEditUrArtikelnr->setFocus();
 }
 
 void frmChgArtikel::lineEditUrArtikelnr_returnPressed()
@@ -393,7 +394,7 @@ void frmChgArtikel::lineEditUrArtikelnr_returnPressed()
     if (levartnr==""){
 	levartnr=" ";
     }
-    lineEditLagerhylla_2->setFocus();
+//    lineEditLagerhylla_2->setFocus();
 }
 
 void frmChgArtikel::pushButtonOK_clicked()
@@ -501,7 +502,7 @@ void frmChgArtikel::updateArtikelReg()
 	process->addArgument(artikeldata);
 	frmChgArtikel::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmChgArtikel::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-            frmChgArtikel::connect( process, SIGNAL(processExited() ),this, SLOT(slotARUpdateEndOfProcess() ) );
+	frmChgArtikel::connect( process, SIGNAL(processExited() ),this, SLOT(slotARUpdateEndOfProcess() ) );
 
 	if ( !process->start() ) {
 		// error handling
@@ -591,7 +592,7 @@ void frmChgArtikel::updateLagerstalleReg()
 	process->addArgument("CHGARW");	// i vilket program transaktionen gjorts (för TRHDADD)
 	frmChgArtikel::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmChgArtikel::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-            frmChgArtikel::connect( process, SIGNAL(processExited() ),this, SLOT(slotLSUpdateEndOfProcess() ) );
+	frmChgArtikel::connect( process, SIGNAL(processExited() ),this, SLOT(slotLSUpdateEndOfProcess() ) );
 
 	if ( !process->start() ) {
 		// error handling
@@ -684,7 +685,7 @@ void frmChgArtikel::CheckArtikelNr()
 	process->addArgument(artikelnr);
 	frmChgArtikel::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmChgArtikel::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-            frmChgArtikel::connect( process, SIGNAL(processExited() ),this, SLOT(slotCheckEndOfProcess() ) );
+	frmChgArtikel::connect( process, SIGNAL(processExited() ),this, SLOT(slotCheckEndOfProcess() ) );
 
 	if ( !process->start() ) {
 		// error handling
@@ -749,7 +750,7 @@ void frmChgArtikel::lineEditLagerplats_2_returnPressed()
 	lagerplats="1";
 	lineEditLagerplats_2->setText(lagerplats);
     }
-    lineEditLagerhylla_2->setFocus();
+//    lineEditLagerhylla_2->setFocus();
 }
 
 void frmChgArtikel::lineEditLagerhylla_2_returnPressed()
@@ -758,7 +759,7 @@ void frmChgArtikel::lineEditLagerhylla_2_returnPressed()
     if (lagerhylla==""){
 	lagerhylla=" ";
     }
-    lineEditLagersaldo_2->setFocus();
+//    lineEditLagersaldo_2->setFocus();
 }
 
 void frmChgArtikel::lineEditLagersaldo_2_returnPressed()
@@ -779,7 +780,7 @@ void frmChgArtikel::lineEditLagersaldo_2_returnPressed()
 	 lagersaldo.replace( QChar(','), "." );
 	 lineEditLagersaldo_2->setText(lagersaldo);
      }
-    lineEditInvGrp_2->setFocus();
+//    lineEditInvGrp_2->setFocus();
 }
 
 void frmChgArtikel::lineEditInvGrp_2_returnPressed()
@@ -788,7 +789,7 @@ void frmChgArtikel::lineEditInvGrp_2_returnPressed()
     if (invgrupp==""){
 	invgrupp=" ";
     }
-    lineEditABCkod_2->setFocus();
+//    lineEditABCkod_2->setFocus();
 }
 
 void frmChgArtikel::lineEditABCkod_2_returnPressed()
@@ -797,7 +798,7 @@ void frmChgArtikel::lineEditABCkod_2_returnPressed()
     if (abckod==""){
 	abckod=" ";
     }
-    lineEditValuta_2->setFocus();
+//    lineEditValuta_2->setFocus();
 }
 
 void frmChgArtikel::lineEditValuta_2_returnPressed()
@@ -807,7 +808,7 @@ void frmChgArtikel::lineEditValuta_2_returnPressed()
 	valuta="SEK";
 	lineEditValuta_2->setText(valuta);
     }
-    lineEditOmkostnad_2->setFocus();
+//    lineEditOmkostnad_2->setFocus();
 }
 
 void frmChgArtikel::lineEditOmkostnad_2_returnPressed()
@@ -827,7 +828,7 @@ void frmChgArtikel::lineEditOmkostnad_2_returnPressed()
 	 omkost.replace( QChar(','), "." );
 	 lineEditOmkostnad_2->setText(omkost);
      }    
-    lineEditSenInkopsPris_2->setFocus();
+//    lineEditSenInkopsPris_2->setFocus();
 }
 
 void frmChgArtikel::lineEditSenInkopsPris_2_returnPressed()
@@ -847,7 +848,7 @@ void frmChgArtikel::lineEditSenInkopsPris_2_returnPressed()
 	 seninkpris.replace( QChar(','), "." );
 	 lineEditSenInkopsPris_2->setText(seninkpris);
      }
-    lineEditKalkylPris->setFocus();
+//    lineEditKalkylPris->setFocus();
 }
 
 void frmChgArtikel::lineEditSenKalkylPris_2_returnPressed()
@@ -867,7 +868,7 @@ void frmChgArtikel::lineEditSenKalkylPris_2_returnPressed()
 	 kalkylpris.replace( QChar(','), "." );
 	 lineEditKalkylPris->setText(kalkylpris);
      }
-    lineEditSenInkopsKvantitet_2->setFocus();
+//    lineEditSenInkopsKvantitet_2->setFocus();
 }
 
 void frmChgArtikel::lineEditSenInkopsKvantitet_2_returnPressed()
@@ -887,7 +888,7 @@ void frmChgArtikel::lineEditSenInkopsKvantitet_2_returnPressed()
 	 ikvant0.replace( QChar(','), "." );
 	 lineEditSenInkopsKvantitet_2->setText(ikvant0);
      }
-    lineEditPlanKalkylPris->setFocus();
+//    lineEditPlanKalkylPris->setFocus();
 }
 
 void frmChgArtikel::lineEditPlanKalkylPris_returnPressed()
@@ -907,7 +908,7 @@ void frmChgArtikel::lineEditPlanKalkylPris_returnPressed()
 	 plankpris.replace( QChar(','), "." );
 	 lineEditPlanKalkylPris->setText(plankpris);
      }
-    lineEditNestSenInkopsKvantitet_2->setFocus();
+//    lineEditNestSenInkopsKvantitet_2->setFocus();
 }
 
 void frmChgArtikel::lineEditNestSenInkopsKvantitet_2_returnPressed()
@@ -927,7 +928,7 @@ void frmChgArtikel::lineEditNestSenInkopsKvantitet_2_returnPressed()
 	 ikvant1.replace( QChar(','), "." );
 	 lineEditNestSenInkopsKvantitet_2->setText(ikvant1);
      }
-    lineEditFrystKalkylPris->setFocus();
+//    lineEditFrystKalkylPris->setFocus();
 }
 
 void frmChgArtikel::lineEditFrystKalkylPris_returnPressed()
@@ -947,7 +948,7 @@ void frmChgArtikel::lineEditFrystKalkylPris_returnPressed()
 	 frystkpris.replace( QChar(','), "." );
 	 lineEditFrystKalkylPris->setText(frystkpris);
      }
-    lineEditNestNestSenInkopsKvantitet_2->setFocus();
+//    lineEditNestNestSenInkopsKvantitet_2->setFocus();
 }
 
 void frmChgArtikel::lineEditNestNestSenInkopsKvantitet_2_returnPressed()
@@ -967,7 +968,7 @@ void frmChgArtikel::lineEditNestNestSenInkopsKvantitet_2_returnPressed()
 	 ikvant2.replace( QChar(','), "." );
 	 lineEditNestNestSenInkopsKvantitet_2->setText(ikvant2);
      }
-    lineEditBestKvantitet_2->setFocus();
+//    lineEditBestKvantitet_2->setFocus();
 }
 
 void frmChgArtikel::lineEditBestKvantitet_2_returnPressed()
@@ -984,7 +985,7 @@ void frmChgArtikel::lineEditBestKvantitet_2_returnPressed()
 	 bestkvant.replace( QChar(','), "." );
 	 lineEditBestKvantitet_2->setText(bestkvant);
      }    
-    lineEditBestPunkt_2->setFocus();
+//    lineEditBestPunkt_2->setFocus();
 }
 void frmChgArtikel::lineEditBestPunkt_2_returnPressed()
 {
@@ -999,9 +1000,8 @@ void frmChgArtikel::lineEditBestPunkt_2_returnPressed()
     if (i != -1){
 	 bestpunkt.replace( QChar(','), "." );
 	 lineEditBestPunkt_2->setText(bestpunkt);
-     }
-    
-    pushButtonOK->setFocus();
+     }  
+//    pushButtonOK->setFocus();
 }
 
 void frmChgArtikel::getGrunddata()
@@ -1400,4 +1400,57 @@ void  frmChgArtikel::slotgetLaDataEndOfProcess()
 	i = -1;
           }
     }
+}
+
+void frmChgArtikel::pushBtnHelp_clicked()
+{
+	inrad="";
+	frmChgArtikel::readResursFil();		// Hämta path till hjälpfilen
+	
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_ARTIKLAR.html";
+	hjelpfil=hjelpfil+"#ARTIKEL03";		// Lägg till position
+//	qDebug("hjelpfil=%s",hjelpfil.latin1());
+	process = new QProcess();
+	process->addArgument( "./OLFIXHLP" );		// OLFIX program
+	process->addArgument(hjelpfil);
+
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
+	}
+//	lineEditArtikelNr->setFocus();
+}
+
+void frmChgArtikel::readResursFil()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			                     */
+    /* Plocka fram var hjälpfilen finns		                     */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 );
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
 }
