@@ -1415,25 +1415,6 @@
     </widget>
     <widget class="QPushButton">
         <property name="name">
-            <cstring>pushButtonOK</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>585</y>
-                <width>65</width>
-                <height>25</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>OK</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
             <cstring>pushButtonAvbryt</cstring>
         </property>
         <property name="geometry">
@@ -1451,6 +1432,25 @@
             <bool>true</bool>
         </property>
     </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>585</y>
+                <width>65</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>OK</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
@@ -1458,234 +1458,6 @@
         <signal>clicked()</signal>
         <receiver>frmChgArtikel</receiver>
         <slot>close()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditArtikelNr</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditArtikelNr_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditBenamning1</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditBenamning1_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditBenamning2</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditBenamning2_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditEnhet</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditEnhet_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditFpris</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditFpris_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditLedtid</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditLedtid_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditProdklass</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditProdklass_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditProdkonto</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditProdkonto_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditArtikeltyp</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditArtikeltyp_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditStruktur</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditStruktur_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditTulltaxenr</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditTulltaxenr_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditLev1</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditLev1_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditLev2</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditLev2_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditLev3</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditLev3_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditUrBenamning</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditUrBenamning_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditUrsprungsland</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditUrsprungsland_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditUrArtikelnr</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditUrArtikelnr_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>pushButtonOK</sender>
-        <signal>clicked()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>pushButtonOK_clicked()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditVolym</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditVolym_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditNettovikt</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditNettovikt_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditLagerplats_2</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditLagerplats_2_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditLagerhylla_2</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditLagerhylla_2_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditLagersaldo_2</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditLagersaldo_2_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditInvGrp_2</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditInvGrp_2_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditABCkod_2</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditABCkod_2_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditValuta_2</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditValuta_2_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditSenInkopsPris_2</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditSenInkopsPris_2_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditKalkylPris</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditSenKalkylPris_2_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditBestPunkt_2</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditBestPunkt_2_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditOmrFaktor</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditOmrFaktor_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditOmkostnad_2</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditOmkostnad_2_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditUrArtikelnr</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditUrArtikelnr_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditSenInkopsKvantitet_2</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditSenInkopsKvantitet_2_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditPlanKalkylPris</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditPlanKalkylPris_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditNestSenInkopsKvantitet_2</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditNestSenInkopsKvantitet_2_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditFrystKalkylPris</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditFrystKalkylPris_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditNestNestSenInkopsKvantitet_2</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditNestNestSenInkopsKvantitet_2_returnPressed()</slot>
-    </connection>
-    <connection>
-        <sender>lineEditBestKvantitet_2</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmChgArtikel</receiver>
-        <slot>lineEditBestKvantitet_2_returnPressed()</slot>
     </connection>
     <connection>
         <sender>pushBtnHelp</sender>
@@ -1902,6 +1674,12 @@
         <signal>lostFocus()</signal>
         <receiver>frmChgArtikel</receiver>
         <slot>lineEditBestPunkt_2_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>frmChgArtikel</receiver>
+        <slot>pushButtonOK_clicked()</slot>
     </connection>
 </connections>
 <tabstops>

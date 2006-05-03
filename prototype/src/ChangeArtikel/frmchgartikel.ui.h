@@ -9,9 +9,9 @@
 /***************************************************************************
                           CHGARW  -  description
                              -------------------
-    Version 		: 0.4.4
+    Version 		: 0.4.4.2
     begin                	: Sön 16 nov 2003
-    modified		: Tis  2 april 2006
+    modified		: Tis  3 april 2006
     copyright            	 : (C) 2003 by Jan Pihlgren
     email    		: jan@pihlgren.se
  ***************************************************************************/
@@ -130,7 +130,7 @@ void frmChgArtikel::init()
     lineEditUrBenamning->setValidator(&validator3);
     lineEditUrsprungsland->setValidator(&validator3);
 //    lineEditUrArtikelnr->setValidator(&validator3);
-    changeflagG=-1;
+    changeflagG = -1;
     changeflag=-1;
     
     lineEditArtikelNr->setFocus();
@@ -147,7 +147,7 @@ void frmChgArtikel::lineEditArtikelNr_returnPressed()
 void frmChgArtikel::lineEditBenamning1_returnPressed()
 {
     if (lineEditBenamning1->text() != benamn1){
-	changeflagG=0;
+	changeflagG = 0;
     }
     benamn1=lineEditBenamning1->text();
 //    lineEditBenamning2->setFocus();
@@ -156,7 +156,7 @@ void frmChgArtikel::lineEditBenamning1_returnPressed()
 void frmChgArtikel::lineEditBenamning2_returnPressed()
 {
     if (lineEditBenamning2->text() != benamn2){
-	changeflagG=0;
+	changeflagG = 0;
     }
     benamn2=lineEditBenamning2->text();
     if (benamn2==""){
@@ -168,7 +168,7 @@ void frmChgArtikel::lineEditBenamning2_returnPressed()
 void frmChgArtikel::lineEditEnhet_returnPressed()
 {
     if (lineEditEnhet->text() != enhet){
-	changeflagG=0;
+	changeflagG = 0;
     }
     enhet=lineEditEnhet->text();
     if (enhet==""){
@@ -181,7 +181,7 @@ void frmChgArtikel::lineEditEnhet_returnPressed()
 void frmChgArtikel::lineEditOmrFaktor_returnPressed()
 {
     if (lineEditOmrFaktor->text() !=omrfaktor){
-	changeflagG=0;
+	changeflagG = 0;
     }
     omrfaktor=lineEditOmrFaktor->text();
     if (omrfaktor==""){
@@ -195,7 +195,7 @@ void frmChgArtikel::lineEditFpris_returnPressed()
 {
     int i;
     if (lineEditFpris->text() != fpris){
-	changeflagG=0;
+	changeflagG = 0;
     }
     fpris=lineEditFpris->text();
     if (fpris==""){
@@ -215,7 +215,7 @@ void frmChgArtikel::lineEditNettovikt_returnPressed()
 {
     int i;
     if (lineEditNettovikt->text() != nettovikt){
-	changeflagG=0;
+	changeflagG = 0;
     }
     nettovikt=lineEditNettovikt->text();
     if (nettovikt==""){
@@ -235,7 +235,7 @@ void frmChgArtikel::lineEditVolym_returnPressed()
 {
     int i;
     if (lineEditVolym->text() != volym){
-	changeflagG=0;
+	changeflagG = 0;
     }
     volym=lineEditVolym->text();
     if (volym == ""){
@@ -254,7 +254,7 @@ void frmChgArtikel::lineEditVolym_returnPressed()
 void frmChgArtikel::lineEditLedtid_returnPressed()
 {
     if (lineEditLedtid->text() != ledtid){
-	changeflagG=0;
+	changeflagG = 0;
     }
     ledtid=lineEditLedtid->text();
     if (ledtid==""){
@@ -267,7 +267,7 @@ void frmChgArtikel::lineEditLedtid_returnPressed()
 void frmChgArtikel::lineEditProdklass_returnPressed()
 {
     if (lineEditProdklass->text() != prodklass){
-	changeflagG=0;
+	changeflagG = 0;
     }
     prodklass=lineEditProdklass->text();
     if (prodklass==""){
@@ -279,7 +279,7 @@ void frmChgArtikel::lineEditProdklass_returnPressed()
 void frmChgArtikel::lineEditProdkonto_returnPressed()
 {
     if (lineEditProdkonto->text() != prodkto){
-	changeflagG=0;
+	changeflagG = 0;
     }
     prodkto=lineEditProdkonto->text();
     if (prodkto==""){
@@ -291,7 +291,7 @@ void frmChgArtikel::lineEditProdkonto_returnPressed()
 void frmChgArtikel::lineEditArtikeltyp_returnPressed()
 {
     if (lineEditArtikeltyp->text() != artikeltyp){
-	changeflagG=0;
+	changeflagG = 0;
     }
     artikeltyp=lineEditArtikeltyp->text();
     if (artikeltyp==""){
@@ -304,7 +304,7 @@ void frmChgArtikel::lineEditArtikeltyp_returnPressed()
 void frmChgArtikel::lineEditStruktur_returnPressed()
 {
     if (lineEditStruktur->text() != struktur){
-	changeflagG=0;
+	changeflagG = 0;
     }
     struktur=lineEditStruktur->text();
     if (struktur==""){
@@ -316,7 +316,7 @@ void frmChgArtikel::lineEditStruktur_returnPressed()
 void frmChgArtikel::lineEditTulltaxenr_returnPressed()
 {
     if (lineEditTulltaxenr->text() != tulltaxenr){
-	changeflagG=0;
+	changeflagG = 0;
     }
     tulltaxenr=lineEditTulltaxenr->text();
     if (tulltaxenr==""){
@@ -493,7 +493,7 @@ void frmChgArtikel::updateArtikelReg()
 /*	Uppdatera databasen med förändrade data på artikeln.			*/
 /************************************************************************/
 	const char *userp = getenv("USER");
-            QString usr(userp);
+	QString usr(userp);
 
 	process = new QProcess();
 	process->addArgument( "./STYRMAN");	// OLFIX funktion
@@ -519,14 +519,16 @@ void frmChgArtikel::slotARUpdateEndOfProcess()
     i = -1;
     i = errorrad.find( QRegExp("Error:"), 0 );
     if (i != -1) {
-	QMessageBox::critical( this, "CHGARW, Grunddata ","ERROR!\n"+errorrad);
+	QMessageBox::critical( this, "CHGARW, Grunddata,Uppdatering ","ERROR!\n"+errorrad);
 	errorrad="";
+	return;
     }
     i = -1;
     i = inrad.find( QRegExp("Error:"), 0 );
     if (i != -1) {
-	QMessageBox::critical( this, "CHGARW, Grunddata ","ERROR!\n"+inrad);
-    }
+	QMessageBox::critical( this, "CHGARW, Grunddata,Uppdatering ","ERROR!\n"+inrad);
+	return;
+    }else{
  /*
     i = -1;
      i = inrad.find( QRegExp("OK:"), 0 );
@@ -557,9 +559,10 @@ void frmChgArtikel::slotARUpdateEndOfProcess()
 	lineEditUrsprungsland->clear();
 	lineEditUrArtikelnr->clear();
     
-     errorrad="";
-     inrad="";
-     if (changeflag==0){
+	errorrad="";
+	inrad="";
+     }
+     if (changeflag == 0){
 	 frmChgArtikel::updateLagerstalleReg();
      }
      changeflagG=-1;
@@ -571,13 +574,13 @@ void frmChgArtikel::updateLagerstalleReg()
 /*	Uppdatera LAGERSTELLEREG med nya data på artikeln.		*/
 /************************************************************************/
 	const char *userp = getenv("USER");
-            QString usr(userp);
-            QString flag;
-	    if (changeflag == 0){			// Har någon ekonomisk förändring gjorts
+	QString usr(userp);
+	QString flag;
+	if (changeflag == 0){			// Har någon ekonomisk förändring gjorts
 		flag="0";
-	    }else{
-		flag="-1";
-	    }
+	}else{
+		flag = "-1";
+	}
 	    
 	process = new QProcess();
 	process->addArgument( "./STYRMAN");	// OLFIX funktion
@@ -585,11 +588,11 @@ void frmChgArtikel::updateLagerstalleReg()
 	process->addArgument("ARCHGL");
 	process->addArgument(lagerdata);
 /*						// Data för TRHD (logga data som ger ekonomisk påverkan)
-                                                                                                // om changeflag = 0 så anropar ARCHGL funktionen TRHDADD
+						// om changeflag = 0 så anropar ARCHGL funktionen TRHDADD
 */	
-	process->addArgument(usr);		// vem som gjort ändringen (för TRHDADD)
+	process->addArgument(usr);			// vem som gjort ändringen (för TRHDADD)
 	process->addArgument(flag);		// om en ekonomisk transaktion gjorts (för ARCHGL)
-	process->addArgument("CHGARW");	// i vilket program transaktionen gjorts (för TRHDADD)
+	process->addArgument("CHGARW");		// i vilket program transaktionen gjorts (för TRHDADD)
 	frmChgArtikel::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmChgArtikel::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmChgArtikel::connect( process, SIGNAL(processExited() ),this, SLOT(slotLSUpdateEndOfProcess() ) );
@@ -609,21 +612,22 @@ void frmChgArtikel::slotLSUpdateEndOfProcess()
     i = -1;
     i = errorrad.find( QRegExp("Error:"), 0 );
     if (i != -1) {
-	QMessageBox::critical( this, "CHGARW, Lagerplatsdata ","ERROR!\n"+errorrad);
+	QMessageBox::critical( this, "CHGARW, Lagerplatsdata, Uppdatering ","ERROR!\n"+errorrad);
 	errorrad="";
+	return;
     }
     i = -1;
     i = inrad.find( QRegExp("Error:"), 0 );
     if (i != -1) {
-	QMessageBox::critical( this, "CHGARW, Lagerplats ","ERROR!\n"+inrad);
+	QMessageBox::critical( this, "CHGARW, Lagerplats, Uppdatering ","ERROR!\n"+inrad);
+	return;
     }
 
      i = -1;
      i = inrad.find( QRegExp("OK:"), 0 );
      if (i != -1) {
 	QMessageBox::information( this, "CHGARW",
-		"Uppdatering OK!\n"+errorrad
-	);
+		"Uppdatering OK!\n"	);
 	lagerdata="";
 	lineEditLagerplats_2->setText("1");
 	lineEditLagerhylla_2->clear();
@@ -676,7 +680,7 @@ void frmChgArtikel::CheckArtikelNr()
 /*	Kontrollera om artikelnr redan finns					*/
 /************************************************************************/
 	const char *userp = getenv("USER");
-            QString usr(userp);
+	QString usr(userp);
 
 	process = new QProcess();
 	process->addArgument( "./STYRMAN");	// OLFIX funktion
@@ -705,6 +709,7 @@ void frmChgArtikel::slotCheckEndOfProcess()
 	// Artikelnummer finns ej, kan användas!
 	lineEditBenamning1->setFocus();
 	errorrad="";
+	return;
     }else{
 	j = -1;
 	j = inrad.find(QRegExp("STYRMAN"),0);
@@ -1020,7 +1025,7 @@ void frmChgArtikel::getGrunddata()
 	process->addArgument(artikelnr);
 	frmChgArtikel::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmChgArtikel::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-            frmChgArtikel::connect( process, SIGNAL(processExited() ),this, SLOT(slotGetGrDataEndOfProcess() ) );
+	frmChgArtikel::connect( process, SIGNAL(processExited() ),this, SLOT(slotGetGrDataEndOfProcess() ) );
 
 	if ( !process->start() ) {
 		// error handling
@@ -1038,11 +1043,12 @@ void frmChgArtikel::slotGetGrDataEndOfProcess()
     i = errorrad.find( QRegExp("Error:"), 0 );
  //   qDebug("Error:",errorrad);
          if (i != -1) {
-	QMessageBox::critical( this, "DSPARW",
-		"ERROR!\n"+errorrad
+	QMessageBox::critical( this, "CHGARW",
+		"ERROR_Grunddata_errorrad!\n"+errorrad
 	);
 	errorrad="";
 	i = -1;
+	return;
      }
      i = -1;
 
@@ -1050,11 +1056,12 @@ void frmChgArtikel::slotGetGrDataEndOfProcess()
 
     i = inrad.find( QRegExp("Error:"), 0 );
     if (i != -1) {
-	QMessageBox::critical( this, "DSPARW",
-		"ERROR!\n"+inrad
+	QMessageBox::critical( this, "CHGARW",
+		"ERROR_Grunddata_inrad!\n"+inrad
 	);
 	inrad="";
 	i = -1;
+	return;
     }else{
 	i = -1;
 
@@ -1203,7 +1210,6 @@ void frmChgArtikel::slotGetGrDataEndOfProcess()
 	     omrfaktor =inrad.mid(i20+3,m-4);
 	     lineEditOmrFaktor->setText(omrfaktor );
 	 }
-
 	 inrad="";
 	errorrad="";
 	inrad="";
@@ -1222,9 +1228,11 @@ void frmChgArtikel::getLagerdata()
 /*	Hämta lagerdata från databasen 	.				*/
 /************************************************************************/
 	const char *userp = getenv("USER");
-            QString usr(userp);
+	QString usr(userp);
 
-
+	if (lagerplats == "")
+	    return;
+	
 	process = new QProcess();
 	process->addArgument( "./STYRMAN");	// OLFIX funktion
 	process->addArgument(usr);
@@ -1233,7 +1241,7 @@ void frmChgArtikel::getLagerdata()
 	process->addArgument(artikelnr);
 	frmChgArtikel::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmChgArtikel::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-            frmChgArtikel::connect( process, SIGNAL(processExited() ),this, SLOT(slotgetLaDataEndOfProcess() ) );
+	frmChgArtikel::connect( process, SIGNAL(processExited() ),this, SLOT(slotgetLaDataEndOfProcess() ) );
 
 	if ( !process->start() ) {
 		// error handling
@@ -1248,29 +1256,28 @@ void  frmChgArtikel::slotgetLaDataEndOfProcess()
     int i,m;
 
     i = -1;
-    i = errorrad.find( QRegExp("Error:"), 0 );
+    i = errorrad.find( QRegExp("Error:"), 0 );		// Error i rrorrad
  //   qDebug("Error:",errorrad);
          if (i != -1) {
 	QMessageBox::critical( this, "CHGARW",
-		"ERROR!\n"+errorrad
+		"ERROR_Lagerdata_errorrad!\n"+errorrad
 	);
 	errorrad="";
 	i = -1;
+	return;
      }
      i = -1;
 
 //    qDebug("inrad=%s",inrad.latin1());
 
-    i = inrad.find( QRegExp("Error:"), 0 );
+    i = inrad.find( QRegExp("Error:"), 0 );			// Error i inrad
     if (i != -1) {
-	QMessageBox::critical( this, "DSPAREW",
-		"ERROR!\n"+inrad
-	);
+	QMessageBox::critical( this, "CHGARW","ERROR: Lagerdata, inrad!\n"+inrad);
 	inrad="";
 	i = -1;
+	return;
     }else{
 	i = -1;
-
 	i = inrad.find( QRegExp("OK:"), 0 );
 	if (i != -1) {
 	    int i1 = inrad.find( QRegExp("01:"), 0 );	//	lagerplats
@@ -1290,7 +1297,7 @@ void  frmChgArtikel::slotgetLaDataEndOfProcess()
 	    int i15 = inrad.find( QRegExp("15:"), 0 );	//	bestkvant	Beställd kvantitet
 	    int i16 = inrad.find( QRegExp("16:"), 0 );	//	bestpunkt	Beställningspunkt
 	    int i17 = inrad.find( QRegExp("17:"), 0 );	//	omkost		Omkostnader
-	    int i18 = inrad.find( QRegExp("END:"), 0 );//	Slutet på posten
+	    int i18 = inrad.find( QRegExp("END:"), 0 );	//	Slutet på posten
 
 	    m=i2-i1;
 	    if (i1 != -1){
