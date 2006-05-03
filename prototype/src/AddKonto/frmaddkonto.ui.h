@@ -1,17 +1,16 @@
 /****************************************************************/
 /**		ADDKTOW					*/
-/**		2003-01-17					*/
-/**	Modifierad 2003-05-11	Jan Pihlgren			*/
-/**	Modifierad 2003-08-06	Jan Pihlgren			*/
-/**	Version 0.2						*/
-/**		Jan Pihlgren	jan@pihlgren.se			*/
+/**		2003-01-17				*/
+/**	Modifierad 2006-05-03	Jan Pihlgren		*/
+/**	Version 0.4.4					*/
+/**		Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
- *					                                                 *
+ *					                                            *
  *   This program is free software; you can redistribute it and/or modify 	 *
- *   it under the terms of the GNU General Public License as published by       *
+ *   it under the terms of the GNU General Public License as published by       	 *
  *   the Free Software Foundation; either version 2 of the License, or     	 *
- *   (at your option) any later version.                                   		 *
+ *   (at your option) any later version.                                   		 	 *
  *                                                                         				 *
  *********************************************** *****************/
 /****************************************************************************
@@ -45,11 +44,11 @@
 
 void frmAddKonto::slotAddKonto()
 {
-/************************************************************************/
-/*	Uppdatera databasen						*/
-/************************************************************************/
+/**************************************************************************/
+/*	Uppdatera databasen						 */
+/**************************************************************************/
 	const char *userp = getenv("USER");
-            QString usr(userp);
+	QString usr(userp);
 
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
@@ -68,16 +67,16 @@ void frmAddKonto::slotAddKonto()
 	
 	frmAddKonto::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmAddKonto::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-            frmAddKonto::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );	   
+	frmAddKonto::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );	   
 
 	if (manuell == ""){
 	    manuell.append("J");
 	}
-//           qWarning(" Startar Addkonto 1");
 
-	if (arid == "" || ktonr =="" || momskod=="" || srunr =="" || ktoplan == "" ){
+	if (arid == "" || ktonr =="" || srunr =="" || ktoplan == "" ){
     	    QMessageBox::warning( this, "ADDKTOW",
-                      "Ett eller flera av fälten \n Bokföringsår/Kontonumme/Momskod/SRUnr/Kontoplan\n saknas \n" );
+                      "Ett eller flera av fälten \n Bokföringsår/Kontonummer/SRUnr/Kontoplan\n saknas \n" );
+	    LineEditBar->setFocus();
 	}
 	else {
 //	    qWarning(" Startar Addkonto 2");
@@ -95,21 +94,23 @@ void frmAddKonto::LineEditBar_returnPressed()
     arid=LineEditBar->text();
     arid=arid.upper();
     LineEditBar->setText((arid));
-    if (arid==""){
+/*    if (arid==""){
 	QMessageBox::warning( this, "ADDKTOW",
                       "Bokföringsår måste fyllas i! \n" );
 	LineEditBar->setFocus();
 	    }
+*/	    
 }
 
 void frmAddKonto::LineEditKontoNr_returnPressed()
 {
     ktonr=LineEditKontoNr->text();
-    if (ktonr==""){
+/*    if (ktonr==""){
 	QMessageBox::warning( this, "ADDKTOW",
                       "Kontonummer måste fyllas i! \n" );
 	LineEditKontoNr->setFocus();
 	    }
+*/	    
 }
 
 void frmAddKonto::LineEditBenamn_returnPressed()
@@ -129,23 +130,23 @@ void frmAddKonto::LineEditManuell_returnPressed()
 void frmAddKonto::LineEditMomskod_returnPressed()
 {
     momskod=LineEditMomskod->text();
-    if (momskod==""){
+/*    if (momskod==""){
 	QMessageBox::warning( this, "ADDKTOW",
                       "Momskod måste fyllas i! \n" );
 	LineEditMomskod->setFocus();
 	    }
+*/	    
 }
-
-
 
 void frmAddKonto::LineEditSRU_returnPressed()
 {
     srunr=LineEditSRU->text();
-    if (srunr==""){
+/*    if (srunr==""){
 	QMessageBox::warning( this, "ADDKTOW",
                       "SRUnummer måste fyllas i! \n" );
 	LineEditSRU->setFocus();
 	    }    
+*/
 }
 
 void frmAddKonto::LineEditKst_returnPressed()
@@ -153,30 +154,25 @@ void frmAddKonto::LineEditKst_returnPressed()
     kst=LineEditKst->text();
 }
 
-
-
 void frmAddKonto::LineEditProjekt_returnPressed()
 {
     projekt=LineEditProjekt->text();
 }
-
-
 
 void frmAddKonto::LineEditSubkonto_returnPressed()
 {
     subkonto=LineEditSubkonto->text();
 }
 
-
-
 void frmAddKonto::LineEditKontoplan_returnPressed()
 {
     ktoplan=LineEditKontoplan->text();
-   if (ktoplan==""){
+/*   if (ktoplan==""){
 	QMessageBox::warning( this, "ADDKTOW",
                       "Kontoplan måste fyllas i! \n" );
 	LineEditKontoplan->setFocus();
 	    }
+*/	    
 }
 
 void frmAddKonto::PushButtonOK_clicked()
@@ -185,7 +181,6 @@ void frmAddKonto::PushButtonOK_clicked()
     
     frmAddKonto::slotAddKonto();
 }
-
 
 void frmAddKonto::slotDataOnStderr()
 {
@@ -205,16 +200,15 @@ void frmAddKonto::slotDataOnStdout()
     }
 }
 
-
 void frmAddKonto::slotEndOfProcess()
 {
     int i=-1;
     int j=-1;
     
-    qDebug("inrad=%s",inrad.latin1());
+//    qDebug("inrad=%s",inrad.latin1());
             i = -1;
             i = inrad.find( QRegExp("Error:"), 0 );
-	qDebug("frmAddKonto-inrad=%s i=%d\n",inrad.latin1(),i);
+//	qDebug("frmAddKonto-inrad=%s i=%d\n",inrad.latin1(),i);
             if (i == 0) {
 		QMessageBox::critical( this, "OLFIX - KTOADD",
 			"ERROR!\n"+inrad 
