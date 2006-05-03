@@ -36,7 +36,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARADD.c,v 1.3 2005/02/23 09:06:59 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARADD.c,v 1.4 2006/05/03 03:53:01 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -67,7 +67,7 @@ int main(int argc, char *argv[], char *envp[])
   char temp3[]=",";
   char temp4[]=")";
   char temp5[1500]="";
-  char artikeldata[2000];
+  char artikeldata[200];
 
   char *pos1;
   char *pos2;
@@ -77,7 +77,7 @@ int main(int argc, char *argv[], char *envp[])
   	strncpy(artikeldata,argv[1],sizeof(artikeldata));
   }
   else{
-  	fprintf(stderr,"Error: ARADD: Ange artikelnummer!\n");
+  	fprintf(stderr,"Error: ARADD: Ange artikeldata!\n");
 	exit(-1);
   }
 /*  fprintf(stderr,"argv[1]=%s\n",argv[1]);	*/
@@ -118,7 +118,7 @@ int main(int argc, char *argv[], char *envp[])
   lenght=strlen(artikeldata);
 /*  fprintf(stderr,"lenght=%d\n",lenght);	*/
   strncpy(temp5,temp1a,strlen(temp1a));
-/*  fprintf(stderr,"artikeldata=%s\n",artikeldata);	*/
+//  fprintf(stderr,"artikeldata=%s\n\n\n",artikeldata);	
   pos1=strstr(artikeldata,"_:_")+3;
   k=3;
   n=0;
@@ -145,11 +145,11 @@ int main(int argc, char *argv[], char *envp[])
 	pos1=pos2;
 /*	fprintf(stderr,"i=%d, k=%d, n=%d, tmp=%d\n",i,k,n,tmp);	*/
 	n=0;
-/*	fprintf(stderr,"temp5 = %s\n",temp5);			*/
+/*	fprintf(stderr,"Nr %d   temp5 = %s\n\n",i,temp5);	*/
   }
   strncat(temp5,temp4,strlen(temp4));
 
-/* fprintf(stderr,"ARADD: temp5 = %s\n",temp5);			*/
+ /*fprintf(stderr,"ARADD: temp5_TOTAL = %s\n\n",temp5);		*/	
 /* exit(0);							*/
 
 
