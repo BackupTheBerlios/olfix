@@ -6,7 +6,7 @@
   <meta name="GENERATOR" content="OpenOffice.org 1.0.2  (Linux)">
   <meta name="CREATED" content="20060106;10014400">
   <meta name="CHANGEDBY" content="Jan Pihlgren">
-  <meta name="CHANGED" content="">
+  <meta name="CHANGED" content="20060503">
   <style>
 	<!--
 		@page { margin: 2cm }
@@ -29,10 +29,10 @@
  Kapitel Ekonomi
 </font></p>
 <p style="margin-bottom: 0cm;" align="center"><font size="5">
- Version 0.1
+ Version 0.4.4
  </font></p>
 <p style="margin-bottom: 0cm;" align="center"><font size="5">
- 2006-01-06
+ 2006-05-03
  </font></p>
 <hr>
 
@@ -61,6 +61,7 @@ Copyright 2004 Jan Pihlgren.</font></p>
 <a href="#REKENSKAPSAR">Räkenskapsår.</a><br>
 <p style="margin-left: 5cm;"><font face="San Serif"><font size="2">
 <a href="#NYTTREKENSKAPSAR">Nytt räkenskapsår.</a><br>
+<a href="#ENDRABAR">Ändra räkenskapsår.</a><br>
 <p style="margin-left: 3cm;"><font face="San Serif"><font size="2">
 <a href="#KONTO">Kontoadministration.</a><br>
 <p style="margin-left: 5cm;"><font face="San Serif"><font size="2">
@@ -196,35 +197,41 @@ uppdatering sker och programmet avslutas.<br>
 <p align="center">
 <b>R&Auml;KENSKAPS&Aring;R</b></p>
 
-<!--           NYTT RÄKENSKAPSÅR  -->
+
 <A name="NYTTREKENSKAPSAR"></A>
+Räkenskapsår och bokföringsår är synonymer och omfattar den period, normalt ett år, som bokföringen/redovisningen gäller.<br>
+OLFIX använder en tvåstavig bokstavskombination (AA - ZZ) för att ange ett bokfäringsår.
+Att använda en bokstavskombination för ange ett bokföringsår innebär att man inte behöver ta hänsyn till om det är ett normalt räkenskapsår eller ett brutet räkenskapsår. Man behöver ej heller bli frågande om till vilket kalenderår ett räkenskapsår tillhör.<br>
+Den tvåställiga bokstavskombinationen är nyckel och måste <b>alltid</b> anges.
+<!--           NYTT RÄKENSKAPSÅR  -->
 <p>
-<b>Nytt r&auml;kenskaps&aring;r.</b></p>
+<b>Nytt r&auml;kenskaps&aring;r.</b>
+</p>
 
 Hur man l&auml;gger upp ett nytt r&auml;kenskaps&aring;r/bokf&ouml;rings&aring;r.
 <p align="center">
 <img src="UserManual_html_ADDBARW.png" name="Graphic10" align="bottom" border="0" ></p>
 
 <p align="left">Ange
-<a href="#BEGREPP">bokf&ouml;rings&aring;r</a> med tv&aring; tecken. Ben&auml;mningen anges med
+<a href="#BEGREPP">bokf&ouml;rings&aring;r</a> med tv&aring; tecken. <b>Ben&auml;mningen </b>anger
 r&auml;kenskapets&aring;rets omfattning, t ex 2001-01-01 -- 2001-12-31.<br>
 
-Fyll i Startdatum med r&auml;kenskaps&aring;rets b&ouml;rjan, t ex 2001-01-01.<br>
+Fyll i <b>Startdatum</b> med r&auml;kenskaps&aring;rets b&ouml;rjan, t ex 2001-01-01.<br>
 
-Fyll i Slutdatum med datumet f&ouml;r r&auml;kenskaps&aring;rets sista dag, t ex
+Fyll i <b>Slutdatum</b> med datumet f&ouml;r r&auml;kenskaps&aring;rets sista dag, t ex
 2001-12-31.<br>
 
-Som Beskattnings&aring;r anges det &aring;rtal f&ouml;r vilket r&auml;kenskaperna ska
+Som <b>Beskattnings&aring;r</b> anges det &aring;rtal f&ouml;r vilket r&auml;kenskaperna ska
 beskattas, t ex 2001. <br>
 
-Som Senaste ver.datum anges normalt r&auml;kenskaps&aring;rets f&ouml;rsta dag, t ex
+Som <b>Senaste ver.datum</b> anges normalt r&auml;kenskaps&aring;rets f&ouml;rsta dag, t ex
 2001-01-01.<br>
 
-S&aring;som N&auml;sta ver.nummer anges vilket verifikationsnummer n&auml;sta
+S&aring;som <b>N&auml;sta ver.nummer</b> anges vilket verifikationsnummer n&auml;sta
 bokf&ouml;ringsverifikation skall &aring;s&auml;ttas, normalt anges 1. F&auml;ltet uppdateras
 sedan i samband bedbokf&ouml;ringen.<br>
 
-I f&auml;ltet Kontoplan anger man efter vilken kontoplan som
+I f&auml;ltet <b>Kontoplan</b> anger man efter vilken kontoplan som
 r&auml;kenskaperna/konteringarna &auml;r uppr&auml;ttad.<br>
 
 <br>
@@ -234,6 +241,22 @@ Efter detta &auml;r det dags att regstrera alla konton.</p>
 <p style="margin-bottom: 0cm;">
 <a href="#TOP">Till b&ouml;rjan</a></p>
 <hr style="width: 100%; height: 2px;">
+
+<!--          ÄNDRA RÄKENSKAPSÅR  -->
+<A name="ENDRABAR"></A>
+<p>
+<b>Ändra r&auml;kenskaps&aring;r.</b>
+</p>
+<p align="center">
+<img src="UserManual_html_CHGBARW.png" name="CHGBARW" align="bottom" border="0" ></p>
+Ange det <b>bokföringsår</b> (två tecken) som ska ändras. Bokföringsåret måste finnas. OBS! Detta fält kan inte ändras.<br>
+Tryck på <b>TAB</b> eller <b>Enter</b> för att hämta informationen om önskat bokföringsår. Ändra önskade fält och avsluta med att klicka på <b>OK</b>.
+
+
+<p style="margin-bottom: 0cm;">
+<a href="#TOP">Till b&ouml;rjan</a></p>
+<hr style="width: 100%; height: 2px;">
+
 <!--           KONTOADMINISTRATION  -->
 <a name="KONTO"></a>
 <p align="center">
@@ -250,7 +273,19 @@ detta läggas upp först.
 <p align="center">
 <img src="UserManual_html_ADDKTOW.png"
  name="Graphic2" align="bottom" width="427" height="463" border="0"></p>
-
+Fyll i fälten. Använd <b>TAB</b> för att avsluta inmatning av värde i ett fält.
+Fält som är markerade med en <b>*</b> är obligatoriska och måste fyllas i.<br>
+<b>Bokföringsår</b> = Tvåställig, unik bokstavskombination som refererar till avsett räkenskapsår.<br>
+<b>Kontonummer</b> = kontonummer enligt använd kontoplan.<br>
+<b>Benämning</b> = Beskrivning av kontonumret.<br>
+<b>Manuell</b> = Om kontot ska kunna användas för automatkontering (N) eller bara för manuell kontering (J).<br>
+<b>Momskod</b> = Refererar till vilken momskod (1- 5) i företagsregistret som kontot ska kopplas. I första hand konton som används för momsdeklaration.<br>
+<b>SRUnr</b> = Kod som skatteverket anger att ett konto ska referera till. Används i samband med deklarationer.<br>
+<b>Kostnadsställe</b> = Plats i en organisation som orsakat en kostnad. <br>
+<b>Projekt</b> = Projektnummer, Används i de fall kostnader för olika projekt önskas följas upp per projekt.<br>
+<b>Subkonto</b> = Underkonto till Kontonummer.<br>
+<b>Kontoplan</b> = Namn på kontoplan till exempel EUBAS97<br><br>
+Avsluta inmatning genom att klicka på knappen <b>OK</b><br>
 <p style="margin-bottom: 0cm;">
 <a href="#TOP">Till början</a> </p>
 <hr>
@@ -262,7 +297,8 @@ detta läggas upp först.
 
 <p font face="San Serif" align="left">
 <b>Bokf&ouml;rings&aring;r:</b> Tv&aring;st&auml;llig bokstavskombination som anger vilket
-bokf&ouml;rings&aring;r som avses.</p>
+bokf&ouml;rings&aring;r som avses.<br>
+Bokföringsår och räkenskapsår är synonymer i OLFIX.</p>
 
 <p style="margin-bottom: 0cm;" align="left">
 <font face="San Serif">

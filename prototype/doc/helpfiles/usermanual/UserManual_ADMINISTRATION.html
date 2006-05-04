@@ -6,7 +6,7 @@
 	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.0.2  (Linux)">
 	<META NAME="CREATED" CONTENT="20021205;10014400">
 	<META NAME="CHANGEDBY" CONTENT="Jan Pihlgren">
-	<META NAME="CHANGED" CONTENT="20050929;7382300">
+	<META NAME="CHANGED" CONTENT="20060323;7382300">
 	<STYLE>
 	<!--
 		@page { margin: 2cm }
@@ -25,9 +25,9 @@ f&ouml;r Linuxsystem</B></FONT></P>
 <P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=4 STYLE="font-size: 16pt">Kapitel
 Administration</FONT>
 </P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.1 </FONT>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.3 </FONT>
 </P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2006-02-06 </FONT>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2006-04-11 </FONT>
 </P>
 <HR>
 <P STYLE="margin-left: 3cm">This program is free software; you can
@@ -55,7 +55,9 @@ any later version.</P>
 		<A href="#DELUSER">Ta bort användare.</A>
 		<A href="#CHGUSER">Ändra användardata.</A><br>
 	<A href="#FUNK">Funktionsadministration.</A>
-		<A href="#NYFUNK">Ny funktion.</A><br>
+		<A href="#NYFUNK">Ny funktion.</A>
+		<A href="#LISTFUNK">Lista funktioner.</A>
+		<A href="#LISTPROG">Lista program.</A><br>
 	<A href="#BEHORIG">Behörighetsadministration.</A>
 		<A href="#NYBEHORIG">Ny behörighet.</A><br></P>
 </pre>
@@ -203,16 +205,61 @@ Detta måste även göras för de program användaren ska ha behörighet att använda.<
 Lämna ADDRGTW genom att klicka på knappen <b>Avsluta</b>.
 <p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
 <a href="#TOP">Till början</a></p></FONT>
+<hr>
+<!--                   FUNKTIONSADMINISTRATION                           -->
+<P ALIGN=CENTER><A NAME="FUNK"></A><FONT FACE="San Serif">
+<B>FUNKTIONSADMINISTRATION</B></FONT></P>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+Funktionsadministration innebär upplägg av nya funktioner med tillhörande beskrivningar.<br>
+En funktion är ett program (C-program) som utgör en brygga mellan det grafiska programmet och databasen.
+Nya funktioner läggs upp när det tillkommit ny funktionalitet i OLFIX.
+<P ALIGN=LEFT>
+<a name="NYFUNK"><b>Ny funktion.</b></a>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+Registrera nya funktioner.<br>
+Programmet är till för att underlätta sammankoppling av nya program och databasen.
+</FONT></p>
+<P ALIGN=center>
+<img src="UserManual_html_ADDFNCW.png" name="NYFUNKPICT" align="bottom"  border="0"></p>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+Skriv in namnet på den nya funktionen i fältet <b>Funktion</b>. Avsluta med att trycka Enter.<br>
+I fältet <b>Ledtext</b> skriver man in text som förklarar vad funktionen gör. Avsluta med att trycka på Enter.<br>
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
 
+<hr>
+<P ALIGN=LEFT>
+<a name="LISTFUNK"><b>Lista  funktioner.</b></a>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+Lista befintliga funktioner.<br></FONT></p>
+<P ALIGN=center>
+<img src="UserManual_html_LSTFNCW.png" name="LISTFUNKPICT" align="bottom"  border="0"></p>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+En funktion är en koppling mellan ett program och databasen. Att särskilja funktionen från programmet underlättar möjligheten att hantera behörigheter för användare.
+</FONT></p>
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
+<hr>
+<P ALIGN=LEFT>
+<a name="LISTPROG"><b>Lista  program.</b></a>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+Lista befintliga program (moduler).<br></FONT></p>
+<P ALIGN=center>
+<img src="UserManual_html_LSTPGMW.png" name="LISTPGMPICT" align="bottom"  border="0"></p>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+Genom att klicka på ett kolumnamnen får man sortering  efter  kolummen. Ett klick till på samma kolumn ger omvänd sortering.<br>
+Blanka fält i kolumnen <b>Program</b> innebär att det ännu inte finns program för detta ändamål.
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
 <hr>
 <!--                   BEGREPPSFÖRKLARINGAR                           -->
 <P ALIGN=CENTER><A NAME="BEGREPP"></A><FONT FACE="San Serif">
 <B>BEGREPPSF&Ouml;RKLARINGAR</B></FONT></P>
-<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt" > <b>Bokf&ouml;rings&aring;r:</B>
-Tv&aring;st&auml;llig bokstavskombination som anger vilket
-bokf&ouml;rings&aring;r som avses.</FONT></P>
-<P><BR><BR>
-</P>
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt" >
+ <b>Bokf&ouml;rings&aring;r:</B> Tv&aring;st&auml;llig bokstavskombination som anger vilket
+bokf&ouml;rings&aring;r som avses.<br>
+<b>Funktion:</b> Ett mindre program som sammanbinder huvudprogram  med databasen.<br>
+</FONT></P>
 <p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
 <a href="#TOP">Till början</a></FONT></p>
 </BODY>
