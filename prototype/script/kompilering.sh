@@ -232,6 +232,13 @@ qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
 
+echo "===== ChangeLagerstelle, CHGLSW" >> $LOGGFILE
+cd $WORKDIR/ChangeLagerstelle
+qmake -project "TARGET=CHGLSW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake >> $LOGGFILE
+make >> $LOGGFILE 2>> $LOGGFILE
+make clean >> $LOGGFILE
+
 echo "===== ChangeOrder, CHGORDW" >> $LOGGFILE
 cd $WORKDIR/ChangeOrder
 qmake -project "TARGET=CHGORDW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
@@ -260,11 +267,18 @@ qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
 
-echo "***** Del *****"
-
 echo "===== Dagbok, DAGBOKW" >> $LOGGFILE
 cd $WORKDIR/Dagbok
 qmake -project "TARGET=DAGBOKW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake >> $LOGGFILE
+make >> $LOGGFILE 2>> $LOGGFILE
+make clean >> $LOGGFILE
+
+echo "***** Del *****"
+
+echo "===== DelLagerstelle, DELLSW" >> $LOGGFILE
+cd $WORKDIR/DelLagerstelle
+qmake -project "TARGET=DELLSW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
 qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
@@ -358,6 +372,13 @@ make clean >> $LOGGFILE
 echo "===== DspLev, DSPLEVW" >> $LOGGFILE
 cd $WORKDIR/DspLev
 qmake -project "TARGET=DSPLEVW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake >> $LOGGFILE
+make >> $LOGGFILE 2>> $LOGGFILE
+make clean >> $LOGGFILE
+
+echo "===== DspLagerstelle, DELLSW" >> $LOGGFILE
+cd $WORKDIR/DspLagerstelle
+qmake -project "TARGET=DSPLSW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
 qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
