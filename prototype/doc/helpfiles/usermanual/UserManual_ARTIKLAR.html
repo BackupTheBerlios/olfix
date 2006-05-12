@@ -11,7 +11,7 @@
   <meta name="CREATED" content="20021205;10014400">
 
   <meta name="CHANGEDBY" content="Jan Pihlgren">
-  <meta name="CHANGED" content="20060201;14301400">
+  <meta name="CHANGED" content="20060505;14301400">
   <style>
 	<!--
 		@page { margin: 2cm }
@@ -35,10 +35,10 @@
  Kapitel Artiklar
  </font></p>
 <p align="center" style="margin-bottom: 0cm;"><font size="5">
- Version 0.44
+ Version 0.4.4
  </font></p>
 <p align="center" style="margin-bottom: 0cm;"><font size="5">
- 2006-02-01
+ 2006-05-12
  </font></p>
 <hr>
 <P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
@@ -69,7 +69,11 @@ the Free Software Foundation; either version 2 of the License, or<br>
 	<a href="#ARTIKELSOEK">Söka en artikel.</a><br>
 	<a href="#PRISLISTA">Prislistor.</a>
 		<a href="#PRISLISTACHG">Uppdatera priser/prislistor.</a>
-		<a href="#PRISFIL">Prisfilen.</a>
+		<a href="#PRISFIL">Prisfilen.</a><br>
+	<a href="#LAGERSTELLE">Lagerställeadministration.</a>
+		<a href="#LS01">Visa en lagerställeplats.</a>
+		<a href="#LS02">Radera en lagerställeplats.</a>
+		<a href="#LS03">Ändra/Justera en lagerställeplats.</a>
 </pre>
 <hr>
 <!-- 					Ny Artikel	-->
@@ -85,7 +89,7 @@ the Free Software Foundation; either version 2 of the License, or<br>
 <P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
  Information om en artikel finns på två ställen, dels i ARTIKELREG och dels i LAGERSTELLEREG.<br>
  ARTIKELREG innehåller grunduppgifter.<br>
- LAGERSTELLEREG innehåller kvantitetsuppgifter. Det kan finnas flera lagerställen för en artikel.<br>
+ LAGERSTELLEREG innehåller kvantitetsuppgifter. Det kan finnas flera lagerställen/lagerplatser för en artikel.<br><br>
  Vid nyregistrering av en artikel måste man börja med artikelnummer. Ett Artikelnummer kan bestå av upp till 30 valfria tecken.
  Tecknen bör inte innehålla mellanslag/mellanrum eller <b>ej skrivbara</b> tecken. Artikelnummer bör inte innehålla någon form av logik.
  Förr eller senare kommer logiken att spricka. Använd hellre <b>produktklass</b> för att sammanföra produkter enligt önskemål.<br>
@@ -112,6 +116,7 @@ Lagerplatsdata innehåller kvantitetsuppgifter som kontinuerligt förändras.<br>
 <b>Lagersaldo</b> anger hur mycket av en artikel man har i sitt lager.<br>
 <b>Inventeringsgrupp</b> (3 tecken) används för att slippa inventera hela lagret vid ett enda tillfälle. Artiklar som tillhör samma inventeringsgrupp inventeras vid samma tillfälle.<br>
 <b>ABC-kod</b> anger, A = 20% mest värdefulla artiklar, C = 20% minst värdefulla artiklarna och B övriga 60%.<br>
+<b>Valuta</b> anger i vilken valuta priserna ska hänföras till. Normalt är det svensk valuta.<br>
 <b>Kalkylpris</b> är artikelns kostnad, inköpspris + omkostnader(fraktkostnad, tull, försökring, lagerkostnad mm) .<br>
 <b>Beställningspunkt</b> är det lägsta lagersaldo en artikel ska ha så att man hinner fylla på innan lagersaldot blir 0(noll)<br>
 <br>
@@ -197,6 +202,50 @@ Det minsta antalet fält som får förekomma är 2 st, artikelnummer och ett pris. I
 
 <P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
 <a href="#TOP">Till början</a>
+<hr>
+<a name="LAGERSTELLE"></a>
+<p align="left">
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+ <b>Lagerställeadministration.</b>
+</p>
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+Lagerställeadministrationen omfattar tre progeram, CHGLSW (Ändra lagerställepost), DSPLSW (Visa lagerställepost), och DELLSW (Radera lagerställepost).<br>
+Programmen är avsedda för att hantera eventuella problem som kan uppstå i samband med upplägg mm av artiklar.<br>
+Använd<b> inte</b> programmen för normal administration av artiklar.
+
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+ <b>Visa en lagerställepost.</b>
+</p>
+<a name="LS01"></a>
+<p align="center">
+<img src="UserManual_html_DSPLSW.png" name="DSPLSW" align="bottom"  border="0"></p>
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+Programmet ger möjlighet att titta på en enskild post i LAGERSTELLEREG. Programmet är avsett för den som behöver göra justeringa/rättningar i registret. Normalt används DSPARW och DSPAREW för att studera information om en artikel där även lagerställedata visas.
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+<a href="#TOP">Till början</a>
+<hr>
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+ <b>Ändra en lagerställepost.</b>
+</p>
+<a name="LS03"></a>
+<p align="center">
+<img src="UserManual_html_CHGLSW.png" name="CHGLSW" align="bottom"  border="0"></p>
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+Ändra en post som av olika anledningar blivit felaktig men inte ska raderas, posten har en motsvarighet i ARTIKELREG.
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+<a href="#TOP">Till början</a>
+<hr>
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+ <b>Radera en lagerställepost.</b>
+</p>
+<a name="LS02"></a>
+<p align="center">
+<img src="UserManual_html_DELLSW.png" name="DELLSW" align="bottom"  border="0"></p>
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+Programmet används för att radera en felaktig post i LAGERSTELLEREG. <b>OBS!</b> Radera inte en post som ar en motsvarighet i ARTIKELREG.
+<P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
+<a href="#TOP">Till början</a>
+
 <hr>
 <p align="center">
 <a name="BEGREPP"></a> <b>BEGREPPSFÖRKLARINGAR</b></p>
