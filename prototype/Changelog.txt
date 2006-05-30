@@ -1,5 +1,44 @@
-Changelog OLFIX 20060501
+Changelog OLFIX 20060530
 
+________________________________________________________
+Ver 0.4.5.B
+2006-05-30
+		Ändrad sql
+		CreateOLFIX.sql	Buggrättning.	
+________________________________________________________
+Ver 0.4.4.B
+2006-05-13
+		Nya program
+		CHGLSW	Ändra post i LAGERSTELLEREG.
+		DSPLSW	Visa en post i LAGERSTELLEREG.
+		DELLSW	Radera en post i LAGERSTELLEREG
+
+		Ändrade program
+		ADDARW	Buggrättning.							(0029)
+		ADDFTGW	Lagt till MNR (momsnummer),BGNR och PGNR.Lagt in TAB-funktion. 	(0036)
+		ADDKTOW Momskod ej obligatoriskt.Ändrat fontstorlek från 10 pkt till 9 pkt.
+			Lagt in TAB-funktion.						(0035)
+		DSPFTGW Lagt till MNR (momsnummer)					(0036)
+		CHGFTGW Lagt till MNR (momsnummer)					(0036)
+		CHGARW	Buggrättning och ändrat fontstorlek från 10 pkt till 9 pkt. 	(0037)
+		CHGKUW	Tagit bort formatering av postnummer
+
+		Nya funktioner
+		LSDEL.c	Radera en post i LAGERSTELLEREG
+
+		Ändrad data
+		FTGDATAdata.txt Lagt till MNR(momsnr).					(0036)
+		PROGRAMdata.txt	Lagt till CHGLSW,DELLSW,DSPLSW
+
+		Ny sql
+		CreateTableOFFERTREG.sql
+		CreateTableOFFERTRADREG.sql
+
+		Dokumentation
+		UserManual_ARTIKLAR.html	   (2006-05-12) 
+		UserManual_EKONOMI.html		   (2006-05-03)
+		UserManual_FTGADMIN.html	   (2006-05-04)
+		Teknisk Manual	Uppdaterad (2006-05-13) Version 0.62
 ________________________________________________________
 Ver 0.4.3.B
 2006-05-01
@@ -340,371 +379,3 @@ Ver 0.3.B
 		Installationsanvisningar.sxw (2005-11-01)
 		Korsrelationer.sxw Uppdaterad (2005-??-??)
 ________________________________________________________
-Ver 0.2.4.B
-2005-10-27
-	Detta var tänkt att bli version 0.3, men utvecklingen har gått lite trögt, med lite små problem.
-	Framför allt med PLCHGW och FSORDW.
-
-	VARNING!!
-	I denna version finns tre tabeller, PLOCKLISTEREG, WEBBKUND och PASSW som eventuellt kan
-	komma att tagas bort i framtida versioner.
-	Dessa tabeller används för att testa olika senarion.
-
-		Nya program
-		PLCHGW		Pricka av en kundorders plocklista
-		ADDFORW		Lägga upp nytt företag/ny databas
-
-		Ändrade program
-		ADDARW    	Uppdatera Tip Artikeltyp ..4=Tjänst
-				Lagt till Hjälp
-		OLFIXW		Utökad felhantering
-		BYTFTGW		Ändrat förbättrad samt anrop till hjälpfil
-		FSORDW		Kompleterat med listning av plockade orderrader(ej färdig)
-
-		Nya funktioner
-		ORDRUPD.c	Uppdatera levererat och restnoterat i ORDERRADREG
-		FORDSP.c	Visa info om databas nr x.
-		DBCHK.c		Lista vilka databaser som finns i systemet.
-		PICKADD.c	Lägga upp nya plock i tabellen PLOCKLISTEREG
-		PICKLST.c	Lista plocknr,ordernr,radnr och plockstatus från PLOCKLISTEREG
-		PICKDSP.c	Info om senaste plock.
-
-		Ändrade funktioner
-		AR2UPD.c	Lagt till update lagersaldo
-		FORCHK.c	Städat
-		ORDCHK.c	Buggrättning
-
-		Nya tabeller
-		PLOCKLISTEREG	Hålla reda på vad som är plockat på kundordar
-
-		Ändrade tabeller
-		ARTIKELREG
-			ändrat	ARARTTYP	ENUM ('0','1','2','3','4')DEFAULT '0',
-				lagt till '4' för artikeltyp = Tjänst
-
-		Nya sqlfiler
-		CreateOLFIXtemplate.sql Avsedd för att skapa en ny, tom, databas
-		CreateTablePLOCKLISTEREG.sql Skapa tabellen PLOCKLISTEREG
-
-		Ändrade sqlfiler.
-		CreateTableARTIKELREG.sql
-		AlterTableARTIKELREG.sql
-		CreateOLFIX.sql		Uppdaterad.
-
-		Ändrade data
-		TRANSIDdata.txt	Tillägg av FORDSP, DBCHK.
-
-		Dokumentation
-		Usersmanual (Online)Uppdaterad (2005-10-19)
-		UserManual	Uppdaterad (2005-10-18)
-
-		Teknisk Manual	Uppdaterad (2005-10-24) Version 0.55
-		Installationsanvisningar.txt (2005-??-??)
-		Installationsanvisningar.sxw (2005-??-??)
-		Korsrelationer.sxw Uppdaterad (2005-??-??)
-
-		(Rättat create_dist (2005-04-24))
-________________________________________________________
-Ver 0.2.3.B
-2005-04-23
-		Nya program
-		DSPORDW		Visa en kundorder
-		PLORDW		Skapa och skriva ut plocklista för kundorder
-		FSORDW		Skapa och skriva ut följesedel till en kundorder.Påbörjad.
-		RPTSIEW		Skapa SIE-rapporter.
-
-		Ändrade program
-		ADDORDW    	Uppdatera LAGERSTELLEREG:RESERVERAT
-		DSPARW		Lagt till fältet "Reserverad kvantitet"
-		LSTORDW		Justerat layout
-
-		Nya funktioner
-		ORDDSP.c	Visa kundorderns huvudpost (ORDERREG)
-		ORDRDSP.c	Visa kundorderns radposter (ORDERRADREG)
-		AR2UPD.c	Uppdatera LAGERSTELLEREG
-		ORDCHK.c	Kontrollera orderstatus mm
-		SIEEXPK.c	SIE export kontoplan
-		SIEEXPV.c	SIE export verifikationsrader
-		SIEEXPR.c	SIE export saldo
-		Makefile	Uppdaterad
-
-		Ändrade funktioner
-		ARDSPL.c	Lagt till fältet RESERVERAT
-		FTGDSP.c	Lagt till markören \0:
-
-		Ändrade datafiler
-		TRANSIDdata.txt	Nya funktioner
-
-		Nya sqlfiler
-		AlterTableLAGERSTELLEREG_2.sql Lägger till fältet RESERVERAT
-
-		Ändrade sqlfiler
-		CreateTableLAGERSTELLEREG.sql Lagt till fältet RESERVERAT
-
-		Nya rapporter
-		KuOrderPlocklista.kut
-		KuOrderFoljesedel.kut
-
-		Ändrade rapporter
-
-		Dokumentation
-		Usersmanual (Online)Uppdaterad (2005-04-16)
-		UserManual	Uppdaterad (2005-??-??)
-
-		Teknisk Manual	Uppdaterad (2005-04-15) Version 0.53
-		Installationsanvisningar.txt (2005-??-??)
-		Installationsanvisningar.sxw (2005-??-??)
-		Korsrelationer.sxw Uppdaterad (2005-??-??)
-________________________________________________________
-Ver 0.2.2.B
-2005-03-24
-		Nya program
-		LSTBARW		Lista bokföringsår.
-		ADDORDW		Registrera kundorder med möjlighet att nyregistrera en kund.
-		LSTORDW		Lista kundorder.
-		SRCHKUW		Söka kunder på namn, postnr,tfnnr eller postadr
-
-		Ändrade program
-		OLFIXHLP	Mera hjälp
-		ADDBARW		Lagt till Hjälp-knapp mm+buggrättning
-		ADDINKW		Lagt till Hjälp
-		BYTFTGW		Returnera värde(databasnamn) till OLFIXW
-				Lagt till hjälpknapp.
-		OLFIXW		Ta emot värde(databasnamn) från BYTFTGW
-
-		Nya funktioner
-		BARLST.c	Lista bokföringsår
-		LEVPDSP.c	Visa en standardleveransplats data.
-		PKDDSP.c	Visa en produktgrupp/produktklass/produktkod
-		ORDADD.c	Kundorderadd, orderhuvud.
-		ORDRADD.c	Kundorderradadd, orderrader.
-		ORDLST.c	Komplett listning ur ORDERREG
-		ORDLST2.c	Listning ur ORDERREG, begränsat antal fält.
-		KUSRCH.c	Söka kunder på namn, postnr,tfnnr eller postadr
-
-		Makefile
-
-		Ändrade funktioner
-		PRTAPI.c	Buggrättning
-		BARADD.c	Buggrättning
-		PKDADD.c	Lagt till momskod (t ex MOMS1)
-
-		Ändrade datafiler
-		PROGRAMdata.txt	Nytt program LSTBARW.Lista bokföringsår
-				Nytt program SRCHKUW. Söka kunder
-				Nytt program LSTORDW. Lista kundorder
-		TRANSIDdata.txt	Nya funktioner
-
-		Ändrade tabeller
-		PRODUKTGRUPP 	Lagt till fältet MOMSKOD VARCHAR(5)
-		ORDERREG	Helt ny. Kundorderns huvudpost.
-		ORDERRADREG	Helt ny. Kundorderns radposter.
-
-		Ändrade sqlfiler.
-		CreateTableORDERREG.sql
-		CreateTableORDERRADREG.sql
-
-		Dokumentation
-		Usersmanual (Online)	Ändrad font till San Serif mm
-				Mera info
-				Indelad i kapitel (2005-03-16)
-		UserManual	Uppdaterad (2005-??-??)
-
-		Teknisk Manual	Uppdaterad (2005-03-15)
-		Installationsanvisningar.txt (2005-??-??)
-		Installationsanvisningar.sxw (2005-??-??)
-		Korsrelationer.sxw Uppdaterad (2005-??-??)
-________________________________________________________
-Ver 0.2.1.B
-20050224
-		Nya funktioner
-		ARLSPK.c	Lista artiklar per angiven produktklass
-
-		Ändrade funktioner
-		Makefile	Ny funktion (ARLSPK.c)
-
-		Nya program
-		RPTSIEW	(Påbörjad) Export av bokföring.
-
-		Ändrade program
-		ADDORDW	(Ej klar. 20050209)	Kundorderregistrering.
-		LSTARW	Buggrättning
-		ARADD.c		Buggrättning
-		ARCHG.c		Buggrättning
-		ARCHK.c		Buggrättning
-		ARDSP.c		Buggrättning
-		ARLSPK.c	Buggrättning
-		ARCHGL.c	Buggrättning
-		ARLST.c		Buggrättning
-		ARLSTL.c	Buggrättning
-		ATTBET.c	Buggrättning
-		BARADD.c	Buggrättning
-		BARDSP.c	Buggrättning
-		BARCHK.c	Buggrättning
-		BARCHG.c	Buggrättning
-		BARFND.c	Buggrättning
-		BETADD.c	Buggrättning
-		BETCHG.c	Buggrättning
-		BETDSP.c	Buggrättning
-		BETLST.c	Buggrättning
-		DBOKRPT.c	Buggrättning
-		FORADD.c	Buggrättning
-		FORCHK.c	Buggrättning
-		FORLST.c	Buggrättning
-		FTGADD.c	Buggrättning
-		FTGADM.c	Buggrättning
-		FTGDSP.c	Buggrättning
-		FTGLIS.c	Buggrättning
-		FTGLST.c	Buggrättning
-		FTGUPD.c	Buggrättning
-		HBOKRPT.c	Buggrättning
-		INKADD.c	Buggrättning
-		INKHDSP.c	Buggrättning
-		INKLST.c	Buggrättning
-		INKRADD.c	Buggrättning
-		INKRLST.c	Buggrättning
-		KSTADD.c	Buggrättning
-		KSTCHK.c	Buggrättning
-		KSTDSP.c	Buggrättning
-		KSTLST.c	Buggrättning
-		KTOADD.c	Buggrättning
-		KTOCHG.c	Buggrättning
-		KTOCHK.c	Buggrättning
-		KTODSP.c	Buggrättning
-		KTOLST.c	Buggrättning
-		KTORPT.c	Buggrättning
-		KTOVIEW.c	Buggrättning
-		KTOUPD		Obsolet,  (binär borttagen)
-		KUADD.c		Buggrättning
-		KUCHG.c		Buggrättning
-		KUCHK.c		Buggrättning
-		KUDSP.c		Buggrättning
-		KULST.c		Buggrättning
-		LEVADD.c	Buggrättning
-		LEVCHG.c	Buggrättning
-		LEVDSP.c	Buggrättning
-		LEVLST.c	Buggrättning
-		LEVPLST.c	Buggrättning
-		LEVSADD.c	Buggrättning
-		LEVSDSP.c	Buggrättning
-		LEVSLST.c	Buggrättning
-		LEVVADD.c	Buggrättning
-		LEVVDSP.c	Buggrättning
-		LEVVLST.c	Buggrättning
-		LRESADD.c	Buggrättning
-		LRESRPT.c	Buggrättning
-		OLFIX.c		Buggrättning
-		PKDADD.c	Buggrättning
-		PKDLST.c	Buggrättning
-		PRGLST.c	Buggrättning
-		PRTAPI.c	Buggrättning
-		RGTADD.c	Buggrättning
-		RGTCHK.c	Buggrättning
-		RGTDEL.c	Buggrättning
-		RGTDSP.c	Buggrättning
-		RGTLST.c	Buggrättning
-		RPTCRE.c	Buggrättning
-		SIEEXP.c	Buggrättning
-		SLPADD.c	Buggrättning
-		STYRMAN.c	Buggrättning
-		TRHDADD.c	Buggrättning
-		TRNSADD.c	Buggrättning
-		TRNSLST.c	Buggrättning
-		TXTADD.c	Buggrättning
-		TXTDEL.c	Buggrättning
-		TXTDSP.c	Buggrättning
-		USERADD.c	Buggrättning
-		USERCHG.c	Buggrättning
-		USERDEL.c	Buggrättning
-		USERDSP.c	Buggrättning
-		USERLST.c	Buggrättning
-		VALADD.c	Buggrättning
-		VALCHG.c	Buggrättning
-		VALDEL.c	Buggrättning
-		VALDSP.c	Buggrättning
-		VALLST.c	Buggrättning
-		VERHDSP.c	Buggrättning
-		VERHLST.c	Buggrättning
-		VERUPD.c	Buggrättning
-		WKUDSP.c	Buggrättning
-		WRREC.c		Buggrättning
-		Nya tabeller
-
-		Ändrade tabeller
-		ARTIKELREG
-			ARBENEMNING1, ARBENEMNING2,ARURBENEMNING utökat till VARCHAR(60)
-
-		Ny sql
-
-		Ändrade sql
-		CreateTableARTIKELREG.sql
-			ARBENEMNING1, ARBENEMNING2,ARURBENEMNING utökat till VARCHAR(60)
-
-		Nya rapporter
-		Ändrade rapporter
-
-		Script
-		Raderat bort obsoleta script
-			start_olfix
-			olfix_install
-			olfix_install_bin
-			olfix_install_copy
-			install.sh
-			setup.sh
-			vallst.sh
-
-		Dokumentation
-			Teknisk Manual	Uppdaterad (2005-02-14)
-			UserManual	Uppdaterad (2005-??-??)
-			Installationsanvisningar.txt (2005-02-09)
-			Installationsanvisningar.sxw (2005-02-09)
-		Korsrelationer.sxw Uppdaterad (2005-02-05)
-
-
-Ver 0.2.B
-20050130
-		Nya funktioner
-		PKDADD.c	Lägga upp ett nytt produktklass/produktgrupp/produktkod
-		PKDLST.c	Lista produktklass/produktgrupp/produktkod
-		WKUDSP.c	Visa kunddata för en webbkund			*
-		ARLSTL.c	Lista artiklar med lagersaldo
-
-		Ändrade funktioner
-		PRTAPI.c	Buggrättning, hantering av LF (hex 0A) i /tmp/
-
-		Nya program
-		LSTPKDW		Lista produktklass/produktgrupp/produktkod
-		DSPBARW		Visa räkenskapsår.
-		LSTFTGW		Lista data i företagsregistret.
-		RESTRPT		Resultatrapport (ej klar)
-
-		Ändrade program
-		OLFIXW	Versionsnummer i Om OLFIX
-		BALRPTW		Utvecklad (alfastatus)
-
-		Nya tabeller
-		PASSW		Spara password för webbkund (webbshop)		*
-		KUNDKATEGORI	Beskrivning över kundkategorier
-
-		Ändrade tabeller
-		FTGDATA		Ny posttyp, WKUNR, Senast använda kundnr.
-
-		Ny sql
-		CreateTabellPASSW.sql		Skapa tabellen PASSW		*
-		CreateTabellKUNDKATEGORI.sql	Skapa tabellen KUNDKATEGORI	*
-
-		Ändrade sql
-		CreateOLFIX.sql Skapar databaserna olix och olfixtst med data
-				 	samt användaren olfix.
-		FTGDATAdata_olfixtst.txt	Nya posttyper
-		FTGDATAdata.txt			Nya posttyper
-		PROGRAMdata.txt			Nytt program
-
-		Ändrade rapporter
-		Balansrapport.kut	Lagt till totalsumma.
-
-		Dokumentation
-		Teknisk Manual	Uppdaterad (2005-01-16)
-		UserManual	Uppdaterad (2004-12-20)
-		Installationsanvisningar.txt (2004-12-23)
-
