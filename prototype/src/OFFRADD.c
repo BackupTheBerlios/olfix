@@ -32,7 +32,7 @@ Fältavskiljare = _:_
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/OFFRADD.c,v 1.1 2006/04/26 04:31:18 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/OFFRADD.c,v 1.2 2006/10/29 06:45:40 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -110,7 +110,7 @@ int main(int argc, char *argv[], char *envp[])
   	strncpy(offertraddata,argv[1],sizeof(offertraddata));	/* 2005-02-23	*/
   }
   else{
-  	fprintf(stderr,"Error: OFFRADD: Ange inköpsordernummer!\n");
+  	fprintf(stderr,"Error: OFFRADD: Ange offertordernummer!\n");
 	exit(-1);
   }
 
