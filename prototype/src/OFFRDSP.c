@@ -22,7 +22,7 @@
 
 	Kommando: ./OFFRDSP offertnr
 
-	Function: Visa samtliga orderrader på en kundorder i tabell OFFERTRADREG
+	Function: Visa samtliga offertrader på en kundoffert i tabell OFFERTRADREG
 
 	OUTPUT: OFFERTNR ORDERNR OFFERTRAD KUNDNR RADORDERTYP ARTIKELNR BENEMNING LEVERANSVECKA
 	BESTELLT APRIS SUMMA MOMSKR  LEVERERAT RESTNOTERAT RADRABATT KALKYLPRIS
@@ -39,7 +39,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/OFFRDSP.c,v 1.1 2006/04/29 03:42:35 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/OFFRDSP.c,v 1.2 2006/11/05 07:32:29 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
