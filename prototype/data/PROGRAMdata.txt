@@ -103,3 +103,7 @@
 "103","Administration","Funktionsadministration","Lista program/moduler","LSTPGMW"
 "104","Försäljning","Offerter","Registrera offert","ADDOFFW"
 "105","Försäljning","Offerter","Visa en offert","DSPOFFW"
+"106","Materialhantering","Artikeladmin.","Visa lagerställepost","DSPLSW"
+"107","Materialhantering","Artikeladmin.","Radera lagerställepost","DELLSW"
+"108","Materialhantering","Artikeladmin.","Ändra lagerställepost","CHGLSW"
+"109","Försäljning","Offerter","Ändra en offert","CHGOFFW"
