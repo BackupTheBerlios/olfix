@@ -107,3 +107,4 @@
 "107","Materialhantering","Artikeladmin.","Radera lagerställepost","DELLSW"
 "108","Materialhantering","Artikeladmin.","Ändra lagerställepost","CHGLSW"
 "109","Försäljning","Offerter","Ändra en offert","CHGOFFW"
+"110","Försäljning","Offerter","Radera en offert","DELOFFW"

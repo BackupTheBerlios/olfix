@@ -101,6 +101,13 @@ qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
 
+echo "===== AddOffert, ADDOFFW" >> $LOGGFILE
+cd $WORKDIR/AddOffert
+qmake -project "TARGET=ADDOFFW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake >> $LOGGFILE
+make >> $LOGGFILE 2>> $LOGGFILE
+make clean >> $LOGGFILE
+
 echo "===== AddOrder, ADDORDW" >> $LOGGFILE
 cd $WORKDIR/AddOrder
 qmake -project "TARGET=ADDORDW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
@@ -282,6 +289,13 @@ make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
 
 echo "***** Del *****"
+
+echo "===== DelOffert, DELOFFW" >> $LOGGFILE
+cd $WORKDIR/DelOffert
+qmake -project "TARGET=DELOFFW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake >> $LOGGFILE
+make >> $LOGGFILE 2>> $LOGGFILE
+make clean >> $LOGGFILE
 
 echo "===== DelLagerstelle, DELLSW" >> $LOGGFILE
 cd $WORKDIR/DelLagerstelle
