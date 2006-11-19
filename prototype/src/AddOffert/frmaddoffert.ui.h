@@ -1229,7 +1229,7 @@ void frmAddOffert::getOffertnr()
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// userid
 	process->addArgument( "FTGDSP");	// OLFIX funktion
-	process->addArgument("KORNR");	// Senas använda kundoffertnummer
+	process->addArgument("OFFNR");	// Senas använda kundoffertnummer
 
 	frmAddOffert::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmAddOffert::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
