@@ -11,10 +11,13 @@
 	         Registrering av kundorder med möjlighet att registrera en ny kund.
                              -------------------
 		     version 0.1
-    begin   	:	 Mån      6 nov    2006
+    begin   	:	 Tors     19 nov    2006
     Updated	: 
     copyright: 	(C) 2006 by Jan Pihlgren
     email     	:	 jan@pihlgren.se
+    
+    Remarks: 
+                 På grund av att programmet ursprungligen kopierats från ADDOFFW så har en del variabler namn som innehåller ordet order.
  ***************************************************************************/
 /*****************************************************************
  *					                                            *
@@ -53,7 +56,7 @@
     QString errorradArtikel;
     QString errorradpris;
     QString hjelpfil;    
-    QString prislista;		/* 2006-02-03 */
+    QString prislista;		
     QString prislista1;
     QString prislista2;
     QString prislista3;
@@ -71,7 +74,7 @@
     QString Tmp14;    
     QString Tmp15;
     
-    QString orderdatum;
+    QString offertdatum;
     QString ordernr;
     QString offertnr;
     QString offertkundnr;
@@ -82,50 +85,50 @@
     QString offertkundpostadr;
     QString offertkundland;
     
-    QString orderkundref;
-    QString orderkundlevadress;
-    QString orderkundlevpostnr;
-    QString orderkundlevpostadr;
-    QString orderkundlevland;
+    QString offertkundref;
+    QString offertkundlevadress;
+    QString offertkundlevpostnr;
+    QString offertkundlevpostadr;
+    QString offertkundlevland;
     
     
-    QString ordertfnnr;
-    QString orderfaxnr;
-    QString ordertelexnr;
-    QString orderemail;
-    QString orderref;
-    QString orderreftfnnr;
-    QString ordermomskod;
-    QString ordermoms;
-    QString orderkontonr;
-    QString orderpgnr;
-    QString orderbgnr;
+    QString offerttfnnr;
+    QString offertfaxnr;
+    QString offerttelexnr;
+    QString offertemail;
+    QString offertref;
+    QString offertreftfnnr;
+    QString offertmomskod;
+    QString offertmoms;
+    QString offertkontonr;
+    QString offertpgnr;
+    QString offertbgnr;
     QString seljare;
     QString godsmarke;
-    QString orderleveranstid;
-    QString ordervaluta;
-    QString orderbetvillkor;
-    QString orderlevvillkor;
-    QString orderlevplats;
-    QString orderhuvuddata;
-    QString orderstatus;
+    QString offertleveranstid;
+    QString offertvaluta;
+    QString offertbetvillkor;
+    QString offertlevvillkor;
+    QString offertlevplats;
+    QString offerthuvuddata;
+    QString offertstatus;
     
     /*  Orderradrad	 */	
     bool radnrflag=FALSE;
-    QString orderradnr="010";    
+    QString offertradnr="010";    
     QString oldradnr;
-    QString orderartikelnr;
+    QString offertartikelnr;
     QString prodklass;
-    QString orderbenamn;
+    QString offertbenamn;
     QString radleveransvecka;
-    QString orderantal;
-    QString orderradpris;
+    QString offertantal;
+    QString offertradpris;
     QString radbelopp;
     QString radmoms;		/*  Moms på radbelopp */
-    QString orderraddata;	    
+    QString offertraddata;	    
     
     /* Order 	*/
-    QString orderdel;			/*  Del av ordern, H=orderhuvud, R=orderrad */
+    QString offertdel;			/*  Del av ordern, H=orderhuvud, R=orderrad */
     QString ordersumma;
     QString momssumma;		/*  Total moms på ordern */
     QString fraktbelopp;
@@ -142,8 +145,8 @@ void frmChgOffert::init()
     QString artal;
     QDateTime dt = QDateTime::currentDateTime();
     dag= QDate::currentDate().dayOfWeek();
-    orderdatum=dt.toString("yyyy-MM-dd");
-    orderleveranstid=orderdatum;
+    offertdatum=dt.toString("yyyy-MM-dd");
+    offertleveranstid=offertdatum;
     /****  Beräkning av leveransvecka , Start ****/
     vecka= QDate::currentDate().weekNumber(&year);
     veckonr=QString::number(vecka,10);
@@ -163,7 +166,7 @@ void frmChgOffert::init()
 
 void frmChgOffert::PickupOffertnr( QListViewItem * item)
 {
-    char ordernummer[11]="";
+    char offertnummer[11]="";
 //    qDebug("PickupOffertnr\n");
     if(!item){
 	return;
@@ -173,9 +176,9 @@ void frmChgOffert::PickupOffertnr( QListViewItem * item)
 	 return;
      }
 
-     strcpy(ordernummer,item->key(0,TRUE));
-     ordernr=ordernummer;
-     lineEditOrderNbr->setText((ordernr));
+     strcpy(offertnummer,item->key(0,TRUE));
+     offertnr=offertnummer;
+     lineEditOrderNbr->setText((offertnr));
      lineEditOrderNbr->setFocus();
 }
 
@@ -185,7 +188,7 @@ void frmChgOffert::OrderNr_returnPressed()
     lineEditOrderSumma->clear();
     lineEditOrderFrakt->clear();
     lineEditFraktmoms->clear();
-    lineEditOrderMomsKr->clear();
+    lineEditOffertMomsKr->clear();
     lineEditOrderTotal->clear();
     
     ordernr=lineEditOrderNbr->text();
@@ -226,58 +229,58 @@ void frmChgOffert::lineEditKundLand_returnPressed()
 
 void frmChgOffert::lineEditKundRef_returPressed()
 {
-    orderkundref=lineEditKundRef->text();
-    lineEditKundRef->setText(orderkundref);
+    offertkundref=lineEditKundRef->text();
+    lineEditKundRef->setText(offertkundref);
 }
 
 void frmChgOffert::lineEditKundLevAdress_returnPressed()
 {
-    orderkundlevadress=lineEditKundLevAdress->text();
-    lineEditKundLevAdress->setText(orderkundlevadress);
+    offertkundlevadress=lineEditKundLevAdress->text();
+    lineEditKundLevAdress->setText(offertkundlevadress);
 }
 
 void frmChgOffert::lineEditKundLevPostnr_returnPressed()
 {
-    orderkundlevpostnr=lineEditKundLevPostnr->text();
-    lineEditKundLevPostnr->setText(orderkundlevpostnr);
+    offertkundlevpostnr=lineEditKundLevPostnr->text();
+    lineEditKundLevPostnr->setText(offertkundlevpostnr);
 }
 
 void frmChgOffert::lineEditKundLevPostAdress_returnPressed()
 {
-    orderkundlevpostadr=lineEditKundLevPostAdress->text();
-    lineEditKundLevPostAdress->setText(orderkundlevpostadr);
+    offertkundlevpostadr=lineEditKundLevPostAdress->text();
+    lineEditKundLevPostAdress->setText(offertkundlevpostadr);
 }
 
 void frmChgOffert::lineEditKundLevLand_return_pressed()
 {
-    orderkundlevland=lineEditKundLevLand->text();
-    lineEditKundLevLand->setText(orderkundlevland);
+    offertkundlevland=lineEditKundLevLand->text();
+    lineEditKundLevLand->setText(offertkundlevland);
 }
 
 void frmChgOffert::lineEditLevplats_returnPressed()
 {
-    orderlevplats=lineEditLevplats->text();
-//    frmChgOffert::getStdLevplats( orderlevplats );
+    offertlevplats=lineEditLevplats->text();
+//    frmChgOffert::getStdLevplats( offertlevplats );
 }
 
 void frmChgOffert::lineEditLevvillkor_returnPressed()
 {
-    orderlevvillkor=lineEditLevvillkor->text();
+    offertlevvillkor=lineEditLevvillkor->text();
 }
 
 void frmChgOffert::lineEditBetvilk_returnPressed()
 {
-    orderbetvillkor=lineEditBetvilk->text();
+    offertbetvillkor=lineEditBetvilk->text();
 }
 
 void frmChgOffert::lineEditValuta_returnPressed()
 {
-    ordervaluta=lineEditValuta->text();
+    offertvaluta=lineEditValuta->text();
 }	
 
 void frmChgOffert::lineEditMomskod_returnPressed()
 {
-    ordermoms=lineEditMomskod->text();
+    offertmoms=lineEditMomskod->text();
 }
 
 void frmChgOffert::lineEditSeljare_returnPressed()
@@ -287,7 +290,7 @@ void frmChgOffert::lineEditSeljare_returnPressed()
 
 void frmChgOffert::lineOrderLeveranstid_returnPressed()
 {
-    orderleveranstid=lineOrderLeveranstid->text();
+    offertleveranstid=lineOrderLeveranstid->text();
 }
 
 void frmChgOffert::lineEditGodsmarke_returnPressed()
@@ -301,13 +304,13 @@ void frmChgOffert::lineEditGodsmarke_returnPressed()
 
 void frmChgOffert::lineEditArtikelNr_returnPressed()
 {
-    orderartikelnr=lineEditArtikelNr->text();
+    offertartikelnr=lineEditArtikelNr->text();
     frmChgOffert::getArtikeldata();
 }
 
 void frmChgOffert::lineEditBenamn_returnPressed()
 {
-    orderbenamn=lineEditBenamn->text();
+    offertbenamn=lineEditBenamn->text();
 }
 
 void frmChgOffert::lineEditLeveransvecka_returnPressed()
@@ -319,8 +322,8 @@ void frmChgOffert::lineEditAntal_returnPressed()
 {
     int i;
     double antal;
-    orderantal=lineEditAntal->text();
-    antal=orderantal.toDouble();
+    offertantal=lineEditAntal->text();
+    antal=offertantal.toDouble();
     if ( antal==0){
 	QMessageBox::warning( this, "CHGOFFW",
 			      "Antal måste anges!\n" );
@@ -328,10 +331,10 @@ void frmChgOffert::lineEditAntal_returnPressed()
 	lineEditAntal->setFocus();
     }else{
 	i = -1;
-	i =orderantal.find( QRegExp(","), 0 );
+	i =offertantal.find( QRegExp(","), 0 );
 	if (i != -1){
-	    orderantal.replace( QChar(','), "." );
-	    lineEditAntal->setText(orderantal);
+	    offertantal.replace( QChar(','), "." );
+	    lineEditAntal->setText(offertantal);
 	}
     }
 }
@@ -341,20 +344,20 @@ void frmChgOffert::lineEditAPris_returnPressed()
     int i;
     double pris,antal,moms,summa;
     QString radmomsbelopp;
-    orderradpris=lineEditAPris->text();
-//    qDebug("orderradpris=%s  radmoms=%s",orderradpris.latin1(),radmoms.latin1());
+    offertradpris=lineEditAPris->text();
+//    qDebug("offertradpris=%s  radmoms=%s",offertradpris.latin1(),radmoms.latin1());
     if (radmoms<1){
-	radmoms=ordermoms;
+	radmoms=offertmoms;
     }
-//    qDebug("ordermoms=%s  radmoms=%s",ordermoms.latin1(),radmoms.latin1());    
+//    qDebug("offertmoms=%s  radmoms=%s",offertmoms.latin1(),radmoms.latin1());    
     i = -1;
-    i =orderradpris.find( QRegExp(","), 0 );
+    i =offertradpris.find( QRegExp(","), 0 );
     if (i != -1){
-	orderradpris.replace( QChar(','), "." );	// Ersätt decimalkomma med decimalpunkt (komma -> punkt)
-	lineEditAPris->setText(orderradpris);
+	offertradpris.replace( QChar(','), "." );	// Ersätt decimalkomma med decimalpunkt (komma -> punkt)
+	lineEditAPris->setText(offertradpris);
     }
-    pris=orderradpris.toDouble();
-    antal=orderantal.toDouble();
+    pris=offertradpris.toDouble();
+    antal=offertantal.toDouble();
     moms=radmoms.toDouble();
     summa=pris*antal;
     moms=summa*moms/100;
@@ -363,6 +366,7 @@ void frmChgOffert::lineEditAPris_returnPressed()
     summa=summa+moms;
     radbelopp=radbelopp.setNum(summa,'f',2);
     lineEditRadSumma->setText(radbelopp);
+    qDebug("offertmoms=%s  radmoms=%s",offertmoms.latin1(),radmoms.latin1());    
   //  pushBtnOKRad->setFocus();
 }
 
@@ -375,7 +379,7 @@ void frmChgOffert::pushBtnOKRad_clicked()
     int i;
     
     /*	Är artikelnummer ifyllt? 	*/
-    if (orderartikelnr==""){
+    if (offertartikelnr==""){
 	if (! avbryt){
 	    QMessageBox::warning( this, "CHGOFFW",
 		      "Artikelnummer måste anges!\n" );
@@ -384,7 +388,7 @@ void frmChgOffert::pushBtnOKRad_clicked()
     }
     
     radmomsbelopp=lineEditRadMoms->text();    
-    item = new QListViewItem(listViewRader,orderradnr,orderartikelnr,orderbenamn,radleveransvecka,orderantal,orderradpris,radbelopp,radmomsbelopp);
+    item = new QListViewItem(listViewRader,offertradnr,offertartikelnr,offertbenamn,radleveransvecka,offertantal,offertradpris,radbelopp,radmomsbelopp);
     item->setText(8,Tmp8);
     item->setText(9,Tmp9);
     item->setText(10,Tmp10);
@@ -394,16 +398,16 @@ void frmChgOffert::pushBtnOKRad_clicked()
     item->setText(14,Tmp14);
     item->setText(15,Tmp15);
 
-//    item->setText(8,orderbenamn);
+//    item->setText(8,offertbenamn);
     if (radnrflag == FALSE){
-	i = orderradnr.toInt();
+	i = offertradnr.toInt();
 	i = i+10;
-	orderradnr=QString::number(i,10);
-	if (orderradnr.length() <3){
-	    orderradnr="0"+orderradnr;
+	offertradnr=QString::number(i,10);
+	if (offertradnr.length() <3){
+	    offertradnr="0"+offertradnr;
 	}
     }else{
-	orderradnr=oldradnr;
+	offertradnr=oldradnr;
 	radnrflag=FALSE;
     }
     
@@ -420,33 +424,33 @@ void frmChgOffert::pushBtnOKRad_clicked()
     frmChgOffert::CalculateOrder();
     
     /* Nästa orderrad 	*/
-    lineEditRadnr->setText(orderradnr);
+    lineEditRadnr->setText(offertradnr);
     lineEditArtikelNr->clear();
     lineEditBenamn->clear();
     lineEditAntal->clear();
     lineEditAPris->clear();
     lineEditRadMoms->clear();
     lineEditRadSumma->clear();
-    orderartikelnr="";
-    orderbenamn="";
-    orderantal="";
-    orderradpris="";
+    offertartikelnr="";
+    offertbenamn="";
+    offertantal="";
+    offertradpris="";
     radbelopp="";
 //    lineEditArtikelNr->setFocus();
 }
 
 void frmChgOffert::pushBtnRadNej_clicked()
 {
-    lineEditRadnr->setText(orderradnr);
+    lineEditRadnr->setText(offertradnr);
     lineEditArtikelNr->clear();
     lineEditBenamn->clear();
     lineEditAntal->clear();
     lineEditAPris->clear();
     lineEditRadSumma->clear();
-    orderartikelnr="";
-    orderbenamn="";
-    orderantal="";
-    orderradpris="";
+    offertartikelnr="";
+    offertbenamn="";
+    offertantal="";
+    offertradpris="";
     radbelopp="";
     lineEditArtikelNr->setFocus();
 }
@@ -455,7 +459,7 @@ void frmChgOffert::listViewRader_clicked( QListViewItem * )
 {
     double radsumma ,tmpordersumma;
     radnrflag=TRUE;
-    oldradnr=orderradnr;
+    oldradnr=offertradnr;
     QListViewItem *item =  listViewRader->currentItem();
     if ( !item )
 	return;
@@ -480,7 +484,7 @@ void frmChgOffert::listViewRader_clicked( QListViewItem * )
    
     // --------------------------------------------------------------
     lineEditRadnr->setText(temp0);
-    orderradnr=temp0;
+    offertradnr=temp0;
     lineEditArtikelNr->setText(temp1);
     lineEditBenamn->setText(temp2);
     lineEditLeveransvecka->setText(temp3);
@@ -508,9 +512,7 @@ void frmChgOffert::lineEditOrderFrakt_returnPressed()
 }
 
 void frmChgOffert::pushBtnOrderKlar_clicked()
-{
-//    lineEditOrderFrakt->setEnabled("FALSE");
-//    pushButtonOK->setFocus();			
+{    
     frmChgOffert::CreateOrderHuvud();
 }
 
@@ -535,7 +537,7 @@ void frmChgOffert::CalculateOrder()
     QString radmomstotal;
     QString tmpfrakt;
     QString ordertotal;  
-//    radmomstotal = lineEditOrderMomsKr->text();
+//    radmomstotal = lineEditOffertMomsKr->text();
     radmomssumma = radmomstotal.toDouble();
       /*	Summa rad		*/
     QListViewItemIterator it( listViewRader);
@@ -570,7 +572,7 @@ void frmChgOffert::CalculateOrder()
     lineEditOrderFrakt->setPaletteForegroundColor(black);
     
        /*  Beräkna fraktmomsen	*/      
-    moms = ordermoms.toDouble(); 			/* Från lineEditMomskod, procentsats */ 
+    moms = offertmoms.toDouble(); 			/* Från lineEditMomskod, procentsats */ 
     moms = moms/100;				/*  i flyttal, t ex 0.06 */
     fraktmoms = fraktsumma * moms;
     fraktmomskr=fraktmomskr.setNum(fraktmoms,'f',2);
@@ -578,7 +580,7 @@ void frmChgOffert::CalculateOrder()
     
     momsbelopp = fraktmoms + radmomssumma;
     momssumma = momssumma.setNum(momsbelopp,'f',2);
-    lineEditOrderMomsKr->setText(momssumma);
+    lineEditOffertMomsKr->setText(momssumma);
     
        /* Order total 	*/
     totalsumma=summa+fraktsumma+fraktmoms+momsbelopp;
@@ -597,11 +599,11 @@ void frmChgOffert::slotUpdateOrder()
 	const char *userp = getenv("USER");
             QString usr(userp);
 	    
-	if (ordermomskod == ""){
-	    ordermomskod = "1";
+	if (offertmomskod == ""){
+	    offertmomskod = "1";
 	 }
-	if (orderbetvillkor == ""){
-	    orderbetvillkor ="1";
+	if (offertbetvillkor == ""){
+	    offertbetvillkor ="1";
 	}
 	
 //	qDebug("ordernr=%s",ordernr.latin1());
@@ -611,13 +613,13 @@ void frmChgOffert::slotUpdateOrder()
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// userid
 	process->addArgument( "OFFCHG");	// OLFIX funktion		Orderhuvud till ORDERREG
-	process->addArgument(orderhuvuddata);
+	process->addArgument(offerthuvuddata);
 	
 	frmChgOffert::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmChgOffert::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-            frmChgOffert::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
+               frmChgOffert::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
 	    
-	if (orderhuvuddata == "" ){
+	if (offerthuvuddata == "" ){
     	    QMessageBox::warning( this, "CHGOFFW",
                       "Data saknas till offerthuvud! \n" );
 	}else {
@@ -701,11 +703,11 @@ void frmChgOffert::slotEndOfProcess()
 	     lineEditOrderFrakt->setEnabled("TRUE");
 	     lineEditOrderFrakt->clear();
 	     lineEditFraktmoms->clear();
-	     lineEditOrderMomsKr->clear();
+	     lineEditOffertMomsKr->clear();
 	     lineEditOrderTotal->clear();
 /*	      ----------------				*/	     
 	     lineEditOrderNbr->setFocus();
-	     ordermomskod="1";
+	     offertmomskod="1";
 
 	     inrad="";
 	     i = -1;
@@ -856,10 +858,6 @@ void frmChgOffert::OrderListaEndOfProcess()
 //	qDebug("%s  ",belopp);	
 	m=m+l+2;
 //	qDebug("inrad=%s",inrad.latin1());
-//	int st=strcmp("F",status);
-//	qDebug("st=%d Ordernr=%s Status=%s TRUE=%d",st,ordernr,status,TRUE);
-	/* Här är TRUE==1.  strcmp(cs,ct) ger = 0 om cs ==ct */
-	/* Altså innbär nedanstående en negation, if "F" <> status skapa en ny item. */
 	if ( strcmp("F",status)){		/*Visa inte ordrar som är fakturerade, status=F */
 	    item = new QListViewItem(listViewOffert,ordernr,kundnr);
 	}
@@ -939,7 +937,7 @@ void frmChgOffert::getMoms(QString momskod,QString typ)
 	const char *userp = getenv("USER");
                 QString usr(userp);
 	inrad="";   
-	orderdel=typ;
+	offertdel=typ;
 
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
@@ -981,10 +979,10 @@ void frmChgOffert::slotgetMomsEndOfProcess()
 	 m=i2-i1;
 	 m=i3-i2;
 	 if (i2 != -1){
-	     if (orderdel == "H"){
-		 ordermoms=inrad.mid(i2+2,m-4);
-//		 qDebug("m=%d  moms=%s  i3=%d",m,ordermoms.latin1(), i3);
-		 lineEditMomskod->setText(ordermoms);
+	     if (offertdel == "H"){
+		 offertmoms=inrad.mid(i2+2,m-4);
+//		 qDebug("m=%d  moms=%s  i3=%d",m,offertmoms.latin1(), i3);
+		 lineEditMomskod->setText(offertmoms);
 	     }else{
 		 radmoms = inrad.mid(i2+2,m-4);
 //		 qDebug("slotgetMomsEndOfProcess::radmoms=%s",radmoms.latin1());
@@ -1005,14 +1003,14 @@ void frmChgOffert::getSeljare()
 {
 //    qDebug("getSeljare");
     	const char *userp = getenv("USER");
-            QString usr(userp);
+	QString usr(userp);
 	 inrad4="";   
 
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// userid
 	process->addArgument( "USERDSP");	// OLFIX funktion
-	process->addArgument(usr);	// Senas använda kundordernummer
+	process->addArgument(usr);		// Användarid
 
 	frmChgOffert::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotgetUDataOnStdout() ) );
 	frmChgOffert::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotgetUDataOnStderr() ) );
@@ -1100,8 +1098,8 @@ void frmChgOffert::getArtikeldata()
     processartikel->addArgument("./STYRMAN");		// OLFIX styrprogram
     processartikel->addArgument(usr);			// userid
     processartikel->addArgument( "ARDSP");		// OLFIX funktion
-    processartikel->addArgument(orderartikelnr);
-//    qDebug("getArtikeldata::artikelnr=%s",orderartikelnr.latin1());
+    processartikel->addArgument(offertartikelnr);
+//    qDebug("getArtikeldata::artikelnr=%s",offertartikelnr.latin1());
     frmChgOffert::connect( processartikel, SIGNAL(readyReadStdout() ),this, SLOT(slotArdataDataOnStdout() ) );
     frmChgOffert::connect( processartikel, SIGNAL(readyReadStderr() ),this, SLOT(slotArdataDataOnStderr() ) );
     frmChgOffert::connect( processartikel, SIGNAL(processExited() ),this, SLOT(slotArdataEndOfProcess() ) );
@@ -1147,7 +1145,7 @@ void frmChgOffert::slotArdataEndOfProcess()
 			       );
 	errorradArtikel="";
 	i = -1;
-	orderartikelnr="";
+	offertartikelnr="";
 	lineEditArtikelNr->clear();
 	lineEditArtikelNr->setFocus();
     }else{
@@ -1168,13 +1166,13 @@ void frmChgOffert::slotArdataEndOfProcess()
 //	    int i18= inradArtikel.find(QRegExp("18:"),0);
 	    m=i3-i2;
 	    if (i2 != -1){
-		orderbenamn=inradArtikel.mid(i2+3,m-4);
-		lineEditBenamn->setText(orderbenamn);
+		offertbenamn=inradArtikel.mid(i2+3,m-4);
+		lineEditBenamn->setText(offertbenamn);
 	    }
    	    m=i6-i5;
 	    if (i5 != -1){
 		fpris=inradArtikel.mid(i5+3,m-4);		// 2006-02-03
-//		lineEditAPris->setText(orderradpris);		// 2006-02-03
+//		lineEditAPris->setText(offertradpris);		// 2006-02-03
 	    }	    
 /*	    
 	    m=i7-i6;
@@ -1190,12 +1188,12 @@ void frmChgOffert::slotArdataEndOfProcess()
 /*	    
 	    m=i16-i15;
 	    if (i15 != -1){
-		orderbenamn=inradArtikel.mid(i15+3,m-4);
+		offertbenamn=inradArtikel.mid(i15+3,m-4);
 	    }
 */	    
 /*	    m=i18-i17;
 	    if (i17 != -1){
-		orderartikelnr=inradArtikel.mid(i17+3,m-4);
+		offertartikelnr=inradArtikel.mid(i17+3,m-4);
 	    }
 */	    
 //OBS	    frmChgOffert::getPrislista();	    
@@ -1214,7 +1212,7 @@ void frmChgOffert::getPrislista()
     processpris->addArgument("./STYRMAN");	// OLFIX styrprogram
     processpris->addArgument(usr);		// userid
     processpris->addArgument( "PRISDSP");		// OLFIX funktion
-    processpris->addArgument(orderartikelnr);
+    processpris->addArgument(offertartikelnr);
 
     frmChgOffert::connect( processpris, SIGNAL(readyReadStdout() ),this, SLOT(slotPrisDataOnStdout() ) );
     frmChgOffert::connect( processpris, SIGNAL(readyReadStderr() ),this, SLOT(slotPrisDataOnStderr() ) );
@@ -1248,7 +1246,7 @@ void frmChgOffert::slotPrisdataEndOfProcess()
     i = errorradpris.find( QRegExp("Warning:"), 0 );			//  artikeln finns inte i prislistorna.
     if ( i != -1){
 	prisflag=FALSE;
-	orderradpris=fpris;
+	offertradpris=fpris;
     }else{
 	i = -1;
 	i = inradpris.find( QRegExp("OK:"), 0 );
@@ -1378,95 +1376,6 @@ void frmChgOffert::slotProdkodEndOfProcess()
     }
 }
 
-/*
-void frmChgOffert::getStdLevplats( QString platsnr )
-{
-    const char *userp = getenv("USER");
-    QString usr(userp);
-    platsnr=platsnr.left(3);
-    inrad="";
-   
-    process = new QProcess();
-    process->addArgument("./STYRMAN");	// OLFIX styrprogram
-    process->addArgument(usr);		// userid
-    process->addArgument( "LEVPDSP");	// OLFIX funktion
-    process->addArgument(orderkundnr);
-    process->addArgument(platsnr);
-// qDebug("kundnr=%s standardlevplats=%s",orderkundnr.latin1(),platsnr.latin1());
-    frmChgOffert::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-    frmChgOffert::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-    frmChgOffert::connect( process, SIGNAL(processExited() ),this, SLOT(slotLevPEndOfProcess() ) );
-
-    if ( !process->start() ) {
-	// error handling
-	QMessageBox::warning( this, "Start av LEVPDSP",
-			      "Kan inte starta STYRMAN/LEVPDSP!\n"
-			      );
-    }
-}
-*/
-/*
-void frmChgOffert::slotLevPEndOfProcess()
-{
-    int i,m;
-
-    i = -1;
-    i = errorrad.find( QRegExp("Error:"), 0 );
-// qDebug("Error: %s",errorrad.latin1());
-// qDebug("Inrad=%s",inrad);
-    if (i != -1) {
-	QMessageBox::critical( this, "CHGOFFW",
-			       "ERROR!\n"+errorrad
-			       );
-	errorrad="";
-	i = -1;
-	  När önskad standardleveransplats saknas kopiera ordinarie adress till leveransadress 
-	orderkundlevadress=offertkundadress;
-	lineEditKundLevAdress->setText(orderkundlevadress);
-	orderkundlevpostnr=offertkundpostnr;
-	lineEditKundLevPostnr->setText(orderkundlevpostnr);
-	orderkundlevpostadr=offertkundpostadr;
-	lineEditKundLevPostAdress->setText(orderkundlevpostadr);
-	orderkundlevland=offertkundland;
-	lineEditKundLevLand->setText(orderkundlevland);
-	lineEditLevplats->setText("000");
-//	lineEditLevplats->setFocus();
-	
-    }else{
-	i = -1;
-	i = inrad.find( QRegExp("OK:"), 0 );
-	if (i != -1) {
-//	    int i1 = inrad.find( QRegExp("01:"), 0 );	           //	standardleveransplatsnrnr
-//	    int i2 = inrad.find( QRegExp("02:"), 0 );		//	kundnr
-	    int i3 = inrad.find( QRegExp("03:"), 0 );		//	adress
-	    int i4 = inrad.find( QRegExp("04:"), 0 );		//	postnr
-    	    int i5 = inrad.find( QRegExp("05:"), 0 );		//	postadress
-	    int i6 = inrad.find( QRegExp("06:"), 0 );		//	land
-	    int i7 = inrad.find( QRegExp(":END"), 0 );	//	Slutmarkering på inrad
-	    m=i4-i3;
-	    if (i3 != -1){
-		orderkundlevadress=inrad.mid(i3+3,m-4);
-		lineEditKundLevAdress->setText(orderkundlevadress);
-	    }
-	    m=i5-i4;
-	    if (i4 != -1){
-		orderkundlevpostnr=inrad.mid(i4+3,m-4);
-		lineEditKundLevPostnr->setText(orderkundlevpostnr);
-	    }
-	    m=i6-i5;
-	    if (i5 != -1){
-		orderkundlevpostadr=inrad.mid(i5+3,m-4);
-		lineEditKundLevPostAdress->setText(orderkundlevpostadr);
-	    }
-	    m=i7-i6;
-	    if (i6 != -1){
-		orderkundlevland=inrad.mid(i6+3,m-4);
-		lineEditKundLevLand->setText(orderkundlevland);
-	    }	    
-	}
-    }
-}
-*/
 
 void frmChgOffert::CalculateMoms()
 {
@@ -1489,68 +1398,68 @@ void frmChgOffert::CalculateMoms()
 	momssumma=momssumma+temp7.toDouble();
     }
 	momstotal=momstotal.setNum(momssumma,'f',2);
-	lineEditOrderMomsKr->setText(momstotal);
+	lineEditOffertMomsKr->setText(momstotal);
 }
 
 void frmChgOffert::CreateOrderHuvud()
 {
     QString skilj="_:_";
-    orderhuvuddata=skilj;
+    offerthuvuddata=skilj;
     
-    orderhuvuddata.append(ordernr);
-    orderhuvuddata.append(skilj);
-//    orderhuvuddata.append(orderdatum);
-//    orderhuvuddata.append(skilj);
-//    orderhuvuddata.append(orderkundnr);
-//    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(offertkundnamn);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(offertkundadress);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(offertkundpostnr);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(offertkundpostadr);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(offertkundland);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(orderkundref);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(orderkundlevadress);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(orderkundlevpostnr);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(orderkundlevpostadr);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(orderkundlevland);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(seljare);
-    orderhuvuddata.append(skilj);    
-    orderhuvuddata.append(orderleveranstid);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(ordermoms);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(ordervaluta);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(orderbetvillkor);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(orderlevvillkor);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(orderlevplats);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(godsmarke);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(lineEditOrderSumma->text());	/* Summa exkl moms */
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(fraktbelopp);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(fraktmomskr);
-    orderhuvuddata.append(skilj);        
-    orderhuvuddata.append(momssumma);
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append(lineEditOrderTotal->text());	/* Summa inkl moms */
-    orderhuvuddata.append(skilj);
-    orderhuvuddata.append("END");
-   qDebug("orderhuvuddata=%s",orderhuvuddata.latin1());
+    offerthuvuddata.append(ordernr);
+    offerthuvuddata.append(skilj);
+//    offerthuvuddata.append(offertdatum);
+//    offerthuvuddata.append(skilj);
+//    offerthuvuddata.append(orderkundnr);
+//    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(offertkundnamn);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(offertkundadress);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(offertkundpostnr);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(offertkundpostadr);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(offertkundland);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(offertkundref);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(offertkundlevadress);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(offertkundlevpostnr);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(offertkundlevpostadr);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(offertkundlevland);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(seljare);
+    offerthuvuddata.append(skilj);    
+    offerthuvuddata.append(offertleveranstid);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(offertmoms);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(offertvaluta);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(offertbetvillkor);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(offertlevvillkor);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(offertlevplats);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(godsmarke);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(lineEditOrderSumma->text());	/* Summa exkl moms */
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(fraktbelopp);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(fraktmomskr);
+    offerthuvuddata.append(skilj);        
+    offerthuvuddata.append(momssumma);
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append(lineEditOrderTotal->text());	/* Summa inkl moms */
+    offerthuvuddata.append(skilj);
+    offerthuvuddata.append("END");
+//   qDebug("offerthuvuddata=%s",offerthuvuddata.latin1());
     slotUpdateOrder();				/* Spara orderhuvud */
 }
 
@@ -1594,49 +1503,51 @@ void frmChgOffert::SaveOrderRader()
 
 void frmChgOffert::createOrderrad(QString tmp0,QString tmp1,QString tmp2,QString tmp3, QString tmp4,QString tmp5,QString tmp6,QString tmp7,QString tmp8,QString tmp9,QString tmp10,QString tmp11,QString tmp12,QString tmp13,QString tmp14,QString tmp15)
 {
-    orderraddata="";
+    offertraddata="";
     QString skilj;
     skilj="_:_";
-    orderraddata=skilj;
-    orderraddata.append(ordernr);	// ordernr
-    orderraddata.append(skilj);
-    orderraddata.append(tmp0);	// radnr
-    orderraddata.append(skilj);    
-    orderraddata.append(orderkundnr);	// kundnummer
-    orderraddata.append(skilj);
-    orderraddata.append(tmp1);	// artikelnr
-    orderraddata.append(skilj);
-    orderraddata.append(tmp2);	//benämning
-    orderraddata.append(skilj);
-    orderraddata.append(tmp3);	// leveransvecka
-    orderraddata.append(skilj);    
-    orderraddata.append(tmp4);	// antal
-    orderraddata.append(skilj);
-    orderraddata.append(tmp5);	// a'-pris
-    orderraddata.append(skilj);
-    orderraddata.append(tmp6);	// summa exkl moms.
-    orderraddata.append(skilj);    
-    orderraddata.append(tmp7);	// momskr.
-    orderraddata.append(skilj);    
-    orderraddata.append(tmp8);	// levantal
-    orderraddata.append(skilj);    
-    orderraddata.append(tmp9);	// restantal
-    orderraddata.append(skilj);
-    orderraddata.append(tmp10);	// radrabatt
-    orderraddata.append(skilj);    
-    orderraddata.append(tmp11);	// kalkylpris
-    orderraddata.append(skilj);    
-    orderraddata.append(tmp12);	// levdatum
-    orderraddata.append(skilj);    
-    orderraddata.append(tmp13);	// enhet
-    orderraddata.append(skilj);    
-    orderraddata.append(tmp14);	// faktantal
-    orderraddata.append(skilj);    
-    orderraddata.append(tmp15);	// radtyp
-    orderraddata.append(skilj);    
-    orderraddata.append("END");	
+    offertraddata=skilj;
+    offertraddata.append(offertnr);	// offertnr
+    offertraddata.append(skilj);
+    offertraddata.append(ordernr);	// ordernr
+    offertraddata.append(skilj);
+    offertraddata.append(tmp0);	// radnr
+    offertraddata.append(skilj);    
+    offertraddata.append(orderkundnr);	// kundnummer
+    offertraddata.append(skilj);
+    offertraddata.append(tmp1);	// artikelnr
+    offertraddata.append(skilj);
+    offertraddata.append(tmp2);	//benämning
+    offertraddata.append(skilj);
+    offertraddata.append(tmp3);	// leveransvecka
+    offertraddata.append(skilj);    
+    offertraddata.append(tmp4);	// antal
+    offertraddata.append(skilj);
+    offertraddata.append(tmp5);	// a'-pris
+    offertraddata.append(skilj);
+    offertraddata.append(tmp6);	// summa exkl moms.
+    offertraddata.append(skilj);    
+    offertraddata.append(tmp7);	// momskr.
+    offertraddata.append(skilj);    
+    offertraddata.append(tmp8);	// levantal
+    offertraddata.append(skilj);    
+    offertraddata.append(tmp9);	// restantal
+    offertraddata.append(skilj);
+    offertraddata.append(tmp10);	// radrabatt
+    offertraddata.append(skilj);    
+    offertraddata.append(tmp11);	// kalkylpris
+    offertraddata.append(skilj);    
+    offertraddata.append(tmp12);	// levdatum
+    offertraddata.append(skilj);    
+    offertraddata.append(tmp13);	// enhet
+    offertraddata.append(skilj);    
+    offertraddata.append(tmp14);	// faktantal
+    offertraddata.append(skilj);    
+    offertraddata.append(tmp15);	// radtyp
+    offertraddata.append(skilj);    
+    offertraddata.append("END");	
 
-    qDebug("orderraddat=%s",orderraddata.latin1());
+    qDebug("offertraddata=%s",offertraddata.latin1());
     frmChgOffert::ChangeOrderRad();		
 //    frmChgOffert::updateReserveratAntal(tmp1,tmp4);  	// parallell bearbetning
 
@@ -1657,13 +1568,13 @@ void frmChgOffert::ChangeOrderRad()
     process->addArgument("./STYRMAN");	// OLFIX styrprogram
     process->addArgument(usr);		// userid
     process->addArgument( "OFFRCHG");	// OLFIX funktion
-    process->addArgument(orderraddata);
+    process->addArgument(offertraddata);
 
-    frmChgOffert::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotOrderradDataOnStdout() ) );
+    frmChgOffert::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotOrderaddataOnStdout() ) );
     frmChgOffert::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotOrderadDataOnStderr() ) );
     frmChgOffert::connect( process, SIGNAL(processExited() ),this, SLOT(slotOrderadEndOfProcess() ) );
 
-    if (orderraddata == ""){
+    if (offertraddata == ""){
 	QMessageBox::warning( this, "CHGOFFW",
 			      "Orderrad saknas \n" );
     }else{
@@ -1704,7 +1615,7 @@ void frmChgOffert::slotOrderadDataOnStderr()
     }
 }
 
-void frmChgOffert::slotOrderradDataOnStdout()
+void frmChgOffert::slotOrderaddataOnStdout()
 {
     while (process->canReadLineStdout() ) {
 	QString line = process->readStdout();
@@ -1727,7 +1638,7 @@ void frmChgOffert::updateReserveratAntal(QString artnr,QString antal)
     process = new QProcess();
     process->addArgument("./STYRMAN");	// OLFIX styrprogram
     process->addArgument(usr);		// userid
-    process->addArgument( "AR2UPD");	// OLFIX funktion
+    process->addArgument( "AR2UPD");		// OLFIX funktion
     process->addArgument(val);
     process->addArgument(artnr);
     process->addArgument(antal);
@@ -1737,7 +1648,7 @@ void frmChgOffert::updateReserveratAntal(QString artnr,QString antal)
     frmChgOffert::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotUpdateReserveratDataOnStderr() ) );
     frmChgOffert::connect( process, SIGNAL(processExited() ),this, SLOT(slotUpdateReserveratEndOfProcess() ) );
 
-    if (orderraddata == ""){
+    if (offertraddata == ""){
 	QMessageBox::warning( this, "CHGOFFW",
 			      "Orderrad saknas \n" );
     }else{
@@ -1861,7 +1772,7 @@ void frmChgOffert::clearKundInfo()
 	     lineEditOrderSumma->clear();
 	     lineEditOrderFrakt->setEnabled("TRUE");
 	     lineEditOrderFrakt->clear();
-	     lineEditOrderMomsKr->clear();
+	     lineEditOffertMomsKr->clear();
 	     lineEditOrderTotal->clear();
 /*	    -----------------				*/	     
 	     ordernr="0";
@@ -1872,31 +1783,31 @@ void frmChgOffert::clearKundInfo()
 	     offertkundpostadr="";
 	     offertkundland="";
  
-	     orderkundref="";
-	     orderkundlevadress="";
-	     orderkundlevpostnr="";
-	     orderkundlevpostadr="";
-	     orderkundlevland="";
+	     offertkundref="";
+	     offertkundlevadress="";
+	     offertkundlevpostnr="";
+	     offertkundlevpostadr="";
+	     offertkundlevland="";
     
-	     ordertfnnr="";
-	     orderfaxnr="";
-	    ordertelexnr="";
-	    orderemail="";
-	    orderref="";
-	    orderreftfnnr="";
-	    ordermomskod="";
-	    ordermoms="25";
-	    orderkontonr="";
-	    orderpgnr="";
-	    orderbgnr="";
+	     offerttfnnr="";
+	     offertfaxnr="";
+	     offerttelexnr="";
+	    offertemail="";
+	    offertref="";
+	    offertreftfnnr="";
+	    offertmomskod="";
+	    offertmoms="25";
+	    offertkontonr="";
+	    offertpgnr="";
+	    offertbgnr="";
 	    seljare="";
 	    godsmarke="";
-	    orderleveranstid="";
-	    ordervaluta="SEK";
-	    orderbetvillkor="001";
-	    orderlevvillkor="001";
-	    orderlevplats="000";
-	    orderhuvuddata="";       
+	    offertleveranstid="";
+	    offertvaluta="SEK";
+	    offertbetvillkor="001";
+	    offertlevvillkor="001";
+	    offertlevplats="000";
+	    offerthuvuddata="";       
 }
 
 void frmChgOffert::choosePris()
@@ -1912,55 +1823,55 @@ void frmChgOffert::choosePris()
     
     switch (prislistenr) {
     case 0:
-	orderradpris=fpris;			// försäljningspris enligt ARTIKELREG
+	offertradpris=fpris;			// försäljningspris enligt ARTIKELREG
 	break;
       case 1:
 	  pris=prislista1.toDouble();
 	  if (pris > 0){
-	      orderradpris=prislista1;
+	      offertradpris=prislista1;
 	  }else{
-	      orderradpris=fpris;
+	      offertradpris=fpris;
 	  }
 	  break;
       case 2:
 	  pris=prislista2.toDouble();
 	  if (pris > 0){
-	      orderradpris=prislista2;
+	      offertradpris=prislista2;
 	  }else{
-	      orderradpris=fpris;
+	      offertradpris=fpris;
 	  }
 	  break;	  
       case 3: 
 	  pris=prislista3.toDouble();
 	  if (pris > 0){
-	      orderradpris=prislista3;
+	      offertradpris=prislista3;
 	  }else{
-	      orderradpris=fpris;
+	      offertradpris=fpris;
 	  }
 	  break;	  
       case 4:
 	  pris=prislista4.toDouble();
 	  if (pris > 0){
-	      orderradpris=prislista4;
+	      offertradpris=prislista4;
 	  }else{
-	      orderradpris=fpris;
+	      offertradpris=fpris;
 	  }
 	  break;
 	  
       case 5:
 	pris=prislista5.toDouble(); 
 	if (pris > 0){
-	    orderradpris=prislista5;
+	    offertradpris=prislista5;
 	}else{
-	      orderradpris=fpris;
+	      offertradpris=fpris;
 	  }
 	break;
     default:
-	orderradpris=fpris;			// försäljningspris enligt ARTIKELREG
+	offertradpris=fpris;			// försäljningspris enligt ARTIKELREG
 	break;
    }  
-//    qDebug("choosePris:: orderradpris=%s, prislista5=%s pris=%f fpris=%s",orderradpris.latin1(),prislista5.latin1(),pris,fpris.latin1());
-    lineEditAPris->setText(orderradpris);
+//    qDebug("choosePris:: offertradpris=%s, prislista5=%s pris=%f fpris=%s",offertradpris.latin1(),prislista5.latin1(),pris,fpris.latin1());
+    lineEditAPris->setText(offertradpris);
 }
 
 void frmChgOffert::pushButtonAvbryt_clicked()
@@ -1991,7 +1902,7 @@ void frmChgOffert::getOrderhuvud()
     process->addArgument( "OFFDSP");		// OLFIX funktion
     process->addArgument(ordernr);
 
-    frmChgOffert::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotOrderradDataOnStdout() ) );
+    frmChgOffert::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotOrderaddataOnStdout() ) );
     frmChgOffert::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotOrderadDataOnStderr() ) );
     frmChgOffert::connect( process, SIGNAL(processExited() ),this, SLOT(slotOrderhuvudEndOfProcess() ) );
 
@@ -2026,7 +1937,7 @@ void frmChgOffert::slotOrderhuvudEndOfProcess()
 //	 int i1 = inrad2.find( QRegExp("01:"), 0 );
 	 int i2 = inrad2.find( QRegExp("03:"), 0 );	
 	 int i3 = inrad2.find( QRegExp("04:"), 0 );
-	 int i4 = inrad2.find( QRegExp("05:"), 0 );
+//	 int i4 = inrad2.find( QRegExp("05:"), 0 );
 	 int i5 = inrad2.find( QRegExp("06:"), 0 );
 	 int i6 = inrad2.find( QRegExp("07:"), 0 );
 	 int i7 = inrad2.find( QRegExp("08:"), 0 );
@@ -2087,20 +1998,20 @@ void frmChgOffert::slotOrderhuvudEndOfProcess()
 
 	 m=i5-i4;						// Offertstatus
 	 if (i4 != -1){
-	     orderstatus=inrad2.mid(i4+3,m-4);
-	     lineEditOrderStatus->setText(orderstatus);
+	     offertstatus=inrad2.mid(i4+3,m-4);
+	     lineEditOrderStatus->setText(offertstatus);
 	 }
 */
  	 m=i6-i5;
 	 if (i5 != -1){					// Offertdatum
-	     orderdatum=inrad2.mid(i5+3,m-4);
-	     textLabelOrderdatum->setText(orderdatum);
+	     offertdatum=inrad2.mid(i5+3,m-4);
+	     textLabelOrderdatum->setText(offertdatum);
 	 }
 
 	 m=i7-i6;
 	 if (i6 != -1){					// Leveransdatum
-	     orderleveranstid=inrad2.mid(i6+3,m-4);
-	     lineOrderLeveranstid->setText(orderleveranstid);
+	     offertleveranstid=inrad2.mid(i6+3,m-4);
+	     lineOrderLeveranstid->setText(offertleveranstid);
 	 }
 
  	 m=i8-i7;
@@ -2135,38 +2046,38 @@ void frmChgOffert::slotOrderhuvudEndOfProcess()
 
  	 m=i13-i12;
 	 if (i12 != -1){					// Kundens referens
-	     orderkundref=inrad2.mid(i12+3,m-4);
-	     lineEditKundRef->setText(orderkundref);
+	     offertkundref=inrad2.mid(i12+3,m-4);
+	     lineEditKundRef->setText(offertkundref);
 	 }
 
  	 m=i14-i13;
 	 if (i13 != -1){					// Leveransadress
-	     orderkundlevadress=inrad2.mid(i13+3,m-4);
-	     lineEditKundLevAdress->setText(orderkundlevadress);
+	     offertkundlevadress=inrad2.mid(i13+3,m-4);
+	     lineEditKundLevAdress->setText(offertkundlevadress);
 	 }
 
  	 m=i15-i14;
 	 if (i14 != -1){					// Leveranspostnr
-	     orderkundlevpostnr=inrad2.mid(i14+3,m-4);	
-	     lineEditKundLevPostnr->setText(orderkundlevpostnr);
+	     offertkundlevpostnr=inrad2.mid(i14+3,m-4);	
+	     lineEditKundLevPostnr->setText(offertkundlevpostnr);
 	 }
 
 	 m=i16-i15;
 	 if (i15 != -1){					// Leveranspostadress
-	    orderkundlevpostadr=inrad2.mid(i15+3,m-4);
-	    lineEditKundLevPostAdress->setText(orderkundlevpostadr);
+	    offertkundlevpostadr=inrad2.mid(i15+3,m-4);
+	    lineEditKundLevPostAdress->setText(offertkundlevpostadr);
 	 }
 
  	 m=i17-i16;
 	 if (i16 != -1){					// Leveransland
-	     orderkundlevland=inrad.mid(i16+3,m-5);
-	     lineEditKundLevLand->setText(orderkundlevland);
+	     offertkundlevland=inrad.mid(i16+3,m-5);
+	     lineEditKundLevLand->setText(offertkundlevland);
 	 }
 
 	 m=i18-i17;
 /*	 if (i17 != -1){					// Vår referent
-	     orderbetvillkor=inrad2.mid(i17+3,m-4);
-	     lineEditBetvilk->setText(orderbetvillkor);
+	     offertbetvillkor=inrad2.mid(i17+3,m-4);
+	     lineEditBetvilk->setText(offertbetvillkor);
 	 }
 */
 	 m=i19-i18;
@@ -2183,26 +2094,26 @@ void frmChgOffert::slotOrderhuvudEndOfProcess()
 
 	 m=i21-i20;
 	 if (i20 != -1){					// Betalningsvillkorstyp
-/*	     orderbetvillkortyp=inrad2.mid(i20+3,m-4);
-	     lineEditBetvilk->setText(orderbetvillkortyp);
+/*	     offertbetvillkortyp=inrad2.mid(i20+3,m-4);
+	     lineEditBetvilk->setText(offertbetvillkortyp);
 */	 }
 
 	 m=i22-i21;
 	 if (i21 != -1){					// Betalningsvillkor
-	     orderbetvillkor=inrad2.mid(i21+3,m-4);
-	     lineEditBetvilk->setText(orderbetvillkor);
+	     offertbetvillkor=inrad2.mid(i21+3,m-4);
+	     lineEditBetvilk->setText(offertbetvillkor);
 	 }
 
 	 m=i23-i22;
 	 if (i22 != -1){					// Leveransvillkor
-	    orderlevvillkor=inrad2.mid(i22+3,m-4);
-	    lineEditLevvillkor ->setText(orderlevvillkor);
+	    offertlevvillkor=inrad2.mid(i22+3,m-4);
+	    lineEditLevvillkor ->setText(offertlevvillkor);
 	 }
 
 	 m=i24-i23;
 	 if (i23 != -1){					// Leveransplats /LEVSETT)
-	    orderlevplats=inrad2.mid(i23+3,m-4);
-	    lineEditLevplats ->setText(orderlevplats);
+	    offertlevplats=inrad2.mid(i23+3,m-4);
+	    lineEditLevplats ->setText(offertlevplats);
 	 }
 /*
 	 m=i25-i24;
@@ -2231,14 +2142,14 @@ void frmChgOffert::slotOrderhuvudEndOfProcess()
 */
  	 m=i29-i28;
 	 if (i28 != -1){					// Moms i %
-	    ordermoms=inrad2.mid(i28+3,m-4);
-	    lineEditMomskod->setText(ordermoms);
+	    offertmoms=inrad2.mid(i28+3,m-4);
+	    lineEditMomskod->setText(offertmoms);
 	 }
 
 	 m=i30-i29;
 	 if (i29 != -1){					// Valuta
-	    ordervaluta=inrad2.mid(i29+3,m-4);
-	    lineEditValuta->setText(ordervaluta);
+	    offertvaluta=inrad2.mid(i29+3,m-4);
+	    lineEditValuta->setText(offertvaluta);
 	 }
 /*
 	 m=i31-i30;
@@ -2274,7 +2185,7 @@ void frmChgOffert::slotOrderhuvudEndOfProcess()
  	 m=i36-i35;
 	 if (i35 != -1){
 	    momssumma=inrad2.mid(i35+3,m-4);		// Total moms på ordern i kronor
-	    lineEditOrderMomsKr->setText(momssumma);
+	    lineEditOffertMomsKr->setText(momssumma);
 	 }
 
 	 m=i37-i36;
@@ -2348,15 +2259,15 @@ void frmChgOffert::getOrderrader()
 void frmChgOffert::slotOrderRaderEndOfProcess()
 {
     /*  Orderradrad	 */	
-//    QString orderradnr="010";    
+//    QString offertradnr="010";    
     QString oldradnr;
     QString radtyp;
-    QString orderartikelnr;
+    QString offertartikelnr;
     QString prodklass;
-    QString orderbenamn;
+    QString offertbenamn;
     QString radleveransvecka;
-    QString orderantal;
-    QString orderradpris;
+    QString offertantal;
+    QString offertradpris;
     QString radbelopp;
     QString radmoms;		/*  Moms på radbelopp (11) */
     QString levantal;			/* Levererart antal    (12)*/
@@ -2396,7 +2307,7 @@ void frmChgOffert::slotOrderRaderEndOfProcess()
 	     int i2 = inrad4.find( QRegExp("03_:_"), m1 );		// radnr
 	     int i3 = inrad4.find( QRegExp("_:_04_:_"), m1 );	// kundnr
 	     int i4 = inrad4.find( QRegExp("_:_05_:_"), m1 );	// radtyp
-	     int i5 = inrad4.find( QRegExp("_:_06_:_"), m1 );		// artikelnr
+	     int i5 = inrad4.find( QRegExp("_:_06_:_"), m1 );	// artikelnr
 	     int i6 = inrad4.find( QRegExp("_:_07_:_"), m1 );	// benämning
 	     int i7 = inrad4.find( QRegExp("_:_08_:_"), m1 );	// leveransvecka
 	     int i8 = inrad4.find( QRegExp("_:_09_:_"), m1 );	// antal
@@ -2426,25 +2337,26 @@ void frmChgOffert::slotOrderRaderEndOfProcess()
 	     radtyp=radtyp.stripWhiteSpace();
 //	     qDebug("radordertyp=%s ",radtyp.latin1());
 	     m=i6 - i5 - 8;
-	     orderartikelnr=inrad4.mid(i5+8,m);
-	     orderartikelnr=orderartikelnr.stripWhiteSpace();
-//	     qDebug("orderartikelnr=%s m=%d",orderartikelnr.latin1(),m);
+//	     qDebug("inrad4=%s",inrad4.latin1());
+	     offertartikelnr=inrad4.mid(i5+8,m);
+	     offertartikelnr=offertartikelnr.stripWhiteSpace();
+//	     qDebug("offertartikelnr=%s m=%d",offertartikelnr.latin1(),m);
 	     m=i7 - i6 - 8;
-	     orderbenamn=inrad4.mid(i6+8,m);
-	     orderbenamn=orderbenamn.stripWhiteSpace();
-//	     qDebug("benämning=%s",orderbenamn.latin1());
+	     offertbenamn=inrad4.mid(i6+8,m);
+	     offertbenamn=offertbenamn.stripWhiteSpace();
+//	     qDebug("benämning=%s",offertbenamn.latin1());
 	     m=i8 - i7 - 8;
 	     radleveransvecka=inrad4.mid(i7+8,m);
 	     radleveransvecka=radleveransvecka.stripWhiteSpace();
 //	     qDebug("radleveransvecka=%s",radleveransvecka.latin1());
 	     m=i9 - i8 - 8;
-	     orderantal=inrad4.mid(i8+8,m);			// antal
-	     orderantal=orderantal.stripWhiteSpace();
-//	     qDebug("orderantal=%s",orderantal.latin1());
+	     offertantal=inrad4.mid(i8+8,m);			// antal
+	     offertantal=offertantal.stripWhiteSpace();
+//	     qDebug("offertantal=%s",offertantal.latin1());
 	     m=i10 - i9 - 8;
-	     orderradpris=inrad4.mid(i9+8,m);			// apris
-	     orderradpris=orderradpris.stripWhiteSpace();
-//	     qDebug("orderradpris=%s",orderradpris.latin1());
+	     offertradpris=inrad4.mid(i9+8,m);			// apris
+	     offertradpris=offertradpris.stripWhiteSpace();
+//	     qDebug("offertradpris=%s",offertradpris.latin1());
 	     m=i11 - i10 - 8;
 	     radbelopp=inrad4.mid(i10 + 8,m);			// summa exklusive moms
 	     radbelopp=radbelopp.stripWhiteSpace();
@@ -2482,9 +2394,9 @@ void frmChgOffert::slotOrderRaderEndOfProcess()
 	     faktantal=faktantal.stripWhiteSpace();
 //	     qDebug("fakturerat=%s",faktantal.latin1());
 	     
-	     item = new QListViewItem(listViewRader,oldradnr,orderartikelnr,orderbenamn,radleveransvecka,orderantal,orderradpris,radbelopp,radmoms);
+	     item = new QListViewItem(listViewRader,oldradnr,offertartikelnr,offertbenamn,radleveransvecka,offertantal,offertradpris,radbelopp,radmoms);
 	     /* Nedanstående avses utnyttjas för att kunna utnyttja REPLACE i MySQL */
-	     /* Det sparas  här för att kunna återskrivas i ORDERRADREG                        */
+	     /* Det sparas  här för att kunna återskrivas i OFFERTRADREG                        */
 	     item->setText(8,levantal);
 	     item->setText(9,restantal);
 	     item->setText(10,radrabatt);
@@ -2497,11 +2409,11 @@ void frmChgOffert::slotOrderRaderEndOfProcess()
 	     QString temp7=it.current()->text(14);	
 	     qDebug("temp7=%s",temp7.latin1());
 */	     
-	     orderradnr=orderradnr.setNum(oldradnr.toInt()+10);
-	     orderradnr.prepend("0");
-//	     qDebug("oldradnr=%s orderradnr=%s",oldradnr.latin1(),orderradnr.latin1());
+	     offertradnr=offertradnr.setNum(oldradnr.toInt()+10);
+	     offertradnr.prepend("0");
+//	     qDebug("oldradnr=%s offertradnr=%s",oldradnr.latin1(),offertradnr.latin1());
 	 } 
-	 lineEditRadnr->setText(orderradnr);	/* För eventuellt tillägg av ny orderrad */
+	 lineEditRadnr->setText(offertradnr);	/* För eventuellt tillägg av ny orderrad */
       }
      pushButtonAvbryt->setFocus();
 }
