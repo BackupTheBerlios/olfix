@@ -11,7 +11,7 @@
 	         Skriva ut en offert
                              -------------------
 		     version 0.5.
-    begin   	:	 Sön     19 Nov    2006
+    begin   	:	 Ons    22 Nov    2006
     Updated	: 
     copyright:	 (C) 2006 by Jan Pihlgren
     email     	: 	jan@pihlgren.se
@@ -1029,30 +1029,31 @@ void frmPrtOffert::CreatePrintout()
     rad[30]="      levsett CDATA #REQUIRED\n";
     rad[31]="      erref CDATA #REQUIRED\n";
     rad[32]="      godsmerke CDATA #REQUIRED\n";
-    rad[33]="      foretagsnamn CDATA #REQUIRED\n";
-    rad[34]="      adress1 CDATA #REQUIRED\n"; 
-    rad[35]="      adress2 CDATA #REQUIRED\n";
-    rad[36]="      adress3 CDATA #REQUIRED\n";
-    rad[37]="      telefon CDATA #REQUIRED\n";
-    rad[38]=">\n";
-    rad[39]="  <!ELEMENT KugarData (Rad*)>\n";
-    rad[40]="  <!ATTLIST KugarData\n";
-    rad[41]="      Template CDATA #REQUIRED>\n\n";
-    rad[42]="  <!ELEMENT Rad EMPTY>\n";
-    rad[43]="  <!ATTLIST Rad\n";
-    rad[44]="      level CDATA #REQUIRED\n";
-    rad[45]="      pos CDATA #REQUIRED\n";
-    rad[46]="      vartnr CDATA #REQUIRED\n";
-    rad[47]="      antal CDATA #REQUIRED\n";
-    rad[48]="      apris CDATA #REQUIRED\n";
-    rad[49]="      summa CDATA #REQUIRED\n";
-    rad[50]=">\n";
-    rad[51]="]>\n\n";
-    rad[52]="<KugarData Template=\"";
-    rad[52].append(printpath);
-    rad[52].append("Offert.kut\">\n");	// ange rätt template, absolut path
+    rad[33]="      offerttotal CDATA #REQUIRED\n";
+    rad[34]="      foretagsnamn CDATA #REQUIRED\n";
+    rad[35]="      adress1 CDATA #REQUIRED\n"; 
+    rad[36]="      adress2 CDATA #REQUIRED\n";
+    rad[37]="      adress3 CDATA #REQUIRED\n";
+    rad[38]="      telefon CDATA #REQUIRED\n";
+    rad[39]=">\n";
+    rad[40]="  <!ELEMENT KugarData (Rad*)>\n";
+    rad[41]="  <!ATTLIST KugarData\n";
+    rad[42]="      Template CDATA #REQUIRED>\n\n";
+    rad[43]="  <!ELEMENT Rad EMPTY>\n";
+    rad[44]="  <!ATTLIST Rad\n";
+    rad[45]="      level CDATA #REQUIRED\n";
+    rad[46]="      pos CDATA #REQUIRED\n";
+    rad[47]="      vartnr CDATA #REQUIRED\n";
+    rad[48]="      antal CDATA #REQUIRED\n";
+    rad[49]="      apris CDATA #REQUIRED\n";
+    rad[50]="      summa CDATA #REQUIRED\n";
+    rad[51]=">\n";
+    rad[52]="]>\n\n";
+    rad[53]="<KugarData Template=\"";
+    rad[53].append(printpath);
+    rad[53].append("Offert.kut\">\n");	// ange rätt template, absolut path
     rapportrad=rad[1];
-    for (i=2;i<53;i++){
+    for (i=2;i<54;i++){
 	rapportrad.append(rad[i]);
     }
 //    qDebug("CreateHeader::rapportrad = \n%s",rapportrad.latin1());
@@ -1101,7 +1102,9 @@ void frmPrtOffert::CreatePrintout()
     rapportrad.append(seljare);
     rapportrad.append("\" godsmerke=\"");
     rapportrad.append(godsmarke);
-//    rapportrad.append("\"/>\n");
+    rapportrad.append("\" offerttotal=\"");
+    rapportrad.append(offerttotal);
+
     
     rapportrad.append("\" foretagsnamn=\"");
     rapportrad.append(ftgnamn);
