@@ -293,6 +293,22 @@
 		   BorderStyle="0" BorderWidth="1" FontFamily="Nimbus Sans L"
 		   FontItalic="0" FontSize="8" FontWeight="75"
 		   ForegroundColor="0,0,0" HAlignment="0" Height="15"
+		   Text="Offert Totalsumma" VAlignment="1" Width="100"
+		   WordWrap="1" X="510" Y="745" />
+		<Field BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="0" BorderWidth="1" CommaSeparator="44"
+		   Currency="32" DataType="0" DateFormat="11"
+		   Field="offerttotal" FontFamily="Gotic L" FontItalic="0"
+		   FontSize="8" FontWeight="50" ForegroundColor="0,0,0"
+		   HAlignment="0" Height="15" NegValueColor="0,0,0"
+		   Precision="2" Text="[offerttotal]" VAlignment="1"
+		   Width="100" WordWrap="0" X="545"
+		   Y="760" />
+
+		<Label BackgroundColor="255,255,255" BorderColor="0,0,0"
+		   BorderStyle="0" BorderWidth="1" FontFamily="Nimbus Sans L"
+		   FontItalic="0" FontSize="8" FontWeight="75"
+		   ForegroundColor="0,0,0" HAlignment="0" Height="15"
 		   Text="Pos" VAlignment="1" Width="20"
 		   WordWrap="0" X="2" Y="370" />
 		<Label BackgroundColor="255,255,255" BorderColor="0,0,0"
@@ -319,6 +335,7 @@
 		   ForegroundColor="0,0,0" HAlignment="0" Height="15"
 		   Text="Summa" VAlignment="1" Width="40"
 		   WordWrap="1" X="545" Y="370" />
+
 		<Line Color="0,0,0" Style="1"
 		   Width="1" X1="0" X2="600"
 		   Y1="385" Y2="385" />
