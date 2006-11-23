@@ -1,5 +1,33 @@
-Changelog OLFIX 20060530
+Changelog OLFIX 20061122
 
+Ver 0.5.0.B
+2006-11-21
+		Nya program
+		CHGOFFW, Ändra i en offert 						(0023)
+		DELOFFW, Radera en offert.						(0023)
+		PRTOFFW, Skriv ut en offert.						(0023)
+
+		Ändrade program
+		ADDOFFW, Buggrättning.
+
+		Nya funktioner
+		OFFCHG.c	Ändra huvud i en offert					(0023)
+		OFFRCHG.c	Ändra offertrad i en offert.				(0023)
+		OFFDEL.c	Radera offert						(0023)
+
+		Ny rapport
+		Offert.kut								(0023)
+
+		Ändrad data
+		PROGRAMdata.txt	Lagt till CHGOFFW, DELOFFW, PRTOFFW
+
+		Diverse
+		kompilering.sh Uppdaterat
+
+		Dokumentation
+		UserManual.html			   (2006-11-19) 	(uppdaterad)
+		UserManual_OFFERT.html		   (2006-11-20)		(Ny)
+		Teknisk Manual	Uppdaterad (2006-11-12) Version 0.63
 ________________________________________________________
 Ver 0.4.5.B
 2006-05-30
