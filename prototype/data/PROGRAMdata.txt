@@ -108,3 +108,5 @@
 "108","Materialhantering","Artikeladmin.","Ändra lagerställepost","CHGLSW"
 "109","Försäljning","Offerter","Ändra en offert","CHGOFFW"
 "110","Försäljning","Offerter","Radera en offert","DELOFFW"
+"111","Försäljning","Offerter","Skriv ut en offert","PRTOFFW"
+"112","Försäljning","Offerter","Göra en offert till order","OFF2ORDW"
