@@ -1,0 +1,249 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>frmOffertTillOrder</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>frmOffertTillOrder</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>600</width>
+            <height>255</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>OFF2ORDW - Offert till Order</string>
+    </property>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>20</x>
+                <y>20</y>
+                <width>102</width>
+                <height>35</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Offertnr att 
+skapa order av.</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>280</x>
+                <y>15</y>
+                <width>50</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>425</x>
+                <y>20</y>
+                <width>70</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Offertlista.</string>
+        </property>
+    </widget>
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Offertnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Kundnr</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <property name="name">
+            <cstring>listViewOfferter</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>421</x>
+                <y>45</y>
+                <width>165</width>
+                <height>131</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditOffertNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>20</x>
+                <y>60</y>
+                <width>96</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>15</x>
+                <y>200</y>
+                <width>85</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Skapa order.</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonCreateOrder</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>15</x>
+                <y>225</y>
+                <width>56</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Skapa</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonAvbryt</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>105</x>
+                <y>225</y>
+                <width>56</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avbryt</string>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>pushButtonAvbryt</sender>
+        <signal>clicked()</signal>
+        <receiver>frmOffertTillOrder</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmOffertTillOrder</receiver>
+        <slot>pushButtonHelp_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>listViewOfferter</sender>
+        <signal>clicked(QListViewItem*)</signal>
+        <receiver>frmOffertTillOrder</receiver>
+        <slot>Pickupoffertnr(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>lineEditOffertNr</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmOffertTillOrder</receiver>
+        <slot>lineEditOffertNr_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditOffertNr</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmOffertTillOrder</receiver>
+        <slot>lineEditOffertNr_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonCreateOrder</sender>
+        <signal>clicked()</signal>
+        <receiver>frmOffertTillOrder</receiver>
+        <slot>pushButtonCreateOrder_clicked()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>listViewOfferter</tabstop>
+    <tabstop>lineEditOffertNr</tabstop>
+    <tabstop>pushButtonAvbryt</tabstop>
+    <tabstop>pushButtonHelp</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">offerttillorder.ui.h</include>
+</includes>
+<slots>
+    <slot>init()</slot>
+    <slot>lineEditOffertNr_returnPressed()</slot>
+    <slot>pushButtonCreateOrder_clicked()</slot>
+    <slot>Pickupoffertnr( QListViewItem * item )</slot>
+    <slot>listViewOfferter_format()</slot>
+    <slot>getOffertLista()</slot>
+    <slot>DataOnStdout()</slot>
+    <slot>DataOnStderr()</slot>
+    <slot>OffertListaEndOfProcess()</slot>
+    <slot>pushButtonHelp_clicked()</slot>
+    <slot>readResursFil()</slot>
+    <slot>getOrderNr()</slot>
+    <slot>slotgetOrdernrEndOfProcess()</slot>
+    <slot>UpdateKundOrderNr()</slot>
+    <slot>slotUpdateOrdernrEndOfProcess()</slot>
+    <slot>getOffertHuvud()</slot>
+    <slot>saveOrderHuvud()</slot>
+    <slot>getOffertRader()</slot>
+    <slot>saveOrderRader()</slot>
+    <slot>getOfferthuvudEndOfProcess()</slot>
+    <slot>OffertRaderEndOfProcess()</slot>
+    <slot>deleteOffert()</slot>
+    <slot>OffertDeleteEndOfProcess()</slot>
+    <slot>getOffertDataOnStdout()</slot>
+    <slot>getOffertDataOnStderr()</slot>
+    <slot>OrdernrDataOnStdout()</slot>
+    <slot>OrdernrDataOnStderr()</slot>
+    <slot>OffertRadDataOnStdout()</slot>
+    <slot>OffertRadDataOnStderr()</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>kornrDataOnStdout()</slot>
+    <slot>kornrDataOnStderr()</slot>
+    <slot>slotEndOfProcess()</slot>
+    <slot>OffertRaderEndOfProcess4()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
