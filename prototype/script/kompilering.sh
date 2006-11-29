@@ -652,6 +652,13 @@ qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
 
+echo "===== OffertTillOrder, OFF2ORDW" >> $LOGGFILE
+cd $WORKDIR/OffertTillOrder
+qmake -project "TARGET=OFF2ORDW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake >> $LOGGFILE
+make >> $LOGGFILE 2>> $LOGGFILE
+make clean >> $LOGGFILE
+
 echo "***** Meny *****"
 
 echo "===== MenyOlfixW, OLFIXW" >> $LOGGFILE
@@ -673,6 +680,13 @@ make clean >> $LOGGFILE
 echo "===== PrtBestellningKundorder, FSORDW" >> $LOGGFILE
 cd $WORKDIR/PrtFoljesedelKundorder
 qmake -project "TARGET=FSORDW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake >> $LOGGFILE
+make >> $LOGGFILE 2>> $LOGGFILE
+make clean >> $LOGGFILE
+
+echo "===== Offerter, PRTOFFW" >> $LOGGFILE
+cd $WORKDIR/PrtOffert
+qmake -project "TARGET=PRTOFFW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
 qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
