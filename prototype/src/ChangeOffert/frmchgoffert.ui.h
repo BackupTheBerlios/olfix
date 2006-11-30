@@ -1702,8 +1702,8 @@ void frmChgOffert::pushBtnHelp_clicked()
 	
 	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
 	hjelpfil=hjelpfil.left(i1);
-	hjelpfil=hjelpfil+"_KUNDORDER.html";
-	hjelpfil=hjelpfil+"#FORSALJ_CHANGE";		// Lägg till position
+	hjelpfil=hjelpfil+"_OFFERT.html";
+	hjelpfil=hjelpfil+"#OFFERT_CHG";		// Lägg till position
 //	qDebug("hjelpfil=%s",hjelpfil.latin1());
 	process = new QProcess();
 	process->addArgument( "./OLFIXHLP" );		// OLFIX program
