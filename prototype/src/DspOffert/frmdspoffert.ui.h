@@ -672,8 +672,8 @@ void frmDspOffert::pushBtnHelp_clicked()
 	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
 //	int i2 = hjelpfil.length();
 	hjelpfil=hjelpfil.left(i1);
-	hjelpfil=hjelpfil+"_KUNDoffert.html";
-	hjelpfil=hjelpfil+"#OFFERT";		// Lägg till position
+	hjelpfil=hjelpfil+"_OFFERT.html";
+	hjelpfil=hjelpfil+"#OFFERT_DSP";		// Lägg till position
 /*	qDebug("hjelpfil=%s",hjelpfil.latin1());	*/
 
 	process = new QProcess();
