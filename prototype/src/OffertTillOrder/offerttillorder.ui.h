@@ -60,8 +60,9 @@
     QString hjelpfil;    
     
     QString offertnr;
-    QString ordernr;	// För den nya ordern
+    QString ordernr;			// För den nya ordern
 
+    QString orderdatum;		// För den nya ordern
     QString offertdatum;    
     QString offertkundnr;
     QString offertkundnamn;
@@ -94,6 +95,9 @@
     
 void frmOffertTillOrder::init()
 {
+    QDateTime dt = QDateTime::currentDateTime();
+    orderdatum=dt.toString("yyyy-MM-dd");
+     
     frmOffertTillOrder::listViewOfferter_format();
     getOffertLista();
     listViewOfferter->setFocus();
@@ -504,7 +508,7 @@ void frmOffertTillOrder::saveOrderHuvud()
     
     offerthuvuddata.append(ordernr);
     offerthuvuddata.append(skilj);
-    offerthuvuddata.append(offertdatum);
+    offerthuvuddata.append(orderdatum);		//Datum då offerten görs till order.
     offerthuvuddata.append(skilj);
     offerthuvuddata.append(offertkundnr);
     offerthuvuddata.append(skilj);
