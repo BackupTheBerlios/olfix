@@ -2153,12 +2153,12 @@ void frmAddOffert::pushBtnHelp_clicked()
 	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
 //	int i2 = hjelpfil.length();
 	hjelpfil=hjelpfil.left(i1);
-	hjelpfil=hjelpfil+"_KUNDORDER.html";
-	hjelpfil=hjelpfil+"#OFFERT";		// Lägg till position
+	hjelpfil=hjelpfil+"_OFFERT.html";
+	hjelpfil=hjelpfil+"#OFFERT_ADD";		// Lägg till position
 //	qDebug("hjelpfil=%s",hjelpfil.latin1());
 
 	process = new QProcess();
-	process->addArgument( "./OLFIXHLP" );	// OLFIX program
+	process->addArgument( "./OLFIXHLP" );		// OLFIX program
 	process->addArgument(hjelpfil);
 
 	if ( !process->start() ) {
