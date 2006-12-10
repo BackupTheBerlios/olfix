@@ -1,0 +1,253 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>frmTotalRights</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>frmTotalRights</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>435</width>
+            <height>171</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>TOTRGTW - Behörighet att använda alla program.</string>
+    </property>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushBtnHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>370</x>
+                <y>5</y>
+                <width>55</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>65</x>
+                <y>55</y>
+                <width>182</width>
+                <height>36</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Användare/User
+som ska ha behörigheterna.</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>104</y>
+                <width>55</width>
+                <height>17</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>UserID</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditUserID</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>65</x>
+                <y>100</y>
+                <width>160</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Ange UserID med små eller stora bokstäver.</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>5</x>
+                <y>25</y>
+                <width>65</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Databas:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditDatabas</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>65</x>
+                <y>25</y>
+                <width>160</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Data bas som ska uppdateras.</string>
+        </property>
+    </widget>
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Databas</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <property name="name">
+            <cstring>listViewDatabas</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>270</x>
+                <y>36</y>
+                <width>161</width>
+                <height>125</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Databaser att välja på. Kan vara flera än olfixdatabaser.</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushBtnAvbryt</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>155</x>
+                <y>140</y>
+                <width>71</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avbryt</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushBtnCreate</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>65</x>
+                <y>140</y>
+                <width>71</width>
+                <height>26</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Skapa</string>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>pushBtnAvbryt</sender>
+        <signal>clicked()</signal>
+        <receiver>frmTotalRights</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>pushBtnHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmTotalRights</receiver>
+        <slot>pushBtnHelp_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditUserID</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmTotalRights</receiver>
+        <slot>lineEditUserID_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditUserID</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmTotalRights</receiver>
+        <slot>lineEditUserID_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>pushBtnCreate</sender>
+        <signal>clicked()</signal>
+        <receiver>frmTotalRights</receiver>
+        <slot>pushBtnCreate_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>listViewDatabas</sender>
+        <signal>clicked(QListViewItem*)</signal>
+        <receiver>frmTotalRights</receiver>
+        <slot>pickupDatabas(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>lineEditDatabas</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmTotalRights</receiver>
+        <slot>lineEditDatabas_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditDatabas</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmTotalRights</receiver>
+        <slot>lineEditDatabas_returnPressed()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>listViewDatabas</tabstop>
+    <tabstop>lineEditDatabas</tabstop>
+    <tabstop>lineEditUserID</tabstop>
+    <tabstop>pushBtnCreate</tabstop>
+    <tabstop>pushBtnAvbryt</tabstop>
+    <tabstop>pushBtnHelp</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">frmtotalrights.ui.h</include>
+</includes>
+<slots>
+    <slot>init()</slot>
+    <slot>pickupDatabas( QListViewItem * item )</slot>
+    <slot>lineEditDatabas_returnPressed()</slot>
+    <slot>lineEditUserID_returnPressed()</slot>
+    <slot>pushBtnCreate_clicked()</slot>
+    <slot>createTempFile()</slot>
+    <slot>pushBtnHelp_clicked()</slot>
+    <slot>readResursFil()</slot>
+    <slot>GetTmpDir()</slot>
+    <slot>DataOnStdout()</slot>
+    <slot>DataOnStderr()</slot>
+    <slot>EndOfProcess()</slot>
+    <slot>createSqlData( QString function, QString usr )</slot>
+    <slot>FileRemove( QString filnamn )</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
