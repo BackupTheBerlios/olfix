@@ -2,11 +2,11 @@
 <HTML>
 <HEAD>
 	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-15">
-	<TITLE>UserManual</TITLE>
+	<TITLE>UserManual, ADMINISTRATION</TITLE>
 	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.0.2  (Linux)">
 	<META NAME="CREATED" CONTENT="20021205;10014400">
 	<META NAME="CHANGEDBY" CONTENT="Jan Pihlgren">
-	<META NAME="CHANGED" CONTENT="20060323;7382300">
+	<META NAME="CHANGED" CONTENT="20061209">
 	<STYLE>
 	<!--
 		@page { margin: 2cm }
@@ -15,7 +15,7 @@
 	</STYLE>
 </HEAD>
 <BODY LANG="sv-SE">
-<P STYLE="margin-bottom: 0cm"><IMG SRC="UserManual_html_OLFIX_LOGGA.jpg" NAME="Graphic1" ALIGN=MIDDLE WIDTH=643 HEIGHT=268 BORDER=0>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><IMG SRC="UserManual_html_OLFIX_LOGGA.jpg" NAME="Graphic1" ALIGN=CENTER WIDTH=643 HEIGHT=268 BORDER=0>
 </P>
 <P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=6 STYLE="font-size: 22pt"><B>Order/Lager/Fakturering
 f&ouml;r Linuxsystem</B></FONT></P>
@@ -25,9 +25,9 @@ f&ouml;r Linuxsystem</B></FONT></P>
 <P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=4 STYLE="font-size: 16pt">Kapitel
 Administration</FONT>
 </P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.3 </FONT>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.4</FONT>
 </P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2006-04-11 </FONT>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2006-12-09</FONT>
 </P>
 <HR>
 <P STYLE="margin-left: 3cm">This program is free software; you can
@@ -59,7 +59,8 @@ any later version.</P>
 		<A href="#LISTFUNK">Lista funktioner.</A>
 		<A href="#LISTPROG">Lista program.</A><br>
 	<A href="#BEHORIG">Behörighetsadministration.</A>
-		<A href="#NYBEHORIG">Ny behörighet.</A><br></P>
+		<A href="#NYBEHORIG">Ny behörighet.</A>
+		<A href="#TOTAL_RIGHT">Fullständig behörighet.</A><br></P>
 </pre>
 </FONT>
 </P>
@@ -206,6 +207,27 @@ Lämna ADDRGTW genom att klicka på knappen <b>Avsluta</b>.
 <p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
 <a href="#TOP">Till början</a></p></FONT>
 <hr>
+<P ALIGN=LEFT>
+<a name="TOTAL_RIGHT"><b>Total behörighet.</b></a><br>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+Programmet TOTRGTW kan användas för att ge en användare behörighet att använda alla program i OLFIX.
+Undantaget är att det ger inte tillgång till sig själv (TOTRGTW, ADDTOT), den behörigheten måste läggas upp manuellt med ADDRGTW av en administratör. Vederbörande får ej heller behörighet till ADDRGTW och kan följdaktligen inte själv ge sig denna behörighet.<br>
+<P ALIGN=center>
+<img src="UserManual_html_TOTRGTW.png" name="TOTRGTPICT" align="bottom"  border="0"></p>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+<FONT COLOR="red"><b>OBS!</b></FONT> Programmet skall användas i den databas där behörigheterna ska tilldelas.<br>
+Genom att klicka på en av databaserna som finns i listan kopieras denna till fältet <b>Databas</b>. Programmet kontrollerar att man valt en olfixdatabas. I fall man angett en databas som inte är en olfixdatabas erhålls nedanstående felmeddelande.<br>
+Om fältet lämnas blankt uppdateras den databas man befinner sig i (olfixdatabas).<br><br>
+<b>UserID</b> kan anges med gemener  eller versaler. Programmet ställer om UserID till versaler.<br><br>
+
+I fall man anger en databas som inte är en olfixdatabas erhålls följande felmeddelande;</FONT>
+<P ALIGN=center>
+<img src="UserManual_html_Error_1146.png" name="TOTRGTPICT" align="bottom"  border="0"></p>
+
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></FONT></p></FONT></p>
+
+<hr>
 <!--                   FUNKTIONSADMINISTRATION                           -->
 <P ALIGN=CENTER><A NAME="FUNK"></A><FONT FACE="San Serif">
 <B>FUNKTIONSADMINISTRATION</B></FONT></P>
@@ -259,6 +281,7 @@ Blanka fält i kolumnen <b>Program</b> innebär att det ännu inte finns program fö
  <b>Bokf&ouml;rings&aring;r:</B> Tv&aring;st&auml;llig bokstavskombination som anger vilket
 bokf&ouml;rings&aring;r som avses.<br>
 <b>Funktion:</b> Ett mindre program som sammanbinder huvudprogram  med databasen.<br>
+<b>Behörighet:</b> Möjlighet att använda ett program i OLFIX.<br>
 </FONT></P>
 <p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
 <a href="#TOP">Till början</a></FONT></p>
