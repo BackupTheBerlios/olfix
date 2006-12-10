@@ -73,7 +73,15 @@ void frmDelUsr::slotGetUserData()
 {
         	const char *userp = getenv("USER");
                 QString usr(userp);
-
+	if (userid =="OLFIX"){
+	    	QMessageBox::warning( this, "OLFIX - USERDEL",
+                            "OLFIX får inte tagas bort !\n"
+                            );
+		userid="";
+		LineEditUserid->clear();
+		return;
+	}
+		
 	inrad="";
 	errorrad="";
                 process = new QProcess();
