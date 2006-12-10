@@ -8,9 +8,9 @@
 /***************************************************************************
                           DELUSRW  -  description
                              -------------------
-		     version 0.3
-    begin     	: Sön 2 febr 2003
-    Modified	: Ons 8 febr 2006
+		     version 0.4
+    begin     	: 	Sön 2 febr 2003
+    Modified	: 	Ons 8 febr 2006, Sön 10 dec 2006
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -37,11 +37,13 @@
 	QString inradlista;
 	QString errorradlista;
 	QString errorrad;
+	QString hjelpfil;
 	QString inrad_u;
 	QString listrad;
                 QString userid;
                 QString EndFlag;
 	QString nbrrows;
+	QString database;
 	
     
 
@@ -49,6 +51,8 @@ void frmDelUsr::init()
 {
     PushButtonGet->hide();
     frmDelUsr::listUsers();
+    frmDelUsr::getDatabaseName();
+    lineEditDatabas->setText(database);
     listViewUser->setFocus();
 }	
 
@@ -99,7 +103,7 @@ void frmDelUsr::slotGetRightData()
 	 inrad="";
 	 errorrad="";
 
-            process = new QProcess();
+                process = new QProcess();
 	process->addArgument("./STYRMAN");
 	process->addArgument(usr.latin1());	
 	process->addArgument( "RGTDSP");	// OLFIX program
@@ -285,12 +289,12 @@ void frmDelUsr::slotPushButtonOK_clicked()
 void frmDelUsr::slotDelRightData(QString anvID,QString fncID)
 {
     	const char *userp = getenv("USER");
-            QString usr(userp);
+                QString usr(userp);
 	 inrad="";
 	 errorrad="";
 	    
 //	fprintf(stderr,"slotDelRightData: anvID=%s  fncID=%s\n", anvID.latin1(),fncID.latin1() );	
-            process = new QProcess();
+                process = new QProcess();
 	process->addArgument("./STYRMAN");
 	process->addArgument(usr.latin1());	
 	process->addArgument( "RGTDEL");	// OLFIX program
@@ -298,7 +302,7 @@ void frmDelUsr::slotDelRightData(QString anvID,QString fncID)
 	process->addArgument( fncID.latin1() );
 	frmDelUsr::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotRgtDelDataOnStdout() ) );
 	frmDelUsr::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotRgtDelDataOnStderr() ) );
-            frmDelUsr::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfRgtDelProcess() ) );
+               frmDelUsr::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfRgtDelProcess() ) );
 
             if ( !process->start() ) {
                 // error handling
@@ -335,6 +339,7 @@ void frmDelUsr::slotEndOfRgtDelProcess()
 	errorrad="";
 	j = -1;
        }
+      
 }
 
 
@@ -367,14 +372,14 @@ void frmDelUsr::slotDelUsrData( QString anvID )
 	 inrad="";
 	 errorrad="";
 	
-            process = new QProcess();
+                process = new QProcess();
 	process->addArgument("./STYRMAN");
 	process->addArgument(usr.latin1());	
 	process->addArgument( "USERDEL");	// OLFIX program
 	process->addArgument( anvID.latin1() );
 	frmDelUsr::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotUsrDelDataOnStdout() ) );
 	frmDelUsr::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotUsrDelDataOnStderr() ) );
-            frmDelUsr::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfUsrDelProcess() ) );
+                frmDelUsr::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfUsrDelProcess() ) );
 
             if ( !process->start() ) {
                 // error handling
@@ -432,12 +437,14 @@ void frmDelUsr::slotEndOfUsrDelProcess()
 	j = -1;
        }
        i = -1;
-       i = inrad.find( QRegExp("OK: USERDEL_"), 0 );
+//       i = inrad.find( QRegExp("OK: USERDEL_"), 0 );
+       i = inrad.find( QRegExp("OK:"), 0 );
        if(i == 0){
 	QMessageBox::information( this, "USERDEL - RGTDEL",
 		"Uppdatering OK!\n" 
 		);
     }
+       frmDelUsr::listUsers();
 }
 
 void frmDelUsr::listUsers()	
@@ -620,4 +627,89 @@ void frmDelUsr::slotPickupuserid( QListViewItem * item)
      userid=user;
      LineEditUserid->setText(userid);
      LineEditUserid->setFocus();
+}
+
+void frmDelUsr::pushBtnHelp_clicked()
+{
+	inrad="";
+	frmDelUsr::readResursFil();		// Hämta path till hjälpfilen
+	
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_ADMINISTRATION.html";
+	hjelpfil=hjelpfil+"#DELUSER";			// Lägg till position
+//	qDebug("hjelpfil=%s",hjelpfil.latin1());
+	process = new QProcess();
+	process->addArgument( "./OLFIXHLP" );		// OLFIX program
+	process->addArgument(hjelpfil);
+
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
+	}
+//	lineEditArtikelNr->setFocus();
+}
+
+void frmDelUsr::readResursFil()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			                     */
+    /* Plocka fram var hjälpfilen finns		                     */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 );
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
+}
+
+void frmDelUsr::getDatabaseName()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			                     */
+    /* Plocka fram vilken databas som används		                     */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("DATABASE="), 0 );
+	if(rad == 0){
+	    database=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    database=(database.right(database.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
 }
