@@ -25,6 +25,7 @@
 "BETDSP","Visa ett betalningsvillkor"
 "BETLST","Lista betalningsvillkor"
 "BOKF","Bokföringsprogram"
+"DATABASE","Byta databas"
 "DBCHK","Lista databaser registrerade i databasen mysql"
 "DBOKRPT","Dagboksrapport"
 "FAKTDSP","Visa data på kundfaktura"
