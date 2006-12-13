@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>frmBytForetag</class>
 <widget class="QWidget">
     <property name="name">
@@ -22,22 +22,6 @@
     <property name="caption">
         <string>OLFIX - BYTFTGW Byt företag/databas</string>
     </property>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel2</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>20</x>
-                <y>95</y>
-                <width>118</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Nuvarande företag:</string>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>textLabel4</cstring>
@@ -133,48 +117,39 @@
             <string>olfix</string>
         </property>
     </widget>
-    <widget class="QLineEdit">
+    <widget class="QPushButton">
         <property name="name">
-            <cstring>lineEditForetag</cstring>
-        </property>
-        <property name="enabled">
-            <bool>false</bool>
+            <cstring>pushButtonBreak</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>150</x>
-                <y>90</y>
-                <width>30</width>
-                <height>23</height>
+                <x>190</x>
+                <y>165</y>
+                <width>71</width>
+                <height>20</height>
             </rect>
         </property>
-        <property name="paletteForegroundColor">
-            <color>
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-            </color>
-        </property>
         <property name="text">
-            <string>01</string>
+            <string>Avbryt</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
         </property>
     </widget>
     <widget class="QLabel">
         <property name="name">
-            <cstring>textLabel1</cstring>
+            <cstring>textLabel2</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>80</x>
-                <y>15</y>
-                <width>420</width>
-                <height>50</height>
+                <x>20</x>
+                <y>95</y>
+                <width>127</width>
+                <height>17</height>
             </rect>
         </property>
         <property name="text">
-            <string>Denna funktion används för att skifta mellan olika företag (databaser).
-Företag 01 (databas olfix) är det ordinarie, "skarpa" företaget.
-Företag 99 (databas olfixtst) är ett testföretag.</string>
+            <string>Nuvarande företag:</string>
         </property>
     </widget>
     <widget class="QPushButton">
@@ -196,93 +171,22 @@ Företag 99 (databas olfixtst) är ett testföretag.</string>
             <bool>true</bool>
         </property>
     </widget>
-    <widget class="QPushButton">
+    <widget class="QLabel">
         <property name="name">
-            <cstring>pushButtonOK</cstring>
+            <cstring>textLabel1</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>105</x>
-                <y>165</y>
-                <width>71</width>
-                <height>20</height>
+                <x>20</x>
+                <y>10</y>
+                <width>452</width>
+                <height>53</height>
             </rect>
         </property>
         <property name="text">
-            <string>Klar</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonBreak</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>190</x>
-                <y>165</y>
-                <width>71</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Avbryt</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QListView">
-        <column>
-            <property name="text">
-                <string>Databasnr</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Databasnamn</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <property name="name">
-            <cstring>listView1</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>365</x>
-                <y>70</y>
-                <width>221</width>
-                <height>116</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditNyttForetag</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>150</x>
-                <y>115</y>
-                <width>30</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string></string>
+            <string>Denna funktion används för att skifta mellan olika företag (databaser).
+Databas olfix är det ordinarie, "skarpa" företaget.
+Databas olfixtst är ett testföretag.</string>
         </property>
     </widget>
     <widget class="QLineEdit">
@@ -290,7 +194,7 @@ Företag 99 (databas olfixtst) är ett testföretag.</string>
             <cstring>lineEditNyDatabas</cstring>
         </property>
         <property name="enabled">
-            <bool>false</bool>
+            <bool>true</bool>
         </property>
         <property name="geometry">
             <rect>
@@ -311,14 +215,51 @@ Företag 99 (databas olfixtst) är ett testföretag.</string>
             <string></string>
         </property>
     </widget>
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Databasnamn</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <property name="name">
+            <cstring>listViewDatabas</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>365</x>
+                <y>70</y>
+                <width>221</width>
+                <height>116</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>105</x>
+                <y>165</y>
+                <width>71</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Klar</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
 </widget>
 <connections>
-    <connection>
-        <sender>lineEditNyttForetag</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmBytForetag</receiver>
-        <slot>lineEditNyttForetag_returnPressed()</slot>
-    </connection>
     <connection>
         <sender>pushButtonOK</sender>
         <signal>clicked()</signal>
@@ -329,13 +270,13 @@ Företag 99 (databas olfixtst) är ett testföretag.</string>
         <sender>pushButtonDo</sender>
         <signal>clicked()</signal>
         <receiver>frmBytForetag</receiver>
-        <slot>pushButtonDo_clicked()</slot>
+        <slot>setDatabase()</slot>
     </connection>
     <connection>
         <sender>pushButtonHelp</sender>
         <signal>clicked()</signal>
         <receiver>frmBytForetag</receiver>
-        <slot>slotButtonHelp_clicked()</slot>
+        <slot>slotHelp()</slot>
     </connection>
     <connection>
         <sender>pushButtonBreak</sender>
@@ -344,35 +285,36 @@ Företag 99 (databas olfixtst) är ett testföretag.</string>
         <slot>close()</slot>
     </connection>
     <connection>
-        <sender>listView1</sender>
+        <sender>listViewDatabas</sender>
         <signal>clicked(QListViewItem*)</signal>
         <receiver>frmBytForetag</receiver>
-        <slot>slotPickupDbnr(QListViewItem*)</slot>
+        <slot>pickupDatabas(QListViewItem*)</slot>
     </connection>
 </connections>
+<tabstops>
+    <tabstop>listViewDatabas</tabstop>
+    <tabstop>lineEditNyDatabas</tabstop>
+    <tabstop>pushButtonDo</tabstop>
+    <tabstop>pushButtonOK</tabstop>
+    <tabstop>pushButtonBreak</tabstop>
+    <tabstop>pushButtonHelp</tabstop>
+    <tabstop>lineEditDatabas</tabstop>
+</tabstops>
 <includes>
     <include location="local" impldecl="in implementation">frmbytforetag.ui.h</include>
 </includes>
 <slots>
     <slot>init()</slot>
-    <slot>lineEditNyttForetag_returnPressed()</slot>
-    <slot>pushButtonDo_clicked()</slot>
-    <slot>slotButtonHelp_clicked()</slot>
+    <slot>pickupDatabas( QListViewItem * item )</slot>
+    <slot>checkDatabaseExist()</slot>
     <slot>getDatabase()</slot>
     <slot>setDatabase()</slot>
     <slot>slotHelp()</slot>
     <slot>readResursFil()</slot>
-    <slot>checkDatabase( QString db, QString usr )</slot>
     <slot>slotDataOnStdout()</slot>
     <slot>slotDataOnStderr()</slot>
-    <slot>slotEndOfProcess()</slot>
-    <slot>getDatabasename()</slot>
-    <slot>slotDataOnStdoutDbnamn()</slot>
-    <slot>slotDataOnStderrDbnamn()</slot>
-    <slot>slotEndOfProcessDbnamn()</slot>
-    <slot>listDatabaser()</slot>
+    <slot>listDatabaser( QString choise )</slot>
     <slot>slotEndOfProcessList()</slot>
-    <slot>slotPickupDbnr( QListViewItem * item )</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
