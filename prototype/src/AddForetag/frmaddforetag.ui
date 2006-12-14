@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>frmAddForetag</class>
 <widget class="QWidget">
     <property name="name">
@@ -23,28 +23,6 @@
     </property>
     <widget class="QLabel">
         <property name="name">
-            <cstring>TextLabel1</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>30</y>
-                <width>81</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="frameShape">
-            <enum>NoFrame</enum>
-        </property>
-        <property name="frameShadow">
-            <enum>Plain</enum>
-        </property>
-        <property name="text">
-            <string>Databasnr:</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
             <cstring>textLabel1</cstring>
         </property>
         <property name="geometry">
@@ -59,28 +37,25 @@
             <string>Befintliga databaser</string>
         </property>
     </widget>
-    <widget class="QPushButton">
+    <widget class="QLabel">
         <property name="name">
-            <cstring>PushButtonQuit</cstring>
+            <cstring>TextLabel1_2</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>70</x>
-                <y>135</y>
-                <width>61</width>
+                <x>10</x>
+                <y>30</y>
+                <width>70</width>
                 <height>21</height>
             </rect>
         </property>
         <property name="text">
-            <string>Avsluta</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
+            <string>Databas:</string>
         </property>
     </widget>
     <widget class="QLabel">
         <property name="name">
-            <cstring>TextLabel1_2</cstring>
+            <cstring>textLabel2</cstring>
         </property>
         <property name="geometry">
             <rect>
@@ -91,7 +66,7 @@
             </rect>
         </property>
         <property name="text">
-            <string>Databas:</string>
+            <string>Password:</string>
         </property>
     </widget>
     <widget class="QPushButton">
@@ -103,27 +78,11 @@
                 <x>175</x>
                 <y>5</y>
                 <width>56</width>
-                <height>16</height>
+                <height>25</height>
             </rect>
         </property>
         <property name="text">
             <string>Hjälp</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel2</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>5</x>
-                <y>90</y>
-                <width>76</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Password:</string>
         </property>
     </widget>
     <widget class="QPushButton">
@@ -133,13 +92,48 @@
         <property name="geometry">
             <rect>
                 <x>10</x>
-                <y>135</y>
+                <y>131</y>
                 <width>51</width>
-                <height>21</height>
+                <height>25</height>
             </rect>
         </property>
         <property name="text">
             <string>OK</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditdbnamn</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>90</x>
+                <y>30</y>
+                <width>120</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Ange ett databasnamn med gemener (små bokstäver). Icke å ä ö.</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonQuit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>70</x>
+                <y>131</y>
+                <width>61</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avsluta</string>
         </property>
         <property name="default">
             <bool>true</bool>
@@ -152,8 +146,8 @@
         <property name="geometry">
             <rect>
                 <x>90</x>
-                <y>90</y>
-                <width>81</width>
+                <y>60</y>
+                <width>120</width>
                 <height>23</height>
             </rect>
         </property>
@@ -161,50 +155,7 @@
             <enum>Password</enum>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditdbnamn</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>90</x>
-                <y>60</y>
-                <width>80</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Ange ett databasnamn med gemener (små bokstäver). Icke å ä ö.</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditdbnr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>91</x>
-                <y>30</y>
-                <width>30</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Ange databasnummer med två(2) siffror.</string>
-        </property>
-    </widget>
     <widget class="QListView">
-        <column>
-            <property name="text">
-                <string>Databasnr</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
         <column>
             <property name="text">
                 <string>Databasnamn</string>
@@ -217,13 +168,13 @@
             </property>
         </column>
         <property name="name">
-            <cstring>listView1</cstring>
+            <cstring>listViewDatabas</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>240</x>
+                <x>261</x>
                 <y>25</y>
-                <width>211</width>
+                <width>190</width>
                 <height>131</height>
             </rect>
         </property>
@@ -233,26 +184,8 @@
     <connection>
         <sender>PushButtonOK</sender>
         <signal>clicked()</signal>
-        <receiver>LineEditdbnr</receiver>
-        <slot>setFocus()</slot>
-    </connection>
-    <connection>
-        <sender>PushButtonOK</sender>
-        <signal>clicked()</signal>
-        <receiver>LineEditdbnr</receiver>
-        <slot>clear()</slot>
-    </connection>
-    <connection>
-        <sender>PushButtonOK</sender>
-        <signal>clicked()</signal>
         <receiver>frmAddForetag</receiver>
         <slot>slotAddForetag()</slot>
-    </connection>
-    <connection>
-        <sender>LineEditdbnr</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmAddForetag</receiver>
-        <slot>slotdbnrEntered()</slot>
     </connection>
     <connection>
         <sender>PushButtonQuit</sender>
@@ -284,9 +217,20 @@
         <receiver>frmAddForetag</receiver>
         <slot>lineEditPassword_Entered()</slot>
     </connection>
+    <connection>
+        <sender>LineEditdbnamn</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmAddForetag</receiver>
+        <slot>slotdbnamnEntered()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditPassword</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmAddForetag</receiver>
+        <slot>lineEditPassword_Entered()</slot>
+    </connection>
 </connections>
 <tabstops>
-    <tabstop>LineEditdbnr</tabstop>
     <tabstop>LineEditdbnamn</tabstop>
     <tabstop>PushButtonOK</tabstop>
     <tabstop>PushButtonQuit</tabstop>
@@ -296,7 +240,6 @@
 </includes>
 <slots>
     <slot access="protected">init()</slot>
-    <slot>slotdbnrEntered()</slot>
     <slot>slotdbnamnEntered()</slot>
     <slot>lineEditPassword_Entered()</slot>
     <slot>pushButtonHelp_clicked()</slot>
@@ -307,14 +250,10 @@
     <slot>slottInformation()</slot>
     <slot>slotCheckIfExistDbnr()</slot>
     <slot>slotCheckDbnrEndOfProcess()</slot>
-    <slot>listDatabaser()</slot>
+    <slot>listDatabaser( QString choise )</slot>
     <slot>slotEndOfProcessList()</slot>
-    <slot>slotCheckIfExistDbnamn()</slot>
-    <slot>slotCheckDbnamnEndOfProcess()</slot>
     <slot>readResursFil()</slot>
-    <slot>checkDb_mysql()</slot>
-    <slot>CheckDbmysqlEndOfProcess()</slot>
-    <slot>slotDataOnStdoutMysql()</slot>
+    <slot returnType="int">checkDatabaseExist( QString databasnamn )</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

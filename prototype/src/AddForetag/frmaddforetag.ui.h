@@ -8,18 +8,19 @@
 /***************************************************************************
                           ADDFORW  -  description
                              -------------------
-		     version 0.2
+		     version 0.3
     begin                 : Tis   9 nov  2004
     Modified          : Ons 28 sept 2005
+                               :Ons 13 dec  2006  Rättat bugg men OLFIXHLP
     copyright          : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
- *					                                                 *
+ *					                                            *
  *   This program is free software; you can redistribute it and/or modify 	 *
- *   it under the terms of the GNU General Public License as published by       *
+ *   it under the terms of the GNU General Public License as published by   	 *
  *   the Free Software Foundation; either version 2 of the License, or     	 *
- *   (at your option) any later version.                                   		 *
+ *   (at your option) any later version.                                   		 	 *
  *                                                                         				 *
  *********************************************** *****************/
 #include <qmessagebox.h>
@@ -32,46 +33,40 @@
 #include <qlistview.h>
 #include <qwhatsthis.h> 
 #define MAXSTRING 5000
-#define VERSION "Version: 0.2\n 2005-09-28"
+#define VERSION "Version: 0.3\n 2006-12-13"
 
     QProcess* process;
     QString inrad;
     QString inradmysql;
     QString errorrad;
     QString* rad;
-    QString dbnr;
     QString dbnamn;
+    QString newdatabase;
     QString hjelpfil;
     QString passw;
+    QString val="";
     int flag;
 
-    
-    
 void frmAddForetag::init()
 {
-    LineEditdbnr->clear();
     LineEditdbnamn->clear();
     lineEditPassword->clear();
-    listDatabaser();
-//    qDebug("dbnr=%s, dbnamn=%s)",dbnr.latin1(),dbnamn.latin1());
-/*    slottInformation(); Ej längre giltig information	*/
-    LineEditdbnr->setFocus();
+    val = "3";			// Lista befintliga databaser utom databasen mysql
+    listDatabaser(val);
+//    qDebug(" dbnamn=%s)",dbnamn.latin1());
+    LineEditdbnamn->setFocus();
 }
    
-void frmAddForetag::slotdbnrEntered()
-{
-    errorrad="";
-    inrad="";
-    dbnr=LineEditdbnr->text();
-    slotCheckIfExistDbnr();
-}
 
 void frmAddForetag::slotdbnamnEntered()
 {
+    int status=FALSE;
     dbnamn=LineEditdbnamn->text();
     dbnamn=dbnamn.lower();
-    slotCheckIfExistDbnamn();
-    if (flag==0){
+    status=checkDatabaseExist(dbnamn);
+    if (status==TRUE){
+	QMessageBox::warning( this, "ADDFORW","Databasen finns redan!\n" );
+	LineEditdbnamn->clear();
 	LineEditdbnamn->setFocus();
     }else{
 	LineEditdbnamn->setText(dbnamn);
@@ -98,14 +93,14 @@ void frmAddForetag::pushButtonHelp_clicked()
 //	qDebug("hjelpfil=%s",hjelpfil.latin1());
 
 	process = new QProcess();
-	process->addArgument( "OLFIXHLP" );	// OLFIX program
+	process->addArgument( "./OLFIXHLP" );		// OLFIX program  (20061213)
 	process->addArgument(hjelpfil);
 
 	if ( !process->start() ) {
 	    // error handling
 	    QMessageBox::warning( this, "ADDFORW","Kan inte starta OLFIXHLP!\n" );
 	}
-	LineEditdbnr->setFocus();
+	LineEditdbnamn->setFocus();
 }
 
 void frmAddForetag::slotAddForetag()
@@ -116,59 +111,75 @@ void frmAddForetag::slotAddForetag()
     const char *userp = getenv("USER");
     QString usr(userp);
     QString user;
-    QString sqlfile="/tmp/CreateOLFIXtemplate.sql";
+    QString orgfile="/tmp/CreateOLFIXtemplate.org";
     QString tmpfile="/tmp/CreateOLFIXtemplate.tmp";
+    QString tempfile="/tmp/CreateOLFIXtemplate_temp.tmp";
     QString newsqlfile="/tmp/CreateOLFIXnew.sql";		    
     QString kommando;
     user=usr.upper();
     /* Editera sqlfilen som ska användas för att skapa den nya databasen */
-    kommando="cp ../sql/CreateOLFIXtemplate.sql "+sqlfile;
+    kommando="cp ../sql/CreateOLFIXtemplate.sql ";
+    kommando.append(orgfile);
+//    qDebug("kommando 1 = %s",kommando.latin1());
     system(kommando);
-    kommando="sed 's/olfixtemplate/"+dbnamn+"/' "+sqlfile+" > "+tmpfile;
+    
+    kommando="sed 's/olfixtemplate/";
+    kommando.append(dbnamn);
+    kommando.append("/' ");
+    kommando.append(orgfile);
+    kommando.append(" > ");
+    kommando.append(tmpfile);
     system(kommando);
-    kommando="sed 's/NEWUSER/"+user+"/' "+tmpfile+" > "+newsqlfile;
+//    qDebug("kommando 2 = %s",kommando.latin1());
+    
+    kommando="sed 's/NEWUSER/";
+    kommando.append(user);
+    kommando.append("/' ");
+    kommando.append(tmpfile);
+    kommando.append(" > ");
+    kommando.append(tempfile);
     system(kommando);
-    kommando="rm "+tmpfile;
+//    qDebug("kommando 3 = %s",kommando.latin1());
+    
+    kommando="sed 's/newdatabase/";
+    kommando.append(dbnamn);
+    kommando.append("/' ");
+    kommando.append(tempfile);
+    kommando.append(" > ");
+    kommando.append(newsqlfile);
+//    qDebug("kommando 4 = %s",kommando.latin1());    
     system(kommando);
-    kommando="rm "+sqlfile;
-    system(kommando);
-    kommando="sed 's/h00/"+dbnr+"/' "+newsqlfile+" > "+tmpfile;
-    system(kommando);
-    kommando="sed 's/newdatabase/"+dbnamn+"/' "+tmpfile+" > "+newsqlfile;
-    system(kommando);
-    kommando="rm "+tmpfile;
-    system(kommando);
+    
     /* Skapa databasen */
-    kommando="mysql --password="+passw+" < "+newsqlfile;
+    kommando="mysql --password=";
+    kommando.append(passw);
+    kommando.append(" < ");
+    kommando.append(newsqlfile);
+//   qDebug("kommando 5 = %s",kommando.latin1());    
     system(kommando);
-/************************************************************************/
-/*	Uppdatera databasen DATABAS					*/
-/************************************************************************/
-	   	    
-	process = new QProcess();
-	process->addArgument("./STYRMAN");	// OLFIX styrprogram
-	process->addArgument(usr);		// Userid
-	process->addArgument( "FORADD");	// OLFIX funktion
-	process->addArgument(dbnr);
-	process->addArgument(dbnamn);
-	
-	frmAddForetag::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-	frmAddForetag::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-            frmAddForetag::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
+    /* Radera filer */
+    kommando="rm ";
+    kommando.append(orgfile);
+    system(kommando);
  
-	
-	if (dbnr == "" || dbnamn ==""){
-    	    QMessageBox::warning( this, "ADDFORW",
-                      "Databasnummer och/eller databasnamn saknas \n" );
-	}
-	else {
-	    if ( !process->start() ) {
-		// error handling
-		fprintf(stderr,"Problem starta STYRMAN/FORADD!\n");
-		QMessageBox::warning( this, "ADDFORW",
-                            "Kan inte starta STYRMAN/FORADD! \n" );
-	    }   
-	}
+    kommando="rm ";
+    kommando.append(tmpfile);
+    system(kommando),
+    
+    kommando="rm ";
+    kommando.append(tempfile);
+    system(kommando);
+    
+    kommando="rm ";
+    kommando.append(newsqlfile);
+//    qDebug("kommando 6 = %s",kommando.latin1());    
+    system(kommando);   
+    
+    QMessageBox::information( this, "ADDFORW",
+		"Databasen \""+dbnamn+"\" är skapad!\n"
+	);
+
+    PushButtonQuit->setFocus();
 }
 
 void frmAddForetag::slotDataOnStdout()
@@ -207,12 +218,12 @@ void frmAddForetag::slotEndOfProcess()
 	QMessageBox::information( this, "ADDFORW",
 		"Uppdatering OK!\n"+errorrad
 	);
-	LineEditdbnr->clear();
 	LineEditdbnamn->clear();
 	lineEditPassword->clear();
-	listView1->clear();
-	listDatabaser();
-	LineEditdbnr->setFocus();
+	listViewDatabas->clear();
+	val="3";
+	listDatabaser(val);
+	LineEditdbnamn->setFocus();
 	inrad="";
 	i = -1;
      }
@@ -228,28 +239,28 @@ void frmAddForetag::slottInformation()
 void frmAddForetag::slotCheckIfExistDbnr()
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
+	QString usr(userp);
 	   	    
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// Userid
-	process->addArgument( "FORCHK");	// OLFIX funktion
-	process->addArgument(dbnr);
+	process->addArgument( "DATABASE");	// OLFIX funktion
+	process->addArgument("4");		// Kontrollera om tabellen RIGHTS finns i databasen, finns databasen
 
 	frmAddForetag::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmAddForetag::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
             frmAddForetag::connect( process, SIGNAL(processExited() ),this, SLOT(slotCheckDbnrEndOfProcess() ) );
 	
-	if (dbnr == ""){
+	if (dbnamn == ""){
     	    QMessageBox::warning( this, "ADDFORW",
-                      "Databasnummer och/eller databasnamn saknas \n" );
+                      "Databasnamn saknas \n" );
 	}
 	else {
 	    if ( !process->start() ) {
 		// error handling
-		fprintf(stderr,"Problem starta STYRMAN/FORCHK!\n");
+		fprintf(stderr,"Problem starta STYRMAN/DATABASE!\n");
 		QMessageBox::warning( this, "ADDFORW",
-                            "Kan inte starta STYRMAN/FORCHK! \n" );
+                            "Kan inte starta STYRMAN/DATABASE! \n" );
 	    }   
 	}
 }
@@ -279,149 +290,107 @@ void frmAddForetag::slotCheckDbnrEndOfProcess()
 	);
 	inrad="";
 	i = -1;
-	LineEditdbnr->clear();
-	LineEditdbnr->setFocus();
+	LineEditdbnamn->clear();
+	LineEditdbnamn->setFocus();
      }
 }
 
-void frmAddForetag::listDatabaser()
+void frmAddForetag::listDatabaser(QString choise)
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
+	QString usr(userp);
 
 	process = new QProcess();
 	process->addArgument("./STYRMAN");
 	process->addArgument(usr);		// userid
-	process->addArgument( "FORLST");	// OLFIX funktion
-
+	process->addArgument( "DATABASE");	// OLFIX funktion
+	process->addArgument( choise);
+	process->addArgument( newdatabase);
+	
 	frmAddForetag::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-            frmAddForetag::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcessList() ) );
+	frmAddForetag::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );	
+	frmAddForetag::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcessList() ) );
 
-        if ( !process->start() ) {
-            // error handling
-	    QMessageBox::warning( this, "Start av FORLST ", "Kan inte starta FORLST!\n");
-        }
-
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "Start av DATABASE ", "Kan inte starta DATABASE!\n");
+	}
 }
 
 void frmAddForetag::slotEndOfProcessList()
 {
-    QString listrad;
-    QListViewItem* item;
-    rad=&inrad;
-    inrad.latin1();
-    char *pos1;
-    char *pos2;
-    char tmp[MAXSTRING];
-    char *tmppek;
-    int i,j,k,l,m;
-    char antrad[6]="";
-    char dbnr[4]="";
-    char dbnamn[16]="";
-
-    tmppek=tmp;
-    qstrcpy(tmp,inrad);
-    pos1=strstr(tmp,"NR_");
-    pos2=strstr(tmp,"_:");
-    i=pos2-pos1;
-    m=i+2;		// startposition för första userid.
-//    fprintf(stdout,"i=%d  m=%d",i,m);
-    k=0;
-    for (j=3;j<i;j++){
-	antrad[k]=tmp[j];
-	k++;
-    };
-    i=atoi(antrad);		// i = antal poster
-//    fprintf(stderr," i = %d\n",i);
-    for (k = 1;k <= i; k++){	// gå igenom alla raderna / posterna
-	l=0;
-	for(j = m; j < sizeof(dbnr) + m; j++){
-	    if(tmp[j] != *("_")){
-		dbnr[l]=tmp[j];
-		l++;
-	    }else{
-		dbnr[l] = *("\0");
-		j=sizeof(dbnr) + m;
+   QListViewItem* item;
+    listViewDatabas->setSorting(0,TRUE);
+    int n,j,k=0;
+    int i=-1;
+    QString temp1;
+    QString temp2;
+    QString p;
+//    qDebug("val=%s",val.latin1());
+//    qDebug("inrad=%s",inrad.latin1());
+    i = errorrad.find( QRegExp("Error:"), 0 );
+         if (i != -1) {
+	QMessageBox::critical( this, "BYTFW",
+		"ERROR!\n"+errorrad
+	);
+	if (val=="4"){
+	   listViewDatabas->setFocus();
+	}  
+	errorrad="";
+	i = -1;
+	return;
+     }
+     i = -1;
+     i = inrad.find( QRegExp("OK:"), 0 );
+     if (i != -1) {
+	 if (val == "2"){
+	     QMessageBox::information( this, "ADDFORW",
+				       "Databasbyte genomfört!\n"
+				       );
+	     PushButtonQuit->setFocus();
+	 }
+	if (val == "3"){
+	    i= -1;
+	    i = inrad.find(QRegExp("NR_"),0);
+	    if( i != -1){
+		int m = inrad.find(QRegExp("_:_"),0);
+		n=m-(i+3);
+  		p=inrad.mid(i+3,n);
+//		qDebug("n=%d  m=%d  p=%s",n,m,p.latin1());
+		j=p.toInt();
+		n=1;
+		while (n <= j){
+//		    n++;
+		    p.setNum(n);
+		    temp1="_:_"+p+"_:_";
+//		    qDebug("temp1=%s",temp1.latin1());
+		    p.setNum(n+1);
+		    if(n != j){			
+			temp2="_:_"+p+"_:_";
+		    }else{
+			temp2="_:_";
+		    }			
+//		    qDebug("temp2=%s",temp2.latin1());
+		    m = inrad.find(QRegExp(temp1),0);
+		    if (n == j){
+			k = inrad.find(QRegExp(temp2),m+9);
+//			qDebug("temp2=%s  k=%d",temp2.latin1(),k);
+		    }else{
+			k = inrad.find(QRegExp(temp2),0);
+		    }
+		    i = k - (m+temp1.length());
+		    p=inrad.mid(m+temp1.length(),i);
+		    if(p != "mysql"){
+//			qDebug("p=%s",p.latin1());
+			item = new QListViewItem(listViewDatabas,p);
+		    }
+		    n++;
+		}
 	    }
 	}
-//	fprintf(stdout,"%s  ",dbnr);
-	m=m+l+2;	// position för databasnummer
-	l=0;
-	for(j = m; j < sizeof(dbnamn) + m; j++){
-	    if(tmp[j] != *("_")){
-		dbnamn[l]=tmp[j];
-		l++;
-	    }else{
-		dbnamn[l] = *("\0");
-		j=sizeof(dbnamn) + m;
-	    }
-	}
-//	fprintf(stdout,"%s  ",dbnamn);
-	m=m+l+2;	// position för databasnamn
-	item = new QListViewItem(listView1,dbnr,dbnamn);
- 	/* rensa databasbummer och databasnamn */
-   	for (l=0;l<sizeof(dbnr);l++)
-		dbnr[l]=*("\0");
-	for (l=0;l<sizeof(dbnamn);l++)
-		dbnamn[l]=*("\0");
-	/* rensa listrad */
-	listrad.remove(0,70);
+  //     qDebug("EndOfProcess():: inrad=%s",inrad.latin1());  
     }
 //    fprintf(stderr,"Klart!\n");
-}
-
-void frmAddForetag::slotCheckIfExistDbnamn()
-{
-	const char *userp = getenv("USER");
-            QString usr(userp);
-	   	    
-	process = new QProcess();
-	process->addArgument("./STYRMAN");	// OLFIX styrprogram
-	process->addArgument(usr);		// Userid
-	process->addArgument( "FORLST");	// OLFIX funktion
-
-	frmAddForetag::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-	frmAddForetag::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-            frmAddForetag::connect( process, SIGNAL(processExited() ),this, SLOT(slotCheckDbnamnEndOfProcess() ) );
-	
-	if (dbnr == ""){
-    	    QMessageBox::warning( this, "ADDFORW",
-                      "Databasnummer och/eller databasnamn saknas \n" );
-	}
-	else {
-	    if ( !process->start() ) {
-		// error handling
-		QMessageBox::warning( this, "ADDFORW",
-                            "Kan inte starta STYRMAN/FORLST! \n" );
-	    }   
-	}
-}
-
-void frmAddForetag::slotCheckDbnamnEndOfProcess()
-{
-    int i,j,antal;
-    QString ant,tmp;
-    dbnamn=LineEditdbnamn->text();
-    i =- 1;
-    i = inrad.find( QRegExp("NR_"), 0 );
-    if (i == 0){
-	j = inrad.find(QRegExp("_:"),0 );
-	ant = inrad.mid(3,j-3);
-	antal = ant.toInt();
-//	qDebug("j = %d, antal = %d, ant = %s",j,antal,ant.latin1());
-	i = -1;
-	i = inrad.find(QRegExp(dbnamn),0 );
-//	qDebug("dbnamn=%s, i = %d",dbnamn.latin1(),i); 
-	if (i != -1){
-    		QMessageBox::critical( this, "ADDFORW",
-		    "Databasen/företagsnamnet finns redan!\nVälj ett annat namn!\n" );
-		dbnamn="";
-		LineEditdbnamn->clear();
-		LineEditdbnamn->setFocus();
-		flag=0;
-	}
-	checkDb_mysql();
-    }
 }
 
 void frmAddForetag::readResursFil()
@@ -456,60 +425,24 @@ void frmAddForetag::readResursFil()
     f1.close();
 }
 
-void frmAddForetag::checkDb_mysql()
+
+int frmAddForetag::checkDatabaseExist(QString databasnamn)
 {
-	const char *userp = getenv("USER");
-            QString usr(userp);
-	inradmysql="";
-	
-	process = new QProcess();
-	process->addArgument("./STYRMAN");	// OLFIX styrprogram
-	process->addArgument(usr);		// Userid
-	process->addArgument( "DBCHK");	// OLFIX funktion
-
-	frmAddForetag::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdoutMysql() ) );
-	frmAddForetag::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-            frmAddForetag::connect( process, SIGNAL(processExited() ),this, SLOT(CheckDbmysqlEndOfProcess()) );
-	
-	if ( !process->start() ) {
-		// error handling
-		QMessageBox::warning( this, "ADDFORW",
-                            "Kan inte starta STYRMAN/DBCHK! \n" );
-	    }   	
+    int status=FALSE;
+    char tmp[50]="";
+    QString db="";
+     QListViewItemIterator it( listViewDatabas );
+        while ( it.current() ) {
+            QListViewItem *item = it.current();
+            strcpy(tmp, item->key(0,TRUE));
+            db=tmp;
+            if (databasnamn == db ){
+	status=TRUE;
+           }
+            ++it;
+        }
+        if(status == TRUE){
+	qDebug("Check databas, namn=%s finns redan",db.latin1());
+       }
+       return status;
 }
-
-void frmAddForetag::CheckDbmysqlEndOfProcess()
-{
-    int i;
-    
-    flag=0;
-    i =- 1;
-//    qDebug("inradmysql=%s",inradmysql.latin1());
-    i = inradmysql.find( QRegExp("NR_"), 0 );
-//    qDebug("i=%d",i);
-    if (i == 0){
-	i = inradmysql.find(QRegExp(dbnamn),0 );
-//	qDebug("dbnamn=%s i=%d",dbnamn.latin1(),i);
-	if (i != -1){
-    		QMessageBox::critical( this, "ADDFORW/DBCHK",
-		    "Databasen/företagsnamnet finns redan!\nVälj ett annat namn!\n" );
-		dbnamn="";
-		LineEditdbnamn->clear();
-		LineEditdbnamn->setFocus();
-		flag=0;
-	    }else{
-		flag=-1;
-		lineEditPassword->setFocus();
-	    }
-	}
-}
-
-void frmAddForetag::slotDataOnStdoutMysql()
-{
-    while (process->canReadLineStdout() ) {
-	QString line = process->readStdout();
-	inradmysql.append(line);
-	inradmysql.append("\n");
-    }
-}
-
