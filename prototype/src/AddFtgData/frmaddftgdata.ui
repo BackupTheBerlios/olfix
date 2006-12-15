@@ -89,19 +89,6 @@
             <string>J</string>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditMoms5</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>660</x>
-                <y>245</y>
-                <width>46</width>
-                <height>22</height>
-            </rect>
-        </property>
-    </widget>
     <widget class="Line">
         <property name="name">
             <cstring>Line1</cstring>
@@ -154,19 +141,6 @@
         </property>
         <property name="text">
             <string>Momssats 1:</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditTelefax</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>590</x>
-                <y>170</y>
-                <width>116</width>
-                <height>26</height>
-            </rect>
         </property>
     </widget>
     <widget class="QLabel">
@@ -334,19 +308,6 @@
         </property>
         <property name="text">
             <string>Mobiltelefon:</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditTfnnr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>106</x>
-                <y>170</y>
-                <width>110</width>
-                <height>26</height>
-            </rect>
         </property>
     </widget>
     <widget class="QLabel">
@@ -522,19 +483,6 @@
             </rect>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditemailadress</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>106</x>
-                <y>200</y>
-                <width>315</width>
-                <height>25</height>
-            </rect>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>TextLabel14_2</cstring>
@@ -609,19 +557,6 @@
             <string>Momsnr:</string>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditTelex</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>590</x>
-                <y>200</y>
-                <width>116</width>
-                <height>26</height>
-            </rect>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>TextLabel4</cstring>
@@ -651,19 +586,6 @@
             </rect>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditBesoksAdress</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>106</x>
-                <y>100</y>
-                <width>205</width>
-                <height>25</height>
-            </rect>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>TextLabel4_2</cstring>
@@ -689,19 +611,6 @@
                 <x>395</x>
                 <y>100</y>
                 <width>86</width>
-                <height>25</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditGodsAdress</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>106</x>
-                <y>130</y>
-                <width>205</width>
                 <height>25</height>
             </rect>
         </property>
@@ -736,32 +645,6 @@
         </property>
         <property name="text">
             <string>Telefonnr:</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditMoms1</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>100</x>
-                <y>245</y>
-                <width>46</width>
-                <height>22</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditMomsKtoUtg</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>210</x>
-                <y>305</y>
-                <width>46</width>
-                <height>23</height>
-            </rect>
         </property>
     </widget>
     <widget class="QLabel">
@@ -910,6 +793,84 @@
     </widget>
     <widget class="QLineEdit">
         <property name="name">
+            <cstring>lineEditMomsKtoIng</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>210</x>
+                <y>275</y>
+                <width>46</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditMoms1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>245</y>
+                <width>46</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditGodsAdress</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>106</x>
+                <y>130</y>
+                <width>205</width>
+                <height>25</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditemailadress</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>106</x>
+                <y>200</y>
+                <width>315</width>
+                <height>25</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditTfnnr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>106</x>
+                <y>170</y>
+                <width>110</width>
+                <height>26</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditBesoksAdress</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>106</x>
+                <y>100</y>
+                <width>205</width>
+                <height>25</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
             <cstring>LineEditMomsnr</cstring>
         </property>
         <property name="geometry">
@@ -926,14 +887,53 @@
     </widget>
     <widget class="QLineEdit">
         <property name="name">
-            <cstring>lineEditMomsKtoIng</cstring>
+            <cstring>lineEditMomsKtoUtg</cstring>
         </property>
         <property name="geometry">
             <rect>
                 <x>210</x>
-                <y>275</y>
+                <y>305</y>
                 <width>46</width>
                 <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditMoms5</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>660</x>
+                <y>245</y>
+                <width>46</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditTelefax</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>590</x>
+                <y>170</y>
+                <width>116</width>
+                <height>26</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditTelex</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>590</x>
+                <y>200</y>
+                <width>116</width>
+                <height>26</height>
             </rect>
         </property>
     </widget>
@@ -1192,16 +1192,16 @@
         <slot>slotLineEditTelefax_returnPressed()</slot>
     </connection>
     <connection>
-        <sender>LineEditemailadress</sender>
-        <signal>lostFocus()</signal>
-        <receiver>frmAddFtgData</receiver>
-        <slot>slotLineEditemailadress_returnPressed()</slot>
-    </connection>
-    <connection>
         <sender>LineEditTelex</sender>
         <signal>lostFocus()</signal>
         <receiver>frmAddFtgData</receiver>
         <slot>slotLineEditTelex_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditemailadress</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmAddFtgData</receiver>
+        <slot>slotLineEditMoms1_returnPressed()</slot>
     </connection>
     <connection>
         <sender>LineEditMoms1</sender>
@@ -1234,6 +1234,12 @@
         <slot>slotLineEditMoms5_returnPressed()</slot>
     </connection>
     <connection>
+        <sender>lineEditMomsKtoIng</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmAddFtgData</receiver>
+        <slot>slotlineEditMomsKtoIng_returnPressed()</slot>
+    </connection>
+    <connection>
         <sender>LineEditMomsnr</sender>
         <signal>lostFocus()</signal>
         <receiver>frmAddFtgData</receiver>
@@ -1246,10 +1252,10 @@
         <slot>slotlineEditMomsKtoUtg_returnPressed()</slot>
     </connection>
     <connection>
-        <sender>lineEditMomsKtoIng</sender>
+        <sender>lineEditAutokonto</sender>
         <signal>lostFocus()</signal>
         <receiver>frmAddFtgData</receiver>
-        <slot>slotlineEditMomsKtoIng_returnPressed()</slot>
+        <slot>slotlineEditAutokonto_returnPressed()</slot>
     </connection>
     <connection>
         <sender>lineEditBgnr</sender>
@@ -1260,6 +1266,18 @@
     <connection>
         <sender>lineEditPgnr</sender>
         <signal>lostFocus()</signal>
+        <receiver>frmAddFtgData</receiver>
+        <slot>slotlineEditPgnr_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditBgnr</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmAddFtgData</receiver>
+        <slot>slotlineEditBgnr_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditPgnr</sender>
+        <signal>returnPressed()</signal>
         <receiver>frmAddFtgData</receiver>
         <slot>slotlineEditPgnr_returnPressed()</slot>
     </connection>

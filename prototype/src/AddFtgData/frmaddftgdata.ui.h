@@ -1,8 +1,9 @@
 /****************************************************************/
 /**		ADDFTGW					*/
 /**		2003-08-15				*/
-/**		Version: 0.4.3				*/
+/**		Version: 0.4.4				*/
 /**		Modifierad: 2006-05-01			*/
+/**			2006-12-15			*/
 /**		Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
@@ -75,151 +76,151 @@ void frmAddFtgData::init()
 void frmAddFtgData::slotLineEditFtgNamn_returnPressed()
 {
     ftgnamn = LineEditFtgNamn->text();
-    LineEditFtgNr->setFocus();
+//    LineEditFtgNr->setFocus();
 }
 
 void frmAddFtgData::slotLineEditFtgNr_returnPressed()
 {
     ftgnr = LineEditFtgNr->text();
-    LineEditBranschkod->setFocus();
+//    LineEditBranschkod->setFocus();
 }
 
 void frmAddFtgData::slotLineEditBranschkod_returnPressed()
 {
     snikd = LineEditBranschkod->text();
-    LineEditPostAdress->setFocus();
+//    LineEditPostAdress->setFocus();
 }
 
 void frmAddFtgData::slotLineEditPostAdress_returnPressed()
 {
     postadr = LineEditPostAdress->text();
-    LineEditPostnr1->setFocus();
+//    LineEditPostnr1->setFocus();
 }
 
 void frmAddFtgData::slotLineEditPostnr1_returnPressed()
 {
     postnr1 = LineEditPostnr1->text();
-    LineEditPostOrt->setFocus();
+//    LineEditPostOrt->setFocus();
 }
 
 void frmAddFtgData::slotLineEditPostOrt_returnPressed()
 {
     postort = LineEditPostOrt->text();
-    LineEditBesoksAdress->setFocus();
+//    LineEditBesoksAdress->setFocus();
 }
 
 void frmAddFtgData::slotLineEditBesoksAdress_returnPressed()
 {
     besoksadr = LineEditBesoksAdress->text();
-    LineEditPostnr2->setFocus();
+//    LineEditPostnr2->setFocus();
 }
 
 void frmAddFtgData::slotLineEditPostnr2_returnPressed()
 {
     postnr2 = LineEditPostnr2->text();
-    LineEditBesoksOrt->setFocus();
+//    LineEditBesoksOrt->setFocus();
 }
 
 void frmAddFtgData::slotLineEditBesoksOrt_returnPressed()
 {
     besoksort = LineEditBesoksOrt->text();
-    LineEditGodsAdress->setFocus();
+//    LineEditGodsAdress->setFocus();
 }
 
 void frmAddFtgData::slotLineEditGodsAdress_returnPressed()
 {
     godsadr = LineEditGodsAdress->text();
-    LineEditPostnr3->setFocus();
+//    LineEditPostnr3->setFocus();
 }
 
 void frmAddFtgData::slotLineEditPostnr3_returnPressed()
 {
     postnr3 = LineEditPostnr3->text();
-    LineEditGodsOrt->setFocus();
+//    LineEditGodsOrt->setFocus();
 }
 
 void frmAddFtgData::slotLineEditGodsOrt_returnPressed()
 {
     godsort = LineEditGodsOrt->text();
-    LineEditTfnnr->setFocus();
+//    LineEditTfnnr->setFocus();
 }
 
 void frmAddFtgData::slotLineEditTfnnr_returnPressed()
 {
     tfnnr = LineEditTfnnr->text();
-    LineEditMobilTfn->setFocus();
+//    LineEditMobilTfn->setFocus();
 }
 
 void frmAddFtgData::slotLineEditMobilTfn_returnPressed()
 {
     mobiltfnnr = LineEditMobilTfn->text();
-    LineEditTelefax->setFocus();
+//    LineEditTelefax->setFocus();
 }
 
 void frmAddFtgData::slotLineEditTelefax_returnPressed()
 {
     telefax = LineEditTelefax->text();
-    LineEditemailadress->setFocus();
+//    LineEditemailadress->setFocus();
 }
 
 void frmAddFtgData::slotLineEditemailadress_returnPressed()
 {
     email = LineEditemailadress->text();
-    LineEditTelex->setFocus();
+//    LineEditTelex->setFocus();
 }
 
 void frmAddFtgData::slotLineEditTelex_returnPressed()
 {
     telex = LineEditTelex->text();
-    LineEditMoms1->setFocus();
+//    LineEditMoms1->setFocus();
 }
 
 void frmAddFtgData::slotLineEditMoms1_returnPressed()
 {
     moms1 = LineEditMoms1->text();
-    LineEditMoms2->setFocus();
+//    LineEditMoms2->setFocus();
 }
 
 void frmAddFtgData::slotLineEditMoms2_returnPresse()
 {
     moms2 = LineEditMoms2->text();
-    LineEditMoms3->setFocus();
+//    LineEditMoms3->setFocus();
 }
 
 void frmAddFtgData::slotLineEditMoms3_returnPressed()
 {
     moms3 = LineEditMoms3->text();
-    LineEditMoms4->setFocus();
+//    LineEditMoms4->setFocus();
 }
 
 void frmAddFtgData::slotLineEditMoms4_returnPressed()
 {
     moms4 = LineEditMoms4->text();
-    LineEditMoms5->setFocus();
+//    LineEditMoms5->setFocus();
 }
 
 void frmAddFtgData::slotLineEditMoms5_returnPressed()
 {
     moms5 = LineEditMoms5->text();
-    lineEditMomsKtoIng->setFocus();
+//    lineEditMomsKtoIng->setFocus();
 }
 
 void frmAddFtgData::slotlineEditMomsKtoIng_returnPressed()
 {
     momsin = lineEditMomsKtoIng->text();
-    LineEditMomsnr->setFocus();
+//    LineEditMomsnr->setFocus();
 }
 
 void frmAddFtgData::slotLineEditMomsnr_returnPressed()
 {
     momsnr = LineEditMomsnr->text();
-    lineEditMomsKtoUtg->setFocus();
+//    lineEditMomsKtoUtg->setFocus();
 }
 
 void frmAddFtgData::slotlineEditMomsKtoUtg_returnPressed()
 {
     momsut = lineEditMomsKtoUtg->text();
-    lineEditAutokonto->setFocus();
+//    lineEditAutokonto->setFocus();
 }
 
 void frmAddFtgData::slotlineEditAutokonto_returnPressed()
@@ -227,19 +228,19 @@ void frmAddFtgData::slotlineEditAutokonto_returnPressed()
     autokonto = lineEditAutokonto->text();
     autokonto=autokonto.upper();
     lineEditAutokonto->setText((autokonto));
-    lineEditBgnr->setFocus();
+//    lineEditBgnr->setFocus();
 }
 
 void frmAddFtgData::slotlineEditBgnr_returnPressed()
 {
     bgnr = lineEditBgnr->text();
-    lineEditPgnr->setFocus();
+//    lineEditPgnr->setFocus();
 }
 
 void frmAddFtgData::slotlineEditPgnr_returnPressed()
 {
     pgnr = lineEditPgnr->text();
-    PushButtonOK->setFocus();
+//    PushButtonOK->setFocus();
 }
 
 void frmAddFtgData::slotPushButtonOK_clicked()
@@ -273,7 +274,8 @@ void frmAddFtgData::slotPushButtonOK_clicked()
     slotUpdateFtgdata("MOMSI",momsin);		// momkonto ingående moms
     slotUpdateFtgdata("MOMSU",momsut);		// momskonto utgående moms
     slotUpdateFtgdata("AUTOK",autokonto);		// automatisk kontering J/N
-
+    slotUpdateFtgdata("BGNR",bgnr);
+    slotUpdateFtgdata("PGNR",pgnr);
 }
 
 void frmAddFtgData::slotUpdateFtgdata(QString posttyp, QString ftgdata)
