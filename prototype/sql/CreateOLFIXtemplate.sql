@@ -146,7 +146,7 @@ INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('TFN2','Mobiltelefonnumm
 INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('TFNMB','Mobiltelefonnummer','070-98765411');
 INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('TFAX','Telefaxnummer','09-199397');
 INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('TELEX','Telexnummer','12345');
-INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('EML1','E-mailadress','jan@pihlgren.se');
+INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('EML1','E-mailadress','info@program.com');
 INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMSI','Momskonto, ingående moms','2641');
 INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMSU','Momskonto, utgående moms','2611');
 INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMS1','Momssats 1','25');
@@ -154,6 +154,7 @@ INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMS2','Momssats 2','12
 INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMS3','Momssats 3','6');
 INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMS4','Momssats 4',' ');
 INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MOMS5','Momssats 5',' ');
+INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('MNR','Momsregistreringsnr',' ');
 INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('AUTOK','Automatkontering J/N','N');
 INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('KORNR','Senast använda kundordernr','0');
 INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF1','Bokföringsperiod 1',NULL);
@@ -172,6 +173,9 @@ INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BF13','Bokföringsperiod
 INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('FAKNR','Senaste fakturanr på kundorder','0');
 INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('FKNR2','Senaste fakturanr på kundorder,serie 2','0');
 INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('FKNRS','Antal fakturanrserier, default = 1','0');
+INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('BGNR','Bankgironummer','0');
+INSERT INTO FTGDATA (POSTTYP, POSTBESKR, FDATA) VALUES ('PGNR','Plusgironummer','0');
+
 --
 -- Table structure for table 'INKRADREG'
 --
@@ -832,7 +836,21 @@ INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('095','E
 INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('096','Administration','Företagsdata','Lista texter i TEXTREG','LSTTXTW');
 INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('097','Administration','Företagsdata','Visa en post i TEXTREG','DSPTXTW');
 INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('098','Materialhantering','Artikeldata','Söka artikel','SRCHARW');
-INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('098','Ekonomi','Bokföring','Reg.betald kundfaktura','KUFAKTBW');
+INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('099','Ekonomi','Bokföring','Reg.betald kundfaktura','KUFAKTBW');
+INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('100','Materialhantering','Artikeladmin','Lista prislistor','LSTPRISW');
+INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('101','Materialhantering','Artikeladmin','Ladda nya prislistor','ADDPRISW');
+INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('102','Materialhantering','Artikeladmin','Ändra i prislistor','CHGPRISW');
+INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('103','Administration','Funktionsadministration','Lista program/moduler','LSTPRGW');
+INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('104','Försäljning','Offerter','Registrera offert','ADDOFFW');
+INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('105','Försäljning','Offerter','Visa en offert','DSPOFFW');
+INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('106','Materialhantering','Artikeladmin','Visa lagerställepost','DSPLSW');
+INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('107','Materialhantering','Artikeladmin','Radera lagerställepost','DELLSW');
+INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('108','Materialhantering','Artikeladmin','Ändra lagerställepost','CHGLSW');
+INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('109','Försäljning','Offerter','Ändra en offert','CHGOFFW');
+INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('110','Försäljning','Offerter','Radera en offert','DELOFFW');
+INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('111','Försäljning','Offerter','Skriv ut en offert','PRTOFFW');
+INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('112','Försäljning','Offerter','Göra en offert till order','OFF2ORDW');
+INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('113','Administration','Behörighetsadministration','Tilldela en användare total behörigheter','TOTRGTW');
 
 --
 -- Table structure for table 'RIGHTS'
@@ -929,141 +947,23 @@ CREATE TABLE TEXTREG (
 -- Table structure for table 'TRANSID'
 --
 
-DROP TABLE IF EXISTS TRANSID;
-CREATE TABLE TRANSID (
-  TRNSID varchar(8) NOT NULL default '',
-  TRNSTXT varchar(60) default NULL,
-  PRIMARY KEY  (TRNSID)
-) TYPE=MyISAM;
+DROP TABLE IF EXISTS `TRANSID`;
+CREATE TABLE `TRANSID` (
+  `TRNSID` varchar(8) NOT NULL default '',
+  `TRNSTXT` varchar(60) default NULL,
+  PRIMARY KEY  (`TRNSID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table 'TRANSID'
---
+/*!40000 ALTER TABLE `TRANSID` DISABLE KEYS */;
 
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('USERLST','Lista alla användare');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('USERDSP','Visa en användare');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('USERDEL','Ta bort post i USER');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('USERCHG','Ändra post i USER');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('USERADD','Ny post i USER');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNSLST','Lista alla TRANSID');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNSDSP','Visa enstaka TRANSID');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNSDEL','Ta bort post i TRANSID');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNSCHG','Ändra post i TRANSID');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRNSADD','Ny post i TRANSID');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TRHDADD','Lägga till ny loggpost i TRHD');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('RGTLST','Lista alla behörigheter');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('RGTDSP','Visa behörigheter för en användare');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('RGTDEL','Ta bort behörighet till transaktioner');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('RGTCHK','Kontrolera användares behörighet');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('RGTADD','Lägga till behörighet till transaktioner');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTOVIEW','Visa kontonr och benämning på skärm');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTOUPD','Uppdatera konto med antingen debet eller kredit');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTOLST','Lista alla konton, nr och text');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTODSP','Visa info på ett konto');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTODEL','Ta bort post i konto (endast utan transaktioner)');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTOCHK','Kontrollera om visst konto finns');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTOCHG','Ändra info för ett kontonr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTOADD','Lägga till en ny post i konto');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FTGUPD','Uppdatera företagsdata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FORDSP','Visa företagsdata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BOKF','Bokföringsprogram');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARDSP','Hämta data för angivet bokföringsår');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARICHK','Kontrollera om visst bokföringsår finns');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VERUPD','Nyuppläggning av verifikat');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VERDSP','Visa enstaka verifikation');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VRDADD','Ny detaljpost för verifikation till VERD');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VRHADD','Ny huvudpost för verifikation till VERH');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PRGLST','Lista program');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VALLST','Lista valutor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VALADD','Lägga upp en ny valuta');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VALDSP','Visa en valuta');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VALCHG','Ändra valutainformation');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VALDEL','Ta bort en valuta');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KSTADD','Nyupplägg av kostnadsställe');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KSTLST','Lista kostnadsställen på skärm');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KSTDSP','Visa info för ett kostnadställe');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARCHK','Kontrollera om visst bokföringsår finns');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KSTCHK','Kontrollera om visst kostnadställe finns');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTORPT','Lista alla poster i tabellen VERRAD');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('WRREC','Skriva post till tempfilen /tmp/vernr.txt');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARADD','Lägga upp nytt bokföringsår');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARCHG','Ändra data för angivet bokföringsår');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FTGDSP','Visa företagsdata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FTGADD','Lägga upp en ny företagspost');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FTGLST','Lista posttyper för företagsdata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KTORPT2','Kontorapport 2');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVADD','Lägga upp en ny leverantör');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVDSP','Visa en leverantör');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVCHG','Ändra leverantörsdata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LRESADD','Ny post i leverantörsreskontran');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LRESRPT','Lista alla obetalda poster i tabellen LEVRESK');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARFND','Hitta bokföringsår för angivet datum');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BETDSP','Visa ett betalningsvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVLST','Lista leverantörer,nr och namn');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FTGLIS','Lista företagsdata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ATTBET','Lista leverantörsfakturor att betala');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('RPTCRE','Rapportgenerator. Skapa rapporter');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KUADD','Registrera nya kunder');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KUCHK','Kontrollera om kundnr finns');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('SLPADD','Lägga upp standardleveransplats');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KUDSP','Visa kunddata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KUCHG','Ändra kunddata');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KULST','Lista kunder, kundnr och namn');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARCHK','Kontrollera om artikelnummer finns');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARADD','Lägga upp en ny artikel');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARDSP','Visa grunddata för en artikel');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARDSPL','Visa lagerdata för en artikel');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ARLST','Lista artiklar(artikelnr,benämn1,benämn2)');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BETADD','Lägga upp ett nytt betalningsvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BETCHG','Ändra data för betalningsvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BETLST','Lista betalningsvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('INKADD','Lägga upp en ny inköpsorder');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('INKRADD','Lägga upp en ny inköpsorderrad');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TXTADD','Lägg upp en ny post i TEXTREG');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TXTDEL','Radera post i TEXTREG');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('TXTDSP','Visa texter ur TEXTREG');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('INKLST','Beställningsstock');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('INKHDSP','Visa orderhuvud för angiven inköpsorder');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('INKRLST','Lista alla rader på angiven inköpsorder');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('DBOKRPT','Dagboksrapport');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('HBOKRPT','Huvudboksrapport');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVVADD','Lägga upp ett nytt leveransvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVVDSP','Visa ett leveransvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVVLST','Lista leveransvillkor');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVSADD','Lägga upp ett nytt leveranssätt');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVSDSP','Visa ett leveranssätt');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVSLST','Lista leveranssätt');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PRTAPI','Utskriftsinterface');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VERHDSP','Hämta mindatum och maxdatum för angivet bokf.år');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('VERHLST','Lista verifikationers huvudposter för önskat bokföringsår');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('AR2UPD','Uppdatera artikelpost i LAGERSTELLEREG');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('BARLST','Lista bokföringsår');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FORADD','Ny databas i tabellen DATABAS');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FORCHK','Kontr. om databas finns i tabell DATABAS');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('FORLST','Lista databaser i tabell DATABAS');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KUSRCH','Söka kunder på namn, postnr, tfnnr eller postadr');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVPDSP','Visa en standardleveransplats');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('LEVPLST','Lista kunders leveransadresser');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDADD','Nyupplägg av kundorderhuvud');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDCHK','Kontrollera diverse uppgifter på kundorder');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDDSP','Visa en kundorders huvudpost');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDRDSP','Visa en kundorders orderrader');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PKDADD','Ny produktgrupp/produktkod/produktklass');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PKDDSP','Visa en produktgrupp/produktkod/produktklass');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PKDLST','Lista produktgrupper/produktkoder/produktklasser');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('SIEEXPK','SIE-export av kontoplan');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('SIEEXPR','SIE-export av resultat');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('SIEEXPV','SIE-export av verifikat');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('WKUDSP','Visa begränsade kunddata för webbkund');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('DBCHK','Lista databaser registrerade i databasen mysql');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDLST2','Lista kundorder med begränsad information');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('ORDLST','Lista kundorder');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKADD','Nytt plock av kundorderrad');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKDSP','Visa plockade men ej utskrivna plock');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('PICKLST','Lista avprickade kundorderrader');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KRESLST','Lista kundreskontra med expiredatum');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KRELST','Lista kundreskontra med fakturadatum');
-INSERT INTO TRANSID (TRNSID, TRNSTXT) VALUES ('KRESUPD','Uppdatering av betalda kundfakturor');
+LOCK TABLES `TRANSID` WRITE;
+INSERT INTO `TRANSID` (`TRNSID`, `TRNSTXT`) VALUES ('ARICHK','Kontrollera om visst bokföringsår finns'),('BARDSP','Hämta data för angivet bokföringsår'),('BARCHK','Kontrollera om visst bokföringsår finns'),('BOKF','Bokföringsprogram'),('FORDSP','Visa info om databas nr x'),('FTGUPD','Uppdatera företagsdata'),('KSTADD','Nyupplägg av kostnadsställe'),('KSTCHK','Kontrollera om visst kostnadställe finns'),('KSTDSP','Visa info för ett kostnadställe'),('KSTLST','Lista kostnadsställen på skärm'),('KTOADD','Lägga till en ny post i konto'),('KTOCHG','Ändra info för ett kontonr'),('KTOCHK','Kontrollera om visst konto finns'),('KTODEL','Ta bort post i konto (endast utan transaktioner)'),('KTODSP','Visa info på ett konto'),('KTOLST','Lista alla konton, nr och text'),('KTORPT','Lista alla poster i tabellen VERRAD'),('KTOUPD','Uppdatera konto med antingen debet eller kredit'),('KTOVIEW','Visa kontonr och benämning på skärm'),('PRGLST','Lista program'),('RGTADD','Lägga till behörighet till transaktioner'),('RGTCHK','Kontrolera användares behörighet'),('RGTDEL','Ta bort behörighet till transaktioner'),('RGTDSP','Visa behörigheter för en användare'),('RGTLST','Lista alla behörigheter'),('TRHDADD','Lägga till ny loggpost i TRHD'),('TRNSADD','Ny post i TRANSID'),('TRNSCHG','Ändra post i TRANSID'),('TRNSDEL','Ta bort post i TRANSID'),('TRNSDSP','Visa enstaka TRANSID'),('TRNSLST','Lista alla TRANSID'),('USERADD','Ny post i USER'),('USERCHG','Ändra post i USER'),('USERDEL','Ta bort post i USER'),('USERDSP','Visa en användare'),('USERLST','Lista alla användare'),('VALLST','Lista valutor'),('VALADD','Lägga upp en ny valuta'),('VALCHG','Ändra valutainformation'),('VALDEL','Ta bort en valuta'),('VALDSP','Visa en valuta'),('VERUPD','Nyuppläggning av verifikat'),('VERDSP','Visa enstaka verifikation'),('VRDADD','Ny detaljpost för verifikation till VERD'),('VRHADD','Ny huvudpost för verifikation till VERH'),('WRREC','Skriva post till tempfilen /tmp/vernr.txt'),('ATTBET','Lista leverantörsfakturor att betala'),('BARADD','Lägga upp nytt bokföringsår'),('BARCHG','Ändra data för angivet bokföringsår'),('BARFND','Hitta bokföringsår för angivet datum'),('BETDSP','Visa ett betalningsvillkor'),('FTGADD','Lägga upp en ny företagspost'),('FTGDSP','Visa företagsdata'),('FTGLST','Lista posttyper för företagsdata'),('FTGLIS','Lista företagsdata'),('KUADD','Registrera nya kunder'),('KUCHG','Ändra kunddata'),('KUCHK','Kontrollera om kundnr finns'),('KUDSP','Visa kunddata'),('KULST','Lista kunder, kundnr och namn'),('LEVADD','Lägga upp en ny leverantör'),('LEVCHG','Ändra leverantörsdata'),('LEVDSP','Visa en leverantör'),('LEVLST','Lista leverantörer,nr och namn'),('LRESRPT','Lista alla obetalda poster i tabellen LEVRESK'),('LRESADD','Ny post i leverantörsreskontran'),('RPTCRE','Rapportgenerator. Skapa rapporter'),('SLPADD','Standardleveransplats'),('TRNTST','Detta är en testfunktion'),('ARCHK','Kontrollera om artikelnummer finns'),('ARADD','Lägga upp en ny artikel'),('AR2ADD','Lägga upp ny artikel i lagerställeregister'),('ARDSP','Visa grunddata för en artikel'),('ARDSPL','Visa lagerdata för en artikel'),('ARCHG','Ändra grunddata för en artikel'),('ARCHGL','Ändra lagerställedata för en artikel'),('BETLST','Lista betalningsvillkor'),('BETADD','Lägga upp ett nytt betalningsvillkor'),('ARLST','Lista artiklar(artikelnr,benämn1,benämn2)'),('BETCHG','Ändra data för betalningsvillkor'),('TXTDSP','Visa texter ur TEXTREG'),('TXTADD','Lägg upp en ny post i TEXTREG'),('INKADD','Lägga upp en ny inköpsorder'),('INKRADD','Lägga upp en ny inköpsorderrad'),('TXTDEL','Radera post i TEXTREG'),('INKRLST','Lista alla rader på angiven inköpsorder'),('INKHDSP','Visa orderhuvud för angiven inköpsorder'),('INKLST','Beställningsstock'),('LEVVDSP','Visa ett leveransvillkor'),('LEVSDSP','Visa ett leveranssätt'),('LEVVADD','Lägga upp ett nytt leveransvillkor'),('LEVSADD','Lägga upp ett nytt leveranssätt'),('LEVVLST','Lista leveransvillkor'),('LEVSLST','Lista leveranssätt'),('VERHDSP','Hämta mindatum och maxdatum för angivet bokf.år'),('VERHLST','Lista verifikationers huvudposter för önskat bokföringsår'),('HBOKRPT','Huvudboksrapport'),('DBOKRPT','Dagboksrapport'),('PRTAPI','Utskriftsinterface'),('LEVPLST','Lista kunders leveransadresser'),('FORCHK','Kontr. om databas finns i tabell DATABAS'),('FORADD','Ny databas i tabellen DATABAS'),('FORLST','Lista databaser i tabell DATABAS'),('PKDADD','Ny produktgrupp/produktkod/produktklass'),('PKDLST','Lista produktgrupper/produktkoder/produktklasser'),('WKUDSP','Visa begränsade kunddata för webbkund'),('ARLSTL','Lista artiklar med lagersaldo'),('ARLIS','Lista artiklar för angiven produktklass'),('ARLSPK','Lista artiklar för angiven produktkod'),('AR2UPD','Uppdatera artikelpost i LAGERSTELLEREG'),('BARLST','Lista bokföringsår'),('KUSRCH','Söka kunder på namn, postnr, tfnnr eller postadr'),('LEVPDSP','Visa en standardleveransplats'),('ORDADD','Nyupplägg av kundorderhuvud'),('ORDCHK','Kontrollera diverse uppgifter på kundorder'),('ORDDSP','Visa en kundorders huvudpost'),('ORDRDSP','Visa en kundorders orderrader'),('PKDDSP','Visa en produktgrupp/produktkod/produktklass'),('SIEEXPK','SIE-export av kontoplan'),('SIEEXPR','SIE-export av resultat'),('SIEEXPV','SIE-export av verifikat'),('DBCHK','Lista databaser registrerade i databasen mysql'),('ORDLST2','Lista kundorder med begränsad information'),('ORDLST','Lista kundorder'),('PICKADD','Nytt plock av kundorderrad'),('PICKDSP','Visa plockade men ej utskrivna plock'),('PICKLST','Lista avprickade kundorderrader'),('KRESADD','Ny post till kundreskontran'),('ORADUPD','Uppdatera önskat fält i ORDERRADREG'),('ORDRUPD','Uppdatera ORDERRADREG'),('ORDUPD','Uppdatera önskat fält i ORDERREG'),('ARLSPK2','Lista artiklar/produktkod med saldo'),('KRESLST','Lista poster i kundreskontran'),('ORDRADD','Lägga upp ny rad på kundorder'),('TXTLST','Lista texter i TEXTREG'),('DSPTXTW','Visa en text i textregistret'),('ARSRCH','Söka artikel'),('PRISDSP','Visa prislistepriser på önskad artikel'),('OFFADD','Registrera ny offert (huvudet)'),('OFFRADD','Registrera ny offert (rad)'),('OFFLST','Lista offerter'),('OFFDSP','Visa en offert'),('OFFRDSP','Visa alla offertrader för en offert'),('LSDEL','Radera post i LAGERSTELLEREG.'),('OFFCHG','Uppdatera offertregistret.'),('OFFRCHG','Ändra/uppdatera offertrader'),('OFFDEL','Radera offerter'),('TOTRGT','Skapa totala rättigheter för en användare.'),('TOTADD','Ge en användare fullständig behörighet.'),('DATABASE','Hantera olika databaser');
+UNLOCK TABLES;
+/*!40000 ALTER TABLE `TRANSID` ENABLE KEYS */;
+
+
 
 --
 -- Table structure for table 'TRHD'
