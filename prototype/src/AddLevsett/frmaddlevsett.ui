@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>frmAddLevsett</class>
 <widget class="QWidget">
     <property name="name">
@@ -15,22 +15,6 @@
     <property name="caption">
         <string>ADDLEVSW  Lägga upp nytt leveranssätt</string>
     </property>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabelLand</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>70</y>
-                <width>76</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Text: ..........</string>
-        </property>
-    </widget>
     <widget class="QPushButton">
         <property name="name">
             <cstring>PushButtonOK</cstring>
@@ -69,29 +53,13 @@
             <bool>true</bool>
         </property>
     </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabelValuta</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>31</y>
-                <width>82</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Leveranssätt:</string>
-        </property>
-    </widget>
     <widget class="QLineEdit">
         <property name="name">
             <cstring>LineEditLevsett</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>95</x>
+                <x>105</x>
                 <y>30</y>
                 <width>35</width>
                 <height>23</height>
@@ -104,17 +72,49 @@
             <set>AlignAuto</set>
         </property>
     </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelValuta</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>31</y>
+                <width>91</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Leveranssätt:</string>
+        </property>
+    </widget>
     <widget class="QLineEdit">
         <property name="name">
             <cstring>LineEditTextLevsett</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>95</x>
+                <x>105</x>
                 <y>70</y>
                 <width>320</width>
                 <height>23</height>
             </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelLand</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>70</y>
+                <width>95</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Text: ..........</string>
         </property>
     </widget>
 </widget>
@@ -140,6 +140,18 @@
     <connection>
         <sender>LineEditTextLevsett</sender>
         <signal>returnPressed()</signal>
+        <receiver>frmAddLevsett</receiver>
+        <slot>LineEditTextLevsett_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditLevsett</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmAddLevsett</receiver>
+        <slot>LineEditLevsett_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditTextLevsett</sender>
+        <signal>lostFocus()</signal>
         <receiver>frmAddLevsett</receiver>
         <slot>LineEditTextLevsett_returnPressed()</slot>
     </connection>
