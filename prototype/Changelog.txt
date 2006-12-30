@@ -1,5 +1,41 @@
-Changelog OLFIX 20061201
+Changelog OLFIX 20061230
 
+Ver 0.5.1.B
+2006-12-30
+
+		Nya program
+		TOTRGTW, Tilldela total behörighet.					(0040)
+
+		Nya funktioner
+		TOTADD.c	Total behörighet					(0040)
+		DATABASE.c	Byte av databas						(0042)
+
+		Ändrade program
+		DELUSRW		Buggrättning och tillägg av hjälp mm			(0041)
+		BYTFTGW		Omskrivet,lite nytt funktionssätt			(0043)
+		ADDFORW		Buggrättning och modifiering				(0044)
+		ADDFTGW		Buggrättning						(0045)
+		ADDLEVSW	Buggrättning, (lostFocus)				(0046)
+
+		Ändrad data
+		PROGRAMdata.txt	Lagt till TOTRGTW					(0040)
+		TRANSIDdata.txt Lagt till DATABASE					(0042)
+
+		Ändrade tabeller
+		DATABAS		Borttagen, obsolete					(0042)
+
+		Ändrad sql
+		CreateOLFIX.sql	Uppdaterat total behörighet i olfixtst för ADMIN	(0040)
+		CreateOLFIXtemplate.sql, Uppdaterat funktioner (TRANSID)		(0040)
+
+		Diverse
+		kompilering.sh Buggrättning och uppdatering
+
+		Dokumentation
+		UserManual_ADMINISTRATION.html	(uppdaterad)   	(2006-12-10) 		(0042)
+		UserManual_DATABASER.html	(uppdaterad)    (2006-12-14)		(0043)
+		Teknisk Manual	Uppdaterad (200?-12-15) Version 0.64
+________________________________________________________
 Ver 0.5.0.B
 2006-12-01
 		Nya program
@@ -30,382 +66,4 @@ Ver 0.5.0.B
 		UserManual.html			   (2006-11-19) 	(uppdaterad)
 		UserManual_OFFERT.html		   (2006-11-30)		(Ny)
 		Teknisk Manual	Uppdaterad (2006-12-01) Version 0.63
-________________________________________________________
-Ver 0.4.5.B
-2006-05-30
-		Ändrad sql
-		CreateOLFIX.sql	Buggrättning.	
-________________________________________________________
-Ver 0.4.4.B
-2006-05-13
-		Nya program
-		CHGLSW	Ändra post i LAGERSTELLEREG.
-		DSPLSW	Visa en post i LAGERSTELLEREG.
-		DELLSW	Radera en post i LAGERSTELLEREG
-
-		Ändrade program
-		ADDARW	Buggrättning.							(0029)
-		ADDFTGW	Lagt till MNR (momsnummer),BGNR och PGNR.Lagt in TAB-funktion. 	(0036)
-		ADDKTOW Momskod ej obligatoriskt.Ändrat fontstorlek från 10 pkt till 9 pkt.
-			Lagt in TAB-funktion.						(0035)
-		DSPFTGW Lagt till MNR (momsnummer)					(0036)
-		CHGFTGW Lagt till MNR (momsnummer)					(0036)
-		CHGARW	Buggrättning och ändrat fontstorlek från 10 pkt till 9 pkt. 	(0037)
-		CHGKUW	Tagit bort formatering av postnummer
-
-		Nya funktioner
-		LSDEL.c	Radera en post i LAGERSTELLEREG
-
-		Ändrad data
-		FTGDATAdata.txt Lagt till MNR(momsnr).					(0036)
-		PROGRAMdata.txt	Lagt till CHGLSW,DELLSW,DSPLSW
-
-		Ny sql
-		CreateTableOFFERTREG.sql
-		CreateTableOFFERTRADREG.sql
-
-		Dokumentation
-		UserManual_ARTIKLAR.html	   (2006-05-12) 
-		UserManual_EKONOMI.html		   (2006-05-03)
-		UserManual_FTGADMIN.html	   (2006-05-04)
-		Teknisk Manual	Uppdaterad (2006-05-13) Version 0.62
-________________________________________________________
-Ver 0.4.3.B
-2006-05-01
-		Allmännt
-		Med denna version påbörjas utveckling av offerthantering.
-		Den är långtifrån klar. Dokumentationen ha inte hunits med.
-		En hel del jobb har behövt läggas ner på buggrättning. :-)
-
-		Nya program
-		ADDOFFW	Registrera offert.
-		DSPOFFW	Visa en offert.
-
-		Nya funktioner
-		OFFADD.c	Nytt offerthuvud
-		OFFRADD.c	Ny offertrad
-		OFFDSP.c	Visa en offert, offerthuvud
-		OFFRDSP.c	Visa en offert, offertrader
-		OFFLST.c	Lista offerter.
-
-		Ändrad funktion
-		BARADD.c	Begränsat antal tecken i Benämning till 22
-		KTOVIEW.c	Ändrat felmeddelande.				(0027)
-
-		Ny tabell
-		OFFERTREG	Avsedd för ny funktion, offerthantering
-		OFFERTRADREG	Avsedd för ny funktion, offerthantering
-
-		Ändrade tabeller
-		KUNDREG	Fältet POSTNR utökat från 6 till 10 tecken.	(0030)
-		KUNDREG Lagt till fältet PRISLISTA	(0029)
-
-		Ändrade program
-		LSTTXTW Rättat hjälpknappen samt uppdaterat hjälpinfo.(0011)
-		CHGBARW Lagt till Hjälpknapp samt uppdaterat hjälpinfo. (0012)
-			Lagt till bortskalande av ev mellanslag i "Bokföringsår"(arid)(0026)
-			Tagit bort tabordning till Hjälpknappen			      (0026)
-		ADDFNC	Lagt till Hjälpknapp samt uppdaterat hjälpinfo.(0013)
-			Lagt in TAB-funktion.
-		DSPKUW	Ändrat fontstorlek från 10 pkt till 9 pkt. (0014)
-		ADDBARW	Buggrättning mm (0016)
-		CHGKUW	Ändrat fontstorlek från 10 pkt till 9 pkt. (0017)
-		ADDKUW	Ändrat fontstorlek från 10 pkt till 9 pkt och buggrättning. (0018)
-		ADDKUW	Buggrättning.						    (0030)
-		DSPLEVW Ändrat fontstorlek från 10 pkt till 9 pkt och buggrättning. (0019)
-		KUFAKTW Ändrat fontstorlek från 10 pkt till 9 pkt och buggrättning. (0020)
-		PLCHGW	Ändrat fontstorlek från 10 pkt till 9 pkt och buggrättning. (0021)
-		ADDORDW Ändrat fontstorlek från 10 pkt till 9 pkt och buggrättning. (0022)
-		DSPFTGW Lagt till offertnummer.
-		DSPFTGW Lagt till Bankgironummer,Postgironummer 		    (0025)
-		CHGFTGW Lagt till offertnummer.
-		CHGFTGW Buggrättning, lagt till Bankgironummer,Postgironummer 	    (0025).
-		LSTKTOW	Buggrättning, utveckling,check om bokföringsår finns.	    (0027)
-		CHGKTOW	Justeringar.Lagt in TAB-funktion			    (0028)
-		ADDARW	Ändrat fontstorlek från 10 pkt till 9 pkt.Lagt in TAB-funktion (0029)
-		ADDLEVPW Lagt in TAB-funktion. Utökat postnummer fältet till 10 tecken (0030)
-
-		Ändrad data
-		FTGDATAdata.txt Lagt till OFFNR(offertnr),BGNR,PGNR. Tagit bort WKUNR.
-		TRANSIDdata.txt Tagit bort WKUDSP.Lagt till OFFADD, OFFRADD,OFFDSP,OFFLST
-		PROGRAMdata.txt	Lagt till ADDOFFW, DSPOFFW
-
-		Dokumentation
-		UserManual_ADMINISTRATION.html     (2006-04-11) 
-		UserManual_EKONOMI.html		   (2006-04-11)
-		UserManual_FTGADMIN.html	   (2006-04-11)
-
-________________________________________________________
-Ver 0.4.2.B
-2006-04-02
-		Diverse
-		Modiferat Makefile för C-programmen, lagt till 'make clean'
-	
-		Nya program
-		LSTPGMW	Lista program
-
-		Ny tabell
-		Skapat tabellen LEVPRISER, leverantörernas prislistor
-		Kommer förmodligen att ersätta tabellen PRISLISTA
-
-		Ändra tabell
-		Tabellen PASSW borttagen i databasen olfix,olfixtst
-		Tabellen WEBBKUND borttagen i databasen olfix,olfixtst
-		Kompleterat tabellen FTGDATA med saknade POSTTYPer, INKTO, KFKTO, SKUNR
-
-		Ny sql
-		CreateTableLEVPRISER.SQL
-
-		Ändrade sql
-		CreateOLFIX.sql "Rätt" teckenuppsättning
-
-		Script
-		kompilering.sh. Lagt till kompilering av C-programmen
-
-		Ändra datafiler
-		PROGRAMdata.txt Tillägg av LSTPGMW
-		FTGDATAdata.txt Lagt till saknade POSTTYPER (funktioner)
-
-		Dokumentation
-		Uppdaterat Installationsanvisningarna
-		UserManual_ADMINISTRATION.html     (2006-03-22) Lagt till funktionsadministration
-		Teknisk Manual	Uppdaterad (2006-03-22) Version 0.61
-________________________________________________________
-Ver 0.4.1.B
-2006-03-05
-		Ändrade program
-		ADDORDW		Buggrättning,modifiering av leveransvecka, sökning på artikel(SRCHARW).
-		SRCHARW		Buggrättning,modifiering, sökning kan ske från annat program (ADDORDW)
-
-		Ändrad sql
-		CreateOLFIX.sql	Uppdaterad (olfixtst)
-
-		Dokumentation
-		Installationsanvisningar.txt (2006-03-02)
-		Installationsanvisningar.sxw (2006-03-02)
-		Installation.html (2006-03-02)
-		UserManual_KUNDORDER.html     (2006-03-03) Ändrat registrera kundorder
-		Teknisk Manual	Uppdaterad (2006-03-04) Version 0.60
-________________________________________________________
-Ver 0.4.0.B
-2006-02-27
-		Diverse
-		Modifierat/rättat kompileringsscriptet (kompilering.sh )
-		Slutar distribuera Makefile, den skapas med kommando 'qmake' i respektive katalog,
-		och *.pro (project-file), den skapas med 'qmake -project' i respektive katalog,
-		för grafikprogrammen.
-
-		Från och med denna version behövs MySQL version xxx
-		
-		Nya program
-		CHGORDW		Ändra kundorder 
-
-		Ändrade program
-		ADDKUW		Prislistor,organisationsnr,kreditkod, Hjälpknapp,buggrättning
-		CHGKUW		Prislistor,organisationsnr,kundlista,Hjälpknapp,buggrättning
-		DSPKUW		Prislistor,organisationsnr,Hjälpknapp
-		ADDORDW		Prislistor,buggrättning
-		LSTORDW		Buggrättning
-		CHGUSRW		Tillfört lista av användare att plocka Användar-ID från.
-		DSPUSRW		Tillfört lista av användare att plocka Användar-ID från.
-		DELUSRW		Tillfört lista av användare att plocka Användar-ID från.
-		Makefile	Tillägg av PRISDSP, ORDCHG, ORDRCHG
-
-		Nya funktioner
-		PRISDSP.c	Hämta prislistor för angiven artikel.
-		ORDCHG.c	Ändra orderhuvud på kundorder. (UPDATE...)
-		ORDRCHG.c	Ändra orderrad på kundorder. (REPLACe INTO....)
-
-		Ändrade funktioner
-		KUADD.c		Prislistor,organisationsnr,kreditkod
-		KUCHG.c		Prislistor,organisationsnr
-		KUDSP.c		Prislistor
-		STYRMAN.c	Buggrättning
-
-		Ändra datafiler
-		TRANSIDdata.txt	Lagt till nya funktioner.
-		PROGRAMdata.txt Redigerat.
-
-		Dokumentation
-			UserManual.html		  	(2006-02-23)
-			UserManual_ARTIKLAR.html  	(2006-02-01)
-			UserManual_KUNDORDER.html 	(2006-02-27) Bl a Begreppsförklaringar och CHGORDW.
-			UserManual_ADMINISTRATION.html	(2006-02-08)
-		Teknisk Manual	Uppdaterad (2006-02-27) Version 0.59
-________________________________________________________
-Ver 0.3.2.B
-2006-01-29
-		Diverse
-		Påbörjat utvecklingen av installationsprogram (new_install.sh)
-		Ett script för att kompilera hela OLFIX i en sväng (kompilering.sh)
-
-		Nya program
-		CHGPRISW	Läsa in prislistor i tabellen PRISLISTA, uppdatering 
-
-		Ändrade program
-		OLFIXW		Rättat en bugg. (OLFIXHLP)
-			main.cpp buggrättning(utökat till 100 tecken för filnamn)
-		DSPORDW		Rättat en bugg. (OLFIXHLP)
-		ADDINKW		Rättat en bugg. (OLFIXHLP)
-
-		Nya funktioner
-		PRISUPD		Uppdatera befintliga priser
-
-		Ny tabell
-		PRISLISTA	Prislistor (kopplade till ARTIKELREG)
-
-		Nytt script
-			kompilering.sh	För att kompilera alla qt-program i /opt/olfix/src
-			new_install.sh  Installering av OLFIX-databaser
-
-		Nya sql
-		CreateTablePRISLISTA.sql
-
-		Ändrade sql
-		CreateOLFIXtemplate.sql
-		CreateTableFTGDATA.sql	Lagt till BGNR och PGNR
-
-		Ändrade data
-		PROGRAMdata.txt		Nya program CHGPRISW
-
-		Dokumentation
-		Usersmanual (Online)Uppdaterad (2006-01-29).Uppdatering och omorganiserad.
-			Varje html-fil innehåller ett eget kapitel.
-			UserManual_ARTIKLAR.html
-			UserManual_ADMINISTRATION.html	(Ny)
-			UserManual_DATABASER.html
-			UserManual_EKONOMI.html
-			UserManual_ERROR.html
-			UserManual_FTGADMIN.html
-			UserManual_GRUNDER.html
-			UserManual_INKOP.html	(Ny)
-			UserManual_KUNDORDER.html
-			UserManual_RAPPORTER.html
-			UserManual_TIPS.html
-
-		UserManual	Uppdaterad (2005-11-22) Version 0.36)
-		Teknisk Manual	Uppdaterad (2006-01-29) Version 0.58
-		Installationsanvisningar.txt (2005-11-01)
-		Installationsanvisningar.sxw (2005-11-01)
-		Korsrelationer.sxw Uppdaterad (2005-??-??)
-
-________________________________________________________
-Ver 0.3.1.B
-2005-12-18
-		Nya program
-		OLFIXTW		Ett extra menyprogram för OLFIX.
-				Olfix meny/huvudprogram som bara visar program som användaren
-				har behörighet att använda.
-				Vid användning, Döp om OLFIXW till OLFIXOW och kopiera OLFIXTW till OLFIXW.
-
-		LSTTXTW		Lista poster i TEXTREG
-		DSPTXTW		Visa en post i TEXTREG
-		SRCHARW		Söka artiklar i ARTIKELREG
-		KUFAKTBW	Registrera betalda kundfakturor (ännu bara uppdatering av kundreskontran och TRHD)
-
-		Ändrade program
-		DSPFTGW		Uppdaterad, visa flera poster.
-		CHGFTGW		Totalt omgjort.
-		DSPARW		main.cpp ändrad så anrop kan ske från andra program med artikelnummer.
-		LSTRGTW		Möjliggjort expandering av fönstret.
-		KURESKW		Möjliggjort expandering av fönstret.
-
-		Nya funktioner
-		TXTLST.c	Lista TEXTREG.
-		ARSRCH.c	Söka i ARTIKELREG
-		FAKTDSP.c	Visa data på kundfaktura.
-#		KRELST.c	Lista kundreskontra med fakturadatum. Används inte ännu.
-#		KRESCHK.c	Check av fakturor. Används inte ännu.
-
-		Ändrade funktioner
-		KRESLST.c	Ändrad och utökad sql-sats
-		Makefile	Uppdaterad				2005-12-17
-
-		Ändrade data
-		PROGRAMdata.txt. Nytt program LSTTXTW,DSPTXTW,SRCHARW,KUFAKTBW.
-				 Lista texter,Visa en text,Söka artiklar.
-		TRANSIDdata.txt. Nya funktioner, TXTLST,ARSRCH,FAKTDSP,KRELST,KRESUPD
-
-		Ändrade sqlfiler.
-		CreateOLFIXtemplate.sql		Uppdaterat (SRCHARW, DSPTXTW,LSTTXTW)
-		CreateOLFIX.sql			Uppdaterat (SRCHARW, DSPTXTW,LSTTXTW)
-				Korrigerat för dubbel post "ADMIN"
-
-		Ändrad tabeller
-		KURESK		Nytt fält, BETALTBELOPP
-
-		Dokumentation
-		Städat upp i path/doc
-		Usersmanual (Online)Uppdaterad (2005-12-18)
-		UserManual	Uppdaterad (2005-11-22) Version 0.36)
-
-		Teknisk Manual	Uppdaterad (2005-12-18) Version 0.57
-		Installationsanvisningar.txt (2005-11-01)
-		Installationsanvisningar.sxw (2005-11-01)
-		Korsrelationer.sxw Uppdaterad (2005-??-??)
-
-________________________________________________________
-Ver 0.3.B
-2005-11-20
-		Nya program
-		KUFAKTW		Skapa kundfaktura
-		KURESKW		Kundreskontra på skärm
-
-		Ändrade program
-		LSTFNCW		Buggrättning
-
-		Nya funktioner
-		KRESADD.c	Ny post till tabellen KURESK. Kundreskontra
-		ORDUPD.c	För att uppdatera/ändra önskat fält i ORDERREG.Kan byggas ut.
-		ORADUPD.c	För att uppdatera FAKTURERAT (antal) i ORDERRADREG.
-		KRESLST.c	Lista kundreskontratabellen KURESK med expiredatum
-
-		Ändrade funktioner
-		ORDRDSP.c	Anpassat för fältet LEVERERAT i tabellen ORDERRADREG
-
-		Nya tabeller
-		KURESK		Kundreskontra
-
-		Ändrade tabeller
-		ORDERRADREG	Lagt till fältet FAKTURERAT
-
-		Nya sqlfiler
-		CreateTableKURESK.sql
-		InsertFTGDATA.sql	Ny Post, Antal fakturanrserier, default = 1
-		UpdateFTGDATA_FKNR2.sql	Ny post, En extra serie av fakturanr.
-
-		Ändrade sqlfiler.
-		CreateOLFIXtemplate.sql		Lagt till FAKNR,FKNR2,FKNRS (Senaste fakturanr)
-		CreateOLFIX.sql			Lagt till FAKNR,FKNR2,FKNRS (Senaste fakturanr)
-		Städat bort överflödiga sql-script.
-			CreateAllOlfixtst.sql
-			CreateDatabaseOlfix.sql
-			CreateDatabaseOlfixtst.sql
-			CreateAll.sql
-			olfix_testdata.sql
-
-		Nya rapporter
-		Kundfaktura 	KundOrderFaktura.kut
-
-		Ändrade rapporter
-
-		Ändrade data
-		PROGRAMdata.txt. Nytt program KUFAKTW
-		TRANSIDdata.txt. Ny funktion, KRESADD, ny post till kundreskontran
-				 Ny funktion ORDUPD
-				 Nufunktion ORADUPD
-				 Uppdatering generellt(bortglömda funktioner)
-		FTGDATAdata.txt  Uppdaterat.
-
-		Städat path/export
-
-		Dokumentation
-		Städat upp i path/doc
-		Usersmanual (Online)Uppdaterad (2005-11-19)
-		UserManual	Uppdaterad (2005-10-18)
-
-		Teknisk Manual	Uppdaterad (2005-11-18) Version 0.56
-		Installationsanvisningar.txt (2005-11-01)
-		Installationsanvisningar.sxw (2005-11-01)
-		Korsrelationer.sxw Uppdaterad (2005-??-??)
 ________________________________________________________
