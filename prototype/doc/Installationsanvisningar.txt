@@ -29,7 +29,7 @@ DittNamn i nästa rad skall vara ditt loginID med versaler (stora bokstäver).
 Byt ut alla förekomster av 'ADMIN' till 'DittNamn' (OBS! apostroferna ska vara med)
 
 T ex använda sed:
-shell> sed "s/'ADMIN'/'JAN'/" /opt/olfix/sql/CreateOLFIX.sql > /opt/olfix/CreateOLFIXNy.tmp
+shell> sed "s/'ADMIN'/'DittNamn'/g" /opt/olfix/sql/CreateOLFIX.sql > /opt/olfix/CreateOLFIXNy.tmp
 mv /opt/olfix/CreateOLFIXNy.tmp /opt/olfix/sql/CreateOLFIX.sql
 Kör
 shell> mysql -u root -p < /opt/olfix/sql/CreateOLFIX.sql > $HOME/tmp/mysql.log
