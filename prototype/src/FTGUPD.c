@@ -1,9 +1,10 @@
 /***************************************************************************
                           FTGUPD.c  -  description
                              -------------------
-    Version		 : 0.3
+    Version		 : 0.4
     begin                : mån 18 nov	2002
     modified		 : Ons 23 febr  2005
+			 : Ons 31 jan   2007
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -29,7 +30,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FTGUPD.c,v 1.3 2005/02/23 15:17:31 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FTGUPD.c,v 1.4 2007/01/31 07:03:09 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -58,6 +59,7 @@ char database[15]="";
 int main(int argc, char *argv[], char *envp[])
 {
   int res;
+  /*int i;	*/
   int status;
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
   char databas[25]="olfix";
@@ -71,6 +73,10 @@ int main(int argc, char *argv[], char *envp[])
   char txt[61]="";		/* ftgdata */
 
   status=-15;
+/*  for (i=0;i<=argc;i++){
+	fprintf(stderr,"argv[%d]=%s\n",i,argv[i]);
+  }
+*/	
 /* ================================================================================ */
 /* 		Val av databas, START						    */
 /* ================================================================================ */
@@ -110,26 +116,28 @@ int main(int argc, char *argv[], char *envp[])
    strncpy(ptyp,argv[1],sizeof(ptyp));	/* 2005-02-23	*/
    strncpy(txt,argv[2],sizeof(txt));	/* 2005-02-23	*/
 
-/*    fprintf(stderr,"FTGUPDmain1: argv1 = %s argv2 = %s len text=%d\n",ptyp,txt,strlen(txt));	*/
+    fprintf(stderr,"FTGUPDmain1: argv1 = %s argv2 = %s len text=%d\n",ptyp,txt,strlen(txt));	
 /*    fprintf(stderr,"FTGUPDmain: argv2 = %s\n",txt);						*/
 
   strncpy(temp5,temp1a,strlen(temp1a));
 /* UPDATE FTGDATA SET FDATA =  */
   strncat(temp5,"'",1);
-  strncat(temp5,txt,strlen(txt));
+  strncat(temp5,txt,sizeof(txt));
   strncat(temp5,"'",1);
-/*  fprintf(stderr,"FTGUPDmain2: temp5=%s\n",temp5);	*/
+/*  fprintf(stderr,"FTGUPDmain2: temp5=%s\n",temp5);		*/
 /* UPDATE FTGDATA SET FDATA = 'txt' */
-  strncat(temp5,temp2,strlen(temp2)); /* WHERE POSTTYP =  */
-/* UPDATE FTGDATA SET FDATA = 'txt, WHERE POSTTYP =    */
+  strncat(temp5,temp2,sizeof(temp2)); /* WHERE POSTTYP =  */
+/* UPDATE FTGDATA SET FDATA = 'txt' WHERE POSTTYP =    */
   strncat(temp5,"'",1);
-/*  fprintf(stderr,"FTGUPDmain3: temp5=%s\n",temp5);	*/
-  strncat(temp5,ptyp,strlen(ptyp));
-/*  fprintf(stderr,"FTGUPDmain4: temp5=%s\n",temp5);	*/
+/* UPDATE FTGDATA SET FDATA = 'txt' WHERE POSTTYP ='    */
+/*  fprintf(stderr,"FTGUPDmain3: temp5=%s\n",temp5);		*/
+  strncat(temp5,ptyp,sizeof(ptyp));
+/* UPDATE FTGDATA SET FDATA = 'txt' WHERE POSTTYP ='ADR1   */
+/*  fprintf(stderr,"FTGUPDmain4: temp5=%s\n",temp5);		*/
 /* UPDATE FTGDATA SET FDATA = 'txt' WHERE POSTTYP = 'ADR1' */
   strncat(temp5,"'",1);
 
-/* fprintf(stderr,"FTGUPDmain: temp5=%s\n",temp5);	*/
+/* fprintf(stderr,"FTGUPDmain: temp5=%s\n",temp5);		*/
 
   mysql_init(&my_connection);
 
