@@ -1,9 +1,10 @@
 /****************************************************************/
 /**		ADDFTGW					*/
 /**		2003-08-15				*/
-/**		Version: 0.4.4				*/
+/**		Version: 0.45				*/
 /**		Modifierad: 2006-05-01			*/
 /**			2006-12-15			*/
+/**			2007-01-31			*/
 /**		Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
@@ -31,12 +32,14 @@
 #include <qregexp.h>
 #define MAXSTRING 5000
 
-    QProcess* process;
+    int processnr=1;			// 2007-01-31
+    QProcess* process[50];		// 2007-01-31
+    QProcess* proc;
     QString inrad;
     QString errorrad;
     QString* rad;
 //    QString ptyp;	/* posttyp */
-
+    QString hjelpfil;			// 2007-01-31
 
     QString ftgnamn;
     QString ftgnr;
@@ -69,158 +72,135 @@
 
 void frmAddFtgData::init()
 {
+    processnr=1;
     slotGetFtgdata();
-    LineEditFtgNamn->setFocus();
+    pushButtonQuit->setFocus();
+//    LineEditFtgNamn->setFocus();
 }
 
 void frmAddFtgData::slotLineEditFtgNamn_returnPressed()
 {
     ftgnamn = LineEditFtgNamn->text();
-//    LineEditFtgNr->setFocus();
 }
 
 void frmAddFtgData::slotLineEditFtgNr_returnPressed()
 {
     ftgnr = LineEditFtgNr->text();
-//    LineEditBranschkod->setFocus();
 }
 
 void frmAddFtgData::slotLineEditBranschkod_returnPressed()
 {
     snikd = LineEditBranschkod->text();
-//    LineEditPostAdress->setFocus();
 }
 
 void frmAddFtgData::slotLineEditPostAdress_returnPressed()
 {
     postadr = LineEditPostAdress->text();
-//    LineEditPostnr1->setFocus();
 }
 
 void frmAddFtgData::slotLineEditPostnr1_returnPressed()
 {
     postnr1 = LineEditPostnr1->text();
-//    LineEditPostOrt->setFocus();
 }
 
 void frmAddFtgData::slotLineEditPostOrt_returnPressed()
 {
     postort = LineEditPostOrt->text();
-//    LineEditBesoksAdress->setFocus();
 }
 
 void frmAddFtgData::slotLineEditBesoksAdress_returnPressed()
 {
     besoksadr = LineEditBesoksAdress->text();
-//    LineEditPostnr2->setFocus();
 }
 
 void frmAddFtgData::slotLineEditPostnr2_returnPressed()
 {
     postnr2 = LineEditPostnr2->text();
-//    LineEditBesoksOrt->setFocus();
 }
 
 void frmAddFtgData::slotLineEditBesoksOrt_returnPressed()
 {
     besoksort = LineEditBesoksOrt->text();
-//    LineEditGodsAdress->setFocus();
 }
 
 void frmAddFtgData::slotLineEditGodsAdress_returnPressed()
 {
     godsadr = LineEditGodsAdress->text();
-//    LineEditPostnr3->setFocus();
 }
 
 void frmAddFtgData::slotLineEditPostnr3_returnPressed()
 {
     postnr3 = LineEditPostnr3->text();
-//    LineEditGodsOrt->setFocus();
 }
 
 void frmAddFtgData::slotLineEditGodsOrt_returnPressed()
 {
     godsort = LineEditGodsOrt->text();
-//    LineEditTfnnr->setFocus();
 }
 
 void frmAddFtgData::slotLineEditTfnnr_returnPressed()
 {
     tfnnr = LineEditTfnnr->text();
-//    LineEditMobilTfn->setFocus();
 }
 
 void frmAddFtgData::slotLineEditMobilTfn_returnPressed()
 {
     mobiltfnnr = LineEditMobilTfn->text();
-//    LineEditTelefax->setFocus();
 }
 
 void frmAddFtgData::slotLineEditTelefax_returnPressed()
 {
     telefax = LineEditTelefax->text();
-//    LineEditemailadress->setFocus();
 }
 
 void frmAddFtgData::slotLineEditemailadress_returnPressed()
 {
     email = LineEditemailadress->text();
-//    LineEditTelex->setFocus();
 }
 
 void frmAddFtgData::slotLineEditTelex_returnPressed()
 {
     telex = LineEditTelex->text();
-//    LineEditMoms1->setFocus();
 }
 
 void frmAddFtgData::slotLineEditMoms1_returnPressed()
 {
     moms1 = LineEditMoms1->text();
-//    LineEditMoms2->setFocus();
 }
 
 void frmAddFtgData::slotLineEditMoms2_returnPresse()
 {
     moms2 = LineEditMoms2->text();
-//    LineEditMoms3->setFocus();
 }
 
 void frmAddFtgData::slotLineEditMoms3_returnPressed()
 {
     moms3 = LineEditMoms3->text();
-//    LineEditMoms4->setFocus();
 }
 
 void frmAddFtgData::slotLineEditMoms4_returnPressed()
 {
     moms4 = LineEditMoms4->text();
-//    LineEditMoms5->setFocus();
 }
 
 void frmAddFtgData::slotLineEditMoms5_returnPressed()
 {
     moms5 = LineEditMoms5->text();
-//    lineEditMomsKtoIng->setFocus();
 }
 
 void frmAddFtgData::slotlineEditMomsKtoIng_returnPressed()
 {
     momsin = lineEditMomsKtoIng->text();
-//    LineEditMomsnr->setFocus();
 }
 
 void frmAddFtgData::slotLineEditMomsnr_returnPressed()
 {
     momsnr = LineEditMomsnr->text();
-//    lineEditMomsKtoUtg->setFocus();
 }
 
 void frmAddFtgData::slotlineEditMomsKtoUtg_returnPressed()
 {
     momsut = lineEditMomsKtoUtg->text();
-//    lineEditAutokonto->setFocus();
 }
 
 void frmAddFtgData::slotlineEditAutokonto_returnPressed()
@@ -228,23 +208,21 @@ void frmAddFtgData::slotlineEditAutokonto_returnPressed()
     autokonto = lineEditAutokonto->text();
     autokonto=autokonto.upper();
     lineEditAutokonto->setText((autokonto));
-//    lineEditBgnr->setFocus();
 }
 
 void frmAddFtgData::slotlineEditBgnr_returnPressed()
 {
     bgnr = lineEditBgnr->text();
-//    lineEditPgnr->setFocus();
 }
 
 void frmAddFtgData::slotlineEditPgnr_returnPressed()
 {
     pgnr = lineEditPgnr->text();
-//    PushButtonOK->setFocus();
 }
 
 void frmAddFtgData::slotPushButtonOK_clicked()
 {
+//    qDebug("FNAMN=%s",ftgnamn.latin1());
     slotUpdateFtgdata("FNAMN",ftgnamn);
     slotUpdateFtgdata("FTGNR",ftgnr);
     slotUpdateFtgdata("SNIKD",snikd);
@@ -276,45 +254,47 @@ void frmAddFtgData::slotPushButtonOK_clicked()
     slotUpdateFtgdata("AUTOK",autokonto);		// automatisk kontering J/N
     slotUpdateFtgdata("BGNR",bgnr);
     slotUpdateFtgdata("PGNR",pgnr);
+    init();
 }
 
 void frmAddFtgData::slotUpdateFtgdata(QString posttyp, QString ftgdata)
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
+                QString usr(userp);
 
 	inrad="";
 	errorrad="";
 	
 //            qDebug("slotUpdateFtgdata::posttyp=%s ftgdata=%s",posttyp.latin1(),ftgdata.latin1());
-	    
-	process = new QProcess();
-	process->addArgument("./STYRMAN");	// OLFIX styrprogram
-	process->addArgument(usr);		// userid
-	process->addArgument( "FTGUPD");	// OLFIX funktion
-	process->addArgument(posttyp);
-	process->addArgument(ftgdata);
+	processnr++;   
+	process[processnr] = new QProcess();
+	process[processnr]->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process[processnr]->addArgument(usr);		// userid
+	process[processnr]->addArgument( "FTGUPD");	// OLFIX funktion
+	process[processnr]->addArgument(posttyp);
+	process[processnr]->addArgument(ftgdata);
 
-	frmAddFtgData::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-	frmAddFtgData::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-	frmAddFtgData::connect( process, SIGNAL(processExited() ),this, SLOT(slotUpdateEndOfProcess() ) );
+	frmAddFtgData::connect( process[processnr], SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+	frmAddFtgData::connect( process[processnr], SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+	frmAddFtgData::connect( process[processnr], SIGNAL(processExited() ),this, SLOT(slotUpdateEndOfProcess() ) );
 	if (posttyp == "" ){
     	    QMessageBox::warning( this, "ADDFTGW",
                       "Posttyp saknas! \n" );
 	}
 	else {
-	    if ( !process->start() ) {
+	    if ( !process[processnr]->start() ) {
 		// error handling
 		QMessageBox::warning( this, "ADDFTGW",
                             "Kan inte starta STYRMAN/FTGUPD! \n" );
 	    }
 	}
+//	qDebug("Uppdatering processnr=%d posttyp=%s ftgdata=%s",processnr,posttyp.latin1(),ftgdata.latin1());
 }
 
 void frmAddFtgData::slotDataOnStdout()
 {
-    while (process->canReadLineStdout() ) {
-	QString line = process->readStdout();
+    while (process[processnr]->canReadLineStdout() ) {
+	QString line = process[processnr]->readStdout();
 	inrad.append(line);
 	inrad.append("\n");
     }
@@ -322,8 +302,8 @@ void frmAddFtgData::slotDataOnStdout()
 
 void frmAddFtgData::slotDataOnStderr()
 {
-    while (process->canReadLineStderr() ) {
-	QString line = process->readStderr();
+    while (process[processnr]->canReadLineStderr() ) {
+	QString line = process[processnr]->readStderr();
 	errorrad.append(line);
 	errorrad.append("\n");
     }
@@ -356,22 +336,22 @@ void frmAddFtgData::slotUpdateEndOfProcess()
 void frmAddFtgData::slotGetFtgdata()
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
+                QString usr(userp);
 
 	inrad="";
 	errorrad="";
 	
 //            qDebug("slotGetFtgdata::FTGLST");
 	    
-	process = new QProcess();
-	process->addArgument("./STYRMAN");	// OLFIX styrprogram
-	process->addArgument(usr);		// userid
-	process->addArgument( "FTGLIS");	// OLFIX funktion
+	process[processnr] = new QProcess();
+	process[processnr]->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process[processnr]->addArgument(usr);		// userid
+	process[processnr]->addArgument( "FTGLIS");	// OLFIX funktion
 
-	frmAddFtgData::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-	frmAddFtgData::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-	frmAddFtgData::connect( process, SIGNAL(processExited() ),this, SLOT(slotGetEndOfProcess() ) );
-	if ( !process->start() ) {
+	frmAddFtgData::connect( process[processnr], SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+	frmAddFtgData::connect( process[processnr], SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+	frmAddFtgData::connect( process[processnr], SIGNAL(processExited() ),this, SLOT(slotGetEndOfProcess() ) );
+	if ( !process[processnr]->start() ) {
 		// error handling
 		fprintf(stderr,"Problem starta STYRMAN/FTGLIS!\n");
 		QMessageBox::warning( this, "ADDFTGW",
@@ -516,7 +496,7 @@ void frmAddFtgData::slotGetEndOfProcess()
 	    }
 	    i = inrad.find( QRegExp("EML1_:"), 0 );
 	    if (i != -1) {
-		j = inrad.find( QRegExp("_:"), i+7 );
+		j = inrad.find( QRegExp("_:"), i+6 );
 		m = j - (i + 6);
 		email = inrad.mid(i+6,m);
 		LineEditemailadress->setText((email));
@@ -531,8 +511,8 @@ void frmAddFtgData::slotGetEndOfProcess()
 	    i = inrad.find( QRegExp("MNR_:"), 0 );
 	    if (i != -1) {
 		j = inrad.find( QRegExp("_:"), i+7 );
-		m = j - (i + 7);
-		momsnr = inrad.mid(i+7,m);
+		m = j - (i + 5);
+		momsnr = inrad.mid(i+5,m);
 		LineEditMomsnr->setText((momsnr));
 	    }	    
 	    i = inrad.find( QRegExp("MOMS1_:"), 0 );
@@ -593,16 +573,16 @@ void frmAddFtgData::slotGetEndOfProcess()
 	    }
 	    i = inrad.find( QRegExp("BGNR_:"), 0 );
 	    if (i != -1) {
-		j = inrad.find( QRegExp("_:"), i+7 );
-		m = j - (i + 7);
-		bgnr = inrad.mid(i+7,m);
+		j = inrad.find( QRegExp("_:"), i+6 );
+		m = j - (i + 6);
+		bgnr = inrad.mid(i+6,m);
 		lineEditBgnr->setText((bgnr));
 	    }	    
 	    i = inrad.find( QRegExp("PGNR_:"), 0 );
 	    if (i != -1) {
-		j = inrad.find( QRegExp("_:"), i+7 );
-		m = j - (i + 7);
-		pgnr = inrad.mid(i+7,m);
+		j = inrad.find( QRegExp("_:"), i+6 );
+		m = j - (i + 6);
+		pgnr = inrad.mid(i+6,m);
 		lineEditPgnr->setText((pgnr));
 	    }	    
 	    
@@ -611,3 +591,57 @@ void frmAddFtgData::slotGetEndOfProcess()
 	}    
     }
 }
+
+void frmAddFtgData::slotHelp()			// 2007-01-31
+{
+	inrad="";
+	frmAddFtgData::readResursFil();			// Hämta path till hjälpfilen
+	
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_FTGADMIN.html";
+	hjelpfil=hjelpfil+"#NEWFTGDATA";			// Lägg till position
+/*	qDebug("hjelpfil=%s",hjelpfil.latin1());	*/
+
+	proc = new QProcess();
+	proc->addArgument( "./OLFIXHLP" );			// OLFIX program
+	proc->addArgument(hjelpfil);
+
+	if ( !proc->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
+	}
+}
+
+void frmAddFtgData::readResursFil()			// 2007-01-31
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			            	*/
+    /* Plocka fram var hjälpfilen finns			*/
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+ 
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 ); 
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
+}
+
