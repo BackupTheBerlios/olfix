@@ -1,5 +1,25 @@
-Changelog OLFIX 20061230
+Changelog OLFIX 20070131
 
+Ver 0.5.2.B
+2007-01-31
+		Ändrade program
+		ADDTXTW		Lagt till tabordning och en hjälpknapp			(0048)
+		ADDFTGW		Lagt till hjälpknapp, buggrättning			(0049)
+		BYTFTGW		Rätt program kompilerat					(0050)
+
+		Ändrade funktioner
+		FTGUPD.c	Buggrättning (strlen bytt till sizeof)			(0049)
+
+		Ändrade script	
+		Makefile för C-programmen justerad
+
+		Dokumentation
+		Teknisk Manual	Uppdaterad (2007-01-18) Version 0.65
+		UserManual_FTGADMIN.html (uppdaterad) (2007-01-30)   Version 0.45 	(0048)
+		UserManual.html (uppdaterad) (2007-01-30)   Version 0.13	 	(0048)
+		Installation.html (lagt till "g" i sed "s/'ADMIN'/'DittNamn'/g".....)
+		Instalationsanvisningar.* (lagt till "g" i sed "s/'ADMIN'/'DittNamn'/g".....)
+________________________________________________________
 Ver 0.5.1.B
 2006-12-30
 
