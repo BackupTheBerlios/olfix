@@ -3,7 +3,7 @@
                              -------------------
     Version		 : 0.4
     begin                : tis   4  febr 2003
-    modified		 : Tors 24  febr 2005
+    modified		 : Sön  11  febr 2007
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/USERDEL.c,v 1.3 2005/02/24 12:07:14 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/USERDEL.c,v 1.4 2007/02/11 07:19:14 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -55,12 +55,12 @@ int main(int argc, char *argv[], char *envp[])
   int status;
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
   char databas[25]="olfix";
-  char usr[15];				/* userid		*/
+  char usr[21];				/* userid 2007-02-11 utökat från 15 till 21 */
 
   char temp1[]="DELETE FROM USR WHERE USERID = \"";
   char temp2[]="\"";
   char temp5[200]="";
-  char userid[9]="";
+  char userid[21]="";			/* 2007-02-11 utökad från 9 till 21 */
 
 /* ================================================================================ */
 /* 		Val av databas, START						    */
@@ -71,7 +71,7 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0)
 	exit(status);
 
-  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+  strncpy(usr,userp,21);			/* Den inloggades userid 2007-02-11	*/
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
