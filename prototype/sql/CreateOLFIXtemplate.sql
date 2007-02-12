@@ -289,7 +289,7 @@ MOMSBELOPP DECIMAL(10,2),
 FAKTURABELOPP DECIMAL(10,2),
 BETALD enum('J','N') DEFAULT 'N' not null,
 BETALDATUM date,
-USERID VARCHAR(8),
+USERID VARCHAR(20),
 VALUTA char(3) DEFAULT 'SEK',
 VALUTAKURS DECIMAL(10,2) DEFAULT '1' not null,
 VALUTABELOPP DECIMAL(10,2) DEFAULT '0,00',
@@ -393,7 +393,7 @@ CREATE TABLE KURESK (
   FAKTURABELOPP decimal(10,2) default NULL,
   BETALD enum('J','N') NOT NULL default 'N',
   BETALDATUM date default NULL,
-  USERID varchar(8) default NULL,
+  USERID VARCHAR(20) default NULL,
   VALUTA char(3) default 'SEK',
   VALUTAKURS decimal(10,2) NOT NULL default '1.00',
   VALUTABELOPP decimal(10,2) default '0.00',
@@ -499,7 +499,7 @@ CREATE TABLE LEVRESK (
   MOMSBELOPP decimal(10,2) default NULL,
   DEBETKONTONR varchar(4) default NULL,
   DEBETBELOPP decimal(10,2) default NULL,
-  USERID varchar(8) default NULL,
+  USERID VARCHAR(20) default NULL,
   VERNR int(11) default NULL,
   BETALD enum('J','N') default 'N',
   BETALDDATUM date default NULL,
@@ -839,7 +839,7 @@ INSERT INTO PROGRAM (PRGNR, MENYAVD, MENYGRP, MENYTXT, PROGRAM) VALUES ('113','A
 
 DROP TABLE IF EXISTS RIGHTS;
 CREATE TABLE RIGHTS (
-  USERID varchar(8) NOT NULL default '',
+  USERID VARCHAR(20) NOT NULL default '',
   TRNSID varchar(8) NOT NULL default '',
   PRIMARY KEY  (USERID,TRNSID)
 ) TYPE=MyISAM;
@@ -955,7 +955,7 @@ CREATE TABLE TRHD (
   TRNSNR int(11) NOT NULL auto_increment,
   TRNSID varchar(8) NOT NULL default '',
   TID varchar(20) NOT NULL default '',
-  USERID varchar(8) NOT NULL default '',
+  USERID VARCHAR(20) NOT NULL default '',
   TRNSDATA varchar(255) default NULL,
   PRIMARY KEY  (TRNSNR)
 ) TYPE=MyISAM;
@@ -971,7 +971,7 @@ CREATE TABLE TRHD (
 
 DROP TABLE IF EXISTS USR;
 CREATE TABLE USR (
-  USERID varchar(8) NOT NULL default '',
+  USERID VARCHAR(20) NOT NULL default '',
   NAMN varchar(30) default NULL,
   AVD varchar(10) default NULL,
   GRUPP varchar(10) default NULL,
@@ -1038,7 +1038,7 @@ CREATE TABLE VERHUVUD (
   VERTEXT varchar(60) default NULL,
   KORRIGERAR int(11) default NULL,
   KORRIGERAD int(11) default NULL,
-  USERID varchar(8) default NULL,
+  USERID VARCHAR(20) default NULL,
   PRIMARY KEY  (VERNR,ARID)
 ) TYPE=MyISAM;
 
