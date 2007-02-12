@@ -1,10 +1,10 @@
 /***************************************************************************
-                          ARLSTLL.c  -  description
+                          ARLSTL.c  -  description
                              -------------------
 			     Lista artiklar med lagersaldo
     Version		 : 0.1
-    begin                : Mån 17 jan 2005
-    modified		 :
+    begin                : Mån 17 jan  2005
+    modified		 : Mån 12 febr 2007
     copyright            : (C) 2005 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -32,7 +32,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARLSTL.c,v 1.1 2005/01/17 10:04:38 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARLSTL.c,v 1.2 2007/02/12 04:43:17 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -56,9 +56,9 @@
 int main(int argc, char *argv[], char *envp[])
 {
   int res,i,status;
-  const char *userp = getenv("USER");	// vem är inloggad?
+  const char *userp = getenv("USER");	/* vem är inloggad? */
   char databas[25]="olfix";
-  char usr[15];		// userid
+  char usr[21];				/* userid 20070212 utökad från 15 till 21 tecken */
 
   char temp1[]="SELECT ARTIKELREG.ARTIKELNR,ARBENEMNING1,ARBENEMNING2,LAGERSTELLEREG.ARLAGSALDO FROM ARTIKELREG JOIN LAGERSTELLEREG WHERE ARTIKELREG.ARTIKELNR = LAGERSTELLEREG.ARTIKELNR ORDER BY ARTIKELNR";
   char temp5[500]="";

@@ -1,9 +1,9 @@
 /***************************************************************************
                           ARICHK.c  -  description
                              -------------------
-    Version		 : 0.2
+    Version		 : 0.3
     begin                : Mån 2  dec	2002
-    modified		 : Mån 27 okt   2003
+    modified		 : Mån 12 febr  2007
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -17,7 +17,7 @@
  *                                                                         *
  *********************************************** ****************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARICHK.c,v 1.2 2003/10/27 12:14:37 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARICHK.c,v 1.3 2007/02/12 04:43:17 janpihlgren Exp $ " ;
 
 /*
 	INPUT: 2 st arg. ARID
@@ -42,7 +42,7 @@
   MYSQL my_connection;
   MYSQL_RES *res_ptr;
   MYSQL_ROW sqlrow;
-int which_database(char *envp[]);
+  int which_database(char *envp[]);
 
   char database[15]="";
 
@@ -51,9 +51,9 @@ int main(int argc, char *argv[], char *envp[])
 //  MYSQL my_connection;
   int res;
   int status;
-  const char *userp = getenv("USER");	// vem är inloggad?
+  const char *userp = getenv("USER");	/* vem är inloggad? */
   char databas[25]="olfix";
-  char usr[15];		// userid
+  char usr[21];				/* userid 20070212 utökad från 15 till 21 tecken */
 
   char temp1[]="SELECT ARID FROM BOKFAR WHERE ARID = \"";
   char temp2[]="\"";

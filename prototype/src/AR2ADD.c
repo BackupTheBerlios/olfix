@@ -1,9 +1,9 @@
 /***************************************************************************
                           AR2ADD.c  -  description
                              -------------------
-    Version		 : 0.1
-    Modified		 :
-    begin                : Fre 14 nov 2003
+    Version		 : 0.4.1
+    Modified		 : Mån 12 febr 2007
+    begin                : Fre 14 nov  2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -33,7 +33,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/AR2ADD.c,v 1.1 2003/11/14 07:11:12 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/AR2ADD.c,v 1.2 2007/02/12 04:43:17 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -57,7 +57,7 @@ int main(int argc, char *argv[], char *envp[])
   int res,status;
   char databas[25]="olfix";
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
-  char usr[15];				/* userid		*/
+  char usr[21];				/* userid 20070212 utökad från 15 till 21 tecken */
 
   char temp1a[]="INSERT INTO LAGERSTELLEREG (ARLAGST,ARTIKELNR,ARLAGHYLLA,ARLAGSALDO,ARINVGRP,ARABC,ARVALUTA,ARIPRIS,ARIKVANT0,ARIKVANT1,ARIKVANT2,ARKALKPRIS,ARBESTKVANT,ARBESTPUNKT) VALUES (";
 

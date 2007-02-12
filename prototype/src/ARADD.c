@@ -1,9 +1,9 @@
 /***************************************************************************
                           ARADD.c  -  description
                              -------------------
-    Version		 : 0.2
-    Modified		 : Ons 23 febr 2005
-    begin                : Ons 29 okt 2003
+    Version		 : 0.3
+    Modified		 : Mån 12 febr 2007
+    begin                : Ons 29 okt  2003
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -36,7 +36,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARADD.c,v 1.4 2006/05/03 03:53:01 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARADD.c,v 1.5 2007/02/12 04:43:17 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -60,7 +60,7 @@ int main(int argc, char *argv[], char *envp[])
   int res,status;
   char databas[25]="olfix";
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
-  char usr[15];				/* userid		*/
+  char usr[21];				/* userid 20070212 utökat från 15 till 21 tecken */
 
   char temp1a[]="INSERT INTO ARTIKELREG (ARTIKELNR,ARBENEMNING1,ARBENEMNING2,ARENHET,AROMRFAKTOR,ARNETTOVIKT,ARFPRIS,ARLEDTID,ARPRODKLASS,ARPRODKTO,ARARTTYP,ARSTRUKT,ARTULLTAX,ARLEVNr1,ARLEVNR2,ARLEVNR3,ARURBENEMNING,ARURLAND,ARURARTNR,ARVOLYM) VALUES (";
   char temp2[]="\"";

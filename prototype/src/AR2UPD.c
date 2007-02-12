@@ -2,9 +2,9 @@
                           AR2UPD.c  -  description
                              -------------------
 			     Uppdaterar LAGERSTELLEREG
-    Version		 : 0.1
+    Version		 : 0.3
     begin                : Sön 27 mars	2005
-    modified		 :
+    modified		 : Mån 12 febr  2007
     copyright            : (C) 2005 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -30,7 +30,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/AR2UPD.c,v 1.1 2005/03/27 06:52:33 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/AR2UPD.c,v 1.2 2007/02/12 04:43:17 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -62,9 +62,12 @@ int main(int argc, char *argv[], char *envp[])
   int status;
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
   char databas[25]="olfix";
-  char usr[15]="";			/* userid		*/
+  char usr[21]="";			/* userid 20070212 utökat från 15 till 21 tecken */
 
   char temp1a[]="UPDATE LAGERSTELLEREG SET RESERVERAT = RESERVERAT + ";
+  char temp1b[]="UPDATE LAGERSTELLEREG SET RESERVERAT = RESERVERAT - ";
+  char temp1c[]="UPDATE LAGERSTELLEREG SET ARLAGSALDO = ARLAGSALDO + ";
+  char temp1d[]="UPDATE LAGERSTELLEREG SET ARLAGSALDO = ARLAGSALDO - ";
   char temp2[]=" WHERE ARTIKELNR = ";
   char temp5[TEXTSIZE+200]="";
 
@@ -122,8 +125,21 @@ int main(int argc, char *argv[], char *envp[])
   }
   if(felt == 1){
   	strncpy(temp5,temp1a,strlen(temp1a));
-	/* UPDATE LAGERSTELLEREG SET RESERVERAT =	*/
+	/* UPDATE LAGERSTELLEREG SET RESERVERAT = RESERVERAT +	*/
   }
+  if(felt == 2){
+  	strncpy(temp5,temp1b,strlen(temp1b));
+	/* UPDATE LAGERSTELLEREG SET RESERVERAT = RESRVERAT -	*/
+  }
+  if(felt == 3){
+  	strncpy(temp5,temp1c,strlen(temp1c));
+	/* UPDATE LAGERSTELLEREG SET ARLAGSALDO = ARLAGSALDO +	*/
+  }
+  if(felt == 4){
+  	strncpy(temp5,temp1d,strlen(temp1d));
+	/* UPDATE LAGERSTELLEREG SET ARLAGSALDO = ARLAGSALDO -	*/
+  }
+
   strncat(temp5,"'",1);
   strncat(temp5,data,strlen(data));
   strncat(temp5,"'",1);
@@ -146,7 +162,7 @@ int main(int argc, char *argv[], char *envp[])
 /*    fprintf(stderr,"AR2UPD:Connection success\n");	*/
     res = mysql_query(&my_connection,temp5);
   	if (!res){
-		fprintf(stderr,"OK: AR2UPD Inserted %lu rows\n",
+		fprintf(stdout,"OK: AR2UPD Updated %lu rows\n",
 			(unsigned long)mysql_affected_rows(&my_connection));
         }else{
 	fprintf(stderr,"Error: AR2UPD UPDATE error: %d  %s\n", mysql_errno(&my_connection),

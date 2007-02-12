@@ -3,7 +3,7 @@
                              -------------------
     Version		 : 0.3
     begin                : Mån 17  nov	2003
-    Modified		 : Tis 29  mars 2005
+    Modified		 : Mån 12  febr 2007
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -30,7 +30,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARDSPL.c,v 1.5 2005/03/29 16:19:29 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/ARDSPL.c,v 1.6 2007/02/12 04:43:17 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -58,7 +58,7 @@ int main(int argc, char *argv[], char *envp[])
   int status;
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
   char databas[25]="olfix";
-  char usr[15];				/* userid		*/
+  char usr[21];				/* userid 20070212 utökat från 15 till 21 tecken */
 
 /* ================================================================================ */
 /* 		Val av databas, START						    */
