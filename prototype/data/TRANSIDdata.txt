@@ -119,6 +119,7 @@
 "SIEEXPK","SIE-export av kontoplan"
 "SIEEXPR","SIE-export av resultat"
 "SIEEXPV","SIE-export av verifikat"
+"TOTADD","Ge en användare fullständig behörighet"
 "TRHDADD","Lägga till ny loggpost i TRHD"
 "TRNSADD","Ny post i TRANSID"
 "TRNSCHG","Ändra post i TRANSID"
