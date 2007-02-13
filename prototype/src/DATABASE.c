@@ -3,9 +3,9 @@
                              -------------------
 			     Uppdatera RIGHTS med fullständiga rättigheter för en användare.
 			     Offerthuvud.
-    Version		 : 1.0
+    Version		 : 1.1
     begin                : Mån   11 dec  2006
-    Modified		 :
+    Modified		 : Tis   13 febr 2007
     copyright            : (C) 2006 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -39,7 +39,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/DATABASE.c,v 1.1 2006/12/30 06:20:44 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/DATABASE.c,v 1.2 2007/02/13 07:34:08 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -74,7 +74,7 @@ int main(int argc, char *argv[], char *envp[])
 {
   char databas[25]="olfix";
   const char *userp = getenv("USER");	// vem är inloggad?
-  char usr[15];				// userid
+  char usr[21];				/* userid 20070213 utökat från 15 till 21 tecken */
 
 
   char val[2]="";
@@ -94,7 +94,7 @@ int main(int argc, char *argv[], char *envp[])
 	exit(status);
 
 
-  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+  strncpy(usr,userp,sizeof(usr));			/* Den inloggades userid 20070213 */
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){

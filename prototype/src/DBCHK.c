@@ -1,9 +1,9 @@
 /***************************************************************************
                           DBCHK.c  -  description
                              -------------------
-			     Version: 0.1
+			     Version: 0.2
     begin                : Tis 27 sept	2005
-    Modified		 :
+    Modified		 : Tis 13 febr  2007
     copyright            : (C) 2005 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/DBCHK.c,v 1.1 2005/09/27 08:09:46 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/DBCHK.c,v 1.2 2007/02/13 07:34:08 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -56,9 +56,9 @@ int main(int argc, char *argv[], char *envp[])
   char temp5[200]="";
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
   char databas[25]="olfix";
-  char usr[15];				/* userid		*/
+  char usr[21];				/* userid 20070213 utökat från 15 till 21 tecken */
 
-  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+  strncpy(usr,userp,sizeof(usr));			/* Den inloggades userid 20070213 */
 
   if (argc<3){
     	if (strlen(database)!= 0){
