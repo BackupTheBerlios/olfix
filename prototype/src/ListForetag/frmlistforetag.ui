@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>frmListForetag</class>
 <widget class="QWidget">
     <property name="name">
@@ -8,7 +8,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>402</width>
+            <width>462</width>
             <height>277</height>
         </rect>
     </property>
@@ -38,28 +38,16 @@
             <height>270</height>
         </size>
     </property>
+    <property name="font">
+        <font>
+        </font>
+    </property>
     <property name="caption">
         <string>OLFIX - LSTFORW - Lista databaser (olika företag)</string>
     </property>
     <property name="iconText">
         <string>OLFIX</string>
     </property>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonAgain</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>205</y>
-                <width>71</width>
-                <height>31</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Uppdatera</string>
-        </property>
-    </widget>
     <widget class="QPushButton">
         <property name="name">
             <cstring>PushButtonSluta</cstring>
@@ -75,19 +63,27 @@
         <property name="text">
             <string>Sluta</string>
         </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushBtnHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>400</x>
+                <y>10</y>
+                <width>55</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
     </widget>
     <widget class="QListView">
-        <column>
-            <property name="text">
-                <string>Databasnr</string>
-            </property>
-            <property name="clickable">
-                <bool>true</bool>
-            </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
         <column>
             <property name="text">
                 <string>Databas</string>
@@ -104,11 +100,28 @@
         </property>
         <property name="geometry">
             <rect>
-                <x>90</x>
-                <y>10</y>
-                <width>305</width>
-                <height>261</height>
+                <x>250</x>
+                <y>45</y>
+                <width>205</width>
+                <height>225</height>
             </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>30</x>
+                <y>50</y>
+                <width>205</width>
+                <height>45</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Lista över alla databaser som
+finns registrerade.</string>
         </property>
     </widget>
 </widget>
@@ -120,22 +133,35 @@
         <slot>close()</slot>
     </connection>
     <connection>
-        <sender>PushButtonAgain</sender>
+        <sender>PushButtonSluta</sender>
+        <signal>pressed()</signal>
+        <receiver>frmListForetag</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>pushBtnHelp</sender>
         <signal>clicked()</signal>
         <receiver>frmListForetag</receiver>
-        <slot>slotReloadForetag()</slot>
+        <slot>pushButtonHelp()</slot>
     </connection>
 </connections>
+<tabstops>
+    <tabstop>PushButtonSluta</tabstop>
+    <tabstop>pushBtnHelp</tabstop>
+    <tabstop>ListView1</tabstop>
+</tabstops>
 <includes>
     <include location="local" impldecl="in implementation">frmlistforetag.ui.h</include>
 </includes>
 <slots>
-    <slot>GetForetag()</slot>
     <slot>init()</slot>
     <slot>slotDataOnStdout()</slot>
-    <slot>slotEndOfProcess()</slot>
     <slot>slotDataOnStderr()</slot>
-    <slot>slotReloadForetag()</slot>
+    <slot>listDatabaser( QString choise )</slot>
+    <slot>slotEndOfProcessList()</slot>
+    <slot>pushButtonHelp()</slot>
+    <slot>Help()</slot>
+    <slot>readResursFil()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

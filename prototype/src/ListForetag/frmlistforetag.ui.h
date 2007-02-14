@@ -8,8 +8,9 @@
 /***************************************************************************
                           LSTFORW  -  description
                              -------------------
-		     version 0.1
-    begin                : Ons 10 nov 2004
+		     version 0.2
+    begin                : Ons 10 nov  2004
+    modified:         : Ons 14 febr 2007
     copyright            : (C) 2004 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -34,41 +35,21 @@
 #define MAXSTRING 5000	
 
 	QProcess* process;
+	QProcess* proc;
 	QString inrad;
 	QString errorrad;
 	QString* rad;
+	QString newdatabase;
+	QString val="3";		/* val=3  = listning*/
+	QString hjelpfil;
 	
 
 void frmListForetag::init()
 {
     PushButtonSluta->setFocus();
-    frmListForetag::GetForetag();
+    listDatabaser(val);
 }	
-	
-void frmListForetag::GetForetag()	
-{
-	const char *userp = getenv("USER");
-            QString usr(userp);
-	
-	process = new QProcess();
-	process->addArgument("./STYRMAN");     // OLFIX styrprogram
-	process->addArgument(usr);		// userid
-	process->addArgument( "FORLST");	// OLFIX funktion
-/*            fprintf(stdout,"1 .Läser från STYRMAN/FORLST! %s\n",usr.latin1());	*/	
-	frmListForetag::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-	frmListForetag::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );	
-	frmListForetag::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );	    
- 
-	if ( !process->start() ) {
-                // error handling
-	    fprintf(stderr,"Problem starta STYRMAN/FORLST!\n");
-	    QMessageBox::warning( this, "Start av FORLST ",
-                            "Kan inte starta STYRMAN/FORLST!\n"
-                            );
-        }
-}
-	
-	
+
 void frmListForetag::slotDataOnStdout()
 {
     while (process->canReadLineStdout() ) {
@@ -76,82 +57,6 @@ void frmListForetag::slotDataOnStdout()
 	inrad.append(line);
 	inrad.append("\n");
     }
-/*      fprintf(stdout,"2 .Läser från STYRMAN/FORLST! %s\n",inrad.latin1());	*/
-}
-
-void frmListForetag::slotEndOfProcess()
-{
-       QListViewItem* item;
-    int i;
-    i = -1;
-    i = errorrad.find( QRegExp("Error:"), 0 );
-         if (i != -1) {
-	QMessageBox::critical( this, "LSTFORW",
-		"ERROR!\n"+errorrad
-	);
-	errorrad="";
-	i = -1;
-     }
-	 
-    QString listrad;
-    rad=&inrad;
-    inrad.latin1();
-    char *pos1;
-    char *pos2;
-    char tmp[MAXSTRING];
-    char *tmppek;
-    int j,k,l,m;
-    char antrad[6]="";
-    char dbnr[9]="";
-    char dbnamn[61]="";
-
-    tmppek=tmp;
-    qstrcpy(tmp,inrad);
-    pos1=strstr(tmp,"NR_");
-    pos2=strstr(tmp,"_:");
-    i=pos2-pos1;
-    m=i+2;		// startposition för första dbnr.
-//    fprintf(stdout,"i=%d  m=%d",i,m);
-    k=0;
-    for (j=3;j<i;j++){
-	antrad[k]=tmp[j];
-	k++;
-    };
-    i=atoi(antrad);		// i = antal poster
-    for (k = 1;k <= i; k++){	// gå igenom alla raderna / posterna
-	l=0;
-	for(j = m; j < sizeof(dbnr) + m; j++){
-	    if(tmp[j] != *("_")){
-		dbnr[l]=tmp[j];
-		l++;
-	    }else{
-		dbnr[l] = *("\0");
-		j=sizeof(dbnr) + m;
-	    }
-	}
-//	fprintf(stdout,"%s  ",user);
-	m=m+l+2;	// position för dbnamn
-	l=0;
-	for(j = m; j < sizeof(dbnamn) + m; j++){
-	    if(tmp[j] != *("_")){
-		dbnamn[l]=tmp[j];
-		l++;
-	    }else{
-		dbnamn[l] = *("\0");
-		j=sizeof(dbnamn) + m;
-	    }
-	}
-//	fprintf(stdout,"%s  ",dbnamn);
-	m=m+l+2;
-	item = new QListViewItem(ListView1,dbnr,dbnamn);
-// 	 rensa user,namn,avd och grupp 
-  	for (l=0;l<sizeof(dbnr);l++)
-		dbnr[l]=*("\0");
-	for (l=0;l<sizeof(dbnamn);l++)
-		dbnamn[l]=*("\0");
-//	 rensa listrad 
-	listrad.remove(0,70);
-    }   
 }
 
 
@@ -165,8 +70,158 @@ void frmListForetag::slotDataOnStderr()
     }
 }
 
-void frmListForetag::slotReloadForetag()
+void frmListForetag::listDatabaser(QString choise)
 {
-    ListView1->clear();
-    frmListForetag::GetForetag();
+	const char *userp = getenv("USER");
+                QString usr(userp);
+	inrad="";
+	
+	process = new QProcess();
+	process->addArgument( "./DATABASE");	// OLFIX funktion
+	process->addArgument(choise);
+	process->addArgument(newdatabase);		// Kan vara blank
+	
+	frmListForetag::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );	
+	frmListForetag::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+                frmListForetag::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcessList() ) );
+
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "Start av DATABASE ", "Kan inte starta DATABASE!\n");
+        }
+}
+
+void frmListForetag::slotEndOfProcessList()
+{
+    QListViewItem* item;
+    ListView1->setSorting(0,TRUE);
+    int n,j,k=0;
+    int i=-1;
+    QString temp1;
+    QString temp2;
+    QString p;
+//    qDebug("val=%s",val.latin1());
+//    qDebug("inrad=%s",inrad.latin1());
+    i = errorrad.find( QRegExp("Error:"), 0 );
+         if (i != -1) {
+	QMessageBox::critical( this, "BYTFW",
+		"ERROR!\n"+errorrad
+	);
+	if (val=="4"){
+//	   lineEditNyDatabas->clear() ;
+	   ListView1->setFocus();
+	}  
+	errorrad="";
+	i = -1;
+	return;
+     }
+     i = -1;
+     i = inrad.find( QRegExp("OK:"), 0 );
+     if (i != -1) {
+	 if (val == "2"){
+	     QMessageBox::information( this, "BYTFW",
+				       "Databasbyte genomfört!\n"
+				       );
+	     PushButtonSluta->setFocus();
+	 }
+	if (val == "3"){
+	    i= -1;
+	    i = inrad.find(QRegExp("NR_"),0);
+	    if( i != -1){
+		int m = inrad.find(QRegExp("_:_"),0);
+		n=m-(i+3);
+  		p=inrad.mid(i+3,n);
+//		qDebug("n=%d  m=%d  p=%s",n,m,p.latin1());
+		j=p.toInt();
+		n=1;
+		while (n <= j){
+//		    n++;
+		    p.setNum(n);
+		    temp1="_:_"+p+"_:_";
+//		    qDebug("temp1=%s",temp1.latin1());
+		    p.setNum(n+1);
+		    if(n != j){			
+			temp2="_:_"+p+"_:_";
+		    }else{
+			temp2="_:_";
+		    }			
+//		    qDebug("temp2=%s",temp2.latin1());
+		    m = inrad.find(QRegExp(temp1),0);
+		    if (n == j){
+			k = inrad.find(QRegExp(temp2),m+9);
+//			qDebug("temp2=%s  k=%d",temp2.latin1(),k);
+		    }else{
+			k = inrad.find(QRegExp(temp2),0);
+		    }
+		    i = k - (m+temp1.length());
+		    p=inrad.mid(m+temp1.length(),i);
+		    if(p != "mysql"){
+//			qDebug("p=%s",p.latin1());
+			item = new QListViewItem(ListView1,p);
+		    }
+		    n++;
+		}
+	    }
+	}
+  //     qDebug("EndOfProcess():: inrad=%s",inrad.latin1());  
+    }
+//    fprintf(stderr,"Klart!\n");
+}
+
+void frmListForetag::pushButtonHelp()
+{
+    Help();
+}
+
+void frmListForetag::Help()
+{
+	inrad="";
+	readResursFil();					// Hämta path till hjälpfilen
+	
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_DATABASER.html";
+	hjelpfil=hjelpfil+"#DATABASBYT";			// Lägg till position
+/*	qDebug("hjelpfil=%s",hjelpfil.latin1());	*/
+
+	proc = new QProcess();
+	proc->addArgument( "./OLFIXHLP" );			// OLFIX program
+	proc->addArgument(hjelpfil);
+
+	if ( !proc->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
+	}
+}
+
+void frmListForetag::readResursFil()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			               */
+    /* Plocka fram var hjälpfilen finns			               */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+ 
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 ); 
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
 }
