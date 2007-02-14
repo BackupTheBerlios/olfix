@@ -180,8 +180,8 @@ void frmListForetag::Help()
 	
 	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
 	hjelpfil=hjelpfil.left(i1);
-	hjelpfil=hjelpfil+"_DATABASER.html";
-	hjelpfil=hjelpfil+"#DATABASBYT";			// Lägg till position
+	hjelpfil=hjelpfil+"_FTGADMIN.html";
+	hjelpfil=hjelpfil+"#LISTAFTG";			// Lägg till position
 /*	qDebug("hjelpfil=%s",hjelpfil.latin1());	*/
 
 	proc = new QProcess();
