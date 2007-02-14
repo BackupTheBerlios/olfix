@@ -2,9 +2,9 @@
                           FORDSP.c  -  description
                              ------------------
 			     Visa info om en databas
-    Version		 : 0.1
+    Version		 : 0.2
     begin                : Mån 26 sept 2005
-    modified		 :
+    modified		 : Ons 13 febr 2007
     copyright            : (C) 2005 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -26,7 +26,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FORDSP.c,v 1.2 2005/09/27 04:39:17 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FORDSP.c,v 1.3 2007/02/14 05:10:33 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -54,7 +54,7 @@ int main(int argc, char *argv[], char *envp[])
   int status;
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
   char databas[25]="olfix";
-  char usr[15];				/* userid		*/
+  char usr[21];				/* userid 20070214 utökad från 15 till 21 tecken */
 
   char temp1[]="SELECT DATABASTEXT FROM DATABAS WHERE DATABASNR=\"";
   char temp2[]="\"";
@@ -77,7 +77,7 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0)
 	exit(status);
 
-  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+  strncpy(usr,userp,sizeof(usr));			/* Den inloggades userid 20070214 */
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){

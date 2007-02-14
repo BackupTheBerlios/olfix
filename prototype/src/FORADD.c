@@ -1,9 +1,9 @@
 /***************************************************************************
                           FORADD.c  -  description
                              -------------------
+			Version:  0.3
     begin                : Ons 12 nov	2004
-    Modified		 : Ons 23 febr  2005
-    			 : Ons 28 sept  2005
+    Modified		 : Ons 13 febr  2007
     copyright            : (C) 2004 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FORADD.c,v 1.4 2005/09/28 08:19:02 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/FORADD.c,v 1.5 2007/02/14 05:10:33 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -64,7 +64,7 @@ int main(int argc, char *argv[], char *envp[])
   char dbnamn[16]="";
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
   char databas[25]="olfix";
-  char usr[15];				/* userid		*/
+  char usr[21];				/* userid utökad från 15 till 21 tecken */
 
   if (argv[1] != NULL){
   	strncpy(dbnr,argv[1],sizeof(dbnr));	/* 2005-02-23	*/
@@ -96,7 +96,7 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0)
 	exit(status);
 
-  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+  strncpy(usr,userp,sizeof(usr));			/* Den inloggades userid 20070214 */
 
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
