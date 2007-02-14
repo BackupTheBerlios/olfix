@@ -1,9 +1,9 @@
 /***************************************************************************
                           INKADD.c  -  description
                              -------------------
-    Version		 : 0.4
+    Version		 : 0.5
     begin                : Sön  14 dec  2003
-    Modified		 : Ons  23 febr 2005
+    Modified		 : Ons  14 febr 2007
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -30,7 +30,7 @@ Fältavskiljare = _:_
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKADD.c,v 1.5 2005/02/23 16:45:56 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/INKADD.c,v 1.6 2007/02/14 07:22:36 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -54,8 +54,8 @@ int main(int argc, char *argv[], char *envp[])
 {
   int res,status;
   char databas[25]="olfix";
-  const char *userp = getenv("USER");	// vem är inloggad?
-  char usr[15];				// userid
+  const char *userp = getenv("USER");	/* vem är inloggad? */
+  char usr[21];				/* userid 20070214 utökat från 15 till 21 tecken */
 
   char temp1a[]="INSERT INTO INKREG (INKORDNR,BESTTYP,ORDERDATUM,LEVNR,LEVNAMN,LEVADRESS,LEVPOSTNR,LEVPOSTADR,LEVLAND,LEVVALUTA,LEVBETVILLKOR,LEVVILLKOR,LEVSETT,GODSMERKE,KOMMENTAR,BESTTEXT,VARREF,VARREFTFN,VARREFFAX,ERREF,LEVDATUM,KUNDNR,FTGNAMN,FTGADR,FTGPOSTNR,FTGPOSTADR,ORDERSTATUS,ORDERSUMMA) VALUES (";
   char temp2[]="\"";
@@ -77,7 +77,7 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0)
 	exit(status);
 
-  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+  strncpy(usr,userp,sizeof(usr));			/* Den inloggades userid 20070214 */
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
