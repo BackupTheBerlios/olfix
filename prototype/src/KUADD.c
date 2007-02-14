@@ -1,9 +1,9 @@
 /***************************************************************************
                           KUADD.c  -  description
                              -------------------
-    Version		 : 0.5
-    begin                : Mån   8 aug  2003
-    Modified		 : Mån  30 jan  2006 orgnr,kreditkod,prislista
+    Version		 : 0.6
+    begin                : Mån   8 aug   2003
+    Modified		 : Ons  14 febr  2007
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -31,7 +31,7 @@ Fältavskiljare = _:_
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KUADD.c,v 1.5 2006/02/01 14:41:03 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KUADD.c,v 1.6 2007/02/14 14:56:29 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -55,8 +55,8 @@ int main(int argc, char *argv[], char *envp[])
 {
   int res,status;
   char databas[25]="olfix";
-  const char *userp = getenv("USER");	// vem är inloggad?
-  char usr[15];				// userid
+  const char *userp = getenv("USER");	/* vem är inloggad? */
+  char usr[21];				/* userid 20070214 utökat från 15 till 21 tecken */
 
   char temp1a[]="INSERT INTO KUNDREG (KUNDNR,KUNDORGNR,NAMN,ADRESS,POSTNR,POSTADR,LAND,TFNNR,FAXNR,EMAILADR,ERREFERENT,ERREFTFNNR,ERREFEMAIL,SELJARE,DISTRIKT,KUNDKATEGORI,PRISLISTA,STDLEVPLATS,LEVVILLKOR,LEVSETT,BETALVILLKOR,VALUTA,SPRAKKOD,ORDERERKENNANDE,PLOCKLISTA,FOLJESEDEL,EXPAVGIFT,FRAKTAVG,KRAVBREV,KREDITLIMIT,KREDITKOD,DROJMALSRTA,DROJMALSFAKTURA,FRITEXT) VALUES (";
   char temp2[]="\"";
@@ -78,7 +78,7 @@ fprintf(stderr,"argv[1]=%s",argv[1]);
   if (status != 0)
 	exit(status);
 
-  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+  strncpy(usr,userp,sizeof(usr));			/* Den inloggades userid 20070214 */
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){

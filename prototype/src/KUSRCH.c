@@ -2,9 +2,9 @@
                           KUSRCH.c  -  description
                              -------------------
 			     Söka kunder
-			     Ver: 0.1
+			     Ver: 0.2
     begin                : Tors 17  mars  2005
-    modified		 :
+    modified		 : Ons  14  febr  2007
     copyright            : (C) 2005 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -32,7 +32,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KUSRCH.c,v 1.1 2005/03/17 15:21:15 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KUSRCH.c,v 1.2 2007/02/14 14:56:29 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -56,9 +56,9 @@
 int main(int argc, char *argv[], char *envp[])
 {
   int res,i,status;
-  const char *userp = getenv("USER");	// vem är inloggad?
+  const char *userp = getenv("USER");	/* vem är inloggad? */
   char databas[25]="olfix";
-  char usr[15];				// userid
+  char usr[21];				/* userid 20070214 utökat från 15 till 21 tecken */
   char soekbegrepp[2]="";
   char soekord[31]="";
   int begrepp=0;
@@ -111,7 +111,7 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0)
 	exit(status);
 
-  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+  strncpy(usr,userp,sizeof(usr));			/* Den inloggades userid 20070214 */
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){

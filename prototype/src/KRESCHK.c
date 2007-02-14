@@ -1,10 +1,10 @@
 /***************************************************************************
-                          KSTLST.c  -  description
+                          KRESCHK.c  -  description
                              -------------------
-    Version		 : 0.4
-    begin                : Lör  22 febr 2003
-    modified		 : Ons  14 febr 2007
-    copyright            : (C) 2003 by Jan Pihlgren
+    Version		 : 0.2
+    begin                : Fre 16 dec  2005
+    Modified		 : Ons 14 febr 2007
+    copyright            : (C) 2005 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
 
@@ -15,17 +15,22 @@
  *   the Free Software Foundation; either version 2 of the License, or     *
  *   (at your option) any later version.                                   *
  *                                                                         *
- ***************************************************************************/
+ *********************************************** ****************************/
 
 /*
-	INPUT: inget argument
-	Function: gör  SELECT * FROM KSTALLE i databasen olfix
+	INPUT: val fakturanr [databas]
 
-	OUTPUT: errornb och error (text)
+	Kommando: ./ KRESCHK val fakturanr [databas]
+
+	Function: Kontrollera om angivet
+	1. fakturanr finns.
+	2. fakturans status (avslutad?)
+
+	OUTPUT: data, errornb och error (text)
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KSTLST.c,v 1.4 2007/02/14 14:56:29 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/KRESCHK.c,v 1.1 2007/02/14 14:58:22 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -35,26 +40,40 @@
 #include <stdlib.h>
 #include <string.h>
 #include "mysql.h"
-#define ANTARG 1
+#define ANTARG 3
 
   MYSQL my_connection;
   MYSQL_RES *res_ptr;
   MYSQL_ROW sqlrow;
 
-int which_database(char *envp[]);
-void display_row();
+  void display_row();
+  int which_database(char *envp[]);
 
-char database[15]="";
+  char database[15]="";
 
 int main(int argc, char *argv[], char *envp[])
 {
+if(argv[1]==NULL){
+	fprintf(stderr,"Ange önskat val!\n");
+	exit(0);
+	}
+if (argv[2]==NULL){
+	fprintf(stderr,"Ange fakturanr!\n");
+	exit(0);
+	}
+  int res,status;
   int i;
-  int res;
-  int status;
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
   char databas[25]="olfix";
-  char usr[21]="";				/* userid 20070214 utökad från 15 till 21 tecken */
+  char usr[21];				/* userid 20070214 utökat från 15 till 21 tecken */
 
+  char temp1a[]="SELECT FAKTURANR FROM KURESK WHERE FAKTURANR = \"";
+  char temp1b[]="SELECT BETALD FROM KURESK WHERE FAKTURANR = \"";
+  char temp2[]="\"";
+  char temp5[200]="";
+  char fakturanr[11]="";
+  char val[3]="";
+  int valt=0;
 /* ================================================================================ */
 /* 		Val av databas, START						    */
 /* ================================================================================ */
@@ -77,7 +96,7 @@ int main(int argc, char *argv[], char *envp[])
   		if (strncmp(argv[ANTARG],"99",2)==0){
 			strncpy(databas,"olfixtst",15);
 		}else{
-  			strncpy(databas,argv[ANTARG],sizeof(databas));	/*2005-02-24	*/
+  			strncpy(databas,argv[ANTARG],15);
   		}
   	}
   }
@@ -91,56 +110,72 @@ int main(int argc, char *argv[], char *envp[])
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
 
+  strncpy(val,argv[1],sizeof(val));
+  valt=atoi(val);
+  if (argv[2] != NULL){
+  	strncpy(fakturanr,argv[2],sizeof(fakturanr));
+  }else{
+  	fprintf(stderr,"Error: KRESCHK: Ange Fakturanummer!\n");
+	exit(-1);
+  }
+/*  fprintf(stderr,"val=%s\n",val);		*/
+
+  if (valt==1){
+  	strncpy(temp5,temp1a,strlen(temp1a));
+	/* SELECT FAKTURANR FROM KURESK WHERE FAKTURANR = "  */
+  	strncat(temp5,fakturanr,strlen(fakturanr));/* 4376 */
+	/* SELECT FAKTURANR FROM KURESK WHERE FAKTURANR = "4376  */
+  	strncat(temp5,temp2,strlen(temp2)); /*  "     */
+	/* SELECT FAKTURANR FROM KURESK WHERE FAKTURANR = "4376" */
+	/*  fprintf(stderr,"KRESCHKmain: temp5 = %s\n",temp5);	*/
+  }
+  if (valt==2){
+  	strncpy(temp5,temp1b,strlen(temp1b));
+	/* SELECT BETALD FROM KURESK WHERE FAKTURANR = "  */
+  	strncat(temp5,fakturanr,strlen(fakturanr));/* 4376 */
+	/* SELECT BETALD FROM KURESK WHERE FAKTURANR = "4376  */
+  	strncat(temp5,temp2,strlen(temp2)); /*  "     */
+	/* SELECT BETALD FROM KURESK WHERE FAKTURANR = "4376" */
+	/*  fprintf(stderr,"KRESCHKmain: temp5 = %s\n",temp5); */
+  }
+  fprintf(stderr,"KRESCHKmain: temp5 = %s\n",temp5);
   mysql_init(&my_connection);
-
   if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
-/*  fprintf(stderr,"USERLST:Connection success\n");	*/
-
-  res = mysql_query(&my_connection,"SELECT * FROM KSTALLE ORDER BY ARID");
-
-  if (res){
-	fprintf(stderr,"Error: KSTLST SELECT error: %s\n",mysql_error(&my_connection));
-        }else{
-	res_ptr=mysql_store_result(&my_connection);
-	if (res_ptr){
-		i=1;
-/*		fprintf(stderr,"KSTLST:Retrieved %lu rows\n",(unsigned long)mysql_num_rows(res_ptr));	*/
-		fprintf(stdout,"NR_%lu_:",(unsigned long)mysql_num_rows(res_ptr));
-		while ((sqlrow=mysql_fetch_row(res_ptr)))  {
-/*			fprintf(stderr,"KSTLST:Fetched data....}");	*/
-/*			fprintf(stdout,"%d ",i);			*/
-			display_row();
-			i++;
+/*  fprintf(stdout,"KRESCHKmain:Connection success\n");	*/
+  	res = mysql_query(&my_connection,temp5);
+  	if (res){
+		fprintf(stderr,"Error: KRESCHK SELECT error: %s\n",mysql_error(&my_connection));
+  	}
+  	else{
+		res_ptr=mysql_store_result(&my_connection);
+		if (res_ptr){
+			if ((unsigned long)mysql_num_rows(res_ptr) < 1 ){
+				fprintf(stdout,"FEL: Post saknas!\n");
+			}else{
+				i=1;
+				fprintf(stdout,"OK: NR_:_%lu_:_",(unsigned long)mysql_num_rows(res_ptr));
+				while ((sqlrow=mysql_fetch_row(res_ptr)))  {
+					display_row();
+					fprintf(stdout,"\n");
+					i++;
+				}
+			}
+			if (mysql_errno(&my_connection)){
+				fprintf(stderr,"Error: KRESCHK Retriev error:  %s\n", mysql_error(&my_connection));
+			}
 		}
-	if (mysql_errno(&my_connection))  {
-		fprintf(stderr,"Error: KSTLST Retriev error:  %s\n", mysql_error(&my_connection));
-		}
+		mysql_free_result(res_ptr);
 	}
-	mysql_free_result(res_ptr);
+  	mysql_close(&my_connection);
+ }
+  else {
+  	fprintf(stderr,"Error: KRESCHK Connection failed\n");
+	if (mysql_errno(&my_connection)){
+		fprintf(stderr,"Error: KRESCHK Connection error %d:  %s\n",
+		mysql_errno(&my_connection), mysql_error(&my_connection));
 	}
-	mysql_close(&my_connection);
-
-  	} else {
-    	fprintf(stderr,"Error: KSTLST Connection failed\n");
-    	if (mysql_errno(&my_connection))   {
-    		fprintf(stderr,"Error: KSTLST Connection error %d:  %s\n",
-			mysql_errno(&my_connection), mysql_error(&my_connection));
-	}
-    }
-  fprintf(stdout,"\n");
-  return EXIT_SUCCESS;
-}
-
-void display_row()
-{
-   unsigned int field_count;
-   field_count=0;
-	while (field_count < mysql_field_count(&my_connection))
-	{
-		fprintf(stdout,"%s_:",sqlrow[field_count]);
-		field_count++;
-	}
-/*	fprintf(stdout,"\n");	*/
+  }
+  return status;
 }
 
 int which_database(char *envp[])
@@ -203,4 +238,16 @@ int which_database(char *envp[])
 /*	fprintf(stderr,"databas=%s\n",database);	*/
 
 	return status;
+}
+
+void display_row()
+{
+   unsigned int field_count;
+   field_count=0;
+	while (field_count < mysql_field_count(&my_connection))
+	{
+		fprintf(stdout,"%s_:_",sqlrow[field_count]);
+		field_count++;
+	}
+/*	fprintf(stdout,"\n");		*/
 }
