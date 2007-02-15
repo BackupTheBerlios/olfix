@@ -1,9 +1,9 @@
 /***************************************************************************
                           LEVADD.c  -  description
                              -------------------
-    Version		 : 0.4
+    Version		 : 0.5
     begin                : Mån  30 juni 2003
-    modified		 : Tors 24 febr 2005
+    modified		 : Tors 15 febr 2007
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -26,7 +26,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVADD.c,v 1.3 2005/02/24 06:47:01 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVADD.c,v 1.4 2007/02/15 04:07:23 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -58,7 +58,7 @@ int main(int argc, char *argv[], char *envp[])
   int status;
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
   char databas[25]="olfix";
-  char usr[15];				/* userid		*/
+  char usr[21];				/* userid 20070215 utökat från 15 till 21 tecken */
 
   char temp1a[]="INSERT INTO LEVREG(LEVNR,LEVORGNR,LEVNAMN,LEVADRESS,LEVPOSTNR,LEVPOSTADR,LEVLAND,LEVTFNNR,LEVFAXNR,LEVTELEX,LEVEMAIL,LEVPOSTGIRONR,LEVBANKGIRONR,LEVREFERENT,LEVREFTFN,LEVMOMSKOD,LEVSKULD,LEVKONTO,LEVKUNDNR,LEVVALUTA,BETALVILKOR) VALUES (";
   char temp2[]="\"";
@@ -96,7 +96,7 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0)
 	exit(status);
 
-  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+  strncpy(usr,userp,sizeof(usr));			/* Den inloggades userid 20070215 */
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){

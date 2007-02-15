@@ -1,9 +1,9 @@
 /***************************************************************************
                           LSDEL.c  -  description
                              -------------------
-    Version		 : 0.1
+    Version		 : 0.2
     begin                : Ons  10 maj	2006
-    modified		 : 
+    modified		 : Tors 15 febr 2007
     copyright            : (C) 2006 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LSDEL.c,v 1.1 2006/05/10 04:02:45 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LSDEL.c,v 1.2 2007/02/15 04:07:23 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -55,7 +55,7 @@ int main(int argc, char *argv[], char *envp[])
   int status;
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
   char databas[25]="olfix";
-  char usr[15];				/* userid		*/
+  char usr[21];				/* userid 20070215 utökat från 15 till 21 tecken */
 
   char temp1[]="DELETE FROM LAGERSTELLEREG WHERE ARLAGST = \"";
   char temp1b[]=" AND ARTIKELNR = \"";
@@ -73,7 +73,7 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0)
 	exit(status);
 
-  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+  strncpy(usr,userp,sizeof(usr));			/* Den inloggades userid 20070215 */
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
 		strncpy(databas,database,sizeof(databas));

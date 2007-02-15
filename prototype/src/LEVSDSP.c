@@ -2,9 +2,9 @@
                           LEVSDSP.c  -  description
                              -------------------
 			     Visa leveranssätt
-    Version		 : 0.2
+    Version		 : 0.3
     begin                : Ons   4 febr 2004
-    modified		 : Tors 24 febr 2005
+    modified		 : Tors 15 febr 2007
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -29,7 +29,7 @@
 
  ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVSDSP.c,v 1.3 2005/02/24 07:32:11 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/LEVSDSP.c,v 1.4 2007/02/15 04:07:23 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -52,9 +52,9 @@ int main(int argc, char *argv[], char *envp[])
 //  MYSQL my_connection;
   int res;
   int status;
-  const char *userp = getenv("USER");	// vem ?r inloggad?
+  const char *userp = getenv("USER");	/* vem ?r inloggad? */
   char databas[25]="olfix";
-  char usr[15];		// userid
+  char usr[21];		/* userid 20070215 utökat från 15 till 21 tecken */
 
   char temp1[]="SELECT * FROM LEVSETT WHERE LEVSETTNR = \"";
   char temp2[]="\"";
@@ -74,7 +74,7 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0)
 	exit(status);
 
-  strncpy(usr,userp,15);			// Den inloggades userid
+  strncpy(usr,userp,sizeof(usr));			/* Den inloggades userid 20070215 */
 
   if (argc<3){
     	if (strlen(database)!= 0){
