@@ -1,9 +1,9 @@
 /***************************************************************************
                           STYRMAN.c  -  description
                              -------------------
-			     ver 0.13
+			     ver 0.14
     begin                : Mån  30 juni  2003
-    Modified		 : Tis  31 jan   2006
+    Modified		 : Sön  11 febr  2007
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -15,7 +15,7 @@
                   OUTPUT:  errno, error (text)
 ****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.9 2006/01/31 09:10:03 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.10 2007/02/15 11:12:41 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -58,20 +58,20 @@ int main(int argc, char *argv[], char *envp[])
 {
   int status=-15;
   int i;
-  char anv[9]="";			/* 2004-11-11		*/
+  char anv[21]="";			/* 20070211 utökat från 9 till 21 tecken		*/
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
 /*  char databas[25]="olfix";	*/
-  char usr[15];		/* userid	*/
+  char usr[21];				/* userid	utökad 2007-02-11 från 15 till 21 */
   char transid[9]="";			/* 2004-11-11	*/
 
   status = find_tmp_path(envp);
   if (status != 0)
 	exit(status);
-/*
+
   for (i=0; i<= argc;i++){
 	fprintf(stderr,"styrman arg = %d %s\n",i,argv[i]);
 	 }
-*/
+
 /* ================================================================================	*/
 /* 		Val av databas, START							*/
 /* ================================================================================	*/
@@ -81,7 +81,7 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0)
 	exit(status);
 
-  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+  strncpy(usr,userp,sizeof(usr));		/* Den inloggades userid 2007-02-11	*/
 
   if (strlen(database)!= 0){
 	strncpy(databas,database,sizeof(databas));	/* 2005-02-24	*/
@@ -102,8 +102,8 @@ int main(int argc, char *argv[], char *envp[])
 /*	fprintf(stderr,"argv[3]=%s\n",argv[3]);		*/
 
       strncpy(anv,argv[1],sizeof(anv));			/* 2005-02-24	*/
-/*      fprintf(stderr,"argv[1]=%s\n",argv[1]);	*/
-/*	strncpy(anv,argv[1],strlen(anv));	*/
+/*      fprintf(stderr,"argv[1]=%s\n",argv[1]);	 */
+	strncpy(anv,argv[1],strlen(anv));	
 /*      for (i = 0;i <= 8;i++){			*/
 	for (i = 0;i <= strlen(argv[1]);i++){		/* 2004-11-11	*/
 		anv[i]=toupper(anv[i]);
@@ -179,7 +179,7 @@ int do_Trans(int argnbr, char *trans[])
 /*	for (i=0;i<=argnbr;i++){				*/
 /*		fprintf(stderr,"trans[%d] = %s\n",i,trans[i]);	*/
 /*	}							*/
-/*	fprintf(stderr,"func=%s\n",func);			*/
+	fprintf(stderr,"func=%s\n",func);			
 
 	pipe(fds);
 	pid =fork();
@@ -335,7 +335,7 @@ int check_User(char *user)
   int status=15;
 /* Start	2004-11-11			*/
   int i;
-  char anv[9]="";
+  char anv[21]="";				/* 20070211*/
   strncpy(anv,user,strlen(user));
 /*  fprintf(stderr,"1.anv=%s\n",anv);		*/
   for (i = 0;i <= strlen(anv);i++){
