@@ -41,44 +41,6 @@
             <string>Textnr:</string>
         </property>
     </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonOK</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>260</y>
-                <width>51</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>OK</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonQuit</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>70</x>
-                <y>260</y>
-                <width>61</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Avsluta</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>TextLabel1_2</cstring>
@@ -93,22 +55,6 @@
         </property>
         <property name="text">
             <string>Text:</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditTextNr</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>55</x>
-                <y>30</y>
-                <width>40</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Ange ett värde mellan 001 och 999.</string>
         </property>
     </widget>
     <widget class="QTextEdit">
@@ -140,6 +86,60 @@
             <string>Hjälp</string>
         </property>
     </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>260</y>
+                <width>51</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>OK</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonQuit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>70</x>
+                <y>260</y>
+                <width>61</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avsluta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditTextNr</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>55</x>
+                <y>30</y>
+                <width>40</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Ange ett värde mellan 001 och 999.</string>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
@@ -147,12 +147,6 @@
         <signal>clicked()</signal>
         <receiver>frmAddTxt</receiver>
         <slot>close()</slot>
-    </connection>
-    <connection>
-        <sender>LineEditTextNr</sender>
-        <signal>returnPressed()</signal>
-        <receiver>frmAddTxt</receiver>
-        <slot>slotTextNr_returnPressed()</slot>
     </connection>
     <connection>
         <sender>textEditText</sender>
@@ -178,6 +172,12 @@
         <receiver>frmAddTxt</receiver>
         <slot>slotHelp()</slot>
     </connection>
+    <connection>
+        <sender>LineEditTextNr</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmAddTxt</receiver>
+        <slot>slotTextNr_returnPressed()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>LineEditTextNr</tabstop>
@@ -199,6 +199,9 @@
     <slot>TestText()</slot>
     <slot>slotHelp()</slot>
     <slot>readResursFil()</slot>
+    <slot>checkTextnr( QString txtnr )</slot>
+    <slot>slotCheckEndOfProcess()</slot>
+    <slot>slotCheckDataOnStdout()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
