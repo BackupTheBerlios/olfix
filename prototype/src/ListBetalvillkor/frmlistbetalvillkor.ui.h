@@ -8,8 +8,9 @@
 /***************************************************************************
                           LSTBETVW  -  description
                              -------------------
-		     version 0.1
+		     version 0.2
     begin                : Lör 22 nov 2003
+    modified          : Fre 16 febr 2007
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -41,21 +42,26 @@
 
 void frmListBetalvillkor::init()
 {
+    qDebug("Start 1");
     PushButtonSluta->setFocus();
     frmListBetalvillkor::GetBetalvillkor();
+    qDebug("Start 2");
 }	
 	
 void frmListBetalvillkor::GetBetalvillkor()	
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
+               QString usr(userp);
+	
+                inrad="";
+	errorrad="";
 	
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX huvudprogram
 	process->addArgument(usr);		// userid
 	process->addArgument( "BETLST");	// OLFIX funktion
 	
-//	fprintf(stderr,"Starta STYRMAN/BETLST! %s\n",user);
+//	fprintf(stderr,"Starta STYRMAN/BETLST! %s\n",usr.latin1());
 	
 	frmListBetalvillkor::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmListBetalvillkor::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );	
@@ -72,7 +78,7 @@ void frmListBetalvillkor::GetBetalvillkor()
 	
 void frmListBetalvillkor::slotEndOfProcess()
 {
-    QString listrad;
+    QString listrad="";
 //	rad=&inrad;
 //	inrad.latin1();
   char *pos1;

@@ -3,7 +3,7 @@
 ######################################################################
 
 TARGET=LSTBETVW
-DESTDIR+=/opt/olfix/bin
+DESTDIR+=/home/jan/Development/OLFIX/bin
 TEMPLATE = app
 INCLUDEPATH += .
 
