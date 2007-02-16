@@ -1,9 +1,9 @@
 /***************************************************************************
                           STYRMAN.c  -  description
                              -------------------
-			     ver 0.14
+			     ver 0.15
     begin                : Mån  30 juni  2003
-    Modified		 : Sön  11 febr  2007
+    Modified		 : Sön  16 febr  2007
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -15,7 +15,7 @@
                   OUTPUT:  errno, error (text)
 ****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.10 2007/02/15 11:12:41 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.11 2007/02/16 06:05:43 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -67,11 +67,11 @@ int main(int argc, char *argv[], char *envp[])
   status = find_tmp_path(envp);
   if (status != 0)
 	exit(status);
-
+/*
   for (i=0; i<= argc;i++){
 	fprintf(stderr,"styrman arg = %d %s\n",i,argv[i]);
 	 }
-
+*/
 /* ================================================================================	*/
 /* 		Val av databas, START							*/
 /* ================================================================================	*/
@@ -179,7 +179,7 @@ int do_Trans(int argnbr, char *trans[])
 /*	for (i=0;i<=argnbr;i++){				*/
 /*		fprintf(stderr,"trans[%d] = %s\n",i,trans[i]);	*/
 /*	}							*/
-	fprintf(stderr,"func=%s\n",func);			
+/*	fprintf(stderr,"func=%s\n",func);			*/
 
 	pipe(fds);
 	pid =fork();
