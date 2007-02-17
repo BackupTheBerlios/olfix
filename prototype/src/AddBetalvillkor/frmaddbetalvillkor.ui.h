@@ -8,8 +8,9 @@
 /***************************************************************************
                           ADDBETVW  -  description
                              ---------------
-    version	: 0.1
+    version	           : 0.2
     begin                   : Lör 22 nov 2003
+    modified	           : Fre 16 febr 2007
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,6 +29,7 @@
 #include <qstring.h>		
 #include <qfile.h>
 #include <qregexp.h>
+#include <qvalidator.h> 		/* 20070216 */
 #define MAXSTRING 5000
 
     QProcess* process;
@@ -37,11 +39,42 @@
     QString betvillk;
     QString dagar;
     QString beskrivning;
+    bool toggled=FALSE;
     
+    QRegExp rx2( "[0-9]{3}" );    		/* 20070216 */
+    QRegExpValidator validator2( rx2, 0 );	/* 20070216 */
     
 void frmAddBetalvillkor::init()
 {
+/*    LineEditBetvillkor->setValidator(&validator2); */	/* 20070216 */
+/*    LineEditDagar->setValidator(&validator2); */	/* 20070216 */
     LineEditBetvillkor->setFocus();
+}
+
+
+void frmAddBetalvillkor::slotBetvillkorEntered()
+{
+    betvillk=LineEditBetvillkor->text();    
+    if (betvillk.length() > 0 && betvillk.length() < 3){
+		QMessageBox::information( this, "ADDBETVW",
+		"Antal tecken ska var 3!\n Vid behov, fyll i med inledande nollor.\n"
+		);
+		LineEditBetvillkor->setFocus();
+		LineEditBetvillkor->selectAll();
+	    }else{
+		LineEditDagar->setFocus();
+	    }	    
+}
+
+void frmAddBetalvillkor::slotDagarEntered()
+{
+    dagar=LineEditDagar->text();
+}
+
+void frmAddBetalvillkor::slotBeskrivningEntered()
+{
+    beskrivning=LineEditBeskrivning->text();
+    PushButtonOK->setFocus();
 }
 
 void frmAddBetalvillkor::slotAddBetvillkor()
@@ -50,7 +83,7 @@ void frmAddBetalvillkor::slotAddBetvillkor()
 /*	Uppdatera databasen						*/
 /************************************************************************/
 	const char *userp = getenv("USER");
-            QString usr(userp);
+                QString usr(userp);
 	   
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
@@ -62,7 +95,7 @@ void frmAddBetalvillkor::slotAddBetvillkor()
 	
 	frmAddBetalvillkor::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmAddBetalvillkor::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-            frmAddBetalvillkor::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
+                frmAddBetalvillkor::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
  
 	if (betvillk == "" || dagar ==""){
     	    QMessageBox::warning( this, "ADDBETVW",
@@ -78,27 +111,6 @@ void frmAddBetalvillkor::slotAddBetvillkor()
 	    }   
 	}
 }
-
-void frmAddBetalvillkor::slotBetvillkorEntered()
-{
-    betvillk=LineEditBetvillkor->text();
-//    betvillk=betvillk.upper();
-//    LineEditBetvillkor->setText((betvillk));
-    LineEditDagar->setFocus();
-}
-
-void frmAddBetalvillkor::slotDagarEntered()
-{
-    dagar=LineEditDagar->text();
-    LineEditBeskrivning->setFocus();
-}
-
-void frmAddBetalvillkor::slotBeskrivningEntered()
-{
-    beskrivning=LineEditBeskrivning->text();
-    PushButtonOK->setFocus();
-}
-
 
 void frmAddBetalvillkor::slotDataOnStdout()
 {
@@ -148,5 +160,25 @@ void frmAddBetalvillkor::slotEndOfProcess()
 
 void frmAddBetalvillkor::PushButtonOK_clicked()
 {
-    frmAddBetalvillkor::slotAddBetvillkor();
+    if (betvillk.length() == 0 || dagar.length() == 0 ){
+	if (betvillk.length() == 0){
+		QMessageBox::information( this, "ADDBETVW",
+		"Antal tecken ska var 3!\n Vid behov, fyll i med inledande nollor.\n"
+		);
+		LineEditBetvillkor->setFocus();		
+	    }    
+	if (dagar.length() == 0){
+		QMessageBox::information( this, "ADDBETVW",
+		"Dagar måste fyllas i!\n"
+		);
+		LineEditDagar->setFocus();
+	    }
+       }else{
+	frmAddBetalvillkor::slotAddBetvillkor();
+      }
+}
+
+void frmAddBetalvillkor::PushButtonQuit_toggled()
+{
+    toggled=TRUE;
 }
