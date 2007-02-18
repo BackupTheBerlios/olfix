@@ -8,10 +8,11 @@
 /***************************************************************************
                           CHGBETVW  -  description
                              ---------------
-    version	: 0.1
-    begin                   : Fre 28 nov 2003
+    version	            : 0.2
+    begin                   : Fre 28 nov  2003
+    modified	            : Sön 18 febr 2007
     copyright            : (C) 2003 by Jan Pihlgren
-    email                : jan@pihlgren.se
+    email                   : jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
  *					                                                 *
@@ -31,12 +32,14 @@
 #define MAXSTRING 5000
 
     QProcess* process;
+     QProcess* proc;
     QString inrad;
     QString* rad;
     QString errorrad;
     QString betvillk;
     QString dagar;
     QString beskrivning;
+    QString hjelpfil;
     
     
 void frmChgBetalvillkor::init()
@@ -50,7 +53,7 @@ void frmChgBetalvillkor::slotChgBetvillkor()
 /*	Uppdatera databasen						*/
 /************************************************************************/
 	const char *userp = getenv("USER");
-            QString usr(userp);
+               QString usr(userp);
 	   
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
@@ -82,7 +85,7 @@ void frmChgBetalvillkor::slotChgBetvillkor()
 void frmChgBetalvillkor::slotBetvillkorEntered()
 {
     betvillk=LineEditBetvillkor->text();
-     frmChgBetalvillkor::GetData();
+    frmChgBetalvillkor::GetData();
     LineEditDagar->setFocus();
 }
 
@@ -165,8 +168,9 @@ void frmChgBetalvillkor::GetData()
 /*	Hämta data från databasen						*/
 /************************************************************************/
 	const char *userp = getenv("USER");
-            QString usr(userp);
-	   
+	QString usr(userp);
+	
+	inrad="";
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// userid
@@ -175,12 +179,13 @@ void frmChgBetalvillkor::GetData()
 	
 	frmChgBetalvillkor::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmChgBetalvillkor::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-            frmChgBetalvillkor::connect( process, SIGNAL(processExited() ),this, SLOT(slotGetDataEndOfProcess() ) );
+	frmChgBetalvillkor::connect( process, SIGNAL(processExited() ),this, SLOT(slotGetDataEndOfProcess() ) );
  
 	    if (betvillk == ""){
     	    QMessageBox::warning( this, "CHGBETVW",
-                      "Betalningsvillkor saknas! \n" );
+                      "Betalningsvillkor måste anges! \n" );
 	    LineEditBetvillkor->setFocus();
+	    return;
 	}
 	else {
 	    if ( !process->start() ) {
@@ -193,11 +198,10 @@ void frmChgBetalvillkor::GetData()
 
 }
 
-
 void frmChgBetalvillkor::slotGetDataEndOfProcess()
 {
     int i,j,m;
-//    qDebug("inrad=%s",inrad.latin1());
+//   qDebug("inrad=%s",inrad.latin1());
     i = -1;
     i = errorrad.find( QRegExp("Error:"), 0 );
     if (i != -1) {
@@ -210,17 +214,78 @@ void frmChgBetalvillkor::slotGetDataEndOfProcess()
      i = -1;
      i = inrad.find( QRegExp("DAGAR:"), 0 );
      if (i != -1) {
-	 dagar=inrad.mid(i+7,3);
+	 dagar=inrad.mid(i+6,3);
+	 dagar=dagar.stripWhiteSpace();
 	 LineEditDagar->setText(dagar);
      }
      j = -1;
+     i = -1;
      m=0;
      j = inrad.find( QRegExp("BESKRIVNING:"), 0 );
+     i = inrad.find(QRegExp("END:"),0);
      if (j != -1) {
-	 m = inrad.length();
-	 beskrivning=inrad.mid(j+13,m-47);
+//	 inrad=inrad.stripWhiteSpace();
+//	 m = inrad.length();
+	 m = i-(j+13);
+	 beskrivning=inrad.mid(j+12,m);
+	 beskrivning=beskrivning.stripWhiteSpace();
 	 LineEditBeskrivning->setText(beskrivning);
+//	 qDebug("m=%d  j=%d j+beskr=%d",m,j,j+12);          
      }
 //     qDebug("m=%d  j=%d j+beskr=%d",m,j,j+12);          
      inrad="";
 }
+
+void frmChgBetalvillkor::slotHelp()			// 2007-01-31
+{
+	inrad="";
+	frmChgBetalvillkor::readResursFil();			// Hämta path till hjälpfilen
+	
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_ADMINISTRATION.html";
+	hjelpfil=hjelpfil+"#CHGBETV";			// Lägg till position
+/*	qDebug("hjelpfil=%s",hjelpfil.latin1());	*/
+
+	proc = new QProcess();
+	proc->addArgument( "./OLFIXHLP" );			// OLFIX program
+	proc->addArgument(hjelpfil);
+
+	if ( !proc->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
+	}
+}
+
+void frmChgBetalvillkor::readResursFil()			// 2007-01-31
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			            	*/
+    /* Plocka fram var hjälpfilen finns			*/
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+ 
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 ); 
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
+}
+
