@@ -111,3 +111,4 @@
 "111","Försäljning","Offerter","Skriv ut en offert","PRTOFFW"
 "112","Försäljning","Offerter","Göra en offert till order","OFF2ORDW"
 "113","Administration","Behörighetsadministration","Tilldela en användare total behörigheter","TOTRGTW"
+"114","Administration","Betalningsvillkor","Radera betalningsvillkor","DELBETVW"

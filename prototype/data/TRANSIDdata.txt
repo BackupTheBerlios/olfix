@@ -24,6 +24,7 @@
 "BETCHG","Ändra data för betalningsvillkor"
 "BETDSP","Visa ett betalningsvillkor"
 "BETLST","Lista betalningsvillkor"
+"BETVDEL","Ta bort ett betalningsvillkor"
 "BOKF","Bokföringsprogram"
 "DATABASE","Byta databas"
 "DBCHK","Lista databaser registrerade i databasen mysql"
