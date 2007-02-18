@@ -1,9 +1,9 @@
 /***************************************************************************
                           RGTLST.c  -  description
                              -------------------
-    Version		 : 0.3
+    Version		 : 0.4
     begin                : mån   6 jan	2003
-    modified		 : Tors 24 febr	2005
+    modified		 : Sön  18 febr	2007
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -25,7 +25,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/RGTLST.c,v 1.3 2005/02/24 10:03:23 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/RGTLST.c,v 1.4 2007/02/18 10:49:45 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -53,7 +53,7 @@ int main(int argc, char *argv[], char *envp[])
   int status;
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
   char databas[25]="olfix";
-  char usr[15];				/* userid		*/
+  char usr[21];				/* userid 20070218 utökat från 15 till 21 tecken */
 
 /* ================================================================================ */
 /* 		Val av databas, START						    */
@@ -64,7 +64,7 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0)
 	exit(status);
 
-  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+  strncpy(usr,userp,sizeof(usr));			/* Den inloggades userid 20070218 */
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){

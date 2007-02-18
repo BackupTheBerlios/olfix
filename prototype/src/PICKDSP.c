@@ -2,9 +2,9 @@
                           PICKDSP.c  -  description
                              -------------------
 			     Visa en plocklistas information. Kundorder.
-			     Ver: 0.1
+			     Ver: 0.
     begin                : Sön  23 okt  2005
-    modified		 :
+    modified		 : Sön  18 febr 2007
     copyright            : (C) 2005 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -36,7 +36,7 @@ END
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PICKDSP.c,v 1.1 2005/10/23 13:12:13 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PICKDSP.c,v 1.2 2007/02/18 10:49:45 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -65,7 +65,7 @@ int main(int argc, char *argv[], char *envp[])
   int status;
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
   char databas[25]="olfix";
-  char usr[15];				/* userid		*/
+  char usr[21];				/* userid 20070218 utökat från 15 till 21 tecken */
   char datum[11];			/* plockdatum		*/
   int num_rows;
   getDatum();
@@ -78,7 +78,7 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0)
 	exit(status);
 
-  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+  strncpy(usr,userp,sizeof(usr));			/* Den inloggades userid 20070218 */
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){

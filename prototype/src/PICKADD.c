@@ -3,9 +3,9 @@
                              -------------------
 			     Uppdatera PLOCKLISTEREG med plockdata.
 			     Orderhuvud.
-    Version		 : 0.1
+    Version		 : 0.2
     begin                : Tors  20 okt  2005
-    Modified		 :
+    Modified		 : Sön   18 febr 2007
     copyright            : (C) 2005 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -34,7 +34,7 @@ Fältavskiljare = _:_
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PICKADD.c,v 1.2 2005/10/22 04:44:39 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PICKADD.c,v 1.3 2007/02/18 10:49:45 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -58,8 +58,8 @@ int main(int argc, char *argv[], char *envp[])
 {
   int res,status;
   char databas[25]="olfix";
-  const char *userp = getenv("USER");	// vem är inloggad?
-  char usr[15];				// userid
+  const char *userp = getenv("USER");	/* vem är inloggad? */
+  char usr[21];				/* userid 20070218 utökat från 15 till 21 tecken */
 
   char temp1a[]="INSERT INTO PLOCKLISTEREG (ORDERNR,ORDERRAD,KUNDNR,ARTIKELNR,BENEMNING,LEVERANSVECKA,BESTELLT,ATTLEVERERA,LEVERERAT,PLOCKAT,RESTNOTERAT,LEVDATUM,ENHET,PLOCKSTATUS,PLOCKDATUM) VALUES (";
 //  char temp1b[]="P";
@@ -82,7 +82,7 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0)
 	exit(status);
 
-  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+  strncpy(usr,userp,sizeof(usr));			/* Den inloggades userid 20070218 */
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){

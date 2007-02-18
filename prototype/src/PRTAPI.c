@@ -26,7 +26,7 @@
 	OUTPUT:
  *****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PRTAPI.c,v 1.5 2005/02/26 11:49:34 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PRTAPI.c,v 1.6 2007/02/18 10:49:45 janpihlgren Exp $ " ;
 
 #include <string.h>
 #include <stdlib.h>

@@ -30,7 +30,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PICKLST.c,v 1.1 2005/10/22 04:45:44 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PICKLST.c,v 1.2 2007/02/18 10:49:45 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -102,7 +102,7 @@ int main(int argc, char *argv[], char *envp[])
 /* ================================================================================ */
 /* 		Val av databas, END!						    */
 /* ================================================================================ */
-
+/*
   if (argv[1] != NULL){
   	strncpy(plockdata,argv[1],sizeof(plockdata));
   }
@@ -110,6 +110,7 @@ int main(int argc, char *argv[], char *envp[])
   	fprintf(stderr,"Error: PICKLST: Ange plockdata!\n");
 	exit(-1);
   }
+*/  
   strncpy(temp5,temp1a,sizeof(temp1a));
 
 /* fprintf(stderr,"\nPICKLST: temp5 = %s\n\n",temp5);	*/

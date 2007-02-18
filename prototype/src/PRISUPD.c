@@ -1,9 +1,9 @@
 /***************************************************************************
                           PRISUPD.c  -  description
                              -------------------
-    Version		 : 0.1
-    begin                : Tis 24 jan 2006
-    modified		 :
+    Version		 : 0.2
+    begin                : Tis 24 jan  2006
+    modified		 : Sön 18 febr 2007
     copyright            : (C) 2006 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PRISUPD.c,v 1.1 2006/01/29 08:14:29 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PRISUPD.c,v 1.2 2007/02/18 10:49:45 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -73,7 +73,7 @@ int main(int argc, char *argv[], char *envp[])
   char pricelist[3]="";
 
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
-  char usr[15]="";			/* userid		*/
+  char usr[21]="";			/* userid 20070218 utökat från 15 till 21 tecken */
 
   char temp0a[]="UPDATE IGNORE ARTIKELREG SET ARFPRIS = \"";
   char temp0b[]="\" WHERE ARTIKELNR = \"";
@@ -114,7 +114,7 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0){
 	exit(status);
   }
-  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+  strncpy(usr,userp,sizeof(usr));			/* Den inloggades userid 20070218 */
   /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){

@@ -30,7 +30,7 @@
 
 ***************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PKDDSP.c,v 1.1 2005/03/09 07:28:21 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/PKDDSP.c,v 1.2 2007/02/18 10:49:45 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -153,7 +153,7 @@ int main(int argc, char *argv[], char *envp[])
 			fprintf(stdout,"\n");
 		}
 		else{
-			fprintf(stderr,"Error: PKDDSP Data saknas:  %s\n", mysql_error(&my_connection));
+			fprintf(stderr,"Warning: PKDDSP Data saknas:  %s\n", mysql_error(&my_connection));
 		}
 		if (mysql_errno(&my_connection))  {
 		fprintf(stderr,"Error: PKDDSP Retriev error:  %s\n", mysql_error(&my_connection));
