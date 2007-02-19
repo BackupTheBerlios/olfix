@@ -1,9 +1,9 @@
 /***************************************************************************
                           TXTDEL.c  -  description
                              -------------------
-    Version		 : 0.2
+    Version		 : 0.3
     begin                : Fre  12 dec	2003
-    modified		 : Tors 24 febr 2005
+    modified		 : Mån  19 febr 2007
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/TXTDEL.c,v 1.2 2005/02/24 11:52:55 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/TXTDEL.c,v 1.3 2007/02/19 06:01:14 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -55,7 +55,7 @@ int main(int argc, char *argv[], char *envp[])
   int status;
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
   char databas[25]="olfix";
-  char usr[15];				/* userid		*/
+  char usr[21];				/* userid 20070219 utökat från 15 till 21 tecken */
 
   char temp1[]="DELETE FROM TEXTREG WHERE TEXTNR = \"";
   char temp2[]="\"";
@@ -71,7 +71,7 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0)
 	exit(status);
 
-  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+  strncpy(usr,userp,sizeof(usr));			/* Den inloggades userid 20070219 */
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){

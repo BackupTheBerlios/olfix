@@ -1,9 +1,9 @@
 /***************************************************************************
                           TRHDADD.c  -  description
                              -------------------
-    Version		 : 0.3
+    Version		 : 0.4
     begin                : fre   1 nov  2002
-    modified		 : Tors 24 febr 2005
+    modified		 : Mån  19 febr 2007
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -25,7 +25,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/TRHDADD.c,v 1.3 2005/02/24 10:47:33 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/TRHDADD.c,v 1.4 2007/02/19 06:01:13 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -52,7 +52,7 @@ int main(int argc, char *argv[], char *envp[])
   int status;
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
   char databas[25]="olfix";
-  char usr[15];				/* userid		*/
+  char usr[21];				/* userid 20070219 utökat från 15 till 21 tecken */
 
 
   char temp1[]="INSERT INTO TRHD(TRNSID,TID,USERID,TRNSDATA) VALUES (\"";
@@ -62,7 +62,7 @@ int main(int argc, char *argv[], char *envp[])
   char temp5[TRNSSIZE+200]="";
   char trnsid[9]="";
   char trnstid[21]="";
-  char userid[9]="";
+  char userid[21]="";			/* 20070219 utökat från 9 till 21 tecken */ 
   char trnstxt[TRNSSIZE]="";
 
 /*
@@ -83,7 +83,7 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0)
 	exit(status);
 
-  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+  strncpy(usr,userp,sizeof(usr));			/* Den inloggades userid 20070219 */
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
@@ -128,7 +128,7 @@ int main(int argc, char *argv[], char *envp[])
   strncat(temp5,temp3,strlen(temp3)); /*  ,     */
   strncat(temp5,temp2,strlen(temp2)); /*  "     */
 /* INSERT INTO TRHD(TRNSID,TID,USERID,TRNSDATA) VALUES ("VERADD","2002-11-01_08:56:51"," */
-  strncat(temp5,userid,strlen(userid));
+  strncat(temp5,userid,sizeof(userid));	/* 20070219 */
 /* INSERT INTO TRHD(TRNSID,TID,USERID,TRNSDATA) VALUES ("VERADD","2002-11-01_08:56:51","olfix */
   strncat(temp5,temp2,strlen(temp2)); /*  "     */
   strncat(temp5,temp3,strlen(temp3)); /*  ,     */
