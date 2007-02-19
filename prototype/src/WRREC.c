@@ -1,9 +1,9 @@
 /***************************************************************************
                           WRREC.c  -  description
                              -------------------
-			     version 0.2
+			     version 0.3
     begin                : Sön  10 aug  2003
-    modified		 : Tors 24 febr 2005
+    modified		 : Mån  19 febr 2007
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 	OUTPUT: filen /tmp/vernr.txt
  *****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/WRREC.c,v 1.6 2005/02/24 13:28:41 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/WRREC.c,v 1.7 2007/02/19 07:03:19 janpihlgren Exp $ " ;
 
 #include <string.h>
 #include <stdlib.h>
@@ -59,7 +59,7 @@ int main (int argc, char *argv[], char *envp[])
 	char subkto[5]="";
 
 	char datum[11]="";
-	char userid[9]="";
+	char userid[21]="";	/* 20070219 utökat från 9 till 21 tecken */
 	char vertext[101]="";
 
 	char filler1[11]="";

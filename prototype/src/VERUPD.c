@@ -1,9 +1,9 @@
 /***************************************************************************
                           VERUPD.c  -  description
                              -------------------
-    Version		 : 0.9
+    Version		 : 0.91
     begin                : Tis  29 april 2003
-    modified		 : Tors 24 febr  2005
+    modified		 : Mån  19 febr  2007
     copyright            : (C) 2002 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -28,7 +28,7 @@
 	OUTPUT: errornb och error (text)
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/VERUPD.c,v 1.6 2005/02/24 13:11:13 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/VERUPD.c,v 1.7 2007/02/19 07:03:19 janpihlgren Exp $ " ;
 
 
 #ifdef HAVE_CONFIG_H
@@ -54,7 +54,7 @@
   MYSQL_ROW sqlrow;
 
 char tid[22]="";
-char userid[9]="";
+char userid[21]=""; 		/* 20070219 utökat från 9 till 21 tecken */
 char tmpfilepath[50]="";
 char database[15]="";
 char databas[25]="olfix";
@@ -73,7 +73,7 @@ int main(int argc, char *argv[], char *envp[])
 /*  int res;	*/
   const char *userp = getenv("USER");	/* vem är inloggad?	*/
 
-  char usr[15];				/* userid		*/
+  char usr[21];				/* userid 20070219 utökat från 15 till 21 tecken */
 
   char vrnrfil[50]="";
   char post[MAXSIZE]="";
@@ -96,7 +96,7 @@ int main(int argc, char *argv[], char *envp[])
   if (status != 0)
 	exit(status);
 
-  strncpy(usr,userp,15);			/* Den inloggades userid	*/
+  strncpy(usr,userp,sizeof(usr));			/* Den inloggades userid 20070219 */
 /*  fprintf(stderr,"status=%d ANTARG=%d len(database)=%d\n",status,ANTARG,strlen(database));	*/
   if (argc < ANTARG+1){
     	if (strlen(database)!= 0){
@@ -207,7 +207,7 @@ int updateVERHUVUD(char hpost[MAXSIZE])
 /*   char subkto[5]="";			*/
    char datum[11]="";
    char regdat[11]="";
-/*   char userid[9]="";		*/
+/*   char userid[21]="";		*/
    char vertext[101]="";
    char *pos;
    char korrigerar[9]="";
@@ -231,7 +231,7 @@ int updateVERHUVUD(char hpost[MAXSIZE])
    }
    strncpy(datum,pos+48,10);
    strncpy(regdat,pos+48,10);
-   strncpy(userid,pos+59,8);
+   strncpy(userid,pos+59,20);		/* 20070219 utökat från 8 till 20 */
    strncpy(vertext,pos+68,60);
 /*	fprintf(stderr,"bar=%s vernr=%s radnr=%s ktonr=%s dk=%s belopp=%s\n",bar,vernr,radnr,ktonr,dk,belopp);	*/
 /*	fprintf(stderr,"kst=%s subkont=%s datum=%s userid=%s vertext=%s\n",kst,subkto,datum,userid,vertext);	*/
