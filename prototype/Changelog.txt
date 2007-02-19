@@ -1,5 +1,219 @@
-Changelog OLFIX 20070131
+Changelog OLFIX 20070219
 
+Ver 0.5.3.B
+2007-02-19
+		Allmänt
+		Nu kan man använda upp till 20 tecken i userid för OLFIX
+
+		Nytt program
+		DELBETW		Borttag av betalningsvillkor.
+
+		Ändrade program
+		ADDUSRW		Lagt till en hjälpknapp 
+				Plats för 20 tecken i UserID.
+		ATTBETW		Buggrättning (kompletering)
+		OLFIXTW		Dölja programnamnen i huvudmenyn.(inte perfekt!)
+				Döljer genom att bredda kolummen Funktioner.
+		LISTFORW	Buggrättning						(0051)
+		LSTBETVW	Buggrättning (uppdatering )				(0053)
+		DSPTXTW		Buggrättning						(0059)
+		ADDTXTW		Kompleterat med varning för upptaget nr.		(0060)
+		ADDBETVW	Justerat för antal tecken (min 3) i villkor och dagar	(0062)
+		CHGBETVW	Buggrättning + hjälpknapp				(0063)
+
+		Ändrade tabeller
+		USR		Utökat fält USERID till 20 tecken
+				(För framtida behov)
+		RIGHTS		Utökat fält USERID till 20 tecken
+				(För framtida behov)
+		KURESK		Utökat fält USERID till 20 tecken
+				(För framtida behov)
+		LEVRESK		Utökat fält USERID till 20 tecken
+				(För framtida behov)
+		VERHUVUD	Utökat fält USERID till 20 tecken
+				(För framtida behov)
+
+		Nya funktioner
+		BETVDEL		Borttag av bettalningsvillkor i  reg BETVILKOR
+
+		Ändrade funktioner
+		ADMIN.c		Utökat fält userid från 9 till 21 tecken.
+		AR2ADD.c	Utökat fält usr från 15 till 21 tecken.
+		AR2UPD.c	Utökat fält usr från 15 till 21 tecken.
+		ARADD.c		Utökat fält usr från 15 till 21 tecken.
+		ARCHG.c		Utökat fält usr från 15 till 21 tecken.
+		ARCHGL.c	Utökat fält usr från 15 till 21 tecken.
+		ARCHK.c		Utökat fält usr från 15 till 21 tecken.
+		ARDSP.c		Utökat fält usr från 15 till 21 tecken.
+		ARDSPL.c	Utökat fält usr från 15 till 21 tecken.
+		ARICHK.c	Utökat fält usr från 15 till 21 tecken.
+		ARLSPK.c	Utökat fält usr från 15 till 21 tecken.
+		ARLST.c		Utökat fält usr från 15 till 21 tecken.
+		ARLSTL.c	Utökat fält usr från 15 till 21 tecken.
+		ARSRCH.c	Utökat fält usr från 15 till 21 tecken.
+		ATTBET.c	Utökat fält usr från 15 till 21 tecken.
+		BARADD.c	Utökat fält usr från 15 till 21 tecken.
+		BARCHG.c	Utökat fält usr från 15 till 21 tecken.
+		BARCHK.c	Utökat fält usr från 15 till 21 tecken.
+		BARFND.c	Utökat fält usr från 15 till 21 tecken.
+		BARLST.c	Utökat fält usr från 15 till 21 tecken.
+		BETADD.c	Utökat fält usr från 15 till 21 tecken.
+		BETCHG.c	Utökat fält usr från 15 till 21 tecken.
+		BETDSP.c	Utökat fält usr från 15 till 21 tecken.
+		BETLST.c	Utökat fält usr från 15 till 21 tecken.
+		DATABASE.c	Utökat fält usr från 15 till 21 tecken.
+		DBCHK.c		Utökat fält usr från 15 till 21 tecken.
+		DBOKRPT.c	Utökat fält usr från 15 till 21 tecken.
+		FAKTDSP.c	Utökat fält usr från 15 till 21 tecken.
+		FORADD.c	Utökat fält usr från 15 till 21 tecken.
+		FORCHK.c	Utökat fält usr från 15 till 21 tecken.
+		FORDSP.c	Utökat fält usr från 15 till 21 tecken.
+		FORLST.c	Utökat fält usr från 15 till 21 tecken.
+		FTGADD.c	Utökat fält usr från 15 till 21 tecken.
+		FTGADM.c	Utökat fält usr från 15 till 21 tecken.
+		FORDSP1.c	Utökat fält usr från 15 till 21 tecken.
+		FORDSP.c	Utökat fält usr från 15 till 21 tecken.
+		FORLIS.c	Utökat fält usr från 15 till 21 tecken.
+		FORUPD.c	Utökat fält usr från 15 till 21 tecken.
+		HBOKRPT.c	Utökat fält usr från 15 till 21 tecken.
+		INKADD.c	Utökat fält usr från 15 till 21 tecken.
+		INKHDSP.c	Utökat fält usr från 15 till 21 tecken.
+		INKLST.c	Utökat fält usr från 15 till 21 tecken.
+		INKRADD.c	Utökat fält usr från 15 till 21 tecken.
+		INKRLST.c	Utökat fält usr från 15 till 21 tecken.
+		KRELST.c	Utökat fält usr från 15 till 21 tecken.
+		KRESADD.c	Utökat fält usr från 15 till 21 tecken.
+		KRESCHK.c	Utökat fält usr från 15 till 21 tecken.
+		KRESLST.c	Utökat fält usr från 15 till 21 tecken.
+		KRESUPD.c	Utökat fält usr från 15 till 21 tecken.
+		KSTADD.c	Utökat fält usr från 15 till 21 tecken.
+		KSTCHK.c	Utökat fält usr från 15 till 21 tecken.
+		KSTDSP.c	Utökat fält usr från 15 till 21 tecken.
+		KSTLST.c	Utökat fält usr från 15 till 21 tecken.
+		KTOADD.c	Utökat fält usr från 15 till 21 tecken.
+		KTOCHG.c	Utökat fält usr från 15 till 21 tecken.
+		KTOCHK.c	Utökat fält usr från 15 till 21 tecken.
+		KTOLST.c	Utökat fält usr från 15 till 21 tecken.
+		KTORPT.c	Utökat fält usr från 15 till 21 tecken.
+		KTOVIEW.c	Utökat fält usr från 15 till 21 tecken.
+		KUADD.c		Utökat fält usr från 15 till 21 tecken.
+		KUCHG.c		Utökat fält usr från 15 till 21 tecken.
+		KUCHK.c		Utökat fält usr från 15 till 21 tecken.
+		KUDSP.c		Utökat fält usr från 15 till 21 tecken.
+		KULST.c		Utökat fält usr från 15 till 21 tecken.
+		KUSRCH.c	Utökat fält usr från 15 till 21 tecken.
+		LEVADD.c	Utökat fält usr från 15 till 21 tecken.
+		LEVCHG.c	Utökat fält usr från 15 till 21 tecken.
+		LEVDSP.c	Utökat fält usr från 15 till 21 tecken.
+		LEVLST.c	Utökat fält usr från 15 till 21 tecken.
+		LEVPDSP.c	Utökat fält usr från 15 till 21 tecken.
+		LEVPLST.c	Utökat fält usr från 15 till 21 tecken.
+		LEVSADD.c	Utökat fält usr från 15 till 21 tecken.
+		LEVSDSP.c	Utökat fält usr från 15 till 21 tecken.
+		LEVVADD.c	Utökat fält usr från 15 till 21 tecken.
+		LEVVDSP.c	Utökat fält usr från 15 till 21 tecken.
+		LEVVLST.c	Utökat fält usr från 15 till 21 tecken.
+		LRESADD.c	Utökat fält usr från 15 till 21 tecken.
+		LRESRPT.c	Utökat fält usr från 15 till 21 tecken.
+		LSDEL.c		Utökat fält usr från 15 till 21 tecken.
+		OFFADD.c	Utökat fält usr från 15 till 21 tecken.
+		OFFCHG.c	Utökat fält usr från 15 till 21 tecken.
+		OFFDEL.c	Utökat fält usr från 15 till 21 tecken.
+		OFFDSP.c	Utökat fält usr från 15 till 21 tecken.
+		OFFLST.c	Utökat fält usr från 15 till 21 tecken.
+		OFFRADD.c	Utökat fält usr från 15 till 21 tecken.
+		OFFRCHG.c	Utökat fält usr från 15 till 21 tecken.
+		OFFRDSP.c	Utökat fält usr från 15 till 21 tecken.
+		OLFIX.c		Utökat fält usr från 15 till 21 tecken.
+		ORADUPD.c	Utökat fält usr från 15 till 21 tecken.
+		ORDADD.c	Utökat fält usr från 15 till 21 tecken.
+		ORDCHG.c	Utökat fält usr från 15 till 21 tecken.
+		ORDCHK.c	Utökat fält usr från 15 till 21 tecken.
+		ORDDSP.c	Utökat fält usr från 15 till 21 tecken.
+		ORDLST2.c	Utökat fält usr från 15 till 21 tecken.
+		ORDLST.c	Utökat fält usr från 15 till 21 tecken.
+		ORDRADD.c	Utökat fält usr från 15 till 21 tecken.
+		ORDRCHG.c	Utökat fält usr från 15 till 21 tecken.
+		ORDRDSP.c	Utökat fält usr från 15 till 21 tecken.
+		ORDRUPD.c	Utökat fält usr från 15 till 21 tecken.
+		ORDUPD.c	Utökat fält usr från 15 till 21 tecken.
+		PICKADD.c	Utökat fält usr från 15 till 21 tecken.
+		PICKDSP.c	Utökat fält usr från 15 till 21 tecken.
+		PKDADD.c	Utökat fält usr från 15 till 21 tecken.
+		PKDLST.c	Utökat fält usr från 15 till 21 tecken.
+		PRISDSP.c	Utökat fält usr från 15 till 21 tecken.
+		PRISUPD.c	Utökat fält usr från 15 till 21 tecken.
+		RGTADD.c	Utökat fält usr från 15 till 21 tecken och userid från 9 till 21 tecken.
+		RGTCHK.c	Utökat fält usr från 15 till 21 tecken och userid från 9 till 21 tecken.
+		RGTDEL.c	Utökat fält usr från 15 till 21 tecken och userid från 9 till 21 tecken.
+		RGTDSP.c	Utökat fält usr från 15 till 21 tecken och userid från 9 till 21 tecken.
+		RGTLST.c	Utökat fält usr från 15 till 21 tecken.
+		RPTCRE.c	Utökat fält usr från 15 till 21 tecken.
+		SIEEXPK.c	Utökat fält usr från 15 till 21 tecken.
+		SIEEXPR.c	Utökat fält usr från 15 till 21 tecken.
+		SIEEXPV.c	Utökat fält usr från 15 till 21 tecken.
+		SLPADD.c	Utökat fält usr från 15 till 21 tecken.
+		STYRMAN.c	Utökat fält usr från 15 till 21 tecken.
+				(För framtida behov)
+		TOTADD.c	Utökat fält usr från 15 till 21 tecken.
+		TRHDADD.c 	Utökat fält usr från 15 till 21 tecken och userid från 9 till 21 tecken.
+		TRNSADD.c	Utökat fält usr från 15 till 21 tecken.
+		TXTADD.c	Utökat fält usr från 15 till 21 tecken.
+		TXTDEL.c	Utökat fält usr från 15 till 21 tecken.
+		TXTDSP.c	Utökat fält usr från 15 till 21 tecken.
+		TXTLST.c	Utökat fält usr från 15 till 21 tecken.
+		USERADD.c	Utökat fält usr från 15 till 21 tecken och userid från 9 till 21 tecken.
+		USERCHG.c	Utökat fält usr från 15 till 21 tecken och userid från 9 till 21 tecken.
+		USERDEL.c	Utökat fält usr från 15 till 21 tecken och userid från 9 till 21 tecken.
+		USERDSP.c	Utökat fält usr från 15 till 21 tecken och userid från 9 till 21 tecken.
+		USERLST.c	Utökat fält usr från 15 till 21 tecken.
+		VALADD.c	Utökat fält usr från 15 till 21 tecken.
+		VALCHG.c	Utökat fält usr från 15 till 21 tecken.
+		VALDSP.c	Utökat fält usr från 15 till 21 tecken.
+		VALLST.c	Utökat fält usr från 15 till 21 tecken.
+		VERHDSP.c	Utökat fält usr från 15 till 21 tecken.
+		VERHLST.c	Utökat fält usr från 15 till 21 tecken.
+		VERUPD.c	Utökat fält usr från 15 till 21 tecken och userid från 9 till 21 tecken.
+		WKUDSP.c	Utökat fält usr från 15 till 21 tecken.
+		WRREC.c		Utökat fält userid från 9 till 21 tecken.
+
+
+		Ny sql
+		AlterTableUSR.sql Utökat fält USERID till 20 tecken			
+		AlterTableRIGHTS.sql Utökat fält USERID till 20 tecken
+				För uppdatering av befintlig databas (olfix och olfixtst)
+		AlterTableKURESK.sql Utökat fält USERID till 20 tecken
+				För uppdatering av befintlig databas (olfix och olfixtst)
+		AlterTableLEVRESK.sql Utökat fält USERID till 20 tecken
+				För uppdatering av befintlig databas (olfix och olfixtst)
+		AlterTableVERHUVUD.sql Utökat fält USERID till 20 tecken
+				För uppdatering av befintlig databas (olfix och olfixtst)
+
+ 
+		Ändrad sql
+		CreateTableUSR.sql 	Utökat fält USERID till 20 tecken
+		CreateTableRIGHTS.sql  	Utökat fält USERID till 20 tecken
+		CreateTableKURESK.sql  	Utökat fält USERID till 20 tecken
+		CreateTableLEVRESK.sql  Utökat fält USERID till 20 tecken
+		CreateTableTRHD.sql  	Utökat fält USERID till 20 tecken
+		CreateTableVERHUVUD.sql Utökat fält USERID till 20 tecken
+		CreateOLFIX.sql 	Uppdaterad pga tabelländring
+		CreateOLFIXtemplate.sql Uppdaterad pga tabelländring
+
+		Ändrade data
+		TRANSIDdata.txt		Ny funktion (BETVDEL)
+		PROGRAMdata.txt		Nytt program (DELBETVW)
+
+		Ändrade script
+		install.sh bytt namn till setup.sh
+		kompilering.sh	Nytt program tillkommit (DELBETVW) + rättning 
+
+		Dokumentation
+		Teknisk Manual		       (uppdaterad  (20070218)   Version 0.66
+		UserManual.html		       (uppdaterad  (20070218)   Version 0.14
+		UserManual_ADMINISTRATION.html (uppdaterad) (20070218)   Version 0.41
+		UserManual_FTGADMIN.html       (uppdaterad) (20070214)	 Version 0.46
+________________________________________________________
 Ver 0.5.2.B
 2007-01-31
 		Ändrade program
