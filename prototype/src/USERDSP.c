@@ -28,7 +28,7 @@
 
 */
 /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/USERDSP.c,v 1.4 2007/02/11 07:19:14 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/USERDSP.c,v 1.5 2007/02/19 06:42:51 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -59,7 +59,7 @@ int main(int argc, char *argv[], char *envp[])
   char temp1[]="SELECT USERID, NAMN, AVD, GRUPP FROM USR WHERE USERID = \"";
   char temp2[]="\"";
   char temp5[200]="";
-  char userid[9]="";
+  char userid[21]="";			/* 20070211 */
 
 /*  for (i=0;i< argc;i++){
   	fprintf(stderr,"USERDSPmain argv%d = %s\n",i,argv[i]);
