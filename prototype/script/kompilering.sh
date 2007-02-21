@@ -24,9 +24,9 @@ qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
 
-echo "===== AddBetalvillkor, ADDBETW" >> $LOGGFILE
+echo "===== AddBetalvillkor, ADDBETVW" >> $LOGGFILE
 cd $WORKDIR/AddBetalvillkor
-qmake -project "TARGET=ADDBETW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake -project "TARGET=ADDBETVW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
 qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
@@ -169,7 +169,7 @@ make clean >> $LOGGFILE
 echo "***** B *****"
 echo "===== Balansrapport, BALRPTW" >> $LOGGFILE
 cd $WORKDIR/Balansrapport
-qmake -project "TARGET=ADDRPTW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake -project "TARGET=BALRPTW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
 qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
@@ -246,6 +246,13 @@ qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
 
+echo "===== ChangePrislista, CHGPRISW" >> $LOGGFILE
+cd $WORKDIR/PrtBestellning
+qmake -project "TARGET=CHGPRISW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake >> $LOGGFILE
+make >> $LOGGFILE 2>> $LOGGFILE
+make clean >> $LOGGFILE
+
 echo "===== ChangeOrder, CHGORDW" >> $LOGGFILE
 cd $WORKDIR/ChangeOrder
 qmake -project "TARGET=CHGORDW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
@@ -289,6 +296,13 @@ make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
 
 echo "***** Del *****"
+
+echo "===== DelBetalvillkor, DELBETVW" >> $LOGGFILE
+cd $WORKDIR/DelBetalvillkor
+qmake -project "TARGET=DELBETVW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake >> $LOGGFILE
+make >> $LOGGFILE 2>> $LOGGFILE
+make clean >> $LOGGFILE
 
 echo "===== DelOffert, DELOFFW" >> $LOGGFILE
 cd $WORKDIR/DelOffert
@@ -404,6 +418,13 @@ qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
 
+echo "===== DspOffert, DSPOFFW" >> $LOGGFILE
+cd $WORKDIR/DspOffert
+qmake -project "TARGET=DSPOFFW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake >> $LOGGFILE
+make >> $LOGGFILE 2>> $LOGGFILE
+make clean >> $LOGGFILE
+
 echo "===== DspOrder, DSPORDW" >> $LOGGFILE
 cd $WORKDIR/DspOrder
 qmake -project "TARGET=DSPORDW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
@@ -420,7 +441,7 @@ make clean >> $LOGGFILE
 
 echo "===== DspUser, DSPUSRW" >> $LOGGFILE
 cd $WORKDIR/DspUser
-qmake -project "TARGET=DSPUSR" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake -project "TARGET=DSPUSRW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
 qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
@@ -443,7 +464,7 @@ make clean >> $LOGGFILE
 
 echo "===== HittaKund, SRCHKUW" >> $LOGGFILE
 cd $WORKDIR/HittaKund
-qmake -project "TARGET=SRCKUW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake -project "TARGET=SRCHKUW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
 qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
@@ -617,6 +638,13 @@ qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
 
+echo "===== ListProgram, LSTPGMW" >> $LOGGFILE
+cd $WORKDIR/ListProgram
+qmake -project "TARGET=LSTPGMW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake >> $LOGGFILE
+make >> $LOGGFILE 2>> $LOGGFILE
+make clean >> $LOGGFILE
+
 echo "===== ListProdkod, LSTPKDW" >> $LOGGFILE
 cd $WORKDIR/ListProdkod
 qmake -project "TARGET=LSTPKDW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
@@ -667,6 +695,14 @@ qmake -project "TARGET=OLFIXW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
 qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
+
+echo "===== MenyOlfixW, OLFIXTW" >> $LOGGFILE
+cd $WORKDIR/MenyOlfixTestW
+qmake -project "TARGET=OLFIXTW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake >> $LOGGFILE
+make >> $LOGGFILE 2>> $LOGGFILE
+make clean >> $LOGGFILE
+
 
 echo "***** Prt *****"
 
@@ -728,10 +764,20 @@ make clean >> $LOGGFILE
 
 echo "===== SoekArtikel, SRCHARW" >> $LOGGFILE
 cd $WORKDIR/SoekArtikel
-qmake -project "TARGET=SRCARW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake -project "TARGET=SRCHARW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
 qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
+
+echo "***** T *****"
+
+echo "===== TotalRights, TOTRGTW" >> $LOGGFILE
+cd $WORKDIR/TotalRights
+qmake -project "TARGET=TOTRGTW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake >> $LOGGFILE
+make >> $LOGGFILE 2>> $LOGGFILE
+make clean >> $LOGGFILE
+
 
 echo "===== C-program" >> $LOGGFILE
 cd $WORKDIR/C
