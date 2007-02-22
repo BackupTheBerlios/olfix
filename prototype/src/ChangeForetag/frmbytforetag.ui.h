@@ -9,9 +9,9 @@
 /***************************************************************************
                           BYTFTGW  -  description
                              -------------------
-		     version 0.4
+		     version 0.5
     begin                   	: Sön   19 okt    2003
-    modified:   	: Tisd  12 dec   2005, Rewriten.
+    modified:   	: Tors  22 feb   2007, Buggrättning.
     copyright            	: (C) 2003 by Jan Pihlgren
     email                	: jan@pihlgren.se
  ***************************************************************************/
@@ -218,13 +218,13 @@ void frmBytForetag::listDatabaser(QString choise)
 	inrad="";
 	
 	process = new QProcess();
-//	process->addArgument("./STYRMAN");
-//	process->addArgument(usr);			// userid
-	process->addArgument( "./DATABASE");	// OLFIX funktion
+	process->addArgument("./STYRMAN");
+	process->addArgument(usr);			// userid
+	process->addArgument( "DATABASE");		// OLFIX funktion
 	process->addArgument(choise);
 	process->addArgument(newdatabase);		// Kan vara blank
 	
-/*	qDebug("choise=%s",choise.latin1());	*/
+//	qDebug("choise=%s",choise.latin1());	
 
 	frmBytForetag::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );	
 	frmBytForetag::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
@@ -245,31 +245,41 @@ void frmBytForetag::slotEndOfProcessList()
     QString temp1;
     QString temp2;
     QString p;
+  
 //    qDebug("val=%s",val.latin1());
 //    qDebug("inrad=%s",inrad.latin1());
-    i = errorrad.find( QRegExp("Error:"), 0 );
-         if (i != -1) {
-	QMessageBox::critical( this, "BYTFW",
+     i = -1 ;
+     i = errorrad.find( QRegExp("Error:"), 0 ); 
+     if (i != -1) {
+	     i = -1;
+	     i = errorrad.find( QRegExp("OLFIXpid"), 0 );
+	     if( i != -1 && val=="2"){
+		 qDebug("/tmp/OLFIXpid.tmp kunde inte skapas! ");
+		 qDebug("i=%d,  errorrad=%s",i,errorrad.latin1());
+	     }else{
+		 QMessageBox::critical( this, "BYTFTGW",
 		"ERROR!\n"+errorrad
-	);
-	if (val=="4"){
-	   lineEditNyDatabas->clear() ;
-	   listViewDatabas->setFocus();
-	}  
-	errorrad="";
-	i = -1;
-	return;
+		);
+     
+		 if (val=="4"){			/* Kontrollera om det är en OLFIXdatabas*/
+		     lineEditNyDatabas->clear() ;
+		     listViewDatabas->setFocus();
+		 }  
+	     errorrad="";
+	     i = -1;
+	     return;
+	 }
      }
      i = -1;
      i = inrad.find( QRegExp("OK:"), 0 );
      if (i != -1) {
-	 if (val == "2"){
-	     QMessageBox::information( this, "BYTFW",
+	 if (val == "2"){			/*  Starta om OLFIXW */
+	     QMessageBox::information( this, "BYTFTGW",
 				       "Databasbyte genomfört!\n"
 				       );
 	     pushButtonBreak->setFocus();
 	 }
-	if (val == "3"){
+	if (val == "3"){			/* Lista befintliga databaser */
 	    i= -1;
 	    i = inrad.find(QRegExp("NR_"),0);
 	    if( i != -1){
