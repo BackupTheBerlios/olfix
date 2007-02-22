@@ -1,8 +1,8 @@
 /****************************************************************/
 /**		CHGUSRW					*/
-/**		Ver 0.3					*/
+/**		Ver 0.4					*/
 /**		2003-01-21				*/
-/** Modified:	2006-02-05 				*/
+/** Modified:	2007-02-22 				*/
 /**		Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /****************************************************************************
@@ -35,11 +35,8 @@
     QString avd;
     QString grupp;
 
-
-
 void frmChgUser::init()
 {
-    PushButtonGet->hide();
     frmChgUser::listUsers();
     listViewUser->setFocus();
 }
@@ -47,8 +44,9 @@ void frmChgUser::init()
 void frmChgUser::slotGetUser()
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
+                QString usr(userp);
 	 
+	inrad_u="";
 	namn="";
 	avd="";
 	grupp="";
@@ -57,11 +55,12 @@ void frmChgUser::slotGetUser()
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// userid
 	process->addArgument( "USERDSP");	// OLFIX funktion
-	process->addArgument(userid.latin1());
-//	qWarning( "GetUser: userid=%s \n", userid.latin1());
+	process->addArgument(userid);	// AnvändarID på den vars data ska ändras
+//	process->addArgument(userid.latin1());
 	
 	frmChgUser::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotUsrDataOnStdout() ) );
-            frmChgUser::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfUsrProcess() ) );
+//	frmChgUser::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotUsrDataOnStderr() ) );
+                frmChgUser::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfUsrProcess() ) );
 
 	if (userid == ""){
     	    QMessageBox::warning( this, "CHGUSRW",
@@ -83,13 +82,8 @@ void frmChgUser::slotChgUser()
 /*	Uppdatera databasen						*/
 /************************************************************************/
 	const char *userp = getenv("USER");
-            QString usr(userp);
-	   
-//	 frmChgUser::slotuseridEntered();
-//	 frmChgUser::slotNameEntered();
-//  	 frmChgUser::slotAvdEntered();
-//	 frmChgUser::slotGruppEntered();
-  
+                QString usr(userp);
+	     
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// userid
@@ -112,7 +106,6 @@ void frmChgUser::slotChgUser()
 	else {
 	    if ( !process->start() ) {
 		// error handling
-//		fprintf(stderr,"Problem starta STYRMAN/USRCHG!\n");
 		QMessageBox::warning( this, "CHGUSRW",
                             "Kan inte starta STYRMAN/USRCHG! \n" );
 	    }   
@@ -127,7 +120,6 @@ void frmChgUser::slotUseridEntered()
     if ( userid != ""){
 	frmChgUser::slotGetUser();
     }
-//    PushButtonGet->setFocus();
 }
 
 void frmChgUser::slotNameEntered()
@@ -146,20 +138,6 @@ void frmChgUser::slotGruppEntered()
     PushButtonUpdate->setFocus();
 }
 
-/*
-void frmChgUser::slotPushButtonGet_clicked()
-{
-    LineEditNamn->clear();
-    LineEditAvd->clear();
-    LineEditGrupp->clear();
-    namn="";
-    avd="";
-    grupp="";
-    
-     frmChgUser::slotGetUser();
-}
-*/
-
 void frmChgUser::slotPushButtonUpdate_clicked()
 {
 //  qDebug("PushButtonUpdate clicked userid=%s",userid.latin1());    
@@ -172,7 +150,6 @@ void frmChgUser::slotUsrDataOnStdout()
 	QString line = process->readStdout();
 	inrad_u.append(line);
 	inrad_u.append("\n");
-//	qWarning( "slotUsrDataOnStdout: userid=%s \n", inrad_u.latin1() );
     }
 }
 
@@ -183,7 +160,14 @@ void frmChgUser::slotEndOfUsrProcess()
     QString namn;
     QString avd;
     QString grupp;
-
+    
+//    qDebug("inrad=%s",inrad_u.latin1());
+    
+    LineEditUserid->clear();
+    LineEditNamn->clear();
+    LineEditAvd->clear();
+    LineEditGrupp->clear();
+    
     int i = inrad_u.find( QRegExp("1:"), 0 );
     int j = inrad_u.find( QRegExp("2:"), 0 );
     int k = inrad_u.find( QRegExp("3:"), 0 );
@@ -444,7 +428,11 @@ void frmChgUser::slotUserEndOfProcess()
 
 void frmChgUser::slotPickupUserID( QListViewItem * item)
 {
-    char user[11]="";
+    char user[21]="";
+    LineEditNamn->clear();
+    LineEditAvd->clear();
+    LineEditGrupp->clear();
+    
 //    qDebug("PickupUserID\n");
     if(!item){
 	return;

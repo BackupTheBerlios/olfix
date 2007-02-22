@@ -65,61 +65,6 @@
     </widget>
     <widget class="QLabel">
         <property name="name">
-            <cstring>TextLabelUserID</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>30</y>
-                <width>81</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Användar-ID:</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditNamn</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>90</x>
-                <y>60</y>
-                <width>210</width>
-                <height>22</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditAvd</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>90</x>
-                <y>90</y>
-                <width>80</width>
-                <height>22</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditGrupp</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>90</x>
-                <y>120</y>
-                <width>80</width>
-                <height>22</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
             <cstring>textLabel1</cstring>
         </property>
         <property name="geometry">
@@ -132,19 +77,6 @@
         </property>
         <property name="text">
             <string>Användarlista</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditUserid</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>91</x>
-                <y>30</y>
-                <width>80</width>
-                <height>22</height>
-            </rect>
         </property>
     </widget>
     <widget class="QListView">
@@ -188,8 +120,8 @@
         </property>
         <property name="geometry">
             <rect>
-                <x>65</x>
-                <y>156</y>
+                <x>10</x>
+                <y>155</y>
                 <width>75</width>
                 <height>25</height>
             </rect>
@@ -207,7 +139,7 @@
         </property>
         <property name="geometry">
             <rect>
-                <x>145</x>
+                <x>95</x>
                 <y>155</y>
                 <width>61</width>
                 <height>25</height>
@@ -220,26 +152,96 @@
             <bool>true</bool>
         </property>
     </widget>
-    <widget class="QPushButton">
+    <widget class="QLineEdit">
         <property name="name">
-            <cstring>PushButtonGet</cstring>
+            <cstring>LineEditNamn</cstring>
         </property>
-        <property name="enabled">
-            <bool>false</bool>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>60</y>
+                <width>205</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="maxLength">
+            <number>30</number>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Maximalt 30 tecken</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditAvd</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>90</y>
+                <width>95</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="maxLength">
+            <number>10</number>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>MAximalt 10 tecken</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditUserid</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>30</y>
+                <width>175</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="maxLength">
+            <number>20</number>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Maximalt 20 tecken.</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelUserID</cstring>
         </property>
         <property name="geometry">
             <rect>
                 <x>10</x>
-                <y>156</y>
-                <width>51</width>
-                <height>25</height>
+                <y>30</y>
+                <width>87</width>
+                <height>21</height>
             </rect>
         </property>
         <property name="text">
-            <string>Hämta</string>
+            <string>Användar-ID:</string>
         </property>
-        <property name="default">
-            <bool>true</bool>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditGrupp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>120</y>
+                <width>95</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="maxLength">
+            <number>10</number>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Maximalt 10 tecken</string>
         </property>
     </widget>
 </widget>
@@ -249,30 +251,6 @@
         <signal>clicked()</signal>
         <receiver>frmChgUser</receiver>
         <slot>close()</slot>
-    </connection>
-    <connection>
-        <sender>LineEditNamn</sender>
-        <signal>returnPressed()</signal>
-        <receiver>PushButtonGet</receiver>
-        <slot>setFocus()</slot>
-    </connection>
-    <connection>
-        <sender>PushButtonGet</sender>
-        <signal>clicked()</signal>
-        <receiver>LineEditNamn</receiver>
-        <slot>clear()</slot>
-    </connection>
-    <connection>
-        <sender>PushButtonGet</sender>
-        <signal>clicked()</signal>
-        <receiver>LineEditUserid</receiver>
-        <slot>setFocus()</slot>
-    </connection>
-    <connection>
-        <sender>PushButtonGet</sender>
-        <signal>clicked()</signal>
-        <receiver>LineEditUserid</receiver>
-        <slot>clear()</slot>
     </connection>
     <connection>
         <sender>LineEditGrupp</sender>
@@ -361,7 +339,6 @@
 </connections>
 <tabstops>
     <tabstop>LineEditUserid</tabstop>
-    <tabstop>PushButtonGet</tabstop>
     <tabstop>LineEditNamn</tabstop>
     <tabstop>LineEditAvd</tabstop>
     <tabstop>LineEditGrupp</tabstop>
