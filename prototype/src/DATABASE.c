@@ -1,8 +1,7 @@
 /***************************************************************************
                           DATABASE.c  -  description
                              -------------------
-			     Uppdatera RIGHTS med fullständiga rättigheter för en användare.
-			     Offerthuvud.
+			     Byta databas, arbeta med ett annat företag.
     Version		 : 1.1
     begin                : Mån   11 dec  2006
     Modified		 : Tis   13 febr 2007
@@ -34,12 +33,13 @@
 
 	val = 4; kontrollera att det är en olfixdatabas, finns tabellen RIGHTS?
 
+	val = 5; Kontrollera om OLFIXW "lever" annars error
 
 	OUTPUT: errornb och error (text)
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/DATABASE.c,v 1.2 2007/02/13 07:34:08 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/DATABASE.c,v 1.3 2007/02/22 07:26:16 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -56,24 +56,25 @@
   MYSQL_ROW sqlrow;
 
   int where_tempdir(char *envp[]);
-  int where_bindir(char *envp[]);
+  int where_binaerdirectory(char *envp[]);
   int create_tmpfile(char *envp[]);
   int which_database(char *envp[]);
   int restart_olfixw(char *envp[]);
   int listDatabases(char *databasorg);			/* Vilka databaser finns? */
   int checkDatabases(char *databasorg);			/* Innehåller databasen tabellen RIGHTS? */
+  int check_OLFIXW();					/* 20070222 Lever OLFIXW */
   void display_row();
 
   char database[25]="";
   char tempdir[15]="";
   char tempfile[25]="";
   char datafile[25]="";
-  char bindir[50]="";
+  char binaerdirectory[50]="";		/* namnbyte 20070222 */
 
 int main(int argc, char *argv[], char *envp[])
 {
   char databas[25]="olfix";
-  const char *userp = getenv("USER");	// vem är inloggad?
+  const char *userp = getenv("USER");	/* vem är inloggad? */
   char usr[21];				/* userid 20070213 utökat från 15 till 21 tecken */
 
 
@@ -143,6 +144,12 @@ int main(int argc, char *argv[], char *envp[])
 /*	fprintf(stderr,"Kör listDatabases!\n");	*/
 	status=checkDatabases(databas);
   }
+  if (funktion == 5){				/* 20070222 Lever OLFIXW? */
+	status=check_OLFIXW();
+	if(status != 0){
+		fprintf(stderr,"Error: OLFIXW lever ej!\n");
+	}
+  }
   return EXIT_SUCCESS;
 }
 
@@ -161,12 +168,12 @@ int create_tmpfile(char *envp[])
 /*  	fprintf(stdout,"Katalogen %s finns!\n",tempdir);	*/
 //	fprintf(stdout,"OK: ");	
   }
-//  status = where_bindir(envp);
+//  status = where_binaerdirectory(envp);
 
   strncpy(commando,commando1,sizeof(commando1));
   strncat(commando,tempdir,sizeof(tempdir));
   strncat(commando,commando2,sizeof(commando2));
-  fprintf(stderr,"Kommando = %s\n",commando);
+//  fprintf(stderr,"Kommando = %s\n",commando);
 //  fprintf(stderr,"Kommando:com_check = %s\n",com_check);
 
   status=system(commando);
@@ -233,8 +240,8 @@ int restart_olfixw(char *envp[])
 /*		fprintf(stderr,"commando=%s\n",commando);		*/
 		system(commando);
 	}
-	status = where_bindir(envp);
-	strncpy(commando,bindir,sizeof(bindir));
+	status = where_binaerdirectory(envp);
+	strncpy(commando,binaerdirectory,sizeof(binaerdirectory));
 	strncat(commando,olfixfil,sizeof(olfixfil));
 /*	fprintf(stderr,"commando=%s\n",commando);			*/
 	system(commando);
@@ -395,7 +402,7 @@ int where_tempdir(char *envp[])
 	return status;
 }
 
-int where_bindir(char *envp[])
+int where_binaerdirectory(char *envp[])
 {
 	FILE *fil_pek;
 
@@ -434,25 +441,25 @@ int where_bindir(char *envp[])
 /*			fprintf(stderr,"tmp = %s\n",tmp);	*/
 			if(strstr(tmp,"PATH=")){
 				tmp_pek=(strstr(tmp,"PATH="))+5;
-				strncpy(bindir,tmp_pek,strlen(tmp_pek));
+				strncpy(binaerdirectory,tmp_pek,strlen(tmp_pek));
 				status=0;
 			}
 		}
-/*		fprintf(stderr,"bindir=%s len=%d\n",bindir,strlen(bindir)); 	*/
+/*		fprintf(stderr,"binaerdirectory=%s len=%d\n",binaerdirectory,strlen(binaerdirectory)); 	*/
 		fclose(fil_pek);
 	}
 	else{
-/*		fprintf(stderr,"bindir=%s_len=%d\n",bindir,strlen(bindir)); */
+/*		fprintf(stderr,"binaerdirectory=%s_len=%d\n",binaerdirectory,strlen(binaerdirectory)); */
 	 	fprintf(stderr,"Error: Filen .olfixrc kan inte öppnas\n");
 	}
-	for (i=0;i < strlen(bindir);i++){
-		tmp[i]=bindir[i];
+	for (i=0;i < strlen(binaerdirectory);i++){
+		tmp[i]=binaerdirectory[i];
 	}
 	tmp[i-1]=0;
 /*	fprintf(stderr,"tmp=%s, i=%d len(tmp)=%d\n",tmp,i,strlen(tmp));		*/
-	strncpy(bindir,tmp,strlen(tmp));
-	bindir[strlen(tmp)]=0;
-/*	fprintf(stderr,"databas=%s\n",bindir);	*/
+	strncpy(binaerdirectory,tmp,strlen(tmp));
+	binaerdirectory[strlen(tmp)]=0;
+/*	fprintf(stderr,"databas=%s\n",binaerdirectory);	*/
 
 	return status;
 }
@@ -508,6 +515,17 @@ int which_database(char *envp[])
 
 	return status;
 }
+
+int check_OLFIXW(){
+	int status=0;
+
+	status= -1;
+	return status;
+}
+
+
+
+
 
 void display_row()
 {
