@@ -8,9 +8,10 @@
 /***************************************************************************
                           LSTRGTW  -  description
                              -------------------
-		     version 0.04
-    begin                : Sön 23 febr 2003
-    copyright            : (C) 2003 by Jan Pihlgren
+		     version 0.2
+    begin                : Sön  23 febr 2003
+    modified	         : Tors 22 febr 2007
+    copyright         : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
@@ -29,13 +30,14 @@
 #include <qstring.h>		
 #include <qfile.h>
 #include <qlistview.h>
+// #define MAXSTRING 5000	
 #define MAXSTRING 5000	
 
 
 	QProcess* process;
 	QString inrad;
 	QString* rad;
-
+	int count=0;
 	
 void frmListRights::init()
 {
@@ -45,20 +47,22 @@ void frmListRights::init()
 void frmListRights::GetRights()
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
-	QString bibl;	    
-	bibl.append("./STYRMAN");		// OLFIX huvudprogram
+	QString usr(userp);
+	
+	count++;
+	inrad="";
 	
 	process = new QProcess();
-	process->addArgument(bibl);
+//	process->addArgument(bibl);
+	process->addArgument("./STYRMAN");
 	process->addArgument(usr);		// userid
 	process->addArgument( "RGTLST");	// OLFIX funktion
 //            fprintf(stderr,"Starta STYRMAN/RGTLST!\n");
 	    
 	frmListRights::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-            frmListRights::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
+                frmListRights::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
 	    
-        if ( !process->start() ) {
+	if ( !process->start() ) {
             // error handling
 	    fprintf(stderr,"Problem starta RGTLST!\n");
 	    QMessageBox::warning( this, "Start av RGTLST ", "Kan inte starta RGTLST!\n");
@@ -95,6 +99,7 @@ void frmListRights::slotEndOfProcess()
     pos2=strstr(tmp,"_:");
     i=pos2-pos1;
     m=i+2;		// startposition för första userid.
+    
 //    fprintf(stdout,"i=%d  m=%d",i,m);
     k=0;
     for (j=3;j<i;j++){
@@ -148,5 +153,6 @@ void frmListRights::slotEndOfProcess()
 void frmListRights::slotReloadRights()
 {
     ListView1->clear();
+//    qDebug("slotReloadRights:: count=%d",count);
     frmListRights::GetRights();
 }
