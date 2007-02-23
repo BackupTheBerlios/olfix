@@ -8,17 +8,18 @@
 /***************************************************************************
                           DELRGTW  -  description
                              -------------------
-		     version 0.01
-    begin                : Lör 22 febr 2003
-    copyright            : (C) 2003 by Jan Pihlgren
+		     version 0.2
+    begin                : Lör  22 febr 2003
+    modified           : Fre 23 febr 2007
+    copyright         : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
- *					                                                 *
+ *					                                            *
  *   This program is free software; you can redistribute it and/or modify 	 *
- *   it under the terms of the GNU General Public License as published by       *
+ *   it under the terms of the GNU General Public License as published by       	 *
  *   the Free Software Foundation; either version 2 of the License, or     	 *
- *   (at your option) any later version.                                   		 *
+ *   (at your option) any later version.                                   		 	 *
  *                                                                         				 *
  *********************************************** *****************/
 #include <qmessagebox.h>
@@ -47,7 +48,7 @@ void frmDelRights::slotUseridEntered()
     userid=LineEditUserid->text();
     userid=userid.upper();
     LineEditUserid->setText(userid);
-    LineEditTransid->setFocus();
+//    LineEditTransid->setFocus();
 }
 
 void frmDelRights::slotTransidEntered()
@@ -55,19 +56,16 @@ void frmDelRights::slotTransidEntered()
     funk=LineEditTransid->text();
     funk=funk.upper();
     LineEditTransid->setText(funk);
-    PushButtonGet->setFocus();
+//    PushButtonGet->setFocus();
 }
-/*
-void frmDelRights::slotPushButtonGet_clicked()
-{
-    
-}
-*/
+
 void frmDelRights::slotGetRights()
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
-
+                QString usr(userp);
+		
+//	qDebug("userid=%s och funk=%s",userid.latin1(),funk.latin1());
+	
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// userid
@@ -77,11 +75,11 @@ void frmDelRights::slotGetRights()
 
 	frmDelRights::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotGetDataOnStdout() ) );
 	frmDelRights::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotGetDataOnStderr() ) );
-            frmDelRights::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfGetProcess() ) );
+                frmDelRights::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfGetProcess() ) );
 
 	if (userid == "" || funk ==""){
     	    QMessageBox::warning( this, "DELRGTW",
-                      "Användar-ID och/eller Behörighet saknas \n" );
+                      "Användar-ID och/eller Behörighet saknas! \n" );
 	}
 	else {
 	    if ( !process->start() ) {
@@ -144,7 +142,7 @@ void frmDelRights::slotPushButtonOK_clicked()
 void frmDelRights::slotDelRgt( )
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
+                QString usr(userp);
 
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
@@ -155,7 +153,7 @@ void frmDelRights::slotDelRgt( )
 
 	frmDelRights::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDelDataOnStdout() ) );
 	frmDelRights::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDelDataOnStderr() ) );
-            frmDelRights::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfDelProcess() ) );
+                frmDelRights::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfDelProcess() ) );
 
 	if (userid == "" || funk ==""){
     	    QMessageBox::warning( this, "DELRGTW",

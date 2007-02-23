@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>frmDelRights</class>
 <widget class="QWidget">
     <property name="name">
@@ -15,22 +15,6 @@
     <property name="caption">
         <string>DELRGTW Ta bort  behörighet</string>
     </property>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel1</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>10</y>
-                <width>79</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Användar-ID:</string>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>TextLabel2</cstring>
@@ -63,67 +47,6 @@
             <string>Sluta</string>
         </property>
     </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabel6</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>165</y>
-                <width>111</width>
-                <height>16</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Radera behörighet</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditTransid</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>90</x>
-                <y>40</y>
-                <width>90</width>
-                <height>22</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditUserid</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>90</x>
-                <y>10</y>
-                <width>90</width>
-                <height>22</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonGet</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>195</x>
-                <y>40</y>
-                <width>71</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Hämta</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
     <widget class="QPushButton">
         <property name="name">
             <cstring>PushButtonOK</cstring>
@@ -143,14 +66,97 @@
             <bool>true</bool>
         </property>
     </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>10</y>
+                <width>87</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Användar-ID:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabel6</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>165</y>
+                <width>121</width>
+                <height>17</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Radera behörighet</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditTransid</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>35</y>
+                <width>90</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="maxLength">
+            <number>8</number>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Maximalt 8 tecken</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditUserid</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>10</y>
+                <width>170</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="maxLength">
+            <number>20</number>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Maximalt 20 tecken.</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonGet</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>200</x>
+                <y>40</y>
+                <width>71</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hämta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
 </widget>
 <connections>
-    <connection>
-        <sender>LineEditUserid</sender>
-        <signal>returnPressed()</signal>
-        <receiver>PushButtonGet</receiver>
-        <slot>setFocus()</slot>
-    </connection>
     <connection>
         <sender>LineEditUserid</sender>
         <signal>returnPressed()</signal>
@@ -181,13 +187,25 @@
         <receiver>frmDelRights</receiver>
         <slot>close()</slot>
     </connection>
+    <connection>
+        <sender>LineEditUserid</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmDelRights</receiver>
+        <slot>slotUseridEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditTransid</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmDelRights</receiver>
+        <slot>slotTransidEntered()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>LineEditUserid</tabstop>
+    <tabstop>LineEditTransid</tabstop>
     <tabstop>PushButtonGet</tabstop>
     <tabstop>PushButtonOK</tabstop>
     <tabstop>PushButtonQuit</tabstop>
-    <tabstop>LineEditTransid</tabstop>
 </tabstops>
 <includes>
     <include location="local" impldecl="in implementation">frmdelrights.ui.h</include>
