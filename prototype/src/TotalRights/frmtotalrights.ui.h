@@ -13,9 +13,9 @@
                           TOTRGTW  -  description
 	         Ge en användare rättigheter att köra alla program/funktioner
                              -------------------
-		     version 0.1
+		     version 0.2
     begin   	: 	Tis    5 dec    2006
-    Updated	: 	
+    Updated	: 	Fre 23 febr  2007
     copyright:	 (C) 2006 by Jan Pihlgren
     email     	:	 jan@pihlgren.se
  ***************************************************************************/
@@ -34,21 +34,35 @@
 #include <qstring.h>
 #include <qfile.h>
 #include <qregexp.h>
-#define MAXSTRING 5000
+//#define MAXSTRING 5000
+#define MAXSTRING 20000		/* 20070223 */
 #define MAXPROCESS 200
 
-QProcess* process[5];
-int nbr=0;
-QProcess* proc;
-QString inrad;
-QString errorrad;
-QString val;		/* Val av funktion inne i TOTADD */
-QString userid;
-QString hjelpfil;
-QString tmppath;		/* Sökväg till temporärkatalog */
-QString programrecord;	/* Post i olfixprg.tmp */
-QString sqlkommando;
-QString use_database="";
+/*
+  	val = 1; Skapa temporärfilen olfixprg.tmp
+		Function: skapar en fil med alla binärfiler i /path/olfix/bin
+
+	val = 2; ladda tabellen RIGHTS
+
+	val = 3; show databases, lista befintliga mysqldatabaser
+
+	val = 4; kontrollera att det är en olfixdatabas, finns tabellen RIGHTS?
+
+*/  
+
+     QProcess* process[10];
+     int nbr=0;
+     QProcess* proc;
+     QString inrad;
+     QString errorrad;
+     QString val;		/* Val av funktion inne i TOTADD */
+     QString userid;
+     QString hjelpfil;
+     QString tmppath;	/* Sökväg till temporärkatalog */
+     QString programrecord;	/* Post i olfixprg.tmp */
+     QString sqlkommando;
+     QString use_database="";
+     int countFunc=0;
 
 void frmTotalRights::init()
 {
@@ -98,19 +112,23 @@ void frmTotalRights::pushBtnCreate_clicked()
 {
     int status,n;
     QString inrecord;
-    QString tmpfile="/olfixprg.tmp";
+    QString tmpfile="olfixprg.tmp";
     QString datafile="/olfixprg.dat";
     QString olfixprgfile=tmppath+tmpfile;	/* tmppath = katalog för /tmp */
     QString tempfile=tmpfile;
     
-    val="1";			/* val=1 skapar filenolixprg.tmp, lista över filer i /path/olfix/bin */
+//    qDebug("Skapa filen olixprg.tmp, ");
+//    qDebug("olfixprgfile=%s  ",olfixprgfile.latin1());
+//    exit(0);
+    val="1";			/* val=1 skapar filen olixprg.tmp, lista över filer i /path/olfix/bin */
     frmTotalRights::createTempFile();	/* Lista alla program i olfix/bin med kommando ls */
     
-   QFile file(olfixprgfile);
+   QFile file(olfixprgfile);		/*  path/olfixprg.tmp */
     status=file.open(IO_ReadOnly);
     QTextStream stream( &file );
     n=0;
     while ( !stream.eof() ) {
+	countFunc++;
 	inrecord = stream.readLine();
 	if (inrecord == "TOTADD" or inrecord == "TOTRGTW" or inrecord=="ADDRGTW"){
 //	    qDebug("inrecord=%s",inrecord.latin1());
@@ -123,6 +141,7 @@ void frmTotalRights::pushBtnCreate_clicked()
 	}
     }
     file.close ();
+//    qDebug("countFunc=%d",countFunc);
     val="2";			/* val=2 uppdaterar tabellen RIGHTS */
     frmTotalRights::createTempFile();	
  }
@@ -288,6 +307,7 @@ void frmTotalRights::EndOfProcess()
 				       "Uppdatering genomförd!!\n"+inrad
 				       );
 	     pushBtnAvbryt->setFocus();
+	     return;
                }
 	if (val=="3"){
 	    i= -1;
@@ -340,7 +360,7 @@ void frmTotalRights::createSqlData(QString function, QString usr)
 {
    
     QString filnamn="/olfixprg.dat";
-    filnamn=tmppath+filnamn;
+    filnamn=tmppath+filnamn;			/* path/olfixprg.dat */
     QFile file(filnamn);
     QTextStream stream(&file);
 
