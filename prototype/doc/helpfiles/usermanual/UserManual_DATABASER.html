@@ -6,7 +6,7 @@
 	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.0.2  (Linux)">
 	<META NAME="CREATED" CONTENT="20021205;10014400">
 	<META NAME="CHANGEDBY" CONTENT="Jan Pihlgren">
-	<META NAME="CHANGED" CONTENT="20061213">
+	<META NAME="CHANGED" CONTENT="20070225">
 	<STYLE>
 	<!--
 		@page { margin: 2cm }
@@ -25,9 +25,9 @@ f&ouml;r Linuxsystem</B></FONT></P>
 <P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=4 STYLE="font-size: 16pt">Kapitel
 Databaser </FONT>
 </P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.43 </FONT>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.44 </FONT>
 </P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2006-12-13 </FONT>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2007-02-25 </FONT>
 </P>
 <HR>
 <P STYLE="margin-left: 3cm">This program is free software; you can
@@ -49,12 +49,12 @@ databas/f&ouml;retag</FONT></A></P>
 <P ALIGN=LEFT><A NAME="ALLMENT"></A><FONT FACE="San Serif" ><B>Allm&auml;nt.</B></FONT></P>
 <P ALIGN=LEFT STYLE="font-size: 10pt">Detta kapitel avhandlar m&ouml;jligheten till att
 anv&auml;nda flera f&ouml;retag helt &aring;tskilda fr&aring;nvarandra.
-OLFIX har m&ouml;jligheten att hantera 99 st olika f&ouml;retag,
-numrerade 01 &ndash; 99. Varje f&ouml;retag har sin egen
-databas.<BR>Detta inneb&auml;r bland annat skapande av nya databaser.
+OLFIX har m&ouml;jligheten att hantera flera olika f&ouml;retag. 
+Varje f&ouml;retag har sin egen databas.<BR>Detta inneb&auml;r bland annat skapande av nya databaser.
 Det kr&auml;vs kunskap om och f&ouml;rst&aring;else av databaser,
-databasmotorn MySQL samt fr&aring;gespr&aring;ket SQL framf&ouml;r
-allt i samband med skapande av nya f&ouml;retag/databaser. 
+databasmotorn MySQL samt fr&aring;gespr&aring;ket SQL, framf&ouml;r
+allt i samband med skapande av nya f&ouml;retag/databaser. <br>
+OLFIX levereras med två database/företag, <b>olfix</b> (skarpt) och <b>olfixtst</b> (test).
 </P>
 <P ALIGN=LEFT><FONT FACE="San Serif" STYLE="font-size: 10pt"><BR><A HREF="#INNEHALL">Till
 b&ouml;rjan</A></FONT></P>
@@ -70,34 +70,34 @@ till en dataadministrat&ouml;r eller en v&auml;l insatt och kunnig
 anv&auml;ndare.<BR>F&ouml;r att kunna skapa en ny databas kr&auml;vs
 beh&ouml;righet att g&ouml;ra detta.</P>
 <P ALIGN=LEFT STYLE="font-size: 10pt">Programmet ADDFORW anv&auml;nds f&ouml;r att skappa en
-ny databas. Databasen &auml;r tom fr&aring;n b&ouml;rjan. Bara
-tabeller och ett f&aring;tal grunddata finns inlagda.<BR>Databasnumret
-anges med tv&aring; (2) siffror.<BR>Databasnamnet skall anges med
+ny databas för ett nytt företag. Databasen &auml;r tom fr&aring;n b&ouml;rjan. Bara
+tabeller och ett f&aring;tal grunddata finns inlagda.<BR>I fältet <b>Databas</b>  anges namnet på den nya database med
 gemener (sm&aring; bokst&auml;ver) och f&aring;r endast inneh&aring;lla
-15 tecken. Inget av tecknen f&aring;r vara &aring; &auml; &ouml;.<BR>Password
+15 tecken. Programmet kommer själv att formatera texten till gemener om detta inte gjorts. Inget av tecknen f&aring;r vara &aring; &auml; &ouml;.<BR><b>Password</b>
 avser det l&ouml;senord som anv&auml;nds f&ouml;r att via mysql g&ouml;ra
 f&ouml;r&auml;ndringar i databaserna.<BR>Programmet kontrollerar att
-inte angivet databasnummer eller databasnamn finns registrerat sedan
-tidigare.</P>
+inte angivet databasnamn finns registrerat sedan tidigare. Klicka på knappen <b>OK</b> för att skapa databasen.</P>
 <P ALIGN=LEFT><FONT FACE="San Serif" STYLE="font-size: 10pt"><BR><A HREF="#INNEHALL">Till
 b&ouml;rjan</A></FONT></P>
 <HR>
+<!-- 					BYTE AV DATABAS			-->
 <P ALIGN=LEFT><A NAME="DATABASBYT"></A><FONT FACE="San Serif"><B>Byta
 f&ouml;retag.</B></FONT></P>
 <P ><FONT FACE="San Serif" STYLE="font-size: 10pt" >Programmet ger möjlighet att använda olika databaser/företag. Den kanske viktigaste möjligheten är att det blir enkelt att "hoppa" mella ett skarpt företag/databas och ett testföretag/testdatabas.<BR></FONT>
 </P>
+<b><FONT color=#FF0329> OBS!</FONT></b> <FONT FACE="San Serif" STYLE="font-size: 10pt" >Att innan du byter företag/databas ska du stänga ner alla andra fönster som är relaterade till OLFIX! Dock kan OLFIXW, menyn, vara uppe.<br>
 <P ALIGN=CENTER><IMG SRC="UserManual_html_BYTFTGW.png" NAME="Graphic2" ALIGN=MIDDLE WIDTH=608 HEIGHT=218 BORDER=0></P>
 
-<P ALIGN=LEFT STYLE="font-size: 10pt">Klicka på önskad databas i listan <b>Databasnamn</b>. I och med det så flyttas databasenamnet till fältet <b>Önskad databas</b>. Klicka där efter på knappen <b>Byt</b>. <br> Programmet kontrollerar om den valda databasen är en olfixdatabas.</P>
+<P ALIGN=LEFT STYLE="font-size: 10pt">Klicka på önskad databas i listan <b>Databasnamn</b>. I och med det så flyttas databasenamnet till fältet <b>Önskad databas</b>. Klicka där efter på knappen <b>Byt</b>. <br> Programmet kontrollerar om den valda databasen är en olfixdatabas.<br> Efter byte av databas så stäng ner fönstret genom att klicka på knappen <b>Klar</b>.
+</P>
 <P ALIGN=LEFT><A HREF="#INNEHALL"><FONT FACE="San Serif" STYLE="font-size: 10pt">Till
 b&ouml;rjan</FONT></A></P>
 <HR>
-<P ALIGN=CENTER><A NAME="BEGREPP"></A><FONT FACE="San Serif"><B>BEGREPPSF&Ouml;RKLARINGAR</B></FONT></P>
+<P ALIGN=CENTER><A NAME="BEGREPP"></A><FONT SIZE=4 STYLE="font-size: 16pt"><FONT FACE="San Serif"><B>BEGREPPSF&Ouml;RKLARINGAR</B></FONT></P>
 <P ALIGN=LEFT><FONT FACE="San Serif" STYLE="font-size: 10pt"><B>Bokf&ouml;rings&aring;r:</B>
 Tv&aring;st&auml;llig bokstavskombination som anger vilket
 bokf&ouml;rings&aring;r som avses.</FONT></P>
-<P><BR><BR>
-</P>
+
 <P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="San Serif" STYLE="font-size: 10pt"><A HREF="#TOP">Till
 b&ouml;rjan</A> </FONT>
 </P>
