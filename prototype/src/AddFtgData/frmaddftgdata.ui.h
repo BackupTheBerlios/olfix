@@ -1,10 +1,11 @@
 /****************************************************************/
 /**		ADDFTGW					*/
 /**		2003-08-15				*/
-/**		Version: 0.45				*/
+/**		Version: 0.46				*/
 /**		Modifierad: 2006-05-01			*/
 /**			2006-12-15			*/
 /**			2007-01-31			*/
+/**			2007-02-25			*/
 /**		Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
@@ -73,9 +74,9 @@
 void frmAddFtgData::init()
 {
     processnr=1;
-    slotGetFtgdata();
-    pushButtonQuit->setFocus();
-//    LineEditFtgNamn->setFocus();
+//    slotGetFtgdata();			// 2007-02-25
+//    pushButtonQuit->setFocus();    
+    LineEditFtgNamn->setFocus();	// 2007-02-25
 }
 
 void frmAddFtgData::slotLineEditFtgNamn_returnPressed()
