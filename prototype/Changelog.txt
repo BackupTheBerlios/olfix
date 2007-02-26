@@ -1,7 +1,7 @@
-Changelog OLFIX 20070219
+Changelog OLFIX 20070225
 
 Ver 0.5.3.B
-2007-02-19
+2007-02-25
 		Allmänt
 		Nu kan man använda upp till 20 tecken i userid för OLFIX
 
@@ -15,11 +15,20 @@ Ver 0.5.3.B
 		OLFIXTW		Dölja programnamnen i huvudmenyn.(inte perfekt!)
 				Döljer genom att bredda kolummen Funktioner.
 		LISTFORW	Buggrättning						(0051)
+		CHGUSRW		Buggrättning, justering av userdata och fält.		(0052)
 		LSTBETVW	Buggrättning (uppdatering )				(0053)
+		BYTFTGW		Modifierat felmeddelanden.				(0056)
 		DSPTXTW		Buggrättning						(0059)
 		ADDTXTW		Kompleterat med varning för upptaget nr.		(0060)
 		ADDBETVW	Justerat för antal tecken (min 3) i villkor och dagar	(0062)
 		CHGBETVW	Buggrättning + hjälpknapp				(0063)
+		LSTRGTW		Buggrättning,segmenteringsfel				(0065)
+		DELRGTW		Lagt till "lostFocus"					(0067)
+		TOTRGTW		Buggrättning						(0068)
+		LSTFNCW		Töja fönstret horisontellt och vertikalt		(0069)
+		LSTFNCW		Skriva ut till filen /tmp/LSTFNCW.txt			(0070)
+		ADDFTGW		Formatering av organisationsnummer			(0071)
+
 
 		Ändrade tabeller
 		USR		Utökat fält USERID till 20 tecken
@@ -207,12 +216,16 @@ Ver 0.5.3.B
 		Ändrade script
 		install.sh bytt namn till setup.sh
 		kompilering.sh	Nytt program tillkommit (DELBETVW) + rättning 
+		Makefile (för C-programmen) buggrätttning.
 
 		Dokumentation
 		Teknisk Manual		       (uppdaterad  (20070218)   Version 0.66
+		UserManual.pdf 		       (Ny)	    (20070220)
 		UserManual.html		       (uppdaterad  (20070218)   Version 0.14
-		UserManual_ADMINISTRATION.html (uppdaterad) (20070218)   Version 0.41
+		UserManual_ADMINISTRATION.html (uppdaterad) (20070224)   Version 0.41
 		UserManual_FTGADMIN.html       (uppdaterad) (20070214)	 Version 0.46
+		UserManual_DATABASER.html      (uppdaterad) (20070225)   Version 0.44
+		UserManual_GRUNDER.html	       (uppdaterad) (20070224)   Version 0.2
 ________________________________________________________
 Ver 0.5.2.B
 2007-01-31
@@ -229,8 +242,8 @@ Ver 0.5.2.B
 
 		Dokumentation
 		Teknisk Manual	Uppdaterad (2007-01-18) Version 0.65
-		UserManual_FTGADMIN.html (uppdaterad) (2007-01-30)   Version 0.45 	(0048)
-		UserManual.html (uppdaterad) (2007-01-30)   Version 0.13	 	(0048)
+		UserManual_FTGADMIN.html   (uppdaterad) (2007-01-30)   Version 0.45 	(0048)
+		UserManual.html            (uppdaterad) (2007-01-30)   Version 0.13 	(0048)
 		Installation.html (lagt till "g" i sed "s/'ADMIN'/'DittNamn'/g".....)
 		Instalationsanvisningar.* (lagt till "g" i sed "s/'ADMIN'/'DittNamn'/g".....)
 ________________________________________________________
