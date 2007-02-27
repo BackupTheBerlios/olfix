@@ -5,7 +5,7 @@
 /**		Modifierad: 2006-05-01			*/
 /**			2006-12-15			*/
 /**			2007-01-31			*/
-/**			2007-02-25			*/
+/**			2007-02-25--27			*/
 /**		Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
@@ -74,7 +74,7 @@
 void frmAddFtgData::init()
 {
     processnr=1;
-//    slotGetFtgdata();			// 2007-02-25
+    slotGetFtgdata();			// 2007-02-27
 //    pushButtonQuit->setFocus();    
     LineEditFtgNamn->setFocus();	// 2007-02-25
 }
