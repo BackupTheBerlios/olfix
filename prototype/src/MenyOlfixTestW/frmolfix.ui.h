@@ -8,18 +8,18 @@
 /***************************************************************************
                           OLFIXW  -  description
                              -------------------
-		     version 0.65
+		     version 0.67
     begin               : Tis  16 maj  2003
-    modified		: Tis  29 Nov 2005
-    copyright           : (C) 2003 by Jan Pihlgren
+    modified	        : Ons  7 mars 2007
+    copyright        : (C) 2003 by Jan Pihlgren
     email               : jan@pihlgren.se
  ***************************************************************************/
 /*************************************************************************
  *						                                       	*
  *   This program is free software; you can redistribute it and/or modify 		*
- *   it under the terms of the GNU General Public License as published by       	*
+ *   it under the terms of the GNU General Public License as published by       		*
  *   the Free Software Foundation; either version 2 of the License, or     		*
- *   (at your option) any later version.                                   			*
+ *   (at your option) any later version.                                   				*
  *                                                                         					*
 *************************************************************************/
 
@@ -32,7 +32,7 @@
 #include <qregexp.h>
 #include <qlistview.h>
 #define MAXSTRING 10000
-#define PRGNAMN 40
+#define PRGNAMN 80		/* 2007-03-07 */
 
 
 	QProcess* process;
@@ -42,13 +42,21 @@
 	QString inrad2;			/* 2005-11-29 */
 	QString errorrad;
 	QString program;
-	QString version="0.65T  2005-11-30";
+	QString version="0.67T  2007-03-07";
 	QString rights[1000];		/* 2005-11-29 */
 	int rightnbr=0;			/* 2005-11-29 */
 	QString flag="FALSK";		/* 2005-11-29 */
 	
 void frmOlfix::init()
 {
+//    qDebug("init 1");
+    const char *userp = getenv("USER");		/* 2007-03-07 */
+    QString usr(userp);			/* 2007-03-07 */
+    usr=usr.upper();				/* 2007-03-07 */
+    lineEditUser->setText(usr);			/* 2007-03-07 */
+    ListView1->setColumnWidth(0,500);		/* 2007-02-11 */
+//    ListView1->hideColumn(1);			/* 2007-02-11 */
+    qDebug("init 2");
     frmOlfix::getRights();
     frmOlfix::slotGetProgram();
     PushButtonQuit->setFocus();
@@ -57,7 +65,7 @@ void frmOlfix::init()
 void frmOlfix::slotGetProgram()
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
+                QString usr(userp);
 	inrad="";
 	errorrad="";
 
@@ -69,9 +77,12 @@ void frmOlfix::slotGetProgram()
 	frmOlfix::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmOlfix::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmOlfix::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
+	
+	qDebug("Process Start");
+	
 	if ( !process->start() ) {
                 // error handling
-	    fprintf(stderr,"Problem starta STYRMAN/PRGLST!\n");
+//	    fprintf(stderr,"Problem starta STYRMAN/PRGLST!\n");
 	    QMessageBox::warning( this, "Start av PRGLST ",
                             "Kan inte starta STYRMAN/PRGLST!\n"
                             );
@@ -100,8 +111,8 @@ void frmOlfix::slotDataOnStderr()
 
 
 void frmOlfix::slotEndOfProcess()
-{
-/*    QListViewItem* item;	*/
+{   
+    qDebug("EndOfProcess");
     int i;
     i = -1;
     i = errorrad.find( QRegExp("Error:"), 0 );
@@ -169,7 +180,7 @@ void frmOlfix::slotEndOfProcess()
 	k++;
     };
     i=atoi(antrad);		// i = antal poster
-//    fprintf(stderr,"Antalrader=%d\n",i);
+//   qDebug("Antal rader=%d",i);
     
     for (k = 1;k <= i; k++){	// gå igenom alla raderna / posterna
 	l=0;
@@ -239,9 +250,8 @@ void frmOlfix::slotEndOfProcess()
 	QListViewItem *mnufolder[30];
 	QListViewItem *mnutxtfld[30];
 	/*************************************************/
-	/*    Start 2005-11-29				*/
+	/*    Start 2005-11-29				      */
 	/*************************************************/
-
 	int ii = -1;
 	for (int i2=0;i2<=rightnbr;i2++) {
 	    	ii=rights[i2].find( QRegExp(pgm), 0 );
@@ -299,13 +309,15 @@ void frmOlfix::slotEndOfProcess()
 //	 rensa listrad
 	listrad.remove(0,70);
     } 					// for ( k=..... slut  
+//   ListView1->hideColumn(1);			/* 2007-02-11 */
 }
 
 void frmOlfix::ListView1_clicked( QListViewItem * item)
 {
     char programnamn[PRGNAMN]="";
     QString prog;
-
+//    ListView1->hideColumn(1);			/* 2007-02-11 */
+    
     if(!item){
 	return;
     }
@@ -325,7 +337,7 @@ void frmOlfix::slotRunProgram( QString prg )
 {
  	QString prog;
 	prog.append("./");
-            prog.append(prg);
+                prog.append(prg);
 	inrad="";
 	errorrad="";
 
@@ -336,7 +348,7 @@ void frmOlfix::slotRunProgram( QString prg )
 
 	if ( !process->start() ) {
 	    // error handling
-	    fprintf(stderr,"Problem starta OLFIXW - %s\n",prog.latin1());
+//	    fprintf(stderr,"Problem starta OLFIXW - %s\n",prog.latin1());	/* 2007-03-07 */
 	    QMessageBox::warning( this, "OLFIX","Kan inte starta "+prog+"!\n" );
 	}
     }
@@ -367,7 +379,7 @@ void frmOlfix::slotEndOfPrgProcess()
 void frmOlfix::CheckBehor(QString prog)
 {
     	const char *userp = getenv("USER");
-            QString usr(userp);
+                QString usr(userp);
 	QString bibl;
 	inrad="";
 	errorrad="";
@@ -458,7 +470,7 @@ void frmOlfix::slotHelp()
 	errorrad="";
 
 	process = new QProcess();
-	process->addArgument( "OLFIXHLP" );		// OLFIX program
+	process->addArgument( "./OLFIXHLP" );		// OLFIX program
 	
 	if ( !process->start() ) {
 	    // error handling
