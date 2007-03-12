@@ -5,7 +5,7 @@
 	<TITLE></TITLE>
 	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.1.5  (Linux)">
 	<META NAME="CREATED" CONTENT="20060106;6094100">
-	<META NAME="CHANGED" CONTENT="20070308">
+	<META NAME="CHANGED" CONTENT="20070312">
 </HEAD>
 <BODY LANG="sv-SE" DIR="LTR">
 <P><IMG SRC="UserManual_html_OLFIX_LOGGA.jpg" NAME="Grafik1" align=LEFT WIDTH=748 HEIGHT=315 BORDER=0>
@@ -16,7 +16,7 @@
 <P align=CENTER> <FONT SIZE=5>Anv&auml;ndarmanual</FONT></P>
 <P align=CENTER> <FONT SIZE=4>Kapitell Innehåll</FONT></P>
 <P align=CENTER> <FONT SIZE=4>Version 0.15</FONT></P>
-<P align=CENTER> <FONT SIZE=4>2007-03-10</FONT></P>
+<P align=CENTER> <FONT SIZE=4>2007-03-12</FONT></P>
 <P align=LEFT><BR><BR>
 </P>
 <P align=LEFT> <FONT SIZE=2>This program is free software; you can redistribute it
@@ -136,6 +136,7 @@ Copyright 2006 Jan Pihlgren.
 		<a href="UserManual_ARTIKLAR.html#PRISLISTA">Prislistor.</a><br>
 	<a href="UserManual_RAPPORTER.html#TOP">Rapporter.</a>
 		<a href="UserManual_RAPPORTER.html#INLEDNING">Inledning.</a>
+		<a href="UserManual_RAPPORTER.html#BALANSRAPPORT">Balansräkning.</a>
 		<a href="UserManual_RAPPORTER.html#RESULTATRAPPORT">Resultatrapport.</a>
 		<a href="UserManual_RAPPORTER.html#SIERAPPORT4">Skapande av SIE-rapport typ 4.</a>
 </pre>
@@ -160,10 +161,10 @@ Copyright 2006 Jan Pihlgren.
 </pre>
 
 <p style="margin-bottom: 0cm;" align="left">
-<font face="San Serif"><font size="2">
+<font face="San Serif"><font style="font-size: 10pt;">
 <a href="#TOP">Till b&ouml;rjan</a>
 </font></p>
-
+<hr>
 <!--			INLEDNING	-->
 <p align="center"><FONT SIZE=1 style="font-size: 16pt;">
 <a name="INLEDNING"></a>
@@ -193,13 +194,21 @@ i tabellen RIGHTS, s&aring; vips har man ny funktionalitet i OLFIX.
 <P align=CENTER> <FONT SIZE=1 style="font-size: 12pt;">
 <B>OLFIX grundkonstruktion</B></P>
 <P align=center ><IMG SRC="UserManual_html_Olfix_Filosofi.jpg" NAME="FILOSOFI2" ></P>
+<p>
+OLFIX innehåller ett antal tabeller (register). En del av tabellerna används för att administrera OLFIX.<br>
+Dessa tabeller är PROGRAM, RIGHTS, TRANSID och USR. <br>
+PROGRAM innehåller en förteckning av de program som kan köras i OLFIX, programmen till OLFIX meny och som visas med OLFIXW eller OLFIXTW. Tabellen PROGRAM kan inte uppdateras med ett OLFIXprogram. Se Tekniska Manual.<br><br>
+Tabellen TRANSID innehåller en för teckning och beskrivning över funktioner som behövs till OLFIXs progam. TRANSID kan uppdateras med OLFIXprogrammet <a href ="UserManual_ADMINISTRATION.html#NYFUNK">ADDFNCW</a>, Ny funktion.<br>
+
+
+</p>
 
 <P align=CENTER> <FONT SIZE=1 style="font-size: 12pt;">
 <b>Principskiss f&ouml;r OLFIXs GUI-program</b> </P>
 <P align=CENTER><IMG SRC="UserManual_html_Olfix_Struktur.jpg" NAME="STRUKTUR" ></P>
 
 <p style="margin-bottom: 0cm;" align="left">
-<font face="San Serif"><font size="2">
+<font face="San Serif"><font style="font-size: 10pt;">
 <a href="#TOP">Till b&ouml;rjan</a>
 </font></p>
 </BODY>

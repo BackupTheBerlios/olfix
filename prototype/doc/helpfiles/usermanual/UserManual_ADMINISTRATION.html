@@ -6,7 +6,7 @@
 	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.0.2  (Linux)">
 	<META NAME="CREATED" CONTENT="20021205;10014400">
 	<META NAME="CHANGEDBY" CONTENT="Jan Pihlgren">
-	<META NAME="CHANGED" CONTENT="20070219">
+	<META NAME="CHANGED" CONTENT="20070312">
 	<STYLE>
 	<!--
 		@page { margin: 2cm }
@@ -25,9 +25,9 @@ f&ouml;r Linuxsystem</B></FONT></P>
 <P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=4 STYLE="font-size: 16pt">Kapitel
 Administration</FONT>
 </P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.41</FONT>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.42</FONT>
 </P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2007-02-24</FONT>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2007-03-12</FONT>
 </P>
 <HR>
 <P STYLE="margin-left: 3cm">This program is free software; you can
@@ -38,7 +38,7 @@ any later version.</P>
 <P STYLE="margin-bottom: 0.5cm; border-top: none; border-bottom: 1.10pt double #808080; border-left: none; border-right: none; padding-top: 0cm; padding-bottom: 0.05cm; padding-left: 0cm; padding-right: 0cm">
 <FONT SIZE=1 STYLE="font-size: 6pt">Copyright 2004 Jan Pihlgren.</FONT></P>
 <A NAME="TOP"></A>
-<p style="margin-bottom: 0cm;"><font face="San Serif" size="2">
+<p style="margin-bottom: 0cm;"><font face="San Serif" STYLE="font-size: 10pt">
 <a href="UserManual.html#TOP">Hem</a></font></p>
 <!--                   INNEHÅLL                           -->
 <P ALIGN=CENTER><A NAME="INNEHALL"></A>
@@ -57,7 +57,8 @@ any later version.</P>
 	<A href="#FUNK">Funktionsadministration.</A>
 		<A href="#NYFUNK">Ny funktion.</A>
 		<A href="#LISTFUNK">Lista funktioner.</A>
-		<A href="#LISTPROG">Lista program.</A><br>
+		<A href="#LISTPROG">Lista program.</A>
+		<a href="UserManual_ERROR.html#SAKNADFNC">Saknad funktion.</a><br>
 	<A href="#BEHORIG">Behörighetsadministration.</A>
 		<A href="#NYBEHORIG">Ny behörighet.</A>
 		<A href="#TOTAL_RIGHT">Fullständig behörighet.</A><br>
@@ -243,7 +244,10 @@ I fall man anger en databas som inte är en olfixdatabas erhålls följande felmedd
 <p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
 Funktionsadministration innebär upplägg av nya funktioner med tillhörande beskrivningar.<br>
 En funktion är ett program (C-program) som utgör en brygga mellan det grafiska programmet och databasen.
-Nya funktioner läggs upp när det tillkommit ny funktionalitet i OLFIX.
+Nya funktioner läggs upp när det tillkommit ny funktionalitet i OLFIX.<br>
+I samband med uppgradering av OLFIX kan det hända att en ny funktion rapporteras som saknad, se 
+<a href="UserManual_ERROR.html#SAKNADFNC">Saknad funktion.</a> och <a href="NYFUNK">Ny funktion.</a><br>
+</FONT></p>
 <P ALIGN=LEFT>
 <a name="NYFUNK"><b>Ny funktion.</b></a>
 <p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
@@ -251,7 +255,8 @@ Registrera nya funktioner.<br>
 Programmet är till för att underlätta sammankoppling av nya program och databasen.
 </FONT></p>
 <P ALIGN=center>
-<img src="UserManual_html_ADDFNCW.png" name="NYFUNKPICT" align="bottom"  border="0"></p>
+<img src="UserManual_html_ADDFNCW.png" name="NYFUNKPICT" align="bottom"  border="0">
+</p>
 <p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
 Skriv in namnet på den nya funktionen i fältet <b>Funktion</b>. Avsluta med att trycka Enter.<br>
 I fältet <b>Ledtext</b> skriver man in text som förklarar vad funktionen gör. Avsluta med att trycka på Enter.<br>
@@ -361,7 +366,7 @@ Genom att klicka på knappen <b>Radera</b> så plockas betalningsvillkoret bort ur
 <B>BEGREPPSF&Ouml;RKLARINGAR</B></FONT></P>
 <p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt" >
  <b>Bokf&ouml;rings&aring;r:</B> Tv&aring;st&auml;llig bokstavskombination som anger vilket
-bokf&ouml;rings&aring;r som avses.<br>
+bokf&ouml;rings&aring;r/redovisningsår som avses.<br>
 <b>Funktion:</b> Ett mindre program som sammanbinder huvudprogram  med databasen.<br>
 <b>Behörighet:</b> Möjlighet att använda ett program i OLFIX.<br>
 </FONT></P>
