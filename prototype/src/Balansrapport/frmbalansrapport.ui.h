@@ -1,9 +1,9 @@
 /****************************************************************/
 /**		BALRPTW					*/
-/**		Ver 0.22                                                                                    */
+/**		Ver 0.23                         		                                           */
 /**		Created    2004-03-19				*/
-/**		Modified: 2005-01-10				*/
-/**   Copyright	Jan Pihlgren	jan@pihlgren.se			*/
+/**		Modified: 2007-03-12				*/
+/**   Copyright	Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
  *					                                                 *
@@ -30,7 +30,7 @@
 #include <qfile.h>
 #include <qregexp.h>
 #include <qdatetime.h>
-#define VERSION "0.1"
+#define VERSION "0.23"
 #define MAXSTRING 5000
 
     QProcess* process;
@@ -48,6 +48,7 @@
     QString period;    
     QString ftgnamn;
     
+    QString hjelpfil;
     QString reportpath;
     QString tmppath;
     QString kugarversion;
@@ -56,9 +57,9 @@
 void frmBalansrapport::init()
 {
     csvflag="N";		/*  Ska det vara en kommaseparerad rapport för Kspread. N=Nej 	*/
-			/*  N = Gör en Kugarrapport 					*/
-                                    /*  J = Gör en Kspreadrapport  				*/
-    delsumflag="1";	/* På vilken nivå ska delsummor göras. Default = nivå 1  	*/
+			/*  N = Gör en Kugarrapport 				*/
+                                                /*  J = Gör en Kspreadrapport  				*/
+    delsumflag="1";		/* På vilken nivå ska delsummor göras. Default = nivå 1  	*/
     
     QDateTime dt = QDateTime::currentDateTime();
     datum=dt.toString("yyyy-MM-dd");
@@ -132,8 +133,9 @@ void frmBalansrapport::slotpushButtonOK_clicked()
 void frmBalansrapport::slotGetData()
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
-
+                QString usr(userp);
+	inrad="";
+	errorrad="";
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// userid
@@ -144,7 +146,7 @@ void frmBalansrapport::slotGetData()
 
 	frmBalansrapport::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
 	frmBalansrapport::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-            frmBalansrapport::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
+                frmBalansrapport::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
 
 
 	if (bar == "" ){
@@ -212,7 +214,7 @@ void frmBalansrapport::slotEndOfProcess()
     }else{
 	fil=tmppath+"Balansrapport.kud";
     }
-    
+//    qDebug("slotEndOfProcess() 1::fil=%s",fil.latin1());
     QFile filnamn( fil );
     utgsaldo="0.00";
 //    qDebug("slotEndOfProcess() 1::inrad=%s",inrad.latin1());
@@ -1068,3 +1070,58 @@ void frmBalansrapport::Rubrik(QString klass1,QString klassnamn, int klass)
      klassflag=klass;
 }
 */
+
+void frmBalansrapport::pushBtnHelp_clicked()
+{
+	inrad="";
+	frmBalansrapport::readResursFil();		// Hämta path till hjälpfilen
+
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+//	int i2 = hjelpfil.length();
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_RAPPORTER.html";
+	hjelpfil=hjelpfil+"#BALANSRAPPORT";		// Lägg till position
+//	qDebug("hjelpfil=%s",hjelpfil.latin1());
+
+	process = new QProcess();
+	process->addArgument( "./OLFIXHLP" );		// OLFIX program  (20061213)
+	process->addArgument(hjelpfil);
+
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "BALRPTW","Kan inte starta OLFIXHLP!\n" );
+	}
+	lineEditBar->setFocus();
+}
+
+void frmBalansrapport::readResursFil()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			               */
+    /* Plocka fram var hjälpfilen finns			               */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 );
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
+}

@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>frmBalansrapport</class>
 <widget class="QWidget">
     <property name="name">
@@ -364,6 +364,22 @@ på nivå..</string>
             </property>
         </widget>
     </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushBtnHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>491</x>
+                <y>10</y>
+                <width>50</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
@@ -395,6 +411,18 @@ på nivå..</string>
         <signal>toggled(bool)</signal>
         <receiver>frmBalansrapport</receiver>
         <slot>radioButtonPrint_toggled(bool)</slot>
+    </connection>
+    <connection>
+        <sender>lineEditBar</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmBalansrapport</receiver>
+        <slot>slotlineEditBar_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>pushBtnHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmBalansrapport</receiver>
+        <slot>pushBtnHelp_clicked()</slot>
     </connection>
 </connections>
 <tabstops>
@@ -432,6 +460,8 @@ på nivå..</string>
     <slot>slotRunPrinting( QString rptfile, QString rpttemplate )</slot>
     <slot>slotDataOnPrtStderr()</slot>
     <slot>slotEndOfPrtProcess()</slot>
+    <slot>pushBtnHelp_clicked()</slot>
+    <slot>readResursFil()</slot>
 </slots>
 <functions>
     <function access="private" specifier="non virtual">init()</function>
