@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>frmRapportGen</class>
 <widget class="QDialog">
     <property name="name">
@@ -162,22 +162,6 @@ order by LEVNR,EXPIREDATUM,FAKTURANR
     </widget>
     <widget class="QPushButton">
         <property name="name">
-            <cstring>pushButtonGetFile</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>190</y>
-                <width>150</width>
-                <height>25</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Hämta fil</string>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
             <cstring>pushButtonSaveFile</cstring>
         </property>
         <property name="geometry">
@@ -194,22 +178,6 @@ order by LEVNR,EXPIREDATUM,FAKTURANR
     </widget>
     <widget class="QPushButton">
         <property name="name">
-            <cstring>pushButtonHelp</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>520</x>
-                <y>190</y>
-                <width>66</width>
-                <height>25</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Hjälp</string>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
             <cstring>pushButtonClear</cstring>
         </property>
         <property name="geometry">
@@ -222,6 +190,38 @@ order by LEVNR,EXPIREDATUM,FAKTURANR
         </property>
         <property name="text">
             <string>Rensa text</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonGetFile</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>190</y>
+                <width>150</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hämta fil</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>520</x>
+                <y>190</y>
+                <width>66</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
         </property>
     </widget>
 </widget>
@@ -278,7 +278,7 @@ order by LEVNR,EXPIREDATUM,FAKTURANR
         <sender>pushButtonHelp</sender>
         <signal>clicked()</signal>
         <receiver>frmRapportGen</receiver>
-        <slot>slotHelp()</slot>
+        <slot>pushButtonHelp_clicked()</slot>
     </connection>
 </connections>
 <includes>
@@ -298,7 +298,8 @@ order by LEVNR,EXPIREDATUM,FAKTURANR
     <slot>slotGetQueryFile()</slot>
     <slot>SaveFileDialog()</slot>
     <slot>slotClearSqlQuery()</slot>
-    <slot>slotHelp()</slot>
+    <slot>pushButtonHelp_clicked()</slot>
+    <slot>readResursFil()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

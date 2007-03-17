@@ -1,8 +1,9 @@
 /****************************************************************/
 /**		RPTGENW					*/
-/**		2003-08-26					*/
-/**		Ver 0.1                                                                                    */
-/**   Copyright	Jan Pihlgren	jan@pihlgren.se			*/
+/**		2003-08-26				*/
+/**		Ver 0.2                                                                                    	*/
+/**    Modified:	2007-03-17				*/
+/**   Copyright	Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
  *					                                                 *
@@ -32,7 +33,7 @@
 
 #include <qfiledialog.h> 
 
-#define VERSION "0.1"
+#define VERSION "0.2"
 #define MAXSTRING 5000
 #define FIL "/tmp/rptcre.txt"
 
@@ -41,6 +42,7 @@
     QString errorrad;
     QString sqlquery;
     QString fileName;
+    QString hjelpfil;
 
 void frmRapportGen::init()
 {
@@ -246,11 +248,58 @@ void frmRapportGen::slotClearSqlQuery()
     textEditSQL->setText(sqlquery);
 }
 
-
-void frmRapportGen::slotHelp()
+void frmRapportGen::pushButtonHelp_clicked()
 {
-    	    QMessageBox::information( this, "SRPTGENW Hjälp",
-                      "Data (values) ska omges med apostrof (\"enkelfnutt\").\n"
-	          "Tabellnamn ska skrivas med versaler (stora bokstäver).\n " 
-		  );
+	inrad="";
+	frmRapportGen::readResursFil();		// Hämta path till hjälpfilen
+
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+//	int i2 = hjelpfil.length();
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_RAPPORTER.html";
+	hjelpfil=hjelpfil+"#RAPPORTGENERATOR";	// Lägg till position
+//	qDebug("hjelpfil=%s",hjelpfil.latin1());
+
+	process = new QProcess();
+	process->addArgument( "./OLFIXHLP" );		// OLFIX program  (20061213)
+	process->addArgument(hjelpfil);
+
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "RPTGENW","Kan inte starta OLFIXHLP!\n" );
+	}
+	pushButtonGetFile->setFocus();
+}
+
+
+void frmRapportGen::readResursFil()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			               */
+    /* Plocka fram var hjälpfilen finns			               */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 );
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
 }
