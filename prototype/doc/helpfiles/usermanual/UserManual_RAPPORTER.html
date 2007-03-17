@@ -11,7 +11,7 @@
   <meta name="CREATED" content="20021205;10014400">
 
   <meta name="CHANGEDBY" content="Jan Pihlgren">
-  <meta name="CHANGED" content="20070312">
+  <meta name="CHANGED" content="20070317">
   <style>
 	<!--
 		@page { margin: 2cm }
@@ -38,7 +38,7 @@
  Version 0.43
  </font></p>
 <p align="center" style="margin-bottom: 0cm;"><font size="5">
- 2007-03-12
+ 2007-03-17
  </font></p>
 <hr>
 <p style="margin-left: 3cm;">This program is free software; you can
@@ -64,7 +64,9 @@ the Free Software Foundation; either version 2 of the License, or<br>
 		<a href="#INLEDNING">Inledning.</a>
 		<a href="#BALANSRAPPORT">Balansräkning</a>
 		<a href="#RESULTATRAPPORT">Resultatrapport</a>
-		<a href="#SIERAPPORT4">Skapande av SIE-rapport typ 4.</a><br>
+		<a href="#SIERAPPORT4">Skapande av SIE-rapport typ 4.</a>
+		<a href="#RAPPORTGENERATOR">Rapportgenerator.</a>
+<br>
 
 </font></P>
 </pre>
@@ -77,6 +79,7 @@ the Free Software Foundation; either version 2 of the License, or<br>
 <P align=LEFT> <FONT  face="San Serif" style="font-size: 10pt;">
 Förutsättningen för att anända OLFIXs rapporter är att man har programpaketet <b>Koffice</b> installerat. I Kofficepaketet finns programmen <b>Kugar</b> och <b>Kspread</b>. Då OLFIX inte innehåller egna utskriftsrutiner använder sig OLFIX av dessa program för att formatera och skriva ut rapporterna.<br>
 Kugar används till att hantera utskrifter. Kspread används till att skapa kalkylblad vilka kan användas för egna beräkningar mm.<br>
+Lite mer finns att studera i Teknisk manual.<br>
 
 </FONT>
 </P>
@@ -157,7 +160,7 @@ Utskriften av rapporten görs genom att klicka på skrivarsymbolen i programmet Ku
 </p>
 
 <p align="center">
-<img src="UserManual_html_RPTSIEW.png" name="Graphic1" align="bottom"
+<img src="UserManual_html_RPTSIEW.png" name="RPTSIEW" align="bottom"
  width="554" height="300" border="0">
  </p>
 <P align=LEFT> <FONT  style="font-size: 10pt;">
@@ -172,14 +175,38 @@ Utskriften av rapporten görs genom att klicka på skrivarsymbolen i programmet Ku
 <a href="#TOP">Till början</a>
 </p>
 <hr>
+<!--                                      RAPPORTGENERATOR			-->
+<a name="RAPPORTGENERATOR"></a>
+<P align=LEFT> <FONT  face="San Serif" style="font-size: 12pt;">
+<b>Rapportgenerator.</b>
+</p>
+<P align=LEFT> <FONT  style="font-size: 10pt;">
+Rapportgenerator behövs när standardrapporterna inte räcker till för ens behov. En rapportgenerator ställer dock ganska stora krav på användaren. Vederbörande behöver kunskaper i SQL samt detaljerad information över OLFIXs tabeller. Det senare kan erhållas i Teknisk manual.<br>
+<p align="center">
+<img src="UserManual_html_RPTGENW.png" name="RPTGENW" align="bottom">
+ </p>
+<P align=LEFT> <FONT  style="font-size: 10pt;">
+Data (values) ska omges med apostrof (enkelfnutt).<br>
+Tabellnamn och fältnamn ska skrivas med versaler (stora bokstäver).<br>
+Genom att klicka på knappen <b>Skapa rapport</b> exekveras SQL-frågan och skapar resultatfilen <b>/tmp/rptcre.txt</b>. Resultat filen är en så kallad "komma separerad textfil", csv.
+När resultatfilen skapats så startas Kspread med filnamnet som argument.
+</FONT></P>
+
+<P align=LEFT> <FONT  style="font-size: 10pt;">
+<a href="#TOP">Till början</a>
+</p>
+
+<hr>
 <p align="center">
 <a name="BEGREPP"></a> <b>BEGREPPSFÖRKLARINGAR</b></p>
-<p align="left">
+<p align="left"> <FONT  style="font-size: 10pt;">
 <b>Bokföringsår:</b> Tvåställig bokstavskombination som anger vilket
-bokföringsår som avses.</p>
+bokföringsår som avses.<br>
+<b>SQL:</b> Akronym för Standard Query Language. SQL är ett frågespråk som används för att hantera SQL-databaser.
+</p>
 <br>
 
-<p align="left" style="margin-bottom: 0cm;">
+<p align="left" style="font-size: 10pt;">
 <a href="#TOP">Till början</a>
 </p>
 </body>
