@@ -2010,7 +2010,7 @@ CREATE TABLE `USR` (
 
 /*!40000 ALTER TABLE `USR` DISABLE KEYS */;
 LOCK TABLES `USR` WRITE;
-INSERT INTO `USR` (`USERID`, `NAMN`, `AVD`, `GRUPP`) VALUES ('OLFIX','Olfix Superuser','IT','Stab'),('ADMIN','Jan Pihlgren','IT','Utveckling'),('TESTARE','Testare Test','IT','Stab'),('CARRO','Caroline Inköpare','Inköp','Prod'),('ADMINA','Administratör av OLFIX','IT','Stab'),('GUEST','Guest Apache','Apache','Webb');
+INSERT INTO `USR` (`USERID`, `NAMN`, `AVD`, `GRUPP`) VALUES ('OLFIX','Olfix Superuser','IT','Stab'),('ADMIN','','IT','Utveckling'),('TESTARE','Testare Test','IT','Stab'),('CARRO','Caroline Inköpare','Inköp','Prod'),('ADMINA','Administratör av OLFIX','IT','Stab'),('GUEST','Guest Apache','Apache','Webb');
 UNLOCK TABLES;
 /*!40000 ALTER TABLE `USR` ENABLE KEYS */;
 
