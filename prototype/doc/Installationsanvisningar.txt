@@ -1,6 +1,6 @@
 Installationsanvisningar.
 
-(2006-03-02)
+(2007-03-21)
 
 Förutsättningen för att kunna installera OLFIX är att MySQL och Qt finns installerad på datorn. Har du KDE som grafiskt interface så är Qt installerat.
 
@@ -11,6 +11,7 @@ OBS! MySQL skall vara startad. Det bästa är att ordna det så att MySQL startas n
 Installation av programvara(första gången):
 I fall du har en tidigare version av OLFIX installerad, installera då OLFIX på samma plats som den tidigare versionen.
 
+Se till att du är root när du gör följande:
 
 shell> cd /opt
 shell> gunzip < /path/to/OLFIX-VERSION.tar.gz | tar xvf -
@@ -33,6 +34,10 @@ shell> sed "s/'ADMIN'/'DittNamn'/g" /opt/olfix/sql/CreateOLFIX.sql > /opt/olfix/
 mv /opt/olfix/CreateOLFIXNy.tmp /opt/olfix/sql/CreateOLFIX.sql
 Kör
 shell> mysql -u root -p < /opt/olfix/sql/CreateOLFIX.sql > $HOME/tmp/mysql.log
+eller
+shell> mysql -u root -p < /opt/olfix/sql/CreateOLFIXNy.sql >& mysql.log
+beroende på vilken version du har.
+
 
 Bibliotek.
 
@@ -51,8 +56,10 @@ OLFIX har följande bibliotek:
 /opt/olfix/src
 /opt/olfix/util
 
-Kopiera filen /opt/olfix/script/.olfixrc till $HOME/.olfixrc och editera den så den passar dig. .olfixrc måste finnas i
-$HOME hos alla användare som ska köra OLFIX.
+Som standard installeras .olfixrc i $HOME första gången man startar OLFIXW.
+Ifall du gjort en egen installation behöver du kopiera filen /opt/olfix/script/.olfixrc till $HOME/.olfixrc.
+Editera den så den passar dig.
+.olfixrc måste finnas i $HOME hos alla användare som ska köra OLFIX.
 OBS! VTMP=/tmp/ får inte avslutas med ett returntecken. Måste ligga sist i filen.
 .olficrc bör se ut ungefär så här:
 
@@ -76,8 +83,13 @@ Skriv;
 shell>$ ./OLFIXW
 och tryck Enter.
 
-I Mandrakelinux
-Start -> Flera Program -> Ekonomi -> OLFIXW (klicka)
+Alternativ 3:
+Skapa en länk/genväg/shortcut på skrivbordet.
+Använd KDE Konqueror och flytta dig till mappen /opt/olfix/bin
+Markera och drag OLFIXW till skrivbordet.
+På fråga vad du vill göra, välj länk/link.
+Därefter räcker det med att klicka på genvägen för att starta OLFIX.
+
 
 Error:
 Om huvudfönstret/meny är tomt/blankt
@@ -90,12 +102,21 @@ För MandrivaLinux 2006.
 # cd /usr/lib/
 # ln -s libmysqlclient.so.14 libmysqlclient.so.12
 
+För MandrivaLinux 2007
+# cd /usr/lib/
+# ln -s libmysqlclient.so.15 libmysqlclient.so.12
+
 För Fedora Core 4
 # cd /usr/lib/
 # ln -s ./mysql/libmysqlclient.so.14 libmysqlclient.so.12
 
 
 Installation av MySQL
+OBS! Läs orginalinstruktionerna hos MySQL AB.
+OBS!Använd i första hand din distributions installationshanterare.
+
+Annars är detta sättet att installera MySQL när man laddat ner MySQL från MySQL ABs hemsida.
+
 The basic commands you must execute to install and use a MySQL binary distribution are:
 shell> groupadd mysql
 shell> useradd -g mysql mysql
