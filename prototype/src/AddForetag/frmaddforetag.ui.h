@@ -33,6 +33,7 @@
 #include <qregexp.h>
 #include <qlistview.h>
 #include <qwhatsthis.h> 
+// #include <qwaitcondition.h> 
 #define MAXSTRING 5000
 #define VERSION "Version: 0.3\n 2006-12-13"
 
@@ -185,8 +186,7 @@ void frmAddForetag::slotAddForetag()
     QMessageBox::information( this, "ADDFORW",
 		"Databasen \""+dbnamn+"\" är skapad!\n"
 	);
-
-    PushButtonQuit->setFocus();
+    exit(0);
 }
 
 void frmAddForetag::slotDataOnStdout()
