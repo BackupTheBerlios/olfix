@@ -186,6 +186,15 @@ void frmAddForetag::slotAddForetag()
     QMessageBox::information( this, "ADDFORW",
 		"Databasen \""+dbnamn+"\" är skapad!\n"
 	);
+    /* Omstart av ADDFORW efter skapande av ny databas */
+    process = new QProcess();
+    process->addArgument( "./ADDFORW" );		
+//    process->addArgument(hjelpfil);
+
+   if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "ADDFORW","Kan inte starta en ny ADDFORW!\n" );
+	}    
     exit(0);
 }
 
@@ -389,7 +398,7 @@ void frmAddForetag::slotEndOfProcessList()
 		    p=inrad.mid(m+temp1.length(),i);
 		    if(p != "mysql"){
 			if(p != "information_schema"){
-			    qDebug("p=%s",p.latin1());
+//			    qDebug("p=%s",p.latin1());
 			    item = new QListViewItem(listViewDatabas,p);
 			}
 		    }
