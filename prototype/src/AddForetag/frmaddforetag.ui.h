@@ -8,10 +8,11 @@
 /***************************************************************************
                           ADDFORW  -  description
                              -------------------
-		     version 0.3
+		     version 0.4
     begin                 : Tis   9 nov  2004
     Modified          : Ons 28 sept 2005
                                :Ons 13 dec  2006  Rättat bugg men OLFIXHLP
+                               :Tors 22 mars 2007 Ger fel om databasnamn är blankt.			       
     copyright          : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -106,8 +107,13 @@ void frmAddForetag::pushButtonHelp_clicked()
 void frmAddForetag::slotAddForetag()
 {
 /************************************************************************/
-/*	Skapa databasen i mysql						*/
+/*	Skapa databasen i mysql				                 */
 /************************************************************************/
+    if(dbnamn=""){
+	QMessageBox::warning( this, "ADDFORW","Databasnamn saknas!\n" );
+	LineEditdbnamn->setFocus();
+	return;
+    }
     const char *userp = getenv("USER");
     QString usr(userp);
     QString user;
@@ -381,8 +387,10 @@ void frmAddForetag::slotEndOfProcessList()
 		    i = k - (m+temp1.length());
 		    p=inrad.mid(m+temp1.length(),i);
 		    if(p != "mysql"){
-//			qDebug("p=%s",p.latin1());
-			item = new QListViewItem(listViewDatabas,p);
+			if(p != "information_schema"){
+			    qDebug("p=%s",p.latin1());
+			    item = new QListViewItem(listViewDatabas,p);
+			}
 		    }
 		    n++;
 		}
