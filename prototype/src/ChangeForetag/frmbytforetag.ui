@@ -152,25 +152,6 @@
             <string>Nuvarande företag:</string>
         </property>
     </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>pushButtonDo</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>20</x>
-                <y>165</y>
-                <width>71</width>
-                <height>20</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Byt</string>
-        </property>
-        <property name="default">
-            <bool>true</bool>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>textLabel1</cstring>
@@ -187,32 +168,6 @@
             <string>Denna funktion används för att skifta mellan olika företag (databaser).
 Databas olfix är det ordinarie, "skarpa" företaget.
 Databas olfixtst är ett testföretag.</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditNyDatabas</cstring>
-        </property>
-        <property name="enabled">
-            <bool>true</bool>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>255</x>
-                <y>115</y>
-                <width>96</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="paletteForegroundColor">
-            <color>
-                <red>0</red>
-                <green>0</green>
-                <blue>0</blue>
-            </color>
-        </property>
-        <property name="text">
-            <string></string>
         </property>
     </widget>
     <widget class="QListView">
@@ -241,6 +196,25 @@ Databas olfixtst är ett testföretag.</string>
     </widget>
     <widget class="QPushButton">
         <property name="name">
+            <cstring>pushButtonDo</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>20</x>
+                <y>165</y>
+                <width>71</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Byt</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
             <cstring>pushButtonOK</cstring>
         </property>
         <property name="geometry">
@@ -256,6 +230,32 @@ Databas olfixtst är ett testföretag.</string>
         </property>
         <property name="default">
             <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditNyDatabas</cstring>
+        </property>
+        <property name="enabled">
+            <bool>true</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>255</x>
+                <y>115</y>
+                <width>96</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="text">
+            <string></string>
         </property>
     </widget>
 </widget>
@@ -290,6 +290,18 @@ Databas olfixtst är ett testföretag.</string>
         <receiver>frmBytForetag</receiver>
         <slot>pickupDatabas(QListViewItem*)</slot>
     </connection>
+    <connection>
+        <sender>lineEditNyDatabas</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmBytForetag</receiver>
+        <slot>lineEditNyDatabas_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditNyDatabas</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmBytForetag</receiver>
+        <slot>lineEditNyDatabas_returnPressed()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>listViewDatabas</tabstop>
@@ -305,6 +317,7 @@ Databas olfixtst är ett testföretag.</string>
 </includes>
 <slots>
     <slot>init()</slot>
+    <slot>lineEditNyDatabas_returnPressed()</slot>
     <slot>pickupDatabas( QListViewItem * item )</slot>
     <slot>checkDatabaseExist()</slot>
     <slot>getDatabase()</slot>

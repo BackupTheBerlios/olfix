@@ -9,9 +9,9 @@
 /***************************************************************************
                           BYTFTGW  -  description
                              -------------------
-		     version 0.5
-    begin                   	: Sön   19 okt    2003
-    modified:   	: Tors  22 feb   2007, Buggrättning.
+		     version 0.6
+    begin                   	: Sön   19 okt      2003
+    modified:   	: Tors  22 mars   2007, Buggrättning.
     copyright            	: (C) 2003 by Jan Pihlgren
     email                	: jan@pihlgren.se
  ***************************************************************************/
@@ -65,6 +65,12 @@ void frmBytForetag::init()
     frmBytForetag::listDatabaser(val);
     lineEditDatabas->setText(database);
     listViewDatabas->setFocus();
+}
+
+
+void frmBytForetag::lineEditNyDatabas_returnPressed()	/* 2007-03-22 */
+{
+    newdatabase=lineEditNyDatabas->text();
 }
 
 void frmBytForetag::pickupDatabas( QListViewItem * item )
@@ -134,10 +140,18 @@ void frmBytForetag::setDatabase()
     command="mv $HOME/olfixtst.tmp $HOME/.olfixrc";
 /*    qDebug("command=%s",command.latin1());			*/
     system(command);
-//    fprintf(stdout,"Databas=%s\n",newdatabase.latin1());	/* 2005-03-03	*/
+//    fprintf(stdout,"Databas=%s\n",newdatabase.latin1());			/* 2005-03-03	*/
     val="2";
-    listDatabaser(val);			/* Starta om OLFIXW */
-    pushButtonOK->setFocus();
+    listDatabaser(val);					/* Starta om OLFIXW */
+    /* Starta om BYTFTGW */					/* 2007-03-22 */
+    process = new QProcess();
+    process->addArgument("./BYTFTGW"); 
+    if ( !process->start() ) {
+	// error handling
+	    QMessageBox::warning( this, "Kan inte starta OLFIXW!\n","ERROR\n"+errorrad);
+	}
+    exit(0);
+//    pushButtonOK->setFocus();
 }
 
 void frmBytForetag::slotHelp()
@@ -256,6 +270,12 @@ void frmBytForetag::slotEndOfProcessList()
 	     if( i != -1 && val=="2"){
 		 qDebug("/tmp/OLFIXpid.tmp kunde inte skapas! ");
 		 qDebug("i=%d,  errorrad=%s",i,errorrad.latin1());
+		 process = new QProcess();
+		 process->addArgument("./OLFIXW");
+	 	if ( !process->start() ) {
+		    // error handling
+		    QMessageBox::warning( this, "Kan inte starta OLFIXW!\n","ERROR\n"+errorrad);
+		}
 	     }else{
 		 QMessageBox::critical( this, "BYTFTGW",
 		"ERROR!\n"+errorrad
@@ -277,6 +297,7 @@ void frmBytForetag::slotEndOfProcessList()
 	     QMessageBox::information( this, "BYTFTGW",
 				       "Databasbyte genomfört!\n"
 				       );
+	     
 	     pushButtonBreak->setFocus();
 	 }
 	if (val == "3"){			/* Lista befintliga databaser */
@@ -311,8 +332,10 @@ void frmBytForetag::slotEndOfProcessList()
 		    i = k - (m+temp1.length());
 		    p=inrad.mid(m+temp1.length(),i);
 		    if(p != "mysql"){
-//			qDebug("p=%s",p.latin1());
-			item = new QListViewItem(listViewDatabas,p);
+			 if(p != "information_schema"){	/* 2007-03-22 */
+//			      qDebug("p=%s",p.latin1());
+			     item = new QListViewItem(listViewDatabas,p);
+			 }
 		    }
 		    n++;
 		}
@@ -322,3 +345,4 @@ void frmBytForetag::slotEndOfProcessList()
     }
 //    fprintf(stderr,"Klart!\n");
 }
+
