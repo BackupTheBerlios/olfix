@@ -72,7 +72,8 @@ void frmAddForetag::slotdbnamnEntered()
     }else{
 	LineEditdbnamn->setText(dbnamn);
 	lineEditPassword->setFocus();
-    }
+    }    
+//     qDebug(" dbnamn=%s",dbnamn.latin1());
 }
 
 void frmAddForetag::lineEditPassword_Entered()
@@ -109,7 +110,7 @@ void frmAddForetag::slotAddForetag()
 /************************************************************************/
 /*	Skapa databasen i mysql				                 */
 /************************************************************************/
-    if(dbnamn=""){
+    if(dbnamn==""){
 	QMessageBox::warning( this, "ADDFORW","Databasnamn saknas!\n" );
 	LineEditdbnamn->setFocus();
 	return;
