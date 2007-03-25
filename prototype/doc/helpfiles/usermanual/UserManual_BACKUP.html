@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>Backup</title>
+  <meta name="GENERATOR" content="Quanta (Linux)">
+  <meta name="CREATED" content="20070322">
+  <meta name="CHANGED" content="20070324">
+</head>
+<body>
+<p align="center"><img src="UserManual_html_OLFIX_LOGGA.jpg" name="OLFIX" align="left" border="0" height="315" width="748"><br><br>
+</p>
+<p align="center"> <font size="5"><strong>
+Order/Lager/Fakturering f&ouml;r Linuxsystem</strong></font></p>
+<p align="center"> <font size="5">Anv&auml;ndarmanual</font></p>
+<p align="center"> <font size="4">Kapitel Backup</font></p>
+<p align="center"><font size="4">Version 0.1 </font></p>
+<p align="center"><font size="4">2007-03-24</font></p>
+<br><br>
+<p align="left"> <font size="2">This program
+is free software; you can redistribute it
+and/or modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2 of the
+License, or
+(at your option) any later version.<br>
+</font></p>
+<p align="left"><a name="TOP"> <font style="font-size: 6pt;">
+Copyright 2006 Jan Pihlgren.</font></a>
+</p>
+<hr>
+<p style="margin-bottom: 0cm;"><font face="San Serif" STYLE="font-size: 10pt">
+<a href="UserManual.html#TOP">Hem</a></font></p>
+
+<p align="center"><a name="TOP"> </a>
+<font size="5"><strong>Inneh&aring;ll</strong></font></a></p>
+
+<font style="font-size: 10pt;">
+<pre>	
+	<a href="#INLEDNING">Inledning</a>
+	<a href="#TYP">Backuptyp</a>
+	<a href="#SCHEMA">Backupschema</a>
+	<a href="#VERKTYG">Verktyg</a>
+	<a href="#MYSQLDUMP">Backup med mysqldump</a>
+		<a href="#RESTORE">Återskapa databasen</a>
+	<a href="#CP_BACKUP">Backup med cp.</a>
+		<a href="#CP_RESTORE">Återställning med cp.</a>
+</pre>
+</font>
+<hr>
+<!--			INLEDNING			-->
+<p align="center"><font style="font-size: 16pt;">
+<a name="INLEDNING"></a>
+<b>Inledning.</b></font></p>
+<p align="left"><font style="font-size: 10pt;"> 
+Med backup menas här säkerhetskopiering av data.<br>
+Att g&ouml;ra backup &auml;r ett grannlaga arbete som
+kr&auml;ver struktur och goda verktyg.
+Man bör skapa sig ett media på/till vilket man gör sina backuper. CD, Tape eller hårddisk.
+I fall man väljer CD så har man att välja mellan CDR och CDRW och väljer man CDR så förbrukar man en CD-skiva för varje backup om man inte bränner som multi-session. Väljer du CDRW så skifta gärna mellan flera skivor så 
+du inte står helt tomhänt när den blir utsliten. Om man väljer hårddisk så blir man ofta begränsad av lagringsutrymmet. Väljer man tape som lagringsmedia så är den enda begränsningen att tape slits lite grand och behöver ersättas lite då och då.
+<br>
+Man behöver även tänka på hur lång tid det tar att göra backup. Den tid det tar att göra backup påverkar användarnas möjlighet att använda systemet. Man kan också fundera på vid vilken tid på dygnet en backup ska genomföras för att erhålla minimal störning för användarna.
+
+</font></font></p>
+
+<p style="margin-bottom: 0cm;" align="left">
+<font face="San Serif"><font style="font-size: 10pt;">
+<a href="#TOP">Till b&ouml;rjan</a>
+</font></font></p>
+<hr>
+<!--			BACKUPTYP			-->
+<p align="center"><font style="font-size: 16pt;">
+<a name="TYP"></a>
+<b>Backuptyp.</b></font></p>
+<p align="left"><font style="font-size: 10pt;">
+Valet mellan fullständig backup och inkrementell backup beror ofta på 1) storleken på det som ska backas up, 2) den tid som backupen får ta.<br>
+
+<p align="left"><font style="font-size: 12pt;"> 
+<strong>Inkrementell backup</strong><br></font>
+<p align="left"><font style="font-size: 10pt;">
+Vid en inkrementell backup tas backup endast på de förändringar som skett sedan föregående backup.
+Ofta tar man inkrementella backuper måndag till torsdag och en full backup på fredagen. Fördelen med inkrementell backup är att den ofta går betydligt snabbare, än en fullständig backup. Det är mindre data som skall föras över till backupmediat.
+Nackdelen med inkrementell backup är arbetet att återställa en eventuell krasch.</font></p>
+<p align="left"><font style="font-size: 12pt;"> 
+<strong>Full backup</strong><br>
+<p align="left"><font style="font-size: 10pt;">
+Som det framgår av namnet så är en full backup en backup på allt varje gång inte bara på förändringar som skett sedan föregående backup. Med allt kan man avse antingen hela sitt datorsystem, inkluderande operativsystem eller delar av sitt system, t ex endast databaser eller en databas. Fördelen med en fullständig backup är enkelheten att återställa förlorade data. Nackdelen är att den ofta tar betydligt längre tid att genomföra än en inkrementell backup vilketbegränsar användarens åtkomst till datorsystemet.
+
+<p align="left"><font style="font-size: 10pt;">
+<a href="#TOP">Till b&ouml;rjan</a>
+</font></font></p>
+<hr>
+<!--			BACKUPSCHEMA			-->
+<p align="center"><font style="font-size: 16pt;">
+<a name="SCHEMA"></a>
+<b>Backupschema.</b></font></p>
+<p align="left"><font style="font-size: 10pt;"> 
+Man bör ha ett rullande schema för hur man gör sina backupper, oavsett om det är inkrementella backuper eller fullständiga backuper.<br>
+<pre>
+  Media A  - Måndagar
+  Media B  - Tisdagar
+  Media C  - Onsdagar
+  Media D  - Torsdagar
+Media A - D återanvänds rullande 
+  Media V1 - Fredag första veckan
+  Media V2 - Fredag andra veckan
+  Media V3 - Fredag tredje veckan
+Media V1 - V3 återanvänds rullande veckovis.
+  Media M1 - Första månaden. (Den sista i månaden och ersätter då en av veckobackuperna.)
+  Media M2 - Andra månaden
+  Media M3 - Tredje månaden
+Media M1 - M3 återanvänds rullande månadsvis.
+  Media AA - Årsbackup. Detta media återanvänds icke utan arkiveras.
+</pre>
+Att man använder sig av tre (3) olika media vid vecko- respektive månadsbackuper beror på att man inte ska förstöra en backup och stå utan backup om detta sker.<br><br>
+Dagbackuper kan vara antingen inkrementella backuper eller fullständiga backuper<br>
+Vecko- och månadsbackuperna <strong>bör</strong> vara fullständiga backuper.<br>
+Årsbackupen <strong>ska</strong> alltid vara en <u>fullständig</u> backup.
+<p style="margin-bottom: 0cm;" align="left">
+<font face="San Serif"><font style="font-size: 10pt;">
+<a href="#TOP">Till b&ouml;rjan</a>
+</font></font></p>
+<hr>
+<!--			VERKTYG			-->
+<p align="center"><font style="font-size: 16pt;">
+<a name="VERKTYG"></a>
+<b>Verktyg.</b></font></p>
+<p align="left"><font style="font-size: 10pt;"> 
+Det finns ett stort antal olika sätt och verktyg att göra en backup. För att periodisera/tidsbestämma när backuperna ska tas används ofta <strong>cron</strong>.  Cron levereras med operativsystemet. Hur cron ska användas framgår av <strong>man cron</strong>. man ska uttolkas som manual och levereras även det med operativsystemet.<br><br>
+En möjlighet att göra backup är vanlig filkopiering, <strong>cp</strong>, som, när det gäller MySQL, dock bara kan göras med sk ISAM-filer. MySQLs filer finns ofta i /var/lib/mysql. För att kunna göra det måste man dock vara inloggad som root samt att MySQLs databasmotor(mysqld) måste vara avstängd.<br><br>
+För backup av OLFIXs databaser (ja, även andra MySQLdatabaser) finns <strong>mysqldump</strong> vilket levereras tillsamans med MySQL.<br>
+Instruktioner hur mysqldump används finns på MySQLs hemsida samt i ett antal böcker om MySQL.<br>
+ mysqldump har den fördelen att backupen kan flyttas till vilket annat system som helst (med MySQL) och installeras där.<br>
+Vidare kan man använda verktyg från MySQL så som <strong>MySQL Administrator</strong> vilket ofta får installeras separat.<br><br>
+Ett annat backupprogram är <strong>KDar</strong>. KDar är  KDEs diskarkiverare.
+KDar tillåter att du delar upp  backupen i delar vars storlek passar backupmediats lagringskapacitet.<br>
+Utöver dessa verktyg finns det ett flertal kommersiella backupprogram.<br>
+
+
+<p style="margin-bottom: 0cm;" align="left">
+<font face="San Serif"><font style="font-size: 10pt;">
+<a href="#TOP">Till b&ouml;rjan</a>
+</font></font></p>
+<hr>
+<!--			MYSQLDUMP			-->
+<p align="center"><font style="font-size: 16pt;">
+<a name="MYSQLDUMP"></a>
+<b>Backup med mysqldump.</b></font></p>
+<p align="left"><font style="font-size: 10pt;"> 
+Ett vanligt sätt att säkerhetskopiera databaser i MySQL är att använda scriptet <strong>mysqldump</strong>.
+Scriptet ansluter till databasmotorn och skapar en SQL-dumpfil som kommer att innehålla SQL-kommandon för att återskapa databasen, databaserna.
+Exempel på script:<br>
+<em>mysqldump --opt -u username -p password databasname > backup.sql</em><br>
+Genom att använda --opt får vi med automatik bl annat låsning av tabellerna före 'dumpningen' och upplåsningp efter
+'dumpningen'. Vidare kommer data att sparas i filen backup.sql.<br>
+För att säkerhetskopiera flera databaser anges dessa så här:<br>
+<em>mysqldump --databases databasename1 datbasename2 --opt -u username -p password databasname > backup.sql</em><br>
+eller för samtliga databaser:<br>
+<em>mysqldump --all-databases --opt -u username -p password  > backup.sql</em><br>
+<br>
+<a name="RESTORE"></a>
+För att <strong>återskapa databasen</strong> används följande:<br>
+<em>mysql -u username -p < backup.sql</em><br>
+username ovan måste vara antingen:<br>
+a) root<br>
+b) någon med tillräcklig behörighet i MySQL.<br>
+
+
+<p style="margin-bottom: 0cm;" align="left">
+<font face="San Serif"><font style="font-size: 10pt;">
+<a href="#TOP">Till b&ouml;rjan</a>
+</font></font></p>
+<hr>
+<!--			CP_BACKUP			-->
+<p align="center"><font style="font-size: 16pt;">
+<a name="CP_BACKUP"></a>
+<b>Backup med cp.</b></font></p>
+<p align="left"><font style="font-size: 10pt;"> 
+Stäng OLFIX och sedan <strong>mysqld</strong> med detta kommando: <br>
+<em>mysqladmin -u root -p shutdown</em><br>
+eller<br>
+<em>/etc/init.d/mysqld stop</em><br>
+Det senare kommandot måste köras som root.<br>
+<br>
+
+Enklast är nog att kopiera kopiera till t.ex annan plats på hårddisken eller 
+nätverket, men det är bra att ha backuppen på separat media, t.ex CD.<br>
+
+Observera att du måste vara root för att få tillgång till filerna.
+För detta så öppa en terminal, skriv su <enter> och ange roots lösen.
+Skriv sedan namnet på brännarprogrammet t.ex k3b <enter> .  
+( eller namnet på filhanteraren t.ex konqueror <enter> . )
+
+Inifrån programmet välj mapparna olfix och olfixtst från /var/lib/mysql
+(Detta är det vanliga stället, är de inte där så sök)<br><br>
+Vill du kunna spara flera uppsättningar säkerhetskopior på samma CD så välj multisession i 
+programmets inställningar och döp sessionerna lämpligt.
+Det är lämpligt att kryssa i att brännarprogrammet ska verifiera bränningen.<br><br>
+
+Efter avslutad backup måste <strong>mysqld </strong>startas innan du använder OLFIX igen. Använd detta kommando:<br>
+<em>/etc/init.d/mysqld start</em><br>
+Kommandot måste köras som root.<br>
+ (mysqld startas även när datorn startas om).
+
+<p style="margin-bottom: 0cm;" align="left">
+<font face="San Serif"><font style="font-size: 10pt;">
+<a href="#TOP">Till b&ouml;rjan</a>
+</font></font></p>
+
+<p><font style="font-size: 10pt;">
+<a name="CP_RESTORE"></a>
+<b>Återställning med cp.</b></font></p>
+<p align="left"><font style="font-size: 10pt;"> 
+
+Börja med att stänga OLFIX och <strong>mysqld</strong>, se ovan.<br>
+För att återställa data lägg tillbaka mapparna olfix och olfixtst där du 
+hämtade dem.  Även nu <u>måste du vara root</u> för att få skriva där.<br>
+Avsluta återställningen med att starta <strong>mysqld</strong>, se ovan.
+</font></p>
+
+<p style="margin-bottom: 0cm;" align="left">
+<font face="San Serif"><font style="font-size: 10pt;">
+<a href="#TOP">Till b&ouml;rjan</a>
+</font></font></p>
+<hr>
+</body>
+</html>
