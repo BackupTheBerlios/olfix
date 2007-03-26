@@ -5,7 +5,7 @@
   <title>Backup</title>
   <meta name="GENERATOR" content="Quanta (Linux)">
   <meta name="CREATED" content="20070322">
-  <meta name="CHANGED" content="20070324">
+  <meta name="CHANGED" content="20070326">
 </head>
 <body>
 <p align="center"><img src="UserManual_html_OLFIX_LOGGA.jpg" name="OLFIX" align="left" border="0" height="315" width="748"><br><br>
@@ -15,7 +15,7 @@ Order/Lager/Fakturering f&ouml;r Linuxsystem</strong></font></p>
 <p align="center"> <font size="5">Anv&auml;ndarmanual</font></p>
 <p align="center"> <font size="4">Kapitel Backup</font></p>
 <p align="center"><font size="4">Version 0.1 </font></p>
-<p align="center"><font size="4">2007-03-24</font></p>
+<p align="center"><font size="4">2007-03-26</font></p>
 <br><br>
 <p align="left"> <font size="2">This program
 is free software; you can redistribute it
@@ -40,10 +40,10 @@ Copyright 2006 Jan Pihlgren.</font></a>
 	<a href="#TYP">Backuptyp</a>
 	<a href="#SCHEMA">Backupschema</a>
 	<a href="#VERKTYG">Verktyg</a>
+	<a href="#CP_BACKUP">Backup.</a>
+		<a href="#CP_RESTORE">Återställning.</a>
 	<a href="#MYSQLDUMP">Backup med mysqldump</a>
 		<a href="#RESTORE">Återskapa databasen</a>
-	<a href="#CP_BACKUP">Backup med cp.</a>
-		<a href="#CP_RESTORE">Återställning med cp.</a>
 </pre>
 </font>
 <hr>
@@ -142,39 +142,10 @@ Utöver dessa verktyg finns det ett flertal kommersiella backupprogram.<br>
 <a href="#TOP">Till b&ouml;rjan</a>
 </font></font></p>
 <hr>
-<!--			MYSQLDUMP			-->
-<p align="center"><font style="font-size: 16pt;">
-<a name="MYSQLDUMP"></a>
-<b>Backup med mysqldump.</b></font></p>
-<p align="left"><font style="font-size: 10pt;"> 
-Ett vanligt sätt att säkerhetskopiera databaser i MySQL är att använda scriptet <strong>mysqldump</strong>.
-Scriptet ansluter till databasmotorn och skapar en SQL-dumpfil som kommer att innehålla SQL-kommandon för att återskapa databasen, databaserna.
-Exempel på script:<br>
-<em>mysqldump --opt -u username -p password databasname > backup.sql</em><br>
-Genom att använda --opt får vi med automatik bl annat låsning av tabellerna före 'dumpningen' och upplåsningp efter
-'dumpningen'. Vidare kommer data att sparas i filen backup.sql.<br>
-För att säkerhetskopiera flera databaser anges dessa så här:<br>
-<em>mysqldump --databases databasename1 datbasename2 --opt -u username -p password databasname > backup.sql</em><br>
-eller för samtliga databaser:<br>
-<em>mysqldump --all-databases --opt -u username -p password  > backup.sql</em><br>
-<br>
-<a name="RESTORE"></a>
-För att <strong>återskapa databasen</strong> används följande:<br>
-<em>mysql -u username -p < backup.sql</em><br>
-username ovan måste vara antingen:<br>
-a) root<br>
-b) någon med tillräcklig behörighet i MySQL.<br>
-
-
-<p style="margin-bottom: 0cm;" align="left">
-<font face="San Serif"><font style="font-size: 10pt;">
-<a href="#TOP">Till b&ouml;rjan</a>
-</font></font></p>
-<hr>
-<!--			CP_BACKUP			-->
+<!--			BACKUP			-->
 <p align="center"><font style="font-size: 16pt;">
 <a name="CP_BACKUP"></a>
-<b>Backup med cp.</b></font></p>
+<b>Backup.</b></font></p>
 <p align="left"><font style="font-size: 10pt;"> 
 Stäng OLFIX och sedan <strong>mysqld</strong> med detta kommando: <br>
 <em>mysqladmin -u root -p shutdown</em><br>
@@ -209,7 +180,7 @@ Kommandot måste köras som root.<br>
 
 <p><font style="font-size: 10pt;">
 <a name="CP_RESTORE"></a>
-<b>Återställning med cp.</b></font></p>
+<b>Återställning.</b></font></p>
 <p align="left"><font style="font-size: 10pt;"> 
 
 Börja med att stänga OLFIX och <strong>mysqld</strong>, se ovan.<br>
@@ -223,5 +194,35 @@ Avsluta återställningen med att starta <strong>mysqld</strong>, se ovan.
 <a href="#TOP">Till b&ouml;rjan</a>
 </font></font></p>
 <hr>
+<!--			MYSQLDUMP			-->
+<p align="center"><font style="font-size: 16pt;">
+<a name="MYSQLDUMP"></a>
+<b>Backup med mysqldump.</b></font></p>
+<p align="left"><font style="font-size: 10pt;"> 
+Ett vanligt sätt att säkerhetskopiera databaser i MySQL är att använda scriptet <strong>mysqldump</strong>.
+Scriptet ansluter till databasmotorn och skapar en SQL-dumpfil som kommer att innehålla SQL-kommandon för att återskapa databasen, databaserna.
+Exempel på script:<br>
+<em>mysqldump --opt -u username -p password databasname > backup.sql</em><br>
+Genom att använda --opt får vi med automatik bl annat låsning av tabellerna före 'dumpningen' och upplåsningp efter
+'dumpningen'. Vidare kommer data att sparas i filen backup.sql.<br>
+För att säkerhetskopiera flera databaser anges dessa så här:<br>
+<em>mysqldump --databases databasename1 datbasename2 --opt -u username -p password databasname > backup.sql</em><br>
+eller för samtliga databaser:<br>
+<em>mysqldump --all-databases --opt -u username -p password  > backup.sql</em><br>
+<br>
+<a name="RESTORE"></a>
+För att <strong>återskapa databasen</strong> används följande:<br>
+<em>mysql -u username -p < backup.sql</em><br>
+username ovan måste vara antingen:<br>
+a) root<br>
+b) någon med tillräcklig behörighet i MySQL.<br>
+
+
+<p style="margin-bottom: 0cm;" align="left">
+<font face="San Serif"><font style="font-size: 10pt;">
+<a href="#TOP">Till b&ouml;rjan</a>
+</font></font></p>
+<hr>
+
 </body>
 </html>
