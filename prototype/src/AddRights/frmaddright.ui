@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>frmAddRight</class>
 <widget class="QWidget">
     <property name="name">
@@ -15,7 +15,6 @@
     <property name="font">
         <font>
             <family>Helvetica</family>
-            <pointsize>10</pointsize>
         </font>
     </property>
     <property name="caption">
@@ -179,18 +178,6 @@
         <slot>slotAddRight()</slot>
     </connection>
     <connection>
-        <sender>LineEditUserid</sender>
-        <signal>returnPressed()</signal>
-        <receiver>LineEditFunk</receiver>
-        <slot>setFocus()</slot>
-    </connection>
-    <connection>
-        <sender>LineEditFunk</sender>
-        <signal>returnPressed()</signal>
-        <receiver>PushButtonOK</receiver>
-        <slot>setFocus()</slot>
-    </connection>
-    <connection>
         <sender>LineEditFunk</sender>
         <signal>returnPressed()</signal>
         <receiver>frmAddRight</receiver>
@@ -266,6 +253,9 @@
     <slot>slotGetFunc()</slot>
     <slot>slotEndOfGetFuncfProcess()</slot>
     <slot>slotPickupFunc( QListViewItem * item )</slot>
+    <slot>checkUser( QString anv )</slot>
+    <slot>slotEndOfCheckUserProcess()</slot>
+    <slot>checkFunction( QString function )</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

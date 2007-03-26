@@ -8,9 +8,10 @@
 /***************************************************************************
 			  ADDRGTW  -  description
 			     -------------------
-		     version 0.04
+		     version 0.5
     begin                : Tis 27 maj 2003
-    copyright            : (C) 2003 by Jan Pihlgren
+    copyright        : (C) 2003 by Jan Pihlgren
+    modified	        : Mån 26 april 2007
     email                : jan@pihlgren.se
  ***************************************************************************/
 /* Lagt till "lostFocus" i Funk och LineEditUserid (2003-05-27/japi) */
@@ -44,8 +45,23 @@ void frmAddRight::init()
 {
     LineEditUserid->clear();
     LineEditFunk->clear();
-    LineEditUserid->setFocus();
     frmAddRight::slotGetFunc();
+    LineEditUserid->setFocus();
+}
+
+void frmAddRight::slotUseridEntered()
+{
+    Userid=LineEditUserid->text();
+    Userid=Userid.upper();
+    LineEditUserid->setText((Userid));
+    checkUser(Userid);
+}
+
+void frmAddRight::slotRightEntered()
+{
+    Funk=LineEditFunk->text();
+    Funk=Funk.upper();
+    LineEditFunk->setText((Funk));
 }
 
 void frmAddRight::slotAddRight()
@@ -55,9 +71,6 @@ void frmAddRight::slotAddRight()
     /************************************************************************/
     const char *userp = getenv("USER");
     QString usr(userp);
-    
-    frmAddRight::slotUseridEntered();
-    frmAddRight::slotRightEntered();
     
     process = new QProcess();
     process->addArgument("./STYRMAN");	// OLFIX styrprogram
@@ -74,32 +87,15 @@ void frmAddRight::slotAddRight()
     if (Userid == "" || Funk ==""){
 	QMessageBox::warning( this, "ADDRGTW",
 			      "Userid och/eller Behörighet saknas \n" );
-    }
-    else {
+    }else{
 	if ( !process->start() ) {
 	    // error handling
-	    fprintf(stderr,"Problem starta STYRMAN/RGTADD!\n");
+	    qDebug("Problem starta STYRMAN/RGTADD!");
 	    QMessageBox::warning( this, "ADDRGTW",
 				  "Kan inte starta STYRMAN/RGTADD! \n" );
 	}   
     }
 }
-
-void frmAddRight::slotUseridEntered()
-{
-    Userid=LineEditUserid->text();
-    Userid=Userid.upper();
-    LineEditUserid->setText((Userid));
-}
-
-
-void frmAddRight::slotRightEntered()
-{
-    Funk=LineEditFunk->text();
-    Funk=Funk.upper();
-    LineEditFunk->setText((Funk));
-}
-
 
 void frmAddRight::slotDataOnStdout()
 {
@@ -157,15 +153,13 @@ void frmAddRight::slotGetFunc()
     
     inrad="";
     errorrad="";
-    
-    bibl.append("./STYRMAN");		// OLFIX huvudprogram
-    
+        
     process = new QProcess();
-    process->addArgument(bibl);
+    process->addArgument("./STYRMAN");
     process->addArgument(usr);		// userid
     process->addArgument( "TRNSLST");	// OLFIX funktion
     
-    fprintf(stderr,"Starta STYRMAN/TRNSLST! %s\n",usr.latin1());
+//    qDebug("Starta STYRMAN/TRNSLST! %s\n",usr.latin1());
     
     frmAddRight::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
     frmAddRight::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
@@ -173,12 +167,11 @@ void frmAddRight::slotGetFunc()
     
     if ( !process->start() ) {
 	// error handling
-	fprintf(stderr,"Problem starta STYRMAN/TRNSLST!\n");
+//	qDebug("Problem starta STYRMAN/TRNSLST!\n");
 	QMessageBox::warning( this, "Start av TRNSLST ",
 			      "Kan inte starta STYRMAN/TRNSLST!\n"
 			      );
-    }
-    
+    }    
 }
 
 void frmAddRight::slotEndOfGetFuncfProcess() 
@@ -273,4 +266,66 @@ void frmAddRight::slotPickupFunc( QListViewItem * item)
     strcpy(func,item->key(0,TRUE));
     Funk=func;
     LineEditFunk->setText((Funk));
+}
+
+void frmAddRight::checkUser( QString anv )
+{
+    const char *userp = getenv("USER");
+    QString usr(userp);
+    
+    inrad="";
+    errorrad="";
+        
+    process = new QProcess();
+    process->addArgument("./STYRMAN");
+    process->addArgument(usr);		// userid, den inloggade
+    process->addArgument( "USERDSP");	// OLFIX funktion
+    process->addArgument(anv);		// användarid för den som ska få behörighet
+    
+//    qDebug("checkUser::anv=%s",anv.latin1());
+    
+    frmAddRight::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+    frmAddRight::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+    frmAddRight::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfCheckUserProcess() ) );
+    
+    if ( !process->start() ) {
+	// error handling
+	qDebug("Problem starta STYRMAN/USERDSP!\n");
+	QMessageBox::warning( this, "Start av USERDSP ",
+			      "Kan inte starta STYRMAN/USERDSP!\n"
+			      );
+    }  
+}
+
+void frmAddRight::slotEndOfCheckUserProcess(){
+    int i;
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+    if (i != -1) {
+	QMessageBox::warning( this, "ADDRGTW",
+			       /*"ERROR!\n"+*/errorrad
+			       );
+	errorrad="";
+	i = -1;
+	LineEditUserid->setFocus();
+	LineEditUserid->selectAll();
+	Userid="";
+	return;
+    }else{
+	return;
+    }
+}
+
+void frmAddRight::checkFunction( QString function )
+{
+    bool flag=FALSE;
+    QString i="";
+    if( !ListViewBehor_2->findItem( function,0)) {
+	flag=FALSE;
+    }else{
+	flag=TRUE;
+    }
+    if(flag==FALSE){
+	qDebug("%s finns inte!",function.latin1());
+    }
 }
