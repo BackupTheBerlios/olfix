@@ -11,7 +11,7 @@
 		     version 0.5
     begin                : Tis 27 maj 2003
     copyright        : (C) 2003 by Jan Pihlgren
-    modified	        : Mån 26 april 2007
+    modified	        : Tis 27 april 2007
     email                : jan@pihlgren.se
  ***************************************************************************/
 /* Lagt till "lostFocus" i Funk och LineEditUserid (2003-05-27/japi) */
@@ -40,7 +40,7 @@ QString errorrad;
 QString* rad;
 QString Userid;
 QString Funk;
-
+bool flag;
 QString hjelpfil;
 
 
@@ -49,6 +49,7 @@ void frmAddRight::init()
     LineEditUserid->clear();
     LineEditFunk->clear();
     frmAddRight::slotGetFunc();
+//    ListViewBehor_2->setFocus();
     LineEditUserid->setFocus();
 }
 
@@ -58,6 +59,7 @@ void frmAddRight::slotUseridEntered()
     Userid=Userid.upper();
     LineEditUserid->setText((Userid));
     checkUser(Userid);
+    ListViewBehor_2->setFocus();
 }
 
 void frmAddRight::slotRightEntered()
@@ -65,11 +67,17 @@ void frmAddRight::slotRightEntered()
     Funk=LineEditFunk->text();
     Funk=Funk.upper();
     LineEditFunk->setText((Funk));
-    checkFunction(Funk);
+//    checkFunction(Funk);
 }
 
 void frmAddRight::slotAddRight()
 {
+    flag=FALSE;
+    checkFunction(Funk);
+    if (flag==FALSE){
+	return;
+    }
+    
     /************************************************************************/
     /*	Uppdatera databasen						*/
     /************************************************************************/
@@ -259,7 +267,7 @@ void frmAddRight::slotEndOfGetFuncfProcess()
 void frmAddRight::slotPickupFunc( QListViewItem * item)
 {
     char func[9]="";
-    //    qDebug("PickupFunc\n");
+//    qDebug("PickupFunc\n");
     if(!item){
 	return;
     }
@@ -308,7 +316,7 @@ void frmAddRight::slotEndOfCheckUserProcess(){
     i = errorrad.find( QRegExp("Error:"), 0 );
     if (i != -1) {
 	QMessageBox::warning( this, "ADDRGTW",
-			       /*"ERROR!\n"+*/errorrad
+			       errorrad
 			       );
 	errorrad="";
 	i = -1;
@@ -323,7 +331,6 @@ void frmAddRight::slotEndOfCheckUserProcess(){
 
 void frmAddRight::checkFunction( QString function )
 {
-    bool flag=FALSE;
     QString i="";
     if( !ListViewBehor_2->findItem( function,0)) {
 	flag=FALSE;
@@ -340,6 +347,7 @@ void frmAddRight::checkFunction( QString function )
 	Funk="";
 	return;
     }
+    return;
 }
 
 void frmAddRight::slotHelp()
