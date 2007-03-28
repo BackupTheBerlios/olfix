@@ -64,22 +64,6 @@ som ska ha behörigheterna.</string>
             <string>UserID</string>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditUserID</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>65</x>
-                <y>100</y>
-                <width>160</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Ange UserID med små eller stora bokstäver.</string>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>textLabel3</cstring>
@@ -94,22 +78,6 @@ som ska ha behörigheterna.</string>
         </property>
         <property name="text">
             <string>Databas:</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditDatabas</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>65</x>
-                <y>25</y>
-                <width>160</width>
-                <height>23</height>
-            </rect>
-        </property>
-        <property name="toolTip" stdset="0">
-            <string>Data bas som ska uppdateras.</string>
         </property>
     </widget>
     <widget class="QListView">
@@ -169,6 +137,44 @@ som ska ha behörigheterna.</string>
         </property>
         <property name="text">
             <string>Skapa</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditDatabas</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>65</x>
+                <y>25</y>
+                <width>160</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="focusPolicy">
+            <enum>TabFocus</enum>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Databas som ska uppdateras.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditUserID</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>65</x>
+                <y>100</y>
+                <width>160</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="focusPolicy">
+            <enum>TabFocus</enum>
+        </property>
+        <property name="toolTip" stdset="0">
+            <string>Ange UserID med små eller stora bokstäver.</string>
         </property>
     </widget>
 </widget>
@@ -248,6 +254,12 @@ som ska ha behörigheterna.</string>
     <slot>EndOfProcess()</slot>
     <slot>createSqlData( QString function, QString usr )</slot>
     <slot>FileRemove( QString filnamn )</slot>
+    <slot>checkUserid( QString anv )</slot>
+    <slot>slotEndOfCheckUserProcess()</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>SLOTDataOnStdout()</slot>
+    <slot>SLOTDataOnStderr()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

@@ -13,9 +13,9 @@
                           TOTRGTW  -  description
 	         Ge en användare rättigheter att köra alla program/funktioner
                              -------------------
-		     version 0.2
+		     version 0.3
     begin   	: 	Tis    5 dec    2006
-    Updated	: 	Fre 23 febr  2007
+    Updated	: 	Fre 28 mars  2007
     copyright:	 (C) 2006 by Jan Pihlgren
     email     	:	 jan@pihlgren.se
  ***************************************************************************/
@@ -91,14 +91,42 @@ void frmTotalRights::pickupDatabas( QListViewItem * item )
      strcpy(databas,item->key(0,TRUE));
      use_database=databas;
      lineEditDatabas->setText((use_database));
-     val="4";			/* Finns databasen? */
-     frmTotalRights::createTempFile();
+//     val="4";			/* Finns databasen? */
+//     frmTotalRights::createTempFile();
      lineEditDatabas->setFocus();
 }
 
 void frmTotalRights::lineEditDatabas_returnPressed()
 {
+    bool flag=FALSE;
     use_database=lineEditDatabas->text();
+    use_database=use_database.stripWhiteSpace();
+    lineEditDatabas->setText((use_database));
+    flag=listViewDatabas->hasFocus();
+    if(flag==TRUE){
+	qDebug("flag. listViewDatabas has focus text.");
+	return;
+    }
+    flag=FALSE;
+    flag=lineEditDatabas->hasSelectedText();
+    if(flag==TRUE) {    
+	qDebug("flag. Markerad text.");
+	lineEditDatabas->setFocus();
+	return;
+    }
+    if (use_database.length()==0){
+//	qDebug("use_database.length=%d",use_database.length());
+    	QMessageBox::warning( this, "TOTRGTW",
+	       "Databas får inte vara blank!"
+	       );
+	lineEditDatabas->setFocus();
+	return;
+    }
+    if (use_database.length() >= 1){
+//	qDebug("use_database.length=%d",use_database.length());
+	val="4";			/* Finns databasen? */
+	frmTotalRights::createTempFile();
+    }
 }
 
 void frmTotalRights::lineEditUserID_returnPressed()
@@ -106,6 +134,7 @@ void frmTotalRights::lineEditUserID_returnPressed()
     userid=lineEditUserID->text();
     userid=userid.upper();
     lineEditUserID->setText(userid);
+    checkUserid(userid);				/* 2007-03-28 */
 }
 
 void frmTotalRights::pushBtnCreate_clicked()
@@ -114,12 +143,20 @@ void frmTotalRights::pushBtnCreate_clicked()
     QString inrecord;
     QString tmpfile="olfixprg.tmp";
     QString datafile="/olfixprg.dat";
-    QString olfixprgfile=tmppath+tmpfile;	/* tmppath = katalog för /tmp */
+    QString olfixprgfile=tmppath+tmpfile;		/* tmppath = katalog för /tmp */
     QString tempfile=tmpfile;
+    if (use_database == "") {				/* 2007-03-28 */
+	QMessageBox::warning( this, "TOTRGTW",
+		       "Databas får inte vara blank!"
+		       );
+	lineEditDatabas->setFocus();
+	return;
+    }
     
 //    qDebug("Skapa filen olixprg.tmp, ");
 //    qDebug("olfixprgfile=%s  ",olfixprgfile.latin1());
 //    exit(0);
+    
     val="1";			/* val=1 skapar filen olixprg.tmp, lista över filer i /path/olfix/bin */
     frmTotalRights::createTempFile();	/* Lista alla program i olfix/bin med kommando ls */
     
@@ -286,12 +323,27 @@ void frmTotalRights::EndOfProcess()
     listViewDatabas->setSorting(0,TRUE);
     int n,j,k=0;
     int i=-1;
+    int m=-1;
     QString temp1;
     QString temp2;
     QString p;
     
     i = errorrad.find( QRegExp("Error:"), 0 );
-         if (i != -1) {
+    m=errorrad.find( QRegExp("1049:"), 0 );
+    if (i != -1) {
+	     if (m != -1) {
+		 if (val == "4") {
+		     QMessageBox::warning( this, "TOTRGTW",
+		       "Databasen "+use_database+" finns inte!\n"
+		       );
+		     errorrad="";
+		     i = -1;
+		     j = -1;
+		     lineEditDatabas->setFocus();
+		     lineEditDatabas->selectAll();
+		     return;
+		 }		 
+	     }else{
 	QMessageBox::critical( this, "TOTRGTW",
 		"ERROR!\n"+errorrad
 	);
@@ -299,6 +351,7 @@ void frmTotalRights::EndOfProcess()
 	i = -1;
 	return;
      }
+ }
      i = -1;
      i = inrad.find( QRegExp("OK:"), 0 );
      if (i != -1) {
@@ -397,3 +450,92 @@ void frmTotalRights::FileRemove(QString filnamn)
 //    qDebug("filnamn=%s",filnamn.latin1());
     status=d.remove(filnamn,FALSE);
 }
+
+void frmTotalRights::checkUserid( QString anv )
+{
+    const char *userp = getenv("USER");
+    QString usr(userp);
+    
+    inrad="";
+    errorrad="";
+        
+    proc = new QProcess();
+    proc->addArgument("./STYRMAN");
+    proc->addArgument(usr);		// userid, den inloggade
+    proc->addArgument( "USERDSP");	// OLFIX funktion
+    proc->addArgument(anv);		// användarid för den som ska få behörighet
+    
+//    qDebug("checkUser::anv=%s",anv.latin1());
+    
+    frmTotalRights::connect( proc, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+    frmTotalRights::connect( proc, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+    frmTotalRights::connect( proc, SIGNAL(processExited() ),this, SLOT(slotEndOfCheckUserProcess() ) );
+    
+    if ( !proc->start() ) {
+	// error handling
+	qDebug("Problem starta STYRMAN/USERDSP!\n");
+	QMessageBox::warning( this, "Start av USERDSP ",
+			      "Kan inte starta STYRMAN/USERDSP!\n"
+			      );
+    }  
+}
+
+void frmTotalRights::slotEndOfCheckUserProcess(){
+    int i;
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+    if (i != -1) {
+	QMessageBox::warning( this, "TOTRGTW",
+			       errorrad
+			       );
+	errorrad="";
+	i = -1;
+	lineEditUserID->setFocus();
+	lineEditUserID->selectAll();
+	userid="";
+	return;
+    }else{
+	return;
+    }
+}
+
+void frmTotalRights::slotDataOnStdout()
+{
+    while (proc->canReadLineStdout() ) {
+	QString line = proc->readStdout();
+	inrad.append(line);
+	inrad.append("\n");
+	//	qWarning( "slotDataOnStdout: Userid=%s \n", inrad.latin1() );
+    }
+}
+
+void frmTotalRights::slotDataOnStderr()
+{
+    while (proc->canReadLineStderr() ) {
+	QString line = proc->readStderr();
+	errorrad.append(line);
+	errorrad.append("\n");
+	//	qWarning( "slotDataOnErrout: Userid=%s \n", inrad.latin1() );
+    }  
+}
+
+void frmTotalRights::SLOTDataOnStdout()
+{
+    while (process[nbr]->canReadLineStdout() ) {
+	QString line = process[nbr]->readStdout();
+	inrad.append(line);
+	inrad.append("\n");
+	//	qWarning( "slotDataOnStdout: Userid=%s \n", inrad.latin1() );
+    }
+}
+
+void frmTotalRights::SLOTDataOnStderr()
+{
+    while (process[nbr]->canReadLineStderr() ) {
+	QString line = process[nbr]->readStderr();
+	errorrad.append(line);
+	errorrad.append("\n");
+	//	qWarning( "slotDataOnErrout: Userid=%s \n", inrad.latin1() );
+    }  
+}
+
