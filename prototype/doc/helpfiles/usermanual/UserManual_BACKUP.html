@@ -3,9 +3,10 @@
 <head>
   <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
   <title>Backup</title>
+  <meta NAME="AUTHOR" CONTENT="Jan Pihlgren, Morgan Olsson">
   <meta name="GENERATOR" content="Quanta (Linux)">
   <meta name="CREATED" content="20070322">
-  <meta name="CHANGED" content="20070326">
+  <meta name="CHANGED" content="20070329">
 </head>
 <body>
 <p align="center"><img src="UserManual_html_OLFIX_LOGGA.jpg" name="OLFIX" align="left" border="0" height="315" width="748"><br><br>
@@ -15,7 +16,7 @@ Order/Lager/Fakturering f&ouml;r Linuxsystem</strong></font></p>
 <p align="center"> <font size="5">Anv&auml;ndarmanual</font></p>
 <p align="center"> <font size="4">Kapitel Backup</font></p>
 <p align="center"><font size="4">Version 0.1 </font></p>
-<p align="center"><font size="4">2007-03-26</font></p>
+<p align="center"><font size="4">2007-03-29</font></p>
 <br><br>
 <p align="left"> <font size="2">This program
 is free software; you can redistribute it
@@ -147,17 +148,16 @@ Utöver dessa verktyg finns det ett flertal kommersiella backupprogram.<br>
 <a name="CP_BACKUP"></a>
 <b>Backup.</b></font></p>
 <p align="left"><font style="font-size: 10pt;"> 
-Stäng OLFIX och sedan <strong>mysqld</strong> med detta kommando: <br>
+<FONT COLOR="#ff0000"><strong>OBS!</strong></FONT> Ifall du installerat MySQL utan att sätta <strong>roots</strong> password ska du bara trycka <strong>Enter</strong> på frågan om roots password.<br><br>
+Som <strong>root</strong> stäng OLFIX och sedan <strong>mysqld</strong> med ett av kommando: <br><br>
 <em>mysqladmin -u root -p shutdown</em><br>
 eller<br>
-<em>/etc/init.d/mysqld stop</em><br>
-Det senare kommandot måste köras som root.<br>
-<br>
+<em>/etc/init.d/mysqld stop</em><br><br>
 
-Enklast är nog att kopiera kopiera till t.ex annan plats på hårddisken eller 
+Kopiera därefter önskade mappar till t.ex annan plats på hårddisken eller 
 nätverket, men det är bra att ha backuppen på separat media, t.ex CD.<br>
 
-Observera att du måste vara root för att få tillgång till filerna.
+<u>Observera</u> att du måste vara root för att få tillgång till filerna.
 För detta så öppa en terminal, skriv su <enter> och ange roots lösen.
 Skriv sedan namnet på brännarprogrammet t.ex k3b <enter> .  
 ( eller namnet på filhanteraren t.ex konqueror <enter> . )
@@ -168,9 +168,9 @@ Vill du kunna spara flera uppsättningar säkerhetskopior på samma CD så välj mult
 programmets inställningar och döp sessionerna lämpligt.
 Det är lämpligt att kryssa i att brännarprogrammet ska verifiera bränningen.<br><br>
 
-Efter avslutad backup måste <strong>mysqld </strong>startas innan du använder OLFIX igen. Använd detta kommando:<br>
-<em>/etc/init.d/mysqld start</em><br>
-Kommandot måste köras som root.<br>
+Efter avslutad backup måste <strong>mysqld </strong>startas innan du använder OLFIX igen. Använd detta kommando:<br><br>
+<em>/etc/init.d/mysqld start</em><br><br>
+Kommandot måste köras som <strong>root</strong>.<br>
  (mysqld startas även när datorn startas om).
 
 <p style="margin-bottom: 0cm;" align="left">
@@ -199,24 +199,31 @@ Avsluta återställningen med att starta <strong>mysqld</strong>, se ovan.
 <a name="MYSQLDUMP"></a>
 <b>Backup med mysqldump.</b></font></p>
 <p align="left"><font style="font-size: 10pt;"> 
+<FONT COLOR="#ff0000"><strong>OBS!</strong></FONT> Ifall du installerat MySQL utan att sätta <strong>roots</strong> password ska du bara trycka <strong>Enter</strong> på frågan om roots password.<br><br>
+
 Ett vanligt sätt att säkerhetskopiera databaser i MySQL är att använda scriptet <strong>mysqldump</strong>.
-Scriptet ansluter till databasmotorn och skapar en SQL-dumpfil som kommer att innehålla SQL-kommandon för att återskapa databasen, databaserna.
-Exempel på script:<br>
-<em>mysqldump --opt -u username -p password databasname > backup.sql</em><br>
-Genom att använda --opt får vi med automatik bl annat låsning av tabellerna före 'dumpningen' och upplåsningp efter
+Scriptet ansluter till databasmotorn och skapar en SQL-dumpfil som kommer att innehålla SQL-kommandon för att återskapa databasen, databaserna.<br>
+<em>username</em> nedan kan vara;<strong></strong>
+root<strong></strong>
+eller
+b) någon med tillräcklig behörighet i MySQL.<br><br>
+Exempel på script:<br><br>
+<em>mysqldump --opt -u username -p password databasename > backup.sql</em><br><br>
+Genom att använda --opt får vi med automatik bl annat låsning av tabellerna före 'dumpningen' och upplåsning efter
 'dumpningen'. Vidare kommer data att sparas i filen backup.sql.<br>
-För att säkerhetskopiera flera databaser anges dessa så här:<br>
+För att säkerhetskopiera flera databaser anges dessa så här:<br><br>
 <em>mysqldump --databases databasename1 datbasename2 --opt -u username -p password databasname > backup.sql</em><br>
 eller för samtliga databaser:<br>
 <em>mysqldump --all-databases --opt -u username -p password  > backup.sql</em><br>
 <br>
 <a name="RESTORE"></a>
-För att <strong>återskapa databasen</strong> används följande:<br>
-<em>mysql -u username -p < backup.sql</em><br>
-username ovan måste vara antingen:<br>
+
+För att <strong>återskapa databasen</strong> används följande:<br><br>
+<em>mysql -u username -p < backup.sql</em><br><br>
+<em>username</em> ovan måste vara antingen:<br>
 a) root<br>
 b) någon med tillräcklig behörighet i MySQL.<br>
-
+<FONT COLOR="#ff0000"><strong>OBS!</strong></FONT> Ifall du installerat MySQL utan att sätta <strong>roots</strong> password ska du bara trycka <strong>Enter</strong> på frågan om roots password.<br>
 
 <p style="margin-bottom: 0cm;" align="left">
 <font face="San Serif"><font style="font-size: 10pt;">
