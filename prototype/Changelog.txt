@@ -1,5 +1,32 @@
-Changelog OLFIX 20070225
+Changelog OLFIX 20070329
 
+Ver 0.5.4.B
+2007-03-29
+		Ändrade program
+		OLFIXTW			Lagt till Användare i menyn (Inte i OLFIXW)	(0074)
+		RESRPTW			Lagt till Hjälpknapp				(0073)
+		BALRPTW			Lagt till Hjälpknapp
+		RPTGENW			Lagt till/modifierat Hjälpknapp
+		ADDFORW			Ge felmeddelande om databasnamn är blankt mm.	(0076)
+		BYTFTGW			Buggrättning					(0077,0078)
+		ADDRGTW			Buggrättning och lagt till hjälpknapp		(0079)
+		TOTRGTW			Buggrättning och check av databas och user	(0080)
+		
+		Ändrad sql
+		LoadTRANSID.sql		Buggrättning
+		LoadTableDATABASE.sql	Buggrättning
+		CreateOLFIX.sql		Rättat en obetydlig bugg/skönhetsfläck		(0075)
+		CreateOLFIXtemplate.sql Lagt till DATABASE och BYTFTGW
+
+		Dokumentation
+		Teknisk Manual	       	(uppdaterad  20070327)   	Version 0.67
+		UserManual.html		(uppdaterad  20070327)   	Version 0.15
+		UserManual_ERROR.html  	(uppdaterad  20070308)   	Version 0.2
+		UserManual_ADMINISTRATION.html (uppdaterad  20070327)	Version 0.42
+		UserManual_RAPPORTER.html(uppdaterad  20070317)  	Version 0.43	(0073)
+		UserManual_BACKUP.html	(Ny 20070329)			Version 0.1
+		Installationsanvisningar.txt	     (20070321)
+________________________________________________________
 Ver 0.5.3.B
 2007-02-25
 		Allmänt
