@@ -6,7 +6,7 @@
 	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.0.2  (Linux)">
 	<META NAME="CREATED" CONTENT="20021205;10014400">
 	<META NAME="CHANGEDBY" CONTENT="Jan Pihlgren">
-	<META NAME="CHANGED" CONTENT="20070130">
+	<META NAME="CHANGED" CONTENT="20070411">
 	<STYLE>
 	<!--
 		@page { margin: 2cm }
@@ -22,8 +22,8 @@ f&ouml;r Linuxsystem</B></FONT></P>
 <P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=4 STYLE="font-size: 16pt">Kapitel
 F&ouml;retagsadministration </FONT>
 </P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.45</FONT></P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2007-01-30</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.47</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2007-04-11</FONT></P>
 <HR>
 <P STYLE="margin-left: 3cm">This program is free software; you can
 redistribute it and/or modify<BR>it under the terms of the GNU
@@ -44,11 +44,12 @@ any later version.</P>
 <A HREF="#CHGFTGDATA">&Auml;ndra f&ouml;retagsdata.</A><BR>
 <A HREF="#CHGFTG">Byta företag.</A><BR>
 <A HREF="#NYTTFTG">Skapa nytt företag.</A><BR>
+<A HREF="#LISTAFTG">Lista företag/databaser.</A><BR>
 <A HREF="#DOCRECORD">Postbeskrivning.</A><br><br>
 <A HREF="#NYATEXTER">Nya texter i textregistret.</A><br>
 <A HREF="#LISTTEXTER">Lista texter i textregistret.</A><br>
 <A HREF="#VISATEXT">Visa en text i textregistret.</A><br>
-
+<A HREF="#RADERATEXT">Radera en text i textregistret.</A><br>
 </FONT>
 </P>
 <HR>
@@ -150,7 +151,28 @@ Password ska vara det password som används för att administrera MySQLs databaser
 
 <p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
 <a href="#TOP">Till början</a></p></FONT>
+<hr>
+<!--			LISTA FÖRETAG			-->
+<P ALIGN=LEFT>
+<A NAME="LISTAFTG"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 12pt">
+<B>Lista företag/databaser.</B></FONT></FONT></P>
+<P ALIGN=LEFT><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 10pt">
+LSTFORW visar vilka databaser som finns i datorsystemet. En eller flera kan vara OLFIXdatabaser för olika företag.<br>
+<b>olfix</b> är, en från början  tom databas, som levereras med OLFIX-programmen. <b>olfix</b> är tänkt att vara den första skarpa databasen/företaget.<br>
+<b>olfixtst</b> är ett testföretag, även det levererat med OLFIX-programmen. Testföretaget är tänkt att användas för testning av olika funktioner i OLFIX.<br>
 
+Andra databaser på bilden har inte med OLFIX att göra.<br>
+
+På det egna företaget/organisationen kan det vara lämpligt att döpa databaserna till företagslika namn så det blir lätt att veta vilken databas som är en OLFIXdatabas.<br>
+
+
+<P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=4>
+<IMG SRC="UserManual_html_LSTFORW.png" NAME="LSTFTGW" ALIGN=BOTTOM ></FONT></FONT></P>
+<P ALIGN=LEFT><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 10pt">
+
+
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
 <hr>
 <!--			POSTBESKRIVNING			-->
 <P ALIGN=LEFT><A NAME="DOCRECORD"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 12pt">
@@ -251,6 +273,19 @@ b&ouml;rjan</FONT></FONT></A></P>
 <P ALIGN=LEFT><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 10pt">
 När programmet visar sig med ett <b>textnr</b> så tryck Enter så hämtas den texten och visas.
 
+<P STYLE="margin-bottom: 0cm"><A HREF="#TOP"><FONT SIZE=2><FONT FACE="Nimbus Sans L">Till
+b&ouml;rjan</FONT></FONT></A></P>
+<hr>
+<!-- 		RADERA EN TEXT I TEXTREGISTRET	-->
+<P ALIGN=LEFT><A NAME="RADERATEXT"></A><FONT FACE="San Serif"><FONT SIZE=4 STYLE="font-size: 12pt">
+<B>Radera en text i textregistret.</B></FONT></FONT></P>
+<P ALIGN=CENTER><FONT FACE="San Serif"><FONT SIZE=4>
+<IMG SRC="UserManual_html_DELTXTW.png" NAME="DSPTXT" ALIGN=BOTTOM ></FONT></FONT></P>
+<p ALIGN=LEFT><FONT FACE="San Serif" STYLE="font-size: 10pt" >
+Fyll i <strong>Textnr</strong> för den text som skall raderas. Klicka sedan på knappen <strong>Hämta text</strong>.<br>
+Texten visa i rutan <strong>Text:</strong> så man kan kontrollera att det är den text man avsåg som kommer att raderas.<br>
+Avsluta med att klicka på knappen <strong>OK</strong> och texten raderas ur textregistret.</FONT></FONT>
+</p>
 <P STYLE="margin-bottom: 0cm"><A HREF="#TOP"><FONT SIZE=2><FONT FACE="Nimbus Sans L">Till
 b&ouml;rjan</FONT></FONT></A></P>
 </BODY>
