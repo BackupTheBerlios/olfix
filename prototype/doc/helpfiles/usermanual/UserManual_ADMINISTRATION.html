@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <HTML>
 <HEAD>
 	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-15">
@@ -6,7 +6,7 @@
 	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.0.2  (Linux)">
 	<META NAME="CREATED" CONTENT="20021205;10014400">
 	<META NAME="CHANGEDBY" CONTENT="Jan Pihlgren">
-	<META NAME="CHANGED" CONTENT="20070312">
+	<META NAME="CHANGED" CONTENT="20070429">
 	<STYLE>
 	<!--
 		@page { margin: 2cm }
@@ -25,9 +25,9 @@ f&ouml;r Linuxsystem</B></FONT></P>
 <P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=4 STYLE="font-size: 16pt">Kapitel
 Administration</FONT>
 </P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.42</FONT>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.43</FONT>
 </P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2007-03-12</FONT>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2007-04-29</FONT>
 </P>
 <HR>
 <P STYLE="margin-left: 3cm">This program is free software; you can
@@ -66,7 +66,13 @@ any later version.</P>
 		<A href=#NYBETV">Nytt betalningsvillkor.</A>
 		<A href=#LSTBETV">Lista befintliga betalningsvillkor.</A>
 		<A href="#CHGBETV">Ändra betalningsvillkor.</A>
-		<A href="#DELBETV">Radera ett betalningsvillkor.</A>
+		<A href="#DELBETV">Radera ett betalningsvillkor.</A><br>
+	<A href="#LEVSETT">Leveranssätt.</A>
+		<A href="#NYLEVSETT">Nytt leveranssätt.</A>
+		<A href="#LISTALEVSETT">Lista leveranssätt.</A><br>
+	<A href="#LEVVILLKOR">Leveransvillkor.</A>
+		<A href="#NYLEVVILLKOR">Nytt leveransvillkor.</A>
+		<A href="#LISTALEVVILLKOR">Lista leveransvillkor.</A>
 </P>
 </pre>
 </FONT>
@@ -81,8 +87,6 @@ any later version.</P>
 <a name="ALLMENT">
 <FONT SIZE=4 STYLE="font-size: 12pt"><B>Allmänt.</B></FONT></P>
 <p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
-Att använda ett ekonomisystem lär man sig inte på en dag. Det är många saker man måste ha kännedom om.
-Bland annat behöver man lära sig metoder för backup och "köra" uppdaterings och rensningsprogram regelbundet.<br><br>
 OLFIX har ett eget behörighetssystem ovanpå operativsystemet (Linux). Behörighetssystemet kan hanteras av personer  som inte är speciellt utbildade på operativsystemet. En användare med  kunskaper om företagets affärsfilosofi och regler för spridning av företagets information kan enkelt handera OLFIXs behörighetssystem.<br><br>
 Behörighetssytemet bygger på att varje användare av OLFIX finns registrerad med sitt ordinarie loggin-ID (operativsystemets loggin-ID) samt en förteckning över vilka programmoduler vederbörande har rätt (behörighet) att använda.
 
@@ -206,7 +210,7 @@ Administration - Behörighetsadministration - Ny behörighet.
 <p align="center">
 <img src="UserManual_html_ADDRGTW.png" name="NYBEHORIGPICT" align="bottom"  border="0"></p>
 <p align="left" style="margin-bottom: 0cm;"><FONT SIZE=3 STYLE="font-size: 10pt">
-Skriv in <b>Användar-ID</b> och tryck på <b>Enter</b>. Användar-ID ska var det samma som det user-ID som används vid inloggning till Linux. Max 8 tecken.<br>
+Skriv in <b>Användar-ID</b> och tryck på <b>Enter</b>. Användar-ID ska var det samma som det user-ID som används vid inloggning till Linux.<br>
 Fyll sedan i önskad <b>behörighet</b> och tryck på <b>Enter</b>.<br>
 Allternativt kan man klicka på önskad funktion i tabellen till höger. Glöm inte att trycka på <b>Enter</b>.<br>
 Klicka sedan på <b>OK</b>-knappen för att registrera.<br>
@@ -360,6 +364,77 @@ Genom att klicka på knappen <b>Radera</b> så plockas betalningsvillkoret bort ur
 </FONT></p>
 <p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
 <a href="#TOP">Till början</a></p></FONT>
+<hr>
+<!--                   LEVERANSSÄTT                           -->
+<P ALIGN=CENTER><A NAME="LEVSETT"></A><FONT FACE="San Serif">
+<B>LEVERANSSÄTT</B></FONT></P>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+När man själv ska stå för fraktkostnaden för en inköpt/beställd vara vill man utnyttja eventuella avtal med ett fraktbolag, med rabatter och andra förmåner.
+Leveranssättet anger då till exempel vilken speditör som varan ska skickas med samt det kundnummer som gäller hos speditören.
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt" >
+<a href="#TOP">Till början</a></p></FONT>
+<hr>
+<P ALIGN=LEFT><A NAME="NYLEVSETT"></A><FONT FACE="San Serif">
+<B>Nytt leveranssätt.</B></FONT></P>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+Registrering av ett nytt leveranssätt.</FONT></p>
+<P ALIGN=center>
+<img src="UserManual_html_ADDLEVSW.png" name="ADDLEVVW" align="bottom"  border="0"></img>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+Skriv in en treställig siffergrupp i fältet <b>Leveranssätt</b>. Vid behov inled med nollor.<br>
+I fältet <strong>Text</strong> skrivs föklarande text. Fältet kan innehålla maximalt 150 tecken.<br>
+Denna text kommer sedan att skrivas ut på en beställning/inköpsorder.
+</FONT></p>
+
+
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
+<hr>
+<P ALIGN=LEFT><A NAME="LISTALEVSETT"></A><FONT FACE="San Serif">
+<B>Lista leveranssätt.</B></FONT></P>
+Förteckning över registrerade leveranssätt och deras betydelse.</FONT></p>
+<P ALIGN=center>
+<img src="UserManual_html_LSTLEVSW.png" name="ADDLEVVW" align="bottom"  border="0"></img>
+
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
+
+<hr>
+<!--                   LEVERANSVILLKOR                           -->
+<P ALIGN=CENTER><A NAME="LEVVILLKOR"></A><FONT FACE="San Serif">
+<B>LEVERANSVILLKOR</B></FONT></P>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+Leveransvillkor anger under vilka ekonomiska villkor en produkt skickas till en kund. Till exempel "Fraktfritt".<br>
+Leveransvillkor är en numerisk hänvisning till en text som beskriver leveransvillkoret. Detta underlättar hantering av kundorder, slippa skriva samma text gång på gång.</FONT></p>
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
+<hr>
+<P ALIGN=LEFT><A NAME="NYLEVVILLKOR"></A><FONT FACE="San Serif">
+<B>Nytt leveransvillkor.</B></FONT></P>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+Registrera ett nytt leveransvillkor.</FONT></p>
+<P ALIGN=center>
+<img src="UserManual_html_ADDLEVVW.png" name="ADDLEVVW" align="bottom"  border="0"></img>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+Skriv in en treställig siffergrupp i fältet <b>Leveransvillkor</b>. Vid behov inled med nollor.<br>
+I fältet <strong>Text</strong> skrivs föklarande text. Fältet kan innehålla maximalt 150 tecken.
+</FONT></p>
+
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
+<hr>
+<P ALIGN=LEFT><A NAME="LISTALEVVILLKOR"></A><FONT FACE="San Serif">
+<B>Lista leveransvillkor.</B></FONT></P>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+Förteckning över registrerade leveransvillkor och deras betydelse.</FONT></p>
+<P ALIGN=center>
+<img src="UserManual_html_LSTLEVVW.png" name="ADDLEVVW" align="bottom"  border="0"></img>
+<p align="left"><FONT SIZE=3 STYLE="font-size: 10pt">
+</FONT></p>
+
+<p align="left" style="margin-bottom: 0cm;"><FONT SIZE=2 STYLE="font-size: 10pt">
+<a href="#TOP">Till början</a></p></FONT>
+
 <hr>
 <!--                   BEGREPPSFÖRKLARINGAR                           -->
 <P ALIGN=CENTER><A NAME="BEGREPP"></A><FONT FACE="San Serif">
