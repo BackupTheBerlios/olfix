@@ -131,19 +131,6 @@
             <bool>true</bool>
         </property>
     </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>lineEditProduktkod</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>135</x>
-                <y>45</y>
-                <width>65</width>
-                <height>23</height>
-            </rect>
-        </property>
-    </widget>
     <widget class="QLabel">
         <property name="name">
             <cstring>textLabel3</cstring>
@@ -173,6 +160,35 @@
             </rect>
         </property>
     </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditProduktkod</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>135</x>
+                <y>45</y>
+                <width>65</width>
+                <height>23</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushBtnHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>350</x>
+                <y>10</y>
+                <width>61</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
 </widget>
 <connections>
     <connection>
@@ -199,6 +215,12 @@
         <receiver>frmAddProdkod</receiver>
         <slot>close()</slot>
     </connection>
+    <connection>
+        <sender>pushBtnHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmAddProdkod</receiver>
+        <slot>pushButtonHelp_clicked()</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>lineEditProduktkod</tabstop>
@@ -217,6 +239,8 @@
     <slot>slotPKodEndOfProcess()</slot>
     <slot>slotDataOnStdout()</slot>
     <slot>slotDataOnStderr()</slot>
+    <slot>pushButtonHelp_clicked()</slot>
+    <slot>readResursFil()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
