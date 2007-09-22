@@ -78,6 +78,7 @@
 "LEVVDSP","Visa ett leveransvillkor"
 "LEVVLST","Lista leveransvillkor"
 "LEVSADD","Lägga upp ett nytt leveranssätt"
+"LEVSDEL","Radera leveranssätt"
 "LEVSDSP","Visa ett leveranssätt"
 "LEVSLST","Lista leveranssätt"
 "LRESRPT","Lista alla obetalda poster i tabellen LEVRESK"

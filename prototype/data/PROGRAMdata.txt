@@ -112,3 +112,5 @@
 "112","Försäljning","Offerter","Göra en offert till order","OFF2ORDW"
 "113","Administration","Behörighetsadministration","Tilldela en användare total behörigheter","TOTRGTW"
 "114","Administration","Betalningsvillkor","Radera betalningsvillkor","DELBETVW"
+"115","Administration","Leveranssätt","Radera leveranssätt","DELLEVSW"
+"116","Ekonomi","Kontoadministration","Kopiera kontoplan","CPYKTOW"
