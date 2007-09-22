@@ -1306,6 +1306,7 @@ Serie 2</string>
     <slot>slotGetOFFNR()</slot>
     <slot>slotGetBGNR()</slot>
     <slot>slotGetPGNR()</slot>
+    <slot>GetDatabas()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

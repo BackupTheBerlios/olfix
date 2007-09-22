@@ -1,8 +1,8 @@
 /****************************************************************/
 /**		DSPFTGW					*/
-/**		Version: 0.7.1 				*/
+/**		Version: 0.7.2 				*/
 /**		20003-08-14				*/
-/**		Modifierad: 2006-05-02			*/
+/**		Modifierad: 2007-07-12			*/
 /**		Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
@@ -28,6 +28,7 @@
 #include <qstring.h>
 #include <qfile.h>
 #include <qregexp.h>
+#include <qwidget.h>
 #define MAXSTRING 5000
 
     QProcess* process;
@@ -36,12 +37,17 @@
     QString* rad;
     QString flag;
     QString ptyp;	/* posttyp */
-
+    QString databas;	/* vilken databas/företag används */
+    QString prgnamn="DSPFTGW - Visa företagsdata - ";
+    
 void frmDspFtgData::init()
 {
     PushButtonUpdate->hide();
     textLabel2_2->hide();
     lineEditFKNR2->hide();
+    GetDatabas();		/* Ta reda på vilken databas som används just nu */
+    prgnamn.append(databas);
+    setCaption(prgnamn);
     PushButtonOK->setFocus();
     slotGetFtgData("FNAMN");
 }
@@ -1048,4 +1054,34 @@ void frmDspFtgData::slotGetPGNR()
     LineEditPostgironr->setText(pgnr);   
     inrad="";
 //    slotGetFtgData("PGNR");    
+}
+
+
+void frmDspFtgData::GetDatabas()
+{
+   /*****************************************************/
+    /*  Läs in .olfixrc filen här			                    */
+    /* Plocka fram vilken databas som används		                    */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+
+    QFile f1( homepath+"/.olfixrc" );
+     if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine();                   /*     line of text excluding '\n'	*/
+	rad=line.find( QRegExp("DATABASE="), 0 );
+	if(rad == 0){
+	    databas=line;
+	    databas=(databas.right(databas.length() - 9));
+	}
+            lines += line;
+        }
+    }
+    f1.close();
 }
