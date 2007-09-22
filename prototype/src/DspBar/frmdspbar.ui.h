@@ -1,8 +1,9 @@
 /****************************************************************/
 /**		DSPBARW					*/
-/**		2004-12-05					*/
-/**		Ver 0.2                                                                                    */
-/**   Copyright	Jan Pihlgren	jan@pihlgren.se			*/
+/**		Ver 0.3                                                                                    	*/
+/**		2004-12-05				*/
+/**	Modified:	2007-07-16				*/
+/**   Copyright	Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
  *					                                                 *
@@ -26,7 +27,7 @@
 #include <qstring.h>		
 #include <qfile.h>
 #include <qregexp.h> 
-#define VERSION "0.1"
+#define VERSION "0.3"
 #define MAXSTRING 5000
 
     QProcess* process;
@@ -59,6 +60,7 @@ void frmDspBar::LineEditBar_returnPressed()
 	LineEditBar->setFocus();
 	    }
     pushBtnGet->setFocus();
+    slotDspBar();
 }
 
 void frmDspBar::PushBtnGet_clicked()
@@ -161,6 +163,7 @@ void frmDspBar::slotAbout()
 {
     QString meddelande;
     meddelande="OLFIX - BARDSPW\n Version: ";
+    qDebug("VERSION=%s",VERSION);
     meddelande.append(VERSION);
 	QMessageBox::information( this, "Om BARDSP",
 				  meddelande
