@@ -11,7 +11,7 @@
   <meta name="CREATED" content="20021205;10014400">
 
   <meta name="CHANGEDBY" content="Jan Pihlgren">
-  <meta name="CHANGED" content="20060505;14301400">
+  <meta name="CHANGED" content="20070629">
   <style>
 	<!--
 		@page { margin: 2cm }
@@ -35,10 +35,10 @@
  Kapitel Artiklar
  </font></p>
 <p align="center" style="margin-bottom: 0cm;"><font size="5">
- Version 0.4.4
+ Version 0.45
  </font></p>
 <p align="center" style="margin-bottom: 0cm;"><font size="5">
- 2006-05-12
+ 2007-06-29
  </font></p>
 <hr>
 <P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
@@ -73,7 +73,8 @@ the Free Software Foundation; either version 2 of the License, or<br>
 	<a href="#LAGERSTELLE">Lagerställeadministration.</a>
 		<a href="#LS01">Visa en lagerställeplats.</a>
 		<a href="#LS02">Radera en lagerställeplats.</a>
-		<a href="#LS03">Ändra/Justera en lagerställeplats.</a>
+		<a href="#LS03">Ändra/Justera en lagerställeplats.</a><br>
+	<a href="#BEGREPP">Begreppsförklaringar.</a>
 </pre>
 <hr>
 <!-- 					Ny Artikel	-->
@@ -268,7 +269,19 @@ Programmet används för att radera en felaktig post i LAGERSTELLEREG. <b>OBS!</b>
 <LI>	I = Ingår "mitt" i artikel<br>
 <LI>	T = Toppartikel<br>
 <LI>	F = Fantom, ingår "mitt" i en artikel<br>
+</UL><br>
+<a name="BEGREPP03"></a> <b>Produktkod, produktklass, produktkonto</b><br>
+<UL>
+<LI>	Produktkod, produktklass är samma sak.<br>
+<b>Produktklass</b> används för att sammanföra produkter i grupper enligt önskemål.<br>
+Försök att med hjälp av artikelnummer sammanföra likartade produkter i grupper brukar för eller senare misslyckas på grund av att logiken spricker. 
+<LI>	Produktkonto är benämning på ett redovisningskonto och används för kostnadsuppföljning av produkter.<br>
+</UL><br>
+<a name="BEGREPP04"></a> <b>Omräkningsfaktor</b><br>
+<UL>
+<LI>	Omräkningsfaktor medger möjlighet att använda en faktor för att ange t ex kg medans sorten är ton. Omräkningsfaktorn blir då 3, omvandling av kg till ton = kg * 10 * 10 * 10 = kg upphöjt till 3.<br>Detta är användbart om en vara beställs i ton men används/säljs i kg och liknande förhållanden.<br>
 </UL>
+
 <P align=LEFT> <FONT SIZE=1 style="font-size: 10pt;">
 <a href="#TOP">Till början</a>
 </p>

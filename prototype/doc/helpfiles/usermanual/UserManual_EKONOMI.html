@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
   <meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-15">
@@ -6,7 +6,7 @@
   <meta name="GENERATOR" content="OpenOffice.org 1.0.2  (Linux)">
   <meta name="CREATED" content="20060106;10014400">
   <meta name="CHANGEDBY" content="Jan Pihlgren">
-  <meta name="CHANGED" content="20060503">
+  <meta name="CHANGED" content="20070725">
   <style>
 	<!--
 		@page { margin: 2cm }
@@ -29,10 +29,10 @@
  Kapitel Ekonomi
 </font></p>
 <p style="margin-bottom: 0cm;" align="center"><font size="5">
- Version 0.4.4
+ Version 0.46
  </font></p>
 <p style="margin-bottom: 0cm;" align="center"><font size="5">
- 2006-05-03
+ 2007-07-25
  </font></p>
 <hr>
 
@@ -46,7 +46,7 @@ the Free Software Foundation; either version 2 of the License, or<br>
 Copyright 2004 Jan Pihlgren.</font></p>
 
 <p style="margin-bottom: 0cm;"><font face="San Serif" size="2">
-<a href="UserManual_INNEHALL.html#TOP">Tillbaka</a></font></p>
+<a href="UserManual.html#TOP">Tillbaka</a></font></p>
 
 <a name="TOP"></a>
 <p align="center">
@@ -66,10 +66,9 @@ Copyright 2004 Jan Pihlgren.</font></p>
 <a href="#KONTO">Kontoadministration.</a><br>
 <p style="margin-left: 5cm;"><font face="San Serif"><font size="2">
 <a href="#NYAKONTON">Nya konton.</a><br>
-
-
-
-
+<a href="#COPYKTOPLAN">Kopiera kontoplan.</a>
+<p style="margin-left: 3cm;"><font face="San Serif"><font size="2">
+<a href="#VALUTA">Valuta.</a><br>
 <p style="margin-left: 3cm;"><font face="San Serif"><font size="2">
 <a href="#BEGREPP">Begreppsförklaringar.</a><br>
 
@@ -200,7 +199,7 @@ uppdatering sker och programmet avslutas.<br>
 
 <A name="NYTTREKENSKAPSAR"></A>
 Räkenskapsår och bokföringsår är synonymer och omfattar den period, normalt ett år, som bokföringen/redovisningen gäller.<br>
-OLFIX använder en tvåstavig bokstavskombination (AA - ZZ) för att ange ett bokfäringsår.
+OLFIX använder en tvåstavig bokstavskombination (AA - ZZ) för att ange ett bokföringsår.
 Att använda en bokstavskombination för ange ett bokföringsår innebär att man inte behöver ta hänsyn till om det är ett normalt räkenskapsår eller ett brutet räkenskapsår. Man behöver ej heller bli frågande om till vilket kalenderår ett räkenskapsår tillhör.<br>
 Den tvåställiga bokstavskombinationen är nyckel och måste <b>alltid</b> anges.
 <!--           NYTT RÄKENSKAPSÅR  -->
@@ -289,7 +288,46 @@ Avsluta inmatning genom att klicka på knappen <b>OK</b><br>
 <p style="margin-bottom: 0cm;">
 <a href="#TOP">Till början</a> </p>
 <hr>
+<!--           KOPIERA KONTOPLAN  -->
+<p align="left">
+<a name="COPYKTOPLAN"></a>
+<b>Kopiera kontoplan.</b><br>
 
+CPYKTOW underlättar skapandet av en ny kontoplan. Här kan man kopiera en gammal kontoplan och slipper registrera varje konto igen. Börja med att skapa ett nytt bokföringsår, <a href="#NYTTREKENSKAPSAR"> ADDBARW</a>.<br>
+Det går inte att skapa en ny kontoplan om det finns ett enda konto i den nya kontoplanen.  Tillägg av konton som saknas görs med <a href="#NYAKONTON">ADDKTOW</a>, vilket får göras efter det att en ny kontoplan skapats. Om behov föreligger kan man göra justering av enskilda konton med programmet CHGKTOW.<br>
+</p>
+<p align="center">
+<img src="UserManual_html_CPYKTOW.png"
+ name="CPYKTOW" align="bottom" border="0"></p>
+Fyll i fälten. Använd <b>TAB</b> för att avsluta inmatning av värde i ett fält.<br>
+<b>Nytt bokföringsår</b> = Tvåställig, unik bokstavskombination som refererar till avsett räkenskapsår.<br>
+I fältet <b>Kopiera från bokföringsår</b> anges en befintlig, tvåställig bokstavskombination, kontoplan.<br>
+Klicka på knappen <b>Kopiera</b>. I detta läge kontrolleras att det inte gjorts någon felaktig inmatning. Felaktig inmatning är att ange ett befintligt bokföringsår i fältet 'Nytt bokföringsår' eller att ange ett saknat bokföringsår i fältet 'Kopiera från bokföringsår'.<br>
+Avsluta arbetet med att klicka på knappen <b>Avbryt</b><br>
+<p style="margin-bottom: 0cm;">
+<a href="#TOP">Till början</a> </p>
+<hr>
+<!--           VALUTA  -->
+<p align="left">
+<a name="VALUTA"></a>
+<p align="center"><font face="San Serif"><b>VALUTA</b></font></p>
+<b>Allmännt.</b><br>
+Valutakurser används för att omvandla främmande valutor till svenska kronor, SEK.
+I första hand används de vid inköp av varor från främmande länder.<br>
+Ofta räcker det att uppdatera gällande kurser en gång per månad. Avvikelser från registrerad kurs och verkligkurs hanteras genom bokföringen med bokföring av kursdifferanser.<br><br>
+OLFIX innehåller program för att lista valutor, LSTVALW, registrera ny valuta, ADDVALW, visa enstaka valuta, DSPVALW, radera en valuta, DELVALW och ändra en valuta, CHGVALW.<br>
+
+<p align="center">
+<img src="UserManual_html_LSTVALW.png" name="LSTVALW" align="bottom" border="0" ></p>
+Valuta = internationell beteckning för valutor.<br>
+Land = Landet som ger ut valutan.<br>
+Sälj = Säljkurs för aktuell valuta.<br>
+Köp = Köpkurs för aktuell valuta.<br>
+Beteckning = Namn på aktuell valuta.<br>
+<p style="margin-bottom: 0cm;">
+<a href="#TOP">Till början</a> </p>
+
+<hr>
 <!--           BEGREPPSFÖRKLARINGAR  -->
 <p align="center"><font face="San Serif">
 <a name="BEGREPP"></a> </font></p>
