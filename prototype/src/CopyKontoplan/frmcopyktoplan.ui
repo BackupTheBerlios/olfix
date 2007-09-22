@@ -1,0 +1,214 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>frmCopyKtoplan</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmCopyKtoplan</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>360</width>
+            <height>161</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>CPYKTOW - Kopiera kontoplan</string>
+    </property>
+    <property name="focusPolicy">
+        <enum>StrongFocus</enum>
+    </property>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>50</y>
+                <width>164</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Kopiera från bokföringsår?</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>20</y>
+                <width>165</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Nytt bokföringsår?.............</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushBtnHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>290</x>
+                <y>10</y>
+                <width>50</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonAvbryt</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>80</x>
+                <y>130</y>
+                <width>56</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avbryt</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonKopiera</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>130</y>
+                <width>56</width>
+                <height>25</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Kopiera</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditGammaltBar</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>180</x>
+                <y>40</y>
+                <width>36</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="focusPolicy">
+            <enum>StrongFocus</enum>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditNyttBar</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>180</x>
+                <y>10</y>
+                <width>36</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="focusPolicy">
+            <enum>StrongFocus</enum>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>pushButtonKopiera</sender>
+        <signal>clicked()</signal>
+        <receiver>frmCopyKtoplan</receiver>
+        <slot>pushButtonKopiera_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonAvbryt</sender>
+        <signal>clicked()</signal>
+        <receiver>frmCopyKtoplan</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>pushBtnHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmCopyKtoplan</receiver>
+        <slot>pushBtnHelp_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditNyttBar</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmCopyKtoplan</receiver>
+        <slot>lineEditNyttBar_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditGammaltBar</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmCopyKtoplan</receiver>
+        <slot>lineEditGammaltBar_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditNyttBar</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmCopyKtoplan</receiver>
+        <slot>lineEditNyttBar_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditGammaltBar</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmCopyKtoplan</receiver>
+        <slot>lineEditGammaltBar_returnPressed()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>lineEditNyttBar</tabstop>
+    <tabstop>lineEditGammaltBar</tabstop>
+    <tabstop>pushButtonKopiera</tabstop>
+    <tabstop>pushButtonAvbryt</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">frmcopyktoplan.ui.h</include>
+</includes>
+<slots>
+    <slot>lineEditNyttBar_returnPressed()</slot>
+    <slot>lineEditGammaltBar_returnPressed()</slot>
+    <slot>pushButtonKopiera_clicked()</slot>
+    <slot>checkBar( QString Bar )</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>pushBtnHelp_clicked()</slot>
+    <slot>readResursFil()</slot>
+    <slot>getKontoplan()</slot>
+    <slot>slotKTOLSTEndOfProcess()</slot>
+    <slot>createNewKontoplan()</slot>
+    <slot>GetDatabas()</slot>
+    <slot>check_User()</slot>
+    <slot>check_Rights()</slot>
+    <slot>addKto()</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

@@ -1,0 +1,2 @@
+mysqldump -u olfix -p"olfix" -t olfixtst KTOPLAN "-wARID='AD'" > /home/jan/temp/test.sql
+sed -e s/"AD"/AE/ $HOME/temp/test.sql > $HOME/temp/test2.txt
