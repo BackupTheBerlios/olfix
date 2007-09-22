@@ -1,10 +1,44 @@
-Changelog OLFIX 20070501
+Changelog OLFIX 20070727
 
+Ver 0.5.6.B
+2007-07-27
+		Nytt program
+		DELLEVSW		Radera leveranssätt
+		CPYKTOW			Kopiera en kontoplan till en ny kontoplan
+
+		Nya funktioner
+		LEVSDEL.c			Radera leveranssätt.
+
+		Ändrade program
+		ADDPKDW			Rättat stavning i bild,lagt till hjälpknapp
+		ADDFTGW			Kompletterat caption med databasnamn
+		DSPFTGW			Kompletterat caption med databasnamn
+		CHGFTGW			Kompletterat caption med databasnamn, buggrättning
+		DSPBARW			Buggrättning
+		LSTBARW			Kompletterat med Hjälpknapp.
+
+		Ändrad data
+		PROGRAMdata.txt		Lagt till DELLEVSW, CPYKTOW
+		TRANSID.txt		Lagt till LEVSDEL	
+
+		Dokumentation
+		UserManual.odt		 (uppdaterad 20070727)		Version 0.56
+		UserManual.html		 (uppdaterad 20070725)		Version 0.17
+		UserManual_ADMINISTRATION.html (uppdaterad  20070715)	Version 0.44
+		UserManual_ARTIKLAR.html (uppdaterad 20070629)		Version 0.45
+		UserManual_EKONOMI.html	 (uppdaterad 20070725)		Version 0.46
+		UserManual_FTGADMIN.html (uppdaterad 20070713)		Version 0.48
+		UserManual_DATABASER.html(uppdaterad 20070727)          Version 0.45
+		TekniskManual.odt	 (uppdaterad 20070725)		Version 0.69
+
+		Övrigt
+		kompilering.sh		Lagt till DELLEVSW, CPYKTOW
+________________________________________________________
 Ver 0.5.5.B
 2007-05-01
-		�drade program
-		ADDLEVVW		Lagt till hj�pknapp
-		ADDLEVSW		Lagt till hj�pknapp
+		Ändrade program
+		ADDLEVVW		Lagt till hjälpknapp
+		ADDLEVSW		Lagt till hjälpknapp
 
 		Dokumentation
 		UserManual.odt		(uppdaterad 20070501)		Version 0.55
@@ -13,345 +47,4 @@ Ver 0.5.5.B
 		UserManual_ADMINISTRATION.html (uppdaterad  20070429)	Version 0.43
 		UserManual_FTGADMIN.html(uppdaterad 20070411)		Version 0.47
 		UserManual_EKONOMI.html (uppdaterad 20070418)		Version 0.45
-________________________________________________________
-Ver 0.5.4.B
-2007-03-29
-		�drade program
-		OLFIXTW			Lagt till Anv�dare i menyn (Inte i OLFIXW)	(0074)
-		RESRPTW			Lagt till Hj�pknapp				(0073)
-		BALRPTW			Lagt till Hj�pknapp
-		RPTGENW			Lagt till/modifierat Hj�pknapp
-		ADDFORW			Ge felmeddelande om databasnamn � blankt mm.	(0076)
-		BYTFTGW			Buggr�tning					(0077,0078)
-		ADDRGTW			Buggr�tning och lagt till hj�pknapp		(0079)
-		TOTRGTW			Buggr�tning och check av databas och user	(0080)
-		
-		�drad sql
-		LoadTRANSID.sql		Buggr�tning
-		LoadTableDATABASE.sql	Buggr�tning
-		CreateOLFIX.sql		R�tat en obetydlig bugg/sk�hetsfl�k		(0075)
-		CreateOLFIXtemplate.sql Lagt till DATABASE och BYTFTGW
-
-		Dokumentation
-		Teknisk Manual	       	(uppdaterad  20070327)   	Version 0.67
-		UserManual.html		(uppdaterad  20070327)   	Version 0.15
-		UserManual_ERROR.html  	(uppdaterad  20070308)   	Version 0.2
-		UserManual_ADMINISTRATION.html (uppdaterad  20070327)	Version 0.42
-		UserManual_RAPPORTER.html(uppdaterad  20070317)  	Version 0.43	(0073)
-		UserManual_BACKUP.html	(Ny 20070329)			Version 0.1
-		Installationsanvisningar.txt	     (20070321)
-________________________________________________________
-Ver 0.5.3.B
-2007-02-25
-		Allm�t
-		Nu kan man anv�da upp till 20 tecken i userid f� OLFIX
-
-		Nytt program
-		DELBETW		Borttag av betalningsvillkor.
-
-		�drade program
-		ADDUSRW		Lagt till en hj�pknapp 
-				Plats f� 20 tecken i UserID.
-		ATTBETW		Buggr�tning (kompletering)
-		OLFIXTW		D�ja programnamnen i huvudmenyn.(inte perfekt!)
-				D�jer genom att bredda kolummen Funktioner.
-		LISTFORW	Buggr�tning						(0051)
-		CHGUSRW		Buggr�tning, justering av userdata och f�t.		(0052)
-		LSTBETVW	Buggr�tning (uppdatering )				(0053)
-		BYTFTGW		Modifierat felmeddelanden.				(0056)
-		DSPTXTW		Buggr�tning						(0059)
-		ADDTXTW		Kompleterat med varning f� upptaget nr.		(0060)
-		ADDBETVW	Justerat f� antal tecken (min 3) i villkor och dagar	(0062)
-		CHGBETVW	Buggr�tning + hj�pknapp				(0063)
-		LSTRGTW		Buggr�tning,segmenteringsfel				(0065)
-		DELRGTW		Lagt till "lostFocus"					(0067)
-		TOTRGTW		Buggr�tning						(0068)
-		LSTFNCW		T�a f�stret horisontellt och vertikalt		(0069)
-		LSTFNCW		Skriva ut till filen /tmp/LSTFNCW.txt			(0070)
-		ADDFTGW		Formatering av organisationsnummer			(0071)
-
-
-		�drade tabeller
-		USR		Ut�at f�t USERID till 20 tecken
-				(F� framtida behov)
-		RIGHTS		Ut�at f�t USERID till 20 tecken
-				(F� framtida behov)
-		KURESK		Ut�at f�t USERID till 20 tecken
-				(F� framtida behov)
-		LEVRESK		Ut�at f�t USERID till 20 tecken
-				(F� framtida behov)
-		VERHUVUD	Ut�at f�t USERID till 20 tecken
-				(F� framtida behov)
-
-		Nya funktioner
-		BETVDEL		Borttag av bettalningsvillkor i  reg BETVILKOR
-
-		�drade funktioner
-		ADMIN.c		Ut�at f�t userid fr� 9 till 21 tecken.
-		AR2ADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		AR2UPD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		ARADD.c		Ut�at f�t usr fr� 15 till 21 tecken.
-		ARCHG.c		Ut�at f�t usr fr� 15 till 21 tecken.
-		ARCHGL.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		ARCHK.c		Ut�at f�t usr fr� 15 till 21 tecken.
-		ARDSP.c		Ut�at f�t usr fr� 15 till 21 tecken.
-		ARDSPL.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		ARICHK.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		ARLSPK.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		ARLST.c		Ut�at f�t usr fr� 15 till 21 tecken.
-		ARLSTL.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		ARSRCH.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		ATTBET.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		BARADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		BARCHG.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		BARCHK.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		BARFND.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		BARLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		BETADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		BETCHG.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		BETDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		BETLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		DATABASE.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		DBCHK.c		Ut�at f�t usr fr� 15 till 21 tecken.
-		DBOKRPT.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		FAKTDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		FORADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		FORCHK.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		FORDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		FORLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		FTGADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		FTGADM.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		FORDSP1.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		FORDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		FORLIS.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		FORUPD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		HBOKRPT.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		INKADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		INKHDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		INKLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		INKRADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		INKRLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		KRELST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		KRESADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		KRESCHK.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		KRESLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		KRESUPD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		KSTADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		KSTCHK.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		KSTDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		KSTLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		KTOADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		KTOCHG.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		KTOCHK.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		KTOLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		KTORPT.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		KTOVIEW.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		KUADD.c		Ut�at f�t usr fr� 15 till 21 tecken.
-		KUCHG.c		Ut�at f�t usr fr� 15 till 21 tecken.
-		KUCHK.c		Ut�at f�t usr fr� 15 till 21 tecken.
-		KUDSP.c		Ut�at f�t usr fr� 15 till 21 tecken.
-		KULST.c		Ut�at f�t usr fr� 15 till 21 tecken.
-		KUSRCH.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		LEVADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		LEVCHG.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		LEVDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		LEVLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		LEVPDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		LEVPLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		LEVSADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		LEVSDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		LEVVADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		LEVVDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		LEVVLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		LRESADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		LRESRPT.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		LSDEL.c		Ut�at f�t usr fr� 15 till 21 tecken.
-		OFFADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		OFFCHG.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		OFFDEL.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		OFFDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		OFFLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		OFFRADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		OFFRCHG.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		OFFRDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		OLFIX.c		Ut�at f�t usr fr� 15 till 21 tecken.
-		ORADUPD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		ORDADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		ORDCHG.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		ORDCHK.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		ORDDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		ORDLST2.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		ORDLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		ORDRADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		ORDRCHG.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		ORDRDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		ORDRUPD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		ORDUPD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		PICKADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		PICKDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		PKDADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		PKDLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		PRISDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		PRISUPD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		RGTADD.c	Ut�at f�t usr fr� 15 till 21 tecken och userid fr� 9 till 21 tecken.
-		RGTCHK.c	Ut�at f�t usr fr� 15 till 21 tecken och userid fr� 9 till 21 tecken.
-		RGTDEL.c	Ut�at f�t usr fr� 15 till 21 tecken och userid fr� 9 till 21 tecken.
-		RGTDSP.c	Ut�at f�t usr fr� 15 till 21 tecken och userid fr� 9 till 21 tecken.
-		RGTLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		RPTCRE.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		SIEEXPK.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		SIEEXPR.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		SIEEXPV.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		SLPADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		STYRMAN.c	Ut�at f�t usr fr� 15 till 21 tecken.
-				(F� framtida behov)
-		TOTADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		TRHDADD.c 	Ut�at f�t usr fr� 15 till 21 tecken och userid fr� 9 till 21 tecken.
-		TRNSADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		TXTADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		TXTDEL.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		TXTDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		TXTLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		USERADD.c	Ut�at f�t usr fr� 15 till 21 tecken och userid fr� 9 till 21 tecken.
-		USERCHG.c	Ut�at f�t usr fr� 15 till 21 tecken och userid fr� 9 till 21 tecken.
-		USERDEL.c	Ut�at f�t usr fr� 15 till 21 tecken och userid fr� 9 till 21 tecken.
-		USERDSP.c	Ut�at f�t usr fr� 15 till 21 tecken och userid fr� 9 till 21 tecken.
-		USERLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		VALADD.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		VALCHG.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		VALDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		VALLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		VERHDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		VERHLST.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		VERUPD.c	Ut�at f�t usr fr� 15 till 21 tecken och userid fr� 9 till 21 tecken.
-		WKUDSP.c	Ut�at f�t usr fr� 15 till 21 tecken.
-		WRREC.c		Ut�at f�t userid fr� 9 till 21 tecken.
-
-
-		Ny sql
-		AlterTableUSR.sql Ut�at f�t USERID till 20 tecken			
-		AlterTableRIGHTS.sql Ut�at f�t USERID till 20 tecken
-				F� uppdatering av befintlig databas (olfix och olfixtst)
-		AlterTableKURESK.sql Ut�at f�t USERID till 20 tecken
-				F� uppdatering av befintlig databas (olfix och olfixtst)
-		AlterTableLEVRESK.sql Ut�at f�t USERID till 20 tecken
-				F� uppdatering av befintlig databas (olfix och olfixtst)
-		AlterTableVERHUVUD.sql Ut�at f�t USERID till 20 tecken
-				F� uppdatering av befintlig databas (olfix och olfixtst)
-
- 
-		�drad sql
-		CreateTableUSR.sql 	Ut�at f�t USERID till 20 tecken
-		CreateTableRIGHTS.sql  	Ut�at f�t USERID till 20 tecken
-		CreateTableKURESK.sql  	Ut�at f�t USERID till 20 tecken
-		CreateTableLEVRESK.sql  Ut�at f�t USERID till 20 tecken
-		CreateTableTRHD.sql  	Ut�at f�t USERID till 20 tecken
-		CreateTableVERHUVUD.sql Ut�at f�t USERID till 20 tecken
-		CreateOLFIX.sql 	Uppdaterad pga tabell�dring
-		CreateOLFIXtemplate.sql Uppdaterad pga tabell�dring
-
-		�drade data
-		TRANSIDdata.txt		Ny funktion (BETVDEL)
-		PROGRAMdata.txt		Nytt program (DELBETVW)
-
-		�drade script
-		install.sh bytt namn till setup.sh
-		kompilering.sh	Nytt program tillkommit (DELBETVW) + r�tning 
-		Makefile (f� C-programmen) buggr�ttning.
-
-		Dokumentation
-		Teknisk Manual		       (uppdaterad  (20070218)   Version 0.66
-		UserManual.pdf 		       (Ny)	    (20070220)
-		UserManual.html		       (uppdaterad  (20070218)   Version 0.14
-		UserManual_ADMINISTRATION.html (uppdaterad) (20070224)   Version 0.41
-		UserManual_FTGADMIN.html       (uppdaterad) (20070214)	 Version 0.46
-		UserManual_DATABASER.html      (uppdaterad) (20070225)   Version 0.44
-		UserManual_GRUNDER.html	       (uppdaterad) (20070224)   Version 0.2
-________________________________________________________
-Ver 0.5.2.B
-2007-01-31
-		�drade program
-		ADDTXTW		Lagt till tabordning och en hj�pknapp			(0048)
-		ADDFTGW		Lagt till hj�pknapp, buggr�tning			(0049)
-		BYTFTGW		R�t program kompilerat					(0050)
-
-		�drade funktioner
-		FTGUPD.c	Buggr�tning (strlen bytt till sizeof)			(0049)
-
-		�drade script	
-		Makefile f� C-programmen justerad
-
-		Dokumentation
-		Teknisk Manual	Uppdaterad (2007-01-18) Version 0.65
-		UserManual_FTGADMIN.html   (uppdaterad) (2007-01-30)   Version 0.45 	(0048)
-		UserManual.html            (uppdaterad) (2007-01-30)   Version 0.13 	(0048)
-		Installation.html (lagt till "g" i sed "s/'ADMIN'/'DittNamn'/g".....)
-		Instalationsanvisningar.* (lagt till "g" i sed "s/'ADMIN'/'DittNamn'/g".....)
-________________________________________________________
-Ver 0.5.1.B
-2006-12-30
-
-		Nya program
-		TOTRGTW, Tilldela total beh�ighet.					(0040)
-
-		Nya funktioner
-		TOTADD.c	Total beh�ighet					(0040)
-		DATABASE.c	Byte av databas						(0042)
-
-		�drade program
-		DELUSRW		Buggr�tning och till�g av hj�p mm			(0041)
-		BYTFTGW		Omskrivet,lite nytt funktionss�t			(0043)
-		ADDFORW		Buggr�tning och modifiering				(0044)
-		ADDFTGW		Buggr�tning						(0045)
-		ADDLEVSW	Buggr�tning, (lostFocus)				(0046)
-
-		�drad data
-		PROGRAMdata.txt	Lagt till TOTRGTW					(0040)
-		TRANSIDdata.txt Lagt till DATABASE					(0042)
-
-		�drade tabeller
-		DATABAS		Borttagen, obsolete					(0042)
-
-		�drad sql
-		CreateOLFIX.sql	Uppdaterat total beh�ighet i olfixtst f� ADMIN	(0040)
-		CreateOLFIXtemplate.sql, Uppdaterat funktioner (TRANSID)		(0040)
-
-		Diverse
-		kompilering.sh Buggr�tning och uppdatering
-
-		Dokumentation
-		UserManual_ADMINISTRATION.html	(uppdaterad)   	(2006-12-10) 		(0042)
-		UserManual_DATABASER.html	(uppdaterad)    (2006-12-14)		(0043)
-		Teknisk Manual	Uppdaterad (200?-12-15) Version 0.64
-________________________________________________________
-Ver 0.5.0.B
-2006-12-01
-		Nya program
-		CHGOFFW, �dra i en offert 						(0023)
-		DELOFFW, Radera en offert.						(0023)
-		PRTOFFW, Skriv ut en offert.						(0023)
-		OFF2ORDW, Offert till order.						(0023)
-
-		�drade program
-		ADDOFFW, Buggr�tning, R�tat hj�p.
-		DSPOFFW, R�tat hj�p.
-
-		Nya funktioner
-		OFFCHG.c	�dra huvud i en offert					(0023)
-		OFFRCHG.c	�dra offertrad i en offert.				(0023)
-		OFFDEL.c	Radera offert						(0023)
-
-		Ny rapport
-		Offert.kut								(0023)
-
-		�drad data
-		PROGRAMdata.txt	Lagt till CHGOFFW, DELOFFW, PRTOFFW, OFF2ORDW		(0023)
-
-		Diverse
-		kompilering.sh Uppdaterat
-
-		Dokumentation
-		UserManual.html			   (2006-11-19) 	(uppdaterad)
-		UserManual_OFFERT.html		   (2006-11-30)		(Ny)
-		Teknisk Manual	Uppdaterad (2006-12-01) Version 0.63
 ________________________________________________________
