@@ -1,11 +1,12 @@
 /****************************************************************/
 /**		ADDFTGW					*/
 /**		2003-08-15				*/
-/**		Version: 0.46				*/
+/**		Version: 0.47				*/
 /**		Modifierad: 2006-05-01			*/
 /**			2006-12-15			*/
 /**			2007-01-31			*/
 /**			2007-02-25--27			*/
+/**			2007-07-13			*/
 /**		Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
@@ -41,6 +42,9 @@
     QString* rad;
 //    QString ptyp;	/* posttyp */
     QString hjelpfil;			// 2007-01-31
+    QString databas;	/* vilken databas/företag används */	/* 2007-07-13 */
+    QString prgnamn="ADDFTGW - Nya företagsdata - ";	/* 2007-07-13 */
+    
 
     QString ftgnamn;
     QString ftgnr;
@@ -76,6 +80,10 @@ void frmAddFtgData::init()
     processnr=1;
     slotGetFtgdata();			// 2007-02-27
 //    pushButtonQuit->setFocus();    
+    GetDatabas();		/* Ta reda på vilken databas som används just nu */	/* 2007-07-13 */
+    prgnamn.append(databas);	/* 2007-07-13 */
+    setCaption(prgnamn);		/* 2007-07-13 */
+    
     LineEditFtgNamn->setFocus();	// 2007-02-25
 }
 
@@ -646,3 +654,31 @@ void frmAddFtgData::readResursFil()			// 2007-01-31
     f1.close();
 }
 
+void frmAddFtgData::GetDatabas()	/* 2007-07-13 */
+{
+   /*****************************************************/
+    /*  Läs in .olfixrc filen här			                    */
+    /* Plocka fram vilken databas som används		                    */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+
+    QFile f1( homepath+"/.olfixrc" );
+     if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine();                   /*     line of text excluding '\n'	*/
+	rad=line.find( QRegExp("DATABASE="), 0 );
+	if(rad == 0){
+	    databas=line;
+	    databas=(databas.right(databas.length() - 9));
+	}
+            lines += line;
+        }
+    }
+    f1.close();
+}

@@ -1384,6 +1384,7 @@
     <slot>slotGetEndOfProcess()</slot>
     <slot>slotHelp()</slot>
     <slot>readResursFil()</slot>
+    <slot>GetDatabas()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
