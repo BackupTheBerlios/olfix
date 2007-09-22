@@ -1,8 +1,8 @@
 /****************************************************************/
-/**		main.cpp		CHGFTGW (UPDFTGW)	*/
-/**		2005-11-26					*/
+/**		main.cpp		BYTFTGWW			*/
+/**		2003-10-19					*/
+/**		Version: 0.1					*/
 /**		Jan Pihlgren	jan@pihlgren.se			*/
-/**	copyright 2005 Jan Pihlgren				*/
 /****************************************************************/
 /*****************************************************************
  *					                                                 *
@@ -16,23 +16,23 @@
 #include <qapplication.h>
 #include <qpushbutton.h>
 #include <qfont.h>
+#include "frmchgftgdata.h"
+
 #include <qprocess.h>
 #include <qmessagebox.h>
-#include <qlabel.h>
 #include <qlistbox.h>
+#include <qlabel.h>
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qfile.h>
 #include <qdir.h>
-#include <qlineedit.h>
 #include <qregexp.h>
-
-#include "frmchgftgdata.h"
-
 
 int main( int argc, char* argv[] )
 {
   QApplication myapp( argc, argv );
+
+  frmChgFtgData* mywidget = new frmChgFtgData();
 
   QString rcfil;
   QString bibl;
@@ -56,14 +56,13 @@ int main( int argc, char* argv[] )
         }
 	file.close();
     }else{
+	QMessageBox::warning( mywidget, "OLFIX - CHGFTGW",
+ 	"Kan inte hitta filen $HOME/.olfixrc.\n CHGFTGW kommer inte att fungera!\n");
 	qWarning( "Cannot find the $HOME/.olfixrc file" );
- 	fprintf(stdout,"%s\n", rcfil.latin1() );
     }
    QDir::setCurrent ( bibl );
 
-  frmChgFtgData ChgFtgData;
-
-  myapp.setMainWidget( &ChgFtgData );
-  ChgFtgData.show();
-  myapp.exec();
+  myapp.setMainWidget( mywidget );
+  mywidget->show();
+  return myapp.exec();
 }

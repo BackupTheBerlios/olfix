@@ -1334,6 +1334,7 @@ Serie 2</string>
     <slot>updateFtgData( QString posttyp, QString data )</slot>
     <slot>pushBtnHelp_clicked()</slot>
     <slot>readResursFil()</slot>
+    <slot>GetDatabas()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

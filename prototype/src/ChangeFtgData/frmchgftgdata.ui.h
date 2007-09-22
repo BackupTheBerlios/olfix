@@ -1,8 +1,8 @@
 /****************************************************************/
 /**		CHGFTGW					*/
-/**		Version: 0.4.4				*/
+/**		Version: 0.4.5				*/
 /**		2005-12-05				*/
-/**		Modifierad:  2006-05-02 			*/
+/**		Modifierad:  2007-07-12 			*/
 /**		Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /*****************************************************************
@@ -31,19 +31,25 @@
 #define MAXSTRING 5000
 
     int processnr=0;
-    QProcess* process[25];
+    QProcess* process[50];
     QString inrad;
     QString errorrad;
     QString* rad;
     QString flag;
     QString ptyp;	/* posttyp */
     QString hjelpfil;
+    QString databas;	/* vilken databas/företag används */
+    QString prgnamn="CHGFTGW - Ändra företagsdata - ";
 
 
 void frmChgFtgData::init()
 {
     textLabel2_2->hide();
     lineEditFKNR2->hide();
+    GetDatabas();		/* Ta reda på vilken databas som används just nu */
+    prgnamn.append(databas);
+    setCaption(prgnamn);
+    
     PushButtonOK->setFocus();
     slotGetFtgData("FNAMN");
 }
@@ -56,8 +62,12 @@ void frmChgFtgData::PushButtonUpdate_clicked()
 void frmChgFtgData::slotGetFtgData(QString posttyp)
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
-
+               QString usr(userp);
+	    processnr++;
+	    if(processnr>40){
+		processnr=1;
+	    }
+	    qDebug("processnr=%d, posttyp=%s",processnr,posttyp.latin1());
 	process[processnr] = new QProcess();
 	process[processnr] ->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process[processnr] ->addArgument(usr);		// userid
@@ -66,7 +76,7 @@ void frmChgFtgData::slotGetFtgData(QString posttyp)
 	
 	frmChgFtgData::connect( process[processnr] , SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
 	frmChgFtgData::connect( process[processnr] , SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-            frmChgFtgData::connect( process[processnr] , SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
+	frmChgFtgData::connect( process[processnr] , SIGNAL(processExited() ),this, SLOT(slotEndOfProcess() ) );
 
 	 if ( !process[processnr] ->start() ) {
 		// error handling
@@ -107,6 +117,7 @@ void frmChgFtgData::slotEndOfProcess()
 	QMessageBox::critical( this, "CHGFTGW",
 		"ERROR!\n"+errorrad
 	);
+	qDebug("errorrad=%s, ",errorrad.latin1());
 	errorrad="";
 	h = -1;
      }
@@ -115,7 +126,7 @@ void frmChgFtgData::slotEndOfProcess()
     m = k - j;
     posttyp = inrad.mid(j+2,m-2);
 
-//    qDebug("posttyp=%s",posttyp.latin1());   
+    qDebug("posttyp=%s",posttyp.latin1());   
     i = -1;
     i = posttyp.find( QRegExp("FNAMN"), 0 );
     if (i != -1){
@@ -1337,6 +1348,35 @@ void frmChgFtgData::readResursFil()
 	    }
 	    lines += line;
 	}
+    }
+    f1.close();
+}
+
+void frmChgFtgData::GetDatabas()
+{
+   /*****************************************************/
+    /*  Läs in .olfixrc filen här			                    */
+    /* Plocka fram vilken databas som används		                    */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+
+    QFile f1( homepath+"/.olfixrc" );
+     if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine();                   /*     line of text excluding '\n'	*/
+	rad=line.find( QRegExp("DATABASE="), 0 );
+	if(rad == 0){
+	    databas=line;
+	    databas=(databas.right(databas.length() - 9));
+	}
+            lines += line;
+        }
     }
     f1.close();
 }
