@@ -9,8 +9,9 @@
                           LSTBARW  -  description
 	         Lista bokföringsår
                              -------------------
-		     version 0.1
+		     version 0.2
     begin                : Tis 1 mars 2005
+    modified	          : Fre 27 juli 2007
     copyright          : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -37,21 +38,26 @@
 	QProcess* process;
 	QString inrad;
 	QString errorrad;
+	QString hjelpfil;
 
-void frmListBar::GetLista()
+void frmListBar::init()
 {
-	     
+    listView1->clear();
+    frmListBar::GetLista();
+    PushButtonSluta->setFocus();
+}
+	
+void frmListBar::GetLista()
+{	     
 	const char *userp = getenv("USER");
-            QString usr(userp);
+                QString usr(userp);
 	
 	QString bibl;
-	bibl="";
 	errorrad="";
 	inrad="";
-	bibl.append("./STYRMAN");		// OLFIX huvudprogram
 	
 	process = new QProcess();
-	process->addArgument(bibl);
+	process->addArgument("./STYRMAN");
 	process->addArgument(usr);		// userid
 	process->addArgument( "BARLST");	// OLFIX funktion
 	
@@ -149,14 +155,58 @@ void frmListBar::slotEndOfProcess()
 	 }	    
 }
 
-void frmListBar::init()
-{
-    listView1->clear();
-    frmListBar::GetLista();
-}
-
 void frmListBar::slotReloadKonto()
 {
     listView1->clear();
      frmListBar::GetLista();
+}
+
+void frmListBar::pushBtnHelp_clicked()
+{
+	inrad="";
+	frmListBar::readResursFil();		// Hämta path till hjälpfilen
+	
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_EKONOMI.html";
+	hjelpfil=hjelpfil+"#REKENSKAPSAR";		// Lägg till position
+
+	process = new QProcess();
+	process->addArgument( "./OLFIXHLP" );		// OLFIX program
+	process->addArgument(hjelpfil);
+
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
+	}
+	PushButtonSluta->setFocus();
+}
+
+void frmListBar::readResursFil()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			               */
+    /* Plocka fram var hjälpfilen finns			               */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 );
+	if(rad == 0){
+	    hjelpfil=line;
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+	}
+            lines += line;
+        }
+    }
+    f1.close();
 }

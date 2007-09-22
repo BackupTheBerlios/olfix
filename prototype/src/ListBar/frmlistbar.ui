@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>frmListBar</class>
 <widget class="QWidget">
     <property name="name">
@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>500</width>
-            <height>277</height>
+            <height>339</height>
         </rect>
     </property>
     <property name="sizePolicy">
@@ -29,7 +29,7 @@
     <property name="maximumSize">
         <size>
             <width>500</width>
-            <height>280</height>
+            <height>350</height>
         </size>
     </property>
     <property name="baseSize">
@@ -43,18 +43,18 @@
     </property>
     <widget class="QPushButton">
         <property name="name">
-            <cstring>PushButtonSluta</cstring>
+            <cstring>PushButtonAgain</cstring>
         </property>
         <property name="geometry">
             <rect>
                 <x>10</x>
-                <y>240</y>
-                <width>70</width>
+                <y>260</y>
+                <width>71</width>
                 <height>30</height>
             </rect>
         </property>
         <property name="text">
-            <string>Sluta</string>
+            <string>Uppdatera</string>
         </property>
     </widget>
     <widget class="QListView">
@@ -97,26 +97,45 @@
         <property name="geometry">
             <rect>
                 <x>120</x>
-                <y>15</y>
+                <y>51</y>
                 <width>371</width>
-                <height>251</height>
+                <height>280</height>
             </rect>
         </property>
     </widget>
     <widget class="QPushButton">
         <property name="name">
-            <cstring>PushButtonAgain</cstring>
+            <cstring>pushBtnHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>421</x>
+                <y>10</y>
+                <width>60</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonSluta</cstring>
         </property>
         <property name="geometry">
             <rect>
                 <x>10</x>
-                <y>206</y>
-                <width>71</width>
+                <y>300</y>
+                <width>70</width>
                 <height>30</height>
             </rect>
         </property>
         <property name="text">
-            <string>Uppdatera</string>
+            <string>Sluta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
         </property>
     </widget>
 </widget>
@@ -133,6 +152,12 @@
         <receiver>frmListBar</receiver>
         <slot>slotReloadKonto()</slot>
     </connection>
+    <connection>
+        <sender>pushBtnHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmListBar</receiver>
+        <slot>pushBtnHelp_clicked()</slot>
+    </connection>
 </connections>
 <includes>
     <include location="local" impldecl="in implementation">frmlistbar.ui.h</include>
@@ -142,8 +167,12 @@
     <slot>slotDataOnStdout()</slot>
     <slot>slotDataOnStderr()</slot>
     <slot>slotEndOfProcess()</slot>
-    <slot access="protected">init()</slot>
     <slot>slotReloadKonto()</slot>
+    <slot>pushBtnHelp_clicked()</slot>
+    <slot>readResursFil()</slot>
 </slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
