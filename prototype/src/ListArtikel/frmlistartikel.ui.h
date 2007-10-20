@@ -8,10 +8,10 @@
 /***************************************************************************
                           LSTARW  -  description
                              -------------------
-		     version 0.3
-    begin                : Sön 22 nov 2003
-    modified	: Mån  15 febr 2005
-    copyright            : (C) 2003 by Jan Pihlgren
+		     version 0.4
+    begin                : SÃ¶n 22 nov 2003
+    modified	         : LÃ¶r 20  nov 2007
+    copyright        : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
@@ -52,7 +52,7 @@ void frmListArtikel::GetArtikel()
 {
 	const char *userp = getenv("USER");
             QString usr(userp);
-	    inrad="";				// töm inputbuffer
+	    inrad="";				// tï¿½m inputbuffer
 	
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX huvudprogram
@@ -100,7 +100,7 @@ void frmListArtikel::slotEndOfProcess()
 //	qDebug("inrad=%s",inrad.latin1()); 
     i = inrad.find( QRegExp("OK: NR_0_"), 0 );
     if (i != -1) {
-	QMessageBox::information( this, "LSTARW","Betalningsvillkorregistret innehåller inga poster!\n");
+	QMessageBox::information( this, "LSTARW","Betalningsvillkorregistret innehï¿½ller inga poster!\n");
 	i = -1;
 	exit(-1);
     }else{	 
@@ -109,7 +109,7 @@ void frmListArtikel::slotEndOfProcess()
 	pos1=strstr(tmp,"OK: NR_");
 	pos2=strstr(tmp,"_:");
 	i=pos2-pos1;
-	m=i+2;		// startposition för artikelnr
+	m=i+2;		// startposition fï¿½r artikelnr
 	k=0;
 	for (j=7;j<i;j++){
 	    antrad[k]=tmp[j];
@@ -120,7 +120,7 @@ void frmListArtikel::slotEndOfProcess()
 //	qDebug("antalrader=%d",i);
 	j =  inrad.find( QRegExp("_:"), 0); 
 //	qDebug("j=%d",j);
-	for (k = 0;k < ant; k++){			// gå igenom alla raderna / posterna
+	for (k = 0;k < ant; k++){			// gï¿½ igenom alla raderna / posterna
 	    i = j;
 	    j = inrad.find(QRegExp("_:"),i+2);
 	    if (j < i){

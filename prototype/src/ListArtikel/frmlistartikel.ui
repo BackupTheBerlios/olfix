@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>frmListArtikel</class>
 <widget class="QWidget">
     <property name="name">
@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>793</width>
-            <height>252</height>
+            <width>806</width>
+            <height>231</height>
         </rect>
     </property>
     <property name="sizePolicy">
@@ -38,110 +38,145 @@
     <property name="iconText">
         <string>OLFIX</string>
     </property>
-    <widget class="QPushButton">
+    <grid>
         <property name="name">
-            <cstring>PushButtonAgain</cstring>
+            <cstring>unnamed</cstring>
         </property>
-        <property name="geometry">
-            <rect>
-                <x>14</x>
-                <y>189</y>
-                <width>80</width>
-                <height>26</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Uppdatera</string>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonSluta</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>14</x>
-                <y>221</y>
-                <width>80</width>
-                <height>26</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Sluta</string>
-        </property>
-    </widget>
-    <widget class="QListView">
-        <column>
+        <widget class="QPushButton" row="3" column="0">
+            <property name="name">
+                <cstring>PushButtonSluta</cstring>
+            </property>
             <property name="text">
-                <string>Artikelnummer</string>
+                <string>Sluta</string>
             </property>
-            <property name="clickable">
-                <bool>true</bool>
+        </widget>
+        <widget class="QPushButton" row="2" column="0">
+            <property name="name">
+                <cstring>PushButtonAgain</cstring>
             </property>
-            <property name="resizable">
-                <bool>true</bool>
-            </property>
-        </column>
-        <column>
             <property name="text">
-                <string>Benämning</string>
+                <string>&amp;Uppdatera</string>
             </property>
-            <property name="clickable">
-                <bool>true</bool>
+            <property name="accel">
+                <string>Alt+U</string>
             </property>
-            <property name="resizable">
-                <bool>true</bool>
+        </widget>
+        <spacer row="0" column="0">
+            <property name="name">
+                <cstring>spacer1</cstring>
             </property>
-        </column>
-        <column>
-            <property name="text">
-                <string>Benämning nr 2</string>
+            <property name="orientation">
+                <enum>Vertical</enum>
             </property>
-            <property name="clickable">
-                <bool>true</bool>
+            <property name="sizeType">
+                <enum>Expanding</enum>
             </property>
-            <property name="resizable">
-                <bool>true</bool>
+            <property name="sizeHint">
+                <size>
+                    <width>20</width>
+                    <height>171</height>
+                </size>
             </property>
-        </column>
-        <property name="name">
-            <cstring>ListView1</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>102</x>
-                <y>13</y>
-                <width>681</width>
-                <height>234</height>
-            </rect>
-        </property>
-        <property name="sizePolicy">
-            <sizepolicy>
-                <hsizetype>5</hsizetype>
-                <vsizetype>5</vsizetype>
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-            </sizepolicy>
-        </property>
-        <property name="resizePolicy">
-            <enum>AutoOneFit</enum>
-        </property>
-        <property name="dragAutoScroll">
-            <bool>false</bool>
-        </property>
-        <property name="selectionMode">
-            <enum>Single</enum>
-        </property>
-        <property name="allColumnsShowFocus">
-            <bool>false</bool>
-        </property>
-        <property name="itemMargin">
-            <number>3</number>
-        </property>
-        <property name="resizeMode">
-            <enum>LastColumn</enum>
-        </property>
-    </widget>
+        </spacer>
+        <spacer row="1" column="0">
+            <property name="name">
+                <cstring>spacer2</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>100</width>
+                    <height>20</height>
+                </size>
+            </property>
+        </spacer>
+        <spacer row="4" column="1">
+            <property name="name">
+                <cstring>spacer3</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Horizontal</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>681</width>
+                    <height>20</height>
+                </size>
+            </property>
+        </spacer>
+        <widget class="QListView" row="0" column="1" rowspan="4" colspan="1">
+            <column>
+                <property name="text">
+                    <string>Artikelnummer</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Benämning</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <column>
+                <property name="text">
+                    <string>Benämning nr 2</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <property name="name">
+                <cstring>ListView1</cstring>
+            </property>
+            <property name="sizePolicy">
+                <sizepolicy>
+                    <hsizetype>5</hsizetype>
+                    <vsizetype>5</vsizetype>
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                </sizepolicy>
+            </property>
+            <property name="resizePolicy">
+                <enum>AutoOneFit</enum>
+            </property>
+            <property name="dragAutoScroll">
+                <bool>false</bool>
+            </property>
+            <property name="selectionMode">
+                <enum>Single</enum>
+            </property>
+            <property name="allColumnsShowFocus">
+                <bool>false</bool>
+            </property>
+            <property name="itemMargin">
+                <number>3</number>
+            </property>
+            <property name="resizeMode">
+                <enum>LastColumn</enum>
+            </property>
+        </widget>
+    </grid>
 </widget>
 <connections>
     <connection>
@@ -151,16 +186,16 @@
         <slot>slotReloadArtikel()</slot>
     </connection>
     <connection>
-        <sender>PushButtonSluta</sender>
-        <signal>clicked()</signal>
-        <receiver>frmListArtikel</receiver>
-        <slot>close()</slot>
-    </connection>
-    <connection>
         <sender>ListView1</sender>
         <signal>clicked(QListViewItem*)</signal>
         <receiver>frmListArtikel</receiver>
         <slot>PickupArtikelnr(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonSluta</sender>
+        <signal>clicked()</signal>
+        <receiver>frmListArtikel</receiver>
+        <slot>close()</slot>
     </connection>
 </connections>
 <includes>
