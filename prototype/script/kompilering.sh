@@ -1,3 +1,4 @@
+# 2007-07-25, 2007-12-04
 LOGGFILE=/$HOME/tmp/Kompilering.log
 TARGETDIR=/opt/olfix/bin
 WORKDIR=/opt/olfix/src
@@ -124,7 +125,7 @@ make clean >> $LOGGFILE
 #******************************************************************
 # Kolla detta?
 #******************************************************************
-echo "===== AddProg,??, ej färdig!" >> $LOGGFILE
+echo "===== AddProg,??, ej fï¿½rdig!" >> $LOGGFILE
 #cd $WORKDIR/AddProg
 #qmake >> $LOGGFILE
 #make >> $LOGGFILE
@@ -218,6 +219,13 @@ qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
 
+echo "===== ChangeHost, CHGHOSTW" >> $LOGGFILE
+cd $WORKDIR/ChangeHost
+qmake -project "TARGET=CHGHOSTW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake >> $LOGGFILE
+make >> $LOGGFILE 2>> $LOGGFILE
+make clean >> $LOGGFILE
+
 echo "===== ChangeKonto, CHGKTOW" >> $LOGGFILE
 cd $WORKDIR/ChangeKonto
 qmake -project "TARGET=CHGKTOW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
@@ -288,6 +296,13 @@ qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
 
+echo "===== CopyKontoplan, CPYKTOW" >> $LOGGFILE
+cd $WORKDIR/CopyKontoplan
+qmake -project "TARGET=CPYKTOW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake >> $LOGGFILE
+make >> $LOGGFILE 2>> $LOGGFILE
+make clean >> $LOGGFILE
+
 echo "===== Dagbok, DAGBOKW" >> $LOGGFILE
 cd $WORKDIR/Dagbok
 qmake -project "TARGET=DAGBOKW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
@@ -304,16 +319,23 @@ qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
 
-echo "===== DelOffert, DELOFFW" >> $LOGGFILE
-cd $WORKDIR/DelOffert
-qmake -project "TARGET=DELOFFW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+echo "===== DelLagerstelle, DELLSW" >> $LOGGFILE
+cd $WORKDIR/DelLagerstelle
+qmake -project "TARGET=DELLSW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
 qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
 
-echo "===== DelLagerstelle, DELLSW" >> $LOGGFILE
-cd $WORKDIR/DelLagerstelle
-qmake -project "TARGET=DELLSW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+echo "===== DelLevsett, DELLEVSW" >> $LOGGFILE
+cd $WORKDIR/DelLevsett
+qmake -project "TARGET=DELLEVSW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
+qmake >> $LOGGFILE
+make >> $LOGGFILE 2>> $LOGGFILE
+make clean >> $LOGGFILE
+
+echo "===== DelOffert, DELOFFW" >> $LOGGFILE
+cd $WORKDIR/DelOffert
+qmake -project "TARGET=DELOFFW" "DESTDIR+=$TARGETDIR" >> $LOGGFILE
 qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
@@ -508,7 +530,7 @@ qmake >> $LOGGFILE
 make >> $LOGGFILE 2>> $LOGGFILE
 make clean >> $LOGGFILE
 
-echo "***** Leverantör *****"
+echo "***** Leverantï¿½r *****"
 
 echo "===== LevFaktAttBetala, ATTBETW" >> $LOGGFILE
 cd $WORKDIR/LevFaktAttBetala

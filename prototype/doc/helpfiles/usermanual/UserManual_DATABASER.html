@@ -25,9 +25,9 @@ f&ouml;r Linuxsystem</B></FONT></P>
 <P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=4 STYLE="font-size: 16pt">Kapitel
 Databaser </FONT>
 </P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.45 </FONT>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>Version 0.46 </FONT>
 </P>
-<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2007-07-27 </FONT>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=5>2007-11-29 </FONT>
 </P>
 <HR>
 <P STYLE="margin-left: 3cm">This program is free software; you can
@@ -48,6 +48,9 @@ any later version.</P>
 av ny databas.</FONT></A></P>
 <P STYLE="font-size: 10pt" STYLE="margin-left: 3cm; margin-bottom: 0cm"><!-- <a href="#DATABAS">Databas</a><br> --><A HREF="#DATABASBYT"><FONT FACE="San Serif">Byta
 databas/f&ouml;retag</FONT></A></P>
+<P STYLE="font-size: 10pt" STYLE="margin-left: 3cm; margin-bottom: 0cm"><!-- <a href="#DATABAS">Databas</a><br> --><A HREF="#CHANGEHOST"><FONT FACE="San Serif">Byta
+databasserver</FONT></A></P>
+
 <HR>
 <P ALIGN=LEFT><A NAME="ALLMENT"></A><FONT FACE="San Serif" ><B>Allm&auml;nt.</B></FONT></P>
 <P ALIGN=LEFT STYLE="font-size: 10pt">Detta kapitel avhandlar m&ouml;jligheten till att
@@ -91,15 +94,34 @@ f&ouml;retag.</B></FONT></P>
 <b><FONT color=#FF0329> OBS!</FONT></b> <FONT FACE="San Serif" STYLE="font-size: 10pt" >Att innan du byter företag/databas ska du stänga ner alla andra fönster som är relaterade till OLFIX! Dock kan OLFIXW, menyn, vara uppe.<br>
 <P ALIGN=CENTER><IMG SRC="UserManual_html_BYTFTGW.png" NAME="Graphic2" ALIGN=MIDDLE WIDTH=608 HEIGHT=218 BORDER=0></P>
 
-<P ALIGN=LEFT STYLE="font-size: 10pt">Klicka på önskad databas i listan <b>Databasnamn</b>. I och med det så flyttas databasenamnet till fältet <b>Önskad databas</b>. Klicka där efter på knappen <b>Byt</b>. <br> Programmet kontrollerar om den valda databasen är en olfixdatabas.<br> Efter byte av databas så stäng ner fönstret genom att klicka på knappen <b>Klar</b>.
+<P ALIGN=LEFT STYLE="font-size: 10pt">Klicka på önskad databas i listan <b>Databasnamn</b>. I och med det så flyttas databasenamnet till fältet <b>Önskad databas</b>. Klicka därefter på knappen <b>Byt</b>. <br> Programmet kontrollerar om den valda databasen är en olfixdatabas.<br> Efter byte av databas så stäng ner fönstret genom att klicka på knappen <b>Klar</b>.
 </P>
+<HR>
+<!-- 					BYTE AV DATABASHOST			-->
+<P ALIGN=LEFT><A NAME="CHANGEHOST"></A><FONT FACE="San Serif" style="font-size: 12pt"><B>Byta
+databashost.</B></FONT></P>
+<P ><FONT FACE="San Serif" STYLE="font-size: 10pt" >Programmet används för att enkelt kunna arbeta med önskad databasserver. Den kanske viktigaste möjligheten är att det blir enkelt att "hoppa" mellan olika servrar där databasen för OLFIX residerar..<BR></FONT>
+</P>
+<b><FONT color=#FF0329> OBS!</FONT></b> <FONT FACE="San Serif" STYLE="font-size: 10pt" >Tänk noga på vilken server du tänker arbeta mot så du arbetar med rätt data.<br>
+<P ALIGN=CENTER><IMG SRC="UserManual_html_CHGHOSTW.png" NAME="Graphic2" ALIGN=MIDDLE WIDTH=608 HEIGHT=218 BORDER=0></P>
+
+Skriv in IP-addressen till den host/dator som du önska använda, där databasen du ska använda finns.
+Du kan bara skriva in en IP-address eller ordet <strong>localhost</strong>. Du kan inte använda dig av datornamn.
+<P ALIGN=LEFT STYLE="font-size: 10pt">Klicka därefter på knappen <b>Byt</b><br>
+ Efter byte av host så stäng ner fönstret genom att klicka på knappen <b>Klar</b>.
+</P>
+
 <P ALIGN=LEFT><A HREF="#INNEHALL"><FONT FACE="San Serif" STYLE="font-size: 10pt">Till
 b&ouml;rjan</FONT></A></P>
 <HR>
 <P ALIGN=CENTER><A NAME="BEGREPP"></A><FONT SIZE=4 STYLE="font-size: 16pt"><FONT FACE="San Serif"><B>BEGREPPSF&Ouml;RKLARINGAR</B></FONT></P>
 <P ALIGN=LEFT><FONT FACE="San Serif" STYLE="font-size: 10pt"><B>Bokf&ouml;rings&aring;r:</B>
 Tv&aring;st&auml;llig bokstavskombination som anger vilket
-bokf&ouml;rings&aring;r som avses.</FONT></P>
+bokf&ouml;rings&aring;r som avses.<br>
+<strong>databasserver</strong>: Den dator där OLFIXs databas ligger.<br>
+<strong>host</strong>: Betyder värddator, i detta samanhang i betydelsen var OLFIXs databas ligger.<br>
+<strong>localhost</strong>: Här menas den dator du sitter vid, din egna dator.<br>
+</FONT></P>
 
 <P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="San Serif" STYLE="font-size: 10pt"><A HREF="#TOP">Till
 b&ouml;rjan</A> </FONT>
