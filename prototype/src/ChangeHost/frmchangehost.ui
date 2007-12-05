@@ -1,0 +1,298 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>frmChangeHost</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmChangeHost</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>600</width>
+            <height>192</height>
+        </rect>
+    </property>
+    <property name="paletteForegroundColor">
+        <color>
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+        </color>
+    </property>
+    <property name="caption">
+        <string>OLFIX - CHGHOST Byt databasserver.</string>
+    </property>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>536</x>
+                <y>10</y>
+                <width>45</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+                <pointsize>8</pointsize>
+            </font>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonBreak</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>190</x>
+                <y>165</y>
+                <width>71</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avbryt</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonDo</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>20</x>
+                <y>165</y>
+                <width>71</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Byt</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushButtonOK</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>105</x>
+                <y>165</y>
+                <width>71</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Klar</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>20</x>
+                <y>95</y>
+                <width>127</width>
+                <height>17</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Nuvarande host:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel4</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>20</x>
+                <y>120</y>
+                <width>120</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Önskad host:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel3</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>190</x>
+                <y>95</y>
+                <width>60</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Host:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel3_2</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>190</x>
+                <y>120</y>
+                <width>60</width>
+                <height>16</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Host:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditHost</cstring>
+        </property>
+        <property name="enabled">
+            <bool>false</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>255</x>
+                <y>90</y>
+                <width>110</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="text">
+            <string>localhost</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>20</x>
+                <y>10</y>
+                <width>470</width>
+                <height>53</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Denna funktion används för att skifta databasserver (host).
+Databasserver/host är den maskin/dator som härbärgerar databaserna.
+Ange datorns IP-address eller ordet localhost inte datorns namn.</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>lineEditNyHost</cstring>
+        </property>
+        <property name="enabled">
+            <bool>true</bool>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>255</x>
+                <y>115</y>
+                <width>110</width>
+                <height>23</height>
+            </rect>
+        </property>
+        <property name="paletteForegroundColor">
+            <color>
+                <red>0</red>
+                <green>0</green>
+                <blue>0</blue>
+            </color>
+        </property>
+        <property name="text">
+            <string></string>
+        </property>
+    </widget>
+</widget>
+<connections>
+    <connection>
+        <sender>pushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>frmChangeHost</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonDo</sender>
+        <signal>clicked()</signal>
+        <receiver>frmChangeHost</receiver>
+        <slot>setHost()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmChangeHost</receiver>
+        <slot>slotHelp()</slot>
+    </connection>
+    <connection>
+        <sender>pushButtonBreak</sender>
+        <signal>clicked()</signal>
+        <receiver>frmChangeHost</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditNyHost</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmChangeHost</receiver>
+        <slot>lineEditNyHost_returnPressed()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditNyHost</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmChangeHost</receiver>
+        <slot>lineEditNyHost_returnPressed()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>lineEditNyHost</tabstop>
+    <tabstop>pushButtonDo</tabstop>
+    <tabstop>pushButtonOK</tabstop>
+    <tabstop>pushButtonBreak</tabstop>
+    <tabstop>pushButtonHelp</tabstop>
+    <tabstop>lineEditHost</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">frmchangehost.ui.h</include>
+</includes>
+<slots>
+    <slot>init()</slot>
+    <slot>lineEditNyHost_returnPressed()</slot>
+    <slot>getHost()</slot>
+    <slot>setHost()</slot>
+    <slot>slotHelp()</slot>
+    <slot>readResursFil()</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
