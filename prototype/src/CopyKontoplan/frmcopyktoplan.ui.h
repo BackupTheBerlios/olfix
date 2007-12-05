@@ -9,19 +9,19 @@
 /***************************************************************************
                           CPYKTOW  -  description
                              -------------------
-		     version 0.1.1
-    begin                	: Lör      3 jan 2004
-    modified	: 	: Mån 23 juli 2007
+		     	version 0.1.1
+    begin               : Lör   3 jan  2004
+    modified	: 	: Tis 25 sept 2007
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
- *					                                                 *
- *   This program is free software; you can redistribute it and/or modify 	 *
+ *					                                        *
+ *   This program is free software; you can redistribute it and/or modify 	*
  *   it under the terms of the GNU General Public License as published by       *
- *   the Free Software Foundation; either version 2 of the License, or     	 *
- *   (at your option) any later version.                                   		 *
- *                                                                         				 *
+ *   the Free Software Foundation; either version 2 of the License, or     	*
+ *   (at your option) any later version.                                   	*
+ *                                                                         	*
  *********************************************** *****************/
 /*
 KTOADD.c
@@ -54,7 +54,7 @@ FROM `KTOPLAN` WHERE ARID ='AD' */
 // Databas
 /* Modify the following to match your environment */
 #define DRIVER       "QMYSQL3"  /* see the Qt SQL documentation for a list of available drivers */
-// #define DATABASE  "test"          /* the name of your database */
+// #define DATABASE     test"                   /* the name of your database */
 #define USER           "olfix"         /* user name with appropriate rights */
 #define PASSWORD "olfix"         /* password for USER */
 #define HOST           "localhost" /* host on which the database is running */
@@ -112,7 +112,7 @@ void frmCopyKtoplan::init()
 	qDebug("Error:Kan inte öppna databasen!");
         return;
     }
-    check_User();	/* Finns användaren iOLFIX och har vederbörande rättighet att köra detta program */
+    check_User();	/* Finns användaren i OLFIX och har vederbörande rättighet att köra detta program */
     getKontoplan();
     lineEditNyttBar->setFocus();
 }
@@ -227,12 +227,12 @@ void frmCopyKtoplan::slotDataOnStdout()
 void frmCopyKtoplan::pushBtnHelp_clicked()
 {
 	inrad="";
-	frmCopyKtoplan::readResursFil();		// Hämta path till hjälpfilen
+	frmCopyKtoplan::readResursFil();		// Hï¿½mta path till hjï¿½lpfilen
 	
 	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
 	hjelpfil=hjelpfil.left(i1);
 	hjelpfil=hjelpfil+"_EKONOMI.html";
-	hjelpfil=hjelpfil+"#COPYKTOPLAN";		// Lägg till position
+	hjelpfil=hjelpfil+"#COPYKTOPLAN";		// Lï¿½gg till position
 
 	process = new QProcess();
 	process->addArgument( "./OLFIXHLP" );		// OLFIX program
