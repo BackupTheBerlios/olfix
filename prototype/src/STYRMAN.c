@@ -1,9 +1,9 @@
 /***************************************************************************
                           STYRMAN.c  -  description
                              -------------------
-			     ver 0.15
-    begin                : Mån  30 juni  2003
-    Modified		 : Sön  16 febr  2007
+			     							ver 0.15x
+    begin               : Mån  30 juni  2003
+    Modified		 		: Tis  27 nov   2007
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -15,7 +15,7 @@
                   OUTPUT:  errno, error (text)
 ****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.11 2007/02/16 06:05:43 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.12 2007/12/05 04:56:28 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -43,8 +43,10 @@
 
   char database[15]="";
   char databas[15]="olfix";	/* 2004-11-11	*/
+  char host[200]="";				/* 20071127    */
 
 void display_row();
+int which_host(char *envp[]);	// 20071127
 int which_database(char *envp[]);
 int check_Transtyp(char *trnstyp);
 int check_User(char *user);
@@ -75,6 +77,11 @@ int main(int argc, char *argv[], char *envp[])
 /* ================================================================================	*/
 /* 		Val av databas, START							*/
 /* ================================================================================	*/
+/*	fprintf(stderr,"1. host=%s\n",host);	*/
+  status = which_host(envp);					/* 20071127	*/
+/*	fprintf(stdout,"host=%s ",host);*/     /* Det ska vara ett mellanslag i slutet! */
+  if (status != 0)
+	exit(status);
 
   status = which_database(envp);
 
@@ -293,7 +300,7 @@ int check_Transtyp(char *trnstyp)
 
   mysql_init(&my_connection);
 
-  if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
+  if (mysql_real_connect(&my_connection, host,  "olfix", "olfix", databas, 0, NULL, 0)){
 /*	fprintf(stderr,"Connection success\n");		*/
 
   res = mysql_query(&my_connection,sqlcommand);
@@ -351,7 +358,7 @@ int check_User(char *user)
 /*  fprintf(stderr,"sqlkommando=%s\n",sqlcommand);	 2004-11-11	*/
   mysql_init(&my_connection);
 
-  if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
+  if (mysql_real_connect(&my_connection, host,  "olfix", "olfix", databas, 0, NULL, 0)){
 /*	fprintf(stderr,"Connection success\n");		*/
 
   	res = mysql_query(&my_connection,sqlcommand);
@@ -412,7 +419,7 @@ int check_Rights(char *usr, char *tr)
 
   mysql_init(&my_connection);
 
-  if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
+  if (mysql_real_connect(&my_connection, host,  "olfix", "olfix", databas, 0, NULL, 0)){
 /*	fprintf(stderr,"Connection success\n");		*/
   	res = mysql_query(&my_connection,sqlcommand);
   	if (res){
@@ -547,6 +554,70 @@ int which_database(char *envp[])
 /*	fprintf(stderr,"tmp=%s, i=%d len tmp=%d\n",tmp,i,strlen(tmp));		*/
 	strncpy(database,tmp,strlen(tmp));
 	database[strlen(tmp)]=0;
+
+	return status;
+}
+
+int which_host(char *envp[])
+{
+	FILE *fil_pek;
+
+	char home[50];
+	char *home_pek;
+	char resource[]="/.olfixrc";
+	char filename[50]="";
+	char tmp[20]="";
+	char temp[10]="";
+	char *tmp_pek;
+	int i,status;
+	
+	strncpy(host,"localhost",10);		/* default, överskrivs om .olfirc innehåller en hostadr */
+
+	for (i = 0;envp[i]!=NULL;i++){
+		if(strstr(envp[i],"HOME=") != NULL){
+			strncpy(temp,envp[i],4);
+/*			fprintf(stderr,"temp=%s\n",temp); */
+			status=strcmp(temp,"HOME");
+/*			fprintf(stderr,"status=%d\n",status); */
+			if (status == 0){
+				home_pek=(strstr(envp[i],"HOME="));
+				home_pek=home_pek+5;
+				strcpy(home,home_pek);
+			}
+/*			fprintf(stderr,"home_pek=%d %s\n",home_pek,home_pek);	*/
+		}
+	}
+/*	fprintf(stderr,"home=%s\n",home);	*/
+	strncpy(filename,home,strlen(home));
+	strncat(filename,resource,strlen(resource));
+
+/*	fprintf(stderr,"filename=%s\n",filename);	*/
+	status=-1;
+
+	if ((fil_pek = fopen(filename,"r")) != NULL){
+		while (fgets(tmp,150,fil_pek) != NULL){
+/*			fprintf(stderr,"tmp=%s\n",tmp); 	*/
+			if(strstr(tmp,"HOST=")){
+				tmp_pek=(strstr(tmp,"HOST="))+5;
+				strncpy(host,tmp_pek,strlen(tmp_pek));
+				status=0;
+			}
+		}
+/*		fprintf(stderr," Host=%s_len=%d\n",host,strlen(host)); 	*/
+		fclose(fil_pek);
+	}
+	else{
+/*		fprintf(stderr," Host=%s_len=%d\n",host,strlen(host)); 	*/
+	 	fprintf(stderr,"Error: Filen .olfixrc kan inte öppnas\n");
+	}
+	for (i=0;i < strlen(host);i++){
+		tmp[i]=host[i];
+	}
+	tmp[i-1]=0;
+/*	fprintf(stderr,"tmp=%s, i=%d len(tmp)=%d\n",tmp,i,strlen(tmp));	*/
+	strncpy(host,tmp,strlen(tmp));
+	host[strlen(tmp)]=0;
+/*	fprintf(stderr,"host=%s\n",host);	*/
 
 	return status;
 }
