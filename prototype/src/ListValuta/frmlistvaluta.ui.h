@@ -8,10 +8,11 @@
 /***************************************************************************
                           LSTVALW  -  description
                              -------------------
-		     version 0.02
-    begin                : Sön 22 febr 2003
-    copyright            : (C) 2003 by Jan Pihlgren
-    email                : jan@pihlgren.se
+		     version 0.1
+    begin                : SÃ¶n 22 febr 2003
+    modified	         : Tors  6  okt  2007    
+    copyright         : (C) 2003 by Jan Pihlgren
+    email                 : jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
  *					                                                 *
@@ -79,7 +80,7 @@ void frmListValuta::slotDataOnStdout()
 	inrad.append(line);
 	inrad.append("\n");
     }
-//      fprintf(stdout,"2 .Läser från STYRMAN/VALLST! %s\n",inrad.latin1());
+//      fprintf(stdout,"2 .Lï¿½ser frï¿½n STYRMAN/VALLST! %s\n",inrad.latin1());
 }
 
 void frmListValuta::slotDataOnStderr()
@@ -120,12 +121,35 @@ void frmListValuta::slotEndOfProcess()
     char beteckn[16]="";
 //    char listrad[90]="";
 
+    /*                                                   Start     2007-12-06                                         */
+    int l1,l2,m1,m2;
+    QString host="";
+    m1=inrad.find( QRegExp("host="), 0 );
+    m2=inrad.find( QRegExp("NR_"), 0 );
+    l1=m2-(m1+5);
+    l2=m2-m1;
+    host=inrad.mid(5,l1);
+    inrad=inrad.mid(m2,inrad.length()-m2);
+    
+   qDebug("host=%s m1=%d m2=%d l1=%d l2=%d\n",host.latin1(),m1,m2,l1,l2);
+    if(host != "127.0.0.1 "){
+	 if(host != "localhost "){
+	     textLabel1->setText("<u><b>Host</b></u>\n");
+	     textLabelHostName->setText(host);
+	 }
+    }else{
+	textLabel1->setText("");
+    }
+    /*                                                End         2007-12-06                                         */
+    
+    
+    
     tmppek=tmp;
     qstrcpy(tmp,inrad);
     pos1=strstr(tmp,"NR_");
     pos2=strstr(tmp,"_:");
     i=pos2-pos1;
-    m=i+2;		// startposition för första userid.
+    m=i+2;		// startposition fÃ¶r fÃ¶rsta userid.
 //    fprintf(stdout,"i=%d  m=%d",i,m);
     k=0;
     for (j=3;j<i;j++){
@@ -133,7 +157,7 @@ void frmListValuta::slotEndOfProcess()
 	k++;
     };
     i=atoi(antrad);		// i = antal poster
-    for (k = 1;k <= i; k++){	// gå igenom alla raderna / posterna
+    for (k = 1;k <= i; k++){	// gï¿½ igenom alla raderna / posterna
 	l=0;
 	for(j = m; j < sizeof(valuta) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -145,7 +169,7 @@ void frmListValuta::slotEndOfProcess()
 	    }
 	}
 //	fprintf(stdout,"%s  ",valuta);
-	m=m+l+2;	// position för land
+	m=m+l+2;	// position fÃ¶r land
 	l=0;
 	for(j = m; j < sizeof(land) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -157,7 +181,7 @@ void frmListValuta::slotEndOfProcess()
 	    }
 	}
 //	fprintf(stdout,"%s  ",land);
-	m=m+l+2;	// position för sälj
+	m=m+l+2;	// position fÃ¶r sÃ¤lj
 	l=0;
 	for(j = m; j < sizeof(salj) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -169,7 +193,7 @@ void frmListValuta::slotEndOfProcess()
 	    }
 	}
 //	fprintf(stdout,"%s  ",salj);
-	m=m+l+2;	// position för kop
+	m=m+l+2;	// position fÃ¶r kÃ¶p
 	l=0;
 	for(j = m; j < sizeof(kop) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -181,7 +205,7 @@ void frmListValuta::slotEndOfProcess()
 	    }
 	}
 	m=m+l+2;
-//	fprintf(stdout,"%s\n  ",kop);
+//	fprintf(stdout,"%s\n  ",kÃ¶p);
 	l=0;
 	for(j = m; j < sizeof(beteckn) + m; j++){
 	    if(tmp[j] != *("_")){
