@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>frmChgValuta</class>
 <widget class="QWidget">
     <property name="name">
@@ -8,7 +8,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>307</width>
+            <width>775</width>
             <height>210</height>
         </rect>
     </property>
@@ -17,18 +17,85 @@
     </property>
     <widget class="QLabel">
         <property name="name">
-            <cstring>TextLabelBeteck</cstring>
+            <cstring>TextLabelSalj</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>10</x>
-                <y>60</y>
-                <width>70</width>
+                <x>150</x>
+                <y>150</y>
+                <width>40</width>
                 <height>21</height>
             </rect>
         </property>
         <property name="text">
-            <string>Beteckning:</string>
+            <string>Sälj:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelLand</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>150</x>
+                <y>90</y>
+                <width>40</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Land:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelValuta</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>150</x>
+                <y>30</y>
+                <width>45</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Valuta:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelKop</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>150</x>
+                <y>120</y>
+                <width>40</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Köp:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>20</y>
+                <width>131</width>
+                <height>31</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string></string>
+        </property>
+        <property name="alignment">
+            <set>AlignCenter</set>
         </property>
     </widget>
     <widget class="QLineEdit">
@@ -37,27 +104,11 @@
         </property>
         <property name="geometry">
             <rect>
-                <x>90</x>
+                <x>250</x>
                 <y>60</y>
                 <width>210</width>
                 <height>22</height>
             </rect>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonQuit</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>145</x>
-                <y>180</y>
-                <width>61</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Avsluta</string>
         </property>
     </widget>
     <widget class="QLineEdit">
@@ -66,7 +117,7 @@
         </property>
         <property name="geometry">
             <rect>
-                <x>90</x>
+                <x>250</x>
                 <y>90</y>
                 <width>210</width>
                 <height>22</height>
@@ -79,11 +130,27 @@
         </property>
         <property name="geometry">
             <rect>
-                <x>90</x>
+                <x>250</x>
                 <y>120</y>
                 <width>55</width>
                 <height>22</height>
             </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelBeteck</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>150</x>
+                <y>60</y>
+                <width>90</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Beteckning:</string>
         </property>
     </widget>
     <widget class="QLineEdit">
@@ -92,88 +159,65 @@
         </property>
         <property name="geometry">
             <rect>
-                <x>90</x>
+                <x>250</x>
                 <y>150</y>
                 <width>55</width>
                 <height>22</height>
             </rect>
         </property>
     </widget>
-    <widget class="QLabel">
+    <widget class="QListView">
+        <column>
+            <property name="text">
+                <string>Valuta</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
+        <column>
+            <property name="text">
+                <string>Beteckning</string>
+            </property>
+            <property name="clickable">
+                <bool>true</bool>
+            </property>
+            <property name="resizable">
+                <bool>true</bool>
+            </property>
+        </column>
         <property name="name">
-            <cstring>TextLabelValuta</cstring>
+            <cstring>listViewValuta</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>10</x>
-                <y>30</y>
-                <width>45</width>
+                <x>470</x>
+                <y>10</y>
+                <width>291</width>
+                <height>191</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonUpdate</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>210</x>
+                <y>180</y>
+                <width>80</width>
                 <height>21</height>
             </rect>
         </property>
         <property name="text">
-            <string>Valuta:</string>
+            <string>Uppdatera</string>
         </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabelLand</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>90</y>
-                <width>40</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Land:</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabelKop</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>120</y>
-                <width>40</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Köp:</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabelSalj</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>150</y>
-                <width>40</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Sälj:</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditValuta</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>91</x>
-                <y>30</y>
-                <width>45</width>
-                <height>22</height>
-            </rect>
+        <property name="default">
+            <bool>true</bool>
         </property>
     </widget>
     <widget class="QPushButton">
@@ -182,7 +226,7 @@
         </property>
         <property name="geometry">
             <rect>
-                <x>5</x>
+                <x>150</x>
                 <y>180</y>
                 <width>51</width>
                 <height>21</height>
@@ -197,21 +241,66 @@
     </widget>
     <widget class="QPushButton">
         <property name="name">
-            <cstring>PushButtonUpdate</cstring>
+            <cstring>PushButtonQuit</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>65</x>
+                <x>300</x>
                 <y>180</y>
-                <width>70</width>
+                <width>61</width>
                 <height>21</height>
             </rect>
         </property>
         <property name="text">
-            <string>Uppdatera</string>
+            <string>Avsluta</string>
         </property>
-        <property name="default">
-            <bool>true</bool>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditValuta</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>250</x>
+                <y>30</y>
+                <width>45</width>
+                <height>22</height>
+            </rect>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushBtnHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>400</x>
+                <y>10</y>
+                <width>60</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabelHostName</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>60</y>
+                <width>130</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string></string>
+        </property>
+        <property name="alignment">
+            <set>AlignCenter</set>
         </property>
     </widget>
 </widget>
@@ -312,13 +401,57 @@
         <receiver>frmChgValuta</receiver>
         <slot>slotChgValuta()</slot>
     </connection>
+    <connection>
+        <sender>listViewValuta</sender>
+        <signal>clicked(QListViewItem*)</signal>
+        <receiver>frmChgValuta</receiver>
+        <slot>slotPickupValuta(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>LineEditValuta</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmChgValuta</receiver>
+        <slot>slotValutaEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditBeteck</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmChgValuta</receiver>
+        <slot>slotBeteckningEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditLand</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmChgValuta</receiver>
+        <slot>slotLandEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditKop</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmChgValuta</receiver>
+        <slot>slotKopEntered()</slot>
+    </connection>
+    <connection>
+        <sender>LineEditSalj</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmChgValuta</receiver>
+        <slot>slotSaljEntered()</slot>
+    </connection>
+    <connection>
+        <sender>pushBtnHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmChgValuta</receiver>
+        <slot>pushBtnHelp_clicked()</slot>
+    </connection>
 </connections>
 <tabstops>
+    <tabstop>listViewValuta</tabstop>
     <tabstop>LineEditValuta</tabstop>
-    <tabstop>PushButtonGet</tabstop>
     <tabstop>LineEditBeteck</tabstop>
     <tabstop>LineEditLand</tabstop>
     <tabstop>LineEditKop</tabstop>
+    <tabstop>LineEditSalj</tabstop>
+    <tabstop>PushButtonGet</tabstop>
     <tabstop>PushButtonUpdate</tabstop>
     <tabstop>PushButtonQuit</tabstop>
 </tabstops>
@@ -341,6 +474,11 @@
     <slot>slotChgDataOnStdout()</slot>
     <slot>slotChgDataOnStderr()</slot>
     <slot>slotEndOfChgProcess()</slot>
+    <slot>listValuta()</slot>
+    <slot>slotListaEndOfProcess()</slot>
+    <slot>slotPickupValuta( QListViewItem * item )</slot>
+    <slot>pushBtnHelp_clicked()</slot>
+    <slot>readResursFil()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
