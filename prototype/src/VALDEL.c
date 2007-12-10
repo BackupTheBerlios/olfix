@@ -1,11 +1,12 @@
 /***************************************************************************
                           VARDEL.c  -  description
                              -------------------
-    Version		 : 0.3
+    Version		 : 0.4
     begin                : Fre  21 febr	2003
-    modified		 : Tors 24 febr 2005
+    modified		 : M√•n  10 dec  2007
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
+	Anrop till databas p√• annan server/host
  ***************************************************************************/
 
 /***************************************************************************
@@ -28,7 +29,7 @@
 
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/VALDEL.c,v 1.4 2007/02/19 07:03:19 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/VALDEL.c,v 1.5 2007/12/10 06:38:13 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -44,15 +45,17 @@
   MYSQL_RES *res_ptr;
   MYSQL_ROW sqlrow;
 
-int which_database(char *envp[]);
-char database[15]="";
+  int which_database(char *envp[]);
+  int which_host(char *envp[]);	// 20071210
+  char host[200]="";		// 20071210
+  char database[15]="";
 
 int main(int argc, char *argv[], char *envp[])
 {
 /* int i;	*/
   int res;
   int status;
-  const char *userp = getenv("USER");	/* vem ‰r inloggad?	*/
+  const char *userp = getenv("USER");	/* vem √§r inloggad?	*/
   char databas[25]="olfix";
   char usr[15];				/* userid		*/
 
@@ -61,9 +64,21 @@ int main(int argc, char *argv[], char *envp[])
   char temp5[200]="";
   char valuta[4]="";
 
+/* Start 2007-12-10	*/
+  if (argc < 2){
+	fprintf(stderr,"Error: Valuta saknas!\n");
+	exit(0);
+  }
+/* End 2007-12-10	*/
+
 /* ================================================================================ */
 /* 		Val av databas, START						    */
 /* ================================================================================ */
+/*	fprintf(stderr,"1. host=%s\n",host);	*/
+  status = which_host(envp);			// 20071210
+	fprintf(stdout,"host=%s ",host);	/* Det ska vara ett mellanslag i slutet! */
+  if (status != 0)
+	exit(status);
 
   status = which_database(envp);
 
@@ -76,7 +91,7 @@ int main(int argc, char *argv[], char *envp[])
     	if (strlen(database)!= 0){
 		strncpy(databas,database,sizeof(databas));		/* 2005-02-24	*/
 	}else{
-  		strncpy(databas,"olfixtst",15);	/* olfixtst = testfˆretag	*/
+  		strncpy(databas,"olfixtst",15);	/* olfixtst = testf√∂retag	*/
 	}
   }else{
 	if (strlen(argv[ANTARG]) != 0){
@@ -88,7 +103,7 @@ int main(int argc, char *argv[], char *envp[])
   	}
   }
 /*  fprintf(stderr,"ANTARG=%d,argv[ANTARG]=%s\n",ANTARG,argv[ANTARG]);	*/
-/* Om usr (userid) bˆrjar pÂ 'test' eller 'prov' anv‰nd databas 'olfixtst' */
+/* Om usr (userid) b√∂rjar p√• 'test' eller 'prov' anv√§nd databas 'olfixtst' */
   if (strncmp(usr,"test",4)==0 || strncmp(usr,"prov",4)==0 ) {
   	strncpy(databas,"olfixtst",15);
   }
@@ -108,7 +123,7 @@ int main(int argc, char *argv[], char *envp[])
 
   mysql_init(&my_connection);
 
-  if (mysql_real_connect(&my_connection, "localhost",  "olfix", "olfix", databas, 0, NULL, 0)){
+  if (mysql_real_connect(&my_connection, host,  "olfix", "olfix", databas, 0, NULL, 0)){
 /*  fprintf("VALDEL_Connection success\n");	*/
 
     	res = mysql_query(&my_connection,temp5);
@@ -179,7 +194,7 @@ int which_database(char *envp[])
 	}
 	else{
 /*		fprintf(stderr,"database=%s_len=%d\n",database,strlen(database)); */
-	 	fprintf(stderr,"Error: Filen .olfixrc kan inte ˆppnas\n");
+	 	fprintf(stderr,"Error: Filen .olfixrc kan inte √∂ppnas\n");
 	}
 	for (i=0;i < strlen(database);i++){
 		tmp[i]=database[i];
@@ -189,6 +204,70 @@ int which_database(char *envp[])
 	strncpy(database,tmp,strlen(tmp));
 	database[strlen(tmp)]=0;
 /*	fprintf(stderr,"databas=%s\n",database);	*/
+
+	return status;
+}
+
+int which_host(char *envp[])
+{
+	FILE *fil_pek;
+
+	char home[50];
+	char *home_pek;
+	char resource[]="/.olfixrc";
+	char filename[50]="";
+	char tmp[20]="";
+	char temp[10]="";
+	char *tmp_pek;
+	int i,status;
+	
+	strncpy(host,"localhost",10);		/* default, √∂verskrivs om .olfirc inneh√•ller en hostadr */
+
+	for (i = 0;envp[i]!=NULL;i++){
+		if(strstr(envp[i],"HOME=") != NULL){
+			strncpy(temp,envp[i],4);
+/*			fprintf(stderr,"temp=%s\n",temp); */
+			status=strcmp(temp,"HOME");
+/*			fprintf(stderr,"status=%d\n",status); */
+			if (status == 0){
+				home_pek=(strstr(envp[i],"HOME="));
+				home_pek=home_pek+5;
+				strcpy(home,home_pek);
+			}
+/*			fprintf(stderr,"home_pek=%d %s\n",home_pek,home_pek);	*/
+		}
+	}
+/*	fprintf(stderr,"home=%s\n",home);	*/
+	strncpy(filename,home,strlen(home));
+	strncat(filename,resource,strlen(resource));
+
+/*	fprintf(stderr,"filename=%s\n",filename);	*/
+	status=-1;
+
+	if ((fil_pek = fopen(filename,"r")) != NULL){
+		while (fgets(tmp,150,fil_pek) != NULL){
+/*			fprintf(stderr,"tmp=%s\n",tmp); 	*/
+			if(strstr(tmp,"HOST=")){
+				tmp_pek=(strstr(tmp,"HOST="))+5;
+				strncpy(host,tmp_pek,strlen(tmp_pek));
+				status=0;
+			}
+		}
+/*		fprintf(stderr," Host=%s_len=%d\n",host,strlen(host)); 	*/
+		fclose(fil_pek);
+	}
+	else{
+/*		fprintf(stderr," Host=%s_len=%d\n",host,strlen(host)); 	*/
+	 	fprintf(stderr,"Error: Filen .olfixrc kan inte √∂ppnas\n");
+	}
+	for (i=0;i < strlen(host);i++){
+		tmp[i]=host[i];
+	}
+	tmp[i-1]=0;
+/*	fprintf(stderr,"tmp=%s, i=%d len(tmp)=%d\n",tmp,i,strlen(tmp));	*/
+	strncpy(host,tmp,strlen(tmp));
+	host[strlen(tmp)]=0;
+/*	fprintf(stderr,"host=%s\n",host);	*/
 
 	return status;
 }
