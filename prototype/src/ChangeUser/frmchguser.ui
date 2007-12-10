@@ -63,22 +63,6 @@
             <string>Namn:</string>
         </property>
     </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>textLabel1</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>335</x>
-                <y>5</y>
-                <width>146</width>
-                <height>17</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Användarlista</string>
-        </property>
-    </widget>
     <widget class="QListView">
         <column>
             <property name="text">
@@ -242,6 +226,54 @@
         </property>
         <property name="toolTip" stdset="0">
             <string>Maximalt 10 tecken</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabelAnvList</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>335</x>
+                <y>5</y>
+                <width>146</width>
+                <height>17</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Användarlista</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabelHostName</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>100</x>
+                <y>5</y>
+                <width>170</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string></string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>5</y>
+                <width>80</width>
+                <height>20</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>textLabel1</string>
         </property>
     </widget>
 </widget>

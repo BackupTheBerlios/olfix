@@ -2,7 +2,7 @@
 /**		CHGUSRW					*/
 /**		Ver 0.4					*/
 /**		2003-01-21				*/
-/** Modified:	2007-02-22 				*/
+/** Modified:	2007-11-25 				*/
 /**		Jan Pihlgren	jan@pihlgren.se		*/
 /****************************************************************/
 /****************************************************************************
@@ -55,7 +55,7 @@ void frmChgUser::slotGetUser()
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// userid
 	process->addArgument( "USERDSP");	// OLFIX funktion
-	process->addArgument(userid);	// AnvändarID på den vars data ska ändras
+	process->addArgument(userid);	// AnvÃ¤ndarID pÃ¥ den vars data ska Ã¤ndras
 //	process->addArgument(userid.latin1());
 	
 	frmChgUser::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotUsrDataOnStdout() ) );
@@ -64,7 +64,7 @@ void frmChgUser::slotGetUser()
 
 	if (userid == ""){
     	    QMessageBox::warning( this, "CHGUSRW",
-                      "userid måste vara ifyllt!\n" );
+                      "userid mÃ¥ste vara ifyllt!\n" );
 	}
 	else {
 	    if ( !process->start() ) {
@@ -323,37 +323,54 @@ void frmChgUser::slotUserEndOfProcess()
     i = inradlista.find( QRegExp("NR_0_"), 0 );
          if (i != -1) {
 	QMessageBox::information( this, "CHGUSRW",
-		"Användarregistret innehåller inga poster!\n"
+		"AnvÃ¤ndarregistret innehÃ¥ller inga poster!\n"
 	);
 	i = -1;
      }
 	 
-//    QString listrad;
-//    rad=&inrad;
     inradlista.latin1();
     char *pos1;
     char *pos2;
     char tmp[MAXSTRING];
     char *tmppek;
-    int j,k,l,m;
-//    int antrad;
+    int j,k,l,m,m1,m2,l1,l2;
     char antrad[6]="";
     char userid[9]="";
     char namn[31]="";
     char avd[11]="";
     char grupp[11]="";
-
+    QString host;
+    
+    /*                                                   Start     2007-11-25                                         */
+    m1=inradlista.find( QRegExp("host="), 0 );
+    m2=inradlista.find( QRegExp("NR_"), 0 );
+    l1=m2-(m1+5);
+    l2=m2-m1;
+    host=inradlista.mid(5,l1);
+    inradlista=inradlista.mid(m2,inrad.length()-m2);
+    
+    //  qDebug("host=%s m1=%d m2=%d l1=%d l2=%d\n",host.latin1(),m1,m2,l1,l2);
+    if(host != "127.0.0.1 "){
+	 if(host != "localhost "){
+	     textLabel1->setText("<u><b>Host</b></u>\n");
+	     textLabelHostName->setText(host);
+	 }
+    }else{
+	textLabel1->setText("");
+    }
+    /*                                                End         2007-11-25                                         */
+    // qDebug("inradlista=%s",inradlista.latin1());
     tmppek=tmp;
     qstrcpy(tmp,inradlista);
-    pos1=strstr(tmp,"NR_");	//3  tecken långt
+    pos1=strstr(tmp,"NR_");	//3  tecken lÃ¥ngt
     pos2=strstr(tmp,"_:");
     i=pos2-pos1;
-    m=i+2;		// startposition för första userid.
+    m=i+2;		// startposition fÃ¶r  fÃ¶rsta userid.
     
 //    qDebug("i=%d  m=%d",i,m);
     
     k=0;
-    for (j=3;j<i;j++){	                   // j = första positionen för antal poster, (NR_6_:ADMINA_:Administratör av OLFIX_:IT_:Stab_:)
+    for (j=3;j<i;j++){	                   // j = fÃ¶rsta positionen fÃ¶r antal poster, (NR_6_:ADMINA_:AdministratÃ¶r av OLFIX_:IT_:Stab_:)
 	antrad[k]=tmp[j];
 	k++;
     };
@@ -361,7 +378,7 @@ void frmChgUser::slotUserEndOfProcess()
     
 //    qDebug("antrad=%s",antrad);
     
-    for (k = 1;k <= i; k++){	// gå igenom alla raderna / posterna
+    for (k = 1;k <= i; k++){	// gï¿½ igenom alla raderna / posterna
 	l=0;
 	for(j = m; j < sizeof(userid) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -373,7 +390,7 @@ void frmChgUser::slotUserEndOfProcess()
 	    }
 	}
 //	qDebug("%s  ",userid);
-	m=m+l+2;	// position för namn
+	m=m+l+2;	// position fÃ¶r namn
 	l=0;
 	for(j = m; j < sizeof(namn) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -442,7 +459,7 @@ void frmChgUser::slotPickupUserID( QListViewItem * item)
 	 return;
      }
 
-     strcpy(user,item->key(1,TRUE));	// = Användar-ID
+     strcpy(user,item->key(1,TRUE));	// = AnvÃ¤ndar-ID
      userid=user;
      LineEditUserid->setText(userid);
      LineEditUserid->setFocus();

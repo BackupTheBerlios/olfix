@@ -8,9 +8,10 @@
 /***************************************************************************
                           ADDUSRW  -  description
                              -------------------
-		     version 0.01
-    begin                : Fre 21 febr 2003
-    copyright            : (C) 2003 by Jan Pihlgren
+		     version 0.2x
+    begin                : Fre  21 febr 2003
+    modified	         : Ons 28 nov  2007
+    copyright         : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
@@ -39,6 +40,13 @@
     QString inrad;
     QString errorrad;
     QString* rad;
+    QString hjelpfil;
+
+    
+    void frmAddUser::init()
+{
+	frmAddUser::checkHost();
+}
 
 
 void frmAddUser::slotAddUser()
@@ -147,3 +155,118 @@ void frmAddUser::slotEndOfProcess()
      }
 }
 
+void frmAddUser::pushBtnHelp_clicked()
+{
+	inrad="";
+	frmAddUser::readResursFil();		// Hämta path till hj�lpfilen
+	
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+//	int i2 = hjelpfil.length();
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_ADMINISTRATION.html";
+	hjelpfil=hjelpfil+"#NYUSER";		// Lägg till position
+//	qDebug("hjelpfil=%s",hjelpfil.latin1());
+
+	process = new QProcess();
+	process->addArgument( "./OLFIXHLP" );		// OLFIX program
+	process->addArgument(hjelpfil);
+
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
+	}
+	LineEditUserId->setFocus();
+
+}
+
+void frmAddUser::readResursFil()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			               	*/
+    /* Plocka fram var hjälpfilen finns			 */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 );
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
+}
+
+void frmAddUser::checkHost()
+{
+    const char *userp = getenv("USER");
+    QString usr(userp);
+    
+    process = new QProcess();
+    process->addArgument("./STYRMAN");	// OLFIX styrprogram
+    process->addArgument(usr);		// userid
+    process->addArgument( "HOSTCHK");	// OLFIX funktion
+
+    frmAddUser::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+    frmAddUser::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+    frmAddUser::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfHostProcess() ) );
+
+    if ( !process->start() ) {
+	// error handling
+	fprintf(stderr,"Problem starta STYRMAN/HOSTCHK!\n");
+	QMessageBox::warning( this, "ADDUSRW",
+                           "Kan inte starta STYRMAN/HOSTCHK! \n" );
+    }   
+}
+
+void frmAddUser::slotEndOfHostProcess()
+{
+    int i;
+    QString host;
+    
+    i = -1;
+    i = errorrad.find( QRegExp("Error:"), 0 );
+    if (i != -1) {
+	QMessageBox::critical( this, "OLFIX - ADDUSRW",
+			       "ERROR!\n"+errorrad
+			       );
+	errorrad="";
+	i = -1;
+    }
+    i = -1;
+   /*                                                   Start     2007-11-28                                         */
+    int   m2, l1, l2;
+    
+    int m1=inrad.find( QRegExp("host="), 0 );
+//    qDebug("inrad=%s längd=%d",inrad.latin1(),inrad.length());
+    m2=inrad.length();
+    l1=m2-(m1+5);
+    l2=m2-m1;
+    host=inrad.mid(5,l1);
+//    inrad=inrad.mid(m2,inrad.length()-m2);
+    
+  qDebug("host=%s m1=%d m2=%d l1=%d l2=%d\n",host.latin1(),m1,m2,l1,l2);
+    if(host != "127.0.0.1 "){
+	 if(host != "localhost "){
+	     textLabel1->setText("<u><b>Host</b></u>");
+	     textLabelHostName->setText(host);
+	 }
+    }else{
+	textLabel1->setText("");
+    }
+    /*                                                End         2007-11-28                                         */  
+}
