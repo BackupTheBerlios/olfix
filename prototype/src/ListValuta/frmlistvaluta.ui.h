@@ -8,9 +8,9 @@
 /***************************************************************************
                           LSTVALW  -  description
                              -------------------
-		     version 0.1
-    begin                : Sön 22 febr 2003
-    modified	         : Tors  6  okt  2007    
+		     version 0.2
+    begin                : Sön  22 febr 2003
+    modified	         : Mån 10 dec 2007    
     copyright         : (C) 2003 by Jan Pihlgren
     email                 : jan@pihlgren.se
  ***************************************************************************/
@@ -42,13 +42,11 @@
 void frmListValuta::GetValuta()
 {
 	const char *userp = getenv("USER");
-            QString usr(userp);
-	QString bibl;
-
-	bibl.append("./STYRMAN");		// OLFIX huvudprogram
+                QString usr(userp);
 	
+	inrad="";	
 	process = new QProcess();
-	process->addArgument(bibl);
+	process->addArgument("./STYRMAN"); // OLFIX styrprogram
 	process->addArgument(usr);		// userid
 	process->addArgument( "VALLST");	// OLFIX funktion
 	
@@ -60,7 +58,7 @@ void frmListValuta::GetValuta()
  
 	if ( !process->start() ) {
                 // error handling
-	    fprintf(stderr,"Problem starta STYRMAN/USERLST!\n");
+	    fprintf(stderr,"Problem starta STYRMAN/VALLST!\n");
 	    QMessageBox::warning( this, "Start av VALLST ",
                             "Kan inte starta STYRMAN/VALLST!\n"
                             );
@@ -131,7 +129,7 @@ void frmListValuta::slotEndOfProcess()
     host=inrad.mid(5,l1);
     inrad=inrad.mid(m2,inrad.length()-m2);
     
-   qDebug("host=%s m1=%d m2=%d l1=%d l2=%d\n",host.latin1(),m1,m2,l1,l2);
+//   qDebug("host=%s m1=%d m2=%d l1=%d l2=%d\n",host.latin1(),m1,m2,l1,l2);
     if(host != "127.0.0.1 "){
 	 if(host != "localhost "){
 	     textLabel1->setText("<u><b>Host</b></u>\n");
@@ -141,15 +139,13 @@ void frmListValuta::slotEndOfProcess()
 	textLabel1->setText("");
     }
     /*                                                End         2007-12-06                                         */
-    
-    
-    
+      
     tmppek=tmp;
     qstrcpy(tmp,inrad);
     pos1=strstr(tmp,"NR_");
     pos2=strstr(tmp,"_:");
     i=pos2-pos1;
-    m=i+2;		// startposition för första userid.
+    m=i+2;		// startposition för första valuta.
 //    fprintf(stdout,"i=%d  m=%d",i,m);
     k=0;
     for (j=3;j<i;j++){
