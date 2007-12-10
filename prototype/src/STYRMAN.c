@@ -1,9 +1,9 @@
 /***************************************************************************
                           STYRMAN.c  -  description
                              -------------------
-			     							ver 0.15x
+			  ver 0.16
     begin                : Mån  30 juni  2003
-    Modified		 : Tis  27 nov   2007
+    Modified		 : Mån  10 dec   2007
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -15,7 +15,7 @@
                   OUTPUT:  errno, error (text)
 ****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.13 2007/12/10 11:24:15 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.14 2007/12/10 14:20:05 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -157,7 +157,7 @@ int main(int argc, char *argv[], char *envp[])
 	exit (-1);
   }
   else{
-  	fprintf(stderr,"%s\n",datastr);			/* 20071210 (stdout?) */
+  	fprintf(stdout,"%s\n",datastr);			/* 20071210 (stdout?) */
 /*  	fprintf(stdout,"OK: STYRMAN_main. Status: = %d  Antal argument = %d\n",status,argc);	*/
   }
   return EXIT_SUCCESS;
