@@ -392,6 +392,8 @@
     <slot>pushBtnHelp_clicked()</slot>
     <slot>readResursFil()</slot>
     <slot>checkHost()</slot>
+    <slot>slotHostDataOnStdout()</slot>
+    <slot>slotHostDataOnStderr()</slot>
     <slot>slotEndOfHostProcess()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>

@@ -8,9 +8,9 @@
 /***************************************************************************
                           ADDUSRW  -  description
                              -------------------
-		     version 0.2x
-    begin                : Fre  21 febr 2003
-    modified	         : Ons 28 nov  2007
+		     version 0.3
+    begin                : Fre   21 febr 2003
+    modified	         : Mån 10 dec  2007
     copyright         : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -22,7 +22,7 @@
  *   (at your option) any later version.                                   		 *
  *                                                                         				 *
  *********************************************** *****************/
-
+#include <qapplication.h>
 #include <qmessagebox.h>
 #include <qprocess.h>
 #include <qdir.h>
@@ -33,17 +33,19 @@
 #define MAXSTRING 5000
 
     QProcess* process;
+    QProcess* proc;
     QString Userid;
     QString Namn="";
     QString Avd;
     QString Grupp;
     QString inrad;
+    QString hostrad;
     QString errorrad;
     QString* rad;
     QString hjelpfil;
 
     
-    void frmAddUser::init()
+void frmAddUser::init()
 {
 	frmAddUser::checkHost();
 }
@@ -57,7 +59,7 @@ void frmAddUser::slotAddUser()
 	const char *userp = getenv("USER");
             QString usr(userp);
 	   
-	    
+	 inrad="";
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// userid
@@ -216,16 +218,17 @@ void frmAddUser::checkHost()
     const char *userp = getenv("USER");
     QString usr(userp);
     
-    process = new QProcess();
-    process->addArgument("./STYRMAN");	// OLFIX styrprogram
-    process->addArgument(usr);		// userid
-    process->addArgument( "HOSTCHK");	// OLFIX funktion
+    hostrad="";
+    proc = new QProcess();
+    proc->addArgument("./STYRMAN");	// OLFIX styrprogram
+    proc->addArgument(usr);		// userid
+    proc->addArgument( "HOSTCHK");	// OLFIX funktion
 
-    frmAddUser::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
-    frmAddUser::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
-    frmAddUser::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfHostProcess() ) );
+    frmAddUser::connect( proc, SIGNAL(readyReadStdout() ),this, SLOT(slotHostDataOnStdout() ) );
+    frmAddUser::connect( proc, SIGNAL(readyReadStderr() ),this, SLOT(slotHostDataOnStderr() ) );
+    frmAddUser::connect( proc, SIGNAL(processExited() ),this, SLOT(slotEndOfHostProcess() ) );
 
-    if ( !process->start() ) {
+    if ( !proc->start() ) {
 	// error handling
 	fprintf(stderr,"Problem starta STYRMAN/HOSTCHK!\n");
 	QMessageBox::warning( this, "ADDUSRW",
@@ -233,11 +236,30 @@ void frmAddUser::checkHost()
     }   
 }
 
+void frmAddUser::slotHostDataOnStdout()
+{
+    while (proc->canReadLineStdout() ) {
+	QString line = proc->readStdout();
+	hostrad.append(line);
+	hostrad.append("\n");
+    }
+//    qDebug("hostrad=%s",hostrad.latin1());
+}
+
+void frmAddUser::slotHostDataOnStderr()
+{
+    while (proc->canReadLineStderr() ) {
+	QString line = proc->readStderr();
+	errorrad.append(line);
+	errorrad.append("\n");
+    }
+}
+
 void frmAddUser::slotEndOfHostProcess()
 {
     int i;
     QString host;
-    
+//    qDebug("hostrad=%s",hostrad.latin1());  
     i = -1;
     i = errorrad.find( QRegExp("Error:"), 0 );
     if (i != -1) {
@@ -249,17 +271,17 @@ void frmAddUser::slotEndOfHostProcess()
     }
     i = -1;
    /*                                                   Start     2007-11-28                                         */
-    int   m2, l1, l2;
+    int   m1, m2, l1, l2;
     
-    int m1=inrad.find( QRegExp("host="), 0 );
-//    qDebug("inrad=%s längd=%d",inrad.latin1(),inrad.length());
-    m2=inrad.length();
+    m1=hostrad.find( QRegExp("host="), 0 );
+//    qDebug("hostrad=%s längd=%d",hostrad.latin1(),hostrad.length());
+    m2=hostrad.length();
     l1=m2-(m1+5);
     l2=m2-m1;
-    host=inrad.mid(5,l1);
-//    inrad=inrad.mid(m2,inrad.length()-m2);
+    host=hostrad.mid(5,l1);
+    hostrad=hostrad.mid(m2,hostrad.length()-m2);
     
-  qDebug("host=%s m1=%d m2=%d l1=%d l2=%d\n",host.latin1(),m1,m2,l1,l2);
+//  qDebug("host=%s m1=%d m2=%d l1=%d l2=%d\n",host.latin1(),m1,m2,l1,l2);
     if(host != "127.0.0.1 "){
 	 if(host != "localhost "){
 	     textLabel1->setText("<u><b>Host</b></u>");
@@ -270,3 +292,4 @@ void frmAddUser::slotEndOfHostProcess()
     }
     /*                                                End         2007-11-28                                         */  
 }
+
