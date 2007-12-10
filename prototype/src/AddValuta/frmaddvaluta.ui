@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
 <class>frmAddValuta</class>
 <widget class="QWidget">
     <property name="name">
@@ -8,59 +8,37 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>316</width>
+            <width>485</width>
             <height>214</height>
         </rect>
     </property>
     <property name="caption">
         <string>ADDVALW  Lägga upp ny valuta</string>
     </property>
-    <widget class="QLabel">
+    <widget class="QLineEdit">
         <property name="name">
-            <cstring>TextLabelSalj</cstring>
+            <cstring>LineEditValuta</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>10</x>
-                <y>150</y>
-                <width>70</width>
-                <height>21</height>
+                <x>261</x>
+                <y>30</y>
+                <width>45</width>
+                <height>22</height>
             </rect>
         </property>
-        <property name="text">
-            <string>Sälj:</string>
-        </property>
     </widget>
-    <widget class="QLabel">
+    <widget class="QLineEdit">
         <property name="name">
-            <cstring>TextLabelKop</cstring>
+            <cstring>LineEditKop</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>10</x>
+                <x>260</x>
                 <y>120</y>
-                <width>70</width>
-                <height>21</height>
+                <width>80</width>
+                <height>22</height>
             </rect>
-        </property>
-        <property name="text">
-            <string>Köp:</string>
-        </property>
-    </widget>
-    <widget class="QLabel">
-        <property name="name">
-            <cstring>TextLabelBeteckn</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>10</x>
-                <y>60</y>
-                <width>70</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Beteckning:</string>
         </property>
     </widget>
     <widget class="QLabel">
@@ -69,7 +47,7 @@
         </property>
         <property name="geometry">
             <rect>
-                <x>10</x>
+                <x>180</x>
                 <y>30</y>
                 <width>81</width>
                 <height>21</height>
@@ -81,31 +59,18 @@
     </widget>
     <widget class="QLabel">
         <property name="name">
-            <cstring>TextLabelLand</cstring>
+            <cstring>TextLabelKop</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>10</x>
-                <y>90</y>
+                <x>180</x>
+                <y>120</y>
                 <width>70</width>
                 <height>21</height>
             </rect>
         </property>
         <property name="text">
-            <string>Land:</string>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditKop</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>90</x>
-                <y>120</y>
-                <width>80</width>
-                <height>22</height>
-            </rect>
+            <string>Köp:</string>
         </property>
     </widget>
     <widget class="QLineEdit">
@@ -114,22 +79,38 @@
         </property>
         <property name="geometry">
             <rect>
-                <x>90</x>
+                <x>260</x>
                 <y>90</y>
                 <width>210</width>
                 <height>22</height>
             </rect>
         </property>
     </widget>
-    <widget class="QLineEdit">
+    <widget class="QLabel">
         <property name="name">
-            <cstring>LineEditValuta</cstring>
+            <cstring>TextLabelSalj</cstring>
         </property>
         <property name="geometry">
             <rect>
-                <x>91</x>
-                <y>30</y>
-                <width>45</width>
+                <x>180</x>
+                <y>150</y>
+                <width>70</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Sälj:</string>
+        </property>
+    </widget>
+    <widget class="QLineEdit">
+        <property name="name">
+            <cstring>LineEditBeteck</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>260</x>
+                <y>60</y>
+                <width>210</width>
                 <height>22</height>
             </rect>
         </property>
@@ -140,11 +121,110 @@
         </property>
         <property name="geometry">
             <rect>
-                <x>90</x>
+                <x>260</x>
                 <y>150</y>
                 <width>80</width>
                 <height>22</height>
             </rect>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabel1</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>20</x>
+                <y>20</y>
+                <width>141</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="alignment">
+            <set>AlignCenter</set>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>pushBtnHelp</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>390</x>
+                <y>10</y>
+                <width>61</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Hjälp</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>textLabelHostName</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>50</y>
+                <width>161</width>
+                <height>30</height>
+            </rect>
+        </property>
+        <property name="alignment">
+            <set>AlignCenter</set>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelLand</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>180</x>
+                <y>90</y>
+                <width>70</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Land:</string>
+        </property>
+    </widget>
+    <widget class="QLabel">
+        <property name="name">
+            <cstring>TextLabelBeteckn</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>180</x>
+                <y>60</y>
+                <width>79</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Beteckning:</string>
+        </property>
+    </widget>
+    <widget class="QPushButton">
+        <property name="name">
+            <cstring>PushButtonQuit</cstring>
+        </property>
+        <property name="geometry">
+            <rect>
+                <x>235</x>
+                <y>185</y>
+                <width>61</width>
+                <height>21</height>
+            </rect>
+        </property>
+        <property name="text">
+            <string>Avsluta</string>
+        </property>
+        <property name="default">
+            <bool>true</bool>
         </property>
     </widget>
     <widget class="QPushButton">
@@ -153,7 +233,7 @@
         </property>
         <property name="geometry">
             <rect>
-                <x>5</x>
+                <x>175</x>
                 <y>185</y>
                 <width>51</width>
                 <height>21</height>
@@ -164,35 +244,6 @@
         </property>
         <property name="default">
             <bool>true</bool>
-        </property>
-    </widget>
-    <widget class="QLineEdit">
-        <property name="name">
-            <cstring>LineEditBeteck</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>90</x>
-                <y>60</y>
-                <width>210</width>
-                <height>22</height>
-            </rect>
-        </property>
-    </widget>
-    <widget class="QPushButton">
-        <property name="name">
-            <cstring>PushButtonQuit</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>65</x>
-                <y>185</y>
-                <width>61</width>
-                <height>21</height>
-            </rect>
-        </property>
-        <property name="text">
-            <string>Avsluta</string>
         </property>
     </widget>
 </widget>
@@ -255,31 +306,37 @@
         <sender>LineEditValuta</sender>
         <signal>lostFocus()</signal>
         <receiver>frmAddValuta</receiver>
-        <slot>slotValuta_lostFocus()</slot>
+        <slot>slotValutaEntered()</slot>
     </connection>
     <connection>
         <sender>LineEditBeteck</sender>
         <signal>lostFocus()</signal>
         <receiver>frmAddValuta</receiver>
-        <slot>slotBeteckning_lostFocus()</slot>
+        <slot>slotBeteckningEntered()</slot>
     </connection>
     <connection>
         <sender>LineEditLand</sender>
         <signal>lostFocus()</signal>
         <receiver>frmAddValuta</receiver>
-        <slot>slotLand_lostFocus()</slot>
+        <slot>slotLandEntered()</slot>
     </connection>
     <connection>
         <sender>LineEditKop</sender>
         <signal>lostFocus()</signal>
         <receiver>frmAddValuta</receiver>
-        <slot>slotKop_lostFocus()</slot>
+        <slot>slotKopEntered()</slot>
     </connection>
     <connection>
         <sender>LineEditSalj</sender>
         <signal>lostFocus()</signal>
         <receiver>frmAddValuta</receiver>
-        <slot>slotSalj_lostFocus()</slot>
+        <slot>slotSaljEntered()</slot>
+    </connection>
+    <connection>
+        <sender>pushBtnHelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmAddValuta</receiver>
+        <slot>pushBtnHelp_clicked()</slot>
     </connection>
 </connections>
 <tabstops>
@@ -297,19 +354,18 @@
 <slots>
     <slot>init()</slot>
     <slot>slotAddValuta()</slot>
-    <slot>slotValuta_lostFocus()</slot>
     <slot>slotValutaEntered()</slot>
-    <slot>slotBeteckning_lostFocus()</slot>
     <slot>slotBeteckningEntered()</slot>
-    <slot>slotLand_lostFocus()</slot>
     <slot>slotLandEntered()</slot>
-    <slot>slotKop_lostFocus()</slot>
     <slot>slotKopEntered()</slot>
-    <slot>slotSalj_lostFocus()</slot>
     <slot>slotSaljEntered()</slot>
     <slot>slotDataOnStdout()</slot>
     <slot>slotDataOnStderr()</slot>
     <slot>slotEndOfProcess()</slot>
+    <slot>showHost()</slot>
+    <slot>slotHostEndOfProcess()</slot>
+    <slot>pushBtnHelp_clicked()</slot>
+    <slot>readResursFil()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

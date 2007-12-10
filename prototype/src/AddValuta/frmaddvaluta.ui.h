@@ -8,10 +8,11 @@
 /***************************************************************************
                           ADDVALW  -  description
                              -------------------
-		     version 0.02
-    begin                : Fre 6 juni 2003
-    copyright            : (C) 2003 by Jan Pihlgren
-    email                : jan@pihlgren.se
+		     version 0.1
+    begin                	: Fre 6 juni 2003
+    modified		: Sön 9 dec 2007
+    copyright            	: (C) 2003 by Jan Pihlgren
+    email                	: jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
  *					                                                 *
@@ -39,11 +40,13 @@
     QString land;
     QString kop;
     QString salj;
+    QString hjelpfil;
     
     
 void frmAddValuta::init()
 {
-LineEditValuta->setFocus();
+    showHost();
+    LineEditValuta->setFocus();
 }
 
 void frmAddValuta::slotAddValuta()
@@ -82,62 +85,36 @@ void frmAddValuta::slotAddValuta()
 	}
 }
 
-
-
-void frmAddValuta::slotValuta_lostFocus()
-{
-    slotValutaEntered();
-}
-
 void frmAddValuta::slotValutaEntered()
 {
     valuta=LineEditValuta->text();
     valuta=valuta.upper();
     LineEditValuta->setText((valuta));
-    LineEditBeteck->setFocus();
-}
-
-void frmAddValuta::slotBeteckning_lostFocus()
-{
-    slotBeteckningEntered();
+//    LineEditBeteck->setFocus();
 }
 
 void frmAddValuta::slotBeteckningEntered()
 {
     beteckning=LineEditBeteck->text();
-    LineEditLand->setFocus();
-}
-
-void frmAddValuta::slotLand_lostFocus()
-{
-    slotLandEntered();
+//    LineEditLand->setFocus();
 }
 
 void frmAddValuta::slotLandEntered()
 {
     land=LineEditLand->text();
-    LineEditKop->setFocus();
-}
-
-void frmAddValuta::slotKop_lostFocus()
-{
-    slotKopEntered();
+//    LineEditKop->setFocus();
 }
 
 void frmAddValuta::slotKopEntered()
 {
     kop=LineEditKop->text();
-    LineEditSalj->setFocus();
-}
-
-void frmAddValuta::slotSalj_lostFocus()
-{
-    slotSaljEntered();
+//    LineEditSalj->setFocus();
 }
 
 void frmAddValuta::slotSaljEntered()
 {
     salj=LineEditSalj->text();
+//    PushButtonOK->setFocus();
 }
 
 void frmAddValuta::slotDataOnStdout()
@@ -182,9 +159,115 @@ void frmAddValuta::slotEndOfProcess()
 	LineEditLand->clear();
 	LineEditKop->clear();
 	LineEditSalj->clear();
-	LineEditLand->setFocus();
+	LineEditValuta->setFocus();
 	inrad="";
 	i = -1;
      }
+}
+
+void frmAddValuta::showHost()
+{
+ /************************************************************************/
+/*	Vilken host/server?						*/
+/************************************************************************/
+	const char *userp = getenv("USER");
+	QString usr(userp);
+	 inrad="";
+	 
+	process = new QProcess();
+	process->addArgument("./STYRMAN");	// OLFIX styrprogram
+	process->addArgument(usr);		// userid
+	process->addArgument( "HOSTCHK");	// OLFIX funktion
+	
+	frmAddValuta::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDataOnStdout() ) );
+	frmAddValuta::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDataOnStderr() ) );
+                frmAddValuta::connect( process, SIGNAL(processExited() ),this, SLOT(slotHostEndOfProcess() ) );
+ 
+	if ( !process->start() ) {
+	// error handling
+	    fprintf(stderr,"Problem starta STYRMAN/HOSTCHK!\n");
+		QMessageBox::warning( this, "ADDVALW",
+                            "Kan inte starta STYRMAN/HOSTCHK! \n" );
+	}
+}
+
+void frmAddValuta::slotHostEndOfProcess()
+{
+//    qDebug("inrad=%s",inrad.latin1());
+    /*                                                   Start     2007-12-09                                         */    
+    QString host="";
+    int l1,l2,m1,m2;
+    m1=inrad.find( QRegExp("host="), 0 );
+    m2=inrad.find( QRegExp("NR_"), 0 );
+    l1=m2-(m1+5);
+    l2=m2-m1;
+    host=inrad.mid(5,l1);
+    inrad=inrad.mid(m2,inrad.length()-m2);
+    
+//  qDebug("host=%s m1=%d m2=%d l1=%d l2=%d\n",host.latin1(),m1,m2,l1,l2);
+    if(host != "127.0.0.1 "){
+	 if(host != "localhost "){
+	     textLabel1->setText("<u><b>Host</b></u>\n");
+	     textLabelHostName->setText(host);
+	 }
+    }else{
+	textLabel1->setText("");
+    }
+    /*                                                End         2007-12-09                                         */
+}
+
+void frmAddValuta::pushBtnHelp_clicked()
+{
+	inrad="";
+	frmAddValuta::readResursFil();		// Hämta path till hjälpfilen
+
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+//	int i2 = hjelpfil.length();
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_EKONOMI.html";
+	hjelpfil=hjelpfil+"#ADDVALUTA";		// Lägg till position
+//	qDebug("hjelpfil=%s",hjelpfil.latin1());
+
+	process = new QProcess();
+	process->addArgument( "./OLFIXHLP" );	// OLFIX program
+	process->addArgument(hjelpfil);
+
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
+	}
+	LineEditValuta->setFocus();
+}
+
+void frmAddValuta::readResursFil()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			               	*/
+    /* Plocka fram var hjälpfilen finns			*/
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 );
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
 }
 
