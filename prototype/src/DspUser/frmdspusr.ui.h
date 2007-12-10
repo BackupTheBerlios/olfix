@@ -8,11 +8,11 @@
 /***************************************************************************
                           DSPUSRW  -  description
                              -------------------
-                     version 0.3
-    begin       	: Sön 2 febr 2003
-    Modified    	: Tis  7 febr 2006
-    copyright            : (C) 2003 by Jan Pihlgren
-    email                : jan@pihlgren.se
+                     version 0.4
+    begin       	: SÃ¶n     2 febr 2003
+    Modified    	: MÃ¥n 10 dec  2007
+    copyright            	: (C) 2003 by Jan Pihlgren
+    email                	: jan@pihlgren.se
  ***************************************************************************/
 
 /*****************************************************************
@@ -41,6 +41,7 @@
    QString listrad;
    QString userid;
    QString EndFlag;
+   QString hjelpfil;
 
 void frmDspUser::init()
 {
@@ -65,13 +66,14 @@ void frmDspUser::slotPushButtonOK_clicked()
 void frmDspUser::slotGetUserData()
 {
         	const char *userp = getenv("USER");
-            QString usr(userp);
+	QString usr(userp);
 
-            process = new QProcess();
+	inrad_u="";
+	process = new QProcess();
 	process->addArgument("./STYRMAN");
-	process->addArgument(usr.latin1());		// user OLFIX
+	process->addArgument(usr);		// user OLFIX
 	process->addArgument( "USERDSP");	// OLFIX program
-	process->addArgument( userid.latin1() );
+	process->addArgument( userid );
 	frmDspUser::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotUsrDataOnStdout() ) );
             frmDspUser::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfUsrProcess() ) );
             if ( !process->start() ) {
@@ -86,15 +88,16 @@ void frmDspUser::slotGetUserData()
 void frmDspUser::slotGetRightData()
 {
     	const char *userp = getenv("USER");
-            QString usr(userp);
+	QString usr(userp);
 	    
 //	qWarning( "slotGetRightData: userid=%s  usr=%s\n", userid.latin1(),usr.latin1() );
+	inrad="";
 	
-            process = new QProcess();
+	process = new QProcess();
 	process->addArgument("./STYRMAN");
-	process->addArgument(usr.latin1());	
+	process->addArgument(usr);	
 	process->addArgument( "RGTDSP");	// OLFIX program
-	process->addArgument( userid.latin1() );
+	process->addArgument( userid );
 	frmDspUser::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotRightDataOnStdout() ) );
             frmDspUser::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfRightProcess() ) );
 
@@ -138,14 +141,39 @@ void frmDspUser::slotEndOfRightProcess()
     char antrad[6]="";
     char user[9]="";
     char funk[9]="";
-
+ /*                                                   Start     2007-12-10                                         */
+    QString host="";
+    int l1,l2,m1,m2;
+    m1=inrad.find( QRegExp("host="), 0 );
+    m2=inrad.find( QRegExp("NR_"), 0 );
+    l1=m2-(m1+5);
+    l2=m2-m1;
+    host=inrad.mid(5,l1);
+    inrad=inrad.mid(m2,inrad.length()-m2);
+    /*
+//  qDebug("host=%s m1=%d m2=%d l1=%d l2=%d\n",host.latin1(),m1,m2,l1,l2);
+    if(host != "127.0.0.1 "){
+	 if(host != "localhost "){
+	     textLabel1->setText("<u><b>Host</b></u>\n");
+	     textLabelHostName->setText(host);
+	 }
+    }else{
+	textLabel1->setText("");
+    }
+    */
+/*                                                End         2007-12-10                                         */
     tmppek=tmp;
     qstrcpy(tmp,inrad);
+//    qDebug("inrad=%s tmp=%s",inrad.latin1(),tmp);
     pos1=strstr(tmp,"NR_");
     pos2=strstr(tmp,"_:");
     i=pos2-pos1;
-    m=i+2;		// startposition för första userid.
+    
+    m=i+2;		// startposition fÃ¶r fÃ¶rsta userid.
 //    fprintf(stdout,"i=%d  m=%d",i,m);
+    if (i < 1){
+	return;
+    }
     k=0;
     for (j=3;j<i;j++){
 	antrad[k]=tmp[j];
@@ -153,7 +181,7 @@ void frmDspUser::slotEndOfRightProcess()
     };
     i=atoi(antrad);		// i = antal poster
 //    fprintf(stderr," i = %d\n",i);
-    for (k = 1;k <= i; k++){	// gå igenom alla raderna / posterna
+    for (k = 1;k <= i; k++){	// gÃ¥r igenom alla raderna / posterna
 	l=0;
 	for(j = m; j < sizeof(user) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -165,7 +193,7 @@ void frmDspUser::slotEndOfRightProcess()
 	    }
 	}
 //	fprintf(stdout,"%s  ",user);
-	m=m+l+2;	// position för namn
+	m=m+l+2;	// position fï¿½r namn
 	l=0;
 	for(j = m; j < sizeof(funk) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -177,7 +205,7 @@ void frmDspUser::slotEndOfRightProcess()
 	    }
 	}
 //	fprintf(stdout,"%s  ",funk);
-	m=m+l+2;	// position för funk
+	m=m+l+2;	// position fÃ¶r funk
 	listrad.append(user);
 	while(listrad.length() <10)
 	    listrad.append(" ");
@@ -251,6 +279,8 @@ void frmDspUser::listUsers()
     listViewUser->clear();
     inradlista="";
     errorradlista="";
+    inrad="";
+    inrad_u="";
 	
     processlist = new QProcess();
     processlist->addArgument("./STYRMAN");	// OLFIX styrprogram
@@ -305,7 +335,7 @@ void frmDspUser::slotUserEndOfProcess()
     i = inradlista.find( QRegExp("NR_0_"), 0 );
          if (i != -1) {
 	QMessageBox::information( this, "CHGUSRW",
-		"Användarregistret innehåller inga poster!\n"
+		"AnvÃ¤ndarregistret innehÃ¥ller inga poster!\n"
 	);
 	i = -1;
      }
@@ -324,18 +354,39 @@ void frmDspUser::slotUserEndOfProcess()
     char namn[31]="";
     char avd[11]="";
     char grupp[11]="";
+ /*                                                   Start     2007-12-10                                         */
+    QString host="";
+    int l1,l2,m1,m2;
+    m1=inradlista.find( QRegExp("host="), 0 );
+    m2=inradlista.find( QRegExp("NR_"), 0 );
+    l1=m2-(m1+5);
+    l2=m2-m1;
+    host=inradlista.mid(5,l1);
+    inradlista=inradlista.mid(m2,inrad.length()-m2);
+    
+//  qDebug("host=%s m1=%d m2=%d l1=%d l2=%d\n",host.latin1(),m1,m2,l1,l2);
+    if(host != "127.0.0.1 "){
+	 if(host != "localhost "){
+	     textLabel1->setText("<u><b>Host</b></u>\n");
+	     textLabelHostName->setText(host);
+	 }
+    }else{
+	textLabel1->setText("");
+    }
+/*                                                End         2007-12-10                                         */
 
+    
     tmppek=tmp;
     qstrcpy(tmp,inradlista);
-    pos1=strstr(tmp,"NR_");	//3  tecken långt
+    pos1=strstr(tmp,"NR_");	//3  tecken lÃ¥ngt
     pos2=strstr(tmp,"_:");
     i=pos2-pos1;
-    m=i+2;		// startposition för första userid.
+    m=i+2;		// startposition fÃ¶r fÃ¶rsta userid.
     
 //    qDebug("i=%d  m=%d",i,m);
     
     k=0;
-    for (j=3;j<i;j++){	                   // j = första positionen för antal poster, (NR_6_:ADMINA_:Administratör av OLFIX_:IT_:Stab_:)
+    for (j=3;j<i;j++){	// j = fÃ¶rsta positionen fÃ¶r antal poster, (NR_6_:ADMINA_:AdministratÃ¶r av OLFIX_:IT_:Stab_:)
 	antrad[k]=tmp[j];
 	k++;
     };
@@ -343,7 +394,7 @@ void frmDspUser::slotUserEndOfProcess()
     
 //    qDebug("antrad=%s",antrad);
     
-    for (k = 1;k <= i; k++){	// gå igenom alla raderna / posterna
+    for (k = 1;k <= i; k++){	// gÃ¥rï¿½ igenom alla raderna / posterna
 	l=0;
 	for(j = m; j < sizeof(userid) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -355,7 +406,7 @@ void frmDspUser::slotUserEndOfProcess()
 	    }
 	}
 //	qDebug("%s  ",userid);
-	m=m+l+2;	// position för namn
+	m=m+l+2;	// position fÃ¶r namn
 	l=0;
 	for(j = m; j < sizeof(namn) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -420,11 +471,65 @@ void frmDspUser::slotPickupUserID( QListViewItem * item)
 	 return;
      }
 
-     strcpy(user,item->key(1,TRUE));	// = Användar-ID
+     strcpy(user,item->key(1,TRUE));	// = AnvÃ¤ndar-ID
      userid=user;
      LineEdituserid->setText(userid);
      LineEdituserid->setFocus();
 }
 
+void frmDspUser::pushBtnHelp_clicked()
+{
+	inrad="";
+	frmDspUser::readResursFil();		// HÃ¤mta path till hjÃ¤lpfilen
+
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+//	int i2 = hjelpfil.length();
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_ADMINISTRATION.html";
+	hjelpfil=hjelpfil+"#DSPUSER";		// LÃ¤gg till position
+//	qDebug("hjelpfil=%s",hjelpfil.latin1());
+
+	process = new QProcess();
+	process->addArgument( "./OLFIXHLP" );	// OLFIX program
+	process->addArgument(hjelpfil);
+
+	if ( !process->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
+	}
+	LineEdituserid->setFocus();
+}
+
+void frmDspUser::readResursFil()
+{
+    /*****************************************************/
+    /*  LÃ¤s in .olfixrc filen hÃ¤r			               	*/
+    /* Plocka fram var hjÃ¤lpfilen finns			*/
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+/*    qDebug("Home Path=%s",homepath.latin1());		*/
+
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 );
+	if(rad == 0){
+	    hjelpfil=line;
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+/*	    qDebug("hjelpfil=%s",hjelpfil.latin1());		*/
+	}
+            lines += line;
+        }
+    }
+    f1.close();
+}
     
     

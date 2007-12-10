@@ -29,7 +29,7 @@
 
 */
 /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/USERDSP.c,v 1.6 2007/12/05 04:57:26 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/USERDSP.c,v 1.7 2007/12/10 11:26:46 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -62,12 +62,16 @@ int main(int argc, char *argv[], char *envp[])
   char temp2[]="\"";
   char temp5[200]="";
   char userid[21]="";			/* 20070211 */
-
+/*
   int i;	
   for (i=0;i< argc;i++){
   	fprintf(stderr,"USERDSPmain argv%d = %s\n",i,argv[i]);
   }
-
+*/
+  if (argc < 2){
+	fprintf(stderr,"Error: UserID saknas!\n");
+	exit(0);
+  }
 
 /* ================================================================================ */
 /* 		Val av databas, START						    */

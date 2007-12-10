@@ -2,20 +2,20 @@
                           STYRMAN.c  -  description
                              -------------------
 			     							ver 0.15x
-    begin               : Mån  30 juni  2003
-    Modified		 		: Tis  27 nov   2007
+    begin                : MÃ¥n  30 juni  2003
+    Modified		 : Tis  27 nov   2007
     copyright            : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
 
 /*****************************************************************************
                   INPUT:     USERID, TRNSID, trnsdata1, trnsdata2,trnsdata....
-                  Function:  Dirigera dataflödet i applikationen OLFIX
-                                 Kontrollera behörighet till transaktioner
+                  Function:  Dirigera dataflï¿½det i applikationen OLFIX
+                                 Kontrollera behï¿½righet till transaktioner
                   OUTPUT:  errno, error (text)
 ****************************************************************************/
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.12 2007/12/05 04:56:28 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/STYRMAN.c,v 1.13 2007/12/10 11:24:15 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -60,10 +60,10 @@ int main(int argc, char *argv[], char *envp[])
 {
   int status=-15;
   int i;
-  char anv[21]="";			/* 20070211 utökat från 9 till 21 tecken		*/
-  const char *userp = getenv("USER");	/* vem är inloggad?	*/
+  char anv[21]="";			/* 20070211 utÃ¶kat frÃ¥n 9 till 21 tecken		*/
+  const char *userp = getenv("USER");	/* vem Ã¤r inloggad?	*/
 /*  char databas[25]="olfix";	*/
-  char usr[21];				/* userid	utökad 2007-02-11 från 15 till 21 */
+  char usr[21];				/* userid	utÃ¶kad 2007-02-11 frÃ¥n 15 till 21 */
   char transid[9]="";			/* 2004-11-11	*/
 
   status = find_tmp_path(envp);
@@ -93,9 +93,9 @@ int main(int argc, char *argv[], char *envp[])
   if (strlen(database)!= 0){
 	strncpy(databas,database,sizeof(databas));	/* 2005-02-24	*/
   }else{
-  	strncpy(databas,"olfixtst",15);		/* olfixtst = testföretag	*/
+  	strncpy(databas,"olfixtst",15);		/* olfixtst = testfÃ¶retag	*/
   }
-  /* Om usr (userid) börjar på 'test' eller 'prov' använd databas 'olfixtst' */
+  /* Om usr (userid) bÃ¶rjar pÃ¥ 'test' eller 'prov' anvÃ¤nd databas 'olfixtst' */
   if (strncmp(usr,"test",4)==0 || strncmp(usr,"prov",4)==0 ) {
   	strcpy(databas,"olfixtst");
   }
@@ -127,9 +127,9 @@ int main(int argc, char *argv[], char *envp[])
 
   /* Slut 		2004-11-11		*/
 
-  status=check_User(anv);		/* Finns användaren(USERID)?		*/
+  status=check_User(anv);		/* Finns anvÃ¤ndaren(USERID)?		*/
   if(status != 0){
-     fprintf(stderr,"Error: STYRMAN(1). Användare %s finns ej\n",anv);	/* 2004-11-11	*/
+     fprintf(stderr,"Error: STYRMAN(1). AnvÃ¤ndare %s finns ej\n",anv);	/* 2004-11-11	*/
      exit(-1);
   }
 
@@ -141,31 +141,31 @@ int main(int argc, char *argv[], char *envp[])
   }
 
   status=-15;
-  status=check_Rights(anv,transid);	/* Har USERID behörighet till TRANSID ?	*/
+  status=check_Rights(anv,transid);	/* Har USERID behÃ¶righet till TRANSID ?	*/
 /*  fprintf(stderr,"STYRMANmain_check_Rights status=%d\n",status);		*/
   if(status != 0){
 /*     strncpy(argv[1],anv,strlen(anv));	2004-11-11	*/
-     fprintf(stderr,"Error: STYRMAN(3). User %s har ej behörighet till %s\n",anv,transid);
+     fprintf(stderr,"Error: STYRMAN(3). User %s har ej behÃ¶righet till %s\n",anv,transid);
      exit(-1);
   }
 
   status=-15;
 /*  fprintf(stderr,"argv[2]=%s\n",argv[2]);					*/
-  status=do_Trans(argc, argv);		/* Genomför transaktionen.		*/
+  status=do_Trans(argc, argv);		/* GenomfÃ¶r transaktionen.		*/
   if(status != 0){
   	fprintf(stderr,"%s\n",felpek);
 	exit (-1);
   }
   else{
-  	fprintf(stdout,"%s\n",datastr);
+  	fprintf(stderr,"%s\n",datastr);			/* 20071210 (stdout?) */
 /*  	fprintf(stdout,"OK: STYRMAN_main. Status: = %d  Antal argument = %d\n",status,argc);	*/
   }
   return EXIT_SUCCESS;
 }
 
-/* 				Slut på main					*/
+/* 				Slut pÃ¥ main					*/
 /* ============================================================================ */
-/*				Början på funktioner				*/
+/*				BÃ¶rjan pÃ¥ funktioner				*/
 
 int do_Trans(int argnbr, char *trans[])
 {
@@ -492,7 +492,7 @@ int find_tmp_path(char *envp[])
 		fclose(fil_pek);
 	}
 	else{
-	 	fprintf(stderr,"Error: Filen .olfixrc kan inte öppnas\n");
+	 	fprintf(stderr,"Error: Filen .olfixrc kan inte ï¿½ppnas\n");
 	}
 	return status;
 }
@@ -545,7 +545,7 @@ int which_database(char *envp[])
 		fclose(fil_pek);
 	}
 	else{
-	 	fprintf(stderr,"Error: Filen .olfixrc kan inte öppnas\n");
+	 	fprintf(stderr,"Error: Filen .olfixrc kan inte ï¿½ppnas\n");
 	}
 	for (i=0;i < strlen(database);i++){
 		tmp[i]=database[i];
@@ -571,7 +571,7 @@ int which_host(char *envp[])
 	char *tmp_pek;
 	int i,status;
 	
-	strncpy(host,"localhost",10);		/* default, överskrivs om .olfirc innehåller en hostadr */
+	strncpy(host,"localhost",10);		/* default, ï¿½verskrivs om .olfirc innehï¿½ller en hostadr */
 
 	for (i = 0;envp[i]!=NULL;i++){
 		if(strstr(envp[i],"HOME=") != NULL){
@@ -608,7 +608,7 @@ int which_host(char *envp[])
 	}
 	else{
 /*		fprintf(stderr," Host=%s_len=%d\n",host,strlen(host)); 	*/
-	 	fprintf(stderr,"Error: Filen .olfixrc kan inte öppnas\n");
+	 	fprintf(stderr,"Error: Filen .olfixrc kan inte ï¿½ppnas\n");
 	}
 	for (i=0;i < strlen(host);i++){
 		tmp[i]=host[i];
