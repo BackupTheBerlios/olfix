@@ -97,6 +97,8 @@ void frmDelValuta::listValuta()
 	QString usr(userp);
 	
 	inrad="";
+	listViewValuta->clear();
+	
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// valutaid
@@ -210,16 +212,16 @@ void frmDelValuta::slotPushButtonOK_clicked()
 void frmDelValuta::slotDelValData(QString mynt )
 {
     	const char *userp = getenv("USER");
-            QString usr(userp);
+                QString usr(userp);
 	    
 	 inrad="";
 	 errorrad="";
 //	fprintf(stderr,"Valuta=%s\n",mynt.latin1());
-            process = new QProcess();
+               process = new QProcess();
 	process->addArgument("./STYRMAN");
-	process->addArgument(usr.latin1());	
+	process->addArgument(usr);	
 	process->addArgument( "VALDEL");	// OLFIX program
-	process->addArgument( mynt.latin1() );
+	process->addArgument( mynt );
 	frmDelValuta::connect( process, SIGNAL(readyReadStdout() ),this, SLOT(slotDelDataOnStdout() ) );
 	frmDelValuta::connect( process, SIGNAL(readyReadStderr() ),this, SLOT(slotDelDataOnStderr() ) );
             frmDelValuta::connect( process, SIGNAL(processExited() ),this, SLOT(slotEndOfDelProcess() ) );
@@ -258,10 +260,16 @@ void frmDelValuta::slotEndOfDelProcess()
        }
        i = -1;
        i = inrad.find( QRegExp("OK:"), 0 );
-       if(i == 0){
+       if(i != -1){
 	QMessageBox::information( this, "VALDEL",
 		"Uppdatering OK!\n" 
 		);
+	LineEditValuta->clear();
+	LineEditBeteck->clear();
+	LineEditLand->clear();
+	LineEditKop->clear();
+	LineEditSalj->clear();
+	listValuta();			/* 20071210  */
     }
 }
 
