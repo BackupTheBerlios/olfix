@@ -8,11 +8,11 @@
 /***************************************************************************
                           DELUSRW  -  description
                              -------------------
-		     version 0.4
-    begin     	: 	Sön 2 febr 2003
-    Modified	: 	Ons 8 febr 2006, Sön 10 dec 2006
-    copyright            : (C) 2003 by Jan Pihlgren
-    email                : jan@pihlgren.se
+		     version 0.5
+    begin     		: SÃ¶n  2 febr 2003
+    Modified		: Tis 11 dec  2007
+    copyright            	: (C) 2003 by Jan Pihlgren
+    email                	: jan@pihlgren.se
  ***************************************************************************/
 /*****************************************************************
  *					                                                 *
@@ -75,7 +75,7 @@ void frmDelUsr::slotGetUserData()
                 QString usr(userp);
 	if (userid =="OLFIX"){
 	    	QMessageBox::warning( this, "OLFIX - USERDEL",
-                            "OLFIX får inte tagas bort !\n"
+                            "OLFIX fÃ¥r inte tagas bort !\n"
                             );
 		userid="";
 		LineEditUserid->clear();
@@ -138,7 +138,7 @@ void frmDelUsr::slotUseridEntered()
 /****************************************************************/    
     if (userid == "OLFIX"){
 	QMessageBox::warning( this, "OLFIX - DELUSRW",
-                            "Om du tar bort användaren OLFIX slutar programmet OLFIX att fungera!\n"
+                            "Om du tar bort anvÃ¤ndaren OLFIX slutar programmet OLFIX att fungera!\n"
                             );
     }
 /****************************************************************/       
@@ -167,15 +167,34 @@ void frmDelUsr::slotEndOfRightProcess()
     char *tmppek;
     int i,j,k,l,m;
     char antrad[6]="";
-    char user[9]="";
+    char user[21]="";
     char funk[9]="";
-
+    /*                                                   Start     2007-11-25                                         */
+    QString host="";
+    int l1, l2, m1, m2;    
+    m1=inrad.find( QRegExp("host="), 0 );
+    m2=inrad.find( QRegExp("NR_"), 0 );
+    l1=m2-(m1+5);
+    l2=m2-m1;
+    host=inrad.mid(5,l1);
+    inrad=inrad.mid(m2,inrad.length()-m2);
+    
+//   qDebug("host=%s m1=%d m2=%d l1=%d l2=%d\n",host.latin1(),m1,m2,l1,l2);
+    if(host != "127.0.0.1 "){
+	 if(host != "localhost "){
+	     textLabel1->setText("<u><b>Host</b></u>\n");
+	     textLabelHostName->setText(host);
+	 }
+    }else{
+	textLabel1->setText("");
+    }
+    /*                                                End         2007-11-25                                         */
     tmppek=tmp;
     qstrcpy(tmp,inrad);
     pos1=strstr(tmp,"NR_");
     pos2=strstr(tmp,"_:");
     i=pos2-pos1;
-    m=i+2;		// startposition för första userid.
+    m=i+2;		// startposition fÃ¶r fÃ¶rsta userid.
 //    fprintf(stdout,"i=%d  m=%d",i,m);
     k=0;
     for (j=3;j<i;j++){
@@ -184,7 +203,7 @@ void frmDelUsr::slotEndOfRightProcess()
     };
     i=atoi(antrad);		// i = antal poster
 //    fprintf(stderr," i = %d\n",i);
-    for (k = 1;k <= i; k++){	// gå igenom alla raderna / posterna
+    for (k = 1;k <= i; k++){	// gÃ¥ igenom alla raderna / posterna
 	l=0;
 	for(j = m; j < sizeof(user) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -196,7 +215,7 @@ void frmDelUsr::slotEndOfRightProcess()
 	    }
 	}
 //	fprintf(stdout,"%s  ",user);
-	m=m+l+2;	// position för namn
+	m=m+l+2;	// position fÃ¶r namn
 	l=0;
 	for(j = m; j < sizeof(funk) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -208,7 +227,7 @@ void frmDelUsr::slotEndOfRightProcess()
 	    }
 	}
 //	fprintf(stdout,"%s  ",funk);
-	m=m+l+2;	// position för funk
+	m=m+l+2;	// position fÃ¶r funk
 	item = new QListViewItem(ListViewBehor,user,funk);
  	/* rensa user,namn,avd och grupp */
 	strcpy(user,"");
@@ -271,18 +290,18 @@ void frmDelUsr::slotEndOfUsrProcess()
 
 void frmDelUsr::slotPushButtonOK_clicked()
 {
-   char user[9];
+   char user[21];
    char fnc[9];
     int i = 0;
     
     inrad="";
     inrad_u="";
     errorrad="";
-
+/* qDebug("Btn OK!");	*/
     QListViewItem *item;
     item=ListViewBehor->findItem(userid,0,ExactMatch);
     strcpy(user,item->key(0,TRUE));
- //   fprintf(stdout,"user=%s\n",user);
+//   fprintf(stdout,"user=%s\n",user);
 
     while (item){
 	i++;
@@ -342,7 +361,7 @@ void frmDelUsr::slotEndOfRgtDelProcess()
       j = errorrad.find( QRegExp("Error: RGTDEL_Deleted error:"), 0 );
       if(j == 0){
 	QMessageBox::information( this, "RGTDEL - Error!",
-		"Borttagningen av behörighet misslyckades\n"
+		"Borttagningen av behÃ¶righet misslyckades\n"
 		);
 	errorrad="";
 	j = -1;
@@ -392,7 +411,7 @@ void frmDelUsr::slotDelUsrData( QString anvID )
             if ( !process->start() ) {
                 // error handling
 	QMessageBox::warning( this, "OLFIX - USERDEL",
-                            "Kan inte starta RGTDEL!\n"
+                            "Kan inte starta USERDEL!\n"
                             );
 	}
 //	fprintf(stderr, "slotDelUsrData, process startad: anvID=%s \n", anvID.latin1() );
@@ -439,7 +458,7 @@ void frmDelUsr::slotEndOfUsrDelProcess()
       j = errorrad.find( QRegExp("Error: USERDEL_Deleted error:"), 0 );
       if(j == 0){
 	QMessageBox::information( this, "USERDEL - Error!",
-		"Borttagningen av användare misslyckades\n"
+		"Borttagningen av anvÃ¤ndare misslyckades\n"
 		);
 	inrad="";
 	j = -1;
@@ -452,6 +471,13 @@ void frmDelUsr::slotEndOfUsrDelProcess()
 		"Uppdatering OK!\n" 
 		);
     }
+       inrad="";
+       listViewUser->clear();
+       ListViewBehor->clear();
+       LineEditUserid->clear();
+       LineEditNamn->clear();
+       LineEditAvd->clear();
+       LineEditGrupp->clear();
        frmDelUsr::listUsers();
 }
 
@@ -516,7 +542,7 @@ void frmDelUsr::slotUserEndOfProcess()
     i = inradlista.find( QRegExp("NR_0_"), 0 );
          if (i != -1) {
 	QMessageBox::information( this, "CHGUSRW",
-		"Användarregistret innehåller inga poster!\n"
+		"AnvÃ¤ndarregistret innehÃ¥ller inga poster!\n"
 	);
 	i = -1;
      }
@@ -536,17 +562,39 @@ void frmDelUsr::slotUserEndOfProcess()
     char avd[11]="";
     char grupp[11]="";
 
+    
+    /*                                                   Start     2007-12-11                                         */
+    QString host;
+    int l1, l2, m1, m2;
+    m1=inradlista.find( QRegExp("host="), 0 );
+    m2=inradlista.find( QRegExp("NR_"), 0 );
+    l1=m2-(m1+5);
+    l2=m2-m1;
+    host=inradlista.mid(5,l1);
+    inradlista=inradlista.mid(m2,inrad.length()-m2);
+    
+    //  qDebug("host=%s m1=%d m2=%d l1=%d l2=%d\n",host.latin1(),m1,m2,l1,l2);
+    if(host != "127.0.0.1 "){
+	 if(host != "localhost "){
+	     textLabel1->setText("<u><b>Host</b></u>\n");
+	     textLabelHostName->setText(host);
+	 }
+    }else{
+	textLabel1->setText("");
+    }
+    /*                                                End         2007-12-11                                         */
+    
     tmppek=tmp;
     qstrcpy(tmp,inradlista);
-    pos1=strstr(tmp,"NR_");	//3  tecken långt
+    pos1=strstr(tmp,"NR_");	//3  tecken lÃ¥ngt
     pos2=strstr(tmp,"_:");
     i=pos2-pos1;
-    m=i+2;		// startposition för första userid.
+    m=i+2;		// startposition fÃ¶r fÃ¶rsta userid.
     
 //    qDebug("i=%d  m=%d",i,m);
     
     k=0;
-    for (j=3;j<i;j++){	                   // j = första positionen för antal poster, (NR_6_:ADMINA_:Administratör av OLFIX_:IT_:Stab_:)
+    for (j=3;j<i;j++){	                   // j = fÃ¶rsta positionen fÃ¶r antal poster, (NR_6_:ADMINA_:AdministratÃ¶r av OLFIX_:IT_:Stab_:)
 	antrad[k]=tmp[j];
 	k++;
     };
@@ -554,7 +602,7 @@ void frmDelUsr::slotUserEndOfProcess()
     
 //    qDebug("antrad=%s",antrad);
     
-    for (k = 1;k <= i; k++){	// gå igenom alla raderna / posterna
+    for (k = 1;k <= i; k++){	// gÃ¥ igenom alla raderna / posterna
 	l=0;
 	for(j = m; j < sizeof(userid) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -566,7 +614,7 @@ void frmDelUsr::slotUserEndOfProcess()
 	    }
 	}
 //	qDebug("%s  ",userid);
-	m=m+l+2;	// position för namn
+	m=m+l+2;	// position fÃ¶r namn
 	l=0;
 	for(j = m; j < sizeof(namn) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -621,7 +669,7 @@ void frmDelUsr::slotUserEndOfProcess()
 
 void frmDelUsr::slotPickupuserid( QListViewItem * item)
 {
-    char user[11]="";
+    char user[21]="";
 //    qDebug("Pickupuserid\n");
     if(!item){
 	return;
@@ -631,7 +679,7 @@ void frmDelUsr::slotPickupuserid( QListViewItem * item)
 	 return;
      }
 
-     strcpy(user,item->key(1,TRUE));	// = Användar-ID
+     strcpy(user,item->key(1,TRUE));	// = AnvÃ¤ndar-ID
      userid=user;
      LineEditUserid->setText(userid);
      LineEditUserid->setFocus();
@@ -640,12 +688,12 @@ void frmDelUsr::slotPickupuserid( QListViewItem * item)
 void frmDelUsr::pushBtnHelp_clicked()
 {
 	inrad="";
-	frmDelUsr::readResursFil();		// Hämta path till hjälpfilen
+	frmDelUsr::readResursFil();		// HÃ¤mta path till hjÃ¤lpfilen
 	
 	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
 	hjelpfil=hjelpfil.left(i1);
 	hjelpfil=hjelpfil+"_ADMINISTRATION.html";
-	hjelpfil=hjelpfil+"#DELUSER";			// Lägg till position
+	hjelpfil=hjelpfil+"#DELUSER";			// Lï¿½gg till position
 //	qDebug("hjelpfil=%s",hjelpfil.latin1());
 	process = new QProcess();
 	process->addArgument( "./OLFIXHLP" );		// OLFIX program
@@ -661,8 +709,8 @@ void frmDelUsr::pushBtnHelp_clicked()
 void frmDelUsr::readResursFil()
 {
     /*****************************************************/
-    /*  Läs in .olfixrc filen här			                     */
-    /* Plocka fram var hjälpfilen finns		                     */
+    /*  LÃ¤s in .olfixrc filen hÃ¤r			                     */
+    /* Plocka fram var hjÃ¤lpfilen finns		                     */
     /*****************************************************/
 
     QStringList lines;
@@ -693,8 +741,8 @@ void frmDelUsr::readResursFil()
 void frmDelUsr::getDatabaseName()
 {
     /*****************************************************/
-    /*  Läs in .olfixrc filen här			                     */
-    /* Plocka fram vilken databas som används		                     */
+    /*  Lï¿½s in .olfixrc filen hï¿½r			                     */
+    /* Plocka fram vilken databas som anvï¿½nds		                     */
     /*****************************************************/
 
     QStringList lines;
