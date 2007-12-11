@@ -29,7 +29,7 @@
 	Anrop till databas på annan server/host
 */
  /*@unused@*/ static char RCS_id[] =
-    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/USERDEL.c,v 1.6 2007/12/05 05:15:50 janpihlgren Exp $ " ;
+    "@(#) $Header: /home/xubuntu/berlios_backup/github/tmp-cvs/olfix/Repository/prototype/src/USERDEL.c,v 1.7 2007/12/11 09:54:20 janpihlgren Exp $ " ;
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -63,6 +63,11 @@ int main(int argc, char *argv[], char *envp[])
   char temp2[]="\"";
   char temp5[200]="";
   char userid[21]="";			/* 2007-02-11 utökad från 9 till 21 */
+
+  if (argc < 2){
+	fprintf(stderr,"Error: UserID saknas!\n");
+	exit(0);
+  }
 
 /* ================================================================================ */
 /* 		Val av databas, START						    */
