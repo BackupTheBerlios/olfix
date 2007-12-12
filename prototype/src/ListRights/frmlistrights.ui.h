@@ -8,9 +8,9 @@
 /***************************************************************************
                           LSTRGTW  -  description
                              -------------------
-		     version 0.2
-    begin                : Sön  23 febr 2003
-    modified	         : Tors 22 febr 2007
+		     version 0.3
+    begin                : SÃ¶n  23 febr 2003
+    modified	         : Ons  12 dec  2007
     copyright         : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -30,8 +30,9 @@
 #include <qstring.h>		
 #include <qfile.h>
 #include <qlistview.h>
+#include <qregexp.h>	/* 2007-12-12 */
 // #define MAXSTRING 5000	
-#define MAXSTRING 5000	
+#define MAXSTRING 15000	
 
 
 	QProcess* process;
@@ -83,7 +84,7 @@ void frmListRights::slotEndOfProcess()
     QString listrad;
     QListViewItem* item;
     rad=&inrad;
-    inrad.latin1();
+//    inrad.latin1();
     char *pos1;
     char *pos2;
     char tmp[MAXSTRING];
@@ -92,13 +93,36 @@ void frmListRights::slotEndOfProcess()
     char antrad[6]="";
     char user[9]="";
     char funk[9]="";
+    
+    /*                                                   Start     2007-12-12                                         */
+    QString host="";
+    int l1, l2, m1, m2;    
+    m1=inrad.find( QRegExp("host="), 0 );
+    m2=inrad.find( QRegExp("NR_"), 0 );
+    l1=m2-(m1+5);
+    l2=m2-m1;
+    host=inrad.mid(5,l1);
+    inrad=inrad.mid(m2,inrad.length()-m2);
+    
+//   qDebug("host=%s m1=%d m2=%d l1=%d l2=%d\n",host.latin1(),m1,m2,l1,l2);
+    if(host != "127.0.0.1 "){
+	 if(host != "localhost "){
+	     textLabel1->setText("<u><b>Host</b></u>\n");
+	     textLabelHostName->setText(host);
+	 }
+    }else{
+	textLabel1->setText("");
+    }
+    /*                                                End         2007-12-12                                         */
 
+    
+    
     tmppek=tmp;
     qstrcpy(tmp,inrad);
     pos1=strstr(tmp,"NR_");
     pos2=strstr(tmp,"_:");
     i=pos2-pos1;
-    m=i+2;		// startposition för första userid.
+    m=i+2;		// startposition fï¿½r fï¿½rsta userid.
     
 //    fprintf(stdout,"i=%d  m=%d",i,m);
     k=0;
@@ -108,7 +132,7 @@ void frmListRights::slotEndOfProcess()
     };
     i=atoi(antrad);		// i = antal poster
 //    fprintf(stderr," i = %d\n",i);
-    for (k = 1;k <= i; k++){	// gå igenom alla raderna / posterna
+    for (k = 1;k <= i; k++){	// gï¿½ igenom alla raderna / posterna
 	l=0;
 	for(j = m; j < sizeof(user) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -120,7 +144,7 @@ void frmListRights::slotEndOfProcess()
 	    }
 	}
 //	fprintf(stdout,"%s  ",user);
-	m=m+l+2;	// position för namn
+	m=m+l+2;	// position fï¿½r namn
 	l=0;
 	for(j = m; j < sizeof(funk) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -132,7 +156,7 @@ void frmListRights::slotEndOfProcess()
 	    }
 	}
 //	fprintf(stdout,"%s  ",funk);
-	m=m+l+2;	// position för funk
+	m=m+l+2;	// position fï¿½r funk
 //	listrad.append(user);
 //	while(listrad.length() <10)
 //	    listrad.append(" ");
