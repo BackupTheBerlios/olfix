@@ -8,9 +8,9 @@
 /***************************************************************************
                           DELRGTW  -  description
                              -------------------
-		     version 0.2
-    begin                : L�r  22 febr 2003
-    modified           : Fre 23 febr 2007
+		     version 0.3
+    begin                : Lör    22 febr 2003
+    modified           : Tors 13 dec   2007
     copyright         : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -32,14 +32,18 @@
 #define MAXSTRING 5000
 
     QProcess* process;
+    QProcess* proc;
     QString inrad;
     QString* rad;
     QString errorrad;
     QString userid;
     QString funk;
+    QString hjelpfil;
+    QString host;
 
 void frmDelRights::init()
 {
+    getHost();
     LineEditUserid->setFocus();
 }
 
@@ -48,7 +52,6 @@ void frmDelRights::slotUseridEntered()
     userid=LineEditUserid->text();
     userid=userid.upper();
     LineEditUserid->setText(userid);
-//    LineEditTransid->setFocus();
 }
 
 void frmDelRights::slotTransidEntered()
@@ -56,7 +59,7 @@ void frmDelRights::slotTransidEntered()
     funk=LineEditTransid->text();
     funk=funk.upper();
     LineEditTransid->setText(funk);
-//    PushButtonGet->setFocus();
+    PushButtonGet->setFocus();
 }
 
 void frmDelRights::slotGetRights()
@@ -79,12 +82,11 @@ void frmDelRights::slotGetRights()
 
 	if (userid == "" || funk ==""){
     	    QMessageBox::warning( this, "DELRGTW",
-                      "Anv�ndar-ID och/eller Beh�righet saknas! \n" );
+                      "Användar-ID och/eller Behörighet saknas! \n" );
 	}
 	else {
 	    if ( !process->start() ) {
 		// error handling
-		fprintf(stderr,"Problem starta STYRMAN/RGTCHK!\n");
 		QMessageBox::warning( this, "DELRGTW",
                             "Kan inte starta STYRMAN/RGTCHK! \n" );
 	    }   
@@ -111,12 +113,9 @@ void frmDelRights::slotGetDataOnStderr()
 
 void frmDelRights::slotEndOfGetProcess()
 {
-       int i=-1;
+       int i = -1;
        i = inrad.find( QRegExp("OK:"), 0 );
-       if(i == 0){
-//	QMessageBox::information( this, " RGTDEL",
-//		"Uppdatering OK!\n" 
-//		);
+       if(i != -1){
 	PushButtonOK->setFocus();
        }
 
@@ -128,22 +127,20 @@ void frmDelRights::slotEndOfGetProcess()
 		);
 	errorrad="";
 	i = -1;
-	LineEditUserid->setFocus();
+	LineEditUserid->clear();
+	LineEditTransid->clear();
+	PushButtonOK->setFocus();
 	userid="";
 	funk="";
       }
 }
-/*
-void frmDelRights::slotPushButtonOK_clicked()
-{
 
-}
-*/
 void frmDelRights::slotDelRgt( )
 {
 	const char *userp = getenv("USER");
                 QString usr(userp);
-
+	inrad="";
+		
 	process = new QProcess();
 	process->addArgument("./STYRMAN");	// OLFIX styrprogram
 	process->addArgument(usr);		// userid
@@ -157,12 +154,11 @@ void frmDelRights::slotDelRgt( )
 
 	if (userid == "" || funk ==""){
     	    QMessageBox::warning( this, "DELRGTW",
-                      "Anv�ndar-ID och/eller Beh�righet saknas \n" );
+                      "Användar-ID och/eller Behörighet saknas \n" );
 	}
 	else {
 	    if ( !process->start() ) {
 		// error handling
-		fprintf(stderr,"Problem starta STYRMAN/RGTDEL!\n");
 		QMessageBox::warning( this, "DELRGTW",
                             "Kan inte starta STYRMAN/RGTDEL! \n" );
 	    }   
@@ -189,9 +185,10 @@ void frmDelRights::slotDelDataOnStderr()
 
 void frmDelRights::slotEndOfDelProcess()
 {
-       int i=-1;
+       int i = -1;
        i = inrad.find( QRegExp("OK:"), 0 );
-       if(i == 0){
+       qDebug("i=%d",i);
+       if(i != -1){
 	QMessageBox::information( this, " RGTDEL",
 		"Uppdatering OK!\n" 
 		);
@@ -216,4 +213,88 @@ void frmDelRights::slotEndOfDelProcess()
 	userid="";
 	funk="";
       }
+}
+
+void frmDelRights::getHost()
+{
+  QString rcfil;
+  QStringList lines;
+  QString homeDir( QDir::homeDirPath() );
+   rcfil.append(homeDir);
+   rcfil.append("/.olfixrc");	// configfil
+// Läs in config filen här
+   QFile file(rcfil);
+   if ( file.open( IO_ReadOnly ) ) {
+	QTextStream stream( &file );
+	QString line;
+	while ( !stream.eof() ) {
+	    line = stream.readLine(); // line of text excluding '\n'
+	    int i = line.find( QRegExp("HOST="), 0 );    // i == 1
+	    if ( i == 0){
+	    	int l =line.length();
+	    	host = line.mid(5,l);
+	    }
+            lines += line;
+	}
+    file.close();
+   }
+       /*                                                   Start     2007-12-13                                         */    
+    if(host != "127.0.0.1 "){
+	 if(host != "localhost "){
+	     textLabel1->setText("<u><b>Host</b></u>\n");
+	     textLabelHostName->setText(host);
+	 }
+    }else{
+	textLabel1->setText("");
+    }
+    /*                                                End         2007-12-13                                         */
+}
+
+void frmDelRights::slotHelp()
+{
+	inrad="";
+	frmDelRights::readResursFil();			// Hämta path till hjälpfilen
+	
+	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
+	hjelpfil=hjelpfil.left(i1);
+	hjelpfil=hjelpfil+"_DATABASER.html";
+	hjelpfil=hjelpfil+"#CHANGEHOST";			// Lägg till position
+
+	proc = new QProcess();
+	proc->addArgument( "./OLFIXHLP" );			// OLFIX program
+	proc->addArgument(hjelpfil);
+
+	if ( !proc->start() ) {
+	    // error handling
+	    QMessageBox::warning( this, "OLFIX","Kan inte starta OLFIXHLP!\n" );
+	}
+}
+
+void frmDelRights::readResursFil()
+{
+    /*****************************************************/
+    /*  Läs in .olfixrc filen här			                     */
+    /* Plocka fram var hjälpfilen finns		                     */
+    /*****************************************************/
+
+    QStringList lines;
+    QString homepath;
+    homepath=QDir::homeDirPath();
+ 
+    QFile f1( homepath+"/.olfixrc" );
+   if ( f1.open( IO_ReadOnly ) ) {
+        QTextStream stream( &f1 );
+        QString line;
+        int rad = -1;
+        while ( !stream.eof() ) {
+            line = stream.readLine(); /* line of text excluding '\n'	*/
+	rad=line.find( QRegExp("HELPFILE="), 0 ); 
+	if(rad == 0){
+	    hjelpfil=line;
+	    hjelpfil=(hjelpfil.right(hjelpfil.length() - 9));
+	}
+            lines += line;
+        }
+    }
+    f1.close();
 }
