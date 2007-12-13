@@ -8,10 +8,10 @@
 /***************************************************************************
 			  ADDRGTW  -  description
 			     -------------------
-		     version 0.5
-    begin                : Tis 27 maj 2003
+		     version 0.6
+    begin                : Tis    27 maj 2003
+    modified	         : Tors 13 dec 2007    
     copyright        : (C) 2003 by Jan Pihlgren
-    modified	        : Tis 27 april 2007
     email                : jan@pihlgren.se
  ***************************************************************************/
 /* Lagt till "lostFocus" i Funk och LineEditUserid (2003-05-27/japi) */
@@ -58,8 +58,12 @@ void frmAddRight::slotUseridEntered()
     Userid=LineEditUserid->text();
     Userid=Userid.upper();
     LineEditUserid->setText((Userid));
-    checkUser(Userid);
-    ListViewBehor_2->setFocus();
+    if(Userid==""){
+	PushButtonQuit->setFocus();
+    }else{
+	checkUser(Userid);
+	ListViewBehor_2->setFocus();
+    }
 }
 
 void frmAddRight::slotRightEntered()
@@ -98,7 +102,7 @@ void frmAddRight::slotAddRight()
     
     if (Userid == "" || Funk ==""){
 	QMessageBox::warning( this, "ADDRGTW",
-			      "Userid och/eller Behˆrighet saknas \n" );
+			      "Userid och/eller Beh√∂righet saknas \n" );
     }else{
 	if ( !process->start() ) {
 	    // error handling
@@ -151,7 +155,8 @@ void frmAddRight::slotEndOfProcess()
 				  );
 	LineEditUserid->clear();
 	LineEditFunk->clear();
-	LineEditUserid->setFocus();
+//	LineEditUserid->setFocus();
+	PushButtonQuit->setFocus();
 	inrad="";
 	i = -1;
     }
@@ -211,14 +216,34 @@ void frmAddRight::slotEndOfGetFuncfProcess()
     char antrad[6]="";
     char trnsid[9]="";
     char benamn[61]="";
-    //    char listrad[90]="";
+        
+    /*                                                   Start     2007-12-13                                         */
+     QString host;
+     int l1, l2, m1, m2;
+    m1=inrad.find( QRegExp("host="), 0 );
+    m2=inrad.find( QRegExp("NR_"), 0 );
+    l1=m2-(m1+5);
+    l2=m2-m1;
+    host=inrad.mid(5,l1);
+    inrad=inrad.mid(m2,inrad.length()-m2);
     
+    //  qDebug("host=%s m1=%d m2=%d l1=%d l2=%d\n",host.latin1(),m1,m2,l1,l2);
+    if(host != "127.0.0.1 "){
+	 if(host != "localhost "){
+	     textLabel1->setText("<u><b>Host</b></u>\n");
+	     textLabelHostName->setText(host);
+	 }
+    }else{
+	textLabel1->setText("");
+    }
+    /*                                                End         2007-12-13                                         */
+
     tmppek=tmp;
     qstrcpy(tmp,inrad);
     pos1=strstr(tmp,"NR_");
     pos2=strstr(tmp,"_:");
     i=pos2-pos1;
-    m=i+2;		// startposition fˆr fˆrsta trnsid.
+    m=i+2;		// startposition f√∂r f√∂rsta trnsid.
     //    fprintf(stdout,"i=%d  m=%d",i,m);
     k=0;
     for (j=3;j<i;j++){
@@ -226,7 +251,7 @@ void frmAddRight::slotEndOfGetFuncfProcess()
 	k++;
     };
     i=atoi(antrad);		// i = antal poster
-    for (k = 1;k <= i; k++){	// gÂ igenom alla raderna / posterna
+    for (k = 1;k <= i; k++){	// gÔøΩ igenom alla raderna / posterna
 	l=0;
 	for(j = m; j < sizeof(trnsid) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -238,7 +263,7 @@ void frmAddRight::slotEndOfGetFuncfProcess()
 	    }
 	}
 	//	fprintf(stdout,"%s  ",user);
-	m=m+l+2;	// position fˆr benamn
+	m=m+l+2;	// position f√∂r benamn
 	l=0;
 	for(j = m; j < sizeof(benamn) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -293,7 +318,7 @@ void frmAddRight::checkUser( QString anv )
     process->addArgument("./STYRMAN");
     process->addArgument(usr);		// userid, den inloggade
     process->addArgument( "USERDSP");	// OLFIX funktion
-    process->addArgument(anv);		// anv‰ndarid fˆr den som ska fÂ behˆrighet
+    process->addArgument(anv);		// anv√§ndarid f√∂r den som ska f√• beh√∂righet
     
 //    qDebug("checkUser::anv=%s",anv.latin1());
     
@@ -353,12 +378,12 @@ void frmAddRight::checkFunction( QString function )
 void frmAddRight::slotHelp()
 {
 	inrad="";
-	readResursFil();			// H‰mta path till hj‰lpfilen
+	readResursFil();			// H√§mta path till hj√§lpfilen
 	
 	int i1 = hjelpfil.find( QRegExp(".html"), 0 );
 	hjelpfil=hjelpfil.left(i1);
 	hjelpfil=hjelpfil+"_ADMINISTRATION.html";
-	hjelpfil=hjelpfil+"#NYBEHORIG";			// L‰gg till position
+	hjelpfil=hjelpfil+"#NYBEHORIG";			// L√§gg till position
 /*	qDebug("hjelpfil=%s",hjelpfil.latin1());	*/
 
 	proc = new QProcess();
@@ -374,8 +399,8 @@ void frmAddRight::slotHelp()
 void frmAddRight::readResursFil()
 {
     /*****************************************************/
-    /*  L‰s in .olfixrc filen h‰r			               */
-    /* Plocka fram var hj‰lpfilen finns			               */
+    /*  L√§s in .olfixrc filen h√§r			               */
+    /* Plocka fram var hj√§lpfilen finns		               */
     /*****************************************************/
 
     QStringList lines;
@@ -499,7 +524,7 @@ void frmAddRight::slotPgmEndOfProcess()
     i=atoi(antrad);		// i = antal poster
 //    fprintf(stderr,"Antalrader=%d\n",i);
     
-    for (k = 1;k <= i; k++){	// gÂ igenom alla raderna / posterna
+    for (k = 1;k <= i; k++){	// g√• igenom alla raderna / posterna
 	l=0;
 	for(j = m; j < sizeof(prgnr) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -511,7 +536,7 @@ void frmAddRight::slotPgmEndOfProcess()
 	    }
 	}
 //	fprintf(stdout,"%s  ",prgnr);
-	m=m+l+2+3;	// position fˆr proggrp
+	m=m+l+2+3;	// position f√∂r proggrp
 	l=0;
 	for(j = m; j < sizeof(proggrp) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -523,7 +548,7 @@ void frmAddRight::slotPgmEndOfProcess()
 	    }
 	}
 //	fprintf(stdout,"%s  ",proggrp);
-	m=m+l+2+3;	// position fˆr mnugrp
+	m=m+l+2+3;	// position f√∂r mnugrp
 	l=0;
 	for(j = m; j < sizeof(mnugrp) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -535,7 +560,7 @@ void frmAddRight::slotPgmEndOfProcess()
 	    }
 	}
 //	fprintf(stdout,"%s  ",mnugrp);
-	m=m+l+2+3;	// position fˆr mnutxt
+	m=m+l+2+3;	// position f√∂r mnutxt
 	l=0;
 	for(j = m; j < sizeof(mnutxt) + m; j++){
 	    if(tmp[j] != *("_")){
@@ -547,7 +572,7 @@ void frmAddRight::slotPgmEndOfProcess()
 	    }
 	}
 //	fprintf(stdout,"%s\n  ",mnutxt);
-	m=m+l+2+3;	//position fˆr pgm	
+	m=m+l+2+3;	//position f√∂r pgm	
 	l=0;
 	for(j = m; j < sizeof(pgm) + m; j++){
 	    if(tmp[j] != *("_")){
