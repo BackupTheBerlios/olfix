@@ -1,0 +1,340 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>frmDspRights</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>frmDspRights</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>552</width>
+            <height>261</height>
+        </rect>
+    </property>
+    <property name="font">
+        <font>
+            <family>Helvetica</family>
+        </font>
+    </property>
+    <property name="caption">
+        <string>DSPRGTW  Visa behörighet för en användare.</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>11</number>
+        </property>
+        <property name="spacing">
+            <number>6</number>
+        </property>
+        <widget class="QLayoutWidget" row="0" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>layout7</cstring>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QPushButton" row="0" column="1">
+                    <property name="name">
+                        <cstring>pushBtnHjelp</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Hjälp</string>
+                    </property>
+                </widget>
+                <spacer row="0" column="0">
+                    <property name="name">
+                        <cstring>spacer15</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>441</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+            </grid>
+        </widget>
+        <widget class="QLayoutWidget" row="1" column="0">
+            <property name="name">
+                <cstring>layout5</cstring>
+            </property>
+            <grid>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QPushButton" row="3" column="1">
+                    <property name="name">
+                        <cstring>PushButtonOK</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>OK</string>
+                    </property>
+                    <property name="default">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+                <spacer row="2" column="0" rowspan="2" colspan="1">
+                    <property name="name">
+                        <cstring>spacer23</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>151</height>
+                        </size>
+                    </property>
+                </spacer>
+                <spacer row="1" column="5" rowspan="3" colspan="1">
+                    <property name="name">
+                        <cstring>spacer16</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>180</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QLineEdit" row="0" column="3" rowspan="1" colspan="3">
+                    <property name="name">
+                        <cstring>lineEditUserID</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>100</width>
+                            <height>22</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>100</width>
+                            <height>22</height>
+                        </size>
+                    </property>
+                </widget>
+                <spacer row="1" column="4" rowspan="2" colspan="1">
+                    <property name="name">
+                        <cstring>spacer18</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>150</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QLabel" row="0" column="0">
+                    <property name="name">
+                        <cstring>textLabel1</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>140</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>140</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                    <property name="alignment">
+                        <set>AlignCenter</set>
+                    </property>
+                </widget>
+                <widget class="QPushButton" row="3" column="2" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>PushButtonQuit</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="text">
+                        <string>Avsluta</string>
+                    </property>
+                    <property name="default">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="1" column="0">
+                    <property name="name">
+                        <cstring>textLabelHostName</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>140</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>140</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                    <property name="alignment">
+                        <set>AlignBottom|AlignHCenter</set>
+                    </property>
+                </widget>
+                <widget class="QLabel" row="0" column="1" rowspan="1" colspan="2">
+                    <property name="name">
+                        <cstring>TextLabel1</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>0</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="frameShape">
+                        <enum>NoFrame</enum>
+                    </property>
+                    <property name="frameShadow">
+                        <enum>Plain</enum>
+                    </property>
+                    <property name="text">
+                        <string>Användar-ID:</string>
+                    </property>
+                </widget>
+            </grid>
+        </widget>
+        <widget class="QListView" row="1" column="1">
+            <column>
+                <property name="text">
+                    <string>Funktion</string>
+                </property>
+                <property name="clickable">
+                    <bool>true</bool>
+                </property>
+                <property name="resizable">
+                    <bool>true</bool>
+                </property>
+            </column>
+            <property name="name">
+                <cstring>listViewBehor</cstring>
+            </property>
+            <property name="minimumSize">
+                <size>
+                    <width>150</width>
+                    <height>180</height>
+                </size>
+            </property>
+            <property name="rootIsDecorated">
+                <bool>false</bool>
+            </property>
+            <property name="resizeMode">
+                <enum>NoColumn</enum>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>PushButtonOK</sender>
+        <signal>clicked()</signal>
+        <receiver>frmDspRights</receiver>
+        <slot>slotGetRights()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditUserID</sender>
+        <signal>returnPressed()</signal>
+        <receiver>frmDspRights</receiver>
+        <slot>slotUserIDEntered()</slot>
+    </connection>
+    <connection>
+        <sender>PushButtonQuit</sender>
+        <signal>clicked()</signal>
+        <receiver>frmDspRights</receiver>
+        <slot>close()</slot>
+    </connection>
+    <connection>
+        <sender>lineEditUserID</sender>
+        <signal>lostFocus()</signal>
+        <receiver>frmDspRights</receiver>
+        <slot>slotUserIDEntered()</slot>
+    </connection>
+    <connection>
+        <sender>pushBtnHjelp</sender>
+        <signal>clicked()</signal>
+        <receiver>frmDspRights</receiver>
+        <slot>slotHelp()</slot>
+    </connection>
+</connections>
+<tabstops>
+    <tabstop>lineEditUserID</tabstop>
+    <tabstop>PushButtonOK</tabstop>
+    <tabstop>PushButtonQuit</tabstop>
+    <tabstop>listViewBehor</tabstop>
+</tabstops>
+<includes>
+    <include location="local" impldecl="in implementation">frmdsprights.ui.h</include>
+</includes>
+<slots>
+    <slot>slotUserIDEntered()</slot>
+    <slot>slotDataOnStdout()</slot>
+    <slot>slotDataOnStderr()</slot>
+    <slot>slotGetRights()</slot>
+    <slot>slotEndOfGetRightsProcess()</slot>
+    <slot>slotEndOfCheckUserProcess()</slot>
+    <slot>slotHelp()</slot>
+    <slot>readResursFil()</slot>
+    <slot>getHost()</slot>
+</slots>
+<functions>
+    <function access="private" specifier="non virtual">init()</function>
+</functions>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>
