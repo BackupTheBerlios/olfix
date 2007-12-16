@@ -8,9 +8,9 @@
 /***************************************************************************
 			  ADDRGTW  -  description
 			     -------------------
-		     version 0.6
+		     version 0.6.1
     begin                : Tis    27 maj 2003
-    modified	         : Tors 13 dec 2007    
+    modified	         : Tors 16 dec 2007    
     copyright        : (C) 2003 by Jan Pihlgren
     email                : jan@pihlgren.se
  ***************************************************************************/
@@ -506,6 +506,31 @@ void frmAddRight::slotPgmEndOfProcess()
 //    char mnutxttemp[31]="";
     char pgm[9]="";
 
+    /*                                                   Start     2007-12-16                                         */
+     QString host;
+     int l1, l2, m1, m2;
+    m1=inrad.find( QRegExp("host="), 0 );
+    m2=inrad.find( QRegExp("NR_"), 0 );
+    l1=m2-(m1+5);
+    l2=m2-m1;
+    host=inrad.mid(5,l1);
+    inrad=inrad.mid(m2,inrad.length()-m2);
+/*    
+    //  qDebug("host=%s m1=%d m2=%d l1=%d l2=%d\n",host.latin1(),m1,m2,l1,l2);
+    if(host != "127.0.0.1 "){
+	 if(host != "localhost "){
+	     textLabel1->setText("<u><b>Host</b></u>\n");
+	     textLabelHostName->setText(host);
+	 }
+    }else{
+	textLabel1->setText("");
+    }
+*/    
+    /*                                                End         2007-12-16                                         */
+
+    
+    
+    
     pgmfoldnr=0;
     mnufoldnr=0;
     mnutxtnr=0;
