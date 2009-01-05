@@ -1,5 +1,65 @@
-Changelog OLFIX 20070727
+Changelog OLFIX 20081208
 
+Ver 0.6.0.B
+2008-12-08
+		Ändrad sql
+		CreateTableVALUTA.sql	Ändrat KOP och SALJ till DECIMAL(5,3) (bug )
+
+2007-12-16
+		Nytt program
+		CHGHOSTW		Byta databasserver
+		DSPRGTW			Lista behörighet för en användare.
+
+		Nya funktioner
+		HOSTCHKc		Vilken databasserver ska användas
+
+		Ändrade program
+		CPYKTOW			Justering
+		LSTARW			Justering, drag ut fönstret för att se mer.
+		LSTUSRW			Inför val av databashost
+		ADDUSRW			Inför val av databashost
+		CHGUSRW			Inför val av databashost
+		DSPUSRW			Inför val av databashost
+		DELUSRW			Inför val av databashost + buggrättning
+		LSTVALW			Inför val av databashost
+		DSPVALW			Inför val av databashost + modifiering
+		CHGVALW			Inför val av databashost + modifiering
+		ADDVALW			Inför val av databashost + modifiering
+		DELVALW			Inför val av databashost + modifiering
+		ADDRGTW			Inför val av databashost + buggrättning
+		DELRGTW			Inför val av databashost + buggrättning
+		LSTRGTW			Inför val av databashost
+
+		Ändrade funktioner
+		PRGLST.c		Inför val av databashost
+		RGTADD.c		Inför val av databashost
+		RGTCHK.c		Inför val av databashost
+		RGTDEL.c		Inför val av databashost	
+		RGTDSP.c		Inför val av databashost
+		RGTLST.c		Inför val av databashost
+		STYRMAN.c		Inför val av databashost	
+		TRNSLST.c		Inför val av databashost
+		USERADD.c		Inför val av databashost
+		USERCHG.c		Inför val av databashost
+		USERDSP.c		Inför val av databashost	
+		USERDEL.c		Inför val av databashost	
+		USERLST.c		Inför val av databashost
+		VALLST.c		Inför val av databashost
+		VALDSP.c		Inför val av databashost
+		VALCHG.c		Inför val av databashost
+		VALADD.c		Inför val av databashost
+		VALDEL.c		Inför val av databashost
+
+		Ändrade script
+		kompilering.sh
+
+		Dokumentation
+		UserManual.odt		 (uppdaterad 20071202)		Version 0.57
+		TekniskManual.odt	 (uppdaterad 20071204)		Version 0.70
+		UserManual_DATABASER.html(uppdaterad 20071129)          Version 0.46
+		UserManual_EKONOMI.html	 (uppdaterad 20071210)		Version 0.47
+		UserManual.html		 (uppdaterad 20071210)          Version 0.18
+________________________________________________________
 Ver 0.5.6.B
 2007-07-27
 		Nytt program
